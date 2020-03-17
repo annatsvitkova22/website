@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 const Home = () => (
   <div className="container">
     <Head>
-      <title>Create Next App</title>
+      <title>Next Home Page</title>
       <link rel="icon" href="/favicon.ico"/>
     </Head>
 
