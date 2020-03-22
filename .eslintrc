@@ -1,15 +1,24 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb", "prettier", "prettier/react"],
-  "env": {
-    "browser": true,
-    "node": true,
-    "jest": true
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
+  "extends": ["react-app", "prettier", "prettier/eslint", "plugin:prettier/recommended"],
+  "plugins": ["prettier", "prettier/recommended"],
   "rules": {
+    // Next JS has a Link component that wraps around <a></a>, inserting the href during compilation. Disable for now.
+    "jsx-a11y/anchor-is-valid": 0,
+    // Disable JS no-unused-vars and enable TS no-unused-vars, otherwise there is confusion.
+    "no-unused-vars": 0,
     "prettier/prettier": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/prop-types": 0,
+    "react/prefer-es6-class": [2, "always"],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
     "react/jsx-pascal-case": [2],
     "react/jsx-closing-bracket-location": [
       2,
@@ -18,10 +27,7 @@
       }
     ],
     "no-multi-spaces": 2,
-    "react/jsx-tag-spacing": {
-      "beforeSelfClosing": "always",
-      "beforeClosing": "always"
-    },
+    "react/jsx-tag-spacing": [2, { "beforeSelfClosing": "always" }],
     "react/self-closing-comp": [
       "error",
       {
@@ -31,7 +37,6 @@
     ],
     "react/no-string-refs": 2,
     "react/jsx-wrap-multilines": 2,
-    "react/self-closing-comp": 2,
     "react/jsx-no-bind": 2,
     "react/require-render-return": 2,
     "react/no-is-mounted": 2,

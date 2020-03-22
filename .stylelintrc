@@ -20,7 +20,8 @@
       "vw",
       "deg",
       "s",
-      "em"
+      "em",
+      "rem"
     ],
     "order/properties-order": [
       [

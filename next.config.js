@@ -1,33 +1,46 @@
+require('dotenv').config();
 const withSass = require("@zeit/next-sass");
+const withCSS = require('@zeit/next-css');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-})
+});
 
 module.exports = withBundleAnalyzer(
-  withSass({
-    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-      // Note: we provide webpack above so you should not `require` it
-      // Perform customizations to webpack config
-      // Important: return the modified config
-      config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//))
-      return config
-    },
-    webpackDevMiddleware: config => {
-      // Perform customizations to webpack dev middleware config
-      // Important: return the modified config
-      return config
-    },
-    analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
-    analyzeBrowser: ["browser", "both"].includes(process.env.BUNDLE_ANALYZE),
-    bundleAnalyzerConfig: {
-      server: {
-        analyzerMode: "static",
-        reportFilename: "../../bundles/server.html",
+  withCSS(
+    withSass({
+      webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+        // Note: we provide webpack above so you should not `require` it
+        // Perform customizations to webpack config
+        // Important: return the modified config
+        const customConfig = {
+          ...config,
+        };
+
+        customConfig.plugins.push(new webpack.EnvironmentPlugin(process.env));
+        customConfig.plugins = config.plugins.filter((plugin) => {
+          if (plugin.constructor.name === 'ForkTsCheckerWebpackPlugin')
+            return false;
+          return true;
+        });
+        customConfig.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
+
+        if (dev) {
+          const StyleLintPlugin = require('stylelint-webpack-plugin');
+          customConfig.plugins.push(
+            new StyleLintPlugin({
+              configFile: './.stylelintrc',
+              files: ['**/*.css', '**/*.scss'],
+              emitErrors: false,
+            })
+          );
+        }
+
+        return customConfig;
       },
-      browser: {
-        analyzerMode: "static",
-        reportFilename: "../bundles/client.html",
+      cssModules: true,
+      cssLoaderOptions: {
+        localIdentName: '[name]_[local]_[hash:base64:5]',
       },
-    },
-  })
-)
+    })
+  )
+);
