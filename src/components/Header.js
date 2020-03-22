@@ -1,6 +1,7 @@
 import React from 'react';
-import Navigation from "./Navigation";
 import Link from 'next/link';
+
+import Navigation from './Navigation';
 import '../styles/components/header.scss';
 
 const Header = () => {
@@ -12,6 +13,6 @@ const Header = () => {
       <Navigation />
     </header>
   );
-}
+};
 
 export default Header;

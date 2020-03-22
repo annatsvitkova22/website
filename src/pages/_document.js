@@ -7,13 +7,14 @@ class ZmistDocument extends Document {
     return { ...initialProps };
   }
 
+  /* eslint-disable class-methods-use-this */
   render() {
     return (
       <Html>
         <Head />
         <body>
-        <Main />
-        <NextScript />
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );

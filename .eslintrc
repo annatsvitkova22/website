@@ -1,47 +1,62 @@
 {
   "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true
+    }
   },
-  "extends": ["react-app", "prettier", "prettier/eslint", "plugin:prettier/recommended"],
-  "plugins": ["prettier", "prettier/recommended"],
+  "extends": [
+    "airbnb-base",
+    "react-app",
+    "prettier",
+    "plugin:prettier/recommended",
+    "plugin:css-modules/recommended"
+  ],
+  "plugins": [
+    "css-modules"
+  ],
   "rules": {
     // Next JS has a Link component that wraps around <a></a>, inserting the href during compilation. Disable for now.
     "jsx-a11y/anchor-is-valid": 0,
     // Disable JS no-unused-vars and enable TS no-unused-vars, otherwise there is confusion.
     "no-unused-vars": 0,
-    "prettier/prettier": "error",
-    "react/prefer-es6-class": [2, "always"],
+    "prettier/prettier": 2,
+    "react/prefer-es6-class": [
+      2,
+      "always"
+    ],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".js", ".jsx"]
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
       }
     ],
-    "react/jsx-pascal-case": [2],
-    "react/jsx-closing-bracket-location": [
-      2,
-      {
-        "location": "tag-aligned"
-      }
+    "react/jsx-pascal-case": [
+      2
     ],
     "no-multi-spaces": 2,
-    "react/jsx-tag-spacing": [2, { "beforeSelfClosing": "always" }],
-    "react/self-closing-comp": [
-      "error",
-      {
-        "component": true,
-        "html": true
-      }
-    ],
+    "react/jsx-tag-spacing": 2,
+    "react/prop-types": 1,
+    "react/default-props-match-prop-types": 1,
+    "react/jsx-no-bind": 1,
     "react/no-string-refs": 2,
     "react/jsx-wrap-multilines": 2,
-    "react/jsx-no-bind": 2,
+    "react/self-closing-comp": 2,
     "react/require-render-return": 2,
     "react/no-is-mounted": 2,
+    "react/boolean-prop-naming": [
+      2,
+      {
+        "rule": "^(is|has|should|can|was|must|with)[A-Z]([A-Za-z0-9]?)+"
+      }
+    ],
     "import/order": [
-      "error",
+      2,
       {
         "groups": [
           "builtin",

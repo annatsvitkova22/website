@@ -6,14 +6,18 @@ const Navigation = () => {
     <nav>
       <ul>
         <li>
-          <Link href={'/'}><a>Home</a></Link>
+          <Link href={'/'}>
+            <a>Home</a>
+          </Link>
         </li>
         <li>
-          <Link href={'/post'}><a>Post</a></Link>
+          <Link href={'/post'}>
+            <a>Post</a>
+          </Link>
         </li>
       </ul>
     </nav>
   );
-}
+};
 
 export default Navigation;

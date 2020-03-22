@@ -1,11 +1,11 @@
-import React from 'react'
-import Head from 'next/head'
+import React from 'react';
+import Head from 'next/head';
 
 const Home = () => (
   <div className="container">
     <Head>
       <title>Next Home Page</title>
-      <link rel="icon" href="/favicon.ico"/>
+      <link rel="icon" href="/favicon.ico" />
     </Head>
 
     <main>
@@ -18,6 +18,6 @@ const Home = () => (
       </p>
     </main>
   </div>
-)
+);
 
-export default Home
+export default Home;

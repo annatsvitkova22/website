@@ -1,5 +1,6 @@
+/* eslint-disable global-require */
 require('dotenv').config();
-const withSass = require("@zeit/next-sass");
+const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -8,7 +9,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withBundleAnalyzer(
   withCSS(
     withSass({
-      webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+      webpack: (
+        config,
+        { buildId, dev, isServer, defaultLoaders, webpack }
+      ) => {
         // Note: we provide webpack above so you should not `require` it
         // Perform customizations to webpack config
         // Important: return the modified config
@@ -33,6 +37,23 @@ module.exports = withBundleAnalyzer(
               emitErrors: false,
             })
           );
+
+          customConfig.module.rules.push({
+            enforce: 'pre',
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: [
+              {
+                options: {
+                  formatter: require.resolve('react-dev-utils/eslintFormatter'),
+                  eslintPath: require.resolve('eslint'),
+                  parser: require.resolve('babel-eslint'),
+                  emitWarning: true,
+                },
+                loader: require.resolve('eslint-loader'),
+              },
+            ],
+          });
         }
 
         return customConfig;
