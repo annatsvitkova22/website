@@ -6,7 +6,7 @@
     "fix": "yarn fix:eslint && yarn fix:prettier",
     "fix:eslint": "eslint --fix \"**/*.js\"",
     "fix:prettier": "prettier --write \"**/*.js\"",
-    "dev": "next dev",
+    "dev": "next dev --hostname zmist.test",
     "build": "yarn fix && next build",
     "start": "next start"
   },
