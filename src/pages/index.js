@@ -4,12 +4,20 @@ import gql from 'graphql-tag';
 
 import client from '../lib/ApolloClient';
 
+// TODO: restore, create custom GraphQL resolver
+// homepage {
+//   id
+//   title
+//   content
+// }
+
 const HOME_PAGE = gql`
   query PageQuery {
-    homepage {
-      id
-      title
-      content
+    pages(where: { title: "Головна" }) {
+      nodes {
+        title
+        content
+      }
     }
   }
 `;
@@ -38,7 +46,7 @@ Home.getInitialProps = async () => {
   });
 
   return {
-    page: result.data.homepage,
+    page: result.data.pages.nodes[0],
   };
 };
 
