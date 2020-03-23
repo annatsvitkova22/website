@@ -6,11 +6,10 @@ import { useQuery } from '@apollo/react-hooks';
 import Navigation from './Navigation';
 import '../styles/components/header.scss';
 
-const ALL_MENUS = gql`
-  query AllMenus {
-    menus {
+const MAIN_MENU = gql`
+  query MainMenu {
+    menus(where: { location: MAIN_MENU }) {
       nodes {
-        name
         id
       }
     }
@@ -18,15 +17,14 @@ const ALL_MENUS = gql`
 `;
 
 const Header = () => {
-  const { loading, data } = useQuery(ALL_MENUS);
-  const headerMenu =
-    !loading && data.menus.nodes.find((item) => item.name === 'Header');
+  const { loading, data } = useQuery(MAIN_MENU);
+  const mainMenu = !loading && data.menus.nodes[0];
   return (
     <header>
       <Link href={'/'}>
         <a>Logo</a>
       </Link>
-      {headerMenu && <Navigation menuId={headerMenu.id} />}
+      {mainMenu && <Navigation menuId={mainMenu.id} />}
     </header>
   );
 };

@@ -56,7 +56,6 @@ const Navigation = (props) => {
         {data.menu &&
           data.menu.menuItems &&
           data.menu.menuItems.nodes.map((item) => {
-            return console.log(item);
             return (
               <li key={item.id}>
                 <Link href={item.url}>
