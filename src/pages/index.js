@@ -33,18 +33,9 @@ const Home = (props) => {
 };
 
 Home.getInitialProps = async () => {
-  // const result = await client.query({
-  //   query: HOME_PAGE,
-  // });
-  const result = {
-    data: {
-      homepage: {
-        title: 'temp title',
-        content: 'temp content',
-        id: 'temp-id',
-      },
-    },
-  };
+  const result = await client.query({
+    query: HOME_PAGE,
+  });
 
   return {
     page: result.data.homepage,
