@@ -4,9 +4,10 @@ import gql from 'graphql-tag';
 
 import client from '../lib/ApolloClient';
 
-const PAGE_QUERY = gql`
-  query PageQuery($uri: String!) {
-    pageBy(uri: $uri) {
+const HOME_PAGE = gql`
+  query PageQuery {
+    homepage {
+      id
       title
       content
     }
@@ -14,34 +15,30 @@ const PAGE_QUERY = gql`
 `;
 
 const Home = (props) => {
+  const { page } = props;
   return (
     <div className="container">
       <Head>
-        <title>Next Home Page</title>
+        <title>{page.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className="title">{page.title}</h1>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+        <div className="description">{page.content}</div>
       </main>
     </div>
   );
 };
 
-Home.getInitialProps = async ({ pathname }) => {
+Home.getInitialProps = async () => {
   const result = await client.query({
-    query: PAGE_QUERY,
-    variables: { uri: 'welcome' },
+    query: HOME_PAGE,
   });
 
   return {
-    page: result.data,
+    page: result.data.homepage,
   };
 };
 
