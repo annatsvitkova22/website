@@ -7,10 +7,34 @@ const MENU = gql`
   query Menu($id: ID!) {
     menu(id: $id) {
       menuItems {
+        edges {
+          node {
+            id
+            menuItemId
+            title
+            url
+            connectedObject {
+              __typename
+            }
+            cssClasses
+            description
+            label
+            linkRelationship
+            target
+          }
+        }
         nodes {
           id
-          label
+          menuItemId
+          title
           url
+          connectedObject {
+            __typename
+          }
+          cssClasses
+          description
+          label
+          linkRelationship
           target
         }
       }
@@ -20,7 +44,7 @@ const MENU = gql`
 
 const Navigation = (props) => {
   const { menuId } = props;
-  const { loading, error, data } = useQuery(MENU, {
+  const { loading, data } = useQuery(MENU, {
     variables: { id: menuId },
   });
 
@@ -32,6 +56,7 @@ const Navigation = (props) => {
         {data.menu &&
           data.menu.menuItems &&
           data.menu.menuItems.nodes.map((item) => {
+            return console.log(item);
             return (
               <li key={item.id}>
                 <Link href={item.url}>
