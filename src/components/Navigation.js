@@ -4,38 +4,22 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
 const MENU = gql`
-  query Menu($id: ID!) {
-    menu(id: $id) {
-      menuItems {
-        edges {
-          node {
+  query Menu {
+    menus(where: { location: MAIN_MENU }) {
+      nodes {
+        id
+        name
+        menuItems {
+          nodes {
             id
+            label
+            cssClasses
+            linkRelationship
             menuItemId
+            target
             title
             url
-            connectedObject {
-              __typename
-            }
-            cssClasses
-            description
-            label
-            linkRelationship
-            target
           }
-        }
-        nodes {
-          id
-          menuItemId
-          title
-          url
-          connectedObject {
-            __typename
-          }
-          cssClasses
-          description
-          label
-          linkRelationship
-          target
         }
       }
     }
@@ -53,9 +37,10 @@ const Navigation = (props) => {
   return (
     <nav>
       <ul>
-        {data.menu &&
-          data.menu.menuItems &&
-          data.menu.menuItems.nodes.map((item) => {
+        {data.menus &&
+          data.menus.nodes.length &&
+          data.menus.nodes[0].menuItems &&
+          data.menus.nodes[0].menuItems.nodes.map((item) => {
             return (
               <li key={item.id}>
                 <Link href={item.url}>
