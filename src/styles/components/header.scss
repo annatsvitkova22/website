@@ -4,6 +4,9 @@ header {
   align-content: space-between;
 
   width: 100%;
+  padding: 40px 20px;
+
+  border-bottom: 1px solid #eaeaea;
 
   nav {
     ul {
@@ -16,7 +19,7 @@ header {
 
       li {
         & + li {
-          margin-left: 10px;
+          margin-left: 20px;
         }
       }
     }
