@@ -1,23 +1,48 @@
 import React from 'react';
 import Head from 'next/head';
+import gql from 'graphql-tag';
 
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>Next Home Page</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+import client from '../lib/ApolloClient';
 
-    <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+const PAGE_QUERY = gql`
+  query PageQuery($uri: String!) {
+    pageBy(uri: $uri) {
+      title
+      content
+    }
+  }
+`;
 
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
-      </p>
-    </main>
-  </div>
-);
+const Home = (props) => {
+  return (
+    <div className="container">
+      <Head>
+        <title>Next Home Page</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main>
+        <h1 className="title">
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        </h1>
+
+        <p className="description">
+          Get started by editing <code>pages/index.js</code>
+        </p>
+      </main>
+    </div>
+  );
+};
+
+Home.getInitialProps = async ({ pathname }) => {
+  const result = await client.query({
+    query: PAGE_QUERY,
+    variables: { uri: 'welcome' },
+  });
+
+  return {
+    page: result.data,
+  };
+};
 
 export default Home;
