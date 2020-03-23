@@ -1,0 +1,14 @@
+[
+  {
+    "env": "production",
+    "graphql": "http://admin.zmist.pl.ua/graphql"
+  },
+  {
+    "env": "development",
+    "graphql": "http://localhost:8080/graphql"
+  },
+  {
+    "env": "staging",
+    "graphql": "http://admin.zmist.tech/graphql"
+  }
+]
