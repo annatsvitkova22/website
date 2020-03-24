@@ -1,17 +1,17 @@
 [
   {
     "env": "production",
-    "baseUrl": "http://admin.zmist.pl.ua",
+    "apiUrl": "http://admin.zmist.pl.ua",
     "graphql": "http://admin.zmist.pl.ua/graphql"
   },
   {
     "env": "development",
-    "baseUrl": "http://zmist.test:8080",
-    "graphql": "http://zmist.test:8080/graphql"
+    "apiUrl": "http://admin.zmist.tech",
+    "graphql": "http://admin.zmist.tech/graphql"
   },
   {
     "env": "staging",
-    "baseUrl": "http://admin.zmist.tech",
+    "apiUrl": "http://admin.zmist.tech",
     "graphql": "http://admin.zmist.tech/graphql"
   }
 ]
