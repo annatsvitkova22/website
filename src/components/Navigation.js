@@ -19,6 +19,9 @@ const MENU = gql`
             target
             title
             url
+            menuItemACF {
+              ishighlighted
+            }
           }
         }
       }

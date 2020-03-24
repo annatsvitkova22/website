@@ -3,12 +3,15 @@ import Link from 'next/link';
 
 import Navigation from './Navigation';
 import '../styles/components/header.scss';
+import Logo from './Logo';
 
 const Header = () => {
   return (
     <header>
       <Link href={'/'}>
-        <a>Logo</a>
+        <a href={'/'}>
+          <Logo />
+        </a>
       </Link>
       <Navigation />
     </header>
