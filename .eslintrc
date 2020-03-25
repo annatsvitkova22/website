@@ -11,7 +11,7 @@
     "airbnb-base",
     "react-app",
     "prettier",
-    "plugin:prettier/recommended",
+    "plugin:prettier/recommended"
   ],
   "rules": {
     // Next JS has a Link component that wraps around <a></a>, inserting the href during compilation. Disable for now.
