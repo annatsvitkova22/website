@@ -3,6 +3,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 
 import client from '../lib/ApolloClient';
+import '../styles/pages/home.scss';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -25,7 +26,7 @@ const HOME_PAGE = gql`
 const Home = (props) => {
   const { page } = props;
   return (
-    <div className="container">
+    <div className="container home-page">
       <Head>
         <title>{page.title}</title>
         <link rel="icon" href="/favicon.ico" />

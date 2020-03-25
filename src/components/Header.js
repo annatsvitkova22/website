@@ -2,12 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 
 import Navigation from './Navigation';
-import '../styles/components/header.scss';
 import Logo from './Logo';
+import '../styles/components/header.scss';
 
 const Header = () => {
   return (
-    <header>
+    <header className="row">
       <Link href={'/'}>
         <a href={'/'}>
           <Logo />

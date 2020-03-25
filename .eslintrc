@@ -12,10 +12,6 @@
     "react-app",
     "prettier",
     "plugin:prettier/recommended",
-    "plugin:css-modules/recommended"
-  ],
-  "plugins": [
-    "css-modules"
   ],
   "rules": {
     // Next JS has a Link component that wraps around <a></a>, inserting the href during compilation. Disable for now.

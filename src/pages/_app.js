@@ -2,7 +2,7 @@ import React from 'react';
 import App from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 
-import '../styles/global.scss';
+import '../styles/app.scss';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import apolloClient from '../lib/ApolloClient';

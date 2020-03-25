@@ -58,8 +58,7 @@ module.exports = withBundleAnalyzer(
 
         return customConfig;
       },
-      publicRuntimeConfig: require("./config.json"),
-      cssModules: true,
+      publicRuntimeConfig: require('./config.json'),
       cssLoaderOptions: {
         localIdentName: '[name]_[local]_[hash:base64:5]',
       },
