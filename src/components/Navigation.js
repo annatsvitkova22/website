@@ -38,14 +38,49 @@ const Navigation = (props) => {
   if (loading) return null;
 
   return (
-    <nav>
-      <ul>
+    <nav className="navigation col-xs-6">
+      <ul className="navigation__list around-xs">
         {data.menus &&
           data.menus.nodes.length &&
           data.menus.nodes[0].menuItems &&
           data.menus.nodes[0].menuItems.nodes.map((item) => {
             return (
-              <li key={item.id}>
+              <li key={item.id} className="around-xs">
+                <Link href={item.url}>
+                  <a target={item.target} href={item.url}>
+                    {item.label}
+                  </a>
+                </Link>
+                <Link href={item.url}>
+                  <a target={item.target} href={item.url}>
+                    {item.label}
+                  </a>
+                </Link>
+                <Link href={item.url}>
+                  <a target={item.target} href={item.url}>
+                    {item.label}
+                  </a>
+                </Link>
+                <Link href={item.url}>
+                  <a target={item.target} href={item.url}>
+                    {item.label}
+                  </a>
+                </Link>
+                <Link href={item.url}>
+                  <a target={item.target} href={item.url}>
+                    {item.label}
+                  </a>
+                </Link>
+                <Link href={item.url}>
+                  <a target={item.target} href={item.url}>
+                    {item.label}
+                  </a>
+                </Link>
+                <Link href={item.url}>
+                  <a target={item.target} href={item.url}>
+                    {item.label}
+                  </a>
+                </Link>
                 <Link href={item.url}>
                   <a target={item.target} href={item.url}>
                     {item.label}

@@ -14,16 +14,19 @@ const LOGO_QUERY = gql`
   }
 `;
 
-const Logo = () => {
+const PartnersLogo = () => {
   const { loading, data } = useQuery(LOGO_QUERY);
   if (loading) return null;
   return (
-    <img
-      src={data.info.generalInfoACF.logo.mediaItemUrl}
-      alt=""
-      className="logo"
-    />
+    <div className="partners__logo">
+      <a href="#">
+        <img src="" alt="Logo" />
+      </a>
+      <a href="#">
+        <img src="" alt="Logo" />
+      </a>
+    </div>
   );
 };
 
-export default Logo;
+export default PartnersLogo;
