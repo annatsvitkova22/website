@@ -10,7 +10,7 @@ import getConfig from 'next/config';
 import introspectionQueryResultData from './fragmentTypes.json';
 
 const { publicRuntimeConfig } = getConfig();
-const config = publicRuntimeConfig.find((e) => e.env === process.env.NODE_ENV);
+const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData,
