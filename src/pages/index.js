@@ -26,7 +26,7 @@ const HOME_PAGE = gql`
 const Home = (props) => {
   const { page } = props;
   return (
-    <div className="container home-page">
+    <div className="home-page">
       <Head>
         <title>{page.title}</title>
         <link rel="icon" href="/favicon.ico" />
