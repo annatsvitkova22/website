@@ -55,19 +55,19 @@ const Footer = () => {
   const date = new Date().getFullYear();
   return (
     <footer>
-      <div className="navigation container row">
+      <div className="navigation__wrapper row">
         <div className="col-xs-4">
           <Logo logoData={data.info.generalInfoACF.logo} />
           <Socials />
         </div>
-        <div className="sitemap col-xs-8 around-xs">
+        <div className="navigation__sitemap col-xs-8 around-xs">
           <Navigation navigationData={data.menus.nodes[3]} />
           <Navigation navigationData={data.menus.nodes[1]} />
-          <Contacts navigationData={data.menus.nodes[4]} />
+          <Contacts navigationData={data.menus.nodes[1]} />
           <Resources navigationData={data.menus.nodes[2]} />
         </div>
       </div>
-      <div className="data container row between-xs">
+      <div className="data__wrapper row between-xs">
         <div className="partners">
           <span>Наші партнери</span>
           <PartnersLogo partnersData={data.info.generalInfoACF.logo} />
