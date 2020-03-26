@@ -1,6 +1,8 @@
 import React from 'react';
 
-const FooterContacts = () => {
+const Contacts = (props) => {
+  const { navigationData } = props;
+  console.log(navigationData)
   return (
     <ul className="sitemap__list">
       <li className="sitemap__list-item">Контакти</li>
@@ -17,4 +19,4 @@ const FooterContacts = () => {
   );
 };
 
-export default FooterContacts;
+export default Contacts;
