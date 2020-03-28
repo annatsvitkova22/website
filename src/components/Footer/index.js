@@ -19,6 +19,7 @@ const FOOTER_QUERY = gql`
       generalInfoACF {
         logo {
           mediaItemUrl
+          title
         }
       }
     }
@@ -39,7 +40,12 @@ const FOOTER_QUERY = gql`
         total
       }
     }
-    posts {
+    crowdfundings {
+      pageInfo {
+        total
+      }
+    }
+    publications {
       pageInfo {
         total
       }
@@ -68,12 +74,16 @@ const Footer = () => {
         </div>
       </div>
       <div className="data__wrapper row between-xs">
-        <div className="partners">
+        <div className="partners col-xs-3">
           <span>Наші партнери</span>
           <PartnersLogo partnersData={data.info.generalInfoACF.logo} />
         </div>
         <div className="counter container col-xs-4">
-          <Counter blogsData={data.blogs} postsData={data.posts} />
+          <Counter
+            blogsData={data.blogs}
+            crowdfundingsData={data.crowdfundings}
+            publicationsData={data.publications}
+          />
         </div>
       </div>
       <div className="developers between-xs">

@@ -17,6 +17,7 @@ const HEADER_QUERY = gql`
       generalInfoACF {
         logo {
           mediaItemUrl
+          title
         }
       }
     }

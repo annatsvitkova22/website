@@ -2,7 +2,7 @@ import React from 'react';
 
 const Contacts = (props) => {
   const { navigationData } = props;
-  console.log(navigationData)
+
   return (
     <ul className="sitemap__list">
       <li className="sitemap__list-item">Контакти</li>
