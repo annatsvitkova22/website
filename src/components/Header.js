@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
