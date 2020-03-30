@@ -12,19 +12,19 @@ const Counters = (props) => {
     <div className={`counters ${className}`}>
       <div className="counters__wrapper around-xs">
         {publicationsData.pageInfo && (
-          <div className="counter__item">
+          <div className="counters__item">
             <span>{publicationsData.pageInfo.total}</span>
             <span>Публікації</span>
           </div>
         )}
         {crowdfundingsData.pageInfo && (
-          <div className="counter__item">
+          <div className="counters__item">
             <span>{crowdfundingsData.pageInfo.total}</span>
             <span>Проекти</span>
           </div>
         )}
         {blogsData.pageInfo && (
-          <div className="counter__item">
+          <div className="counters__item">
             <span>{blogsData.pageInfo.total}</span>
             <span>Блоги</span>
           </div>

@@ -1,6 +1,9 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import Logo from '../Logo';
 import Socials from '../Socials';
@@ -12,6 +15,8 @@ import Resources from './Resourses';
 import Counters from './Counters';
 
 import '../../styles/components/footer.scss';
+
+library.add(fab, fas);
 
 const FOOTER_QUERY = gql`
   query MyQuery {
@@ -30,8 +35,8 @@ const FOOTER_QUERY = gql`
           title
         }
         socials {
-          name
           url
+          name
         }
         contacts {
           name

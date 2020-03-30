@@ -1,4 +1,5 @@
 import React from 'react';
+import Icons from '../Icons';
 
 const Contacts = (props) => {
   const { contactsData } = props;
@@ -16,7 +17,7 @@ const Contacts = (props) => {
             {item.contacts.map((contacts) => {
               return (
                 <li className="sitemap__list-item">
-                  <img src="#" alt={contacts.type} />
+                  <Icons icon={contacts.type} />
                   <span>{contacts.info}</span>
                 </li>
               );

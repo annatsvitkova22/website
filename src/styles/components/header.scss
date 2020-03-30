@@ -14,6 +14,17 @@ header {
     height: 50px;
   }
 
+  .socials {
+    display: flex;
+
+    height: 100%;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
   nav {
     ul {
       display: flex;
