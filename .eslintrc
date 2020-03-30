@@ -14,6 +14,8 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
+    "import/no-unresolved": [ "error", { "ignore": ["^~"] }],
+    "import/extensions": [ "error", { "ignore": ["^~"] }],
     // Next JS has a Link component that wraps around <a></a>, inserting the href during compilation. Disable for now.
     "jsx-a11y/anchor-is-valid": 0,
     // Disable JS no-unused-vars and enable TS no-unused-vars, otherwise there is confusion.

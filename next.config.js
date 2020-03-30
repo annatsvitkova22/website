@@ -1,5 +1,8 @@
 /* eslint-disable global-require */
 require('dotenv').config();
+
+const path = require('path');
+
 const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -37,7 +40,17 @@ module.exports = withBundleAnalyzer(
               emitErrors: false,
             })
           );
-
+          // Add aliasing
+          customConfig.resolve.alias = {
+            ...customConfig.resolve.alias,
+            '~': path.resolve(__dirname, 'src'),
+          };
+          // Add import-glob
+          config.module.rules.push({
+            enforce: 'pre',
+            test: /\.(js|s?[ca]ss)$/,
+            loader: 'import-glob',
+          });
           customConfig.module.rules.push({
             enforce: 'pre',
             test: /\.(js|jsx)$/,
