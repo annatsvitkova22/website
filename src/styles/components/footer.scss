@@ -35,7 +35,7 @@ footer {
     height: 50px;
   }
 
-  .footer__socials {
+  .socials {
     display: flex;
   }
 
@@ -47,6 +47,11 @@ footer {
     }
     .sitemap__list-item:first-child {
       font-weight: bold;
+    }
+    .sitemap__list-item:nth-child(2){
+      span {
+        display: flex;
+      }
     }
   }
   .partners {

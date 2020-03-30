@@ -5,7 +5,7 @@ const Counter = (props) => {
   return (
     <div className="counter__wrapper around-xs">
       <div className="counter__item">
-        <span>{publicationsData.pageInfo} 23</span>
+        <span>{publicationsData.pageInfo.total}</span>
         <span>Публікації</span>
       </div>
       <div className="counter__item">

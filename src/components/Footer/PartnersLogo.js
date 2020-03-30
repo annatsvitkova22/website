@@ -2,14 +2,16 @@ import React from 'react';
 
 const PartnersLogo = (props) => {
   const { partnersData } = props;
+
   return (
     <div className="partners__logo">
-      <a href="#">
-        <img src={partnersData.mediaItemUrl} alt="Logo" className="logo" />
-      </a>
-      <a href="#">
-        <img src={partnersData.mediaItemUrl} alt="Logo" className="logo" />
-      </a>
+      {partnersData.map((item) => {
+        return (
+          <a href={item.url} title={item.name}>
+            <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
+          </a>
+        );
+      })}
     </div>
   );
 };

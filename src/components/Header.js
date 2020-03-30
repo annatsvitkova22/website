@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -18,6 +17,10 @@ const HEADER_QUERY = gql`
         logo {
           mediaItemUrl
           title
+        }
+        socials {
+          url
+          name
         }
       }
     }
@@ -49,7 +52,7 @@ const Header = () => {
         </a>
       </Link>
       <Navigation navigationData={data.menus} />
-      <Socials />
+      <Socials socialsData={data.info.generalInfoACF.socials} />
       <Search />
     </header>
   );

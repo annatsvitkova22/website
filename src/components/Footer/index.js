@@ -17,9 +17,29 @@ const FOOTER_QUERY = gql`
   query MyQuery {
     info {
       generalInfoACF {
+        partners {
+          name
+          url
+          logo {
+            mediaItemUrl
+            title
+          }
+        }
         logo {
           mediaItemUrl
           title
+        }
+        socials {
+          name
+          url
+        }
+        contacts {
+          name
+          role
+          contacts {
+            info
+            type
+          }
         }
       }
     }
@@ -64,19 +84,19 @@ const Footer = () => {
       <div className="navigation__wrapper row">
         <div className="col-xs-4">
           <Logo logoData={data.info.generalInfoACF.logo} />
-          <Socials />
+          <Socials socialsData={data.info.generalInfoACF.socials} />
         </div>
         <div className="navigation__sitemap col-xs-8 around-xs">
           <Navigation navigationData={data.menus.nodes[3]} />
           <Navigation navigationData={data.menus.nodes[1]} />
-          <Contacts navigationData={data.menus.nodes[1]} />
+          <Contacts contactsData={data.info.generalInfoACF.contacts} />
           <Resources navigationData={data.menus.nodes[2]} />
         </div>
       </div>
       <div className="data__wrapper row between-xs">
         <div className="partners col-xs-3">
           <span>Наші партнери</span>
-          <PartnersLogo partnersData={data.info.generalInfoACF.logo} />
+          <PartnersLogo partnersData={data.info.generalInfoACF.partners} />
         </div>
         <div className="counter container col-xs-4">
           <Counter
