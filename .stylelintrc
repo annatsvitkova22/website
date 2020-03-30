@@ -8,7 +8,10 @@
       true,
       {
         "ignoreAtRules": [
-          "extends"
+          "extends",
+          "for",
+          "if",
+          "else"
         ]
       }
     ],
