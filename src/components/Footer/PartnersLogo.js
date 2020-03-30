@@ -5,13 +5,14 @@ const PartnersLogo = (props) => {
 
   return (
     <div className="partners__logo">
-      {partnersData.map((item) => {
-        return (
-          <a href={item.url} title={item.name}>
-            <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
-          </a>
-        );
-      })}
+      {partnersData &&
+        partnersData.map((item) => {
+          return (
+            <a href={item.url} title={item.name}>
+              <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
+            </a>
+          );
+        })}
     </div>
   );
 };

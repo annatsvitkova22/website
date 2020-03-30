@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Icons from '../Icons';
 
 const Contacts = (props) => {
@@ -6,25 +7,26 @@ const Contacts = (props) => {
 
   return (
     <ul className="sitemap__list">
-      {contactsData.map((item) => {
-        return (
-          <>
-            <li className="sitemap__list-item">Контакти</li>
-            <li className="sitemap__list-item">
-              <span>{item.role}</span>
-              <span>{item.name}</span>
-            </li>
-            {item.contacts.map((contacts) => {
-              return (
-                <li className="sitemap__list-item">
-                  <Icons icon={contacts.type} />
-                  <span>{contacts.info}</span>
-                </li>
-              );
-            })}
-          </>
-        );
-      })}
+      {contactsData &&
+        contactsData.map((item) => {
+          return (
+            <>
+              <li className="sitemap__list-item">Контакти</li>
+              <li className="sitemap__list-item">
+                <span>{item.role}</span>
+                <span>{item.name}</span>
+              </li>
+              {item.contacts.map((contacts) => {
+                return (
+                  <li className="sitemap__list-item">
+                    <Icons icon={contacts.type} />
+                    <span>{contacts.info}</span>
+                  </li>
+                );
+              })}
+            </>
+          );
+        })}
     </ul>
   );
 };

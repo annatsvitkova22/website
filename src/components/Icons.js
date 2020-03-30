@@ -53,6 +53,8 @@ const Icons = (props) => {
 
   const svgIcon = iconsData.find((item) => item.type === icon);
 
+  if (!svgIcon) return null;
+
   return (
     <span
       dangerouslySetInnerHTML={{ __html: svgIcon.tag }}
