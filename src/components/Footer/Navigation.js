@@ -6,15 +6,18 @@ const Navigation = (props) => {
 
   return (
     <ul className="sitemap__list">
-      {navigationData.menuItems.nodes.map((item) => {
-        return (
-          <li className="sitemap__list-item" key={item.id}>
-            <Link href={item.url}>
-              <a href={item.url}>{item.label}</a>
-            </Link>
-          </li>
-        );
-      })}
+      {navigationData &&
+        navigationData.menuItems &&
+        navigationData.menuItems.nodes &&
+        navigationData.menuItems.nodes.map((item) => {
+          return (
+            <li className="sitemap__list-item" key={item.id}>
+              <Link href={item.url}>
+                <a href={item.url}>{item.label}</a>
+              </Link>
+            </li>
+          );
+        })}
     </ul>
   );
 };
