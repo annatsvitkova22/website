@@ -4,9 +4,9 @@ const Socials = (props) => {
   const { socialsData } = props;
   return (
     <div className="socials">
-      {socialsData.map((item) => {
+      {socialsData.map((item, i) => {
         return (
-          <a href={item.url} title={item.name}>
+          <a key={i} href={item.url} title={item.name}>
             <img src="#" alt={item.name} />
           </a>
         );
