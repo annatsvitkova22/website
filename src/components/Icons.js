@@ -56,10 +56,7 @@ const Icons = (props) => {
   if (!svgIcon) return null;
 
   return (
-    <span
-      dangerouslySetInnerHTML={{ __html: svgIcon.tag }}
-      style={{ color: color }}
-    />
+    <span dangerouslySetInnerHTML={{ __html: svgIcon.tag }} style={{ color }} />
   );
 };
 

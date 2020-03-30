@@ -22,15 +22,16 @@
     "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-apollo": "^3.1.3",
-    "react-dom": "^16.13.1"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "react-dom": "^16.13.1",
+    "dotenv": "^8.2.0",
     "@next/bundle-analyzer": "^9.3.1",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
+    "stylelint-webpack-plugin": "^1.2.3"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.8.3",
     "babel-eslint": "^10.1.0",
-    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -47,7 +48,6 @@
     "react-dev-utils": "^10.2.1",
     "stylelint": "^13.2.1",
     "stylelint-config-recommended": "^3.0.0",
-    "stylelint-order": "^4.0.0",
-    "stylelint-webpack-plugin": "^1.2.3"
+    "stylelint-order": "^4.0.0"
   }
 }
