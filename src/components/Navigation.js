@@ -1,9 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
+import PropTypes from 'prop-types';
+
+import NavLink from './SiteLink';
 
 const Navigation = (props) => {
   const { navigationData } = props;
-
   return (
     <nav className="navigation col-xs-6">
       <ul className="navigation__list around-xs">
@@ -12,17 +13,19 @@ const Navigation = (props) => {
           navigationData.nodes[0].menuItems.nodes.map((item) => {
             return (
               <li key={item.id} className="around-xs">
-                <Link href={item.url}>
-                  <a target={item.target} href={item.url}>
-                    {item.label}
-                  </a>
-                </Link>
+                <NavLink href={item.url} target={item.target}>
+                  {item.label}
+                </NavLink>
               </li>
             );
           })}
       </ul>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  navigationData: PropTypes.object,
 };
 
 export default Navigation;
