@@ -11,7 +11,7 @@ import Search from './Search';
 import '../styles/components/header.scss';
 
 const HEADER_QUERY = gql`
-  query MyQuery {
+  query HeaderQuery {
     info {
       generalInfoACF {
         logo {
