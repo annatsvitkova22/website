@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NavLink from './NavLink';
+import NavLink from './SiteLink';
 
 const Navigation = (props) => {
   const { navigationData } = props;
@@ -25,7 +25,7 @@ const Navigation = (props) => {
 };
 
 Navigation.propTypes = {
-  navigation: PropTypes.array,
+  navigationData: PropTypes.object,
 };
 
 export default Navigation;
