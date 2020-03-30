@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 
 import client from '../lib/ApolloClient';
 import '../styles/pages/home.scss';
+import Content from '../components/Content';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -17,7 +18,33 @@ const HOME_PAGE = gql`
     pages(where: { title: "Головна" }) {
       nodes {
         title
-        content
+        blocks {
+          __typename
+          ... on CoreHeadingBlock {
+            name
+            attributes {
+              __typename
+              ... on CoreHeadingBlockAttributes {
+                content
+                level
+              }
+            }
+          }
+          ... on CoreParagraphBlock {
+            name
+            attributes {
+              __typename
+              ... on CoreParagraphBlockAttributes {
+                backgroundColor
+                content
+              }
+              ... on CoreParagraphBlockAttributesV3 {
+                fontSize
+                content
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -35,7 +62,7 @@ const Home = (props) => {
       <main>
         <h1 className="title">{page.title}</h1>
 
-        <div className="description">{page.content}</div>
+        <Content content={page.blocks} />
       </main>
     </div>
   );
