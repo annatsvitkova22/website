@@ -9,7 +9,7 @@ import Navigation from './Navigation';
 import Contacts from './Contacts';
 import PartnersLogo from './PartnersLogo';
 import Resources from './Resourses';
-import Counter from './Counter';
+import Counters from './Counters';
 
 import '../../styles/components/footer.scss';
 
@@ -98,17 +98,16 @@ const Footer = () => {
           <span>Наші партнери</span>
           <PartnersLogo partnersData={data.info.generalInfoACF.partners} />
         </div>
-        <div className="counter container col-xs-4">
-          <Counter
-            blogsData={data.blogs}
-            crowdfundingsData={data.crowdfundings}
-            publicationsData={data.publications}
-          />
-        </div>
+        <Counters
+          className={'container col-xs-4'}
+          blogsData={data.blogs}
+          crowdfundingsData={data.crowdfundings}
+          publicationsData={data.publications}
+        />
       </div>
       <div className="developers between-xs">
         <div className="developers__copyrights-date">
-          <img src="#" alt="C" />
+          (c)
           <span>Copyrights {date}</span>
         </div>
         <div className="developers__copyrights-logo">
