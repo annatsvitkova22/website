@@ -37,6 +37,12 @@ footer {
 
   .socials {
     display: flex;
+
+    height: 100%;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .navigation__sitemap {
@@ -44,6 +50,10 @@ footer {
 
     .sitemap__list {
       text-align: left;
+      svg {
+        width: 10px;
+        height: 10px;
+      }
     }
     .sitemap__list-item:first-child {
       font-weight: bold;

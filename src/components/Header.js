@@ -52,7 +52,7 @@ const Header = () => {
         </a>
       </Link>
       <Navigation navigationData={data.menus} />
-      <Socials socialsData={data.info.generalInfoACF.socials} />
+      <Socials socialsData={data.info.generalInfoACF.socials} color={'red'} />
       <Search />
     </header>
   );

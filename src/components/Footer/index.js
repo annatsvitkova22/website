@@ -13,6 +13,7 @@ import Counters from './Counters';
 
 import '../../styles/components/footer.scss';
 
+
 const FOOTER_QUERY = gql`
   query MyQuery {
     info {
@@ -30,8 +31,8 @@ const FOOTER_QUERY = gql`
           title
         }
         socials {
-          name
           url
+          name
         }
         contacts {
           name
@@ -79,6 +80,7 @@ const Footer = () => {
   if (loading) return null;
 
   const date = new Date().getFullYear();
+
   return (
     <footer>
       <div className="navigation__wrapper row">

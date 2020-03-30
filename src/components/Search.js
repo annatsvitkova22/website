@@ -1,7 +1,13 @@
 import React from 'react';
 
+import Icons from './Icons';
+
 const Search = () => {
-  return <img src="" alt="search" />;
+  return (
+    <a href="#">
+      <Icons icon={'search'} color={'red'} />
+    </a>
+  );
 };
 
 export default Search;
