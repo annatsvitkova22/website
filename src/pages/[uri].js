@@ -24,7 +24,6 @@ const Page = (props) => {
 
       <main>
         <h1 className="title">{page.title}</h1>
-
         <div className="description">{page.content}</div>
       </main>
     </div>
