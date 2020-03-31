@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import App from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 
+import Header from '~/components/Header';
+import Footer from '~/components/Footer';
+import apolloClient from '~/lib/ApolloClient';
 import '../styles/app.scss';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import apolloClient from '../lib/ApolloClient';
 
-const MyApp = ({ Component, pageProps }) => {
+const ZmistApp = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={apolloClient}>
       <Header />
@@ -18,7 +18,7 @@ const MyApp = ({ Component, pageProps }) => {
   );
 };
 
-MyApp.propTypes = {
+ZmistApp.propTypes = {
   Component: PropTypes.any,
   pageProps: PropTypes.any,
 };
@@ -28,11 +28,11 @@ MyApp.propTypes = {
 // This method disables the ability to
 // perform automatic static optimization, causing every page in your app to
 // be server-side rendered.
-MyApp.getInitialProps = async (appContext) => {
+ZmistApp.getInitialProps = async (appContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
 
   return { ...appProps };
 };
 
-export default MyApp;
+export default ZmistApp;
