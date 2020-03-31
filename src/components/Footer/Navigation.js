@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
+
+import SiteLink from '~/components/SiteLink';
 
 const Navigation = (props) => {
   const { navigationData } = props;
@@ -13,9 +14,7 @@ const Navigation = (props) => {
         navigationData.menuItems.nodes.map((item) => {
           return (
             <li className="sitemap__list-item" key={item.id}>
-              <Link href={item.url}>
-                <a href={item.url}>{item.label}</a>
-              </Link>
+              <SiteLink href={item.url}>{item.label}</SiteLink>
             </li>
           );
         })}
