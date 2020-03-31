@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import App from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 
@@ -15,6 +16,11 @@ const MyApp = ({ Component, pageProps }) => {
       <Footer />
     </ApolloProvider>
   );
+};
+
+MyApp.propTypes = {
+  Component: PropTypes.any,
+  pageProps: PropTypes.any,
 };
 
 // You can comment this method below if you don't want to have every single page rendered on server
