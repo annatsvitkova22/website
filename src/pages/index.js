@@ -21,27 +21,77 @@ const HOME_PAGE = gql`
         blocks {
           __typename
           ... on CoreHeadingBlock {
-            name
             attributes {
               __typename
               ... on CoreHeadingBlockAttributes {
+                align
+                anchor
+                className
                 content
+                customTextColor
                 level
+                placeholder
+                textColor
               }
             }
           }
           ... on CoreParagraphBlock {
-            name
             attributes {
               __typename
-              ... on CoreParagraphBlockAttributes {
-                backgroundColor
-                content
-              }
               ... on CoreParagraphBlockAttributesV3 {
                 fontSize
                 content
+                align
+                backgroundColor
+                className
+                customBackgroundColor
+                customFontSize
+                customTextColor
+                direction
+                dropCap
+                placeholder
+                textColor
+                width
               }
+            }
+          }
+          ... on CoreImageBlock {
+            attributes {
+              align
+              alt
+              className
+              caption
+              height
+              href
+              id
+              linkClass
+              linkDestination
+              linkTarget
+              rel
+              url
+              sizeSlug
+            }
+          }
+          ... on CoreEmbedYoutubeBlock {
+            attributes {
+              align
+              allowResponsive
+              caption
+              className
+              providerNameSlug
+              url
+              type
+            }
+          }
+          ... on CoreEmbedSoundcloudBlock {
+            attributes {
+              align
+              allowResponsive
+              caption
+              className
+              providerNameSlug
+              type
+              url
             }
           }
         }
