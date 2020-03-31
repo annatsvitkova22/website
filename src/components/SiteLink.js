@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import getConfig from 'next/config';
 
-const NavLink = ({ children, href, ...otherProps }) => {
+const SiteLink = ({ children, href, ...otherProps }) => {
   const { publicRuntimeConfig } = getConfig();
   const { apiUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
@@ -22,9 +22,9 @@ const NavLink = ({ children, href, ...otherProps }) => {
   );
 };
 
-NavLink.propTypes = {
+SiteLink.propTypes = {
   children: PropTypes.string,
   href: PropTypes.string,
 };
 
-export default NavLink;
+export default SiteLink;
