@@ -29,14 +29,14 @@ const VideosArchive = (props) => {
       </Head>
 
       <main>
-        {videos.map((event, i) => (
+        {videos.map((video, i) => (
           <article key={i}>
-            <Link href="/videos/[slug]" as={`/videos/${event.slug}`}>
+            <Link href="/videos/[slug]" as={`/videos/${video.slug}`}>
               <a>
-                <h3>{event.title}</h3>
+                <h3>{video.title}</h3>
               </a>
             </Link>
-            <div>{event.excerpt}</div>
+            <div>{video.excerpt}</div>
           </article>
         ))}
       </main>

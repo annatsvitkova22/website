@@ -29,17 +29,17 @@ const CrowdfundingsArchive = (props) => {
       </Head>
 
       <main>
-        {crowdfundings.map((event, i) => (
+        {crowdfundings.map((crowdfunding, i) => (
           <article key={i}>
             <Link
               href="/crowdfundings/[slug]"
-              as={`/crowdfundings/${event.slug}`}
+              as={`/crowdfundings/${crowdfunding.slug}`}
             >
               <a>
-                <h3>{event.title}</h3>
+                <h3>{crowdfunding.title}</h3>
               </a>
             </Link>
-            <div>{event.excerpt}</div>
+            <div>{crowdfunding.excerpt}</div>
           </article>
         ))}
       </main>
