@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Paragraph from './Gutenberg/Paragraph';
 import Image from './Gutenberg/Image';
@@ -14,9 +15,14 @@ const Content = ({ content }) => {
         if (block.__typename === 'CoreImageBlock') {
           return <Image block={block} />;
         }
+        return null;
       })}
     </>
   );
+};
+
+Content.propTypes = {
+  content: PropTypes.any,
 };
 
 export default Content;
