@@ -22,28 +22,21 @@ const EVENTS_QUERY = gql`
 const Events = () => {
   const { loading, data } = useQuery(EVENTS_QUERY);
   const [filter, setFilter] = useState(null);
+  const [date, setDate] = useState(new Date().getDate());
 
   if (loading) return null;
 
   const eventFilter = (event) => {
-    if (event.currentTarget.name === 'actual') {
-      return setFilter('actual');
-    }
-    if (event.currentTarget.name === 'finished') {
-      return setFilter('finished');
-    }
-    if (event.currentTarget.name === 'forDate') {
-      const forDate = new Date(event.currentTarget.value);
-      if (forDate) {
-        setFilter(forDate);
-      }
-    }
+    const eventTarget = event.currentTarget.name;
+
+    setFilter(eventTarget);
+    setDate(new Date(event.currentTarget.value));
   };
 
   return (
     <main className="wrapper">
       <EventsFilter eventFilter={eventFilter} />
-      <EventsPost eventsData={data.events.nodes} filter={filter} />
+      <EventsPost eventsData={data.events.nodes} filter={filter} date={date} />
     </main>
   );
 };
