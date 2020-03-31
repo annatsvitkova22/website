@@ -1,11 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
-import client from '../lib/ApolloClient';
+import client from '~/lib/ApolloClient';
+import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
+import Content from '~/components/Content';
 import '../styles/pages/home.scss';
-import Content from '../components/Content';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -19,83 +20,7 @@ const HOME_PAGE = gql`
     pages(where: { title: "Головна" }) {
       nodes {
         title
-        blocks {
-          __typename
-          ... on CoreHeadingBlock {
-            attributes {
-              __typename
-              ... on CoreHeadingBlockAttributes {
-                align
-                anchor
-                className
-                content
-                customTextColor
-                level
-                placeholder
-                textColor
-              }
-            }
-          }
-          ... on CoreParagraphBlock {
-            attributes {
-              __typename
-              ... on CoreParagraphBlockAttributesV3 {
-                fontSize
-                content
-                align
-                backgroundColor
-                className
-                customBackgroundColor
-                customFontSize
-                customTextColor
-                direction
-                dropCap
-                placeholder
-                textColor
-                width
-              }
-            }
-          }
-          ... on CoreImageBlock {
-            attributes {
-              align
-              alt
-              className
-              caption
-              height
-              href
-              id
-              linkClass
-              linkDestination
-              linkTarget
-              rel
-              url
-              sizeSlug
-            }
-          }
-          ... on CoreEmbedYoutubeBlock {
-            attributes {
-              align
-              allowResponsive
-              caption
-              className
-              providerNameSlug
-              url
-              type
-            }
-          }
-          ... on CoreEmbedSoundcloudBlock {
-            attributes {
-              align
-              allowResponsive
-              caption
-              className
-              providerNameSlug
-              type
-              url
-            }
-          }
-        }
+        ${gutenbergBlocksQuery}
       }
     }
   }
