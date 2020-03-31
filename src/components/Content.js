@@ -5,6 +5,8 @@ import Paragraph from './Gutenberg/Paragraph';
 import Image from './Gutenberg/Image';
 
 const Content = ({ content }) => {
+  // TODO: add & test all content types listed in this log
+  console.log(content);
   return (
     <>
       {content.map((block, index) => {
