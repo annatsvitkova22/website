@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 
@@ -29,6 +30,10 @@ const Publication = (props) => {
       </main>
     </div>
   );
+};
+
+Publication.propTypes = {
+  publication: PropTypes.object,
 };
 
 Publication.getInitialProps = async ({ query: { slug } }) => {
