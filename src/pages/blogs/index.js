@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 
-const BLOG_ARCHIVE = gql`
-  query BlogArchive {
+const BLOGS_ARCHIVE = gql`
+  query BlogsArchive {
     blogs {
       nodes {
         excerpt
@@ -18,7 +18,7 @@ const BLOG_ARCHIVE = gql`
   }
 `;
 
-const BlogArchive = (props) => {
+const BlogsArchive = (props) => {
   const { blogs } = props;
   return (
     <div className="news-page">
@@ -44,7 +44,7 @@ const BlogArchive = (props) => {
   );
 };
 
-BlogArchive.propTypes = {
+BlogsArchive.propTypes = {
   blogs: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -54,9 +54,9 @@ BlogArchive.propTypes = {
   ),
 };
 
-BlogArchive.getInitialProps = async () => {
+BlogsArchive.getInitialProps = async () => {
   const { data } = await apolloClient.query({
-    query: BLOG_ARCHIVE,
+    query: BLOGS_ARCHIVE,
   });
 
   return {
@@ -64,4 +64,4 @@ BlogArchive.getInitialProps = async () => {
   };
 };
 
-export default BlogArchive;
+export default BlogsArchive;
