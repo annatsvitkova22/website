@@ -13,6 +13,7 @@ const EVENTS_QUERY = gql`
         link
         title
         content
+        date
       }
     }
   }
@@ -20,12 +21,11 @@ const EVENTS_QUERY = gql`
 
 const Events = () => {
   const { loading, data } = useQuery(EVENTS_QUERY);
-
   if (loading) return null;
   return (
     <main className="wrapper">
       <EventsFilter />
-      <EventsPost />
+      <EventsPost eventsData={data.events.nodes} />
     </main>
   );
 };
