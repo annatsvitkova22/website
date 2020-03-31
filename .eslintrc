@@ -19,7 +19,8 @@
     // Next JS has a Link component that wraps around <a></a>, inserting the href during compilation. Disable for now.
     "jsx-a11y/anchor-is-valid": 0,
     // Disable JS no-unused-vars and enable TS no-unused-vars, otherwise there is confusion.
-    "no-unused-vars": 0,
+    "no-unused-vars": 2,
+    "no-underscore-dangle": 0,
     "prettier/prettier": 2,
     "react/prefer-es6-class": [
       2,

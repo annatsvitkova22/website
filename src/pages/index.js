@@ -1,9 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
-import client from '../lib/ApolloClient';
+import client from '~/lib/ApolloClient';
+import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
+import Content from '~/components/Content';
 import '../styles/pages/home.scss';
 
 // TODO: restore, create custom GraphQL resolver
@@ -18,7 +20,7 @@ const HOME_PAGE = gql`
     pages(where: { title: "Головна" }) {
       nodes {
         title
-        content
+        ${gutenbergBlocksQuery}
       }
     }
   }
@@ -36,7 +38,7 @@ const Home = (props) => {
       <main>
         <h1 className="title">{page.title}</h1>
 
-        <div className="description">{page.content}</div>
+        <Content content={page.blocks} />
       </main>
     </div>
   );
