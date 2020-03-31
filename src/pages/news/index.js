@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 
@@ -9,6 +10,7 @@ const NEWS_ARCHIVE = gql`
   query NewsArchive {
     posts {
       nodes {
+        id
         excerpt
         title
         slug
@@ -17,7 +19,7 @@ const NEWS_ARCHIVE = gql`
   }
 `;
 
-const NewsArchive = (props) => {
+const News = (props) => {
   const { posts } = props;
   return (
     <div className="news-page">
@@ -29,7 +31,7 @@ const NewsArchive = (props) => {
 
       <main>
         {posts.map((post) => (
-          <article>
+          <article key={post.id}>
             <Link href="/news/[slug]" as={`/news/${post.slug}`}>
               <a href={`/news/${post.slug}`}>
                 <h3>{post.title}</h3>
@@ -43,7 +45,11 @@ const NewsArchive = (props) => {
   );
 };
 
-NewsArchive.getInitialProps = async () => {
+News.propTypes = {
+  posts: PropTypes.array,
+};
+
+News.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
   });
@@ -53,4 +59,4 @@ NewsArchive.getInitialProps = async () => {
   };
 };
 
-export default NewsArchive;
+export default News;
