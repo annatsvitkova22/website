@@ -37,11 +37,8 @@ Error.getInitialProps = ({ res, err, asPath }) => {
     }
   };
 
-  if (statusCode && statusCode === 404) {
-    checkForTrailingSlashes();
-  } else {
-    //
-  }
+  checkForTrailingSlashes();
+
   return { statusCode };
 };
 
