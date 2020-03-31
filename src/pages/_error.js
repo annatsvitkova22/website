@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Error = ({ statusCode }) => {
   return (
@@ -8,6 +9,10 @@ const Error = ({ statusCode }) => {
         : 'An error occurred on client'}
     </p>
   );
+};
+
+Error.propTypes = {
+  statusCode: PropTypes.string,
 };
 
 Error.getInitialProps = ({ res, err }) => {

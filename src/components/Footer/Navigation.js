@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 const Navigation = (props) => {
@@ -20,6 +21,20 @@ const Navigation = (props) => {
         })}
     </ul>
   );
+};
+
+Navigation.propTypes = {
+  navigationData: PropTypes.shape({
+    menuItems: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+          label: PropTypes.string,
+          url: PropTypes.string,
+        })
+      ),
+    }),
+  }),
 };
 
 export default Navigation;

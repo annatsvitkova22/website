@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Counters = (props) => {
   const {
@@ -32,6 +33,13 @@ const Counters = (props) => {
       </div>
     </div>
   );
+};
+
+Counters.propTypes = {
+  blogsData: PropTypes.object,
+  crowdfundingsData: PropTypes.object,
+  publicationsData: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default Counters;
