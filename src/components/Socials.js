@@ -7,13 +7,14 @@ const Socials = (props) => {
 
   return (
     <div className="socials col-xs-1">
-      {socialsData.map((item) => {
-        return (
-          <a href={item.url} title={item.name}>
-            <Icons icon={item.name} color={color} />
-          </a>
-        );
-      })}
+      {socialsData &&
+        socialsData.map((item) => {
+          return (
+            <a href={item.url} title={item.name}>
+              <Icons icon={item.name} color={color} />
+            </a>
+          );
+        })}
     </div>
   );
 };
