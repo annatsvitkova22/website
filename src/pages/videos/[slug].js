@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 
@@ -29,6 +30,10 @@ const Video = (props) => {
       </main>
     </div>
   );
+};
+
+Video.propTypes = {
+  video: PropTypes.object,
 };
 
 Video.getInitialProps = async ({ query: { slug } }) => {
