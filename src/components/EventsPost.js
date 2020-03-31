@@ -1,10 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import '../styles/components/eventsPost.scss';
 import NavLink from '~/components/SiteLink';
 
 const EventsPost = (props) => {
-  const { eventsData } = props;
+  const { eventsData, filter } = props;
+
+  const [data, setData] = useState(eventsData);
+
+  const actualDate = new Date().getTime();
+
+  useEffect(() => {
+    if (filter === 'actual') {
+      setData(() => {
+        console.log(data);
+        return eventsData.filter((item) => {
+          return new Date(item.date).getTime() > actualDate;
+        });
+      });
+    }
+    if (filter === 'finished') {
+      setData(() => {
+        console.log(data);
+        return eventsData.filter((item) => {
+          return new Date(item.date).getTime() < actualDate;
+        });
+      });
+    }
+    if (filter !== 'actual' && filter !== 'finished' && filter) {
+      setData(() => {
+        return eventsData.filter((item) => {
+          return new Date(item.date).getDate() === filter.getDate();
+        });
+      });
+    }
+  }, [filter]);
 
   const monthNames = [
     'Січень',
@@ -23,8 +53,8 @@ const EventsPost = (props) => {
 
   return (
     <div>
-      {eventsData &&
-        eventsData.map((item) => {
+      {data &&
+        data.map((item) => {
           const date = new Date(item.date);
 
           return (
