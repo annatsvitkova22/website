@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Resources = (props) => {
   const { navigationData } = props;
@@ -17,6 +18,12 @@ const Resources = (props) => {
         })}
     </ul>
   );
+};
+
+Resources.propTypes = {
+  navigationData: PropTypes.shape({
+    menuItems: PropTypes.object,
+  }),
 };
 
 export default Resources;

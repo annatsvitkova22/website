@@ -1,5 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
+import PropTypes from 'prop-types';
+
+import NavLink from '~/components/SiteLink';
 
 const Navigation = (props) => {
   const { navigationData } = props;
@@ -12,14 +14,28 @@ const Navigation = (props) => {
         navigationData.menuItems.nodes.map((item) => {
           return (
             <li className="sitemap__list-item" key={item.id}>
-              <Link href={item.url}>
-                <a href={item.url}>{item.label}</a>
-              </Link>
+              <NavLink href={item.url} target={item.target}>
+                {item.label}
+              </NavLink>
             </li>
           );
         })}
     </ul>
   );
+};
+
+Navigation.propTypes = {
+  navigationData: PropTypes.shape({
+    menuItems: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+          label: PropTypes.string,
+          url: PropTypes.string,
+        })
+      ),
+    }),
+  }),
 };
 
 export default Navigation;

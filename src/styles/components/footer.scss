@@ -47,6 +47,12 @@ footer {
 
   .navigation__sitemap {
     display: flex;
+    
+    .sitemap__list-item:nth-child(2){
+      span {
+        display: flex;
+      }
+    }
 
     .sitemap__list {
       text-align: left;
@@ -54,15 +60,12 @@ footer {
         width: 10px;
         height: 10px;
       }
-    }
-    .sitemap__list-item:first-child {
-      font-weight: bold;
-    }
-    .sitemap__list-item:nth-child(2){
-      span {
-        display: flex;
+
+      > .sitemap__list-item:first-child {
+        font-weight: bold;
       }
     }
+
   }
   .partners {
     &__logo {
