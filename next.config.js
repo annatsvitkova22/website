@@ -30,6 +30,17 @@ module.exports = withBundleAnalyzer(
           return true;
         });
         customConfig.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
+        // Add aliasing
+        customConfig.resolve.alias = {
+          ...customConfig.resolve.alias,
+          '~': path.resolve(__dirname, 'src'),
+        };
+        // Add import-glob
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|s?[ca]ss)$/,
+          loader: 'import-glob',
+        });
 
         if (dev) {
           const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -40,17 +51,6 @@ module.exports = withBundleAnalyzer(
               emitErrors: false,
             })
           );
-          // Add aliasing
-          customConfig.resolve.alias = {
-            ...customConfig.resolve.alias,
-            '~': path.resolve(__dirname, 'src'),
-          };
-          // Add import-glob
-          config.module.rules.push({
-            enforce: 'pre',
-            test: /\.(js|s?[ca]ss)$/,
-            loader: 'import-glob',
-          });
           customConfig.module.rules.push({
             enforce: 'pre',
             test: /\.(js|jsx)$/,
