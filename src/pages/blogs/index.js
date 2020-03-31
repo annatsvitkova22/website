@@ -6,11 +6,10 @@ import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 
-const NEWS_ARCHIVE = gql`
-  query NewsArchive {
-    posts {
+const BLOGS_ARCHIVE = gql`
+  query BlogsArchive {
+    blogs {
       nodes {
-        id
         excerpt
         title
         slug
@@ -19,8 +18,8 @@ const NEWS_ARCHIVE = gql`
   }
 `;
 
-const News = (props) => {
-  const { posts } = props;
+const BlogsArchive = (props) => {
+  const { blogs } = props;
   return (
     <div className="news-page">
       <Head>
@@ -30,14 +29,14 @@ const News = (props) => {
       </Head>
 
       <main>
-        {posts.map((post) => (
-          <article key={post.id}>
-            <Link href="/news/[slug]" as={`/news/${post.slug}`}>
-              <a href={`/news/${post.slug}`}>
-                <h3>{post.title}</h3>
+        {blogs.map((blog, i) => (
+          <article key={i}>
+            <Link href="/blogs/[slug]" as={`/blogs/${blog.slug}`}>
+              <a>
+                <h3>{blog.title}</h3>
               </a>
             </Link>
-            <div>{post.excerpt}</div>
+            <div>{blog.excerpt}</div>
           </article>
         ))}
       </main>
@@ -45,18 +44,24 @@ const News = (props) => {
   );
 };
 
-News.propTypes = {
-  posts: PropTypes.array,
+BlogsArchive.propTypes = {
+  blogs: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      excerpt: PropTypes.string,
+      slug: PropTypes.string,
+    })
+  ),
 };
 
-News.getInitialProps = async () => {
+BlogsArchive.getInitialProps = async () => {
   const { data } = await apolloClient.query({
-    query: NEWS_ARCHIVE,
+    query: BLOGS_ARCHIVE,
   });
 
   return {
-    posts: data.posts.nodes,
+    blogs: data.blogs.nodes,
   };
 };
 
-export default News;
+export default BlogsArchive;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 
@@ -24,11 +25,14 @@ const Page = (props) => {
 
       <main>
         <h1 className="title">{page.title}</h1>
-
         <div className="description">{page.content}</div>
       </main>
     </div>
   );
+};
+
+Page.propTypes = {
+  page: PropTypes.any,
 };
 
 Page.getInitialProps = async ({ query: { uri } }) => {
