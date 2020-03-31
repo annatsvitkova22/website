@@ -28,14 +28,17 @@ const Publications = (props) => {
       </Head>
 
       <main>
-        {publications.map((post) => (
-          <article>
-            <Link href="/publications/[slug]" as={`/publications/${post.slug}`}>
-              <a href={`/publications/${post.slug}`}>
-                <h3>{post.title}</h3>
+        {publications.map((publication, i) => (
+          <article key={i}>
+            <Link
+              href="/publications/[slug]"
+              as={`/publications/${publication.slug}`}
+            >
+              <a href={`/publications/${publication.slug}`}>
+                <h3>{publication.title}</h3>
               </a>
             </Link>
-            <div>{post.excerpt}</div>
+            <div>{publication.excerpt}</div>
           </article>
         ))}
       </main>

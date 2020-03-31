@@ -29,17 +29,17 @@ const OpportunitiesArchive = (props) => {
       </Head>
 
       <main>
-        {opportunities.map((event, i) => (
+        {opportunities.map((opportunity, i) => (
           <article key={i}>
             <Link
               href="/opportunities/[slug]"
-              as={`/opportunities/${event.slug}`}
+              as={`/opportunities/${opportunity.slug}`}
             >
               <a>
-                <h3>{event.title}</h3>
+                <h3>{opportunity.title}</h3>
               </a>
             </Link>
-            <div>{event.excerpt}</div>
+            <div>{opportunity.excerpt}</div>
           </article>
         ))}
       </main>
