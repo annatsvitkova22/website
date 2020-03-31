@@ -7,7 +7,7 @@ import {
 } from 'apollo-cache-inmemory';
 import getConfig from 'next/config';
 
-import introspectionQueryResultData from './fragmentTypes.json';
+import introspectionQueryResultData from './fragmentTypes';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);

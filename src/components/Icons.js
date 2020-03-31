@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const iconsData = [
   {
@@ -56,11 +57,13 @@ const Icons = (props) => {
   if (!svgIcon) return null;
 
   return (
-    <span
-      dangerouslySetInnerHTML={{ __html: svgIcon.tag }}
-      style={{ color: color }}
-    />
+    <span dangerouslySetInnerHTML={{ __html: svgIcon.tag }} style={{ color }} />
   );
+};
+
+Icons.propTypes = {
+  icon: PropTypes.string,
+  color: PropTypes.string,
 };
 
 export default Icons;

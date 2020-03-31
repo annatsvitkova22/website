@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
+import { PropTypes } from 'prop-types';
 
 import client from '../lib/ApolloClient';
 import '../styles/pages/home.scss';
@@ -39,6 +40,13 @@ const Home = (props) => {
       </main>
     </div>
   );
+};
+
+Home.propTypes = {
+  page: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+  }),
 };
 
 Home.getInitialProps = async () => {

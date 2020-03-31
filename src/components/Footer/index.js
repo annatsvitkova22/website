@@ -13,7 +13,6 @@ import Counters from './Counters';
 
 import '../../styles/components/footer.scss';
 
-
 const FOOTER_QUERY = gql`
   query MyQuery {
     info {
