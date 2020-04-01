@@ -9,6 +9,7 @@ import File from './Gutenberg/File';
 import Heading from './Gutenberg/Heading';
 import List from './Gutenberg/List';
 import Quote from '~/components/Gutenberg/Quote';
+import Soundcloud from '~/components/Gutenberg/Soundcloud';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -34,7 +35,9 @@ const Content = ({ content }) => {
           return null;
         }
         if (block.__typename === 'CoreEmbedSoundcloudBlock') {
-          return null;
+          return (
+            <Soundcloud block={block} key={`${block.__typename}-${index}`} />
+          );
         }
         if (block.__typename === 'CoreHeadingBlock') {
           return <Heading block={block} key={`${block.__typename}-${index}`} />;
