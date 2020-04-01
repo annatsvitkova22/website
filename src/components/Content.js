@@ -8,6 +8,7 @@ import Youtube from './Gutenberg/Youtube';
 import File from './Gutenberg/File';
 import Heading from './Gutenberg/Heading';
 import List from './Gutenberg/List';
+import Quote from '~/components/Gutenberg/Quote';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -45,7 +46,7 @@ const Content = ({ content }) => {
           return <List block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreQuoteBlock') {
-          return null;
+          return <Quote block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreCoverBlock') {
           return null;

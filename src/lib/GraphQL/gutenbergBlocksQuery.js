@@ -74,6 +74,42 @@ const gutenbergBlocksQuery = `blocks {
               url
             }
           }
+          ... on CoreListBlock {
+            attributes {
+              className
+              ordered
+              values
+            }
+          }
+          ... on CoreQuoteBlock {
+            attributes {
+              align
+              citation
+              className
+              value
+            }
+          }
+          ... on CoreAudioBlock {
+            attributes {
+              src
+              preload
+              loop
+              className
+              caption
+              autoplay
+              align
+            }
+          }
+           ... on CoreFileBlock {
+            attributes {
+              align
+              className
+              downloadButtonText
+              fileName
+              href
+              showDownloadButton
+            }
+          }
         }`;
 
 export default gutenbergBlocksQuery;
