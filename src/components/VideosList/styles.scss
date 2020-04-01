@@ -1,0 +1,22 @@
+.videos-list {
+  &__item {
+    display: flex;
+    align-items: center;
+    
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+.video-item {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+
+    min-width: 100px;
+  }
+
+  &__duration {
+    margin-left: 10px;
+  }
+}
