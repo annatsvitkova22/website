@@ -18,7 +18,7 @@ const List = ({ block }) => {
       </ul>
     );
   }
-  return <div>asdasda</div>;
+  return <div>List</div>;
 };
 
 List.propTypes = {
