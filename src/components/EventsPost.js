@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import useFilterHook from '~/hooks/useFilterHook';
 import '../styles/components/eventsPost.scss';
-import NavLink from '~/components/SiteLink';
 import EventPostItem from '~/components/EventsPostItem';
 
 // const useOnScreen = (options) => {
@@ -38,8 +37,8 @@ const EventsPost = (props) => {
   return (
     <div>
       {data &&
-        data.map((item) => {
-          return <EventPostItem item={item} />;
+        data.map((item, index) => {
+          return <EventPostItem key={index} item={item} />;
         })}
     </div>
   );
