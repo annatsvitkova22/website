@@ -6,6 +6,8 @@ import Image from './Gutenberg/Image';
 import Audio from './Gutenberg/Audio';
 import Youtube from './Gutenberg/Youtube';
 import File from './Gutenberg/File';
+import Heading from './Gutenberg/Heading';
+import List from './Gutenberg/List';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -34,13 +36,13 @@ const Content = ({ content }) => {
           return null;
         }
         if (block.__typename === 'CoreHeadingBlock') {
-          return null;
+          return <Heading block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreGalleryBlock') {
           return null;
         }
         if (block.__typename === 'CoreListBlock') {
-          return null;
+          return <List block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreQuoteBlock') {
           return null;
