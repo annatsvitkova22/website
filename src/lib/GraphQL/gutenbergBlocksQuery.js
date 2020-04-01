@@ -110,6 +110,17 @@ const gutenbergBlocksQuery = `blocks {
               showDownloadButton
             }
           }
+          ... on CoreGalleryBlock {
+            attributes {
+              images
+              linkTo
+              columns
+              className
+              align
+              imageCrop
+              caption
+            }
+          }
         }`;
 
 export default gutenbergBlocksQuery;

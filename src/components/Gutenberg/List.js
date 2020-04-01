@@ -8,8 +8,8 @@ const List = ({ block }) => {
 
   return (
     <ul className={block.attributes.className}>
-      {listArray.map((item) => {
-        return <li dangerouslySetInnerHTML={{ __html: item }} />;
+      {listArray.map((item, index) => {
+        return <li dangerouslySetInnerHTML={{ __html: item }} key={index} />;
       })}
     </ul>
   );

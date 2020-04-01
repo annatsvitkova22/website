@@ -5,6 +5,7 @@ const Soundcloud = ({ block }) => {
   return (
     <figure className={block.attributes.className}>
       <iframe
+        title={block.attributes.caption}
         width="100%"
         height="500"
         scrolling="no"

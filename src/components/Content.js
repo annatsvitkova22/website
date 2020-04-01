@@ -8,8 +8,9 @@ import Youtube from './Gutenberg/Youtube';
 import File from './Gutenberg/File';
 import Heading from './Gutenberg/Heading';
 import List from './Gutenberg/List';
-import Quote from '~/components/Gutenberg/Quote';
-import Soundcloud from '~/components/Gutenberg/Soundcloud';
+import Quote from './Gutenberg/Quote';
+import Soundcloud from './Gutenberg/Soundcloud';
+import Gallery from './Gutenberg/Gallery';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -43,7 +44,7 @@ const Content = ({ content }) => {
           return <Heading block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreGalleryBlock') {
-          return null;
+          return <Gallery block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreListBlock') {
           return <List block={block} key={`${block.__typename}-${index}`} />;
