@@ -3,3 +3,9 @@
   
   color: $white;
 }
+
+.video-detail {
+  &__iframe {
+    min-height: 500px;
+  }
+}

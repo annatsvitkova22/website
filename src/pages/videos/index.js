@@ -23,6 +23,19 @@ const VIDEOS_ARCHIVE = gql`
         }
       }
     }
+    tags {
+      nodes {
+        name
+        videos {
+          nodes {
+            title
+            zmVideoACF {
+              videoUrl
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -35,15 +48,19 @@ class VideosArchive extends Component {
         url: formatYouTubeUrl(zmVideoACF.videoUrl),
         title,
       },
+      selectedIndex: 0,
     };
   }
 
-  onVideoSelect = (url, title) => {
+  onVideoSelect = (url, title, index) => {
     this.setState({
       selectedVideo: {
         url: formatYouTubeUrl(url),
         title,
       },
+    });
+    this.setState({
+      selectedIndex: index,
     });
   };
 
@@ -62,6 +79,8 @@ class VideosArchive extends Component {
             <div className="row">
               <div className="col-8">
                 <iframe
+                  allowFullScreen
+                  className="w-100 video-detail__iframe"
                   src={this.state.selectedVideo.url}
                   frameBorder="0"
                   title="video player"
@@ -72,6 +91,7 @@ class VideosArchive extends Component {
                 <VideosList
                   videos={videos}
                   onVideoSelect={this.onVideoSelect}
+                  selectedIndex={this.state.selectedIndex}
                 />
               </div>
             </div>
@@ -99,6 +119,7 @@ VideosArchive.getInitialProps = async () => {
 
   return {
     videos: data.videos.nodes,
+    tags: data.tags.nodes,
   };
 };
 
