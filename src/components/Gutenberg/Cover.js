@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Content from '~/components/Content';
 
 const Cover = ({ block }) => {
-  console.log(block.innerBlocks);
   const backgroundStyles = {
     backgroundImage: `url(${block.attributes.url})`,
     width: '500px',

@@ -12,6 +12,7 @@ import Quote from './Gutenberg/Quote';
 import Soundcloud from './Gutenberg/Soundcloud';
 import Gallery from './Gutenberg/Gallery';
 import Cover from './Gutenberg/Cover';
+import Archives from '~/components/Gutenberg/Archives';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -34,7 +35,9 @@ const Content = ({ content }) => {
           return <Youtube block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreArchivesBlock') {
-          return null;
+          return (
+            <Archives block={block} key={`${block.__typename}-${index}`} />
+          );
         }
         if (block.__typename === 'CoreEmbedSoundcloudBlock') {
           return (

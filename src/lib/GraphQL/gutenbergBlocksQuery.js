@@ -148,6 +148,15 @@ const gutenbergBlocksQuery = `blocks {
               }
             }
           }
-        }`;
+          ... on CoreArchivesBlock {
+          renderedContent
+          attributes {
+            align
+            className
+            displayAsDropdown
+            showPostCounts
+          }
+        }
+  }`;
 
 export default gutenbergBlocksQuery;
