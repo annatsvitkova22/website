@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';

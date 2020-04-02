@@ -9,17 +9,18 @@ const Content = ({ content }) => {
   console.log(content);
   return (
     <>
-      {content.map((block, index) => {
-        if (block.__typename === 'CoreParagraphBlock') {
-          return (
-            <Paragraph block={block} key={`${block.__typename}-${index}`} />
-          );
-        }
-        if (block.__typename === 'CoreImageBlock') {
-          return <Image block={block} key={`${block.__typename}-${index}`} />;
-        }
-        return null;
-      })}
+      {content &&
+        content.map((block, index) => {
+          if (block.__typename === 'CoreParagraphBlock') {
+            return (
+              <Paragraph block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreImageBlock') {
+            return <Image block={block} key={`${block.__typename}-${index}`} />;
+          }
+          return null;
+        })}
     </>
   );
 };

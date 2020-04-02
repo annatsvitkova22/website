@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import NavLink from '~/components/SiteLink';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
@@ -62,6 +63,10 @@ const EventPostItem = (props) => {
       )}
     </div>
   );
+};
+
+EventPostItem.propTypes = {
+  item: PropTypes.any,
 };
 
 export default EventPostItem;

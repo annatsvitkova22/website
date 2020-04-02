@@ -12,22 +12,31 @@ const Contacts = (props) => {
         <li className="sitemap__list-item">Контакти</li>
         {contactsData.map((item, i) => {
           return (
-            <li key={i} className="sitemap__list-item">
-              <span>{item.role}</span>
-              <span>{item.name}</span>
-              {item.contacts && (
-                <ul>
-                  {item.contacts.map((contacts, k) => {
-                    return (
-                      <li key={k} className="sitemap__list-item">
-                        <Icons icon={contacts.type} />
-                        <span>{contacts.info}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
+            <>
+              <li key={i} className="sitemap__list-item">
+                {item.role && <span>{item.role}</span>}
+                <span>{item.name}</span>
+              </li>
+              {item.contacts ? (
+                item.contacts.map((contacts, k) => {
+                  return (
+                    <li key={k} className="sitemap__list-item">
+                      <Icons icon={contacts.type} />
+                      <span>{contacts.info}</span>
+                    </li>
+                  );
+                })
+              ) : (
+                <>
+                  <li key={i + 1} className="sitemap__list-item">
+                    <span>{item.phoneNumber}</span>
+                  </li>
+                  <li key={i + 2} className="sitemap__list-item">
+                    <span>{item.email}</span>
+                  </li>
+                </>
               )}
-            </li>
+            </>
           );
         })}
       </ul>
