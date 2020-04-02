@@ -9,7 +9,7 @@ $enable-grid-classes:                         true !default;
 // Set the number of columns and specify the width of the gutters.
 
 $grid-columns:                12 !default;
-$grid-gutter-width:           30px !default;
+$grid-gutter-width:           24px !default;
 
 // Grid breakpoints
 //
@@ -29,10 +29,10 @@ $grid-breakpoints: (
 // Define the maximum width of `.container` for different screen sizes.
 
 $container-max-widths: (
-  sm: 1350px,
-  md: 1350px,
-  lg: 1350px,
-  xl: 1350px
+  sm: 1344px,
+  md: 1344px,
+  lg: 1344px,
+  xl: 1344px
 ) !default;
 
 // This variable affects the `.h-*` and `.w-*` classes.

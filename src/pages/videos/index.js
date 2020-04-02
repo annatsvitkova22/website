@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
 import VideosList from '~/components/VideosList';
+import VideoTags from '~/components/VideoTags';
 import apolloClient from '~/lib/ApolloClient';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
 
@@ -23,6 +24,22 @@ const VIDEOS_ARCHIVE = gql`
         }
       }
     }
+    tags {
+      nodes {
+        name
+        videos {
+          nodes {
+            title
+            zmVideoACF {
+              videoUrl
+              videoCover {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -35,20 +52,24 @@ class VideosArchive extends Component {
         url: formatYouTubeUrl(zmVideoACF.videoUrl),
         title,
       },
+      selectedIndex: 0,
     };
   }
 
-  onVideoSelect = (url, title) => {
+  onVideoSelect = (url, title, index) => {
     this.setState({
       selectedVideo: {
         url: formatYouTubeUrl(url),
         title,
       },
     });
+    this.setState({
+      selectedIndex: index,
+    });
   };
 
   render() {
-    const { videos } = this.props;
+    const { videos, tags } = this.props;
     return (
       <div className="videos-page">
         <Head>
@@ -62,6 +83,8 @@ class VideosArchive extends Component {
             <div className="row">
               <div className="col-8">
                 <iframe
+                  allowFullScreen
+                  className="w-100 video-detail__iframe"
                   src={this.state.selectedVideo.url}
                   frameBorder="0"
                   title="video player"
@@ -72,10 +95,12 @@ class VideosArchive extends Component {
                 <VideosList
                   videos={videos}
                   onVideoSelect={this.onVideoSelect}
+                  selectedIndex={this.state.selectedIndex}
                 />
               </div>
             </div>
           </div>
+          <VideoTags tags={tags} />
         </main>
       </div>
     );
@@ -99,6 +124,7 @@ VideosArchive.getInitialProps = async () => {
 
   return {
     videos: data.videos.nodes,
+    tags: data.tags.nodes,
   };
 };
 

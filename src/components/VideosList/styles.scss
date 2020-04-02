@@ -5,15 +5,38 @@
     
     padding-top: 15px;
     padding-bottom: 15px;
+
+    height: 83.333px;
   }
 }
 
 .video-item {
+  cursor: pointer;
+
+  &__title {
+    display: -webkit-box;
+
+    max-height: 3.6rem;
+    -webkit-box-orient: vertical;
+
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 3;
+
+    line-height: 1.2rem;
+
+    overflow: hidden;
+  }
+
   &__wrapper {
     display: flex;
     align-items: center;
 
     min-width: 100px;
+    
+    &--current {
+      color: $green;
+    }
   }
 
   &__duration {
