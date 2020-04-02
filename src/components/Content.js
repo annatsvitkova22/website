@@ -20,51 +20,58 @@ const Content = ({ content }) => {
   console.log(content);
   return (
     <>
-      {content.map((block, index) => {
-        if (block.__typename === 'CoreParagraphBlock') {
-          return (
-            <Paragraph block={block} key={`${block.__typename}-${index}`} />
-          );
-        }
-        if (block.__typename === 'CoreImageBlock') {
-          return <Image block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreAudioBlock') {
-          return <Audio block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreEmbedYoutubeBlock') {
-          return <Youtube block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreArchivesBlock') {
-          return (
-            <Archives block={block} key={`${block.__typename}-${index}`} />
-          );
-        }
-        if (block.__typename === 'CoreEmbedSoundcloudBlock') {
-          return (
-            <Soundcloud block={block} key={`${block.__typename}-${index}`} />
-          );
-        }
-        if (block.__typename === 'CoreHeadingBlock') {
-          return <Heading block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreGalleryBlock') {
-          return <Gallery block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreListBlock') {
-          return <List block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreQuoteBlock') {
-          return <Quote block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreCoverBlock') {
-          return <Cover block={block} key={`${block.__typename}-${index}`} />;
-        }
-        if (block.__typename === 'CoreFileBlock') {
-          return <File block={block} key={`${block.__typename}-${index}`} />;
-        }
-        return null;
-      })}
+      {content &&
+        content.map((block, index) => {
+          if (block.__typename === 'CoreParagraphBlock') {
+            return (
+              <Paragraph block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreImageBlock') {
+            return <Image block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreAudioBlock') {
+            return <Audio block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreEmbedYoutubeBlock') {
+            return (
+              <Youtube block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreArchivesBlock') {
+            return (
+              <Archives block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreEmbedSoundcloudBlock') {
+            return (
+              <Soundcloud block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreHeadingBlock') {
+            return (
+              <Heading block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreGalleryBlock') {
+            return (
+              <Gallery block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreListBlock') {
+            return <List block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreQuoteBlock') {
+            return <Quote block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreCoverBlock') {
+            return <Cover block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreFileBlock') {
+            return <File block={block} key={`${block.__typename}-${index}`} />;
+          }
+          return null;
+        })}
     </>
   );
 };
