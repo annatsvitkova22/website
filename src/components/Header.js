@@ -45,15 +45,22 @@ const Header = () => {
   if (loading) return null;
 
   return (
-    <header className="row">
-      <Link href={'/'}>
-        <a href={'/'} className="col-xs-2">
-          <Logo logoData={data.info.generalInfoACF.logo} />
-        </a>
-      </Link>
-      <Navigation navigationData={data.menus} />
-      <Socials socialsData={data.info.generalInfoACF.socials} color={'red'} />
-      <Search />
+    <header>
+      <div className="container">
+        <div className="row justify-content-between">
+          <Link href={'/'}>
+            <a href={'/'} className="col-2">
+              <Logo logoData={data.info.generalInfoACF.logo} />
+            </a>
+          </Link>
+          <Navigation navigationData={data.menus} />
+          <Socials
+            socialsData={data.info.generalInfoACF.socials}
+            color={'red'}
+          />
+          <Search />
+        </div>
+      </div>
     </header>
   );
 };

@@ -7,7 +7,7 @@ const Socials = (props) => {
   const { socialsData, color } = props;
 
   return (
-    <div className="socials col-xs-1">
+    <div className="socials col-1">
       {socialsData.map((item, i) => {
         return (
           <a href={item.url} title={item.name} key={i}>

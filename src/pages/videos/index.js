@@ -58,9 +58,9 @@ class VideosArchive extends Component {
         </Head>
 
         <main>
-          <div className="wrapper">
+          <div className="container">
             <div className="row">
-              <div className="col-xs-8">
+              <div className="col-8">
                 <iframe
                   src={this.state.selectedVideo.url}
                   frameBorder="0"
@@ -68,7 +68,7 @@ class VideosArchive extends Component {
                 />
                 <h1 className="title">{this.state.selectedVideo.title}</h1>
               </div>
-              <div className="col-xs-4">
+              <div className="col-4">
                 <VideosList
                   videos={videos}
                   onVideoSelect={this.onVideoSelect}
