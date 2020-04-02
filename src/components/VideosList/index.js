@@ -5,17 +5,13 @@ import Play from '~/static/images/play';
 
 const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
   <ul className="list-unstyled videos-list">
-    {videos.map((video, i) => {
+    {videos.slice(0, 6).map((video, i) => {
       const { title, zmVideoACF } = video;
       function onClick() {
         return onVideoSelect(zmVideoACF.videoUrl, title, i);
       }
       return (
-        <li
-          key={i}
-          onClick={onClick}
-          className={`videos-list__item video-item `}
-        >
+        <li key={i} onClick={onClick} className="videos-list__item video-item">
           <div
             className={`video-item__wrapper ${
               i === selectedIndex ? 'video-item__wrapper--current' : ''

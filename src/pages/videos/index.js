@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
 import VideosList from '~/components/VideosList';
+import VideoTags from '~/components/VideoTags';
 import apolloClient from '~/lib/ApolloClient';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
 
@@ -31,6 +32,9 @@ const VIDEOS_ARCHIVE = gql`
             title
             zmVideoACF {
               videoUrl
+              videoCover {
+                mediaItemUrl
+              }
             }
           }
         }
@@ -65,7 +69,7 @@ class VideosArchive extends Component {
   };
 
   render() {
-    const { videos } = this.props;
+    const { videos, tags } = this.props;
     return (
       <div className="videos-page">
         <Head>
@@ -96,6 +100,7 @@ class VideosArchive extends Component {
               </div>
             </div>
           </div>
+          <VideoTags tags={tags} />
         </main>
       </div>
     );
