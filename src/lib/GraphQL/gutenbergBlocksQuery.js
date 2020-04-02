@@ -64,6 +64,7 @@ const gutenbergBlocksQuery = `blocks {
             }
           }
           ... on CoreEmbedSoundcloudBlock {
+            originalContent
             attributes {
               align
               allowResponsive

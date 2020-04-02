@@ -6,13 +6,13 @@ const Gallery = ({ block }) => {
   const reg = /[\[\]\{\}\\]/gm;
   const regTwo = /\,/gm;
   const newArr = array.replace(reg, '').replace(regTwo, ' ').split(' ');
-  const chunks = newArr.length / 6;
+  const chunk = newArr.length / 6;
   const splitArr = (arr, chunks) =>
     arr.reduce(
       (acc, n, i) => ((acc[i % chunks] = acc[i % chunks] || []).push(n), acc),
       []
     );
-  const splitedArr = splitArr(newArr, chunks);
+  splitArr(newArr, chunk);
 
   return <div>Gallery</div>;
 };

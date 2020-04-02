@@ -12,6 +12,7 @@ import Quote from './Gutenberg/Quote';
 import Soundcloud from './Gutenberg/Soundcloud';
 import Gallery from './Gutenberg/Gallery';
 import Cover from './Gutenberg/Cover';
+
 import Archives from '~/components/Gutenberg/Archives';
 
 const Content = ({ content }) => {

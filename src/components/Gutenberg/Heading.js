@@ -36,6 +36,11 @@ const Heading = ({ block }) => {
         {block.attributes.content}
       </h5>
     );
+  return (
+    <p style={style} className={block.attributes.className}>
+      {block.attributes.content}
+    </p>
+  );
 };
 
 export default Heading;

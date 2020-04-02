@@ -1,21 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactPlayer from 'react-player';
 
 const Soundcloud = ({ block }) => {
-  return (
-    <figure className={block.attributes.className}>
-      <iframe
-        title={block.attributes.caption}
-        width="100%"
-        height="500"
-        scrolling="no"
-        frameBorder="no"
-        allow="autoplay"
-        src={block.attributes.url}
-      />
-      <figcaption>{block.attributes.caption}</figcaption>
-    </figure>
-  );
+  return <ReactPlayer url={block.attributes.url} />;
 };
 
 Soundcloud.propTypes = {
