@@ -64,6 +64,7 @@ const gutenbergBlocksQuery = `blocks {
             }
           }
           ... on CoreEmbedSoundcloudBlock {
+            originalContent
             attributes {
               align
               allowResponsive
@@ -74,6 +75,89 @@ const gutenbergBlocksQuery = `blocks {
               url
             }
           }
-        }`;
+          ... on CoreListBlock {
+            attributes {
+              className
+              ordered
+              values
+            }
+          }
+          ... on CoreQuoteBlock {
+            attributes {
+              align
+              citation
+              className
+              value
+            }
+          }
+          ... on CoreAudioBlock {
+            attributes {
+              src
+              preload
+              loop
+              className
+              caption
+              autoplay
+              align
+            }
+          }
+           ... on CoreFileBlock {
+            attributes {
+              align
+              className
+              downloadButtonText
+              fileName
+              href
+              showDownloadButton
+            }
+          }
+          ... on CoreGalleryBlock {
+            attributes {
+              images
+              linkTo
+              columns
+              className
+              align
+              imageCrop
+              caption
+            }
+          }
+          ... on CoreCoverBlock {
+            attributes {
+              align
+              backgroundType
+              className
+              overlayColor
+              title
+              url
+              minHeight
+              dimRatio
+            }
+            innerBlocks {
+              ... on CoreParagraphBlock {
+                attributes {
+                  ... on CoreParagraphBlockAttributesV3 {
+                    align
+                    backgroundColor
+                    content
+                    fontSize
+                    direction
+                    textColor
+                    width
+                  }
+                }
+              }
+            }
+          }
+          ... on CoreArchivesBlock {
+          renderedContent
+          attributes {
+            align
+            className
+            displayAsDropdown
+            showPostCounts
+          }
+        }
+  }`;
 
 export default gutenbergBlocksQuery;
