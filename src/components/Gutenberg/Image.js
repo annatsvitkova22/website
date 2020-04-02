@@ -19,7 +19,9 @@ const Image = ({ block }) => {
     return (
       <figure>
         {image}
-        <figcaption>{block.attributes.caption}</figcaption>
+        <figcaption
+          dangerouslySetInnerHTML={{ __html: block.attributes.caption }}
+        />
       </figure>
     );
   }
