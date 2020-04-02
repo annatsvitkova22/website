@@ -8,14 +8,27 @@ import apolloClient from '~/lib/ApolloClient';
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
     crowdfundingBy(slug: $slug) {
-      title
+      id
+      excerpt
       content
+      uri
+      title
+      slug
+      featuredImage {
+        guid
+      }
+      cfACF {
+        crowdfundingRequiredAmountToCollect
+        crowdfundingExpirationDate
+        crowdfundingAboutProjectTabs
+      }
     }
   }
 `;
 
 const Crowdfunding = (props) => {
   const { crowdfunding } = props;
+  
   return (
     <div className="single-crowdfundings">
       <Head>
@@ -24,9 +37,23 @@ const Crowdfunding = (props) => {
       </Head>
 
       <main>
-        <h1 className="title">{crowdfunding.title}</h1>
-
-        <div className="description">{crowdfunding.content}</div>
+        <section className="cfitem">
+          <div className="cfitem__thumb">
+            <img src={crowdfunding.featuredImage.guid} alt={crowdfunding.title + 'thumbnail'}/>
+          </div>
+          <div className="cfitem__title">
+            <div className="cfitem__title">{crowdfunding.title}</div>
+          </div>
+          <div className="cfitem__descr">
+            {crowdfunding.content}`
+          </div>
+          <div className="cfitem__collected">
+            <div className="cfitem__collected__amount">{crowdfunding.cfACF.crowdfundingRequiredAmountToCollect}</div>
+            <div className="cfitem__collected__left">{crowdfunding.cfACF.crowdfundingExpirationDate}</div>
+            <div className="cfitem__collected__percent">{crowdfunding.cfACF.crowdfundingAboutProjectTabs}</div>
+          </div>
+          <div className="cfitem__timeout"></div>
+        </section>
       </main>
     </div>
   );
