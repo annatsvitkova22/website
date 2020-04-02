@@ -121,6 +121,33 @@ const gutenbergBlocksQuery = `blocks {
               caption
             }
           }
+          ... on CoreCoverBlock {
+            attributes {
+              align
+              backgroundType
+              className
+              overlayColor
+              title
+              url
+              minHeight
+              dimRatio
+            }
+            innerBlocks {
+              ... on CoreParagraphBlock {
+                attributes {
+                  ... on CoreParagraphBlockAttributesV3 {
+                    align
+                    backgroundColor
+                    content
+                    fontSize
+                    direction
+                    textColor
+                    width
+                  }
+                }
+              }
+            }
+          }
         }`;
 
 export default gutenbergBlocksQuery;

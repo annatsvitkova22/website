@@ -9,7 +9,7 @@ const Soundcloud = ({ block }) => {
         width="100%"
         height="500"
         scrolling="no"
-        frameborder="no"
+        frameBorder="no"
         allow="autoplay"
         src={block.attributes.url}
       />

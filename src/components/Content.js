@@ -11,6 +11,7 @@ import List from './Gutenberg/List';
 import Quote from './Gutenberg/Quote';
 import Soundcloud from './Gutenberg/Soundcloud';
 import Gallery from './Gutenberg/Gallery';
+import Cover from './Gutenberg/Cover';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -53,7 +54,7 @@ const Content = ({ content }) => {
           return <Quote block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreCoverBlock') {
-          return null;
+          return <Cover block={block} key={`${block.__typename}-${index}`} />;
         }
         if (block.__typename === 'CoreFileBlock') {
           return <File block={block} key={`${block.__typename}-${index}`} />;

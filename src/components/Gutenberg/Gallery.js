@@ -14,7 +14,7 @@ const Gallery = ({ block }) => {
     );
   const splitedArr = splitArr(newArr, chunks);
 
-  return <div>111</div>;
+  return <div>Gallery</div>;
 };
 Gallery.propTypes = {
   block: PropTypes.any,
