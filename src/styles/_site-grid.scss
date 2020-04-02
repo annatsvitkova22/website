@@ -1,0 +1,26 @@
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+//Custom grid
+@import "scss/variables";
+//Mixins
+@import "mixins/breakpoints";
+@import "mixins/grid-framework";
+@import "mixins/grid";
+//Scss
+@import "scss/grid";
+@import "scss/reboot";
+//Utilities
+@import "utilities/display";
+@import "utilities/flex";
+@import "utilities/sizing";
+@import "utilities/text";
+
