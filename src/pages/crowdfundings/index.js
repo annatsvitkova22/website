@@ -50,7 +50,7 @@ const CrowdfundingsArchive = (props) => {
               <div className="cfitem__title"><a title={cfProps.title} href={cfProps.uri}>{cfProps.title}</a></div>
             </div>
             <div className="cfitem__descr">
-              {cfProps.excerpt}`
+              {cfProps.excerpt}
             </div>
             <div className="cfitem__collected">
               <div className="cfitem__collected__amount">{cfProps.cfACF.crowdfundingRequiredAmountToCollect}</div>

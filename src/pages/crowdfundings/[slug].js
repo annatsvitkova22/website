@@ -28,7 +28,7 @@ const CROWDFUNDING = gql`
 
 const Crowdfunding = (props) => {
   const { crowdfunding } = props;
-  
+
   return (
     <div className="single-crowdfundings">
       <Head>
@@ -45,7 +45,7 @@ const Crowdfunding = (props) => {
             <div className="cfitem__title">{crowdfunding.title}</div>
           </div>
           <div className="cfitem__descr">
-            {crowdfunding.content}`
+            {crowdfunding.content}
           </div>
           <div className="cfitem__collected">
             <div className="cfitem__collected__amount">{crowdfunding.cfACF.crowdfundingRequiredAmountToCollect}</div>
