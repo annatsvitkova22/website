@@ -7,11 +7,19 @@
   {
     "env": "development",
     "apiUrl": "http://admin.zmist.tech",
-    "graphql": "http://admin.zmist.tech/graphql"
+    "graphql": "http://admin.zmist.tech/graphql",
+    "wayForPay": {
+      "merchantLogin": "zmist_tech",
+      "merchantSecretKey": "91c4e769338aa1bff705b330fa405747a6149f41"
+    }
   },
   {
     "env": "staging",
     "apiUrl": "http://admin.zmist.tech",
-    "graphql": "http://admin.zmist.tech/graphql"
+    "graphql": "http://admin.zmist.tech/graphql",
+    "wayForPay": {
+      "merchantLogin": "zmist_tech",
+      "merchantSecretKey": "91c4e769338aa1bff705b330fa405747a6149f41"
+    }
   }
 ]

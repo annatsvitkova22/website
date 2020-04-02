@@ -1,14 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Image from '~/components/Gutenberg/Image';
-
 const Paragraph = ({ block }) => {
   // TODO: implement all other attributes
-  return <p dangerouslySetInnerHTML={{ __html: block.attributes.content }} />;
+  const { attributes } = block;
+  const style = {
+    fontSize: attributes.fontSize,
+    textAlign: attributes.align,
+    backgroundColor: attributes.backgroundColor,
+    direction: attributes.direction,
+    color: attributes.textColor,
+    width: attributes.width,
+  };
+
+  return (
+    <p
+      style={style}
+      className={attributes.className}
+      dangerouslySetInnerHTML={{ __html: attributes.content }}
+    />
+  );
 };
 
-Image.propTypes = {
+Paragraph.propTypes = {
   block: PropTypes.any,
 };
 

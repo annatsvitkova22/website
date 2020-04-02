@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const EventsFilter = (props) => {
   const { eventFilter } = props;
@@ -13,6 +14,10 @@ const EventsFilter = (props) => {
       <input type="date" onChange={eventFilter} name="forDate" />
     </div>
   );
+};
+
+EventsFilter.propTypes = {
+  eventFilter: PropTypes.any,
 };
 
 export default EventsFilter;

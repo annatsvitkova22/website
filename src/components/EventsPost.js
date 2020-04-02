@@ -1,38 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import useFilterHook from '~/hooks/useFilterHook';
 import '../styles/components/eventsPost.scss';
 import EventPostItem from '~/components/EventsPostItem';
 
-// const useOnScreen = (options) => {
-//   const [ref, setRef] = React.useState(null);
-//   const [visible, setVisible] = React.useState(false);
-//
-//   React.useEffect(() => {
-//     const observer = new IntersectionObserver(([entry]) => {
-//       setVisible(entry.isIntersecting);
-//     }, options);
-//
-//     if (ref) {
-//       observer.observe(ref);
-//     }
-//
-//     return () => {
-//       if (ref) {
-//         observer.unobserve(ref);
-//       }
-//     };
-//   }, [setRef, options]);
-//
-//   return { setRef, visible };
-// };
-
 const EventsPost = (props) => {
   const { filter, eventsData, date } = props;
 
   const { data } = useFilterHook(filter, eventsData, date);
-
-  // const { setRef, visible } = useOnScreen({ threshold: 0.2 });
 
   return (
     <div>
@@ -42,6 +18,12 @@ const EventsPost = (props) => {
         })}
     </div>
   );
+};
+
+EventsPost.propTypes = {
+  filter: PropTypes.string,
+  eventsData: PropTypes.object,
+  date: PropTypes.any,
 };
 
 export default EventsPost;
