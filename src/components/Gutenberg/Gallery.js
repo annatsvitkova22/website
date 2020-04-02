@@ -9,6 +9,7 @@ const Gallery = ({ block }) => {
   const chunk = newArr.length / 6;
   const splitArr = (arr, chunks) =>
     arr.reduce(
+      // eslint-disable-next-line no-return-assign
       (acc, n, i) => ((acc[i % chunks] = acc[i % chunks] || []).push(n), acc),
       []
     );
