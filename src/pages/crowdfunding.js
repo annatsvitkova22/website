@@ -16,6 +16,11 @@ const CROWDFUNDING_PAGE = gql`
           featuredImage {
             guid
           }
+          cfACF {
+            crowdfundingRequiredAmountToCollect
+            crowdfundingExpirationDate
+            crowdfundingAboutProjectTabs
+          }
         }
       }
     }
@@ -24,6 +29,7 @@ const CROWDFUNDING_PAGE = gql`
 
 const CfItem = (props) => {
   const cfProps = props.props;
+
   return (
     <section class="cfitem">
       <div class="cfitem__thumb">
@@ -33,12 +39,12 @@ const CfItem = (props) => {
         <div className="cfitem__title"><a title={cfProps.title} href={cfProps.uri}>{cfProps.title}</a></div>
       </div>
       <div class="cfitem__descr">
-        {cfProps.excerpt}
+        {cfProps.excerpt}`
       </div>
       <div className="cfitem__collected">
-        <div className="cfitem__collected__amount"></div>
-        <div className="cfitem__collected__left"></div>
-        <div className="cfitem__collected__percent"></div>
+        <div className="cfitem__collected__amount">{cfProps.cfACF.crowdfundingRequiredAmountToCollect}</div>
+        <div className="cfitem__collected__left">{cfProps.cfACF.crowdfundingExpirationDate}</div>
+        <div className="cfitem__collected__percent">{{ __html: cfProps.cfACF.crowdfundingAboutProjectTabs }}</div>
       </div>
       <div className="cfitem__timeout"></div>
     </section>
@@ -46,6 +52,10 @@ const CfItem = (props) => {
 };
 
 const Crowdfunding = (page) => {
+  console.log('#begin debugging');
+  console.log(JSON.stringify(page));
+  console.log('#end debugging');
+
   const cfPage = page.page;
   const listItems = cfPage.map(item =>
     <CfItem props={item.node}/>,
