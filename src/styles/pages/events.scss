@@ -1,0 +1,16 @@
+ul {
+  list-style: none;
+}
+.socials {
+  display: flex;
+
+  height: 100%;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+.information__dates {
+  display: flex;
+  flex-direction: column;
+}
