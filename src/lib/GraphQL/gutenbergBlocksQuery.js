@@ -158,6 +158,18 @@ const gutenbergBlocksQuery = `blocks {
             showPostCounts
           }
         }
+        ... on CoreTableBlock {
+          saveContent
+            attributes {
+              head
+              hasFixedLayout
+              foot
+              className
+              body
+              backgroundColor
+              align
+            }
+          }
   }`;
 
 export default gutenbergBlocksQuery;

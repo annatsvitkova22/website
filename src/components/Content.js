@@ -12,6 +12,7 @@ import Quote from './Gutenberg/Quote';
 import Soundcloud from './Gutenberg/Soundcloud';
 import Gallery from './Gutenberg/Gallery';
 import Cover from './Gutenberg/Cover';
+import Table from './Gutenberg/Table'
 
 import Archives from '~/components/Gutenberg/Archives';
 
@@ -69,6 +70,9 @@ const Content = ({ content }) => {
           }
           if (block.__typename === 'CoreFileBlock') {
             return <File block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreTableBlock') {
+            return <Table block={block} key={`${block.__typename}-${index}`} />;
           }
           return null;
         })}
