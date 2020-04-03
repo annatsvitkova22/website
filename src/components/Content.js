@@ -19,6 +19,7 @@ import Columns from './Gutenberg/Columns';
 import MediaText from './Gutenberg/MediaText';
 import Pullquote from './Gutenberg/Pullquote';
 import Calendar from './Gutenberg/Calendar';
+import TagCloud from './Gutenberg/TagCloud';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -106,6 +107,11 @@ const Content = ({ content }) => {
           if (block.__typename === 'CoreCalendarBlock') {
             return (
               <Calendar block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreTagCloudBlock') {
+            return (
+              <TagCloud block={block} key={`${block.__typename}-${index}`} />
             );
           }
           return null;

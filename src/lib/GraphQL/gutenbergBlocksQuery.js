@@ -219,6 +219,13 @@ const gutenbergBlocksQuery = `blocks {
       ... on CoreCalendarBlock {
             renderedContent
           }
+      ... on CoreTagCloudBlock {
+            renderedContent
+            attributes {
+              align
+              className
+            }
+          }
   }`;
 
 export default gutenbergBlocksQuery;
