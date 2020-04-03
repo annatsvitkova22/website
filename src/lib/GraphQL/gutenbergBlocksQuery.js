@@ -185,6 +185,17 @@ const gutenbergBlocksQuery = `blocks {
               textColor
             }
         }
+      ... on CoreColumnsBlock {
+            attributes {
+              align
+              className
+              verticalAlignment
+            }
+            saveContent
+            parentId
+            originalContent
+          }
+
   }`;
 
 export default gutenbergBlocksQuery;

@@ -15,6 +15,7 @@ import Cover from './Gutenberg/Cover';
 import Table from './Gutenberg/Table';
 import Button from './Gutenberg/Button';
 import Archives from './Gutenberg/Archives';
+import Columns from './Gutenberg/Columns'
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -77,6 +78,11 @@ const Content = ({ content }) => {
           if (block.__typename === 'CoreButtonBlock') {
             return (
               <Button block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreColumnsBlock') {
+            return (
+              <Columns block={block} key={`${block.__typename}-${index}`} />
             );
           }
           return null;
