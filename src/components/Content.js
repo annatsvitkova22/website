@@ -12,9 +12,9 @@ import Quote from './Gutenberg/Quote';
 import Soundcloud from './Gutenberg/Soundcloud';
 import Gallery from './Gutenberg/Gallery';
 import Cover from './Gutenberg/Cover';
-import Table from './Gutenberg/Table'
-
-import Archives from '~/components/Gutenberg/Archives';
+import Table from './Gutenberg/Table';
+import Button from './Gutenberg/Button';
+import Archives from './Gutenberg/Archives';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -73,6 +73,11 @@ const Content = ({ content }) => {
           }
           if (block.__typename === 'CoreTableBlock') {
             return <Table block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreButtonBlock') {
+            return (
+              <Button block={block} key={`${block.__typename}-${index}`} />
+            );
           }
           return null;
         })}

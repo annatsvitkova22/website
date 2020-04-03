@@ -170,6 +170,21 @@ const gutenbergBlocksQuery = `blocks {
               align
             }
           }
+        ... on CoreButtonBlock {
+          attributes {
+              text
+              url
+              title
+              placeholder
+              color
+              className
+              borderRadius
+              backgroundColor
+              align
+              linkTarget
+              textColor
+            }
+        }
   }`;
 
 export default gutenbergBlocksQuery;
