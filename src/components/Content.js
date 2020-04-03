@@ -24,6 +24,12 @@ import Categories from './Gutenberg/Categories';
 import LastComments from './Gutenberg/LastComments';
 import LatestPosts from './Gutenberg/LatestPosts';
 import Search from './Gutenberg/Search';
+import Separator from './Gutenberg/Separator';
+import FreeForm from './Gutenberg/FreeForm';
+import CodeBlock from './Gutenberg/CodeBlock';
+import More from './Gutenberg/More';
+import Spacer from './Gutenberg/Space';
+import NextPage from './Gutenberg/NextPage';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -125,7 +131,10 @@ const Content = ({ content }) => {
           }
           if (block.__typename === 'CoreLatestCommentsBlock') {
             return (
-              <LastComments block={block} key={`${block.__typename}-${index}`} />
+              <LastComments
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
             );
           }
           if (block.__typename === 'CoreLatestPostsBlock') {
@@ -136,6 +145,34 @@ const Content = ({ content }) => {
           if (block.__typename === 'CoreSearchBlock') {
             return (
               <Search block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreCodeBlock') {
+            return (
+              <CodeBlock block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreFreeformBlock') {
+            return (
+              <FreeForm block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreMoreBlock') {
+            return <More block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreSeparatorBlock') {
+            return (
+              <Separator block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreSpacerBlock') {
+            return (
+              <Spacer block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreNextpageBlock') {
+            return (
+              <NextPage block={block} key={`${block.__typename}-${index}`} />
             );
           }
           return null;

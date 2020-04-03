@@ -251,6 +251,28 @@ const gutenbergBlocksQuery = `blocks {
               className
             }
           }
+          ... on CoreCodeBlock {
+            attributes {
+              className
+            }
+            saveContent
+          }
+          ... on CoreFreeformBlock {
+            saveContent
+          }
+          ... on CoreMoreBlock {
+            saveContent
+          }
+          ... on CoreSeparatorBlock {
+            saveContent
+            originalContent
+          }
+          ... on CoreSpacerBlock {
+            saveContent
+          }
+          ... on CoreNextpageBlock {
+            saveContent
+          }
   }`;
 
 export default gutenbergBlocksQuery;
