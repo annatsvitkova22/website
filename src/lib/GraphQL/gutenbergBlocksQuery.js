@@ -216,6 +216,9 @@ const gutenbergBlocksQuery = `blocks {
             parentId
             originalContent
           }
+      ... on CoreCalendarBlock {
+            renderedContent
+          }
   }`;
 
 export default gutenbergBlocksQuery;
