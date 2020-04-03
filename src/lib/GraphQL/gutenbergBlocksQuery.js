@@ -226,6 +226,31 @@ const gutenbergBlocksQuery = `blocks {
               className
             }
           }
+          ... on CoreSearchBlock {
+            renderedContent
+            attributes {
+              className
+            }
+          }
+          ... on CoreLatestPostsBlock {
+            attributes {
+              className
+            }
+            renderedContent
+          }
+          ... on CoreLatestCommentsBlock {
+            parentId
+            attributes {
+              className
+            }
+            renderedContent
+          }
+          ... on CoreCategoriesBlock {
+            renderedContent
+            attributes {
+              className
+            }
+          }
   }`;
 
 export default gutenbergBlocksQuery;

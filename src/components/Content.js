@@ -20,6 +20,10 @@ import MediaText from './Gutenberg/MediaText';
 import Pullquote from './Gutenberg/Pullquote';
 import Calendar from './Gutenberg/Calendar';
 import TagCloud from './Gutenberg/TagCloud';
+import Categories from './Gutenberg/Categories';
+import LastComments from './Gutenberg/LastComments';
+import LatestPosts from './Gutenberg/LatestPosts';
+import Search from './Gutenberg/Search';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -112,6 +116,26 @@ const Content = ({ content }) => {
           if (block.__typename === 'CoreTagCloudBlock') {
             return (
               <TagCloud block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreCategoriesBlock') {
+            return (
+              <Categories block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreLatestCommentsBlock') {
+            return (
+              <LastComments block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreLatestPostsBlock') {
+            return (
+              <LatestPosts block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreSearchBlock') {
+            return (
+              <Search block={block} key={`${block.__typename}-${index}`} />
             );
           }
           return null;
