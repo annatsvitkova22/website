@@ -15,7 +15,7 @@ const Gallery = ({ block }) => {
     );
   splitArr(newArr, chunk);
 
-  return <div>Gallery</div>;
+  return <div dangerouslySetInnerHTML={{ __html: block.saveContent }} />;
 };
 Gallery.propTypes = {
   block: PropTypes.any,

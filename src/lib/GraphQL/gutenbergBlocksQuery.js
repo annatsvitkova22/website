@@ -112,6 +112,7 @@ const gutenbergBlocksQuery = `blocks {
             }
           }
           ... on CoreGalleryBlock {
+            saveContent
             attributes {
               images
               linkTo
@@ -195,7 +196,22 @@ const gutenbergBlocksQuery = `blocks {
             parentId
             originalContent
           }
-
+          ... on CoreMediaTextBlock {
+            saveContent
+            attributes {
+              backgroundColor
+              className
+              focalPoint
+              imageFill
+              isStackedOnMobile
+              mediaAlt
+              mediaId
+              mediaType
+              mediaUrl
+              mediaWidth
+              verticalAlignment
+          }
+      }
   }`;
 
 export default gutenbergBlocksQuery;
