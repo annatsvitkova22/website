@@ -17,6 +17,7 @@ import Button from './Gutenberg/Button';
 import Archives from './Gutenberg/Archives';
 import Columns from './Gutenberg/Columns';
 import MediaText from './Gutenberg/MediaText';
+import Pullquote from './Gutenberg/Pullquote';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -89,6 +90,16 @@ const Content = ({ content }) => {
           if (block.__typename === 'CoreMediaTextBlock') {
             return (
               <MediaText block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreMediaTextBlock') {
+            return (
+              <Pullquote block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CorePullquoteBlock') {
+            return (
+              <Pullquote block={block} key={`${block.__typename}-${index}`} />
             );
           }
           return null;

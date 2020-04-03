@@ -212,6 +212,10 @@ const gutenbergBlocksQuery = `blocks {
               verticalAlignment
           }
       }
+      ... on CorePullquoteBlock {
+            parentId
+            originalContent
+          }
   }`;
 
 export default gutenbergBlocksQuery;
