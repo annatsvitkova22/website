@@ -1,0 +1,27 @@
+.cf-crowdfundings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  & >div {
+    width: 30%;
+    height: 40em;
+  }
+}
+
+.cf-crowdfunding {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  .cf-content {
+    width: 70%;
+  }
+  .cf-sidebar {
+    width: 30%;
+  }
+}
