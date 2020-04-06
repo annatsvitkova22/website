@@ -8,6 +8,7 @@ import VideosList from '~/components/VideosList';
 import VideoTags from '~/components/VideoTags';
 import apolloClient from '~/lib/ApolloClient';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
+// import PhotoGallery from '~/components/PhotoGallery';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -100,6 +101,8 @@ class VideosArchive extends Component {
               </div>
             </div>
           </div>
+          {/* <PhotoGallery />
+          <PhotoGallery /> */}
           <VideoTags tags={tags} />
         </main>
       </div>
