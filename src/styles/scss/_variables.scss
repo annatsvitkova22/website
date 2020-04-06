@@ -2,14 +2,14 @@
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
-$enable-grid-classes:                         true !default;
+$enable-grid-classes: true !default;
 
 // Grid columns
 //
 // Set the number of columns and specify the width of the gutters.
 
-$grid-columns:                12 !default;
-$grid-gutter-width:           24px !default;
+$grid-columns: 12 !default;
+$grid-gutter-width: 24px !default;
 
 // Grid breakpoints
 //
@@ -21,7 +21,7 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
+  xl: 1200px,
 ) !default;
 
 // Grid containers
@@ -32,7 +32,7 @@ $container-max-widths: (
   sm: 1344px,
   md: 1344px,
   lg: 1344px,
-  xl: 1344px
+  xl: 1344px,
 ) !default;
 
 // This variable affects the `.h-*` and `.w-*` classes.
@@ -44,7 +44,7 @@ $sizes: map-merge(
     50: 50%,
     75: 75%,
     100: 100%,
-    auto: auto
+    auto: auto,
   ),
   $sizes
 );
@@ -53,47 +53,47 @@ $sizes: map-merge(
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   $white !default;
+$body-bg: $white !default;
 
 // Utilities
 
-$displays: none, inline, inline-block, block, table, table-row, table-cell, flex, inline-flex !default;
+$displays: none, inline, inline-block, block, table, table-row, table-cell, flex,
+  inline-flex !default;
 
 // Typography
 
-$font-weight-thin:            100;
-$font-weight-light:           300 !default;
-$font-weight-normal:          400 !default;
-$font-weight-medium:          500;
-$font-weight-semibold:        600;
-$font-weight-bold:            700 !default;
+$font-weight-thin: 100;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700 !default;
+$font-weight-extrabold: 800 !default;
 
-$dt-font-weight:              $font-weight-bold !default;
+$dt-font-weight: $font-weight-bold !default;
 
-$font-weight-base:            $font-weight-normal !default;
+$font-weight-base: $font-weight-normal !default;
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
-$font-family-base:            $font-family-sans-serif !default;
+$font-family-sans-serif: 'Monserrat', sans-serif !default;
+$font-family-serif: 'Merriweather', serif !default;
+$font-family-base: $font-family-sans-serif !default;
 // stylelint-enable value-keyword-case
 
-$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
-
-$headings-margin-bottom:      0.5rem !default;
+$font-size-base: 18px !default; // Assumes the browser default, typically `16px`
 
 // Paragraphs
 //
 // Style p element.
 
-$paragraph-margin-bottom:   1rem !default;
+$paragraph-margin-bottom: 2.222rem !default;
 
 // Tables
 //
 // Customizes the `.table` component with basic values, each used across all table variations.
 
-$table-cell-padding:          0.75rem !default;
+$table-cell-padding: 0.75rem !default;
 
 // Forms
 
-$label-margin-bottom:                   0.5rem !default;
+$label-margin-bottom: 0.5rem !default;
