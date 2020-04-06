@@ -112,6 +112,7 @@ const gutenbergBlocksQuery = `blocks {
             }
           }
           ... on CoreGalleryBlock {
+            saveContent
             attributes {
               images
               linkTo
@@ -158,6 +159,120 @@ const gutenbergBlocksQuery = `blocks {
             showPostCounts
           }
         }
+        ... on CoreTableBlock {
+          saveContent
+            attributes {
+              head
+              hasFixedLayout
+              foot
+              className
+              body
+              backgroundColor
+              align
+            }
+          }
+        ... on CoreButtonBlock {
+          attributes {
+              text
+              url
+              title
+              placeholder
+              color
+              className
+              borderRadius
+              backgroundColor
+              align
+              linkTarget
+              textColor
+            }
+        }
+      ... on CoreColumnsBlock {
+            attributes {
+              align
+              className
+              verticalAlignment
+            }
+            saveContent
+            parentId
+            originalContent
+          }
+          ... on CoreMediaTextBlock {
+            saveContent
+            attributes {
+              backgroundColor
+              className
+              focalPoint
+              imageFill
+              isStackedOnMobile
+              mediaAlt
+              mediaId
+              mediaType
+              mediaUrl
+              mediaWidth
+              verticalAlignment
+          }
+      }
+      ... on CorePullquoteBlock {
+            parentId
+            originalContent
+          }
+      ... on CoreCalendarBlock {
+            renderedContent
+          }
+      ... on CoreTagCloudBlock {
+            renderedContent
+            attributes {
+              align
+              className
+            }
+          }
+          ... on CoreSearchBlock {
+            renderedContent
+            attributes {
+              className
+            }
+          }
+          ... on CoreLatestPostsBlock {
+            attributes {
+              className
+            }
+            renderedContent
+          }
+          ... on CoreLatestCommentsBlock {
+            parentId
+            attributes {
+              className
+            }
+            renderedContent
+          }
+          ... on CoreCategoriesBlock {
+            renderedContent
+            attributes {
+              className
+            }
+          }
+          ... on CoreCodeBlock {
+            attributes {
+              className
+            }
+            saveContent
+          }
+          ... on CoreFreeformBlock {
+            saveContent
+          }
+          ... on CoreMoreBlock {
+            saveContent
+          }
+          ... on CoreSeparatorBlock {
+            saveContent
+            originalContent
+          }
+          ... on CoreSpacerBlock {
+            saveContent
+          }
+          ... on CoreNextpageBlock {
+            saveContent
+          }
   }`;
 
 export default gutenbergBlocksQuery;
