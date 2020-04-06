@@ -12,8 +12,24 @@ import Quote from './Gutenberg/Quote';
 import Soundcloud from './Gutenberg/Soundcloud';
 import Gallery from './Gutenberg/Gallery';
 import Cover from './Gutenberg/Cover';
-
-import Archives from '~/components/Gutenberg/Archives';
+import Table from './Gutenberg/Table';
+import Button from './Gutenberg/Button';
+import Archives from './Gutenberg/Archives';
+import Columns from './Gutenberg/Columns';
+import MediaText from './Gutenberg/MediaText';
+import Pullquote from './Gutenberg/Pullquote';
+import Calendar from './Gutenberg/Calendar';
+import TagCloud from './Gutenberg/TagCloud';
+import Categories from './Gutenberg/Categories';
+import LastComments from './Gutenberg/LastComments';
+import LatestPosts from './Gutenberg/LatestPosts';
+import Search from './Gutenberg/Search';
+import Separator from './Gutenberg/Separator';
+import FreeForm from './Gutenberg/FreeForm';
+import CodeBlock from './Gutenberg/CodeBlock';
+import More from './Gutenberg/More';
+import Spacer from './Gutenberg/Space';
+import NextPage from './Gutenberg/NextPage';
 
 const Content = ({ content }) => {
   // TODO: add & test all content types listed in this log
@@ -69,6 +85,95 @@ const Content = ({ content }) => {
           }
           if (block.__typename === 'CoreFileBlock') {
             return <File block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreTableBlock') {
+            return <Table block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreButtonBlock') {
+            return (
+              <Button block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreColumnsBlock') {
+            return (
+              <Columns block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreMediaTextBlock') {
+            return (
+              <MediaText block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreMediaTextBlock') {
+            return (
+              <Pullquote block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CorePullquoteBlock') {
+            return (
+              <Pullquote block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreCalendarBlock') {
+            return (
+              <Calendar block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreTagCloudBlock') {
+            return (
+              <TagCloud block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreCategoriesBlock') {
+            return (
+              <Categories block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreLatestCommentsBlock') {
+            return (
+              <LastComments
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
+          }
+          if (block.__typename === 'CoreLatestPostsBlock') {
+            return (
+              <LatestPosts block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreSearchBlock') {
+            return (
+              <Search block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreCodeBlock') {
+            return (
+              <CodeBlock block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreFreeformBlock') {
+            return (
+              <FreeForm block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreMoreBlock') {
+            return <More block={block} key={`${block.__typename}-${index}`} />;
+          }
+          if (block.__typename === 'CoreSeparatorBlock') {
+            return (
+              <Separator block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreSpacerBlock') {
+            return (
+              <Spacer block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreNextpageBlock') {
+            return (
+              <NextPage block={block} key={`${block.__typename}-${index}`} />
+            );
           }
           return null;
         })}
