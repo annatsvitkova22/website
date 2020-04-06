@@ -5,6 +5,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
+import '../../styles/pages/crowdfundings.scss';
 
 const CROWDFUNDINGS_ARCHIVE = gql`
   query CrowdfundingsArchive {
@@ -39,10 +40,9 @@ const CrowdfundingsArchive = (props) => {
       </Head>
 
       <main>
+        <section className="cf-crowdfundings">
         {crowdfundings.map((cfProps, i) => (
-
-
-          <section className="cfitem">
+          <div className="cfitem">
             <div className="cfitem__thumb">
               <img src={cfProps.featuredImage.guid} alt={cfProps.title + 'thumbnail'}/>
             </div>
@@ -58,8 +58,9 @@ const CrowdfundingsArchive = (props) => {
               <div className="cfitem__collected__percent">{cfProps.cfACF.crowdfundingAboutProjectTabs}</div>
             </div>
             <div className="cfitem__timeout"></div>
-          </section>
+          </div>
         ))}
+        </section>
       </main>
     </div>
   );
