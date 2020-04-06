@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Resources = (props) => {
-  const { navigationData } = props;
+  const { navigationData, className = '' } = props;
 
   return (
-    <ul className="sitemap__list">
+    <ul className={`sitemap__list ${className}`}>
       {navigationData &&
         navigationData.menuItems &&
         navigationData.menuItems.nodes &&

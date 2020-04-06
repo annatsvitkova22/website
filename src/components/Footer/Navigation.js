@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import NavLink from '~/components/SiteLink';
 
 const Navigation = (props) => {
-  const { navigationData } = props;
+  const { navigationData, className } = props;
 
   return (
-    <ul className="sitemap__list">
+    <ul className={`sitemap__list ${className}`}>
       {navigationData &&
         navigationData.menuItems &&
         navigationData.menuItems.nodes &&

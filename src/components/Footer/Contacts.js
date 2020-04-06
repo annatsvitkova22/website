@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 import Icons from '../Icons';
 
 const Contacts = (props) => {
-  const { contactsData } = props;
+  const { contactsData, className = '' } = props;
 
   if (contactsData) {
     return (
-      <ul className="sitemap__list">
+      <ul className={`sitemap__list ${className}`}>
         <li className="sitemap__list-item">Контакти</li>
         {contactsData.map((item, i) => {
           return (
             <>
               <li key={i} className="sitemap__list-item">
                 {item.role && <span>{item.role}</span>}
-                <span>{item.name}</span>
+                <span>{item.name}:</span>
               </li>
               {item.contacts ? (
                 item.contacts.map((contacts, k) => {
