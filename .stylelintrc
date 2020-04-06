@@ -30,7 +30,8 @@
       "deg",
       "s",
       "em",
-      "rem"
+      "rem",
+      "fr"
     ],
     "order/properties-order": [
       [
