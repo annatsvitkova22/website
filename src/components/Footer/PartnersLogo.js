@@ -16,6 +16,7 @@ const PartnersLogo = (props) => {
                 href={item.url}
                 title={item.name}
                 className={'partners-logo'}
+                target={'_blank'}
               >
                 <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
               </a>

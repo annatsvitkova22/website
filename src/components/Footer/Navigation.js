@@ -4,16 +4,23 @@ import PropTypes from 'prop-types';
 import NavLink from '~/components/SiteLink';
 
 const Navigation = (props) => {
-  const { navigationData, className } = props;
+  const { navigationData, className = '' } = props;
+  console.log(navigationData);
 
   return (
     <ul className={`sitemap__list ${className}`}>
+      {navigationData.id === 'TWVudTo0' && (
+        <li className={'sitemap__list-item'}>Сторінки</li>
+      )}
+      {navigationData.id === 'TWVudTo1' && (
+        <li className={'sitemap__list-item'}>Інформація</li>
+      )}
       {navigationData &&
         navigationData.menuItems &&
         navigationData.menuItems.nodes &&
         navigationData.menuItems.nodes.map((item) => {
           return (
-            <li className="sitemap__list-item" key={item.id}>
+            <li className={'sitemap__list-item'} key={item.id}>
               <NavLink href={item.url} target={item.target}>
                 {item.label}
               </NavLink>

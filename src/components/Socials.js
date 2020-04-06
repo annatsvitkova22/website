@@ -10,7 +10,7 @@ const Socials = (props) => {
     <div className={`socials ${className}`}>
       {socialsData.map((item, i) => {
         return (
-          <a href={item.url} title={item.name} key={i}>
+          <a href={item.url} title={item.name} key={i} target={'_blank'}>
             <Icons icon={item.name} color={color} />
           </a>
         );

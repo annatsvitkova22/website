@@ -9,7 +9,7 @@ footer {
 
   font-family: $font-family-titles;
   font-size: 12px;
-  line-height: 1;
+  line-height: 1.09;
   color: $white;
 
   ul {
@@ -28,114 +28,122 @@ footer {
   a {
     display: flex;
   }
-
-  .navigation__wrapper {
+  .footer__wrapper {
     width: 100%;
 
-    margin-top: 64px;
+    padding-right: 60px;
+    padding-left: 60px;
+    .navigation__wrapper {
+      width: 100%;
 
-    .logo {
-      width: 110px;
-      height: 60px;
+      margin-top: 64px;
+      margin-bottom: 82px;
 
-      background-color: $white;
+      .logo {
+        width: 110px;
+        height: 60px;
+
+        background-color: $white;
+      }
+      .navigation__sitemap {
+        display: flex;
+        justify-content: space-around;
+
+        .sitemap__list-item {
+          margin-bottom: 12px;
+        }
+        .sitemap__list-item:nth-child(2) {
+          span {
+            display: flex;
+          }
+        }
+        .social-icon > svg {
+          margin-right: 14px;
+
+          color: $white;
+        }
+        .sitemap__list {
+          text-align: left;
+          svg {
+            width: 10px;
+            height: 10px;
+          }
+          > .sitemap__list-item:first-child {
+            font-size: 14px;
+            line-height: 1.6;
+            font-style: $font-weight-semibold;
+          }
+        }
+      }
     }
-    .navigation__sitemap {
-      display: flex;
-      justify-content: space-around;
 
-      .sitemap__list-item {
-        margin-bottom: 12px;
-      }
-      .sitemap__list-item:nth-child(2) {
-        span {
-          display: flex;
-        }
-      }
-      .social-icon > svg {
-        margin-right: 14px;
-
-        color: $white;
-      }
-      .sitemap__list {
-        text-align: left;
-        svg {
-          width: 10px;
-          height: 10px;
-        }
-        > .sitemap__list-item:first-child {
-          font-weight: bold;
-        }
-      }
-    }
-  }
-
-  .data__wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding-bottom: 39px;
-
-    border-bottom: 1px solid $grey-400;
-    .socials {
+    .data__wrapper {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
-      height: 100%;
+      padding-bottom: 39px;
 
-      .social-icon > svg {
-        height: 64px;
-        width: auto;
-
-        color: rgba(255, 255, 255, 0.24);
-      }
-    }
-    .counters {
-      font-family: $font-family-secondary;
-      &__wrapper {
+      border-bottom: 1px solid $grey-400;
+      .socials {
         display: flex;
-        justify-content: flex-start;
-      }
-      &__item {
-        display: flex;
-        flex-direction: column;
+        justify-content: space-between;
 
-        margin-right: 48px;
-        &-counter {
-          margin-bottom: 4px;
+        height: 100%;
+
+        .social-icon > svg {
+          height: 64px;
+          width: auto;
 
           color: rgba(255, 255, 255, 0.24);
-          font-family: $font-family-secondary;
-          font-size: 72px;
-          line-height: 72px;
+        }
+      }
+      .counters {
+        font-family: $font-family-secondary;
+        &__wrapper {
+          display: flex;
+          justify-content: flex-start;
+        }
+        &__item {
+          display: flex;
+          flex-direction: column;
+
+          margin-right: 48px;
+          &-counter {
+            margin-bottom: 4px;
+
+            color: rgba(255, 255, 255, 0.24);
+            font-family: $font-family-secondary;
+            font-size: 72px;
+            line-height: 72px;
+          }
         }
       }
     }
-  }
 
-  .developers {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    font-size: 12px;
-    line-height: 1.6;
-    .fa-copyright {
-      width: 12px;
-      height: 12px;
-      margin-right: 2px;
-    }
-
-    &__copyrights-logo {
+    .developers {
       display: flex;
-      justify-content: flex-end;
       align-items: center;
+      justify-content: space-between;
 
-      padding-top: 27px;
-      padding-bottom: 27px;
-      .copyrights-logo__description {
-        padding-right: 58px;
+      font-size: 12px;
+      line-height: 1.6;
+      .fa-copyright {
+        width: 12px;
+        height: 12px;
+        margin-right: 2px;
+      }
+
+      &__copyrights-logo {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        padding-top: 27px;
+        padding-bottom: 27px;
+        .copyrights-logo__description {
+          padding-right: 58px;
+        }
       }
     }
   }
