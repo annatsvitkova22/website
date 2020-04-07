@@ -33,7 +33,8 @@ class PhotoSwipeWrapper extends React.Component {
     }
   };
 
-  componentWillReceiveProps = (nextProps) => {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { isOpen } = this.state;
     if (nextProps.isOpen) {
       if (!isOpen) {
@@ -44,7 +45,7 @@ class PhotoSwipeWrapper extends React.Component {
     } else if (isOpen) {
       this.closePhotoSwipe();
     }
-  };
+  }
 
   componentWillUnmount = () => {
     this.closePhotoSwipe();
@@ -63,7 +64,7 @@ class PhotoSwipeWrapper extends React.Component {
       const callback = props[event];
       if (callback || event === 'destroy') {
         const self = this;
-        this.photoSwipe.listen(event, function (...args) {
+        this.photoSwipe.listen(event, (...args) => {
           if (callback) {
             args.unshift(this);
             callback(...args);
@@ -114,6 +115,10 @@ class PhotoSwipeWrapper extends React.Component {
     );
   };
 
+  ref = (node) => {
+    this.pswpElement = node;
+  };
+
   render() {
     const { id } = this.props;
     const { className } = this.props;
@@ -124,9 +129,7 @@ class PhotoSwipeWrapper extends React.Component {
         tabIndex="-1"
         role="dialog"
         aria-hidden="true"
-        ref={(node) => {
-          this.pswpElement = node;
-        }}
+        ref={this.ref}
       >
         <div className="pswp__bg" />
         <div className="pswp__scroll-wrap">
@@ -182,5 +185,21 @@ class PhotoSwipeWrapper extends React.Component {
     );
   }
 }
+
+PhotoSwipeWrapper.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  items: PropTypes.array.isRequired,
+  options: PropTypes.object,
+  onClose: PropTypes.func,
+  id: PropTypes.string,
+  className: PropTypes.string,
+};
+
+PhotoSwipeWrapper.defaultProps = {
+  options: {},
+  onClose: () => {},
+  id: '',
+  className: '',
+};
 
 export default PhotoSwipeWrapper;

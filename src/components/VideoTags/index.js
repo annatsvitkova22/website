@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import PhotoSwipeGallery from '~/components/PhotoSwipe';
+import PhotoSwipeGallery from './PhotoSwipeGallery';
+
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
 import Play from '~/static/images/play';
 
 const VideoTags = ({ tags }) => {
-  const getThumbnailContent = (item) => {
+  function getThumbnailContent(item) {
     return (
       <div
         className="video-tag__thumbnail bg-cover"
@@ -14,14 +16,16 @@ const VideoTags = ({ tags }) => {
         <Play />
       </div>
     );
-  };
+  }
 
   return (
     <div className="container">
       {tags.map((tag, i) => {
         const { nodes } = tag.videos;
-        console.log(nodes);
         if (nodes.length) {
+          const options = {
+            shareEl: false,
+          };
           const tagItems = nodes.slice(0, 4).map((video) => ({
             html: `
             <div class="video-tag__iframe">
@@ -40,10 +44,10 @@ const VideoTags = ({ tags }) => {
                 <p>{tag.name}</p>
               </div>
               <PhotoSwipeGallery
-                id={i}
+                id={`${i}`}
                 className="col-12"
                 items={tagItems}
-                // options={options}
+                options={options}
                 thumbnailContent={getThumbnailContent}
               />
             </div>
@@ -53,6 +57,14 @@ const VideoTags = ({ tags }) => {
       })}
     </div>
   );
+};
+
+VideoTags.propTypes = {
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      videos: PropTypes.object,
+    })
+  ),
 };
 
 export default VideoTags;

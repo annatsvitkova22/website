@@ -116,6 +116,7 @@ VideosArchive.propTypes = {
       zmVideoACF: PropTypes.object,
     })
   ),
+  tags: PropTypes.array,
 };
 
 VideosArchive.getInitialProps = async () => {

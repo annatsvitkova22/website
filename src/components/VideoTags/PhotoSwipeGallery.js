@@ -1,37 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import PhotoSwipeWrapper from './PhotoSwipeWrapper';
-import events from './events';
+import PhotoSwipeWrapper from '../PhotoSwipeWrapper';
+import events from '../PhotoSwipeWrapper/events';
 
 class PhotoSwipeGallery extends React.Component {
-  static propTypes = {
-    items: PropTypes.array.isRequired,
-    options: PropTypes.object,
-    thumbnailContent: PropTypes.func,
-    id: PropTypes.string,
-    className: PropTypes.string,
-    isOpen: PropTypes.bool,
-    onClose: PropTypes.func,
-  };
-
-  static defaultProps = {
-    options: {},
-    thumbnailContent: (item) => (
-      <img src={item.src} width="100" height="100" alt="" />
-    ),
-    id: '',
-    className: '',
-    isOpen: false,
-    onClose: () => {},
-  };
-
   state = {
     isOpen: this.props.isOpen,
     options: this.props.options,
   };
 
-  componentWillReceiveProps = (nextProps) => {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { isOpen } = this.state;
     if (nextProps.isOpen) {
       if (!isOpen) {
@@ -40,7 +20,7 @@ class PhotoSwipeGallery extends React.Component {
     } else if (isOpen) {
       this.setState({ isOpen: false });
     }
-  };
+  }
 
   showPhotoSwipe = (itemIndex) => (e) => {
     e.preventDefault();
@@ -68,6 +48,11 @@ class PhotoSwipeGallery extends React.Component {
     this.props.onClose();
   };
 
+  ref = (index) => (node) => {
+    this.thumbnails = this.thumbnails || [];
+    this.thumbnails[index] = node;
+  };
+
   render() {
     const { id, items, thumbnailContent, ...other } = this.props;
     const { className } = this.props;
@@ -79,10 +64,7 @@ class PhotoSwipeGallery extends React.Component {
           {items.map((item, index) => (
             <div
               key={index}
-              ref={(node) => {
-                this.thumbnails = this.thumbnails || [];
-                this.thumbnails[index] = node;
-              }}
+              ref={this.ref(index)}
               className="pswp-thumbnail col-3"
               onClick={this.showPhotoSwipe(index)}
             >
@@ -101,5 +83,26 @@ class PhotoSwipeGallery extends React.Component {
     );
   }
 }
+
+PhotoSwipeGallery.propTypes = {
+  items: PropTypes.array.isRequired,
+  options: PropTypes.object,
+  thumbnailContent: PropTypes.func,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+};
+
+PhotoSwipeGallery.defaultProps = {
+  options: {},
+  thumbnailContent: (item) => (
+    <img src={item.src} width="100" height="100" alt="" />
+  ),
+  id: '',
+  className: '',
+  isOpen: false,
+  onClose: () => {},
+};
 
 export default PhotoSwipeGallery;
