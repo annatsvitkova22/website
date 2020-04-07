@@ -1,112 +1,105 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import PhotoSwipe from 'photoswipe';
-import PhotoSwipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
 
-const PhotoSwipeWrapper = (props) => {
-  let pswpElement = useRef(null);
+import PhotoSwipeWrapper from './PhotoSwipeWrapper';
+import events from './events';
 
-  const options = {
-    index: props.index || 0,
+class PhotoSwipeGallery extends React.Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired,
+    options: PropTypes.object,
+    thumbnailContent: PropTypes.func,
+    id: PropTypes.string,
+    className: PropTypes.string,
+    isOpen: PropTypes.bool,
+    onClose: PropTypes.func,
   };
 
-  useEffect(() => {
-    const photoSwipe = new PhotoSwipe(
-      pswpElement,
-      PhotoSwipeUIDefault,
-      props.items,
-      options
-    );
+  static defaultProps = {
+    options: {},
+    thumbnailContent: (item) => (
+      <img src={item.src} width="100" height="100" alt="" />
+    ),
+    id: '',
+    className: '',
+    isOpen: false,
+    onClose: () => {},
+  };
 
-    if (photoSwipe) {
-      if (props.isOpen) {
-        photoSwipe.init();
+  state = {
+    isOpen: this.props.isOpen,
+    options: this.props.options,
+  };
 
-        photoSwipe.listen('destroy', () => {
-          props.onClose();
-        });
-
-        photoSwipe.listen('close', () => {
-          props.onClose();
-        });
+  componentWillReceiveProps = (nextProps) => {
+    const { isOpen } = this.state;
+    if (nextProps.isOpen) {
+      if (!isOpen) {
+        this.setState({ isOpen: true });
       }
-      if (!props.isOpen) {
-        props.onClose();
-      }
+    } else if (isOpen) {
+      this.setState({ isOpen: false });
     }
-  }, [props, options]);
+  };
 
-  function ref(node) {
-    pswpElement = node;
-  }
+  showPhotoSwipe = (itemIndex) => (e) => {
+    e.preventDefault();
+    const getThumbBoundsFn = (index) => {
+      const thumbnail = this.thumbnails[index];
+      const img = thumbnail.querySelector('.video-tag__thumbnail');
+      const pageYScroll =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const rect = img.getBoundingClientRect();
+      return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+    };
+    const { options } = this.state;
+    options.index = itemIndex;
+    options.getThumbBoundsFn = options.getThumbBoundsFn || getThumbBoundsFn;
+    this.setState({
+      isOpen: true,
+      options,
+    });
+  };
 
-  return (
-    <div
-      className="pswp"
-      tabIndex="-1"
-      role="dialog"
-      aria-hidden="true"
-      ref={ref}
-    >
-      <div className="pswp__bg" />
-      <div className="pswp__scroll-wrap">
-        <div className="pswp__container">
-          <div className="pswp__item" />
-          <div className="pswp__item" />
-          <div className="pswp__item" />
-        </div>
-        <div className="pswp__ui pswp__ui--hidden">
-          <div className="pswp__top-bar">
-            <div className="pswp__counter" />
-            <button
-              className="pswp__button pswp__button--close"
-              title="Close (Esc)"
-            />
-            {/* <button
-              className="pswp__button pswp__button--share"
-              title="Share"
-            /> */}
-            <button
-              className="pswp__button pswp__button--fs"
-              title="Toggle fullscreen"
-            />
-            <button
-              className="pswp__button pswp__button--zoom"
-              title="Zoom in/out"
-            />
-            <div className="pswp__preloader">
-              <div className="pswp__preloader__icn">
-                <div className="pswp__preloader__cut">
-                  <div className="pswp__preloader__donut" />
-                </div>
-              </div>
+  handleClose = () => {
+    this.setState({
+      isOpen: false,
+    });
+    this.props.onClose();
+  };
+
+  render() {
+    const { id, items, thumbnailContent, ...other } = this.props;
+    const { className } = this.props;
+    const eventProps = [other, ...events];
+    const { isOpen, options } = this.state;
+    return (
+      <div id={`video-tags-${id}`} className={`pswp-gallery ${className}`}>
+        <div className="pswp-thumbnails row">
+          {items.map((item, index) => (
+            <div
+              key={index}
+              ref={(node) => {
+                this.thumbnails = this.thumbnails || [];
+                this.thumbnails[index] = node;
+              }}
+              className="pswp-thumbnail col-3"
+              onClick={this.showPhotoSwipe(index)}
+            >
+              {thumbnailContent(item)}
             </div>
-          </div>
-          <div className="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-            <div className="pswp__share-tooltip" />
-          </div>
-          <button
-            className="pswp__button pswp__button--arrow--left"
-            title="Previous (arrow left)"
-          />
-          <button
-            className="pswp__button pswp__button--arrow--right"
-            title="Next (arrow right)"
-          />
-          <div className="pswp__caption">
-            <div className="pswp__caption__center" />
-          </div>
+          ))}
         </div>
+        <PhotoSwipeWrapper
+          {...eventProps}
+          isOpen={isOpen}
+          items={items}
+          options={options}
+          onClose={this.handleClose}
+        />
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-PhotoSwipeWrapper.propTypes = {
-  onClose: PropTypes.func,
-  index: PropTypes.number,
-  isOpen: PropTypes.bool,
-  items: PropTypes.array,
-};
-
-export default PhotoSwipeWrapper;
+export default PhotoSwipeGallery;
