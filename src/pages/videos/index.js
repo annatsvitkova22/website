@@ -8,6 +8,7 @@ import VideosList from '~/components/VideosList';
 import VideoTags from '~/components/VideoTags';
 import apolloClient from '~/lib/ApolloClient';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
+import Play from '~/static/images/play';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -51,26 +52,37 @@ class VideosArchive extends Component {
     this.state = {
       selectedVideo: {
         url: formatYouTubeUrl(zmVideoACF.videoUrl),
+        imageUrl: zmVideoACF.videoCover.mediaItemUrl,
         title,
       },
       selectedIndex: 0,
+      isPlaying: false,
     };
   }
 
-  onVideoSelect = (url, title, index) => {
+  onVideoSelect = (url, imageUrl, title, index) => {
     this.setState({
       selectedVideo: {
         url: formatYouTubeUrl(url),
+        imageUrl,
         title,
       },
     });
     this.setState({
       selectedIndex: index,
+      isPlaying: true,
     });
+  };
+
+  onClick = () => {
+    console.log(this.state.isPlaying);
+    this.setState({ isPlaying: !this.state.isPlaying });
   };
 
   render() {
     const { videos, tags } = this.props;
+    const { isPlaying } = this.state;
+    const { url, imageUrl, title } = this.state.selectedVideo;
     return (
       <div className="videos-page">
         <Head>
@@ -83,14 +95,27 @@ class VideosArchive extends Component {
           <div className="container">
             <div className="row">
               <div className="col-8">
-                <iframe
-                  allowFullScreen
-                  className="w-100 video-detail__iframe"
-                  src={this.state.selectedVideo.url}
-                  frameBorder="0"
-                  title="video player"
-                />
-                <h1 className="title">{this.state.selectedVideo.title}</h1>
+                <div className="pos-relative">
+                  <iframe
+                    allowFullScreen
+                    className="w-100 video-detail__iframe"
+                    src={`${url}${isPlaying ? '?autoplay=1' : ''}`}
+                    frameBorder="0"
+                    title="video player"
+                  />
+                  {!isPlaying && (
+                    <div
+                      onClick={this.onClick}
+                      className="video-detail__cover bg-cover"
+                      style={{
+                        backgroundImage: `url(${imageUrl})`,
+                      }}
+                    >
+                      <Play />
+                    </div>
+                  )}
+                </div>
+                <h1 className="title">{title}</h1>
               </div>
               <div className="col-4">
                 <VideosList
