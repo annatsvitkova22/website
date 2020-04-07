@@ -31,7 +31,9 @@ const Navigation = (props) => {
 };
 
 Navigation.propTypes = {
+  className: PropTypes.string,
   navigationData: PropTypes.shape({
+    id: PropTypes.string,
     menuItems: PropTypes.shape({
       nodes: PropTypes.arrayOf(
         PropTypes.shape({

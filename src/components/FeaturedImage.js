@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FeaturedImage = ({ data }) => {
-  console.log(data);
   return (
     <>
       {data && (

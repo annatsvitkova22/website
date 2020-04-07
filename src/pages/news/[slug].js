@@ -3,13 +3,12 @@ import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+
 import '../../styles/pages/singleNews.scss';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
-
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
 import Share from '~/components/Share';
-import Tags from '~/components/Tags';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
 
@@ -60,7 +59,6 @@ const NEWS = gql`
 
 const Post = (props) => {
   const { post } = props;
-  console.log(post);
 
   return (
     <>

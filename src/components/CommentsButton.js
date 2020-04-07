@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import CommentsPopUp from '~/components/CommentsPopUp';
 
 const CommentsButton = ({ className, comments }) => {
@@ -18,6 +20,11 @@ const CommentsButton = ({ className, comments }) => {
       <CommentsPopUp isVisible={isVisible} />
     </>
   );
+};
+
+CommentsButton.propTypes = {
+  className: PropTypes.string,
+  comments: PropTypes.any,
 };
 
 export default CommentsButton;
