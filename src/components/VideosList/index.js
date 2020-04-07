@@ -32,6 +32,7 @@ const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
 VideosList.propTypes = {
   videos: PropTypes.array,
   onVideoSelect: PropTypes.func,
+  selectedIndex: PropTypes.number,
 };
 
 export default VideosList;

@@ -8,7 +8,6 @@ import VideosList from '~/components/VideosList';
 import VideoTags from '~/components/VideoTags';
 import apolloClient from '~/lib/ApolloClient';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
-// import PhotoGallery from '~/components/PhotoGallery';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -31,6 +30,7 @@ const VIDEOS_ARCHIVE = gql`
         videos {
           nodes {
             title
+            excerpt
             zmVideoACF {
               videoUrl
               videoCover {
@@ -101,8 +101,6 @@ class VideosArchive extends Component {
               </div>
             </div>
           </div>
-          {/* <PhotoGallery />
-          <PhotoGallery /> */}
           <VideoTags tags={tags} />
         </main>
       </div>
@@ -118,6 +116,7 @@ VideosArchive.propTypes = {
       zmVideoACF: PropTypes.object,
     })
   ),
+  tags: PropTypes.array,
 };
 
 VideosArchive.getInitialProps = async () => {
