@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import useFilterHook from '~/hooks/useFilterHook';
-import '../styles/components/eventsPost.scss';
 import EventPostItem from '~/components/EventsPostItem';
 
 const EventsPost = (props) => {

@@ -3,12 +3,10 @@ import Link from 'next/link';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
-import Navigation from './Navigation';
-import Logo from './Logo';
-import Socials from './Socials';
-import Search from './Search';
-
-import '../styles/components/header.scss';
+import Navigation from '../Navigation';
+import Logo from '../Logo';
+import Socials from '../Socials';
+import Search from '../Search';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {

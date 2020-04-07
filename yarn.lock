@@ -4090,6 +4090,7 @@ glob-to-regexp@^0.4.1:
 glob@^5.0.13:
   version "5.0.15"
   resolved "https://registry.yarnpkg.com/glob/-/glob-5.0.15.tgz#1bc936b9e02f4a603fcc222ecf7633d30b8b93b1"
+  integrity sha1-G8k2ueAvSmA/zCIuz3Yz0wuLk7E=
   dependencies:
     inflight "^1.0.4"
     inherits "2"
@@ -4550,6 +4551,7 @@ import-from@^2.1.0:
 import-glob@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/import-glob/-/import-glob-1.5.0.tgz#5b8dc497c7b1ae2406da41ca687bb3b34227a659"
+  integrity sha1-W43El8exriQG2kHKaHuzs0Inplk=
   dependencies:
     glob "^5.0.13"
 

@@ -11,7 +11,7 @@ import PartnersLogo from './PartnersLogo';
 import Resources from './Resourses';
 import Counters from './Counters';
 
-import '../../styles/components/footer.scss';
+// import '../../styles/components/footer.scss';
 
 const FOOTER_QUERY = gql`
   query FooterQuery {
