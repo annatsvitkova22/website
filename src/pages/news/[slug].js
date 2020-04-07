@@ -70,7 +70,7 @@ const Post = (props) => {
       <main className="single-news">
         <NewsHead post={post} />
         <section
-          className={'main row'}
+          className={'main row no-gutters'}
           style={{ display: 'flex', alignItems: 'flex-start' }}
         >
           <StickyBox offsetTop={20} offsetBottom={20} className={'col-1'}>

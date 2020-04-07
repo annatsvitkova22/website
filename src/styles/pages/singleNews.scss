@@ -34,9 +34,13 @@
     border-top: 1px solid grey;
   }
 }
-.fa-w-10 {
+
+.svg-icon {
   width: 30px;
   height: 30px;
+}
+.svg-icon:hover {
+  color: #1d9e74;
 }
 .news-footer__comments {
   display: flex;

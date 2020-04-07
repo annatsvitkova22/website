@@ -9,7 +9,7 @@ const NewsFooter = ({ post }) => {
   return (
     <section className={'news-footer'}>
       <Tags list={post.tags.nodes} />
-      <div className={'news-footer__comments row'}>
+      <div className={'news-footer__comments row no-gutters'}>
         <CommentsButton className={'col-3'} commetnts={post.comments} />
         <div className={'comments__share col-4'}>
           <span className={'like'}>!</span>

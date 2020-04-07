@@ -32,8 +32,20 @@ a {
   margin-bottom: 24px;
 
   background-color: transparent;
-  border: 1px solid grey;
+  border: 1px solid lightgray;
   border-radius: 50%;
+}
+
+
+.share-button:active, .share-button:focus{
+  outline: none;
+}
+.share-button:hover {
+  cursor: pointer;
+}
+.share-button:hover + .svg-icon {
+  color: #1D9E74;
+
 }
 .like {
   display: flex;
@@ -46,7 +58,7 @@ a {
   position: relative;
 
   background-color: transparent;
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
   border-radius: 50%;
 }
 
