@@ -11,7 +11,6 @@ const Contacts = (props) => {
       <ul className={`sitemap__list ${className}`}>
         <li className={'sitemap__list-item'}>Контакти</li>
         {contactsData.map((item, i) => {
-          console.log(item.contacts);
           return (
             <>
               <li key={i} className={'sitemap__list-item'}>

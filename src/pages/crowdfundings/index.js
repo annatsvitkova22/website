@@ -36,30 +36,41 @@ const CrowdfundingsArchive = (props) => {
       <Head>
         {/* TODO: change title */}
         <title>{'Change this!'}</title>
-        <link rel="icon" href="/favicon.ico"/>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <section className="cf-crowdfundings">
-        {crowdfundings.map((cfProps, i) => (
-          <div className="cfitem">
-            <div className="cfitem__thumb">
-              <img src={cfProps.featuredImage.guid} alt={cfProps.title + 'thumbnail'}/>
+          {crowdfundings.map((cfProps, i) => (
+            <div className="cfitem">
+              <div className="cfitem__thumb">
+                <img
+                  src={cfProps.featuredImage.guid}
+                  alt={`${cfProps.title}thumbnail`}
+                />
+              </div>
+              <div className="cfitem__title">
+                <div className="cfitem__title">
+                  <a title={cfProps.title} href={cfProps.uri}>
+                    {cfProps.title}
+                  </a>
+                </div>
+              </div>
+              <div className="cfitem__descr">{cfProps.excerpt}</div>
+              <div className="cfitem__collected">
+                <div className="cfitem__collected__amount">
+                  {cfProps.cfACF.crowdfundingRequiredAmountToCollect}
+                </div>
+                <div className="cfitem__collected__left">
+                  {cfProps.cfACF.crowdfundingExpirationDate}
+                </div>
+                <div className="cfitem__collected__percent">
+                  {cfProps.cfACF.crowdfundingAboutProjectTabs}
+                </div>
+              </div>
+              <div className="cfitem__timeout" />
             </div>
-            <div className="cfitem__title">
-              <div className="cfitem__title"><a title={cfProps.title} href={cfProps.uri}>{cfProps.title}</a></div>
-            </div>
-            <div className="cfitem__descr">
-              {cfProps.excerpt}
-            </div>
-            <div className="cfitem__collected">
-              <div className="cfitem__collected__amount">{cfProps.cfACF.crowdfundingRequiredAmountToCollect}</div>
-              <div className="cfitem__collected__left">{cfProps.cfACF.crowdfundingExpirationDate}</div>
-              <div className="cfitem__collected__percent">{cfProps.cfACF.crowdfundingAboutProjectTabs}</div>
-            </div>
-            <div className="cfitem__timeout"></div>
-          </div>
-        ))}
+          ))}
         </section>
       </main>
     </div>
@@ -72,7 +83,7 @@ CrowdfundingsArchive.propTypes = {
       title: PropTypes.string,
       excerpt: PropTypes.string,
       slug: PropTypes.string,
-    }),
+    })
   ),
 };
 

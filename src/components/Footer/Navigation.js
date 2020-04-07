@@ -5,7 +5,6 @@ import NavLink from '~/components/SiteLink';
 
 const Navigation = (props) => {
   const { navigationData, className = '' } = props;
-  console.log(navigationData);
 
   return (
     <ul className={`sitemap__list ${className}`}>
