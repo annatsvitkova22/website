@@ -11,23 +11,29 @@ const Counters = (props) => {
   return (
     // TODO: implement class with classNames module
     <div className={`counters ${className}`}>
-      <div className="counters__wrapper around-xs">
+      <div className={'counters__wrapper around-xs'}>
         {publicationsData.pageInfo && (
-          <div className="counters__item">
-            <span>{publicationsData.pageInfo.total}</span>
-            <span>Публікації</span>
+          <div className={'counters__item'}>
+            <span className={'counters__item-counter'}>
+              {publicationsData.pageInfo.total}
+            </span>
+            <span className={'counters__item-description'}>Публікації</span>
           </div>
         )}
         {crowdfundingsData.pageInfo && (
-          <div className="counters__item">
-            <span>{crowdfundingsData.pageInfo.total}</span>
-            <span>Проекти</span>
+          <div className={'counters__item'}>
+            <span className={'counters__item-counter'}>
+              {crowdfundingsData.pageInfo.total}
+            </span>
+            <span className={'counters__item-description'}>Проекти</span>
           </div>
         )}
         {blogsData.pageInfo && (
-          <div className="counters__item">
-            <span>{blogsData.pageInfo.total}</span>
-            <span>Блоги</span>
+          <div className={'counters__item'}>
+            <span className={'counters__item-counter'}>
+              {blogsData.pageInfo.total}
+            </span>
+            <span className={'counters__item-description'}>Блоги</span>
           </div>
         )}
       </div>

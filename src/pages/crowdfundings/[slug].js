@@ -4,18 +4,34 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
+import Content from '~/components/Content';
+import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
+import '../../styles/pages/crowdfundings.scss';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
     crowdfundingBy(slug: $slug) {
-      title
+      id
+      excerpt
       content
+      uri
+      title
+      slug
+      featuredImage {
+        guid
+      }
+      cfACF {
+        crowdfundingRequiredAmountToCollect
+        crowdfundingExpirationDate
+        crowdfundingAboutProjectTabs
+      }
     }
   }
 `;
 
 const Crowdfunding = (props) => {
   const { crowdfunding } = props;
+
   return (
     <div className="single-crowdfundings">
       <Head>
@@ -24,9 +40,28 @@ const Crowdfunding = (props) => {
       </Head>
 
       <main>
-        <h1 className="title">{crowdfunding.title}</h1>
-
-        <div className="description">{crowdfunding.content}</div>
+      <div className="cfitem__title">
+        <div className="cfitem__title">{crowdfunding.title}</div>
+      </div>
+      <section className="cf-crowdfunding">
+        <section className="cf-content">
+          <div className="cfitem__thumb">
+            <img src={crowdfunding.featuredImage.guid} alt={crowdfunding.title + 'thumbnail'}/>
+          </div>
+          <div className="cfitem__descr">
+	  	{ <Content blocks={crowdfunding.content} /> }
+          </div>
+          <div className="cfitem__collected">
+            <div className="cfitem__collected__amount">{crowdfunding.cfACF.crowdfundingRequiredAmountToCollect}</div>
+            <div className="cfitem__collected__left">{crowdfunding.cfACF.crowdfundingExpirationDate}</div>
+            <div className="cfitem__collected__percent">{crowdfunding.cfACF.crowdfundingAboutProjectTabs}</div>
+          </div>
+          <div className="cfitem__timeout"></div>
+        </section>
+        <section className="cf-sidebar">
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        </section>
+      </section>
       </main>
     </div>
   );

@@ -57,7 +57,11 @@ const Icons = (props) => {
   if (!svgIcon) return null;
 
   return (
-    <span dangerouslySetInnerHTML={{ __html: svgIcon.tag }} style={{ color }} />
+    <span
+      dangerouslySetInnerHTML={{ __html: svgIcon.tag }}
+      style={{ color }}
+      className={'social-icon'}
+    />
   );
 };
 
