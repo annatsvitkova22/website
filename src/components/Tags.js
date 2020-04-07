@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Tags = ({ list }) => {
   return (
-    <ul>
+    <ul className={'tag-list'}>
       {list &&
         list.map((item) => {
           return (

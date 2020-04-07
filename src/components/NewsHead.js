@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 
 import Tags from '~/components/Tags';
 import FeaturedImage from '~/components/FeaturedImage';
+import ShareItems from '~/components/ShareItems';
 
 const NewsHead = ({ post }) => {
-  console.log(post);
-  const date = new Date (post.date)
-  console.log(date)
+  const date = new Date(post.date);
   return (
     <section className={'title'}>
       <Tags list={post.categories.nodes} />
@@ -21,9 +20,7 @@ const NewsHead = ({ post }) => {
           <span>{date.toDateString()}</span>
         </div>
         <div className={'title__social'}>
-          <span>Share</span>
-          <span>Share</span>
-          <span>Share</span>
+          <ShareItems />
         </div>
       </div>
       <FeaturedImage data={post.featuredImage} />

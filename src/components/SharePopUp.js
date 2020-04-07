@@ -5,6 +5,7 @@ import Icons from '~/components/Icons';
 
 const SharePopUp = ({ isVisible }) => {
   return (
+
     <>
       {isVisible && (
         <div className={'popup'}>

@@ -3,14 +3,20 @@ import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+import '../../styles/pages/singleNews.scss';
+import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
-import SharePopUp from '~/components/SharePopUp';
+import Share from '~/components/Share';
+import Tags from '~/components/Tags';
+import NewsFooter from '~/components/NewsFooter';
+import Content from '~/components/Content';
 
 const NEWS = gql`
   query News($slug: String!) {
     postBy(slug: $slug) {
+      ${gutenbergBlocksQuery}
       title
       content
       date
@@ -20,6 +26,18 @@ const NEWS = gql`
           id
           name
           link
+        }
+      }
+      tags {
+        nodes {
+          id
+          name
+          link
+        }
+      }
+      comments {
+        pageInfo {
+          total
         }
       }
       author {
@@ -42,44 +60,34 @@ const NEWS = gql`
 
 const Post = (props) => {
   const { post } = props;
-  const [isVisible, setIsVisible] = React.useState(false);
-
-  const changeVisibility = () => {
-    setIsVisible(() => {
-      return !isVisible;
-    });
-  };
+  console.log(post);
 
   return (
-    <div className="single-news">
+    <>
       <Head>
         <title>{post.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="single-news">
         <NewsHead post={post} />
         <section
           className={'main row'}
           style={{ display: 'flex', alignItems: 'flex-start' }}
         >
           <StickyBox offsetTop={20} offsetBottom={20} className={'col-1'}>
-            <div>
-              <button onClick={changeVisibility}>Share</button>
-              <SharePopUp isVisible={isVisible} />
-              <span>Like</span>
-            </div>
+            <Share />
           </StickyBox>
-          <div
-            className={'description col-7'}
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div className={'description col-7'}>
+            <Content content={post.blocks} />
+          </div>
           <StickyBox offsetTop={20} offsetBottom={20} className={'col-3'}>
             <div className={'latest'}>Latest News</div>
           </StickyBox>
         </section>
+        <NewsFooter post={post} />
       </main>
-    </div>
+    </>
   );
 };
 
