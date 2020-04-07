@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import Icons from './Icons';
 
 const Socials = (props) => {
-  const { socialsData, color } = props;
+  const { socialsData, color, className = '' } = props;
 
   return (
-    <div className="socials col-1">
+    <div className={`socials ${className}`}>
       {socialsData.map((item, i) => {
         return (
-          <a href={item.url} title={item.name} key={i}>
+          <a href={item.url} title={item.name} key={i} target={'_blank'}>
             <Icons icon={item.name} color={color} />
           </a>
         );
