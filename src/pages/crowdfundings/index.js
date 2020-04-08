@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 import '../../styles/pages/crowdfundings.scss';
+import ProgressBar from '../../../../../website/src/components/ProgressBar/cjs/ProgressBar';
 
 const CROWDFUNDINGS_ARCHIVE = gql`
   query CrowdfundingsArchive {
@@ -43,31 +44,29 @@ const CrowdfundingsArchive = (props) => {
           {crowdfundings.map((cfProps, i) => (
             <div className="cfitem">
               <div className="cfitem__thumb">
-                <img
-                  src={cfProps.featuredImage.guid}
-                  alt={`${cfProps.title}thumbnail`}
-                />
+                <img src={cfProps.featuredImage.guid} alt={cfProps.title + 'thumbnail'}/>
+                <div className="cfitem__thumb__status">Йде збір</div>
               </div>
-              <div className="cfitem__title">
+              <div className="cfitem__container">
                 <div className="cfitem__title">
-                  <a title={cfProps.title} href={cfProps.uri}>
-                    {cfProps.title}
-                  </a>
+                  <div className="cfitem__title"><a title={cfProps.title} href={cfProps.uri}>{cfProps.title}</a></div>
                 </div>
-              </div>
-              <div className="cfitem__descr">{cfProps.excerpt}</div>
-              <div className="cfitem__collected">
-                <div className="cfitem__collected__amount">
-                  {cfProps.cfACF.crowdfundingRequiredAmountToCollect}
+                <div className="cfitem__descr">
+                  {cfProps.excerpt}
+                </div>
+                <div className="cfitem__collected">
+                  <div className="cfitem__collected__amount">
+                    <NumberFormat value={cfProps.cfACF.crowdfundingRequiredAmountToCollect} displayType={'text'}
+                                  format="## ### ### ₴"/>
+                    Зібрано з <NumberFormat value={20000} displayType={'text'} format="## ### ### ₴"/>
+                    <ProgressBar now={60}/>
+                  </div>
                 </div>
                 <div className="cfitem__collected__left">
-                  {cfProps.cfACF.crowdfundingExpirationDate}
-                </div>
-                <div className="cfitem__collected__percent">
-                  {cfProps.cfACF.crowdfundingAboutProjectTabs}
+                  <img src="/assets/crowdfundings/clock.png"/>
+                  20 днів залишилося
                 </div>
               </div>
-              <div className="cfitem__timeout" />
             </div>
           ))}
         </section>
