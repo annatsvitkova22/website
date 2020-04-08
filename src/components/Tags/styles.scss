@@ -1,0 +1,30 @@
+.category-tag__list {
+  display: flex;
+
+  li {
+    list-style: none;
+
+    margin-right: 10px;
+    padding: 5px 10px;
+
+    font-size: 10px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+}
+
+.category > li {
+  background-color: $green;
+
+  color: $white;
+}
+
+.tag > li {
+  background-color: rgba(29, 158, 116, 0.08);
+
+  color: $green;
+}
+
+.tag-item:hover  {
+  background: rgba(29, 158, 116, 0.16);
+}
