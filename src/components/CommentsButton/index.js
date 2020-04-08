@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CommentsPopUp from '~/components/CommentsPopUp';
+import Icons from '~/components/Icons';
 
 const CommentsButton = ({ className, comments }) => {
   const [isVisible, setIsVisible] = React.useState(false);
@@ -14,8 +15,10 @@ const CommentsButton = ({ className, comments }) => {
 
   return (
     <>
-      <button className={className} onClick={changeVisibility}>
-        Comments {comments && comments.pageInfo.total}
+      <button className={`comments-button`} onClick={changeVisibility}>
+        <Icons icon={'comment'} />
+        <span>Кометарі</span>
+        {comments && <span>( {comments.pageInfo.total})</span>}
       </button>
       <CommentsPopUp isVisible={isVisible} />
     </>

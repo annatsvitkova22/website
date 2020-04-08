@@ -8,7 +8,7 @@ import CommentsButton from '~/components/CommentsButton';
 const NewsFooter = ({ post }) => {
   return (
     <section className={'news-footer'}>
-      <Tags list={post.tags.nodes} />
+      <Tags list={post.tags.nodes} className={'tag'} />
       <div className={'news-footer__comments row no-gutters'}>
         <CommentsButton className={'col-3'} commetnts={post.comments} />
         <div className={'comments__share col-4'}>

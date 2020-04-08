@@ -17,7 +17,7 @@ const Image = ({ block }) => {
   );
   if (block.attributes.caption) {
     return (
-      <figure>
+      <figure className={'gutenberg__image'}>
         {image}
         <figcaption
           dangerouslySetInnerHTML={{ __html: block.attributes.caption }}

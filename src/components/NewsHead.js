@@ -9,7 +9,7 @@ const NewsHead = ({ post }) => {
   const date = new Date(post.date);
   return (
     <section className={'title'}>
-      <Tags list={post.categories.nodes} />
+      <Tags list={post.categories.nodes} className={'category'} />
       <h1>{post.title}</h1>
       <article dangerouslySetInnerHTML={{ __html: post.excerpt }} />
       <div className={'title__wrapper'}>

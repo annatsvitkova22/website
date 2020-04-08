@@ -11,6 +11,7 @@ import NewsHead from '~/components/NewsHead';
 import Share from '~/components/Share';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
+import SideBarNews from '~/components/SideBarNews';
 
 const NEWS = gql`
   query News($slug: String!) {
@@ -54,11 +55,18 @@ const NEWS = gql`
         }
       }
     }
+    posts {
+      nodes {
+        title
+        link
+        date
+      }
+    }
   }
 `;
 
 const Post = (props) => {
-  const { post } = props;
+  const { post, news } = props;
 
   return (
     <>
@@ -70,17 +78,19 @@ const Post = (props) => {
       <main className="single-news">
         <NewsHead post={post} />
         <section
-          className={'main row no-gutters'}
+          className={'main row no-gutters justify-content-between'}
           style={{ display: 'flex', alignItems: 'flex-start' }}
         >
           <StickyBox offsetTop={20} offsetBottom={20} className={'col-1'}>
             <Share />
           </StickyBox>
-          <div className={'description col-7'}>
+          <div className={'description col-7 center'}>
             <Content content={post.blocks} />
           </div>
           <StickyBox offsetTop={20} offsetBottom={20} className={'col-3'}>
-            <div className={'latest'}>Latest News</div>
+            <section className={'latest'}>
+              <SideBarNews news={news.nodes} />
+            </section>
           </StickyBox>
         </section>
         <NewsFooter post={post} />
@@ -91,6 +101,7 @@ const Post = (props) => {
 
 Post.propTypes = {
   post: PropTypes.object,
+  news: PropTypes.object,
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {
@@ -101,6 +112,7 @@ Post.getInitialProps = async ({ query: { slug } }) => {
 
   return {
     post: data.postBy,
+    news: data.posts,
   };
 };
 
