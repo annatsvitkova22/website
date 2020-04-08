@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tags = ({ list }) => {
+const Tags = ({ list, className = '' }) => {
   return (
-    <ul className={'tag-list'}>
+    <ul className={`${className} category-tag__list `}>
       {list &&
         list.map((item) => {
           return (
-            <li>
+            <li className={`${className}-item`}>
               <a href={item.link} key={item.id}>
                 {item.name}
               </a>
@@ -20,6 +20,7 @@ const Tags = ({ list }) => {
 
 Tags.propTypes = {
   list: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default Tags;

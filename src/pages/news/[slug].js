@@ -70,13 +70,13 @@ const Post = (props) => {
       <main className="single-news">
         <NewsHead post={post} />
         <section
-          className={'main row no-gutters'}
+          className={'main row no-gutters justify-content-between'}
           style={{ display: 'flex', alignItems: 'flex-start' }}
         >
           <StickyBox offsetTop={20} offsetBottom={20} className={'col-1'}>
             <Share />
           </StickyBox>
-          <div className={'description col-7'}>
+          <div className={'description col-7 center'}>
             <Content content={post.blocks} />
           </div>
           <StickyBox offsetTop={20} offsetBottom={20} className={'col-3'}>
