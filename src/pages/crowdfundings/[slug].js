@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 import Content from '~/components/Content';
-import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import '../../styles/pages/crowdfundings.scss';
 
 const CROWDFUNDING = gql`

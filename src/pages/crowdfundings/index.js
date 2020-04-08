@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
