@@ -5,7 +5,7 @@ import Play from '~/static/images/play';
 
 const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
   <ul className="list-unstyled videos-list">
-    {videos.slice(0, 6).map((video, i) => {
+    {videos.slice(0, 20).map((video, i) => {
       const { title, zmVideoACF } = video;
       function onClick() {
         return onVideoSelect(
@@ -24,7 +24,7 @@ const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
           >
             <Play />
             <div className="video-item__duration">
-              {i === selectedIndex ? 'Playing' : '8:00'}
+              {i === selectedIndex ? 'Відтво...' : '8:00'}
             </div>
           </div>
           <div className="video-item__title">{title}</div>

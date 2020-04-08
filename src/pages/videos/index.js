@@ -118,7 +118,6 @@ class VideosArchive extends Component {
                     </div>
                   )}
                 </div>
-                <h1 className="title">{title}</h1>
               </div>
               <div className="col-4">
                 <VideosList
@@ -126,6 +125,9 @@ class VideosArchive extends Component {
                   onVideoSelect={this.onVideoSelect}
                   selectedIndex={this.state.selectedIndex}
                 />
+              </div>
+              <div className="col-12">
+                <h1 className="title">{title}</h1>
               </div>
             </div>
           </div>
