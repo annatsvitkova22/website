@@ -21,6 +21,7 @@ const Socials = (props) => {
 
 Socials.propTypes = {
   color: PropTypes.string,
+  className: PropTypes.string,
   socialsData: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
