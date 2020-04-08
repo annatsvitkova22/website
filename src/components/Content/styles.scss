@@ -1,5 +1,5 @@
-p {
-  a {
+.gutenberg__paragraph {
+  & > a {
     color: #1d9e74;
   }
 }
@@ -21,8 +21,12 @@ p {
     border: none;
     border-radius: 50%;
 
+    visibility: hidden;
     .svg-icon {
       color: $white;
     }
   }
+}
+.gutenberg__image:hover > .expand-image {
+  visibility: visible;
 }
