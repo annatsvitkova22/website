@@ -16,7 +16,8 @@ const VideoTags = ({ tags }) => {
         >
           <Play />
         </div>
-        <h4>{item.title}</h4>
+        <p>{item.duration}</p>
+        <h4>{item.name}</h4>
       </>
     );
   }
@@ -40,7 +41,8 @@ const VideoTags = ({ tags }) => {
             </div>
             `,
             thumbnail: video.zmVideoACF.videoCover.mediaItemUrl,
-            title: video.title,
+            name: video.title,
+            duration: video.zmVideoACF.duration,
           }));
           return (
             <div key={i} className="row video-tag">

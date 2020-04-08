@@ -154,21 +154,69 @@ VideosArchive.getInitialProps = async () => {
     query: VIDEOS_ARCHIVE,
   });
 
+  // Create array with unique video ids
+  const videoIds = Array.from(
+    new Set(
+      data.videos.nodes.map((node) => {
+        const { videoUrl } = node.zmVideoACF;
+        const videoId = videoUrl.split('?v=')[1];
+        return videoId;
+      })
+    )
+  );
+
   const response = await youtube.get('/videos', {
     params: {
-      id: 'hvG6oJCf2Fg, 8bCwZ-XpzUw',
+      id: videoIds.join(','),
       part: 'contentDetails',
       key: KEY,
     },
   });
-  const duration = response.data.items.map((item) =>
-    convertISO8601ToTime(item.contentDetails.duration)
-  );
+
+  // Create object with video durations and id as a key
+  const videoDurations = response.data.items.reduce((acc, item) => {
+    acc[item.id] = convertISO8601ToTime(item.contentDetails.duration);
+    return acc;
+  }, {});
+
+  // Add duration for videos
+  const videos = data.videos.nodes.map((node) => {
+    const { zmVideoACF } = node;
+    const videoId = zmVideoACF.videoUrl.split('?v=')[1];
+
+    return {
+      ...node,
+      zmVideoACF: {
+        ...zmVideoACF,
+        duration: videoDurations[videoId],
+      },
+    };
+  });
+
+  // Add duration for videos
+  const tags = data.tags.nodes.map((node) => {
+    const videoNodes = node.videos.nodes.map((videoNode) => {
+      const { zmVideoACF } = videoNode;
+      const videoId = zmVideoACF.videoUrl.split('?v=')[1];
+      return {
+        ...videoNode,
+        zmVideoACF: {
+          ...zmVideoACF,
+          duration: videoDurations[videoId],
+        },
+      };
+    });
+    return {
+      ...node,
+      videos: {
+        nodes: [...videoNodes],
+      },
+    };
+  });
 
   return {
-    videos: data.videos.nodes,
-    tags: data.tags.nodes,
-    formattedVideos: '',
+    videos,
+    tags,
   };
 };
 
