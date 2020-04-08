@@ -5,10 +5,102 @@
   align-items: flex-start;
   flex-wrap: wrap;
 
-  & >div {
+  & > div {
     width: 30%;
-    height: 40em;
+    height: 30rem;
   }
+
+  .cfitem {
+    border: 1px solid #D8D8D8;
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    .cfitem__thumb {
+      position: relative;
+
+      img {
+        height: 14rem;
+        object-fit: cover;
+      }
+
+      .cfitem__thumb__status {
+        padding: 5px 10px;
+
+        position: absolute;
+        top: 29px;
+        left: 23px;
+
+        background-color: #FFFFFF;
+
+        font-style: normal;
+
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 15px;
+
+        text-transform: uppercase;
+      }
+    }
+
+    .cfitem__container {
+      padding: 28px 22px 36px 22px;
+
+      .cfitem__title {
+        a {
+          color: #000000;
+
+          font-style: normal;
+
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 22px;
+        }
+      }
+
+      .cfitem__descr, .cfitem__collected__percent {
+        font-style: normal;
+
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 22px;
+
+        color: #2E2E2E;
+      }
+
+      .cfitem__collected {
+        display: flex;
+
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        .cfitem__collected__amount {
+          font-size: 12px;
+
+          > span:first-child {
+            font-style: normal;
+
+            margin-right: 0.5rem;
+
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 22px;
+            color: #1D9E74;
+          }
+        }
+      }
+
+      .cfitem__collected__left {
+        font-style: normal;
+
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 22px;
+      }
+    }
+  }
+
 }
 
 .cf-crowdfunding {
@@ -21,7 +113,30 @@
   .cf-content {
     width: 70%;
   }
+
   .cf-sidebar {
     width: 30%;
+  }
+}
+
+/* CF Navigation */
+.cf-navigation {
+  list-style: none;
+
+  > .cf-navigation__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    list-style: none;
+
+    > li {
+      margin-right: 20px;
+      font-style: normal;
+
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+    }
   }
 }

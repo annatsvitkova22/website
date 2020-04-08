@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 import '../../styles/pages/crowdfundings.scss';
-import ProgressBar from '../../../../../website/src/components/ProgressBar/cjs/ProgressBar';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import '~/styles/components/progressBar.scss';
 
 const CROWDFUNDINGS_ARCHIVE = gql`
   query CrowdfundingsArchive {
