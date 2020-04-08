@@ -27,6 +27,7 @@ const PartnersLogo = (props) => {
   );
 };
 PartnersLogo.propTypes = {
+  className: PropTypes.string,
   partnersData: PropTypes.arrayOf(
     PropTypes.shape({
       url: PropTypes.string,

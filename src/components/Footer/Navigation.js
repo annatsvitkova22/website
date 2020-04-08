@@ -5,7 +5,6 @@ import NavLink from '~/components/SiteLink';
 
 const Navigation = (props) => {
   const { navigationData, className = '' } = props;
-  console.log(navigationData);
 
   return (
     <ul className={`sitemap__list ${className}`}>
@@ -32,7 +31,9 @@ const Navigation = (props) => {
 };
 
 Navigation.propTypes = {
+  className: PropTypes.string,
   navigationData: PropTypes.shape({
+    id: PropTypes.string,
     menuItems: PropTypes.shape({
       nodes: PropTypes.arrayOf(
         PropTypes.shape({
