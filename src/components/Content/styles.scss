@@ -7,7 +7,22 @@ p {
 .gutenberg__image {
   display: flex;
   flex-direction: column;
-
   justify-content: center;
-}
 
+  position: relative;
+  .expand-image {
+    display: block;
+
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+
+    background-color: $black;
+    border: none;
+    border-radius: 50%;
+
+    .svg-icon {
+      color: $white;
+    }
+  }
+}
