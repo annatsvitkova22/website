@@ -8,7 +8,11 @@ import VideosList from '~/components/VideosList';
 import VideoTags from '~/components/VideoTags';
 import apolloClient from '~/lib/ApolloClient';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
+import convertISO8601ToTime from '~/util/convertISO8601ToTime';
 import Play from '~/static/images/play';
+import youtube from '~/apis/youtube';
+
+const KEY = 'AIzaSyBz7hBEUeLfjjkbutilOakeLZv5hCDf-GM';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -75,7 +79,6 @@ class VideosArchive extends Component {
   };
 
   onClick = () => {
-    console.log(this.state.isPlaying);
     this.setState({ isPlaying: !this.state.isPlaying });
   };
 
@@ -149,9 +152,21 @@ VideosArchive.getInitialProps = async () => {
     query: VIDEOS_ARCHIVE,
   });
 
+  const response = await youtube.get('/videos', {
+    params: {
+      id: 'hvG6oJCf2Fg, 8bCwZ-XpzUw',
+      part: 'contentDetails',
+      key: KEY,
+    },
+  });
+  const duration = response.data.items.map((item) =>
+    convertISO8601ToTime(item.contentDetails.duration)
+  );
+
   return {
     videos: data.videos.nodes,
     tags: data.tags.nodes,
+    formattedVideos: '',
   };
 };
 
