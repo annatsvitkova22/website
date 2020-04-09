@@ -5,9 +5,8 @@ import { useQuery } from '@apollo/react-hooks';
 
 import Navigation from '../Navigation';
 import Logo from '../Logo';
-import Socials from '../Socials';
 import Search from '../Search';
-import Icons from '~/components/Icons';
+import Icons from '../Icons';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -48,15 +47,15 @@ const Header = () => {
       <div className="container-fluid">
         <div className="row">
           <Link href={'/'}>
-            <a href={'/'}>
+            <a href={'/'} className={'header__logo'}>
               <Logo logoData={data.info.generalInfoACF.logo} />
             </a>
           </Link>
           <Navigation navigationData={data.menus} />
-          <div>
+          <div className={'header__icons'}>
             <Icons icon={'crest'} />
             <Icons icon={'crest-location'} />
-            <Search />
+            <Search color={'white'} />
           </div>
         </div>
       </div>

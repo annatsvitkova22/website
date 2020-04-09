@@ -1,6 +1,5 @@
 header {
   display: flex;
-  align-content: space-between;
   align-items: center;
 
   width: 100%;
@@ -11,37 +10,44 @@ header {
 
   color: $white;
 
-  .logo {
-    margin-left: 30px;
+  .header__logo {
+    display: flex;
+    align-items: center;
 
-    width: 90px;
-    height: 44px;
+    .logo {
+      margin-left: 30px;
+
+      width: 90px;
+      height: 44px;
+    }
   }
 
   .navigation {
-    ul {
-      display: flex;
+    display: flex;
+    flex-grow: 2;
 
-      margin: 0;
-      padding: 0;
+    .navigation__list {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+
+      margin: auto;
+
+      width: 100%;
 
       list-style-type: none;
-
-      li {
-        display: flex;
-
-        width: 100%;
-        & + li {
-          margin-left: 20px;
-        }
+      .navigation__list-item {
+        margin: 25px 0 25px 32px;
       }
     }
   }
 
-  .socials {
+  .header__icons {
     display: flex;
-
-    height: 100%;
+    justify-self: end;
+    align-items: center;
+    .svg-icon {
+      margin-right: 25px;
+    }
   }
-
 }
