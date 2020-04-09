@@ -9,6 +9,7 @@ header {
   background-color: $black;
 
   color: $white;
+  text-transform: uppercase;
 
   .header__logo {
     display: flex;
@@ -38,6 +39,11 @@ header {
       list-style-type: none;
       .navigation__list-item {
         margin: 25px 0 25px 32px;
+
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 1.21;
+        letter-spacing: 0.07em;
       }
     }
   }
