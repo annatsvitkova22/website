@@ -94,7 +94,7 @@ class VideosArchive extends Component {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main>
+        <main className="videos-main">
           <div className="container">
             <div className="row">
               <div className="col-8">
