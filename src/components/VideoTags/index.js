@@ -29,6 +29,7 @@ const VideoTags = ({ tags }) => {
         if (nodes.length) {
           const options = {
             shareEl: false,
+            galleryUID: i,
           };
           const tagItems = nodes.slice(0, 4).map((video) => ({
             html: `
@@ -50,7 +51,6 @@ const VideoTags = ({ tags }) => {
                 <p>{tag.name}</p>
               </div>
               <PhotoSwipeGallery
-                id={`${i}`}
                 className="col-12"
                 items={tagItems}
                 options={options}
