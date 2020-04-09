@@ -120,11 +120,11 @@ class PhotoSwipeWrapper extends React.Component {
   };
 
   render() {
-    const { id } = this.props;
+    const { options } = this.props;
     const { className } = this.props;
     return (
       <div
-        id={id}
+        id={options.galleryUID}
         className={`pswp ${className}`}
         tabIndex="-1"
         role="dialog"
