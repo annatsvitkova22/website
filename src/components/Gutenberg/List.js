@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const List = ({ block }) => {
-  const regex = /\<\/li\>/g;
-  const listString = block.attributes.values;
-  const listArray = listString.replace(regex, `</li>,`).split(',').slice(0, -1);
+  if (block.attributes.ordered) {
+    return (
+      <ol
+        className={`${block.attributes.className} unordered-list`}
+        dangerouslySetInnerHTML={{ __html: block.attributes.values }}
+      />
+    );
+  }
   return (
-    <ul className={`${block.attributes.className} unordered-list`}>
-      {listArray.map((item, index) => {
-        return <li dangerouslySetInnerHTML={{ __html: item }} key={index} />;
-      })}
-    </ul>
+    <ul
+      className={`${block.attributes.className} unordered-list`}
+      dangerouslySetInnerHTML={{ __html: block.attributes.values }}
+    />
   );
 };
 
