@@ -9,12 +9,16 @@ import Play from '~/static/images/play';
 const VideoTags = ({ tags }) => {
   function getThumbnailContent(item) {
     return (
-      <div
-        className="video-tag__thumbnail bg-cover"
-        style={{ backgroundImage: `url(${item.thumbnail})` }}
-      >
-        <Play />
-      </div>
+      <>
+        <div
+          className="video-tag__thumbnail bg-cover pos-relative"
+          style={{ backgroundImage: `url(${item.thumbnail})` }}
+        >
+          <Play />
+        </div>
+        <p>{item.duration}</p>
+        <h4>{item.name}</h4>
+      </>
     );
   }
 
@@ -37,6 +41,8 @@ const VideoTags = ({ tags }) => {
             </div>
             `,
             thumbnail: video.zmVideoACF.videoCover.mediaItemUrl,
+            name: video.title,
+            duration: video.zmVideoACF.duration,
           }));
           return (
             <div key={i} className="row video-tag">

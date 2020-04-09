@@ -8,7 +8,11 @@ import VideosList from '~/components/VideosList';
 import VideoTags from '~/components/VideoTags';
 import apolloClient from '~/lib/ApolloClient';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
+import convertISO8601ToTime from '~/util/convertISO8601ToTime';
 import Play from '~/static/images/play';
+import youtube from '~/apis/youtube';
+
+const KEY = 'AIzaSyBz7hBEUeLfjjkbutilOakeLZv5hCDf-GM';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -75,7 +79,6 @@ class VideosArchive extends Component {
   };
 
   onClick = () => {
-    console.log(this.state.isPlaying);
     this.setState({ isPlaying: !this.state.isPlaying });
   };
 
@@ -115,7 +118,6 @@ class VideosArchive extends Component {
                     </div>
                   )}
                 </div>
-                <h1 className="title">{title}</h1>
               </div>
               <div className="col-4">
                 <VideosList
@@ -123,6 +125,9 @@ class VideosArchive extends Component {
                   onVideoSelect={this.onVideoSelect}
                   selectedIndex={this.state.selectedIndex}
                 />
+              </div>
+              <div className="col-12">
+                <h1 className="title">{title}</h1>
               </div>
             </div>
           </div>
@@ -149,9 +154,69 @@ VideosArchive.getInitialProps = async () => {
     query: VIDEOS_ARCHIVE,
   });
 
+  // Create array with unique video ids
+  const videoIds = Array.from(
+    new Set(
+      data.videos.nodes.map((node) => {
+        const { videoUrl } = node.zmVideoACF;
+        const videoId = videoUrl.split('?v=')[1];
+        return videoId;
+      })
+    )
+  );
+
+  const response = await youtube.get('/videos', {
+    params: {
+      id: videoIds.join(','),
+      part: 'contentDetails',
+      key: KEY,
+    },
+  });
+
+  // Create object with video durations and id as a key
+  const videoDurations = response.data.items.reduce((acc, item) => {
+    acc[item.id] = convertISO8601ToTime(item.contentDetails.duration);
+    return acc;
+  }, {});
+
+  // Add duration for videos
+  const videos = data.videos.nodes.map((node) => {
+    const { zmVideoACF } = node;
+    const videoId = zmVideoACF.videoUrl.split('?v=')[1];
+
+    return {
+      ...node,
+      zmVideoACF: {
+        ...zmVideoACF,
+        duration: videoDurations[videoId],
+      },
+    };
+  });
+
+  // Add duration for videos
+  const tags = data.tags.nodes.map((node) => {
+    const videoNodes = node.videos.nodes.map((videoNode) => {
+      const { zmVideoACF } = videoNode;
+      const videoId = zmVideoACF.videoUrl.split('?v=')[1];
+      return {
+        ...videoNode,
+        zmVideoACF: {
+          ...zmVideoACF,
+          duration: videoDurations[videoId],
+        },
+      };
+    });
+    return {
+      ...node,
+      videos: {
+        nodes: [...videoNodes],
+      },
+    };
+  });
+
   return {
-    videos: data.videos.nodes,
-    tags: data.tags.nodes,
+    videos,
+    tags,
   };
 };
 
