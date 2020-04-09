@@ -28,3 +28,15 @@
 .font-weight-bold { font-weight: $font-weight-bold !important; }
 //.font-weight-bolder { font-weight: $font-weight-bolder !important; }
 .font-italic { font-style: italic !important; }
+
+$tx-colors: (
+  'green': $green,
+);
+
+@each $name, $color in $tx-colors {
+  .tx {
+    &-#{$name} {
+      color: #{$color};
+    }
+  }
+}
