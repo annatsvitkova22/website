@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PhotoSwipe } from 'react-photoswipe';
+
 import Icons from '~/components/Icons';
 
 const Image = ({ block }) => {
