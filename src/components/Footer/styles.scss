@@ -19,14 +19,13 @@ footer {
     list-style: none;
   }
 
-  img {
-    margin-left: 0.5rem;
-  }
-
   a {
     display: flex;
 
     color: $white;
+
+    letter-spacing: normal;
+    line-height: 1.33;
   }
   .footer__wrapper {
     width: 100%;
@@ -42,8 +41,6 @@ footer {
       .logo {
         width: 110px;
         height: 60px;
-
-        background-color: $white;
       }
       .navigation__sitemap {
         display: flex;
@@ -71,7 +68,8 @@ footer {
           > .sitemap__list-item:first-child {
             font-size: 14px;
             line-height: 1.6;
-            font-style: $font-weight-semibold;
+            font-weight: $font-weight-semibold;
+            letter-spacing: 0.05em;
           }
         }
       }
@@ -102,7 +100,7 @@ footer {
         font-family: $font-family-secondary;
         &__wrapper {
           display: flex;
-          justify-content: flex-start;
+          justify-content: flex-end;
         }
         &__item {
           display: flex;

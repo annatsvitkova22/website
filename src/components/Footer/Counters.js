@@ -8,8 +8,10 @@ const Counters = (props) => {
     publicationsData,
     className = '',
   } = props;
+  console.log(props);
   return (
     // TODO: implement class with classNames module
+
     <div className={`counters ${className}`}>
       <div className={'counters__wrapper around-xs'}>
         {publicationsData.pageInfo && (
