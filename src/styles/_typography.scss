@@ -27,3 +27,10 @@ h3 {
 
   line-height: 1.2;
 }
+
+.unordered-list,
+.ordered-list {
+  & > li {
+    margin-bottom: 16px;
+  }
+}

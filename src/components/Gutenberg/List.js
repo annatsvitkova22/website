@@ -6,7 +6,7 @@ const List = ({ block }) => {
   const listString = block.attributes.values;
   const listArray = listString.replace(regex, `</li>,`).split(',').slice(0, -1);
   return (
-    <ul className={`${block.attributes.className}`}>
+    <ul className={`${block.attributes.className} unordered-list`}>
       {listArray.map((item, index) => {
         return <li dangerouslySetInnerHTML={{ __html: item }} key={index} />;
       })}
