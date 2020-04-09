@@ -5,7 +5,7 @@ const List = ({ block }) => {
   if (block.attributes.ordered) {
     return (
       <ol
-        className={`${block.attributes.className} unordered-list`}
+        className={`${block.attributes.className} ordered-list`}
         dangerouslySetInnerHTML={{ __html: block.attributes.values }}
       />
     );

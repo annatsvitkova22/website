@@ -10,6 +10,16 @@
   justify-content: center;
 
   position: relative;
+  .is-style-circle-mask {
+    width: 100%;
+    height: auto;
+
+    position: relative;
+
+    border-radius: 100%;
+
+    overflow: hidden;
+  }
   .expand-image {
     display: block;
 
@@ -25,6 +35,15 @@
     .svg-icon {
       color: $white;
     }
+  }
+  & > img {
+    margin-bottom: 7px;
+  }
+  figcaption {
+    color: #8a9994;
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
   }
 }
 .gutenberg__image:hover > .expand-image {
