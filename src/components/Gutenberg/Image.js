@@ -1,7 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PhotoSwipe } from 'react-photoswipe';
+
+import Icons from '~/components/Icons';
 
 const Image = ({ block }) => {
+  const [isActive, setIsActive] = React.useState(false);
+
+  const openPopup = () => {
+    setIsActive(!isActive);
+  };
+
+  const img = [
+    {
+      src: block.attributes.url,
+      w: 1200,
+      h: 900,
+      title: 'image 1',
+    },
+    {
+      src: block.attributes.url,
+      w: 1200,
+      h: 900,
+      title: 'image 2',
+    },
+  ];
   const style = {
     alignSelf: block.attributes.align,
   };
@@ -15,6 +38,24 @@ const Image = ({ block }) => {
       style={style}
     />
   );
+  if (block.attributes.linkDestination) {
+    return (
+      <figure className={'gutenberg__image'}>
+        {image}
+        <figcaption
+          dangerouslySetInnerHTML={{ __html: block.attributes.caption }}
+        />
+        {isActive && (
+          <figure>
+            <PhotoSwipe isOpen={isActive} items={img} onClose={openPopup} />
+          </figure>
+        )}
+        <button className={'expand-image'} onClick={openPopup}>
+          <Icons icon={'expand'} />
+        </button>
+      </figure>
+    );
+  }
   if (block.attributes.caption) {
     return (
       <figure className={'gutenberg__image'}>

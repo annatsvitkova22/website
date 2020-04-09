@@ -1,5 +1,5 @@
-p {
-  a {
+.gutenberg__paragraph {
+  & a {
     color: #1d9e74;
   }
 }
@@ -7,7 +7,90 @@ p {
 .gutenberg__image {
   display: flex;
   flex-direction: column;
-
   justify-content: center;
+
+  position: relative;
+  .is-style-circle-mask {
+    width: 100%;
+    height: auto;
+
+    position: relative;
+
+    border-radius: 100%;
+
+    overflow: hidden;
+  }
+  .expand-image {
+    display: block;
+
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+
+    background-color: $black;
+    border: none;
+    border-radius: 50%;
+
+    visibility: hidden;
+    .svg-icon {
+      color: $white;
+    }
+  }
+  & > img {
+    margin-bottom: 7px;
+  }
+  figcaption {
+    color: #8a9994;
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+  }
+}
+.gutenberg__image:hover > .expand-image {
+  visibility: visible;
 }
 
+.gutenberg__quote {
+  padding-left: 36px;
+  margin-bottom: 112px;
+
+  border-left: 2px solid #666666;
+  & > blockquote {
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    font-style: italic;
+    font-weight: bold;
+  }
+  .quote__citation {
+    display: flex;
+    align-items: center;
+
+    font-family: $font-family-titles;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: 0.2px;
+    &::before {
+      content: '';
+
+      width: 24px;
+
+      border: 1px solid $black;
+    }
+  }
+}
+
+.gutenberg__audio {
+  padding-top: 37px;
+  padding-bottom: 37px;
+
+  width: 100%;
+
+  border-top: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
+  audio {
+    width: 100%;
+
+    background-color: transparent;
+  }
+}

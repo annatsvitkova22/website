@@ -14,8 +14,8 @@ const Contacts = (props) => {
           return (
             <>
               <li key={i} className={'sitemap__list-item'}>
-                {item.role && <span>{item.role}</span>}
-                <span>{item.name}:</span>
+                {item.role && <span>{item.role}:</span>}
+                <span>{item.name}</span>
               </li>
               {item.contacts ? (
                 item.contacts.map((contacts, k) => {

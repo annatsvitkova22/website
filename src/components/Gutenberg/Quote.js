@@ -6,11 +6,14 @@ const Quote = ({ block }) => {
     textAlign: block.attributes.align,
   };
   return (
-    <blockquote
-      style={style}
-      className={block.attributes.className}
-      dangerouslySetInnerHTML={{ __html: block.attributes.value }}
-    />
+    <div className={`gutenberg__quote`}>
+      <blockquote
+        style={style}
+        className={`${block.attributes.className}`}
+        dangerouslySetInnerHTML={{ __html: block.attributes.value }}
+      />
+      <span className={'quote__citation'}>{block.attributes.citation}</span>
+    </div>
   );
 };
 
