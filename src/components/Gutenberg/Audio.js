@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Audio = ({ block }) => {
   if (block.attributes) {
     return (
-      <figure>
+      <figure className={'gutenberg__audio'}>
         <figcaption>{block.attributes.caption}</figcaption>
         <audio controls src={block.attributes.src} />
       </figure>
