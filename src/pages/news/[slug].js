@@ -81,13 +81,21 @@ const Post = (props) => {
           className={'main row no-gutters justify-content-between'}
           style={{ display: 'flex', alignItems: 'flex-start' }}
         >
-          <StickyBox offsetTop={20} offsetBottom={20} className={'col-1'}>
+          <StickyBox
+            offsetTop={20}
+            offsetBottom={20}
+            className={'side-bar__wrapper col-1'}
+          >
             <Share />
           </StickyBox>
-          <div className={'description col-7 center'}>
+          <section className={'description col-7'}>
             <Content content={post.blocks} />
-          </div>
-          <StickyBox offsetTop={20} offsetBottom={20} className={'col-3'}>
+          </section>
+          <StickyBox
+            offsetTop={20}
+            offsetBottom={20}
+            className={'side-bar__wrapper col-3'}
+          >
             <section className={'latest'}>
               <SideBarNews news={news.nodes} />
             </section>

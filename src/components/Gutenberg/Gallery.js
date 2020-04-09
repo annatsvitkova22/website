@@ -15,6 +15,7 @@ const Gallery = ({ block }) => {
       []
     );
   const arr = splitArr(newArr, chunk);
+  console.log(arr);
   const newData = arr.map((item) => {
     return item.map((element) =>
       element.replace(anotherreg, '').replace('"', '')

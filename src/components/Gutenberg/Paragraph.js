@@ -16,7 +16,7 @@ const Paragraph = ({ block }) => {
   return (
     <p
       style={style}
-      className={`${attributes.className} gutenberg__paragraph ${'col-7'}`}
+      className={`${attributes.className} gutenberg__paragraph`}
       dangerouslySetInnerHTML={{ __html: attributes.content }}
     />
   );

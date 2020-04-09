@@ -1,5 +1,5 @@
 .gutenberg__paragraph {
-  & > a {
+  & a {
     color: #1d9e74;
   }
 }
@@ -29,4 +29,34 @@
 }
 .gutenberg__image:hover > .expand-image {
   visibility: visible;
+}
+
+.gutenberg__quote {
+  padding-left: 36px;
+  margin-bottom: 112px;
+
+  border-left: 2px solid #666666;
+  & > blockquote {
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    font-style: italic;
+    font-weight: bold;
+  }
+  .quote__citation {
+    display: flex;
+    align-items: center;
+
+    font-family: $font-family-titles;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: 0.2px;
+    &::before {
+      content: '';
+
+      width: 24px;
+
+      border: 1px solid $black;
+    }
+  }
 }
