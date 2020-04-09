@@ -67,6 +67,7 @@ const NEWS = gql`
 
 const Post = (props) => {
   const { post, news } = props;
+  const ref = React.useRef();
 
   return (
     <>
@@ -97,7 +98,7 @@ const Post = (props) => {
             className={'side-bar__wrapper col-3'}
           >
             <section className={'latest'}>
-              <SideBarNews news={news.nodes} />
+              <SideBarNews news={news.nodes} ref={ref} />
             </section>
           </StickyBox>
         </section>
