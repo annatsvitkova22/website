@@ -5,8 +5,8 @@ import { useQuery } from '@apollo/react-hooks';
 
 import Navigation from '../Navigation';
 import Logo from '../Logo';
-import Socials from '../Socials';
 import Search from '../Search';
+import Icons from '../Icons';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -44,19 +44,19 @@ const Header = () => {
 
   return (
     <header>
-      <div className="container">
-        <div className="row justify-content-between">
+      <div className="container-fluid">
+        <div className="row">
           <Link href={'/'}>
-            <a href={'/'} className="col-2">
+            <a href={'/'} className={'header__logo'}>
               <Logo logoData={data.info.generalInfoACF.logo} />
             </a>
           </Link>
           <Navigation navigationData={data.menus} />
-          <Socials
-            socialsData={data.info.generalInfoACF.socials}
-            color={'red'}
-          />
-          <Search />
+          <div className={'header__icons'}>
+            <Icons icon={'crest'} />
+            <Icons icon={'crest-location'} />
+            <Search color={'white'} />
+          </div>
         </div>
       </div>
     </header>
