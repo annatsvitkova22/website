@@ -127,7 +127,7 @@ class VideosArchive extends Component {
                 />
               </div>
               <div className="col-12">
-                <h1 className="title">{title}</h1>
+                <h1 className="video-detail__title">{title}</h1>
               </div>
             </div>
           </div>

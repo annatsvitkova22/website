@@ -11,6 +11,12 @@
 }
 
 .video-detail {
+  &__title {
+    margin-bottom: 30px;
+
+    font-size: 20px;
+  }
+
   &__iframe {
     min-height: 500px;
   }

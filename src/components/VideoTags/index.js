@@ -16,8 +16,8 @@ const VideoTags = ({ tags }) => {
         >
           <Play />
         </div>
-        <p>{item.duration}</p>
-        <h4>{item.name}</h4>
+        <p className="video-tag__duration">{item.duration}</p>
+        <h4 className="video-tag__name">{item.name}</h4>
       </>
     );
   }
@@ -30,6 +30,7 @@ const VideoTags = ({ tags }) => {
           const options = {
             shareEl: false,
             galleryUID: i,
+            bgOpacity: 0.75,
           };
           const tagItems = nodes.slice(0, 4).map((video) => ({
             html: `
@@ -37,8 +38,10 @@ const VideoTags = ({ tags }) => {
               <iframe src="${formatYouTubeUrl(
                 video.zmVideoACF.videoUrl
               )}" frameborder="0"></iframe>
-              <h3>${video.title}</h3>
-              <div>${video.excerpt}</div>
+              <div class="video-tag__info">
+                <h3>${video.title}</h3>
+                <div>${video.excerpt}</div>
+              </div>
             </div>
             `,
             thumbnail: video.zmVideoACF.videoCover.mediaItemUrl,
@@ -48,10 +51,12 @@ const VideoTags = ({ tags }) => {
           return (
             <div key={i} className="row video-tag">
               <div className="col-6">
-                <p>{tag.name}</p>
+                <p className="video-tag__title">{tag.name}</p>
               </div>
               <div className="col-6 text-right tx-green">
-                <a href="#">Дивись Усі</a>
+                <a href="#" className="video-tag__watch-all">
+                  Дивись Усі
+                </a>
               </div>
               <PhotoSwipeGallery
                 className="col-12"
