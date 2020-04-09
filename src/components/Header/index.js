@@ -7,6 +7,7 @@ import Navigation from '../Navigation';
 import Logo from '../Logo';
 import Socials from '../Socials';
 import Search from '../Search';
+import Icons from '~/components/Icons';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -44,19 +45,19 @@ const Header = () => {
 
   return (
     <header>
-      <div className="container">
-        <div className="row justify-content-between">
+      <div className="container-fluid">
+        <div className="row">
           <Link href={'/'}>
-            <a href={'/'} className="col-2">
+            <a href={'/'}>
               <Logo logoData={data.info.generalInfoACF.logo} />
             </a>
           </Link>
           <Navigation navigationData={data.menus} />
-          <Socials
-            socialsData={data.info.generalInfoACF.socials}
-            color={'red'}
-          />
-          <Search />
+          <div>
+            <Icons icon={'crest'} />
+            <Icons icon={'crest-location'} />
+            <Search />
+          </div>
         </div>
       </div>
     </header>

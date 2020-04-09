@@ -1,11 +1,9 @@
 header {
   display: flex;
-  justify-content: space-between;
   align-content: space-between;
   align-items: center;
 
   width: 100%;
-  padding: 40px 20px;
 
   border-bottom: 1px solid #eaeaea;
 
@@ -14,22 +12,13 @@ header {
   color: $white;
 
   .logo {
+    margin-left: 30px;
+
     width: 90px;
     height: 44px;
   }
 
-  .socials {
-    display: flex;
-
-    height: 100%;
-  }
-
-  svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  nav {
+  .navigation {
     ul {
       display: flex;
 
@@ -48,4 +37,11 @@ header {
       }
     }
   }
+
+  .socials {
+    display: flex;
+
+    height: 100%;
+  }
+
 }
