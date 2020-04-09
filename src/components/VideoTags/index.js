@@ -47,8 +47,11 @@ const VideoTags = ({ tags }) => {
           }));
           return (
             <div key={i} className="row video-tag">
-              <div className="col-12">
+              <div className="col-6">
                 <p>{tag.name}</p>
+              </div>
+              <div className="col-6 text-right tx-green">
+                <a href="#">Дивись Усі</a>
               </div>
               <PhotoSwipeGallery
                 className="col-12"
