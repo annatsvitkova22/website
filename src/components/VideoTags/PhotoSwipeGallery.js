@@ -22,8 +22,7 @@ class PhotoSwipeGallery extends React.Component {
     }
   }
 
-  showPhotoSwipe = (itemIndex) => (e) => {
-    e.preventDefault();
+  showPhotoSwipe = (itemIndex) => () => {
     const getThumbBoundsFn = (index) => {
       const thumbnail = this.thumbnails[index];
       const img = thumbnail.querySelector('.video-tag__thumbnail');
@@ -54,12 +53,15 @@ class PhotoSwipeGallery extends React.Component {
   };
 
   render() {
-    const { id, items, thumbnailContent, ...other } = this.props;
+    const { items, thumbnailContent, ...other } = this.props;
     const { className } = this.props;
     const eventProps = [other, ...events];
     const { isOpen, options } = this.state;
     return (
-      <div id={`video-tags-${id}`} className={`pswp-gallery ${className}`}>
+      <div
+        id={`video-tags-${options.galleryUID}`}
+        className={`pswp-gallery ${className}`}
+      >
         <div className="pswp-thumbnails row">
           {items.map((item, index) => (
             <div

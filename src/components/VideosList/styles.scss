@@ -2,9 +2,10 @@
   &__item {
     display: flex;
     align-items: center;
-    
-    padding-top: 15px;
-    padding-bottom: 15px;
+  }
+
+  &__item + &__item {
+    padding-top: 24px;
   }
 }
 
@@ -12,14 +13,15 @@
   cursor: pointer;
 
   &__title {
-    display: -webkit-box;
+    // display: -webkit-box;
 
     max-height: 3.6rem;
-    -webkit-box-orient: vertical;
+    // -webkit-box-orient: vertical;
+    font-size: 14px;
 
-    text-overflow: ellipsis;
-    white-space: normal;
-    -webkit-line-clamp: 3;
+    // text-overflow: ellipsis;
+    // white-space: normal;
+    // -webkit-line-clamp: 3;
 
     line-height: 1.2rem;
 
@@ -38,6 +40,8 @@
   }
 
   &__duration {
-    margin-left: 10px;
+    margin-left: 13px;
+
+    font-size: 12px;
   }
 }
