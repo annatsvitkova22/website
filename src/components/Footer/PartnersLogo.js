@@ -5,12 +5,12 @@ const PartnersLogo = (props) => {
   const { partnersData, className = '' } = props;
 
   return (
-    <ul className={`sitemap__list ${className}`}>
-      <li className={'sitemap__list-item'}>Наші партнери</li>
+    <ul className={`footer__sitemap-list ${className}`}>
+      <li className={'footer__sitemap-link'}>Наші партнери</li>
       {partnersData &&
         partnersData.map((item, i) => {
           return (
-            <li className={'sitemap__list-item'}>
+            <li className={'footer__sitemap-link'}>
               <a
                 key={i}
                 href={item.url}
