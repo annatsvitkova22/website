@@ -6,6 +6,7 @@ const Resources = (props) => {
 
   return (
     <ul className={`footer__sitemap-list ${className}`}>
+      <li className={'footer__sitemap-link'}>Ресурси</li>
       {navigationData &&
         navigationData.menuItems &&
         navigationData.menuItems.nodes &&
@@ -26,6 +27,7 @@ Resources.propTypes = {
   navigationData: PropTypes.shape({
     menuItems: PropTypes.object,
   }),
+  className: PropTypes.string,
 };
 
 export default Resources;

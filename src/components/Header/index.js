@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -7,6 +6,8 @@ import Navigation from '../Navigation';
 import Logo from '../Logo';
 import Search from '../Search';
 import Icons from '../Icons';
+
+import NavLink from '~/components/SiteLink';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -45,13 +46,12 @@ const Header = () => {
   return (
     <header className={'header'}>
       <div className={'header__wrapper'}>
-        <Link href={'/'}>
-          <a href={'/'} className={'header__logo'}>
-            <div className={'header__logo-image'}>
-              <Logo logoData={data.info.generalInfoACF.logo} />
-            </div>
-          </a>
-        </Link>
+        <NavLink href={'/'}>
+          <Logo
+            logoData={data.info.generalInfoACF.logo}
+            className={'header__logo'}
+          />
+        </NavLink>
         <Navigation navigationData={data.menus} />
         <div className={'header__icons'}>
           <a href={'#'} className={'header__icons-item'}>

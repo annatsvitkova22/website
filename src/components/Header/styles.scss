@@ -12,15 +12,9 @@
   }
 
   &__logo {
-    display: flex;
-    align-items: center;
+    margin-right: 16px;
 
-    padding-right: 16px;
-
-    &-image {
-      width: 90px;
-      height: 44px;
-    }
+    max-width: 96px;
   }
 
   &__icons {
@@ -58,14 +52,35 @@
     list-style-type: none;
     padding-inline-start: 0;
 
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.21;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
     &-link {
+      display: block;
+
       padding: 25px 16px;
+    }
+
+    & > li:first-child {
+      display: flex;
+      align-items: center;
+
+      padding-right: 20px;
+      padding-left: 20px;
 
       font-weight: bold;
-      font-size: 14px;
-      line-height: 1.21;
-      letter-spacing: 0.07em;
+      font-size: 10px;
+      line-height: 1.2;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
+    }
+    & > li:first-child > a {
+      padding: 5px 10px;
+
+      background-color: $green;
     }
   }
 }

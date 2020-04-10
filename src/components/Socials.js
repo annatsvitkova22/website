@@ -18,7 +18,7 @@ const Socials = (props) => {
             className={'footer__data-link'}
           >
             <Icons
-              icon={item.name}
+              icon={`footer-${item.name}`}
               color={color}
               className={'footer__data-icon'}
             />

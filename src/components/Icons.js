@@ -22,7 +22,7 @@ const Icons = (props) => {
 Icons.propTypes = {
   icon: PropTypes.string,
   color: PropTypes.string,
-  className: PropTypes.strin,
+  className: PropTypes.string,
 };
 
 export default Icons;

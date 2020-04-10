@@ -85,9 +85,10 @@ const Footer = () => {
       <div className={'container'}>
         <div className={'footer__navigation row'}>
           <div className={'col-2'}>
-            <div className={'footer__navigation-logo'}>
-              <Logo logoData={data.info.generalInfoACF.logo} />
-            </div>
+            <Logo
+              logoData={data.info.generalInfoACF.logo}
+              className={'footer__navigation-logo'}
+            />
           </div>
           <nav className={'footer__sitemap col-10'}>
             <PartnersLogo
@@ -112,20 +113,19 @@ const Footer = () => {
             />
           </nav>
         </div>
-        <div className={'footer__data row'}>
+        <div className={'footer__data'}>
           <Socials
-            className={'col-3 footer__data-socials'}
+            className={'footer__data-socials'}
             socialsData={data.info.generalInfoACF.socials}
             color={'white'}
           />
           <Counters
-            className={'col-4'}
             blogsData={data.blogs}
             crowdfundingsData={data.crowdfundings}
             publicationsData={data.publications}
           />
         </div>
-        <div className={'footer__developers row'}>
+        <div className={'footer__developers'}>
           <div className={'footer__developers-date'}>
             <svg
               aria-hidden="true"

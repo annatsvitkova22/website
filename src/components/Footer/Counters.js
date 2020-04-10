@@ -8,7 +8,6 @@ const Counters = (props) => {
     publicationsData,
     className = '',
   } = props;
-  console.log(props);
   return (
     // TODO: implement class with classNames module
 
