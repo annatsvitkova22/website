@@ -43,20 +43,26 @@ const Header = () => {
   if (loading) return null;
 
   return (
-    <header>
-      <div className="container-fluid">
-        <div className="row">
-          <Link href={'/'}>
-            <a href={'/'} className={'header__logo'}>
+    <header className={'header'}>
+      <div className={'header__wrapper'}>
+        <Link href={'/'}>
+          <a href={'/'} className={'header__logo'}>
+            <div className={'header__logo-image'}>
               <Logo logoData={data.info.generalInfoACF.logo} />
-            </a>
-          </Link>
-          <Navigation navigationData={data.menus} />
-          <div className={'header__icons'}>
+            </div>
+          </a>
+        </Link>
+        <Navigation navigationData={data.menus} />
+        <div className={'header__icons'}>
+          <a href={'#'} className={'header__icons-item'}>
             <Icons icon={'crest'} />
+          </a>
+          <a href={'#'} className={'header__icons-item'}>
             <Icons icon={'crest-location'} />
-            <Search color={'white'} />
-          </div>
+          </a>
+        </div>
+        <div className={'header__search'}>
+          <Search color={'white'} className={'header__search-link'} />
         </div>
       </div>
     </header>

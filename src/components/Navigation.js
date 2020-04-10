@@ -12,7 +12,7 @@ const Navigation = (props) => {
           navigationData.nodes[0].menuItems &&
           navigationData.nodes[0].menuItems.nodes.map((item) => {
             return (
-              <li key={item.id} className="navigation__list-item">
+              <li key={item.id} className="navigation__list-link">
                 <NavLink href={item.url} target={item.target}>
                   {item.label}
                 </NavLink>
