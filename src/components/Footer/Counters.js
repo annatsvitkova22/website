@@ -8,37 +8,34 @@ const Counters = (props) => {
     publicationsData,
     className = '',
   } = props;
-  console.log(props);
   return (
     // TODO: implement class with classNames module
 
-    <div className={`counters ${className}`}>
-      <div className={'counters__wrapper around-xs'}>
-        {publicationsData.pageInfo && (
-          <div className={'counters__item'}>
-            <span className={'counters__item-counter'}>
-              {publicationsData.pageInfo.total}
-            </span>
-            <span className={'counters__item-description'}>Публікації</span>
-          </div>
-        )}
-        {crowdfundingsData.pageInfo && (
-          <div className={'counters__item'}>
-            <span className={'counters__item-counter'}>
-              {crowdfundingsData.pageInfo.total}
-            </span>
-            <span className={'counters__item-description'}>Проекти</span>
-          </div>
-        )}
-        {blogsData.pageInfo && (
-          <div className={'counters__item'}>
-            <span className={'counters__item-counter'}>
-              {blogsData.pageInfo.total}
-            </span>
-            <span className={'counters__item-description'}>Блоги</span>
-          </div>
-        )}
-      </div>
+    <div className={`footer__counters ${className}`}>
+      {publicationsData.pageInfo && (
+        <div className={'footer__counters-block'}>
+          <span className={'footer__counters-counter'}>
+            {publicationsData.pageInfo.total}
+          </span>
+          <span className={'footer__counters-description'}>Публікації</span>
+        </div>
+      )}
+      {crowdfundingsData.pageInfo && (
+        <div className={'footer__counters-block'}>
+          <span className={'footer__counters-counter'}>
+            {crowdfundingsData.pageInfo.total}
+          </span>
+          <span className={'footer__counters-description'}>Проекти</span>
+        </div>
+      )}
+      {blogsData.pageInfo && (
+        <div className={'footer__counters-block'}>
+          <span className={'footer__counters-counter'}>
+            {blogsData.pageInfo.total}
+          </span>
+          <span className={'footer__counters-description'}>Блоги</span>
+        </div>
+      )}
     </div>
   );
 };

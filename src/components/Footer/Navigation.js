@@ -7,19 +7,19 @@ const Navigation = (props) => {
   const { navigationData, className = '' } = props;
 
   return (
-    <ul className={`sitemap__list ${className}`}>
+    <ul className={`footer__sitemap-list ${className}`}>
       {navigationData.id === 'TWVudTo0' && (
-        <li className={'sitemap__list-item'}>Сторінки</li>
+        <li className={'footer__sitemap-link'}>Сторінки</li>
       )}
       {navigationData.id === 'TWVudTo1' && (
-        <li className={'sitemap__list-item'}>Інформація</li>
+        <li className={'footer__sitemap-link'}>Інформація</li>
       )}
       {navigationData &&
         navigationData.menuItems &&
         navigationData.menuItems.nodes &&
         navigationData.menuItems.nodes.map((item) => {
           return (
-            <li className={'sitemap__list-item'} key={item.id}>
+            <li className={'footer__sitemap-link'} key={item.id}>
               <NavLink href={item.url} target={item.target}>
                 {item.label}
               </NavLink>

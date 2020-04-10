@@ -1,76 +1,100 @@
-header {
-  display: flex;
-  align-items: center;
-
-  width: 100%;
-
-  border-bottom: 1px solid #eaeaea;
+.header {
+  padding-right: 20px;
+  padding-left: 30px;
 
   background-color: $black;
 
   color: $white;
-  text-transform: uppercase;
 
-  .header__logo {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    margin-right: 16px;
+
+    max-width: 96px;
+  }
+
+  &__icons {
     display: flex;
     align-items: center;
 
-    .logo {
-      margin-left: 30px;
-
-      width: 90px;
-      height: 44px;
-    }
-  }
-
-  .navigation {
-    display: flex;
-    flex-grow: 2;
-
-    .navigation__list {
-      display: flex;
-      justify-content: center;
-      align-content: center;
-
-      margin: auto;
-
-      width: 100%;
-
-      list-style-type: none;
-      padding-inline-start: 0;
-      .navigation__list-item {
-        margin: 25px 0 25px 32px;
-
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 1.21;
-        letter-spacing: 0.07em;
-      }
-    }
-  }
-
-  .header__icons {
-    display: flex;
-    justify-self: end;
-    align-items: center;
-    .svg-icon {
+    margin-left: auto;
+    &-item:not(:last-child) {
       margin-right: 25px;
+    }
+  }
+  &__search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 25px;
+
+    width: 32px;
+    height: 32px;
+  }
+}
+.navigation {
+  display: flex;
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    margin: auto;
+
+    width: 100%;
+
+    list-style-type: none;
+    padding-inline-start: 0;
+
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.21;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
+    &-link {
+      display: block;
+
+      padding: 25px 16px;
+    }
+
+    & > li:first-child {
+      display: flex;
+      align-items: center;
+
+      padding-right: 20px;
+      padding-left: 20px;
+
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 1.2;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    & > li:first-child > a {
+      padding: 5px 10px;
+
+      background-color: $green;
     }
   }
 }
 
 @media screen and (max-width: 1170px) {
-  header {
-    .navigation {
-      .navigation__list {
-        display: flex;
-        justify-content: space-around;
+  .navigation {
+    &__list {
+      display: flex;
+      justify-content: space-around;
 
-        .navigation__list-item {
-          margin: 25px 0 25px 0;
+      &-link {
+        padding: 25px 0 25px 0;
 
-          font-size: 12px;
-        }
+        font-size: 12px;
       }
     }
   }
