@@ -5,13 +5,13 @@ const Resources = (props) => {
   const { navigationData, className = '' } = props;
 
   return (
-    <ul className={`sitemap__list ${className}`}>
+    <ul className={`footer__sitemap-list ${className}`}>
       {navigationData &&
         navigationData.menuItems &&
         navigationData.menuItems.nodes &&
         navigationData.menuItems.nodes.map((item) => {
           return (
-            <li className={'sitemap__list-item'} key={item.id}>
+            <li className={'footer__sitemap-link'} key={item.id}>
               <a href={item.url} target={'_blank'}>
                 {item.label}
               </a>

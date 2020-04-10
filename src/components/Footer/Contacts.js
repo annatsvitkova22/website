@@ -8,20 +8,24 @@ const Contacts = (props) => {
 
   if (contactsData) {
     return (
-      <ul className={`sitemap__list ${className}`}>
-        <li className={'sitemap__list-item'}>Контакти</li>
+      <ul className={`footer__sitemap-list ${className}`}>
+        <li className={'footer__sitemap-link'}>Контакти</li>
         {contactsData.map((item, i) => {
           return (
             <>
-              <li key={i} className={'sitemap__list-item'}>
+              <li key={i} className={'footer__sitemap-link'}>
                 {item.role && <span>{item.role}:</span>}
                 <span>{item.name}</span>
               </li>
               {item.contacts ? (
                 item.contacts.map((contacts, k) => {
                   return (
-                    <li key={k} className={'sitemap__list-item d-flex'}>
-                      <Icons icon={contacts.type} />
+                    <li key={k} className={'footer__sitemap-link d-flex'}>
+                      <Icons
+                        icon={contacts.type}
+                        className={'footer__sitemap-icons'}
+                        color={'white'}
+                      />
                       {contacts.type === 'phone' && (
                         <a href={`tel: ${contacts.info}`}>{contacts.info}</a>
                       )}

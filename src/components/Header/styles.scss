@@ -71,17 +71,15 @@
 }
 
 @media screen and (max-width: 1170px) {
-  header {
-    .navigation {
-      .navigation__list {
-        display: flex;
-        justify-content: space-around;
+  .navigation {
+    &__list {
+      display: flex;
+      justify-content: space-around;
 
-        .navigation__list-link {
-          padding: 25px 0 25px 0;
+      &-link {
+        padding: 25px 0 25px 0;
 
-          font-size: 12px;
-        }
+        font-size: 12px;
       }
     }
   }

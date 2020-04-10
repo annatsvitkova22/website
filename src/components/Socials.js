@@ -7,11 +7,21 @@ const Socials = (props) => {
   const { socialsData, color, className = '' } = props;
 
   return (
-    <div className={`socials ${className}`}>
+    <div className={`${className}`}>
       {socialsData.map((item, i) => {
         return (
-          <a href={item.url} title={item.name} key={i} target={'_blank'}>
-            <Icons icon={item.name} color={color} />
+          <a
+            href={item.url}
+            title={item.name}
+            key={i}
+            target={'_blank'}
+            className={'footer__data-link'}
+          >
+            <Icons
+              icon={item.name}
+              color={color}
+              className={'footer__data-icon'}
+            />
           </a>
         );
       })}

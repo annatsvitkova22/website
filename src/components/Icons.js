@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import icons from '../static/images/icons';
 
 const Icons = (props) => {
-  const { icon, color = 'black' } = props;
+  const { icon, color = 'black', className = '' } = props;
 
   const svgIcon = icons.find((item) => item.type === icon);
 
@@ -14,7 +14,7 @@ const Icons = (props) => {
     <span
       dangerouslySetInnerHTML={{ __html: svgIcon.tag }}
       style={{ color }}
-      className={'social-icon'}
+      className={`social-icon ${className}`}
     />
   );
 };
@@ -22,6 +22,7 @@ const Icons = (props) => {
 Icons.propTypes = {
   icon: PropTypes.string,
   color: PropTypes.string,
+  className: PropTypes.strin,
 };
 
 export default Icons;
