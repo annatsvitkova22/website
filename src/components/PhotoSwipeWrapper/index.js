@@ -26,11 +26,58 @@ class PhotoSwipeWrapper extends React.Component {
     isOpen: this.props.isOpen,
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { isOpen } = this.state;
     if (isOpen) {
       this.openPhotoSwipe(this.props);
     }
+
+    const galleryParams = this.photoswipeParseHash();
+    if (galleryParams) {
+      const { items, options } = this.props;
+      const { pswpElement } = this;
+
+      this.photoSwipe = new Photoswipe(
+        pswpElement,
+        PhotoswipeUIDefault,
+        items,
+        options
+      );
+
+      this.listen();
+
+      if (pswpElement.id === galleryParams.gid) {
+        this.photoSwipe.init();
+      }
+    }
+  }
+
+  photoswipeParseHash = () => {
+    const hash = window.location.hash.substring(1);
+    const params = {};
+
+    if (hash.length < 5) {
+      // pid=1
+      return false;
+    }
+
+    const vars = hash.split('&');
+    for (let i = 0; i < vars.length; i += 1) {
+      let pair = [];
+      if (vars[i]) {
+        pair = vars[i].split('=');
+      }
+
+      if (pair.length === 2) {
+        const [id, value] = pair;
+        params[id] = value;
+      }
+    }
+    if (Object.keys(params).length !== 0) {
+      return params;
+    }
+
+    return false;
   };
 
   // eslint-disable-next-line camelcase
@@ -51,6 +98,19 @@ class PhotoSwipeWrapper extends React.Component {
     this.closePhotoSwipe();
   };
 
+  listen = () => {
+    const pauseVideo = () => {
+      const iframes = document.querySelectorAll('.video-tag__iframe iframe');
+      iframes.forEach((iframe) => {
+        const { src } = iframe;
+        iframe.setAttribute('src', src);
+      });
+    };
+
+    this.photoSwipe.listen('close', pauseVideo);
+    this.photoSwipe.listen('beforeChange', pauseVideo);
+  };
+
   openPhotoSwipe = (props) => {
     const { items, options } = props;
     const { pswpElement } = this;
@@ -60,6 +120,7 @@ class PhotoSwipeWrapper extends React.Component {
       items,
       options
     );
+    this.listen();
     events.forEach((event) => {
       const callback = props[event];
       if (callback || event === 'destroy') {

@@ -29,7 +29,7 @@ const VideoTags = ({ tags }) => {
         if (nodes.length) {
           const options = {
             shareEl: false,
-            galleryUID: i,
+            galleryUID: i + 1,
             bgOpacity: 0.75,
           };
           const tagItems = nodes.slice(0, 4).map((video) => ({
