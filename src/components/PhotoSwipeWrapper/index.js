@@ -31,6 +31,7 @@ class PhotoSwipeWrapper extends React.Component {
     if (isOpen) {
       this.openPhotoSwipe(this.props);
     }
+
     const galleryParams = this.photoswipeParseHash();
     if (galleryParams) {
       const { items, options } = this.props;
@@ -42,6 +43,9 @@ class PhotoSwipeWrapper extends React.Component {
         items,
         options
       );
+
+      this.listen();
+
       if (pswpElement.id === galleryParams.gid) {
         this.photoSwipe.init();
       }
@@ -54,7 +58,7 @@ class PhotoSwipeWrapper extends React.Component {
 
     if (hash.length < 5) {
       // pid=1
-      return params;
+      return false;
     }
 
     const vars = hash.split('&');
@@ -69,7 +73,6 @@ class PhotoSwipeWrapper extends React.Component {
         params[id] = value;
       }
     }
-
     if (Object.keys(params).length !== 0) {
       return params;
     }
@@ -95,6 +98,19 @@ class PhotoSwipeWrapper extends React.Component {
     this.closePhotoSwipe();
   };
 
+  listen = () => {
+    const pauseVideo = () => {
+      const iframes = document.querySelectorAll('.video-tag__iframe iframe');
+      iframes.forEach((iframe) => {
+        const { src } = iframe;
+        iframe.setAttribute('src', src);
+      });
+    };
+
+    this.photoSwipe.listen('close', pauseVideo);
+    this.photoSwipe.listen('beforeChange', pauseVideo);
+  };
+
   openPhotoSwipe = (props) => {
     const { items, options } = props;
     const { pswpElement } = this;
@@ -104,6 +120,7 @@ class PhotoSwipeWrapper extends React.Component {
       items,
       options
     );
+    this.listen();
     events.forEach((event) => {
       const callback = props[event];
       if (callback || event === 'destroy') {
