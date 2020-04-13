@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import apolloClient from '~/lib/ApolloClient';
 import Content from '~/components/Content';
 import '../../styles/pages/crowdfundings.scss';
+import NumberFormat from "react-number-format";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -32,33 +34,42 @@ const Crowdfunding = (props) => {
   const { crowdfunding } = props;
 
   return (
-    <div className="single-crowdfundings">
+    <div className="crowdfunding-single-page">
       <Head>
         <title>{crowdfunding.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <div className="cfitem__title">
-          <div className="cfitem__title">{crowdfunding.title}</div>
-        </div>
         <section className="cf-crowdfunding">
           <section className="cf-content">
-            <div className="cfitem__thumb">
+            <div className="cfsingle__title">
+              {crowdfunding.title}
+            </div>
+            <div className="cfsingle__thumb">
               <img src={crowdfunding.featuredImage.guid} alt={crowdfunding.title + 'thumbnail'}/>
             </div>
-            <div className="cfitem__descr">
+            <div className="cfsigle__descr">
+              <div dangerouslySetInnerHTML={{ __html: crowdfunding.content }} />
               { /* <Content blocks={crowdfunding.content} /> */ }
-            </div>
-            <div className="cfitem__collected">
-              <div className="cfitem__collected__amount">{crowdfunding.cfACF.crowdfundingRequiredAmountToCollect}</div>
-              <div className="cfitem__collected__left">{crowdfunding.cfACF.crowdfundingExpirationDate}</div>
-              <div className="cfitem__collected__percent">{crowdfunding.cfACF.crowdfundingAboutProjectTabs}</div>
             </div>
             <div className="cfitem__timeout"></div>
           </section>
           <section className="cf-sidebar">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            <div className="cfsingle__collected">
+              <div className="cfsingle__collected__amount">
+                <NumberFormat value={10000} displayType={'text'} format="## ### ### ₴"/>
+                Зібрано з <NumberFormat value={crowdfunding.cfACF.crowdfundingRequiredAmountToCollect} displayType={'text'} format="## ### ### ₴"/>
+                <ProgressBar now={60}/>
+              </div>
+            </div>
+            <div className="cf-sidebar__info">
+                <div>14<br />Підтримали</div>
+                <div>{crowdfunding.cfACF.crowdfundingExpirationDate}<br />Запушено</div>
+                <div>25 днів<br />Залишилося</div>
+            </div>
+            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">Підтримати проєкт</a>
+            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">Поділитися</a>
           </section>
         </section>
       </main>
