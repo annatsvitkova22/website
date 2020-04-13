@@ -51,7 +51,7 @@ const Header = () => {
   };
 
   React.useEffect(() => {
-    setIsMobile(window.innerWidth < 1200);
+    setIsMobile(window.innerWidth < 1300);
   }, []);
 
   if (loading) return null;

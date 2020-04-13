@@ -111,8 +111,8 @@ const Footer = () => {
   };
 
   React.useEffect(() => {
-    setIsMobile(window.innerWidth < 1000);
-    if (window.innerWidth < 1000) {
+    setIsMobile(window.innerWidth < 1024);
+    if (window.innerWidth < 1024) {
       setIsVisible({
         ...isVisible,
         pages: false,
@@ -131,38 +131,38 @@ const Footer = () => {
     <footer className={'footer'}>
       <div className={'container'}>
         <div className={'footer__navigation row'}>
-          <div className={'col-md-2'}>
+          <div className={'col-xl-2 col-sm-12'}>
             <Logo
               logoData={data.info.generalInfoACF.logo}
               className={'footer__navigation-logo'}
             />
           </div>
-          <nav className={'footer__sitemap col-md-10 col-sm-12'}>
+          <nav className={'footer__sitemap col-xl-10 col-sm-12'}>
             <PartnersLogo
               partnersData={data.info.generalInfoACF.partners}
-              className={'col-md-2 col-xs-12'}
+              className={'col-xl-2 col-xs-12'}
             />
             <Navigation
               navigationData={data.menus.nodes[3]}
-              className={'col-md-2 col-xs-12'}
+              className={'col-xl-2 col-xs-12'}
               isVisible={isVisible.pages}
               handlePagesClick={handlePagesClick}
             />
             <Navigation
               navigationData={data.menus.nodes[1]}
-              className={'col-md-2 col-xs-12'}
+              className={'col-xl-2 col-xs-12'}
               isVisible={isVisible.info}
               handleInfoClick={handleInfoClick}
             />
             <Resources
               navigationData={data.menus.nodes[2]}
-              className={'col-md-2 col-xs-12'}
+              className={'col-xl-2 col-xs-12'}
               isVisible={isVisible.res}
               handleResClick={handleResClick}
             />
             <Contacts
               contactsData={data.info.generalInfoACF.contacts}
-              className={'col-md-2 col-xs-12'}
+              className={'col-xl-2 col-xs-12'}
               isVisible={isVisible.contacts}
               handleContactsClick={handleContactsClick}
               isMobile={isMobile}

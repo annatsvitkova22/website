@@ -103,9 +103,8 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1299px) {
   .header {
-    color: $white;
     &__wrapper {
       display: flex;
       justify-content: space-between;
@@ -122,8 +121,6 @@
 
       margin-left: 64px;
       padding-top: 98px;
-
-
     }
     &__overlay {
       width: 100vw;
@@ -166,7 +163,13 @@
       z-index: 66666;
     }
     &__button {
+      border: none;
+      background-color: transparent;
+
       z-index: 66666;
+    }
+    &__button:focus {
+      outline: none;
     }
   }
   .navigation {
