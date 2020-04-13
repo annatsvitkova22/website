@@ -36,6 +36,7 @@ const VIDEOS_ARCHIVE = gql`
           nodes {
             title
             excerpt
+            date
             zmVideoACF {
               videoUrl
               videoCover {

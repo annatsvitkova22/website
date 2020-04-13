@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import 'moment/locale/uk';
 
 import PhotoSwipeGallery from './PhotoSwipeGallery';
 
@@ -32,22 +34,28 @@ const VideoTags = ({ tags }) => {
             galleryUID: i + 1,
             bgOpacity: 0.75,
           };
-          const tagItems = nodes.slice(0, 4).map((video) => ({
-            html: `
+          const tagItems = nodes.slice(0, 4).map((video) => {
+            const { zmVideoACF, title, excerpt, date } = video;
+            const { videoUrl, videoCover, duration } = zmVideoACF;
+            const pubDate = new Date(date);
+            return {
+              html: `
             <div class="video-tag__iframe">
               <iframe src="${formatYouTubeUrl(
-                video.zmVideoACF.videoUrl
+                videoUrl
               )}" frameborder="0"></iframe>
               <div class="video-tag__info tx-white">
-                <h3>${video.title}</h3>
-                <div>${video.excerpt}</div>
+                <h3>${title}</h3>
+                <div>${excerpt}</div>
+                <div>${moment(pubDate).format('DD MMMM YYYY HH:mm')}</div>
               </div>
             </div>
             `,
-            thumbnail: video.zmVideoACF.videoCover.mediaItemUrl,
-            name: video.title,
-            duration: video.zmVideoACF.duration,
-          }));
+              thumbnail: videoCover.mediaItemUrl,
+              name: title,
+              duration,
+            };
+          });
           return (
             <div key={i} className="row video-tag">
               <div className="col-6">
