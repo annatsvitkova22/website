@@ -38,7 +38,7 @@ const VideoTags = ({ tags }) => {
               <iframe src="${formatYouTubeUrl(
                 video.zmVideoACF.videoUrl
               )}" frameborder="0"></iframe>
-              <div class="video-tag__info">
+              <div class="video-tag__info tx-white">
                 <h3>${video.title}</h3>
                 <div>${video.excerpt}</div>
               </div>
