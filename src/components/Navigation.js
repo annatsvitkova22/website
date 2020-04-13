@@ -6,9 +6,9 @@ import NavLink from './SiteLink';
 import HeaderCategory from '~/components/Header/HeaderCategory';
 
 const Navigation = (props) => {
-  const { navigationData } = props;
+  const { navigationData, className = '' } = props;
   return (
-    <nav className="navigation">
+    <nav className={`${className} navigation`}>
       <ul className="navigation__list">
         <li>
           <HeaderCategory className="navigation__list-link" />
