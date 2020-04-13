@@ -9,7 +9,13 @@ const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
       const { title } = video;
       const { videoUrl, videoCover, duration } = video.zmVideoACF;
       function onClick() {
-        return onVideoSelect(videoUrl, videoCover.mediaItemUrl, title, i);
+        return onVideoSelect(
+          videoUrl,
+          videoCover.mediaItemUrl,
+          title,
+          duration,
+          i
+        );
       }
       return (
         <li key={i} onClick={onClick} className="videos-list__item video-item">

@@ -53,10 +53,12 @@ class VideosArchive extends Component {
   constructor(props) {
     super(props);
     const { title, zmVideoACF } = this.props.videos[0];
+    const { videoUrl, videoCover, duration } = zmVideoACF;
     this.state = {
       selectedVideo: {
-        url: formatYouTubeUrl(zmVideoACF.videoUrl),
-        imageUrl: zmVideoACF.videoCover.mediaItemUrl,
+        url: formatYouTubeUrl(videoUrl),
+        imageUrl: videoCover.mediaItemUrl,
+        duration,
         title,
       },
       selectedIndex: 0,
@@ -64,12 +66,13 @@ class VideosArchive extends Component {
     };
   }
 
-  onVideoSelect = (url, imageUrl, title, index) => {
+  onVideoSelect = (url, imageUrl, title, duration, index) => {
     this.setState({
       selectedVideo: {
         url: formatYouTubeUrl(url),
         imageUrl,
         title,
+        duration,
       },
     });
     this.setState({
@@ -85,7 +88,7 @@ class VideosArchive extends Component {
   render() {
     const { videos, tags } = this.props;
     const { isPlaying } = this.state;
-    const { url, imageUrl, title } = this.state.selectedVideo;
+    const { url, imageUrl, title, duration } = this.state.selectedVideo;
     return (
       <div className="videos-page">
         <Head>
@@ -127,6 +130,7 @@ class VideosArchive extends Component {
                 />
               </div>
               <div className="col-12">
+                <div className="video-detail__duration">{duration}</div>
                 <h1 className="video-detail__title">{title}</h1>
               </div>
             </div>
