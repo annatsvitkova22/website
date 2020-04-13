@@ -7,6 +7,9 @@ import PhotoSwipeGallery from './PhotoSwipeGallery';
 
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
 import Play from '~/static/images/play';
+import share from '~/static/images/share';
+import facebook from '~/static/images/facebook-f';
+import telegram from '~/static/images/telegram-plane';
 
 const VideoTags = ({ tags }) => {
   function getThumbnailContent(item) {
@@ -47,7 +50,18 @@ const VideoTags = ({ tags }) => {
               <div class="video-tag__info tx-white">
                 <h3>${title}</h3>
                 <div>${excerpt}</div>
-                <div>${moment(pubDate).format('DD MMMM YYYY HH:mm')}</div>
+                <div class="row">
+                  <div class="col-6">
+                    <div>${moment(pubDate).format('DD MMMM YYYY HH:mm')}</div>
+                  </div>
+                  <div class="col-6">
+                    <ul class="list-unstyled d-flex justify-content-end">
+                      <li>${share}</li>
+                      <li>${facebook}</li>
+                      <li>${telegram}</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
             `,
