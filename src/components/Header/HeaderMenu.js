@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Navigation from '../Navigation';
 import Icons from '../Icons';
@@ -25,6 +26,10 @@ const HeaderMenu = ({ data }) => {
       />
     </div>
   );
+};
+
+HeaderMenu.propTypes = {
+  data: PropTypes.any,
 };
 
 export default HeaderMenu;

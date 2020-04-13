@@ -3,8 +3,8 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
 import Logo from '../Logo';
-import Socials from './Socials';
 
+import Socials from './Socials';
 import Navigation from './Navigation';
 import Contacts from './Contacts';
 import PartnersLogo from './PartnersLogo';
@@ -76,51 +76,17 @@ const FOOTER_QUERY = gql`
 const Footer = () => {
   const { loading, data } = useQuery(FOOTER_QUERY);
 
-  const [isVisible, setIsVisible] = React.useState({
-    pages: true,
-    info: true,
-    res: true,
-    contacts: true,
-  });
-
   const [isMobile, setIsMobile] = React.useState(false);
 
-  const handleResClick = () => {
-    setIsVisible({
-      ...isVisible,
-      res: !isVisible.res,
-    });
-  };
-  const handleContactsClick = () => {
-    setIsVisible({
-      ...isVisible,
-      contacts: !isVisible.contacts,
-    });
-  };
-  const handlePagesClick = () => {
-    setIsVisible({
-      ...isVisible,
-      pages: !isVisible.pages,
-    });
-  };
-  const handleInfoClick = () => {
-    setIsVisible({
-      ...isVisible,
-      info: !isVisible.info,
-    });
+  const handleClick = (event) => {
+    event.currentTarget.parentNode
+      .querySelector('.footer__sitemap-navigation')
+      .classList.toggle('isOpen');
+    event.currentTarget.childNodes[1].classList.toggle('isOpen');
   };
 
   React.useEffect(() => {
     setIsMobile(window.innerWidth < 1024);
-    if (window.innerWidth < 1024) {
-      setIsVisible({
-        ...isVisible,
-        pages: false,
-        info: false,
-        res: false,
-        contacts: false,
-      });
-    }
   }, []);
 
   if (loading) return null;
@@ -145,26 +111,22 @@ const Footer = () => {
             <Navigation
               navigationData={data.menus.nodes[3]}
               className={'col-xl-2 col-xs-12'}
-              isVisible={isVisible.pages}
-              handlePagesClick={handlePagesClick}
+              handleClick={handleClick}
             />
             <Navigation
               navigationData={data.menus.nodes[1]}
               className={'col-xl-2 col-xs-12'}
-              isVisible={isVisible.info}
-              handleInfoClick={handleInfoClick}
+              handleClick={handleClick}
             />
             <Resources
               navigationData={data.menus.nodes[2]}
               className={'col-xl-2 col-xs-12'}
-              isVisible={isVisible.res}
-              handleResClick={handleResClick}
+              handleClick={handleClick}
             />
             <Contacts
               contactsData={data.info.generalInfoACF.contacts}
-              className={'col-xl-2 col-xs-12'}
-              isVisible={isVisible.contacts}
-              handleContactsClick={handleContactsClick}
+              className={`col-xl-2 col-xs-12`}
+              handleClick={handleClick}
               isMobile={isMobile}
             />
           </nav>

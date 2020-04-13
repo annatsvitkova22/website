@@ -196,6 +196,8 @@
       position: relative;
 
       background-color: #fff;
+
+      transition: all 0.2s ease-in;
       &:before {
         content: '';
         display: block;
@@ -208,6 +210,8 @@
         top: -10px;
 
         background-color: #fff;
+
+        transition: all 0.2s ease-in;
       }
       &:after {
         content: '';
@@ -221,6 +225,8 @@
         top: 10px;
 
         background-color: #fff;
+
+        transition: all 0.2s ease-in;
       }
     }
     &__burger-icon.isOpen {

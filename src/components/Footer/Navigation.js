@@ -2,28 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import NavLink from '~/components/SiteLink';
+import Icons from '~/components/Icons';
 
 const Navigation = (props) => {
-  const {
-    navigationData,
-    className = '',
-    handleInfoClick,
-    handlePagesClick,
-    isVisible,
-  } = props;
+  const { navigationData, className = '', handleClick } = props;
 
   return (
     <ul className={`footer__sitemap-list ${className}`}>
       {navigationData.id === 'TWVudTo0' && (
         <>
-          <li className={'footer__sitemap-title'} onClick={handlePagesClick}>
+          <li className={'footer__sitemap-title'} onClick={handleClick}>
             Сторінки
+            <Icons
+              className={'footer__sitemap-chevron'}
+              icon={'footer-chevron'}
+            />
           </li>
           <ul className={`footer__sitemap-navigation`}>
             {navigationData &&
               navigationData.menuItems &&
               navigationData.menuItems.nodes &&
-              isVisible &&
               navigationData.menuItems.nodes.map((item) => {
                 return (
                   <li className={'footer__sitemap-link'} key={item.id}>
@@ -38,14 +36,17 @@ const Navigation = (props) => {
       )}
       {navigationData.id === 'TWVudTo1' && (
         <>
-          <li className={'footer__sitemap-title'} onClick={handleInfoClick}>
+          <li className={'footer__sitemap-title'} onClick={handleClick}>
             Інформація
+            <Icons
+              className={'footer__sitemap-chevron'}
+              icon={'footer-chevron'}
+            />
           </li>
           <ul className={`footer__sitemap-navigation`}>
             {navigationData &&
               navigationData.menuItems &&
               navigationData.menuItems.nodes &&
-              isVisible &&
               navigationData.menuItems.nodes.map((item) => {
                 return (
                   <li className={'footer__sitemap-link'} key={item.id}>
@@ -76,6 +77,7 @@ Navigation.propTypes = {
       ),
     }),
   }),
+  handleClick: PropTypes.any,
 };
 
 export default Navigation;

@@ -47,7 +47,7 @@ const Header = () => {
   const ref = React.useRef(null);
 
   const handleOpenClick = () => {
-    //console.log(ref.current.classList.toggle('isOpen'));
+    // console.log(ref.current.classList.toggle('isOpen'));
     isOpen === 'isOpen' ? setIsOpen('') : setIsOpen('isOpen');
   };
 
