@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import Photoswipe from 'photoswipe';
 import PhotoswipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
@@ -24,6 +25,7 @@ class PhotoSwipeWrapper extends React.Component {
 
   state = {
     isOpen: this.props.isOpen,
+    isMounted: false,
   };
 
   componentDidMount() {
@@ -50,6 +52,10 @@ class PhotoSwipeWrapper extends React.Component {
         this.photoSwipe.init();
       }
     }
+
+    this.setState({
+      isMounted: true,
+    });
   }
 
   photoswipeParseHash = () => {
@@ -181,69 +187,74 @@ class PhotoSwipeWrapper extends React.Component {
   };
 
   render() {
-    const { options } = this.props;
-    const { className } = this.props;
-    return (
-      <div
-        id={options.galleryUID}
-        className={`pswp ${className}`}
-        tabIndex="-1"
-        role="dialog"
-        aria-hidden="true"
-        ref={this.ref}
-      >
-        <div className="pswp__bg" />
-        <div className="pswp__scroll-wrap">
-          <div className="pswp__container">
-            <div className="pswp__item" />
-            <div className="pswp__item" />
-            <div className="pswp__item" />
-          </div>
-          <div className="pswp__ui pswp__ui--hidden">
-            <div className="pswp__top-bar">
-              <div className="pswp__counter" />
-              <button
-                className="pswp__button pswp__button--close"
-                title="Close (Esc)"
-              />
-              <button
-                className="pswp__button pswp__button--share"
-                title="Share"
-              />
-              <button
-                className="pswp__button pswp__button--fs"
-                title="Toggle fullscreen"
-              />
-              <button
-                className="pswp__button pswp__button--zoom"
-                title="Zoom in/out"
-              />
-              <div className="pswp__preloader">
-                <div className="pswp__preloader__icn">
-                  <div className="pswp__preloader__cut">
-                    <div className="pswp__preloader__donut" />
+    const { className, options } = this.props;
+
+    if (this.state.isMounted) {
+      return createPortal(
+        <div
+          id={`pswp-gallery-${options.galleryUID}`}
+          className={`pswp ${className}`}
+          tabIndex="-1"
+          role="dialog"
+          aria-hidden="true"
+          ref={this.ref}
+        >
+          <div className="pswp__bg" />
+          <div className="pswp__scroll-wrap">
+            <div className="pswp__container">
+              <div className="pswp__item" />
+              <div className="pswp__item" />
+              <div className="pswp__item" />
+            </div>
+            <div className="pswp__ui pswp__ui--hidden">
+              <div className="pswp__top-bar">
+                <div className="pswp__counter" />
+                <button
+                  className="pswp__button pswp__button--close"
+                  title="Close (Esc)"
+                />
+                <button
+                  className="pswp__button pswp__button--share"
+                  title="Share"
+                />
+                <button
+                  className="pswp__button pswp__button--fs"
+                  title="Toggle fullscreen"
+                />
+                <button
+                  className="pswp__button pswp__button--zoom"
+                  title="Zoom in/out"
+                />
+                <div className="pswp__preloader">
+                  <div className="pswp__preloader__icn">
+                    <div className="pswp__preloader__cut">
+                      <div className="pswp__preloader__donut" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-              <div className="pswp__share-tooltip" />
-            </div>
-            <button
-              className="pswp__button pswp__button--arrow--left"
-              title="Previous (arrow left)"
-            />
-            <button
-              className="pswp__button pswp__button--arrow--right"
-              title="Next (arrow right)"
-            />
-            <div className="pswp__caption">
-              <div className="pswp__caption__center" />
+              <div className="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div className="pswp__share-tooltip" />
+              </div>
+              <button
+                className="pswp__button pswp__button--arrow--left"
+                title="Previous (arrow left)"
+              />
+              <button
+                className="pswp__button pswp__button--arrow--right"
+                title="Next (arrow right)"
+              />
+              <div className="pswp__caption">
+                <div className="pswp__caption__center" />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    );
+        </div>,
+        document.getElementById('modal')
+      );
+    }
+
+    return '';
   }
 }
 
