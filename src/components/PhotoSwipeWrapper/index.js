@@ -34,28 +34,33 @@ class PhotoSwipeWrapper extends React.Component {
       this.openPhotoSwipe(this.props);
     }
 
-    const galleryParams = this.photoswipeParseHash();
-    if (galleryParams) {
-      const { items, options } = this.props;
-      const { pswpElement } = this;
-
-      this.photoSwipe = new Photoswipe(
-        pswpElement,
-        PhotoswipeUIDefault,
-        items,
-        options
-      );
-
-      this.listen();
-
-      if (pswpElement.id === galleryParams.gid) {
-        this.photoSwipe.init();
-      }
-    }
-
     this.setState({
       isMounted: true,
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isMounted !== this.state.isMounted) {
+      const galleryParams = this.photoswipeParseHash();
+      const { pswpElement } = this;
+
+      if (pswpElement && galleryParams) {
+        const { items, options } = prevProps;
+
+        this.photoSwipe = new Photoswipe(
+          pswpElement,
+          PhotoswipeUIDefault,
+          items,
+          options
+        );
+
+        this.listen();
+
+        if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
+          this.photoSwipe.init();
+        }
+      }
+    }
   }
 
   photoswipeParseHash = () => {
