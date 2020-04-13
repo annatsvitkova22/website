@@ -14,7 +14,7 @@ const Icons = (props) => {
     <span
       dangerouslySetInnerHTML={{ __html: svgIcon.tag }}
       style={{ color }}
-      className={`social-icon ${className}`}
+      className={`social-icon ${className} ${svgIcon.type}`}
     />
   );
 };

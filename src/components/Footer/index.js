@@ -76,6 +76,24 @@ const FOOTER_QUERY = gql`
 const Footer = () => {
   const { loading, data } = useQuery(FOOTER_QUERY);
 
+  const [isVisible, setIsVisible] = React.useState({
+    res: false,
+    contacts: false,
+  });
+
+  const handleResClick = () => {
+    setIsVisible({
+      ...isVisible,
+      res: !isVisible.res,
+    });
+  };
+  const handleContactsClick = () => {
+    setIsVisible({
+      ...isVisible,
+      contacts: !isVisible.contacts,
+    });
+  };
+
   if (loading) return null;
 
   const date = new Date().getFullYear();
@@ -84,32 +102,38 @@ const Footer = () => {
     <footer className={'footer'}>
       <div className={'container'}>
         <div className={'footer__navigation row'}>
-          <div className={'col-2'}>
+          <div className={'col-md-2'}>
             <Logo
               logoData={data.info.generalInfoACF.logo}
               className={'footer__navigation-logo'}
             />
           </div>
-          <nav className={'footer__sitemap col-10'}>
+          <nav className={'footer__sitemap col-md-10 col-sm-12'}>
             <PartnersLogo
               partnersData={data.info.generalInfoACF.partners}
-              className={'col-2'}
+              className={'col-md-2 col-xs-12'}
             />
             <Navigation
               navigationData={data.menus.nodes[3]}
-              className={'col-2'}
+              className={'col-md-2 col-xs-12'}
+              isVisible={isVisible}
             />
             <Navigation
               navigationData={data.menus.nodes[1]}
-              className={'col-2'}
+              className={'col-md-2 col-xs-12'}
+              isVisible={isVisible}
             />
             <Resources
               navigationData={data.menus.nodes[2]}
-              className={'col-2'}
+              className={'col-md-2 col-xs-12'}
+              isVisible={isVisible.res}
+              handleResClick={handleResClick}
             />
             <Contacts
               contactsData={data.info.generalInfoACF.contacts}
-              className={'col-2'}
+              className={'col-md-2 col-xs-12'}
+              isVisible={isVisible.contacts}
+              handleContactsClick={handleContactsClick}
             />
           </nav>
         </div>
