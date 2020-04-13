@@ -31,6 +31,7 @@
 
 $tx-colors: (
   'green': $green,
+  'white': $white,
 );
 
 @each $name, $color in $tx-colors {

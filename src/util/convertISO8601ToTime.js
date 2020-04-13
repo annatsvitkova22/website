@@ -4,9 +4,12 @@ function convertISO8601ToTime(input) {
     const matches = reptms.exec(input);
     let [, ...time] = matches;
     time = time.filter((el) => el !== undefined);
-    const formattedTime = time.map((item) =>
-      item.length === 2 ? `${item}` : `0${item}`
-    );
+    if (time.length === 1) {
+      time.unshift('00');
+    }
+    const formattedTime = time.map((item) => {
+      return item.length === 2 ? `${item}` : `0${item}`;
+    });
     return formattedTime.join(':');
   }
   return '';

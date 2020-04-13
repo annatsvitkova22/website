@@ -26,6 +26,7 @@
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "imagemin-mozjpeg": "^8.0.0",
+    "moment": "^2.24.0",
     "next": "9.3.3-canary.0",
     "next-optimized-images": "^2.5.7",
     "node-fetch": "^2.6.0",
