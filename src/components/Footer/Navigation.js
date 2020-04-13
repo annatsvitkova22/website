@@ -4,38 +4,26 @@ import PropTypes from 'prop-types';
 import NavLink from '~/components/SiteLink';
 
 const Navigation = (props) => {
-  const { navigationData, className = '' } = props;
-
-  const [isVisible, setIsVisible] = React.useState({
-    page: false,
-    info: false,
-  });
-
-  const handlePageClick = () => {
-    setIsVisible({
-      ...isVisible,
-      page: !isVisible.page,
-    });
-  };
-  const handleInfoClick = () => {
-    setIsVisible({
-      ...isVisible,
-      info: !isVisible.info,
-    });
-  };
+  const {
+    navigationData,
+    className = '',
+    handleInfoClick,
+    handlePagesClick,
+    isVisible,
+  } = props;
 
   return (
     <ul className={`footer__sitemap-list ${className}`}>
       {navigationData.id === 'TWVudTo0' && (
         <>
-          <li className={'footer__sitemap-title'} onClick={handlePageClick}>
+          <li className={'footer__sitemap-title'} onClick={handlePagesClick}>
             Сторінки
           </li>
           <ul className={`footer__sitemap-navigation`}>
             {navigationData &&
               navigationData.menuItems &&
               navigationData.menuItems.nodes &&
-              isVisible.page &&
+              isVisible &&
               navigationData.menuItems.nodes.map((item) => {
                 return (
                   <li className={'footer__sitemap-link'} key={item.id}>
@@ -57,7 +45,7 @@ const Navigation = (props) => {
             {navigationData &&
               navigationData.menuItems &&
               navigationData.menuItems.nodes &&
-              isVisible.info &&
+              isVisible &&
               navigationData.menuItems.nodes.map((item) => {
                 return (
                   <li className={'footer__sitemap-link'} key={item.id}>

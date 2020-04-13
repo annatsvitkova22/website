@@ -11,6 +11,9 @@
     align-items: center;
   }
 
+  &__menu {
+    display: none;
+  }
   &__logo {
     margin-right: 16px;
 
@@ -97,5 +100,88 @@
         font-size: 12px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    color: $white;
+    &__wrapper {
+      display: flex;
+      justify-content: space-between;
+      & > a {
+        padding-top: 16px;
+        padding-bottom: 15px;
+
+        z-index: 66666;
+      }
+    }
+    &__burgermenu {
+      display: flex;
+      flex-direction: column;
+
+      margin-left: 64px;
+      padding-top: 98px;
+
+
+    }
+    &__overlay {
+      width: 100vw;
+      height: 100vh;
+
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      background-color: $black;
+
+      z-index: 5555;
+
+      transition: all 2s ease-in;
+    }
+    &__menu {
+      display: block;
+    }
+
+    &__icons {
+      margin-left: 0;
+      padding-bottom: 21px;
+      &-item:not(:last-child) {
+        margin-right: 34px;
+      }
+    }
+    &__social {
+      padding-top: 16px;
+      & > a {
+        padding-right: 16px;
+      }
+      & > a:not(:first-child) {
+        padding-left: 16px;
+      }
+      .svg-icon {
+        color: $white;
+      }
+    }
+    &__search {
+      z-index: 66666;
+    }
+    &__button {
+      z-index: 66666;
+    }
+  }
+  .navigation {
+    padding-bottom: 21px;
+    &__list {
+      flex-direction: column;
+      & > li:first-child {
+        padding: 16px 0 16px 0;
+      }
+      &-link {
+        padding: 16px 0 16px 0;
+      }
+    }
+  }
+  .footer__data-link > svg {
+    width: 50px;
   }
 }

@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
 import Logo from '../Logo';
-import Socials from '../Socials';
+import Socials from './Socials';
 
 import Navigation from './Navigation';
 import Contacts from './Contacts';
@@ -77,9 +77,13 @@ const Footer = () => {
   const { loading, data } = useQuery(FOOTER_QUERY);
 
   const [isVisible, setIsVisible] = React.useState({
-    res: false,
-    contacts: false,
+    pages: true,
+    info: true,
+    res: true,
+    contacts: true,
   });
+
+  const [isMobile, setIsMobile] = React.useState(false);
 
   const handleResClick = () => {
     setIsVisible({
@@ -93,6 +97,31 @@ const Footer = () => {
       contacts: !isVisible.contacts,
     });
   };
+  const handlePagesClick = () => {
+    setIsVisible({
+      ...isVisible,
+      pages: !isVisible.pages,
+    });
+  };
+  const handleInfoClick = () => {
+    setIsVisible({
+      ...isVisible,
+      info: !isVisible.info,
+    });
+  };
+
+  React.useEffect(() => {
+    setIsMobile(window.innerWidth < 1000);
+    if (window.innerWidth < 1000) {
+      setIsVisible({
+        ...isVisible,
+        pages: false,
+        info: false,
+        res: false,
+        contacts: false,
+      });
+    }
+  }, []);
 
   if (loading) return null;
 
@@ -116,12 +145,14 @@ const Footer = () => {
             <Navigation
               navigationData={data.menus.nodes[3]}
               className={'col-md-2 col-xs-12'}
-              isVisible={isVisible}
+              isVisible={isVisible.pages}
+              handlePagesClick={handlePagesClick}
             />
             <Navigation
               navigationData={data.menus.nodes[1]}
               className={'col-md-2 col-xs-12'}
-              isVisible={isVisible}
+              isVisible={isVisible.info}
+              handleInfoClick={handleInfoClick}
             />
             <Resources
               navigationData={data.menus.nodes[2]}
@@ -134,6 +165,7 @@ const Footer = () => {
               className={'col-md-2 col-xs-12'}
               isVisible={isVisible.contacts}
               handleContactsClick={handleContactsClick}
+              isMobile={isMobile}
             />
           </nav>
         </div>

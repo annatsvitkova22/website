@@ -9,18 +9,32 @@ const Contacts = (props) => {
     className = '',
     isVisible,
     handleContactsClick,
+    isMobile,
   } = props;
+
+  console.log(isVisible);
 
   if (contactsData) {
     return (
       <ul className={`footer__sitemap-list ${className}`}>
-        <li className={'footer__sitemap-title'} onClick={handleContactsClick}>
-          <span>Контакти</span>
-          <Icons
-            className={'footer__sitemap-chevron'}
-            icon={'footer-chevron'}
-          />
-        </li>
+        {isMobile ? (
+          <li className={'footer__sitemap-title'} onClick={handleContactsClick}>
+            <span>Контакти</span>
+            <Icons
+              className={'footer__sitemap-chevron'}
+              icon={'footer-chevron'}
+            />
+          </li>
+        ) : (
+          <li className={'footer__sitemap-title'}>
+            <span>Контакти</span>
+            <Icons
+              className={'footer__sitemap-chevron'}
+              icon={'footer-chevron'}
+            />
+          </li>
+        )}
+
         {isVisible && (
           <ul className={'footer__sitemap-navigation'}>
             {contactsData.map((item, i) => {
