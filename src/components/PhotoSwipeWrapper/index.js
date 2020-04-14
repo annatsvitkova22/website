@@ -111,7 +111,9 @@ class PhotoSwipeWrapper extends React.Component {
 
   listen = () => {
     const pauseVideo = () => {
-      const iframes = document.querySelectorAll('.video-tag__iframe iframe');
+      const iframes = document.querySelectorAll(
+        '.video-category__iframe iframe'
+      );
       iframes.forEach((iframe) => {
         const { src } = iframe;
         iframe.setAttribute('src', src);

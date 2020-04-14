@@ -11,43 +11,43 @@ import share from '~/static/images/share';
 import facebook from '~/static/images/facebook-f';
 import telegram from '~/static/images/telegram-plane';
 
-const VideoTags = ({ tags }) => {
+const VideoCategories = ({ categories }) => {
   function getThumbnailContent(item) {
     return (
       <>
         <div
-          className="video-tag__thumbnail bg-cover pos-relative"
+          className="video-category__thumbnail bg-cover pos-relative"
           style={{ backgroundImage: `url(${item.thumbnail})` }}
         >
           <Play />
         </div>
-        <p className="video-tag__duration">{item.duration}</p>
-        <h4 className="video-tag__name">{item.name}</h4>
+        <p className="video-category__duration">{item.duration}</p>
+        <h4 className="video-category__name">{item.name}</h4>
       </>
     );
   }
 
   return (
     <div className="container">
-      {tags.map((tag, i) => {
-        const { nodes } = tag.videos;
+      {categories.map((category, i) => {
+        const { nodes } = category.videos;
         if (nodes.length) {
           const options = {
             shareEl: false,
             galleryUID: i + 1,
             bgOpacity: 0.75,
           };
-          const tagItems = nodes.slice(0, 4).map((video) => {
+          const categoryItems = nodes.slice(0, 4).map((video) => {
             const { zmVideoACF, title, excerpt, date } = video;
             const { videoUrl, videoCover, duration } = zmVideoACF;
             const pubDate = new Date(date);
             return {
               html: `
-            <div class="video-tag__iframe">
+            <div class="video-category__iframe">
               <iframe src="${formatYouTubeUrl(
                 videoUrl
               )}" frameborder="0"></iframe>
-              <div class="video-tag__info tx-white">
+              <div class="video-category__info tx-white">
                 <h3>${title}</h3>
                 <div>${excerpt}</div>
                 <div class="row">
@@ -71,18 +71,18 @@ const VideoTags = ({ tags }) => {
             };
           });
           return (
-            <div key={i} className="row video-tag">
+            <div key={i} className="row video-category">
               <div className="col-6">
-                <p className="video-tag__title">{tag.name}</p>
+                <p className="video-category__title">{category.name}</p>
               </div>
               <div className="col-6 text-right tx-green">
-                <a href="#" className="video-tag__watch-all">
+                <a href="#" className="video-category__watch-all">
                   Дивись Усі
                 </a>
               </div>
               <PhotoSwipeGallery
                 className="col-12"
-                items={tagItems}
+                items={categoryItems}
                 options={options}
                 thumbnailContent={getThumbnailContent}
               />
@@ -95,12 +95,12 @@ const VideoTags = ({ tags }) => {
   );
 };
 
-VideoTags.propTypes = {
-  tags: PropTypes.arrayOf(
+VideoCategories.propTypes = {
+  categories: PropTypes.arrayOf(
     PropTypes.shape({
       videos: PropTypes.object,
     })
   ),
 };
 
-export default VideoTags;
+export default VideoCategories;
