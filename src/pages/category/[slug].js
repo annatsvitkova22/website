@@ -1,96 +1,108 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import Head from 'next/head';
-// import gql from 'graphql-tag';
-// import Link from 'next/link';
-// import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import 'moment/locale/uk';
 
-// import VideosList from '~/components/VideosList';
-// import VideoCategories from '~/components/VideoCategories';
-// import apolloClient from '~/lib/ApolloClient';
-// import formatYouTubeUrl from '~/util/formatYouTubeUrl';
-// import convertISO8601ToTime from '~/util/convertISO8601ToTime';
-// import Play from '~/static/images/play';
-// import youtube from '~/apis/youtube';
+import PhotoSwipeGallery from '~/components/VideoCategories/PhotoSwipeGallery';
+import apolloClient from '~/lib/ApolloClient';
+import formatYouTubeUrl from '~/util/formatYouTubeUrl';
+import convertISO8601ToTime from '~/util/convertISO8601ToTime';
+import Play from '~/static/images/play';
+import youtube from '~/apis/youtube';
+import share from '~/static/images/share';
+import facebook from '~/static/images/facebook-f';
+import telegram from '~/static/images/telegram-plane';
 
-// const KEY = 'AIzaSyBz7hBEUeLfjjkbutilOakeLZv5hCDf-GM';
+const KEY = 'AIzaSyBz7hBEUeLfjjkbutilOakeLZv5hCDf-GM';
 
-// const VIDEOS_ARCHIVE = gql`
-//   query VideosArchive {
-//     videos {
-//       nodes {
-//         excerpt
-//         title
-//         slug
-//         zmVideoACF {
-//           videoUrl
-//           videoCover {
-//             mediaItemUrl
-//           }
-//         }
-//       }
-//     }
-//     categories {
-//       nodes {
-//         name
-//         videos {
-//           nodes {
-//             title
-//             excerpt
-//             date
-//             zmVideoACF {
-//               videoUrl
-//               videoCover {
-//                 mediaItemUrl
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
+const CATEGORY_ID = gql`
+  query CategoryId($slug: [String]) {
+    categories(where: { slug: $slug }) {
+      nodes {
+        name
+        categoryId
+      }
+    }
+  }
+`;
+
+const VIDEOS = gql`
+  query Videos($categoryId: Int) {
+    videos(where: { categoryId: $categoryId }) {
+      nodes {
+        title
+        zmVideoACF {
+          videoCover {
+            mediaItemUrl
+          }
+          videoUrl
+        }
+      }
+    }
+  }
+`;
 
 class VideosArchive extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   const { title, zmVideoACF } = this.props.videos[0];
-  //   const { videoUrl, videoCover, duration } = zmVideoACF;
-  //   this.state = {
-  //     selectedVideo: {
-  //       url: formatYouTubeUrl(videoUrl),
-  //       imageUrl: videoCover.mediaItemUrl,
-  //       duration,
-  //       title,
-  //     },
-  //     selectedIndex: 0,
-  //     isPlaying: false,
-  //   };
-  // }
-
-  // onVideoSelect = (url, imageUrl, title, duration, index) => {
-  //   this.setState({
-  //     selectedVideo: {
-  //       url: formatYouTubeUrl(url),
-  //       imageUrl,
-  //       title,
-  //       duration,
-  //     },
-  //   });
-  //   this.setState({
-  //     selectedIndex: index,
-  //     isPlaying: true,
-  //   });
-  // };
-
-  // onClick = () => {
-  //   this.setState({ isPlaying: !this.state.isPlaying });
-  // };
+  getThumbnailContent(item) {
+    return (
+      <>
+        <div
+          className="video-category__thumbnail bg-cover pos-relative"
+          style={{ backgroundImage: `url(${item.thumbnail})` }}
+        >
+          <Play />
+        </div>
+        <p className="video-category__duration">{item.duration}</p>
+        <h4 className="video-category__name">{item.name}</h4>
+      </>
+    );
+  }
 
   render() {
-    // const { videos, categories } = this.props;
-    // const { isPlaying } = this.state;
-    // const { url, imageUrl, title, duration } = this.state.selectedVideo;
+    const { categoryName, videos } = this.props;
+
+    const options = {
+      shareEl: false,
+      bgOpacity: 0.75,
+    };
+
+    const videoItems = videos.map((video) => {
+      const { zmVideoACF, title, excerpt, date } = video;
+      const { videoUrl, videoCover, duration } = zmVideoACF;
+      const pubDate = new Date(date);
+      return {
+        html: `
+            <div class="video-category__iframe">
+              <iframe src="${formatYouTubeUrl(
+                videoUrl
+              )}" frameborder="0"></iframe>
+              <div class="video-category__info tx-white">
+                <h3>${title}</h3>
+                <div>${excerpt}</div>
+                <div class="row">
+                  <div class="col-6">
+                    <div>${moment(pubDate).format('DD MMMM YYYY HH:mm')}</div>
+                  </div>
+                  <div class="col-6">
+                    <ul class="list-unstyled d-flex justify-content-end">
+                      <li>${share}</li>
+                      <li>${facebook}</li>
+                      <li>${telegram}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            `,
+        thumbnail: videoCover.mediaItemUrl,
+        name: title,
+        duration,
+      };
+    });
+
     return (
       <div className="videos-page">
         <Head>
@@ -99,81 +111,80 @@ class VideosArchive extends Component {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main className="videos-main">Category</main>
+        <main className="videos-main">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <h1>{categoryName}</h1>
+              </div>
+              <PhotoSwipeGallery
+                className="col-12"
+                items={videoItems}
+                options={options}
+                thumbnailContent={this.getThumbnailContent}
+              />
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
 }
 
-// VideosArchive.getInitialProps = async () => {
-//   const { data } = await apolloClient.query({
-//     query: VIDEOS_ARCHIVE,
-//   });
+VideosArchive.getInitialProps = async ({ query: { slug } }) => {
+  const categoryData = await apolloClient.query({
+    query: CATEGORY_ID,
+    variables: { slug },
+  });
+  const { categoryId, name } = categoryData.data.categories.nodes[0];
 
-//   // Create array with unique video ids
-//   const videoIds = Array.from(
-//     new Set(
-//       data.videos.nodes.map((node) => {
-//         const { videoUrl } = node.zmVideoACF;
-//         const videoId = videoUrl.split('?v=')[1];
-//         return videoId;
-//       })
-//     )
-//   );
+  const videosData = await apolloClient.query({
+    query: VIDEOS,
+    variables: { categoryId },
+  });
 
-//   const response = await youtube.get('/videos', {
-//     params: {
-//       id: videoIds.join(','),
-//       part: 'contentDetails',
-//       key: KEY,
-//     },
-//   });
+  // Create array with unique video ids
+  const videoIds = Array.from(
+    new Set(
+      videosData.data.videos.nodes.map((node) => {
+        const { videoUrl } = node.zmVideoACF;
+        const videoId = videoUrl.split('?v=')[1];
+        return videoId;
+      })
+    )
+  );
 
-//   // Create object with video durations and id as a key
-//   const videoDurations = response.data.items.reduce((acc, item) => {
-//     acc[item.id] = convertISO8601ToTime(item.contentDetails.duration);
-//     return acc;
-//   }, {});
+  const response = await youtube.get('/videos', {
+    params: {
+      id: videoIds.join(','),
+      part: 'contentDetails',
+      key: KEY,
+    },
+  });
 
-//   // Add duration for videos
-//   const videos = data.videos.nodes.map((node) => {
-//     const { zmVideoACF } = node;
-//     const videoId = zmVideoACF.videoUrl.split('?v=')[1];
+  // Create object with video durations and id as a key
+  const videoDurations = response.data.items.reduce((acc, item) => {
+    acc[item.id] = convertISO8601ToTime(item.contentDetails.duration);
+    return acc;
+  }, {});
 
-//     return {
-//       ...node,
-//       zmVideoACF: {
-//         ...zmVideoACF,
-//         duration: videoDurations[videoId],
-//       },
-//     };
-//   });
+  // Add duration for videos
+  const formattedVideos = videosData.data.videos.nodes.map((node) => {
+    const { zmVideoACF } = node;
+    const videoId = zmVideoACF.videoUrl.split('?v=')[1];
+    return {
+      ...node,
+      zmVideoACF: {
+        ...zmVideoACF,
+        duration: videoDurations[videoId],
+      },
+    };
+  });
 
-//   // Add duration for videos
-//   const categories = data.categories.nodes.map((node) => {
-//     const videoNodes = node.videos.nodes.map((videoNode) => {
-//       const { zmVideoACF } = videoNode;
-//       const videoId = zmVideoACF.videoUrl.split('?v=')[1];
-//       return {
-//         ...videoNode,
-//         zmVideoACF: {
-//           ...zmVideoACF,
-//           duration: videoDurations[videoId],
-//         },
-//       };
-//     });
-//     return {
-//       ...node,
-//       videos: {
-//         nodes: [...videoNodes],
-//       },
-//     };
-//   });
-
-//   return {
-//     videos,
-//     categories,
-//   };
-// };
+  return {
+    categoryName: name,
+    videos: formattedVideos,
+  };
+};
 
 export default VideosArchive;
