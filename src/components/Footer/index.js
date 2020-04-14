@@ -76,18 +76,12 @@ const FOOTER_QUERY = gql`
 const Footer = () => {
   const { loading, data } = useQuery(FOOTER_QUERY);
 
-  const [isMobile, setIsMobile] = React.useState(false);
-
   const handleClick = (event) => {
     event.currentTarget.parentNode
       .querySelector('.footer__sitemap-navigation')
       .classList.toggle('isOpen');
     event.currentTarget.childNodes[1].classList.toggle('isOpen');
   };
-
-  React.useEffect(() => {
-    setIsMobile(window.innerWidth < 1024);
-  }, []);
 
   if (loading) return null;
 
@@ -127,7 +121,6 @@ const Footer = () => {
               contactsData={data.info.generalInfoACF.contacts}
               className={`col-xl-2 col-xs-12`}
               handleClick={handleClick}
-              isMobile={isMobile}
             />
           </nav>
         </div>

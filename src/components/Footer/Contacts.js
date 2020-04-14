@@ -4,29 +4,19 @@ import PropTypes from 'prop-types';
 import Icons from '../Icons';
 
 const Contacts = (props) => {
-  const { contactsData, className = '', handleClick, isMobile, isOpen } = props;
+  const { contactsData, className = '', handleClick } = props;
 
   if (contactsData) {
     return (
       <ul className={`footer__sitemap-list ${className}`}>
-        {isMobile ? (
-          <li className={'footer__sitemap-title'} onClick={handleClick}>
-            <span>Контакти</span>
-            <Icons
-              className={`footer__sitemap-chevron`}
-              icon={'footer-chevron'}
-            />
-          </li>
-        ) : (
-          <li className={'footer__sitemap-title'}>
-            <span>Контакти</span>
-            <Icons
-              className={'footer__sitemap-chevron'}
-              icon={'footer-chevron'}
-            />
-          </li>
-        )}
-        <ul className={`footer__sitemap-navigation ${isOpen}`}>
+        <li className={'footer__sitemap-title'} onClick={handleClick}>
+          <span>Контакти</span>
+          <Icons
+            className={`footer__sitemap-chevron`}
+            icon={'footer-chevron'}
+          />
+        </li>
+        <ul className={`footer__sitemap-navigation`}>
           {contactsData.map((item, i) => {
             return (
               <>
@@ -85,7 +75,6 @@ Contacts.propTypes = {
     })
   ),
   className: PropTypes.sting,
-  isMobile: PropTypes.bool,
   handleClick: PropTypes.any,
 };
 

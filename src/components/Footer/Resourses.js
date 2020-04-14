@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Icons from '~/components/Icons';
 
 const Resources = (props) => {
-  const { navigationData, className = '', isOpen, handleClick } = props;
+  const { navigationData, className = '', handleClick } = props;
 
   return (
     <ul className={`footer__sitemap-list ${className}`}>
@@ -12,7 +12,7 @@ const Resources = (props) => {
         Ресурси
         <Icons className={'footer__sitemap-chevron'} icon={'footer-chevron'} />
       </li>
-      <ul className={`footer__sitemap-navigation ${isOpen}`}>
+      <ul className={`footer__sitemap-navigation`}>
         {navigationData &&
           navigationData.menuItems &&
           navigationData.menuItems.nodes &&
@@ -35,7 +35,6 @@ Resources.propTypes = {
     menuItems: PropTypes.object,
   }),
   className: PropTypes.string,
-  isOpen: PropTypes.string,
   handleClick: PropTypes.any,
 };
 
