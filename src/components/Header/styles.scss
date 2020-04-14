@@ -104,6 +104,8 @@
   .header {
     &__logo {
       margin-right: 0;
+      width: 80px;
+      height: 36.67px;
     }
     &__wrapper {
       display: flex;
@@ -179,8 +181,7 @@
         flex-direction: column;
         justify-content: space-between;
 
-        height: 15px;
-        width: 30px;
+        width: 18px;
 
         background-color: transparent;
         border: none;
@@ -199,7 +200,7 @@
       }
     }
     &__burger-icon {
-      width: 30px;
+      width: 18px;
       height: 2px;
 
       position: relative;
@@ -211,12 +212,12 @@
         content: '';
         display: block;
 
-        width: 30px;
+        width: 18px;
         height: 2px;
 
         position: absolute;
         left: 0;
-        top: -10px;
+        top: -5px;
 
         background-color: #fff;
 
@@ -226,12 +227,12 @@
         content: '';
         display: block;
 
-        width: 30px;
+        width: 18px;
         height: 2px;
 
         position: absolute;
         left: 0;
-        top: 10px;
+        top: 5px;
 
         background-color: #fff;
 
