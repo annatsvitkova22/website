@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment/locale/uk';
+import Link from 'next/link';
 
 import PhotoSwipeGallery from '~/components/VideoCategories/PhotoSwipeGallery';
 import apolloClient from '~/lib/ApolloClient';
@@ -47,6 +48,18 @@ const VIDEOS = gql`
   }
 `;
 
+const CATEGORIES = gql`
+  query Categories {
+    categories(where: { hideEmpty: true }) {
+      nodes {
+        name
+        slug
+        categoryId
+      }
+    }
+  }
+`;
+
 class VideosArchive extends Component {
   getThumbnailContent(item) {
     return (
@@ -64,7 +77,7 @@ class VideosArchive extends Component {
   }
 
   render() {
-    const { categoryName, videos } = this.props;
+    const { categoryName, currCatId, videos, categories } = this.props;
 
     const options = {
       shareEl: false,
@@ -120,6 +133,28 @@ class VideosArchive extends Component {
               <div className="col-12">
                 <h1>{categoryName}</h1>
               </div>
+              <div className="col-12">
+                <ul className="list-unstyled d-flex cat-list">
+                  {categories.map((category) => {
+                    const { categoryId, slug, name } = category;
+                    return (
+                      <li className="cat-list__item" key={categoryId}>
+                        <Link href={slug}>
+                          <a
+                            className={`cat-list__button ${
+                              currCatId === categoryId
+                                ? 'cat-list__button--active'
+                                : ''
+                            }`}
+                          >
+                            {name}
+                          </a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
               <PhotoSwipeGallery
                 className="col-12"
                 items={videoItems}
@@ -144,6 +179,10 @@ VideosArchive.getInitialProps = async ({ query: { slug } }) => {
   const videosData = await apolloClient.query({
     query: VIDEOS,
     variables: { categoryId },
+  });
+
+  const categories = await apolloClient.query({
+    query: CATEGORIES,
   });
 
   // Create array with unique video ids
@@ -185,7 +224,9 @@ VideosArchive.getInitialProps = async ({ query: { slug } }) => {
   });
 
   return {
+    categories: categories.data.categories.nodes,
     categoryName: name,
+    currCatId: categoryId,
     videos: formattedVideos,
   };
 };

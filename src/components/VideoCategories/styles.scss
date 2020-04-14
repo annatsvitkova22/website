@@ -71,16 +71,16 @@
     background-size: cover;
   }
 
-  svg {
-    width: 36px;
-    height: 36px;
-
-    position: absolute;
-    bottom: 24px;
-    left: 26px;
-  }
-
   &__thumbnail {
     padding-bottom: 61.53%;
+
+    svg {
+      width: 36px;
+      height: 36px;
+
+      position: absolute;
+      bottom: 24px;
+      left: 26px;
+    }
   }
 }
