@@ -60,7 +60,7 @@ const CATEGORIES = gql`
   }
 `;
 
-class VideosArchive extends Component {
+class Category extends Component {
   getThumbnailContent(item) {
     return (
       <>
@@ -169,7 +169,14 @@ class VideosArchive extends Component {
   }
 }
 
-VideosArchive.getInitialProps = async ({ query: { slug } }) => {
+Category.propTypes = {
+  categoryName: PropTypes.string,
+  currCatId: PropTypes.number,
+  videos: PropTypes.array,
+  categories: PropTypes.array,
+};
+
+Category.getInitialProps = async ({ query: { slug } }) => {
   const categoryData = await apolloClient.query({
     query: CATEGORY_ID,
     variables: { slug },
@@ -231,4 +238,4 @@ VideosArchive.getInitialProps = async ({ query: { slug } }) => {
   };
 };
 
-export default VideosArchive;
+export default Category;
