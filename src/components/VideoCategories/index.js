@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment/locale/uk';
+import Link from 'next/link';
 
 import PhotoSwipeGallery from './PhotoSwipeGallery';
 
@@ -76,9 +77,9 @@ const VideoCategories = ({ categories }) => {
                 <p className="video-category__title">{category.name}</p>
               </div>
               <div className="col-6 text-right tx-green">
-                <a href="#" className="video-category__watch-all">
-                  Дивись Усі
-                </a>
+                <Link href="/category/культура">
+                  <a className="video-category__watch-all">Дивись Усі</a>
+                </Link>
               </div>
               <PhotoSwipeGallery
                 className="col-12"
