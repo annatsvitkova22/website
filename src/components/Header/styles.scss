@@ -96,9 +96,15 @@
 .header__burger-button {
   display: none;
 }
+.header__burger-category {
+  display: none;
+}
 
 @media screen and (max-width: 1299px) {
   .header {
+    &__logo {
+      margin-right: 0;
+    }
     &__wrapper {
       display: flex;
       justify-content: space-between;
@@ -114,9 +120,9 @@
     &__burgermenu {
       display: flex;
       flex-direction: column;
+      justify-content: center;
 
       margin-left: 64px;
-      padding-top: 98px;
     }
 
     &__overlay {
@@ -131,13 +137,16 @@
 
       background-color: $black;
 
-      transition: transform 0.9s;
       transform: translateY(0);
+
+      opacity: 0;
+      transition: opacity 0.2s;
 
       z-index: 5;
     }
     .isOpen {
       transform: translateY(100%);
+      opacity: 1;
     }
 
     &__icons {
@@ -276,5 +285,13 @@
 
   .footer__data-link > svg {
     width: 50px;
+  }
+}
+
+@media screen and (max-width: 1299px) and (min-width: 800px) {
+  .header {
+    &__burger-category {
+      display: flex;
+    }
   }
 }

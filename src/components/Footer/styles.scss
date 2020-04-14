@@ -180,6 +180,15 @@
         max-width: 94px;
       }
     }
+    &-facebook > svg {
+      width: 25.72px;
+    }
+    &-instagram > svg {
+      width: 42px;
+    }
+    &-telegram > svg {
+      width: 42px;
+    }
     &__sitemap {
       flex-direction: column;
       &-list:not(:first-child) {
@@ -199,15 +208,6 @@
 
         width: 100%;
         max-height: 151px;
-      }
-      &-facebook > svg {
-        width: 25.72px;
-      }
-      &-instagram > svg {
-        width: 42px;
-      }
-      &-telegram > svg {
-        width: 42px;
       }
       &-navigation.isOpen {
         display: flex;
