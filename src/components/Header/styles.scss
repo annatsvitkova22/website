@@ -310,10 +310,16 @@
       padding-right: 18px;
       padding-left: 18px;
     }
-    &__search {
+    &__icons {
+      display: flex;
       order: 4;
 
       margin-left: auto;
+
+      z-index: 6666;
+    }
+    &__search {
+      order: 5;
     }
     &__wrapper > .header__burger-category {
       display: flex;
@@ -334,6 +340,9 @@
     }
   }
   .navigation__list > li:first-child {
+    display: none;
+  }
+  .burger__icons {
     display: none;
   }
 }
