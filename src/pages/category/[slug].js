@@ -34,6 +34,8 @@ const VIDEOS = gql`
     videos(where: { categoryId: $categoryId }) {
       nodes {
         title
+        excerpt
+        date
         zmVideoACF {
           videoCover {
             mediaItemUrl
