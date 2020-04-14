@@ -12,6 +12,7 @@ import Share from '~/components/Share';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
+import PostHeader from '~/components/Loaders/PostHeader';
 
 const NEWS = gql`
   query News($slug: String!) {
@@ -65,10 +66,8 @@ const NEWS = gql`
   }
 `;
 
-const Post = (props) => {
-  const { post, news } = props;
+const Post = ({ post, news }) => {
   const ref = React.useRef();
-
   return (
     <>
       <Head>
@@ -77,32 +76,38 @@ const Post = (props) => {
       </Head>
 
       <main className="single-news">
-        <NewsHead post={post} />
-        <section
-          className={'main row no-gutters justify-content-between'}
-          style={{ display: 'flex', alignItems: 'flex-start' }}
-        >
-          <StickyBox
-            offsetTop={20}
-            offsetBottom={20}
-            className={'side-bar__wrapper col-1'}
-          >
-            <Share />
-          </StickyBox>
-          <section className={'description col-7'}>
-            <Content content={post.blocks} />
-          </section>
-          <StickyBox
-            offsetTop={20}
-            offsetBottom={20}
-            className={'side-bar__wrapper col-3'}
-          >
-            <section className={'latest'}>
-              <SideBarNews news={news.nodes} ref={ref} />
+        {post ? (
+          <>
+            <NewsHead post={post} />
+            <section
+              className={'main row no-gutters justify-content-between'}
+              style={{ display: 'flex', alignItems: 'flex-start' }}
+            >
+              <StickyBox
+                offsetTop={20}
+                offsetBottom={20}
+                className={'side-bar__wrapper col-1'}
+              >
+                <Share />
+              </StickyBox>
+              <section className={'description col-7'}>
+                <Content content={post.blocks} />
+              </section>
+              <StickyBox
+                offsetTop={20}
+                offsetBottom={20}
+                className={'side-bar__wrapper col-3'}
+              >
+                <section className={'latest'}>
+                  <SideBarNews news={news.nodes} ref={ref} />
+                </section>
+              </StickyBox>
             </section>
-          </StickyBox>
-        </section>
-        <NewsFooter post={post} />
+            <NewsFooter post={post} />
+          </>
+        ) : (
+          <PostHeader />
+        )}
       </main>
     </>
   );
