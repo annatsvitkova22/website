@@ -68,6 +68,7 @@ class VideosArchive extends Component {
 
     const options = {
       shareEl: false,
+      galleryUID: 1,
       bgOpacity: 0.75,
     };
 
