@@ -12,7 +12,7 @@ import Share from '~/components/Share';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
-import PostHeader from '~/components/Loaders/PostHeader';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const NEWS = gql`
   query News($slug: String!) {
@@ -106,7 +106,7 @@ const Post = ({ post, news }) => {
             <NewsFooter post={post} />
           </>
         ) : (
-          <PostHeader />
+          <PostHeaderLoader />
         )}
       </main>
     </>

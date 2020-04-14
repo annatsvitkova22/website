@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Tags from '~/components/Tags';
 import FeaturedImage from '~/components/FeaturedImage';
 import ShareItems from '~/components/ShareItems';
-import PostHeader from '~/components/Loaders/PostHeader';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const NewsHead = (props) => {
   const { post } = props
@@ -20,7 +20,7 @@ const NewsHead = (props) => {
   return (
     <section className={'title'}>
       {!isLoad ? (
-        <PostHeader />
+        <PostHeaderLoader />
       ) : (
         <>
           <Tags list={post.categories.nodes} className={'category'} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const PostHeader = () => {
+const PostHeaderLoader = () => {
   return (
     <ContentLoader viewBox={'0 0 380 932'}>
       <rect x={'0'} y={'0'} rx={'0'} rx={'0'} width={'120'} height={'15'} />
@@ -13,4 +13,4 @@ const PostHeader = () => {
   );
 };
 
-export default PostHeader;
+export default PostHeaderLoader;
