@@ -32,6 +32,7 @@ const VIDEOS_ARCHIVE = gql`
     categories {
       nodes {
         name
+        slug
         videos {
           nodes {
             title

@@ -77,7 +77,7 @@ const VideoCategories = ({ categories }) => {
                 <p className="video-category__title">{category.name}</p>
               </div>
               <div className="col-6 text-right tx-green">
-                <Link href="/category/культура">
+                <Link href={`/category/${category.slug}`}>
                   <a className="video-category__watch-all">Дивись Усі</a>
                 </Link>
               </div>
