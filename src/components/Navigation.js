@@ -35,6 +35,7 @@ const Navigation = (props) => {
 
 Navigation.propTypes = {
   navigationData: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default Navigation;
