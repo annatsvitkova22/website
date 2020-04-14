@@ -3,12 +3,16 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { useQuery, watchQuery } from '@apollo/react-hooks';
 
 import apolloClient from '~/lib/ApolloClient';
 
 const NEWS_ARCHIVE = gql`
-  query NewsArchive {
-    posts {
+  query NewsArchive($last: Int, $after: String) {
+    posts(last: $last, after: $after) {
+      edges {
+        cursor
+      }
       nodes {
         id
         excerpt
@@ -20,6 +24,16 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
+  const query = watchQuery(NEWS_ARCHIVE, {
+    variables: {
+      last: 3,
+      after: null,
+    },
+  });
+
+
+  console.log(data);
+
   const { posts } = props;
   return (
     <div className="news-page">
@@ -52,6 +66,7 @@ News.propTypes = {
 News.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
+    variables: { last: 3, after: null },
   });
 
   return {
