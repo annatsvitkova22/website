@@ -7,7 +7,7 @@ import formatQueriesKeys from '../../util/formatQueriesKeys';
 
 import apolloClient from '~/lib/ApolloClient';
 import '../../styles/pages/events.scss';
-import Socials from '~/components/Socials';
+import Socials from '~/components/Footer/Socials';
 import Contacts from '~/components/Footer/Contacts';
 
 const EVENT = gql`
