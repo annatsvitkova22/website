@@ -262,7 +262,10 @@
       flex-direction: column;
 
       & > li:first-child {
-        padding: 16px 0 16px 0;
+        display: flex;
+
+        padding-left: 0;
+        padding-top: 0;
       }
 
       &-link {
@@ -291,8 +294,39 @@
 
 @media screen and (max-width: 1299px) and (min-width: 800px) {
   .header {
-    &__burger-category {
-      display: flex;
+    &__logo {
+      margin-right: 18px;
     }
+    &__burger-button {
+      order: 3;
+
+      padding-right: 18px;
+      padding-left: 18px;
+    }
+    &__search {
+      order: 4;
+
+      margin-left: auto;
+    }
+    &__wrapper > .header__burger-category {
+      display: flex;
+      order: 2;
+      align-items: center;
+
+      padding: 5px 10px;
+      margin-left: 18px;
+      margin-right: 18px;
+
+      background-color: #1d9e74;
+
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 1.2;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+  }
+  .navigation__list > li:first-child {
+    display: none;
   }
 }
