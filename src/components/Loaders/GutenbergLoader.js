@@ -9,7 +9,7 @@ const GutenbergLoader = () => {
   }, []);
 
   return (
-    <ContentLoader viewBox={'0 0 380 932'}>
+    <ContentLoader viewBox={`0 0 875 ${height}`}>
       <rect
         x={'0'}
         y={'0'}
