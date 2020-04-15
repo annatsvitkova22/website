@@ -38,8 +38,7 @@ const News = () => {
     notifyOnNetworkStatusChange: true,
   });
 
-  if (!data) return null;
-
+  if (!data) return <PostCardLoader type={'wide'} />;
   const { edges } = data.posts;
 
   console.log(networkStatus);
