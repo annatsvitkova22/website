@@ -55,7 +55,7 @@ const CrowdfundingsArchive = (props) => {
 
 
   var expDate = new Date();
-  
+
 
   return (
     <div className="crowdfundings-page">
@@ -97,22 +97,7 @@ const CrowdfundingsArchive = (props) => {
                   </div>
                   <div className="cfitem__collected__left">
                     <img src="/assets/crowdfundings/clock.png"/>
-                    { /* dateFormat(expDate.setDate(cfProps.cfACF.crowdfundingExpirationDate), "d") */ } днів залишилося
-                    { /* expDate.valueOf(cfProps.cfACF.crowdfundingExpirationDate) */ }
-
-                    { /* expDate.setDate( expDate.getDate() - 10 ) */ }
-
-                    { /* dateFormat(expDate.setDate(expDate.valueOf(cfProps.cfACF.crowdfundingExpirationDate)), "dd-mm")  */ }
-
-                    { /*dateFormat( expDate.valueOf(cfProps.cfACF.crowdfundingExpirationDate), "dd-mm-yyyy") */  }
-                    { /* dateFormat( expDate.toLocaleString(cfProps.cfACF.crowdfundingExpirationDate), "dd-mm-yyyy") */ }
-
-
-                    { /* expDate.toLocaleString(cfProps.cfACF.crowdfundingExpirationDate) */ }
-
-                    { /* expDate.toLocaleString(cfProps.cfACF.crowdfundingExpirationDate) */ }
-
-                    { expDate.setDate("December 30, 2017 11:20:25") }
+                    {cfProps.cfACF.crowdfundingExpirationDate} днів залишилося
                   </div>
                 </div>
               </div>
