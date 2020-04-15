@@ -12,7 +12,7 @@ const Contacts = (props) => {
         <li className={'footer__sitemap-link'}>Контакти</li>
         {contactsData.map((item, i) => {
           return (
-            <>
+            <React.Fragment key={i}>
               <li key={i} className={'footer__sitemap-link'}>
                 {item.role && <span>{item.role}:</span>}
                 <span>{item.name}</span>
@@ -36,16 +36,16 @@ const Contacts = (props) => {
                   );
                 })
               ) : (
-                <>
-                  <li key={i + 1} className="sitemap__list-item">
+                <React.Fragment>
+                  <li className="sitemap__list-item">
                     <a href={`tel: ${item.phoneNumber}`}>{item.phoneNumber}</a>
                   </li>
-                  <li key={i + 2} className="sitemap__list-item">
+                  <li className="sitemap__list-item">
                     <a href={`mailto: ${item.email}`}>{item.email}</a>
                   </li>
-                </>
+                </React.Fragment>
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </ul>
