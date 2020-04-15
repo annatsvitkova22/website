@@ -38,10 +38,13 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
               )}" frameborder="0"></iframe>
               <div class="video-category__info tx-white">
                 <h3>${title}</h3>
-                <div>${excerpt}</div>
+                <div class="tx-14">${excerpt}</div>
                 <div class="row">
                   <div class="col-6">
-                    <div>${moment(pubDate).format('DD MMMM YYYY HH:mm')}</div>
+                    <time class="tx-12 font-weight-bold tx-family-titles"
+                    datetime="${moment(pubDate).format()}">
+                      ${moment(pubDate).format('DD MMMM YYYY HH:mm')}
+                    </time>
                   </div>
                   <div class="col-6">
                     <ul class="list-unstyled d-flex justify-content-end">

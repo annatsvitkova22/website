@@ -9,22 +9,28 @@ import {
   options,
 } from '../PhotoSwipeGallery/videoGalleryUtils';
 
-const VideoCategories = ({ categories }) => {
-  return (
-    <div className="container">
-      {categories.map((category, i) => {
-        const { nodes } = category.videos;
-        if (nodes.length) {
-          return (
-            <div key={i} className="row video-category">
+const VideoCategories = ({ categories }) => (
+  <>
+    {categories.map((category, i) => {
+      const { nodes } = category.videos;
+      if (nodes.length) {
+        return (
+          <div key={i} className="container video-category">
+            <div className="row line-height-1 video-category__top-row">
               <div className="col-6">
-                <p className="video-category__title">{category.name}</p>
+                <h6 className="video-category__title text-transform-uppercase">
+                  {category.name}
+                </h6>
               </div>
               <div className="col-6 text-right tx-green">
                 <Link href={`/category/${category.slug}`}>
-                  <a className="video-category__watch-all">Дивись Усі</a>
+                  <a className="video-category__watch-all tx-family-titles">
+                    Дивись Усі
+                  </a>
                 </Link>
               </div>
+            </div>
+            <div className="row">
               <PhotoSwipeGallery
                 className="col-12"
                 items={prepareGalleryItems(nodes, 4)}
@@ -32,14 +38,13 @@ const VideoCategories = ({ categories }) => {
                 thumbnailContent={getThumbnailVideo}
               />
             </div>
-          );
-        }
-        return '';
-      })}
-    </div>
-  );
-};
-
+          </div>
+        );
+      }
+      return '';
+    })}
+  </>
+);
 VideoCategories.propTypes = {
   categories: PropTypes.arrayOf(
     PropTypes.shape({
