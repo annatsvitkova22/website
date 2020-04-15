@@ -16,12 +16,24 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData,
 });
 
+const defaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
+  },
+  query: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'all',
+  },
+};
+
 const apolloClient = new ApolloClient({
   link: createHttpLink({
     uri: config.graphql,
     fetch,
   }),
   cache: new InMemoryCache({ fragmentMatcher }),
+  defaultOptions
 });
 
 export default apolloClient;

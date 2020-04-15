@@ -6,10 +6,9 @@ const useCfFilterHook = (type, cfsData, date) => {
   const actualDate = new Date().getTime();
 
   useEffect(() => {
-
     if (type === 'collecting') {
       setData(() => {
-        console.log( JSON.stringify(type) );
+        console.log(JSON.stringify(type));
         return cfsData.filter((item) => {
           return new Date(item.date).getTime() > actualDate;
         });

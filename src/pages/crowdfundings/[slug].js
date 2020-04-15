@@ -2,13 +2,11 @@ import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-
-import apolloClient from '~/lib/ApolloClient';
-import Content from '~/components/Content';
-
-import '../../styles/pages/crowdfundings.scss';
 import NumberFormat from 'react-number-format';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+
+import '../../styles/pages/crowdfundings.scss';
+import apolloClient from '~/lib/ApolloClient';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {

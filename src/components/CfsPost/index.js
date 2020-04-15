@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 
 import useCfFilterHook from '~/hooks/useCfFilterHook';
 import CfPostItem from '~/components/CfsPostItem';
-import EventPostItem from '~/components/EventsPostItem';
 
 const CfsPost = (props) => {
   const { filter, cfsData, date } = props;
 
   const { data } = useCfFilterHook(filter, cfsData, date);
-  console.log( JSON.stringify(data) );
 
   return (
     <>
-        {data &&
+      {data &&
         data.map((item, index) => {
           return <CfPostItem key={index} item={item} />;
         })}
