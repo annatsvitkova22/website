@@ -11,8 +11,13 @@
 }
 
 .video-detail {
+  &__duration {
+    margin-bottom: 3px;
+    margin-top: 14px;
+  }
+
   &__title {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
     font-size: 20px;
   }

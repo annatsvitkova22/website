@@ -3,19 +3,18 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import 'moment/locale/uk';
 import Link from 'next/link';
 
-import PhotoSwipeGallery from '~/components/VideoCategories/PhotoSwipeGallery';
+import PhotoSwipeGallery from '~/components/PhotoSwipeGallery';
+import {
+  getThumbnailVideo,
+  prepareGalleryItems,
+  options,
+} from '~/components/PhotoSwipeGallery/videoGalleryUtils';
 import apolloClient from '~/lib/ApolloClient';
-import formatYouTubeUrl from '~/util/formatYouTubeUrl';
 import convertISO8601ToTime from '~/util/convertISO8601ToTime';
-import Play from '~/static/images/play';
 import youtube from '~/apis/youtube';
-import share from '~/static/images/share';
-import facebook from '~/static/images/facebook-f';
-import telegram from '~/static/images/telegram-plane';
 
 const KEY = 'AIzaSyBz7hBEUeLfjjkbutilOakeLZv5hCDf-GM';
 
@@ -61,63 +60,8 @@ const CATEGORIES = gql`
 `;
 
 class Category extends Component {
-  getThumbnailContent(item) {
-    return (
-      <>
-        <div
-          className="video-category__thumbnail bg-cover pos-relative"
-          style={{ backgroundImage: `url(${item.thumbnail})` }}
-        >
-          <Play />
-        </div>
-        <p className="video-category__duration">{item.duration}</p>
-        <h4 className="video-category__name">{item.name}</h4>
-      </>
-    );
-  }
-
   render() {
     const { categoryName, currCatId, videos, categories } = this.props;
-
-    const options = {
-      shareEl: false,
-      galleryUID: 1,
-      bgOpacity: 0.75,
-    };
-
-    const videoItems = videos.map((video) => {
-      const { zmVideoACF, title, excerpt, date } = video;
-      const { videoUrl, videoCover, duration } = zmVideoACF;
-      const pubDate = new Date(date);
-      return {
-        html: `
-            <div class="video-category__iframe">
-              <iframe src="${formatYouTubeUrl(
-                videoUrl
-              )}" frameborder="0"></iframe>
-              <div class="video-category__info tx-white">
-                <h3>${title}</h3>
-                <div>${excerpt}</div>
-                <div class="row">
-                  <div class="col-6">
-                    <div>${moment(pubDate).format('DD MMMM YYYY HH:mm')}</div>
-                  </div>
-                  <div class="col-6">
-                    <ul class="list-unstyled d-flex justify-content-end">
-                      <li>${share}</li>
-                      <li>${facebook}</li>
-                      <li>${telegram}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            `,
-        thumbnail: videoCover.mediaItemUrl,
-        name: title,
-        duration,
-      };
-    });
 
     return (
       <div className="videos-page">
@@ -131,7 +75,7 @@ class Category extends Component {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1>{categoryName}</h1>
+                <h1 className="text-uppercase">{categoryName}</h1>
               </div>
               <div className="col-12">
                 <ul className="list-unstyled d-flex cat-list">
@@ -156,10 +100,10 @@ class Category extends Component {
                 </ul>
               </div>
               <PhotoSwipeGallery
-                className="col-12"
-                items={videoItems}
-                options={options}
-                thumbnailContent={this.getThumbnailContent}
+                className="col-12 video-cat-gall"
+                items={prepareGalleryItems(videos, 10)}
+                options={options()}
+                thumbnailContent={getThumbnailVideo}
               />
             </div>
           </div>
