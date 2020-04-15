@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
-//import dateFormat from 'dateformat';
+import dateFormat from 'dateformat';
 
 import apolloClient from '~/lib/ApolloClient';
 import '../../styles/pages/crowdfundings.scss';
