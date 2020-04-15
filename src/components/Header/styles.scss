@@ -99,7 +99,25 @@
 .header__burger-category {
   display: none;
 }
+.fixed-header {
+  width: 100%;
 
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 6666;
+  &-hidden {
+    opacity: 0
+  }
+
+  &-pinned {
+    transform: translateY(0%);
+  }
+  &-unpinned {
+    transform: translateY(-100%);
+  }
+}
 @media screen and (max-width: 1299px) {
   .header {
     padding-right: 20px;

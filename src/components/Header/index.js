@@ -44,6 +44,39 @@ const HEADER_QUERY = gql`
 const Header = () => {
   const { loading, data } = useQuery(HEADER_QUERY);
   const [isOpen, setIsOpen] = React.useState('');
+  let scrollPos = 0;
+  const fixedHeader = (event) => {
+    const headerPath = document.querySelector('.header');
+    console.log(window.scrollY);
+    if (window.scrollY > 150) {
+      headerPath.classList.add('fixed-header');
+    }
+    if (window.scrollY > 300) {
+      headerPath.classList.remove('fixed-header-hidden');
+      headerPath.classList.add('fixed-header');
+      const st = window.scrollY;
+      if (st > scrollPos) {
+        headerPath.classList.add('fixed-header-unpinned');
+        headerPath.classList.remove('fixed-header-pinned');
+      } else {
+        headerPath.classList.remove('fixed-header-unpinned');
+        headerPath.classList.add('fixed-header-pinned');
+      }
+
+      scrollPos = st;
+    }
+    if (window.scrollY < 301) {
+      headerPath.classList.remove('fixed-header-hidden');
+      headerPath.classList.remove('fixed-header');
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', fixedHeader);
+    return () => {
+      window.removeEventListener('scroll', fixedHeader);
+    };
+  }, []);
 
   const ref = React.useRef(null);
 
