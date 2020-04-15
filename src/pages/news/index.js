@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import { Waypoint } from 'react-waypoint';
 
-import apolloClient from '~/lib/ApolloClient';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
 const NEWS_ARCHIVE = gql`
@@ -24,13 +23,14 @@ const NEWS_ARCHIVE = gql`
       pageInfo {
         hasNextPage
         hasPreviousPage
+        endCursor
       }
     }
   }
 `;
 
 const News = () => {
-  const { loading, data, fetchMore, networkStatus } = useQuery(NEWS_ARCHIVE, {
+  const { data, fetchMore, networkStatus } = useQuery(NEWS_ARCHIVE, {
     variables: {
       last: 5,
       cursor: null,
@@ -40,8 +40,6 @@ const News = () => {
 
   if (!data) return <PostCardLoader type={'wide'} />;
   const { edges } = data.posts;
-
-  console.log(networkStatus);
 
   return (
     <div className="news-page">
@@ -71,24 +69,19 @@ const News = () => {
                           data.posts.edges[data.posts.edges.length - 1].cursor,
                       },
                       updateQuery: (pv, { fetchMoreResult }) => {
-                        if (!fetchMoreResult) {
-                          return pv;
+                        const newEdges = fetchMoreResult.posts.edges;
+                        const pageInfos = fetchMoreResult.posts.pageInfo;
+                        if (newEdges) {
+                          return {
+                            posts: {
+                              __typename: pv.posts.__typename,
+                              edges: [...pv.posts.edges, ...newEdges],
+                              pageInfo: [...pv.posts.pageInfo, ...pageInfos],
+                              hasNextPage: pageInfos.hasNextPage,
+                            },
+                          };
                         }
-                        return {
-                          posts: {
-                            __typename: 'RootQueryToPostConnectionEdge',
-                            edges: [
-                              ...pv.posts.edges,
-                              ...fetchMoreResult.posts.edges,
-                            ],
-                            pageInfo: [
-                              ...pv.posts.pageInfo,
-                              ...fetchMoreResult.posts.pageInfo,
-                            ],
-                            hasNextPage:
-                              fetchMoreResult.posts.pageInfo.hasNextPage,
-                          },
-                        };
+                        return pv;
                       },
                     })
                   }
