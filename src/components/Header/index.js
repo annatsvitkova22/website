@@ -7,10 +7,10 @@ import Logo from '../Logo';
 import Search from '../Search';
 import Icons from '../Icons';
 
-import NavLink from '~/components/SiteLink';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
 import HeaderCategory from '~/components/Header/HeaderCategory';
+import Link from 'next/link';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -59,12 +59,14 @@ const Header = () => {
       <div className={'header__wrapper'}>
         <Burger handleOpenClick={handleOpenClick} className={isOpen} />
         <HeaderCategory className="navigation__list-link header__burger-category" />
-        <NavLink href={'/'}>
-          <Logo
-            logoData={data.info.generalInfoACF.logo}
-            className={'header__logo'}
-          />
-        </NavLink>
+        <Link href="/">
+          <a>
+            <Logo
+              logoData={data.info.generalInfoACF.logo}
+              className={'header__logo'}
+            />
+          </a>
+        </Link>
         <Navigation navigationData={data.menus} />
         <div className={'header__icons'}>
           <a href={'#'} className={'header__icons-item'}>
