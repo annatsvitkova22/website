@@ -11,9 +11,8 @@ const PartnersLogo = (props) => {
         {partnersData &&
           partnersData.map((item, i) => {
             return (
-              <li className={'footer__sitemap-link'}>
+              <li className={'footer__sitemap-link'} key={i}>
                 <a
-                  key={i}
                   href={item.url}
                   title={item.name}
                   className={'partners-logo'}
