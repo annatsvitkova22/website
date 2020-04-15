@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import Head from 'next/head';
+// import NumberFormat from 'react-number-format';
+// import ProgressBar from 'react-bootstrap/ProgressBar';
+//
+// import useIntersectionObserver from '~/hooks/useIntersectionObserver';
+// import NavLink from '~/components/SiteLink';
 
-import NavLink from '~/components/SiteLink';
-import useIntersectionObserver from '~/hooks/useIntersectionObserver';
-import Head from 'next/head';
-import NumberFormat from 'react-number-format';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-
-const CfPostItem = (props) => {
-  const ref = React.useRef();
-  const { item } = props;
-  const [isVisible, setIsVisible] = React.useState(false);
+const CfPostItem = (/* props */) => {
+  // const ref = React.useRef();
+  // const { item } = props;
+  // const [isVisible, setIsVisible] = React.useState(false);
 
   /*
   useIntersectionObserver({
@@ -26,7 +26,7 @@ const CfPostItem = (props) => {
   });
   */
 
-  //const cfDate = new Date(item.date);
+  // const cfDate = new Date(item.date);
 
   return (
     <>

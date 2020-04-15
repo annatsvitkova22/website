@@ -7,12 +7,16 @@ import RoutesList from '~/lib/RoutesList';
 
 const NavLink = ({ children, href, ...otherProps }) => {
   const { publicRuntimeConfig } = getConfig();
-  const { apiUrl, frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+  const { apiUrl, frontUrl } = publicRuntimeConfig.find(
+    (e) => e.env === process.env.ENV
+  );
 
   if (href.startsWith(apiUrl) || href.startsWith(frontUrl)) {
     let tempHref = href.split(apiUrl)[1];
     if (href.startsWith(frontUrl)) {
-      tempHref = href.split(frontUrl)[1]
+      /* eslint-disable prefer-destructuring */
+      tempHref = href.split(frontUrl)[1];
+      /* eslint-enable prefer-destructuring */
     }
 
     const isStrictRoute =

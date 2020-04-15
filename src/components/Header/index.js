@@ -1,6 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import Link from 'next/link';
 
 import Navigation from '../Navigation';
 import Logo from '../Logo';
@@ -10,7 +11,6 @@ import Icons from '../Icons';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
 import HeaderCategory from '~/components/Header/HeaderCategory';
-import Link from 'next/link';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
