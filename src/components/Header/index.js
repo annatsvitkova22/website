@@ -49,15 +49,15 @@ const Header = () => {
 
   const handleOpenClick = () => {
     // console.log(ref.current.classList.toggle('isOpen'));
-    isOpen === 'isOpen' ? setIsOpen('') : setIsOpen('isOpen');
+    isOpen === 'isMenuOpen' ? setIsOpen('') : setIsOpen('isMenuOpen');
   };
 
   if (loading) return null;
 
   return (
-    <header className={'header'}>
+    <header className={`header ${isOpen}`}>
       <div className={'header__wrapper'}>
-        <Burger handleOpenClick={handleOpenClick} className={isOpen} />
+        <Burger handleOpenClick={handleOpenClick} />
         <HeaderCategory className="navigation__list-link header__burger-category" />
         <NavLink href={'/'}>
           <Logo
@@ -78,7 +78,7 @@ const Header = () => {
           <Search color={'white'} className={'header__search-link'} />
         </div>
       </div>
-      <div className={`header__overlay ${isOpen}`} ref={ref}>
+      <div className={`header__overlay`} ref={ref}>
         <HeaderMenu data={data} />
       </div>
     </header>
