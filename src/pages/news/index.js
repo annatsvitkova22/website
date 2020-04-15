@@ -25,6 +25,7 @@ const NEWS_ARCHIVE = gql`
         hasNextPage
         hasPreviousPage
         endCursor
+        total
       }
     }
   }
@@ -32,7 +33,7 @@ const NEWS_ARCHIVE = gql`
 
 const News = (props) => {
   const [edges, setEdges] = useState(props.initialPosts.posts.edges);
-
+  console.log(props.initialPosts.posts.pageInfo.total);
   useEffect(() => {
     async function loadData() {
       const { data } = await apolloClient.query({
@@ -45,10 +46,10 @@ const News = (props) => {
     }
   }, []);
 
-  const { data, fetchMore } = useQuery(NEWS_ARCHIVE, {
+  const { fetchMore } = useQuery(NEWS_ARCHIVE, {
     variables: {
       last: 5,
-      cursor: null,
+      cursor: edges[edges.length - 1].cursor,
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -57,7 +58,7 @@ const News = (props) => {
     const newData = fetchMore({
       variables: {
         last: 5,
-        cursor: data.posts.edges[data.posts.edges.length - 1].cursor,
+        cursor: edges[edges.length - 1].cursor,
       },
       updateQuery: (pv, { fetchMoreResult }) => {
         const newEdges = fetchMoreResult.posts.edges;
@@ -98,7 +99,10 @@ const News = (props) => {
                 </a>
               </Link>
               <div>{post.node.excerpt}</div>
-              {i === edges.length - 1 && <Waypoint onEnter={fetchingContent} />}
+              {i === edges.length - 1 &&
+                i < props.initialPosts.posts.pageInfo.total - 1 && (
+                  <Waypoint onEnter={fetchingContent} />
+                )}
             </article>
           ))}
         </div>

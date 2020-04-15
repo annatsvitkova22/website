@@ -7,14 +7,14 @@ import ShareItems from '~/components/ShareItems';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const NewsHead = (props) => {
-  const { post } = props
-  console.log(props)
+  const { post } = props;
+  console.log(props);
 
   const date = new Date(post.date);
   const [isLoad, setIsLoad] = React.useState(false);
 
   React.useEffect(() => {
-    post ? setIsLoad(!isLoad) : setIsLoad(false)
+    post ? setIsLoad(!isLoad) : setIsLoad(false);
   }, []);
 
   return (

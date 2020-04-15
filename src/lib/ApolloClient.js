@@ -33,7 +33,7 @@ const apolloClient = new ApolloClient({
     fetch,
   }),
   cache: new InMemoryCache({ fragmentMatcher }),
-  defaultOptions
+  defaultOptions,
 });
 
 export default apolloClient;
