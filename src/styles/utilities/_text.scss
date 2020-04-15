@@ -29,6 +29,19 @@
 //.font-weight-bolder { font-weight: $font-weight-bolder !important; }
 .font-italic { font-style: italic !important; }
 
+$tx-ffamilies: (
+  'family-titles': $font-family-titles,
+  'family-base': $font-family-base,
+);
+
+@each $name, $ffamily in $tx-ffamilies {
+  .tx {
+    &-#{$name} {
+      font-family: #{$ffamily};
+    }
+  }
+}
+
 $tx-colors: (
   'green': $green,
   'white': $white,
@@ -52,3 +65,14 @@ $tx-sizes: (18, 14, 12);
   }
 }
 
+// Line heights 
+$line-heights: (
+  '1': 1,
+);
+@each $number, $value in $line-heights {
+  .line-height {
+    &-#{$number} {
+      line-height: #{$value};
+    }
+  }
+}
