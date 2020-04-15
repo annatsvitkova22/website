@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Icons from './Icons';
 
-const Socials = (props) => {
+const Social = (props) => {
   const { socialsData, color, className = '' } = props;
 
   return (
@@ -15,13 +15,9 @@ const Socials = (props) => {
             title={item.name}
             key={i}
             target={'_blank'}
-            className={'footer__data-link'}
+            className={'link'}
           >
-            <Icons
-              icon={`footer-${item.name}`}
-              color={color}
-              className={'footer__data-icon'}
-            />
+            <Icons icon={`${item.name}`} color={color} className={'icon'} />
           </a>
         );
       })}
@@ -29,7 +25,7 @@ const Socials = (props) => {
   );
 };
 
-Socials.propTypes = {
+Social.propTypes = {
   color: PropTypes.string,
   className: PropTypes.string,
   socialsData: PropTypes.arrayOf(
@@ -40,4 +36,4 @@ Socials.propTypes = {
   ),
 };
 
-export default Socials;
+export default Social;

@@ -42,11 +42,13 @@
     "react-player": "^1.15.3",
     "react-sticky-box": "^0.9.3",
     "react-waypoint": "^9.0.2",
-    "stylelint-webpack-plugin": "^1.2.3"
+    "stylelint-webpack-plugin": "^1.2.3",
+    "react-bootstrap": "^1.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "babel-eslint": "^10.1.0",
+    "dateformat": "^3.0.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -61,7 +63,6 @@
     "import-glob": "^1.5.0",
     "node-sass": "^4.13.1",
     "prettier": "^2.0.2",
-    "react-bootstrap": "^1.0.0",
     "react-dev-utils": "^10.2.1",
     "stylelint": "^13.2.1",
     "stylelint-config-recommended": "^3.0.0",

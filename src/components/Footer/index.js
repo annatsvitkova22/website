@@ -3,8 +3,8 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
 import Logo from '../Logo';
-import Socials from '../Socials';
 
+import Socials from './Socials';
 import Navigation from './Navigation';
 import Contacts from './Contacts';
 import PartnersLogo from './PartnersLogo';
@@ -76,6 +76,13 @@ const FOOTER_QUERY = gql`
 const Footer = () => {
   const { loading, data } = useQuery(FOOTER_QUERY);
 
+  const handleClick = (event) => {
+    event.currentTarget.parentNode
+      .querySelector('.footer__sitemap-navigation')
+      .classList.toggle('isOpen');
+    event.currentTarget.childNodes[1].classList.toggle('isOpen');
+  };
+
   if (loading) return null;
 
   const date = new Date().getFullYear();
@@ -84,32 +91,36 @@ const Footer = () => {
     <footer className={'footer'}>
       <div className={'container'}>
         <div className={'footer__navigation row'}>
-          <div className={'col-2'}>
+          <div className={'col-xl-2 col-sm-12'}>
             <Logo
               logoData={data.info.generalInfoACF.logo}
               className={'footer__navigation-logo'}
             />
           </div>
-          <nav className={'footer__sitemap col-10'}>
+          <nav className={'footer__sitemap col-xl-10 col-sm-12'}>
             <PartnersLogo
               partnersData={data.info.generalInfoACF.partners}
-              className={'col-2'}
+              className={'col-xl-2 col-xs-12'}
             />
             <Navigation
               navigationData={data.menus.nodes[3]}
-              className={'col-2'}
+              className={'col-xl-2 col-xs-12'}
+              handleClick={handleClick}
             />
             <Navigation
               navigationData={data.menus.nodes[1]}
-              className={'col-2'}
+              className={'col-xl-2 col-xs-12'}
+              handleClick={handleClick}
             />
             <Resources
               navigationData={data.menus.nodes[2]}
-              className={'col-2'}
+              className={'col-xl-2 col-xs-12'}
+              handleClick={handleClick}
             />
             <Contacts
               contactsData={data.info.generalInfoACF.contacts}
-              className={'col-2'}
+              className={`col-xl-2 col-xs-12`}
+              handleClick={handleClick}
             />
           </nav>
         </div>

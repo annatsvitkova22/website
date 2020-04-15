@@ -6,22 +6,24 @@ const PartnersLogo = (props) => {
 
   return (
     <ul className={`footer__sitemap-list ${className}`}>
-      <li className={'footer__sitemap-link'}>Наші партнери</li>
-      {partnersData &&
-        partnersData.map((item, i) => {
-          return (
-            <li className={'footer__sitemap-link'} key={i}>
-              <a
-                href={item.url}
-                title={item.name}
-                className={'partners-logo'}
-                target={'_blank'}
-              >
-                <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
-              </a>
-            </li>
-          );
-        })}
+      <li className={'footer__sitemap-title'}>Наші партнери</li>
+      <ul className={'footer__sitemap-navigation'}>
+        {partnersData &&
+          partnersData.map((item, i) => {
+            return (
+              <li className={'footer__sitemap-link'} key={i}>
+                <a
+                  href={item.url}
+                  title={item.name}
+                  className={'partners-logo'}
+                  target={'_blank'}
+                >
+                  <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
+                </a>
+              </li>
+            );
+          })}
+      </ul>
     </ul>
   );
 };
