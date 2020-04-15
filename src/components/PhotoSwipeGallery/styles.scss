@@ -51,3 +51,9 @@
     }
   }
 }
+
+.share-list {
+  &__item + &__item{
+    margin-left: 25px;
+  }
+}

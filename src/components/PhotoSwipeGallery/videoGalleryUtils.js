@@ -47,10 +47,10 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                     </time>
                   </div>
                   <div class="col-6">
-                    <ul class="list-unstyled d-flex justify-content-end">
-                      <li>${share}</li>
-                      <li>${facebook}</li>
-                      <li>${telegram}</li>
+                    <ul class="share-list list-unstyled d-flex justify-content-end">
+                      <li class="share-list__item">${share}</li>
+                      <li class="share-list__item">${facebook}</li>
+                      <li class="share-list__item">${telegram}</li>
                     </ul>
                   </div>
                 </div>
