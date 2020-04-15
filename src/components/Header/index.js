@@ -52,8 +52,6 @@ const Header = () => {
       headerPath.classList.add('fixed-header');
     }
     if (window.scrollY > 300) {
-      headerPath.classList.remove('fixed-header-hidden');
-      headerPath.classList.add('fixed-header');
       const st = window.scrollY;
       if (st > scrollPos) {
         headerPath.classList.add('fixed-header-unpinned');
