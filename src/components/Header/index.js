@@ -47,25 +47,32 @@ const Header = () => {
   let scrollPos = 0;
   const fixedHeader = (event) => {
     const headerPath = document.querySelector('.header');
-    console.log(window.scrollY);
-    if (window.scrollY > 150) {
-      headerPath.classList.add('fixed-header');
+
+    const st = window.scrollY;
+    if (window.scrollY > 100 && st > scrollPos) {
+      headerPath.classList.add('fixed-header-unpinned');
+      headerPath.classList.remove('fixed-header-pinned');
+    } else if (st < scrollPos) {
+      headerPath.classList.add('fixed-header-pinned');
+      headerPath.classList.remove('fixed-header-unpinned');
+    }
+    if (window.scrollY > 100) {
+      headerPath.classList.add('fixed-header-hidden');
     }
     if (window.scrollY > 300) {
-      const st = window.scrollY;
-      if (st > scrollPos) {
-        headerPath.classList.add('fixed-header-unpinned');
-        headerPath.classList.remove('fixed-header-pinned');
-      } else {
-        headerPath.classList.remove('fixed-header-unpinned');
-        headerPath.classList.add('fixed-header-pinned');
-      }
-
-      scrollPos = st;
+      headerPath.classList.add('fixed-header');
     }
-    if (window.scrollY < 301) {
+    scrollPos = st;
+    if (window.scrollY > 500) {
       headerPath.classList.remove('fixed-header-hidden');
+    }
+
+    if (window.scrollY < 500) {
+      headerPath.classList.add('fixed-header-hidden');
+    }
+    if (window.scrollY < 200) {
       headerPath.classList.remove('fixed-header');
+      headerPath.classList.remove('fixed-header-hidden');
     }
   };
 

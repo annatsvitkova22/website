@@ -2,9 +2,17 @@
   padding-right: 20px;
   padding-left: 30px;
 
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
   background-color: $black;
 
   color: $white;
+
+  transform: translate(0);
 
   &__wrapper {
     display: flex;
@@ -41,6 +49,33 @@
   }
   &__overlay {
     display: none;
+  }
+}
+.header ~ div {
+  padding-top: 68px;
+}
+.fixed-header {
+  width: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 6666;
+  &-hidden {
+    opacity: 0;
+
+    transition: all 0.2s linear;
+
+  }
+
+  &-pinned {
+    transform: translateY(0%);
+    transition: all 0.2s linear;
+  }
+  &-unpinned {
+    transform: translateY(-100%);
+    transition: all 0.2s linear;
   }
 }
 .navigation {
@@ -98,25 +133,6 @@
 }
 .header__burger-category {
   display: none;
-}
-.fixed-header {
-  width: 100%;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  z-index: 6666;
-  &-hidden {
-    opacity: 0
-  }
-
-  &-pinned {
-    transform: translateY(0%);
-  }
-  &-unpinned {
-    transform: translateY(-100%);
-  }
 }
 @media screen and (max-width: 1299px) {
   .header {
