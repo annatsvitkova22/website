@@ -4,9 +4,9 @@ import ContentLoader from 'react-content-loader';
 const PostCardLoader = ({ type }) => {
   if (type === 'small') {
     return (
-      <ContentLoader viewBox={'0 0 425 325'}>
-        <rect x={'0'} y={'0'} rx={'0'} rx={'0'} width={'425'} height={`250`} />
-        <rect x={'0'} y={'255'} rx={'0'} rx={'0'} width={'425'} height={`75`} />
+      <ContentLoader viewBox={'0 0 425 175'}>
+        <rect x={'0'} y={'0'} rx={'0'} rx={'0'} width={'425'} height={`150`} />
+        <rect x={'0'} y={'155'} rx={'0'} rx={'0'} width={'425'} height={`25`} />
       </ContentLoader>
     );
   }
