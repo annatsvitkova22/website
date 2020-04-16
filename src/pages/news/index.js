@@ -45,16 +45,17 @@ const News = (props) => {
 
       <main>
         {!posts && <div>show skeletons</div>}
-        {posts && posts.map((post) => (
-          <article key={post.id}>
-            <Link href="/news/[slug]" as={`/news/${post.slug}`}>
-              <a href={`/news/${post.slug}`}>
-                <h3>{post.title}</h3>
-              </a>
-            </Link>
-            <div>{post.excerpt}</div>
-          </article>
-        ))}
+        {posts &&
+          posts.map((post) => (
+            <article key={post.id}>
+              <Link href="/news/[slug]" as={`/news/${post.slug}`}>
+                <a href={`/news/${post.slug}`}>
+                  <h3>{post.title}</h3>
+                </a>
+              </Link>
+              <div>{post.excerpt}</div>
+            </article>
+          ))}
       </main>
     </div>
   );
@@ -73,7 +74,7 @@ News.getInitialProps = async () => {
   });
 
   return {
-    initialPosts: data.posts.nodes
+    initialPosts: data.posts.nodes,
   };
 };
 
