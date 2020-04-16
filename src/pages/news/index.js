@@ -8,6 +8,7 @@ import { Waypoint } from 'react-waypoint';
 
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import apolloClient from '~/lib/ApolloClient';
+import NewsLoader from '~/components/Loaders/NewsLoader';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($last: Int, $cursor: String) {
@@ -32,21 +33,22 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
-  const [edges, setEdges] = useState(props.initialPosts.posts.edges);
-  console.log(props.initialPosts.posts.pageInfo.total);
   useEffect(() => {
     async function loadData() {
       const { data } = await apolloClient.query({
         query: NEWS_ARCHIVE,
       });
-      setEdges(data.posts.edges);
+      setPosts(data.posts);
     }
-    if (!edges) {
+    if (!posts) {
       loadData();
     }
   }, []);
 
-  const { fetchMore } = useQuery(NEWS_ARCHIVE, {
+  const [posts, setPosts] = useState(props.initialPosts.posts);
+  const { edges, pageInfo } = posts;
+
+  const { fetchMore, networkStatus } = useQuery(NEWS_ARCHIVE, {
     variables: {
       last: 5,
       cursor: edges[edges.length - 1].cursor,
@@ -55,7 +57,7 @@ const News = (props) => {
   });
 
   const fetchingContent = async () => {
-    const newData = fetchMore({
+    const newData = await fetchMore({
       variables: {
         last: 5,
         cursor: edges[edges.length - 1].cursor,
@@ -76,9 +78,12 @@ const News = (props) => {
         return pv;
       },
     });
-    const database = await newData;
-    const newEdges = database.data.posts.edges;
-    setEdges(edges.concat(newEdges));
+
+    setPosts({
+      __typename: newData.data.posts.__typename,
+      pageInfo,
+      edges: posts.edges.concat(newData.data.posts.edges),
+    });
   };
 
   return (
@@ -90,22 +95,25 @@ const News = (props) => {
       </Head>
 
       <main>
-        <div>
-          {edges.map((post, i) => (
-            <article key={post.id} style={{ height: '300px' }}>
-              <Link href="/news/[slug]" as={`/news/${post.node.slug}`}>
-                <a href={`/news/${post.node.slug}`}>
-                  <h3>{post.node.title}</h3>
-                </a>
-              </Link>
-              <div>{post.node.excerpt}</div>
-              {i === edges.length - 1 &&
-                i < props.initialPosts.posts.pageInfo.total - 1 && (
+        <React.Fragment>
+          {!edges && <NewsLoader />}
+          <div>
+            {edges.map((post, i) => (
+              <article key={post.id} style={{ height: '300px' }}>
+                <Link href="/news/[slug]" as={`/news/${post.node.slug}`}>
+                  <a href={`/news/${post.node.slug}`}>
+                    <h3>{post.node.title}</h3>
+                  </a>
+                </Link>
+                <div>{post.node.excerpt}</div>
+                {i === edges.length - 1 && i < pageInfo.total - 1 && (
                   <Waypoint onEnter={fetchingContent} />
                 )}
-            </article>
-          ))}
-        </div>
+              </article>
+            ))}
+            {networkStatus === 3 && <NewsLoader />}
+          </div>
+        </React.Fragment>
       </main>
     </div>
   );
