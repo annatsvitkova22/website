@@ -55,7 +55,6 @@ const Header = () => {
 
   const fixedHeader = (event) => {
     const headerPath = document.querySelector('.header');
-    debugger;
     const st = window.scrollY;
     if (window.scrollY > 100 && st > scrollPos) {
       headerPath.classList.add('fixed-header-unpinned');
