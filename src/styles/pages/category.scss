@@ -1,5 +1,7 @@
 .cat-list {
   margin-bottom: 40px;
+  margin-left: -10px;
+  margin-right: -10px;
 
   &__button {
     padding: 5px 10px;
@@ -16,8 +18,10 @@
     }
   }
 
-  &__item + &__item {
-    margin-left: 10px;
+  &__item {
+    padding: 5px;
+    
+    line-height: 1;
   }
 }
 

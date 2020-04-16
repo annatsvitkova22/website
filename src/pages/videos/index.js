@@ -101,11 +101,16 @@ class VideosArchive extends Component {
         <main className="videos-main">
           <div className="container">
             <div className="row">
-              <div className="col-8">
+              <div className="col-lg-8">
                 <div className="pos-relative">
+                  <img
+                    className="video-detail__sizer w-100 h-auto"
+                    src="/assets/videos/video-sizer-detail.png"
+                    alt="Video sizer"
+                  />
                   <iframe
                     allowFullScreen
-                    className="w-100 video-detail__iframe"
+                    className="w-100 h-100 video-detail__iframe"
                     src={`${url}${isPlaying ? '?autoplay=1' : ''}`}
                     frameBorder="0"
                     title="video player"
@@ -122,15 +127,21 @@ class VideosArchive extends Component {
                     </div>
                   )}
                 </div>
+                <div className="d-block d-lg-none">
+                  <div className="video-detail__duration tx-12 font-weight-medium">
+                    {duration}
+                  </div>
+                  <h1 className="video-detail__title">{title}</h1>
+                </div>
               </div>
-              <div className="col-4">
+              <div className="col-lg-4">
                 <VideosList
                   videos={videos}
                   onVideoSelect={this.onVideoSelect}
                   selectedIndex={this.state.selectedIndex}
                 />
               </div>
-              <div className="col-12">
+              <div className="col-12 d-none d-lg-block">
                 <div className="video-detail__duration tx-12 font-weight-medium">
                   {duration}
                 </div>

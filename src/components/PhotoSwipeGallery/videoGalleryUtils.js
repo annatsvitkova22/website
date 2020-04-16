@@ -33,9 +33,12 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
     return {
       html: `
             <div class="video-category__iframe">
-              <iframe src="${formatYouTubeUrl(
-                videoUrl
-              )}" frameborder="0"></iframe>
+              <div class="video-category__wrapper">
+                <img src="/assets/videos/video-sizer.png" alt="Video sizer"/>
+                <iframe src="${formatYouTubeUrl(
+                  videoUrl
+                )}" frameborder="0"></iframe>
+              </div>
               <div class="video-category__info tx-white">
                 <h3>${title}</h3>
                 <div class="tx-14">${excerpt}</div>
@@ -64,6 +67,7 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
   });
 
 const options = (galleryUID = 0) => ({
+  fullscreenEl: false,
   shareEl: false,
   galleryUID: galleryUID + 1,
   bgOpacity: 0.75,

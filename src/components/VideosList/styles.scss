@@ -1,7 +1,19 @@
 .videos-list {
+  @include media-breakpoint-down(md) {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
   &__item {
     display: flex;
-    align-items: center;
+
+    @include media-breakpoint-up(md) {
+      align-items: center;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
   }
 
   &__item + &__item {
@@ -26,6 +38,11 @@
     line-height: 1.2rem;
 
     overflow: hidden;
+
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 5px;
+    }
   }
 
   &__wrapper {
