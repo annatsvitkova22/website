@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
@@ -13,10 +12,7 @@ import {
   options,
 } from '~/components/PhotoSwipeGallery/videoGalleryUtils';
 import apolloClient from '~/lib/ApolloClient';
-import convertISO8601ToTime from '~/util/convertISO8601ToTime';
-import youtube from '~/apis/youtube';
-
-const KEY = 'AIzaSyBz7hBEUeLfjjkbutilOakeLZv5hCDf-GM';
+import addVideoDurations from '~/util/addVideoDurations';
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
@@ -30,8 +26,8 @@ const CATEGORY_ID = gql`
 `;
 
 const VIDEOS = gql`
-  query Videos($categoryId: Int) {
-    videos(where: { categoryId: $categoryId }) {
+  query Videos($categoryId: Int, $endCursor: String) {
+    videos(where: { categoryId: $categoryId }, first: 20, after: $endCursor) {
       nodes {
         title
         excerpt
@@ -42,6 +38,9 @@ const VIDEOS = gql`
           }
           videoUrl
         }
+      }
+      pageInfo {
+        endCursor
       }
     }
   }
@@ -60,8 +59,65 @@ const CATEGORIES = gql`
 `;
 
 class Category extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      videos: this.props.videos,
+      isLoading: false,
+      isAllVideos: false,
+      endCursor: this.props.endCursor,
+    };
+    this.videosRef = React.createRef();
+  }
+
+  componentDidMount() {
+    if (!this.state.isAllVideos) {
+      window.addEventListener('scroll', this.onScroll(this.onLoadMore), false);
+    }
+  }
+
+  onScroll = (onLoadMore) => () => {
+    const { offsetTop, offsetHeight } = this.videosRef.current;
+    if (offsetTop + offsetHeight >= window.scrollY) {
+      onLoadMore();
+    }
+  };
+
+  onLoadMore = async () => {
+    const { isAllVideos, isLoading, videos, endCursor } = this.state;
+    if (!isLoading && !isAllVideos) {
+      this.setState({
+        isLoading: true,
+      });
+      const videosData = await apolloClient.query({
+        query: VIDEOS,
+        variables: {
+          categoryId: this.props.currCatId,
+          endCursor,
+        },
+      });
+
+      const formattedVideos = await addVideoDurations(videosData);
+
+      this.setState({
+        videos: [...videos, ...formattedVideos],
+        endCursor: videosData.data.videos.pageInfo
+          ? videosData.data.videos.pageInfo.endCursor
+          : false,
+        isLoading: false,
+      });
+
+      if (formattedVideos.length !== 4) {
+        this.setState({
+          isAllVideos: true,
+        });
+      }
+    }
+  };
+
   render() {
-    const { categoryName, currCatId, videos, categories } = this.props;
+    const { categoryName, currCatId, categories } = this.props;
+    // console.log(this.state.videos);
 
     return (
       <div className="videos-page">
@@ -102,13 +158,16 @@ class Category extends Component {
                   })}
                 </ul>
               </div>
+            </div>
+            <div ref={this.videosRef} className="row">
               <PhotoSwipeGallery
                 className="col-12 video-cat-gall"
-                items={prepareGalleryItems(videos, 10)}
+                items={prepareGalleryItems(this.state.videos, 10)}
                 options={options()}
                 thumbnailContent={getThumbnailVideo}
               />
             </div>
+            {/* <button onClick={this.onClick}>Load More</button> */}
           </div>
         </main>
       </div>
@@ -121,6 +180,7 @@ Category.propTypes = {
   currCatId: PropTypes.number,
   videos: PropTypes.array,
   categories: PropTypes.array,
+  endCursor: PropTypes.string,
 };
 
 Category.getInitialProps = async ({ query: { slug } }) => {
@@ -139,49 +199,12 @@ Category.getInitialProps = async ({ query: { slug } }) => {
     query: CATEGORIES,
   });
 
-  // Create array with unique video ids
-  const videoIds = Array.from(
-    new Set(
-      videosData.data.videos.nodes.map((node) => {
-        const { videoUrl } = node.zmVideoACF;
-        const videoId = videoUrl.split('?v=')[1];
-        return videoId;
-      })
-    )
-  );
-
-  const response = await youtube.get('/videos', {
-    params: {
-      id: videoIds.join(','),
-      part: 'contentDetails',
-      key: KEY,
-    },
-  });
-
-  // Create object with video durations and id as a key
-  const videoDurations = response.data.items.reduce((acc, item) => {
-    acc[item.id] = convertISO8601ToTime(item.contentDetails.duration);
-    return acc;
-  }, {});
-
-  // Add duration for videos
-  const formattedVideos = videosData.data.videos.nodes.map((node) => {
-    const { zmVideoACF } = node;
-    const videoId = zmVideoACF.videoUrl.split('?v=')[1];
-    return {
-      ...node,
-      zmVideoACF: {
-        ...zmVideoACF,
-        duration: videoDurations[videoId],
-      },
-    };
-  });
-
   return {
+    endCursor: videosData.data.videos.pageInfo.endCursor,
     categories: categories.data.categories.nodes,
     categoryName: name,
     currCatId: categoryId,
-    videos: formattedVideos,
+    videos: await addVideoDurations(videosData),
   };
 };
 
