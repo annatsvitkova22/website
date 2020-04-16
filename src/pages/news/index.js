@@ -33,7 +33,7 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
-  const [posts, setPosts] = useState(props);
+  const [posts, setPosts] = useState(props.initialProps);
 
   useEffect(() => {
     async function loadData() {
@@ -46,7 +46,9 @@ const News = (props) => {
       });
       setPosts(data.posts);
     }
-    loadData();
+    if (!posts.edges) {
+      loadData();
+    }
   }, []);
 
   const { fetchMore, networkStatus } = useQuery(NEWS_ARCHIVE, {
@@ -137,8 +139,10 @@ News.getInitialProps = async () => {
       cursor: null,
     },
   });
-  const { posts } = data;
-  return posts;
+  //const { posts } = data;
+  return {
+    initialProps: data,
+  };
 };
 
 export default News;
