@@ -33,32 +33,23 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
-  const [posts, setPosts] = useState(props.initialProps);
+  const [posts, setPosts] = useState(props);
 
-  useEffect(() => {
-    async function loadData() {
-      const { data } = await apolloClient.query({
-        query: NEWS_ARCHIVE,
-        variables: {
-          last: 5,
-          cursor: null,
-        },
-      });
-      setPosts(data.posts);
-    }
-    if (!posts.edges) {
-      loadData();
-    }
-  }, []);
-
-  const { fetchMore, networkStatus } = useQuery(NEWS_ARCHIVE, {
+  const { loading, data, fetchMore, networkStatus } = useQuery(NEWS_ARCHIVE, {
     variables: {
       last: 5,
+      cursor: null,
     },
     notifyOnNetworkStatusChange: true,
   });
+  useEffect(() => {
+    if (!posts.edges && !loading) {
+      setPosts(data.posts);
+    }
+  }, [loading]);
 
   if (!posts || !posts.edges) return <NewsLoader />;
+
   const { edges, pageInfo } = posts;
 
   const fetchingContent = async () => {
@@ -89,6 +80,7 @@ const News = (props) => {
       pageInfo,
       edges: posts.edges.concat(newData.data.posts.edges),
     });
+    console.log(posts);
   };
 
   return (
@@ -139,10 +131,8 @@ News.getInitialProps = async () => {
       cursor: null,
     },
   });
-  //const { posts } = data;
-  return {
-    initialProps: data,
-  };
+  const { posts } = data;
+  return posts;
 };
 
 export default News;
