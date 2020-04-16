@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
@@ -20,7 +20,21 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
-  const { posts } = props;
+  const { initialPosts } = props;
+  const [posts, setPosts] = useState(initialPosts);
+
+  useEffect(() => {
+    async function loadData() {
+      const { data } = await apolloClient.query({
+        query: NEWS_ARCHIVE,
+      });
+      setPosts(data.posts.nodes);
+    }
+    if (!posts) {
+      loadData();
+    }
+  }, []);
+
   return (
     <div className="news-page">
       <Head>
@@ -30,16 +44,18 @@ const News = (props) => {
       </Head>
 
       <main>
-        {posts.map((post) => (
-          <article key={post.id}>
-            <Link href="/news/[slug]" as={`/news/${post.slug}`}>
-              <a href={`/news/${post.slug}`}>
-                <h3>{post.title}</h3>
-              </a>
-            </Link>
-            <div>{post.excerpt}</div>
-          </article>
-        ))}
+        {!posts && <div>show skeletons</div>}
+        {posts &&
+          posts.map((post) => (
+            <article key={post.id}>
+              <Link href="/news/[slug]" as={`/news/${post.slug}`}>
+                <a href={`/news/${post.slug}`}>
+                  <h3>{post.title}</h3>
+                </a>
+              </Link>
+              <div>{post.excerpt}</div>
+            </article>
+          ))}
       </main>
     </div>
   );
@@ -50,12 +66,15 @@ News.propTypes = {
 };
 
 News.getInitialProps = async () => {
+  if (process.browser) {
+    return {};
+  }
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
   });
 
   return {
-    posts: data.posts.nodes,
+    initialPosts: data.posts.nodes,
   };
 };
 

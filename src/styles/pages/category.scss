@@ -1,0 +1,29 @@
+.cat-list {
+  margin-bottom: 40px;
+
+  &__button {
+    padding: 5px 10px;
+
+    background-color: $green;
+
+    text-transform: uppercase;
+    font-size: 10px;
+
+    &--active {
+      background-color: $white;
+      
+      color: $black;
+    }
+  }
+
+  &__item + &__item {
+    margin-left: 10px;
+  }
+}
+
+.video-cat-gall {
+  .pswp-thumbnail {
+    padding-top: 25px;
+    margin-bottom: 25px;
+  }
+}

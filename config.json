@@ -7,6 +7,7 @@
   {
     "env": "development",
     "apiUrl": "http://admin.zmist.tech",
+    "frontUrl": "http://zmist.tech",
     "graphql": "http://admin.zmist.tech/graphql",
     "wayForPay": {
       "merchantLogin": "zmist_tech",
@@ -16,6 +17,7 @@
   {
     "env": "staging",
     "apiUrl": "http://admin.zmist.tech",
+    "frontUrl": "http://zmist.tech",
     "graphql": "http://admin.zmist.tech/graphql",
     "wayForPay": {
       "merchantLogin": "zmist_tech",

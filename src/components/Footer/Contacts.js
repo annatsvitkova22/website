@@ -19,8 +19,8 @@ const Contacts = (props) => {
         <ul className={`footer__sitemap-navigation`}>
           {contactsData.map((item, i) => {
             return (
-              <>
-                <li key={i} className={'footer__sitemap-link'}>
+              <React.Fragment key={i}>
+                <li className={'footer__sitemap-link'}>
                   {item.role && <span>{item.role}:</span>}
                   <span>{item.name}</span>
                 </li>
@@ -45,8 +45,8 @@ const Contacts = (props) => {
                     );
                   })
                 ) : (
-                  <>
-                    <li key={i + 1} className="sitemap__list-item">
+                  <React.Fragment key={i + 1}>
+                    <li className="sitemap__list-item">
                       <a href={`tel: ${item.phoneNumber}`}>
                         {item.phoneNumber}
                       </a>
@@ -54,9 +54,9 @@ const Contacts = (props) => {
                     <li key={i + 2} className="sitemap__list-item">
                       <a href={`mailto: ${item.email}`}>{item.email}</a>
                     </li>
-                  </>
+                  </React.Fragment>
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </ul>
@@ -68,13 +68,8 @@ const Contacts = (props) => {
 };
 
 Contacts.propTypes = {
-  contactsData: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string,
-      role: PropTypes.string,
-    })
-  ),
-  className: PropTypes.sting,
+  contactsData: PropTypes.arrayOf(PropTypes.any),
+  className: PropTypes.string,
   handleClick: PropTypes.any,
 };
 

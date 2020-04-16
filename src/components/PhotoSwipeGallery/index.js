@@ -25,7 +25,7 @@ class PhotoSwipeGallery extends React.Component {
   showPhotoSwipe = (itemIndex) => () => {
     const getThumbBoundsFn = (index) => {
       const thumbnail = this.thumbnails[index];
-      const img = thumbnail.querySelector('.video-tag__thumbnail');
+      const img = thumbnail.querySelector('.video-category__thumbnail');
       const pageYScroll =
         window.pageYOffset || document.documentElement.scrollTop;
       const rect = img.getBoundingClientRect();
@@ -59,7 +59,7 @@ class PhotoSwipeGallery extends React.Component {
     const { isOpen, options } = this.state;
     return (
       <div
-        id={`video-tags-${options.galleryUID}`}
+        id={`video-category-${options.galleryUID}`}
         className={`pswp-gallery ${className}`}
       >
         <div className="pswp-thumbnails row">

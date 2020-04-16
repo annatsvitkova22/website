@@ -1,0 +1,30 @@
+.video-category {
+  padding-top: 16px;
+  padding-bottom: 36px;
+
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+
+    position: absolute;
+    top: 0;
+    left: $grid-gutter-width / 2;
+    right: $grid-gutter-width / 2;
+
+    border-top: 1px solid $grey-300;
+  }
+
+  &__top-row {
+    margin-bottom: 17px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__watch-all {
+    font-size: 13px;
+  }
+}

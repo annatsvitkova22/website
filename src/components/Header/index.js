@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import classNames from 'classnames';
+import Link from 'next/link';
 
 import Navigation from '../Navigation';
 import Logo from '../Logo';
 import Search from '../Search';
 import Icons from '../Icons';
 
-import NavLink from '~/components/SiteLink';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
 import HeaderCategory from '~/components/Header/HeaderCategory';
@@ -114,12 +114,14 @@ const Header = () => {
       <div className={'header__wrapper'}>
         <Burger handleOpenClick={handleOpenClick} />
         <HeaderCategory className="navigation__list-link header__burger-category" />
-        <NavLink href={'/'}>
-          <Logo
-            logoData={data.info.generalInfoACF.logo}
-            className={'header__logo'}
-          />
-        </NavLink>
+        <Link href="/">
+          <a>
+            <Logo
+              logoData={data.info.generalInfoACF.logo}
+              className={'header__logo'}
+            />
+          </a>
+        </Link>
         <Navigation navigationData={data.menus} />
         <div className={'header__icons'}>
           <a href={'#'} className={'header__icons-item'}>
