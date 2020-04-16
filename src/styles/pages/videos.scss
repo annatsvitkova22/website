@@ -20,10 +20,20 @@
     margin-bottom: 40px;
 
     font-size: 20px;
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: 0;
+    }
   }
 
   &__iframe {
-    min-height: 500px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__sizer {
+    opacity: 0;
   }
 
   &__cover {
@@ -47,5 +57,7 @@
 }
 
 .videos-main {
-  padding-top: 80px;
+  @include media-breakpoint-up(lg) {
+    padding-top: 80px;
+  }
 }

@@ -78,14 +78,17 @@ class Category extends Component {
                 <h1 className="text-uppercase">{categoryName}</h1>
               </div>
               <div className="col-12">
-                <ul className="list-unstyled d-flex cat-list">
+                <ul className="list-unstyled cat-list">
                   {categories.map((category) => {
                     const { categoryId, slug, name } = category;
                     return (
-                      <li className="cat-list__item" key={categoryId}>
+                      <li
+                        className="cat-list__item d-inline-block"
+                        key={categoryId}
+                      >
                         <Link href={slug}>
                           <a
-                            className={`cat-list__button ${
+                            className={`cat-list__button d-inline-block ${
                               currCatId === categoryId
                                 ? 'cat-list__button--active'
                                 : ''
