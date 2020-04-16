@@ -107,7 +107,7 @@ class Category extends Component {
         isLoading: false,
       });
 
-      if (formattedVideos.length !== 4) {
+      if (formattedVideos.length !== 20) {
         this.setState({
           isAllVideos: true,
         });
