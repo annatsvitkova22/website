@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -43,11 +43,19 @@ const HEADER_QUERY = gql`
 
 const Header = () => {
   const { loading, data } = useQuery(HEADER_QUERY);
-  const [isOpen, setIsOpen] = React.useState('');
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', fixedHeader);
+    return () => {
+      window.removeEventListener('scroll', fixedHeader);
+    };
+  }, []);
+
   let scrollPos = 0;
+
   const fixedHeader = (event) => {
     const headerPath = document.querySelector('.header');
-
+    debugger;
     const st = window.scrollY;
     if (window.scrollY > 100 && st > scrollPos) {
       headerPath.classList.add('fixed-header-unpinned');
@@ -56,7 +64,7 @@ const Header = () => {
       headerPath.classList.add('fixed-header-pinned');
       headerPath.classList.remove('fixed-header-unpinned');
     }
-    if (window.scrollY > 100) {
+    if (window.scrollY > 250) {
       headerPath.classList.add('fixed-header-hidden');
     }
     if (window.scrollY > 300) {
@@ -75,25 +83,24 @@ const Header = () => {
       headerPath.classList.remove('fixed-header-hidden');
     }
   };
-
-  React.useEffect(() => {
-    window.addEventListener('scroll', fixedHeader);
-    return () => {
-      window.removeEventListener('scroll', fixedHeader);
-    };
-  }, []);
-
-  const ref = React.useRef(null);
-
   const handleOpenClick = () => {
-    // console.log(ref.current.classList.toggle('isOpen'));
-    isOpen === 'isMenuOpen' ? setIsOpen('') : setIsOpen('isMenuOpen');
+    const headerPath = document.querySelector('.header');
+
+    document.querySelector('body').classList.toggle('isB-MenuOpen');
+    headerPath.classList.toggle('isMenuOpen');
+    headerPath.classList.remove('fixed-header-unpinned');
+    headerPath.classList.remove('fixed-header-pinned');
   };
 
-  if (loading) return null;
+  const handleCloseClick = () => {
+    const headerPath = document.querySelector('.header');
 
+    headerPath.classList.remove('isMenuOpen');
+    document.querySelector('body').classList.remove('isB-MenuOpen');
+  };
+  if (loading) return null;
   return (
-    <header className={`header ${isOpen}`}>
+    <header className={`header`}>
       <div className={'header__wrapper'}>
         <Burger handleOpenClick={handleOpenClick} />
         <HeaderCategory className="navigation__list-link header__burger-category" />
@@ -116,7 +123,7 @@ const Header = () => {
           <Search color={'white'} className={'header__search-link'} />
         </div>
       </div>
-      <div className={`header__overlay`} ref={ref}>
+      <div className={`header__overlay`} onClick={handleCloseClick}>
         <HeaderMenu data={data} />
       </div>
     </header>
