@@ -1,0 +1,16 @@
+.pswp {
+  &__top-bar {
+    background-color: transparent;
+  }
+
+  &__button {
+    width: 64px;
+    height: 64px;
+
+    &--close {
+      background-color: rgba($black, 0.8);
+      border-radius: 50%;
+      background-position: 10px -34px;
+    }
+  }
+}

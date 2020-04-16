@@ -64,6 +64,7 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
   });
 
 const options = (galleryUID = 0) => ({
+  fullscreenEl: false,
   shareEl: false,
   galleryUID: galleryUID + 1,
   bgOpacity: 0.75,
