@@ -31,15 +31,19 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
-  const [posts, setPosts] = useState(props);
-  const [endCursor, setEndCursor] = useState(
-    props.pageInfo ? props.pageInfo.endCursor : null
-  );
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [state, setState] = useState({
+    posts: props,
+    endCursor: props.pageInfo ? props.pageInfo.endCursor : null,
+    isLoading: false,
+  });
 
   useEffect(() => {
-    if (!isLoading) {
-      setIsLoading(true);
+    if (!state.isLoading) {
+      setState({
+        ...state,
+        isLoading: true,
+      });
     }
     async function loadData() {
       const { data } = await apolloClient.query({
@@ -48,40 +52,47 @@ const News = (props) => {
           cursor: null,
         },
       });
-      setPosts(data.posts);
-      setEndCursor(data.posts.pageInfo.endCursor);
+      setState({
+        posts: data.posts,
+        endCursor: data.posts.pageInfo.endCursor,
+        isLoading: false,
+      });
     }
-    setIsLoading(false);
-    if (!posts.edges) {
+
+    if (!state.posts.edges) {
       loadData();
     }
   }, []);
 
   const fetchingContent = async () => {
-    if (!isLoading) {
-      setIsLoading(true);
+    if (!state.isLoading) {
+      setState({
+        ...state,
+        isLoading: true,
+      });
     }
     const postsData = await apolloClient.query({
       query: NEWS_ARCHIVE,
       variables: {
-        cursor: endCursor,
+        cursor: state.endCursor,
       },
     });
 
-    setPosts({
-      pageInfo,
-      edges: [...posts.edges, ...postsData.data.posts.edges],
-    });
-    setEndCursor(
-      postsData.data.posts.pageInfo
+    setState({
+      isLoading: false,
+      endCursor: postsData.data.posts.pageInfo
         ? postsData.data.posts.pageInfo.endCursor
-        : false
-    );
-    setIsLoading(false);
+        : false,
+      posts: {
+        pageInfo,
+        edges: [...state.posts.edges, ...postsData.data.posts.edges],
+
+      },
+    });
   };
 
-  if (!posts.edges) return <NewsLoader />;
-  const { edges, pageInfo } = posts;
+  if (!state.posts.edges) return <NewsLoader />;
+  const { edges, pageInfo } = state.posts;
 
   return (
     <div className="news-page">
@@ -108,7 +119,7 @@ const News = (props) => {
               </article>
             ))}
           </div>
-          {isLoading && <NewsLoader />}
+          {state.isLoading && <NewsLoader />}
         </React.Fragment>
       </main>
     </div>

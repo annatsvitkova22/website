@@ -77,35 +77,37 @@ const POST = gql`
 const Post = ({ post, news }) => {
   const ref = React.useRef();
 
-  const [updNews, setUpdNews] = useState(news);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [endCursor, setEndCursor] = useState(
-    news.pageInfo.endCursor ? news.pageInfo.endCursor : null
-  );
+  const [state, setState] = useState({
+    updNews: news,
+    isLoading: false,
+    endCursor: news.pageInfo.endCursor ? news.pageInfo.endCursor : null,
+  });
 
   const fetchingContent = async () => {
-    if (!isLoading) {
-      setIsLoading(true);
+    if (!state.isLoading) {
+      setState({
+        ...state,
+        isLoading: true,
+      });
     }
 
     const postsData = await apolloClient.query({
       query: POST,
       variables: {
-        cursor: endCursor,
+        cursor: state.endCursor,
       },
     });
-    setUpdNews({
-      pageInfo: postsData.data.posts.pageInfo,
-      nodes: [...updNews.nodes, ...postsData.data.posts.nodes],
-    });
-    setEndCursor(
-      postsData.data.posts.pageInfo
+
+    setState({
+      isLoading: false,
+      endCursor: postsData.data.posts.pageInfo
         ? postsData.data.posts.pageInfo.endCursor
-        : false
-    );
-    setIsLoading(false);
+        : false,
+      updNews: {
+        pageInfo: postsData.data.posts.pageInfo,
+        nodes: [...state.updNews.nodes, ...postsData.data.posts.nodes],
+      },
+    });
   };
   return (
     <>
@@ -139,10 +141,10 @@ const Post = ({ post, news }) => {
               >
                 <section className={'latest'}>
                   <SideBarNews
-                    news={updNews}
+                    news={state.updNews}
                     ref={ref}
                     fetchingContent={fetchingContent}
-                    isLoading={isLoading}
+                    isLoading={state.isLoading}
                   />
                 </section>
               </StickyBox>
