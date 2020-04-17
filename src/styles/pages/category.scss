@@ -1,7 +1,7 @@
 .cat-list {
   margin-bottom: 40px;
-  margin-left: -10px;
-  margin-right: -10px;
+  margin-left: -5px;
+  margin-right: -5px;
 
   &__button {
     padding: 5px 10px;
@@ -11,6 +11,12 @@
     text-transform: uppercase;
     font-size: 10px;
 
+    transition:
+      color 0.3s ease-in-out,
+      background-color 0.3s ease-in-out;
+
+    &:focus,
+    &:hover,
     &--active {
       background-color: $white;
       
@@ -29,5 +35,10 @@
   .pswp-thumbnail {
     padding-top: 25px;
     margin-bottom: 25px;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 12px;
+      margin-bottom: 12px;
+    }
   }
 }

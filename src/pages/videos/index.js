@@ -128,7 +128,7 @@ class VideosArchive extends Component {
                   )}
                 </div>
                 <div className="d-block d-lg-none">
-                  <div className="video-detail__duration tx-12 font-weight-medium">
+                  <div className="video-detail__duration tx-tiny font-weight-medium">
                     {duration}
                   </div>
                   <h1 className="video-detail__title">{title}</h1>
@@ -142,7 +142,7 @@ class VideosArchive extends Component {
                 />
               </div>
               <div className="col-12 d-none d-lg-block">
-                <div className="video-detail__duration tx-12 font-weight-medium">
+                <div className="video-detail__duration tx-tiny font-weight-medium">
                   {duration}
                 </div>
                 <h1 className="video-detail__title">{title}</h1>

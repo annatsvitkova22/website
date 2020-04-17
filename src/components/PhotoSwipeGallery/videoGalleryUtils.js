@@ -17,7 +17,7 @@ const getThumbnailVideo = (item) => {
       >
         <Play />
       </div>
-      <h6 className="video-category__duration tx-12 font-weight-medium">
+      <h6 className="video-category__duration tx-tiny font-weight-medium">
         {item.duration}
       </h6>
       <h6 className="video-category__name">{item.name}</h6>
@@ -41,10 +41,10 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
               </div>
               <div class="video-category__info tx-white">
                 <h3>${title}</h3>
-                <div class="tx-14">${excerpt}</div>
+                <div class="tx-small">${excerpt}</div>
                 <div class="row">
                   <div class="col-6">
-                    <time class="tx-12 font-weight-bold tx-family-titles"
+                    <time class="tx-tiny font-weight-bold tx-family-titles"
                     datetime="${moment(pubDate).format()}">
                       ${moment(pubDate).format('DD MMMM YYYY HH:mm')}
                     </time>
