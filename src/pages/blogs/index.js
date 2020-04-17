@@ -5,6 +5,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
+import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
 import BlogsLoader from '~/components/Loaders/BlogsLoader';
 
@@ -26,65 +27,9 @@ const BLOGS_ARCHIVE = gql`
 `;
 
 const BlogsArchive = (props) => {
-  const [state, setState] = useState({
-    blogs: props,
-    endCursor: props.pageInfo ? props.pageInfo.endCursor : null,
-    isLoading: false,
-  });
+  const { fetchingContent, state } = useLoadMoreHook(BLOGS_ARCHIVE, props, 'blogs');
 
-  useEffect(() => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
-    async function loadData() {
-      const { data } = await apolloClient.query({
-        query: BLOGS_ARCHIVE,
-        variables: {
-          cursor: null,
-        },
-      });
-      setState({
-        blogs: data.blogs,
-        endCursor: data.blogs.pageInfo.endCursor,
-        isLoading: false,
-      });
-    }
-
-    if (!state.blogs.nodes) {
-      loadData();
-    }
-  }, []);
-
-  const fetchingContent = async () => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
-    const blogsData = await apolloClient.query({
-      query: BLOGS_ARCHIVE,
-      variables: {
-        cursor: state.endCursor,
-      },
-    });
-
-    setState({
-      isLoading: false,
-      endCursor: blogsData.data.blogs.pageInfo
-        ? blogsData.data.blogs.pageInfo.endCursor
-        : false,
-      blogs: {
-        pageInfo,
-        nodes: [...state.blogs.nodes, ...blogsData.data.blogs.nodes],
-      },
-    });
-  };
-
-  if (!state.blogs.nodes)
+  if (!state.data.nodes)
     return (
       <div style={{ margin: '0 auto' }}>
         <BlogsLoader />
@@ -92,7 +37,7 @@ const BlogsArchive = (props) => {
       </div>
     );
 
-  const { nodes, pageInfo } = state.blogs;
+  const { nodes, pageInfo } = state.data;
 
   return (
     <div className="news-page">

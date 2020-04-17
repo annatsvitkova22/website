@@ -7,22 +7,18 @@ import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
+import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String) {
     posts(first: 5, before: $cursor) {
-      edges {
-        cursor
-        node {
-          id
-          excerpt
-          title
-          slug
-        }
+      nodes {
+        id
+        excerpt
+        title
+        slug
       }
       pageInfo {
-        hasNextPage
-        hasPreviousPage
         endCursor
         total
       }
@@ -31,66 +27,23 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
-  const [state, setState] = useState({
-    posts: props,
-    endCursor: props.pageInfo ? props.pageInfo.endCursor : null,
-    isLoading: false,
-  });
+  const { fetchingContent, state } = useLoadMoreHook(
+    NEWS_ARCHIVE,
+    props,
+    'news'
+  );
 
-  useEffect(() => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
-    async function loadData() {
-      const { data } = await apolloClient.query({
-        query: NEWS_ARCHIVE,
-        variables: {
-          cursor: null,
-        },
-      });
-      setState({
-        posts: data.posts,
-        endCursor: data.posts.pageInfo.endCursor,
-        isLoading: false,
-      });
-    }
+  if (!state.data.nodes) {
+    return (
+      <div>
+        <NewsLoader />
+        <NewsLoader />
+        <NewsLoader />
+      </div>
+    );
+  }
 
-    if (!state.posts.edges) {
-      loadData();
-    }
-  }, []);
-
-  const fetchingContent = async () => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
-    const postsData = await apolloClient.query({
-      query: NEWS_ARCHIVE,
-      variables: {
-        cursor: state.endCursor,
-      },
-    });
-
-    setState({
-      isLoading: false,
-      endCursor: postsData.data.posts.pageInfo
-        ? postsData.data.posts.pageInfo.endCursor
-        : false,
-      posts: {
-        pageInfo,
-        edges: [...state.posts.edges, ...postsData.data.posts.edges],
-      },
-    });
-  };
-
-  if (!state.posts.edges) return <NewsLoader />;
-  const { edges, pageInfo } = state.posts;
+  const { nodes, pageInfo } = state.data;
 
   return (
     <div className="news-page">
@@ -103,15 +56,15 @@ const News = (props) => {
       <main>
         <React.Fragment>
           <div>
-            {edges.map((post, i) => (
+            {nodes.map((post, i) => (
               <article key={post.id} style={{ height: '300px' }}>
-                <Link href="/news/[slug]" as={`/news/${post.node.slug}`}>
-                  <a href={`/news/${post.node.slug}`}>
-                    <h3>{post.node.title}</h3>
+                <Link href="/news/[slug]" as={`/news/${post.slug}`}>
+                  <a href={`/news/${post.slug}`}>
+                    <h3>{post.title}</h3>
                   </a>
                 </Link>
-                <div>{post.node.excerpt}</div>
-                {i === edges.length - 1 && i < pageInfo.total - 1 && (
+                <div>{post.excerpt}</div>
+                {i === nodes.length - 1 && i < pageInfo.total -1 && (
                   <Waypoint onEnter={fetchingContent} />
                 )}
               </article>
@@ -126,7 +79,6 @@ const News = (props) => {
 
 News.propTypes = {
   posts: PropTypes.any,
-
 };
 
 News.getInitialProps = async () => {
