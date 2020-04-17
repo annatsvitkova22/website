@@ -153,7 +153,7 @@ class Category extends Component {
                         >
                           <Link href={slug}>
                             <a
-                              className={`cat-list__button d-inline-block ${
+                              className={`cat-list__button d-inline-block font-weight-bold tx-family-alt ${
                                 currCatId === categoryId
                                   ? 'cat-list__button--active'
                                   : ''
