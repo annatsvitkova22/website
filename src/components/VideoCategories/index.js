@@ -18,7 +18,7 @@ const VideoCategories = ({ categories }) => (
           <div key={i} className="container video-category">
             <div className="row line-height-1 video-category__top-row">
               <div className="col-6">
-                <h6 className="video-category__title text-transform-uppercase">
+                <h6 className="video-category__title text-uppercase tx-family-alt">
                   {category.name}
                 </h6>
               </div>

@@ -95,3 +95,9 @@ $line-heights: (
     }
   }
 }
+
+.tx-ellipsis {
+  text-overflow: ellipsis;
+
+  overflow: hidden;
+}

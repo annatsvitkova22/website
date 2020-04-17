@@ -1,3 +1,24 @@
+.cat-page {
+  &__title {
+    &::before {
+      content: '!';
+    }
+  }
+
+  &__back {
+    margin-left: 34px;
+
+    opacity: 0.24;
+
+    transition: opacity 0.3s ease-in-out;
+
+    &:focus,
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
 .cat-list {
   margin-bottom: 40px;
   margin-left: -5px;
@@ -14,6 +35,10 @@
     transition:
       color 0.3s ease-in-out,
       background-color 0.3s ease-in-out;
+
+    &::before {
+      content: '!';
+    }
 
     &:focus,
     &:hover,
