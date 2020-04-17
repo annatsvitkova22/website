@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import gql from 'graphql-tag';
@@ -12,9 +12,10 @@ import Share from '~/components/Share';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
-const NEWS = gql`
-  query News($slug: String!) {
+const POST = gql`
+  query Post($slug: String!) {
     postBy(slug: $slug) {
       ${gutenbergBlocksQuery}
       title
@@ -55,20 +56,59 @@ const NEWS = gql`
         }
       }
     }
-    posts {
+  }
+`;
+const NEWS = gql`
+  query News($cursor: String) {
+    posts(first: 5, before: $cursor) {
       nodes {
         title
         link
         date
       }
+      pageInfo {
+        endCursor
+        total
+      }
     }
   }
 `;
 
-const Post = (props) => {
-  const { post, news } = props;
+const Post = ({ post, news }) => {
   const ref = React.useRef();
 
+  const [state, setState] = useState({
+    updNews: news,
+    isLoading: false,
+    endCursor: news.pageInfo.endCursor ? news.pageInfo.endCursor : null,
+  });
+
+  const fetchingContent = async () => {
+    if (!state.isLoading) {
+      setState({
+        ...state,
+        isLoading: true,
+      });
+    }
+
+    const postsData = await apolloClient.query({
+      query: NEWS,
+      variables: {
+        cursor: state.endCursor,
+      },
+    });
+
+    setState({
+      isLoading: false,
+      endCursor: postsData.data.posts.pageInfo
+        ? postsData.data.posts.pageInfo.endCursor
+        : false,
+      updNews: {
+        pageInfo: postsData.data.posts.pageInfo,
+        nodes: [...state.updNews.nodes, ...postsData.data.posts.nodes],
+      },
+    });
+  };
   return (
     <>
       <Head>
@@ -77,32 +117,43 @@ const Post = (props) => {
       </Head>
 
       <main className="single-news">
-        <NewsHead post={post} />
-        <section
-          className={'main row no-gutters justify-content-between'}
-          style={{ display: 'flex', alignItems: 'flex-start' }}
-        >
-          <StickyBox
-            offsetTop={20}
-            offsetBottom={20}
-            className={'side-bar__wrapper col-1'}
-          >
-            <Share />
-          </StickyBox>
-          <section className={'description col-7'}>
-            <Content content={post.blocks} />
-          </section>
-          <StickyBox
-            offsetTop={20}
-            offsetBottom={20}
-            className={'side-bar__wrapper col-3'}
-          >
-            <section className={'latest'}>
-              <SideBarNews news={news.nodes} ref={ref} />
+        {post ? (
+          <>
+            <NewsHead post={post} />
+            <section
+              className={'main row no-gutters justify-content-between'}
+              style={{ display: 'flex', alignItems: 'flex-start' }}
+            >
+              <StickyBox
+                offsetTop={20}
+                offsetBottom={20}
+                className={'side-bar__wrapper col-1'}
+              >
+                <Share />
+              </StickyBox>
+              <section className={'description col-7'}>
+                <Content content={post.blocks} />
+              </section>
+              <StickyBox
+                offsetTop={20}
+                offsetBottom={20}
+                className={'side-bar__wrapper col-3'}
+              >
+                <section className={'latest'}>
+                  <SideBarNews
+                    news={state.updNews}
+                    ref={ref}
+                    fetchingContent={fetchingContent}
+                    isLoading={state.isLoading}
+                  />
+                </section>
+              </StickyBox>
             </section>
-          </StickyBox>
-        </section>
-        <NewsFooter post={post} />
+            <NewsFooter post={post} />
+          </>
+        ) : (
+          <PostHeaderLoader />
+        )}
       </main>
     </>
   );
@@ -115,13 +166,19 @@ Post.propTypes = {
 
 Post.getInitialProps = async ({ query: { slug } }) => {
   const { data } = await apolloClient.query({
-    query: NEWS,
+    query: POST,
     variables: { slug },
+  });
+  const news = await apolloClient.query({
+    query: NEWS,
+    variables: {
+      cursor: null,
+    },
   });
 
   return {
     post: data.postBy,
-    news: data.posts,
+    news: news.data.posts,
   };
 };
 

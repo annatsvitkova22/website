@@ -1,18 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Waypoint } from 'react-waypoint';
 
-const SideBarNews = ({ news }) => {
+import SidebarLoader from '~/components/Loaders/SidebarLoader';
+
+const SideBarNews = ({ news, fetchingContent, isLoading }) => {
+  if (!news) return <SidebarLoader />;
   return (
     <ul>
       <span>Новини</span>
-      {news &&
-        news.map((item) => {
-          return (
+      {news.nodes.map((item, i) => {
+        return (
+          <React.Fragment key={i}>
             <a href={item.link}>
               <li key={item.id}>{item.title}</li>
             </a>
-          );
-        })}
+            {i === news.nodes.length - 5 && i < news.pageInfo.total && (
+              <Waypoint onEnter={fetchingContent} />
+            )}
+          </React.Fragment>
+        );
+      })}
+      {isLoading && <SidebarLoader />}
     </ul>
   );
 };
