@@ -72,14 +72,18 @@ class Category extends Component {
 
   componentDidMount() {
     if (!this.state.isAllVideos) {
-      window.addEventListener('scroll', this.onScroll(this.onLoadMore), false);
+      window.addEventListener('scroll', this.onScroll);
     }
   }
 
-  onScroll = (onLoadMore) => () => {
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll = () => {
     const { offsetTop, offsetHeight } = this.videosRef.current;
     if (offsetTop + offsetHeight >= window.scrollY) {
-      onLoadMore();
+      this.onLoadMore();
     }
   };
 
