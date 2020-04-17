@@ -3,16 +3,14 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
 import { Waypoint } from 'react-waypoint';
 
-import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 
 const NEWS_ARCHIVE = gql`
-  query NewsArchive($last: Int, $cursor: String) {
-    posts(first: $last, before: $cursor) {
+  query NewsArchive($cursor: String) {
+    posts(first: 5, before: $cursor) {
       edges {
         cursor
         node {
@@ -34,54 +32,56 @@ const NEWS_ARCHIVE = gql`
 
 const News = (props) => {
   const [posts, setPosts] = useState(props);
+  const [endCursor, setEndCursor] = useState(
+    props.pageInfo ? props.pageInfo.endCursor : null
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { loading, data, fetchMore, networkStatus } = useQuery(NEWS_ARCHIVE, {
-    variables: {
-      last: 5,
-      cursor: null,
-    },
-    notifyOnNetworkStatusChange: true,
-  });
   useEffect(() => {
-    if (!posts.edges && !loading) {
-      setPosts(data.posts);
+    if (!isLoading) {
+      setIsLoading(true);
     }
-  }, [loading]);
-
-  if (!posts || !posts.edges) return <NewsLoader />;
-
-  const { edges, pageInfo } = posts;
+    async function loadData() {
+      const { data } = await apolloClient.query({
+        query: NEWS_ARCHIVE,
+        variables: {
+          cursor: null,
+        },
+      });
+      setPosts(data.posts);
+      setEndCursor(data.posts.pageInfo.endCursor);
+    }
+    setIsLoading(false);
+    if (!posts.edges) {
+      loadData();
+    }
+  }, []);
 
   const fetchingContent = async () => {
-    const newData = await fetchMore({
+    if (!isLoading) {
+      setIsLoading(true);
+    }
+    const postsData = await apolloClient.query({
+      query: NEWS_ARCHIVE,
       variables: {
-        last: 5,
-        cursor: edges[edges.length - 1].cursor,
-      },
-      updateQuery: (pv, { fetchMoreResult }) => {
-        const newEdges = fetchMoreResult.posts.edges;
-        const pageInfos = fetchMoreResult.posts.pageInfo;
-        if (newEdges) {
-          return {
-            posts: {
-              __typename: pv.posts.__typename,
-              edges: [...pv.posts.edges, ...newEdges],
-              pageInfo: [...pv.posts.pageInfo, ...pageInfos],
-              hasNextPage: pageInfos.hasNextPage,
-            },
-          };
-        }
-        return pv;
+        cursor: endCursor,
       },
     });
 
     setPosts({
-      __typename: newData.data.posts.__typename,
       pageInfo,
-      edges: posts.edges.concat(newData.data.posts.edges),
+      edges: [...posts.edges, ...postsData.data.posts.edges],
     });
-    console.log(posts);
+    setEndCursor(
+      postsData.data.posts.pageInfo
+        ? postsData.data.posts.pageInfo.endCursor
+        : false
+    );
+    setIsLoading(false);
   };
+
+  if (!posts.edges) return <NewsLoader />;
+  const { edges, pageInfo } = posts;
 
   return (
     <div className="news-page">
@@ -93,7 +93,6 @@ const News = (props) => {
 
       <main>
         <React.Fragment>
-          {!edges && <NewsLoader />}
           <div>
             {edges.map((post, i) => (
               <article key={post.id} style={{ height: '300px' }}>
@@ -108,8 +107,8 @@ const News = (props) => {
                 )}
               </article>
             ))}
-            {networkStatus === 3 && <NewsLoader />}
           </div>
+          {isLoading && <NewsLoader />}
         </React.Fragment>
       </main>
     </div>
@@ -127,7 +126,6 @@ News.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
     variables: {
-      last: 5,
       cursor: null,
     },
   });
