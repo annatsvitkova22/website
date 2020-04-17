@@ -29,6 +29,20 @@
 //.font-weight-bolder { font-weight: $font-weight-bolder !important; }
 .font-italic { font-style: italic !important; }
 
+$tx-ffamilies: (
+  'family-titles': $font-family-titles,
+  'family-base': $font-family-base,
+  'family-alt': $font-family-alt,
+);
+
+@each $name, $ffamily in $tx-ffamilies {
+  .tx {
+    &-#{$name} {
+      font-family: #{$ffamily};
+    }
+  }
+}
+
 $tx-colors: (
   'green': $green,
   'white': $white,
@@ -42,13 +56,42 @@ $tx-colors: (
   }
 }
 
-$tx-sizes: (18, 14, 12);
+$tx-sizes: (
+  'base': 18,
+  'small': 14,
+  'tiny': 12
+);
 
-@each $size in $tx-sizes {
+@each $name, $size in $tx-sizes {
   .tx {
-    &-#{$size} {
+    &-#{$name} {
       font-size: #{$size}px;
     }
   }
 }
 
+@include media-breakpoint-down(sm) {
+  $tx-sizes: (
+    'base': 13,
+  );
+
+  @each $name, $size in $tx-sizes {
+    .tx {
+      &-#{$name} {
+        font-size: #{$size}px;
+      }
+    }
+  }
+}
+
+// Line heights 
+$line-heights: (
+  '1': 1,
+);
+@each $number, $value in $line-heights {
+  .line-height {
+    &-#{$number} {
+      line-height: #{$value};
+    }
+  }
+}
