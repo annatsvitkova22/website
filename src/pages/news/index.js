@@ -31,7 +31,6 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = (props) => {
-
   const [state, setState] = useState({
     posts: props,
     endCursor: props.pageInfo ? props.pageInfo.endCursor : null,
@@ -86,7 +85,6 @@ const News = (props) => {
       posts: {
         pageInfo,
         edges: [...state.posts.edges, ...postsData.data.posts.edges],
-
       },
     });
   };
@@ -128,6 +126,7 @@ const News = (props) => {
 
 News.propTypes = {
   posts: PropTypes.any,
+
 };
 
 News.getInitialProps = async () => {

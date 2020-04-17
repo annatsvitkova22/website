@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
-import NewsLoader from '~/components/Loaders/NewsLoader';
 import BlogsLoader from '~/components/Loaders/BlogsLoader';
 
 const BLOGS_ARCHIVE = gql`
@@ -131,6 +130,7 @@ BlogsArchive.propTypes = {
       title: PropTypes.string,
       excerpt: PropTypes.string,
       slug: PropTypes.string,
+      cursor: PropTypes.string,
     })
   ),
 };

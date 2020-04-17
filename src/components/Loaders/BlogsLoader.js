@@ -3,7 +3,7 @@ import ContentLoader from 'react-content-loader';
 
 const BlogsLoader = () => {
   return (
-    <ContentLoader viewBox={'0 0 1210 500'} >
+    <ContentLoader viewBox={'0 0 1210 500'}>
       <rect x={'0'} y={'0'} rx={'50'} rx={'50'} width={'95'} height={`95`} />
       <rect x={'0'} y={'100'} rx={'0'} rx={'0'} width={'170'} height={`15`} />
       <rect x={'0'} y={'120'} rx={'0'} rx={'0'} width={'170'} height={`15`} />

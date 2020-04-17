@@ -71,10 +71,12 @@
     width: 1440px;
   }
 }
+
 .latest {
   height: 300px;
 
   overflow: scroll;
+
   & li {
     padding-top: 15px;
     padding-bottom: 15px;

@@ -14,8 +14,8 @@ import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
-const NEWS = gql`
-  query News($slug: String!) {
+const POST = gql`
+  query Post($slug: String!) {
     postBy(slug: $slug) {
       ${gutenbergBlocksQuery}
       title
@@ -58,8 +58,8 @@ const NEWS = gql`
     }
   }
 `;
-const POST = gql`
-  query POST($cursor: String) {
+const NEWS = gql`
+  query News($cursor: String) {
     posts(first: 5, before: $cursor) {
       nodes {
         title
@@ -92,7 +92,7 @@ const Post = ({ post, news }) => {
     }
 
     const postsData = await apolloClient.query({
-      query: POST,
+      query: NEWS,
       variables: {
         cursor: state.endCursor,
       },
@@ -166,11 +166,11 @@ Post.propTypes = {
 
 Post.getInitialProps = async ({ query: { slug } }) => {
   const { data } = await apolloClient.query({
-    query: NEWS,
+    query: POST,
     variables: { slug },
   });
   const news = await apolloClient.query({
-    query: POST,
+    query: NEWS,
     variables: {
       cursor: null,
     },
