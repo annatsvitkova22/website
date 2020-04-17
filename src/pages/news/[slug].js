@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import gql from 'graphql-tag';
@@ -56,11 +56,19 @@ const NEWS = gql`
         }
       }
     }
-    posts {
+  }
+`;
+const POST = gql`
+  query POST($cursor: String) {
+    posts(first: 5, before: $cursor) {
       nodes {
         title
         link
         date
+      }
+      pageInfo {
+        endCursor
+        total
       }
     }
   }
@@ -68,6 +76,37 @@ const NEWS = gql`
 
 const Post = ({ post, news }) => {
   const ref = React.useRef();
+
+  const [updNews, setUpdNews] = useState(news);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [endCursor, setEndCursor] = useState(
+    news.pageInfo.endCursor ? news.pageInfo.endCursor : null
+  );
+
+  const fetchingContent = async () => {
+    if (!isLoading) {
+      setIsLoading(true);
+    }
+
+    const postsData = await apolloClient.query({
+      query: POST,
+      variables: {
+        cursor: endCursor,
+      },
+    });
+    setUpdNews({
+      pageInfo: postsData.data.posts.pageInfo,
+      nodes: [...updNews.nodes, ...postsData.data.posts.nodes],
+    });
+    setEndCursor(
+      postsData.data.posts.pageInfo
+        ? postsData.data.posts.pageInfo.endCursor
+        : false
+    );
+    setIsLoading(false);
+  };
   return (
     <>
       <Head>
@@ -99,7 +138,12 @@ const Post = ({ post, news }) => {
                 className={'side-bar__wrapper col-3'}
               >
                 <section className={'latest'}>
-                  <SideBarNews news={news.nodes} ref={ref} />
+                  <SideBarNews
+                    news={updNews}
+                    ref={ref}
+                    fetchingContent={fetchingContent}
+                    isLoading={isLoading}
+                  />
                 </section>
               </StickyBox>
             </section>
@@ -123,10 +167,16 @@ Post.getInitialProps = async ({ query: { slug } }) => {
     query: NEWS,
     variables: { slug },
   });
+  const news = await apolloClient.query({
+    query: POST,
+    variables: {
+      cursor: null,
+    },
+  });
 
   return {
     post: data.postBy,
-    news: data.posts,
+    news: news.data.posts,
   };
 };
 
