@@ -139,7 +139,9 @@ class Category extends Component {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1 className="text-uppercase">{categoryName}</h1>
+                <h1 className="cat-page__title text-uppercase">
+                  {categoryName}
+                </h1>
               </div>
               <div className="col-12">
                 <ul className="list-unstyled cat-list">
