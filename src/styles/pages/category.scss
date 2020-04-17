@@ -4,6 +4,19 @@
       content: '!';
     }
   }
+
+  &__back {
+    margin-left: 34px;
+
+    opacity: 0.24;
+
+    transition: opacity 0.3s ease-in-out;
+
+    &:focus,
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .cat-list {

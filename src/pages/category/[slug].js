@@ -11,8 +11,10 @@ import {
   prepareGalleryItems,
   options,
 } from '~/components/PhotoSwipeGallery/videoGalleryUtils';
+import SiteLink from '~/components/SiteLink';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
+import Times from '~/static/images/times';
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
@@ -139,8 +141,14 @@ class Category extends Component {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1 className="cat-page__title text-uppercase">
-                  {categoryName}
+                <h1 className="cat-page__title text-uppercase d-flex">
+                  <span className="tx-ellipsis">{categoryName}</span>
+                  <SiteLink
+                    href="/videos"
+                    className="cat-page__back line-height-1"
+                  >
+                    <Times />
+                  </SiteLink>
                 </h1>
               </div>
               <div className="col-12">
