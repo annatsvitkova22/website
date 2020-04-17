@@ -10,13 +10,6 @@ const useLoadMoreHook = (query, props, type = '') => {
   });
 
   useEffect(() => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
-
     async function loadData() {
       const response = await apolloClient.query({
         query: query,
@@ -46,11 +39,24 @@ const useLoadMoreHook = (query, props, type = '') => {
             isLoading: false,
           });
           break;
+        case 'others':
+          setState({
+            data: response.data.others,
+            endCursor: response.data.posts.pageInfo.endCursor,
+            isLoading: false,
+          });
+          break;
       }
     }
 
     if (!state.data.nodes) {
       loadData();
+      if (!state.isLoading) {
+        setState({
+          ...state,
+          isLoading: true,
+        });
+      }
     }
   }, []);
 
@@ -107,9 +113,26 @@ const useLoadMoreHook = (query, props, type = '') => {
           isLoading: false,
         });
         break;
+      case 'others':
+        setState({
+          isLoading: false,
+          data: {
+            ...state.data,
+            nodes: [...state.data.nodes, ...responseData.data.others.nodes],
+          },
+          endCursor: responseData.data.others.pageInfo
+            ? responseData.data.others.pageInfo.endCursor
+            : false,
+        });
+        break;
     }
   };
-
+  if (state.isLoading) {
+    setState({
+      ...state,
+      isLoading: false,
+    });
+  }
   return {
     state,
     fetchingContent,

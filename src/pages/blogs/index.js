@@ -27,8 +27,11 @@ const BLOGS_ARCHIVE = gql`
 `;
 
 const BlogsArchive = (props) => {
-  const { fetchingContent, state } = useLoadMoreHook(BLOGS_ARCHIVE, props, 'blogs');
-
+  const { fetchingContent, state } = useLoadMoreHook(
+    BLOGS_ARCHIVE,
+    props,
+    'blogs'
+  );
   if (!state.data.nodes)
     return (
       <div style={{ margin: '0 auto' }}>
