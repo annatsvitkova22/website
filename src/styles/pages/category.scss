@@ -29,5 +29,10 @@
   .pswp-thumbnail {
     padding-top: 25px;
     margin-bottom: 25px;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: 12px;
+      margin-bottom: 12px;
+    }
   }
 }

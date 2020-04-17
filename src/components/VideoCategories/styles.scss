@@ -4,6 +4,10 @@
 
   position: relative;
 
+  @include media-breakpoint-down(md) {
+    padding-bottom: 12px;
+  }
+
   &::before {
     content: '';
     display: block;
@@ -14,6 +18,12 @@
     right: $grid-gutter-width / 2;
 
     border-top: 1px solid $grey-300;
+  }
+
+  .pswp-thumbnail {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 24px;
+    }
   }
 
   &__top-row {
