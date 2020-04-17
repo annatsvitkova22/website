@@ -53,6 +53,11 @@ const CATEGORIES = gql`
         name
         slug
         categoryId
+        videos {
+          nodes {
+            videoId
+          }
+        }
       }
     }
   }
@@ -72,14 +77,18 @@ class Category extends Component {
 
   componentDidMount() {
     if (!this.state.isAllVideos) {
-      window.addEventListener('scroll', this.onScroll(this.onLoadMore), false);
+      window.addEventListener('scroll', this.onScroll);
     }
   }
 
-  onScroll = (onLoadMore) => () => {
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll = () => {
     const { offsetTop, offsetHeight } = this.videosRef.current;
     if (offsetTop + offsetHeight >= window.scrollY) {
-      onLoadMore();
+      this.onLoadMore();
     }
   };
 
@@ -117,7 +126,6 @@ class Category extends Component {
 
   render() {
     const { categoryName, currCatId, categories } = this.props;
-    // console.log(this.state.videos);
 
     return (
       <div className="videos-page">
@@ -136,25 +144,28 @@ class Category extends Component {
               <div className="col-12">
                 <ul className="list-unstyled cat-list">
                   {categories.map((category) => {
-                    const { categoryId, slug, name } = category;
-                    return (
-                      <li
-                        className="cat-list__item d-inline-block"
-                        key={categoryId}
-                      >
-                        <Link href={slug}>
-                          <a
-                            className={`cat-list__button d-inline-block ${
-                              currCatId === categoryId
-                                ? 'cat-list__button--active'
-                                : ''
-                            }`}
-                          >
-                            {name}
-                          </a>
-                        </Link>
-                      </li>
-                    );
+                    const { categoryId, slug, name, videos } = category;
+                    if (videos.nodes.length !== 0) {
+                      return (
+                        <li
+                          className="cat-list__item d-inline-block"
+                          key={categoryId}
+                        >
+                          <Link href={slug}>
+                            <a
+                              className={`cat-list__button d-inline-block ${
+                                currCatId === categoryId
+                                  ? 'cat-list__button--active'
+                                  : ''
+                              }`}
+                            >
+                              {name}
+                            </a>
+                          </Link>
+                        </li>
+                      );
+                    }
+                    return '';
                   })}
                 </ul>
               </div>
