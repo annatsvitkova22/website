@@ -114,7 +114,9 @@ class Category extends Component {
         },
       });
 
-      const formattedVideos = await addVideoDurations(videosData);
+      const formattedVideos = await addVideoDurations(
+        videosData.data.videos.nodes
+      );
 
       this.setState({
         videos: [...videos, ...formattedVideos],
@@ -229,7 +231,7 @@ Category.getInitialProps = async ({ query: { slug } }) => {
     categories: categories.data.categories.nodes,
     categoryName: name,
     currCatId: categoryId,
-    videos: await addVideoDurations(videosData),
+    videos: await addVideoDurations(videosData.data.videos.nodes),
   };
 };
 
