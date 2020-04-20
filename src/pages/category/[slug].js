@@ -28,8 +28,12 @@ const CATEGORY_ID = gql`
 `;
 
 const VIDEOS = gql`
-  query Videos($categoryId: Int, $endCursor: String) {
-    videos(where: { categoryId: $categoryId }, first: 20, after: $endCursor) {
+  query Videos($categoryId: Int, $first: Int, $endCursor: String) {
+    videos(
+      where: { categoryId: $categoryId }
+      first: $first
+      after: $endCursor
+    ) {
       nodes {
         title
         excerpt
@@ -43,6 +47,7 @@ const VIDEOS = gql`
       }
       pageInfo {
         endCursor
+        hasNextPage
       }
     }
   }
@@ -71,14 +76,14 @@ class Category extends Component {
     this.state = {
       videos: this.props.videos,
       isLoading: false,
-      isAllVideos: false,
       endCursor: this.props.endCursor,
+      hasNextPage: this.props.hasNextPage,
     };
     this.videosRef = React.createRef();
   }
 
   componentDidMount() {
-    if (!this.state.isAllVideos) {
+    if (this.state.hasNextPage) {
       window.addEventListener('scroll', this.onScroll);
     }
   }
@@ -95,8 +100,8 @@ class Category extends Component {
   };
 
   onLoadMore = async () => {
-    const { isAllVideos, isLoading, videos, endCursor } = this.state;
-    if (!isLoading && !isAllVideos) {
+    const { isLoading, videos, endCursor, hasNextPage } = this.state;
+    if (!isLoading && hasNextPage) {
       this.setState({
         isLoading: true,
       });
@@ -104,25 +109,25 @@ class Category extends Component {
         query: VIDEOS,
         variables: {
           categoryId: this.props.currCatId,
+          first: 4,
           endCursor,
         },
       });
 
-      const formattedVideos = await addVideoDurations(videosData);
+      const formattedVideos = await addVideoDurations(
+        videosData.data.videos.nodes
+      );
 
       this.setState({
         videos: [...videos, ...formattedVideos],
         endCursor: videosData.data.videos.pageInfo
           ? videosData.data.videos.pageInfo.endCursor
           : false,
+        hasNextPage: videosData.data.videos.pageInfo
+          ? videosData.data.videos.pageInfo.hasNextPage
+          : false,
         isLoading: false,
       });
-
-      if (formattedVideos.length !== 20) {
-        this.setState({
-          isAllVideos: true,
-        });
-      }
     }
   };
 
@@ -183,12 +188,11 @@ class Category extends Component {
             <div ref={this.videosRef} className="row">
               <PhotoSwipeGallery
                 className="col-12 video-cat-gall"
-                items={prepareGalleryItems(this.state.videos, 10)}
+                items={prepareGalleryItems(this.state.videos)}
                 options={options()}
                 thumbnailContent={getThumbnailVideo}
               />
             </div>
-            {/* <button onClick={this.onClick}>Load More</button> */}
           </div>
         </main>
       </div>
@@ -202,6 +206,7 @@ Category.propTypes = {
   videos: PropTypes.array,
   categories: PropTypes.array,
   endCursor: PropTypes.string,
+  hasNextPage: PropTypes.bool,
 };
 
 Category.getInitialProps = async ({ query: { slug } }) => {
@@ -213,7 +218,7 @@ Category.getInitialProps = async ({ query: { slug } }) => {
 
   const videosData = await apolloClient.query({
     query: VIDEOS,
-    variables: { categoryId },
+    variables: { categoryId, first: 12 },
   });
 
   const categories = await apolloClient.query({
@@ -222,10 +227,11 @@ Category.getInitialProps = async ({ query: { slug } }) => {
 
   return {
     endCursor: videosData.data.videos.pageInfo.endCursor,
+    hasNextPage: videosData.data.videos.pageInfo.hasNextPage,
     categories: categories.data.categories.nodes,
     categoryName: name,
     currCatId: categoryId,
-    videos: await addVideoDurations(videosData),
+    videos: await addVideoDurations(videosData.data.videos.nodes),
   };
 };
 

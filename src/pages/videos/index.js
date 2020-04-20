@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import VideosList from '~/components/VideosList';
 import VideoCategories from '~/components/VideoCategories';
 import apolloClient from '~/lib/ApolloClient';
-import formatYouTubeUrl from '~/util/formatYouTubeUrl';
-import convertISO8601ToTime from '~/util/convertISO8601ToTime';
+import {
+  formatYouTubeUrl,
+  getDurations,
+  addCategoryVideosDurations,
+} from '~/util';
 import Play from '~/static/images/play';
-import youtube from '~/apis/youtube';
-
-const KEY = 'AIzaSyBz7hBEUeLfjjkbutilOakeLZv5hCDf-GM';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -28,11 +28,11 @@ const VIDEOS_ARCHIVE = gql`
         }
       }
     }
-    categories {
+    categories(first: 3, where: { hideEmpty: true }) {
       nodes {
         name
         slug
-        videos {
+        videos(first: 4) {
           nodes {
             title
             excerpt
@@ -45,6 +45,38 @@ const VIDEOS_ARCHIVE = gql`
             }
           }
         }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+`;
+
+const VIDEOS_CATEGORIES = gql`
+  query VideosCategories($first: Int, $endCursor: String) {
+    categories(first: $first, after: $endCursor, where: { hideEmpty: true }) {
+      nodes {
+        name
+        slug
+        videos(first: 4) {
+          nodes {
+            title
+            excerpt
+            date
+            zmVideoACF {
+              videoUrl
+              videoCover {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }
@@ -64,8 +96,67 @@ class VideosArchive extends Component {
       },
       selectedIndex: 0,
       isPlaying: false,
+      categories: this.props.categories,
+      isLoading: false,
+      endCursor: this.props.endCursor,
+      hasNextPage: this.props.hasNextPage,
     };
+
+    this.categoriesRef = createRef();
   }
+
+  componentDidMount() {
+    if (this.state.hasNextPage) {
+      window.addEventListener('scroll', this.onScroll);
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll = () => {
+    const { offsetTop, offsetHeight } = this.categoriesRef.current;
+    if (offsetTop + offsetHeight >= window.scrollY) {
+      this.onLoadMore();
+    }
+  };
+
+  onLoadMore = async () => {
+    const { isLoading, categories, endCursor, hasNextPage } = this.state;
+    if (!isLoading && hasNextPage) {
+      this.setState({
+        isLoading: true,
+      });
+      const { data } = await apolloClient.query({
+        query: VIDEOS_CATEGORIES,
+        variables: {
+          first: 1,
+          endCursor,
+        },
+      });
+
+      const formattedCategories = addCategoryVideosDurations(
+        data.categories.nodes,
+        this.props.videoDurations
+      );
+
+      this.setState({
+        categories: [...categories, ...formattedCategories],
+        endCursor: data.categories.pageInfo
+          ? data.categories.pageInfo.endCursor
+          : false,
+        hasNextPage: data.categories.pageInfo
+          ? data.categories.pageInfo.hasNextPage
+          : false,
+        isLoading: false,
+      });
+    }
+  };
+
+  // handleLoadMore = () => {
+  //   this.onLoadMore();
+  // };
 
   onVideoSelect = (url, imageUrl, title, duration, index) => {
     this.setState({
@@ -87,7 +178,7 @@ class VideosArchive extends Component {
   };
 
   render() {
-    const { videos, categories } = this.props;
+    const { videos } = this.props;
     const { isPlaying } = this.state;
     const { url, imageUrl, title, duration } = this.state.selectedVideo;
     return (
@@ -149,7 +240,9 @@ class VideosArchive extends Component {
               </div>
             </div>
           </div>
-          <VideoCategories categories={categories} />
+          <div ref={this.categoriesRef}>
+            <VideoCategories categories={this.state.categories} />
+          </div>
         </main>
       </div>
     );
@@ -164,6 +257,9 @@ VideosArchive.propTypes = {
       zmVideoACF: PropTypes.object,
     })
   ),
+  endCursor: PropTypes.string,
+  hasNextPage: PropTypes.bool,
+  videoDurations: PropTypes.string,
   categories: PropTypes.array,
 };
 
@@ -172,32 +268,8 @@ VideosArchive.getInitialProps = async () => {
     query: VIDEOS_ARCHIVE,
   });
 
-  // Create array with unique video ids
-  const videoIds = Array.from(
-    new Set(
-      data.videos.nodes.map((node) => {
-        const { videoUrl } = node.zmVideoACF;
-        const videoId = videoUrl.split('?v=')[1];
-        return videoId;
-      })
-    )
-  );
+  const videoDurations = await getDurations(data.videos.nodes);
 
-  const response = await youtube.get('/videos', {
-    params: {
-      id: videoIds.join(','),
-      part: 'contentDetails',
-      key: KEY,
-    },
-  });
-
-  // Create object with video durations and id as a key
-  const videoDurations = response.data.items.reduce((acc, item) => {
-    acc[item.id] = convertISO8601ToTime(item.contentDetails.duration);
-    return acc;
-  }, {});
-
-  // Add duration for videos
   const videos = data.videos.nodes.map((node) => {
     const { zmVideoACF } = node;
     const videoId = zmVideoACF.videoUrl.split('?v=')[1];
@@ -211,28 +283,15 @@ VideosArchive.getInitialProps = async () => {
     };
   });
 
-  // Add duration for videos
-  const categories = data.categories.nodes.map((node) => {
-    const videoNodes = node.videos.nodes.map((videoNode) => {
-      const { zmVideoACF } = videoNode;
-      const videoId = zmVideoACF.videoUrl.split('?v=')[1];
-      return {
-        ...videoNode,
-        zmVideoACF: {
-          ...zmVideoACF,
-          duration: videoDurations[videoId],
-        },
-      };
-    });
-    return {
-      ...node,
-      videos: {
-        nodes: [...videoNodes],
-      },
-    };
-  });
+  const categories = addCategoryVideosDurations(
+    data.categories.nodes,
+    videoDurations
+  );
 
   return {
+    videoDurations,
+    endCursor: data.categories.pageInfo.endCursor,
+    hasNextPage: data.categories.pageInfo.hasNextPage,
     videos,
     categories,
   };
