@@ -257,6 +257,9 @@ VideosArchive.propTypes = {
       zmVideoACF: PropTypes.object,
     })
   ),
+  endCursor: PropTypes.string,
+  hasNextPage: PropTypes.bool,
+  videoDurations: PropTypes.string,
   categories: PropTypes.array,
 };
 
