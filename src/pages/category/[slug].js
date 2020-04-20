@@ -83,7 +83,7 @@ class Category extends Component {
   }
 
   componentDidMount() {
-    if (!this.state.isAllVideos) {
+    if (this.state.hasNextPage) {
       window.addEventListener('scroll', this.onScroll);
     }
   }
@@ -204,6 +204,7 @@ Category.propTypes = {
   videos: PropTypes.array,
   categories: PropTypes.array,
   endCursor: PropTypes.string,
+  hasNextPage: PropTypes.bool,
 };
 
 Category.getInitialProps = async ({ query: { slug } }) => {

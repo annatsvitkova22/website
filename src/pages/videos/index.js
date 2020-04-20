@@ -50,6 +50,30 @@ const VIDEOS_ARCHIVE = gql`
   }
 `;
 
+const VIDEOS_CATEGORIES = gql`
+  query VideosCategories {
+    categories {
+      nodes {
+        name
+        slug
+        videos {
+          nodes {
+            title
+            excerpt
+            date
+            zmVideoACF {
+              videoUrl
+              videoCover {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 class VideosArchive extends Component {
   constructor(props) {
     super(props);
