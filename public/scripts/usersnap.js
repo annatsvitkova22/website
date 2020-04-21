@@ -1,4 +1,4 @@
-(function() {
+(function () {
   const s = document.createElement('script');
   s.type = 'text/javascript';
   s.async = true;

@@ -200,6 +200,7 @@ const PostHeaderLoader = ({ type }) => {
       </div>
     );
   }
+  return null;
 };
 
 export default PostHeaderLoader;

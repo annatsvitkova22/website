@@ -17,7 +17,7 @@ class ZmistDocument extends Document {
           <div id="modal" />
           <NextScript />
         </body>
-        <script type="text/javascript" src="/scripts/usersnap.js"></script>
+        <script type="text/javascript" src="/scripts/usersnap.js" />
       </Html>
     );
   }
