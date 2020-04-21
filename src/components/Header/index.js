@@ -60,7 +60,7 @@ const Header = () => {
     'fixed-header-unpinned': isUnPinned,
     'fixed-header-hidden': isHidden,
     'fixed-header': isFixedHeader,
-    isMenuOpen: isMenuOpen,
+    isMenuOpen,
   });
   React.useEffect(() => {
     window.addEventListener('scroll', fixedHeader);
@@ -71,7 +71,7 @@ const Header = () => {
 
   let scrollPos = 0;
 
-  const fixedHeader = (event) => {
+  const fixedHeader = () => {
     if (window.scrollY < 100) {
       setIsFixedHeader(false);
       setIsUnpinned(false);
