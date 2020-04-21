@@ -9,7 +9,6 @@ import Logo from '~/components/Logo';
 import Icons from '~/components/Icons';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
-import HeaderCategory from '~/components/Header/HeaderCategory';
 import SearchIcon from '~/components/Search/Icon';
 import SearchField from '~/components/Search/Field';
 
@@ -35,6 +34,9 @@ const HEADER_QUERY = gql`
             id
             label
             url
+            menuItemACF {
+              ishighlighted
+            }
           }
         }
       }
@@ -111,13 +113,10 @@ const Header = () => {
   };
   if (loading) return null;
 
-  console.log(isSearchOpen);
-
   return (
     <header className={`${headerCls}`}>
       <div className={'header__wrapper'}>
         <Burger handleOpenClick={handleOpenClick} />
-        <HeaderCategory className="navigation__list-link header__burger-category" />
         <Link href="/">
           <a>
             <Logo

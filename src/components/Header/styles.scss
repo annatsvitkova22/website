@@ -107,14 +107,16 @@ body.isB-MenuOpen {
     line-height: 1.21;
     letter-spacing: 0.07em;
     text-transform: uppercase;
+  }
 
-    &-link {
-      display: block;
+  &__link {
+    display: block;
 
-      padding: 25px 16px;
-    }
+    padding: 25px 16px;
+  }
 
-    & > li:first-child {
+  &__item {
+    &--highlighted {
       display: flex;
       align-items: center;
 
@@ -126,14 +128,16 @@ body.isB-MenuOpen {
       line-height: 1.2;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-    }
-    & > li:first-child > a {
-      padding: 5px 10px;
 
-      background-color: $green;
+      .navigation__link {
+        padding: 5px 10px;
+
+        background-color: $green;
+      }
     }
   }
 }
+
 .burger__navigation {
   display: none;
 }
