@@ -12,6 +12,7 @@ import {
   addCategoryVideosDurations,
 } from '~/util';
 import Play from '~/static/images/play';
+import VideoLoader from '~/components/Loaders/VideoLoader';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -178,6 +179,7 @@ class VideosArchive extends Component {
   };
 
   render() {
+    const { isLoading } = this.state;
     const { videos } = this.props;
     const { isPlaying } = this.state;
     const { url, imageUrl, title, duration } = this.state.selectedVideo;
@@ -242,6 +244,7 @@ class VideosArchive extends Component {
           </div>
           <div ref={this.categoriesRef}>
             <VideoCategories categories={this.state.categories} />
+            {isLoading && <VideoLoader />}
           </div>
         </main>
       </div>
