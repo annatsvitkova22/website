@@ -6,6 +6,9 @@
   }
 
   &__back {
+    display: flex;
+    align-items: center;
+
     margin-left: 34px;
 
     opacity: 0.24;
@@ -44,14 +47,14 @@
     &:hover,
     &--active {
       background-color: $white;
-      
+
       color: $black;
     }
   }
 
   &__item {
     padding: 5px;
-    
+
     line-height: 1;
   }
 }
