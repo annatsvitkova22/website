@@ -15,6 +15,8 @@ import SiteLink from '~/components/SiteLink';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
+import VideoLoader from '~/components/Loaders/VideoLoader';
+import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
@@ -133,6 +135,7 @@ class Category extends Component {
 
   render() {
     const { categoryName, currCatId, categories } = this.props;
+    const { isLoading } = this.state;
 
     return (
       <div className="videos-page">
@@ -192,6 +195,7 @@ class Category extends Component {
                 options={options()}
                 thumbnailContent={getThumbnailVideo}
               />
+              {isLoading && <VideoCategoryLoader />}
             </div>
           </div>
         </main>

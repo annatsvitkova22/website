@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import { Waypoint } from 'react-waypoint';
 import apolloClient from '~/lib/ApolloClient';
 import BlogsLoader from '~/components/Loaders/BlogsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
+import PublicationMainLoader from '~/components/Loaders/PublicationMainLoader';
 
 const PUBLICATIONS_ARCHIVE = gql`
   query PublicationsArchive($cursor: String) {
@@ -33,14 +34,7 @@ const Publications = (props) => {
     'publications'
   );
 
-  if (!state.data.nodes)
-    return (
-      <div style={{ margin: '0 auto' }}>
-        <BlogsLoader />
-        <BlogsLoader />
-      </div>
-    );
-  console.log(state);
+  if (!state.data.nodes) return <PublicationMainLoader />;
   const { nodes, pageInfo } = state.data;
 
   return (
