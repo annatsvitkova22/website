@@ -8,6 +8,7 @@ import { Waypoint } from 'react-waypoint';
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String) {
