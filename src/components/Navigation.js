@@ -16,7 +16,8 @@ const Navigation = (props) => {
               <li
                 key={item.id}
                 className={classnames('navigation__item', {
-                  'navigation__item--highlighted': item.menuItemACF.ishighlighted
+                  'navigation__item--highlighted':
+                    item.menuItemACF.ishighlighted,
                 })}
               >
                 <NavLink
