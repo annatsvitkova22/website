@@ -47,6 +47,15 @@ body.isB-MenuOpen {
 
     width: 32px;
     height: 32px;
+
+    position: relative;
+
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    background: none;
+
+    cursor: pointer;
   }
   &__overlay {
     display: none;
