@@ -49,6 +49,7 @@ const Header = () => {
   const [isPinned, setIsPinned] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isUnPinned, setIsUnpinned] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const headerCls = classNames({
     header: true,
@@ -56,6 +57,7 @@ const Header = () => {
     'fixed-header-unpinned': isUnPinned,
     'fixed-header-hidden': isHidden,
     'fixed-header': isFixedHeader,
+    isMenuOpen: isMenuOpen,
   });
   React.useEffect(() => {
     window.addEventListener('scroll', fixedHeader);
@@ -100,18 +102,14 @@ const Header = () => {
     }
   };
   const handleOpenClick = () => {
-    const headerPath = document.querySelector('.header');
-
     document.querySelector('body').classList.toggle('isB-MenuOpen');
-    headerPath.classList.toggle('isMenuOpen');
+    setIsMenuOpen(!isMenuOpen);
     setIsPinned(false);
     setIsUnpinned(false);
   };
 
   const handleCloseClick = () => {
-    const headerPath = document.querySelector('.header');
-
-    headerPath.classList.remove('isMenuOpen');
+    setIsMenuOpen(false);
     document.querySelector('body').classList.remove('isB-MenuOpen');
   };
   if (loading) return null;
