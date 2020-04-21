@@ -42,7 +42,7 @@ const News = (props) => {
       </div>
     );
   }
-
+  console.log(state.isLoading);
   const { nodes, pageInfo } = state.data;
 
   return (
@@ -55,7 +55,7 @@ const News = (props) => {
 
       <main>
         <React.Fragment>
-          <div>
+          <div className={'container'}>
             {nodes.map((post, i) => (
               <article key={post.id} style={{ height: '300px' }}>
                 <Link href="/news/[slug]" as={`/news/${post.slug}`}>
@@ -64,13 +64,13 @@ const News = (props) => {
                   </a>
                 </Link>
                 <div>{post.excerpt}</div>
-                {i === nodes.length - 1 && i < pageInfo.total -1 && (
+                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                   <Waypoint onEnter={fetchingContent} />
                 )}
               </article>
             ))}
+            {state.isLoading && <NewsLoader />}
           </div>
-          {state.isLoading && <NewsLoader />}
         </React.Fragment>
       </main>
     </div>
