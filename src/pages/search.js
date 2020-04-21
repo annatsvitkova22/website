@@ -9,8 +9,8 @@ import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 
-const NEWS_ARCHIVE = gql`
-  query NewsArchive($cursor: String) {
+const SEARCH_QUERY = gql`
+  query SearchQuery($cursor: String) {
     posts(first: 5, before: $cursor) {
       nodes {
         id
@@ -26,9 +26,9 @@ const NEWS_ARCHIVE = gql`
   }
 `;
 
-const News = (props) => {
+const Search = (props) => {
   const { fetchingContent, state } = useLoadMoreHook(
-    NEWS_ARCHIVE,
+    SEARCH_QUERY,
     props,
     'news'
   );
@@ -76,16 +76,16 @@ const News = (props) => {
   );
 };
 
-News.propTypes = {
+Search.propTypes = {
   posts: PropTypes.any,
 };
 
-News.getInitialProps = async () => {
+Search.getInitialProps = async () => {
   if (process.browser) {
     return {};
   }
   const { data } = await apolloClient.query({
-    query: NEWS_ARCHIVE,
+    query: SEARCH_QUERY,
     variables: {
       cursor: null,
     },
@@ -94,4 +94,4 @@ News.getInitialProps = async () => {
   return posts;
 };
 
-export default News;
+export default Search;
