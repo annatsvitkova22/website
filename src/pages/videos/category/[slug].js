@@ -159,9 +159,7 @@ class Category extends Component {
               <div className="col-12">
                 <h1 className="cat-page__title text-uppercase d-flex">
                   <span className="tx-ellipsis">{categoryName}</span>
-                  <Link
-                    href="/videos/"
-                  >
+                  <Link href="/videos/">
                     <a href="/videos/" className="cat-page__back line-height-1">
                       <Times />
                     </a>
