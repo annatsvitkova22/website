@@ -12,7 +12,7 @@ const useLoadMoreHook = (query, props, type = '') => {
   useEffect(() => {
     async function loadData() {
       const response = await apolloClient.query({
-        query: query,
+        query,
         variables: {
           cursor: null,
         },
@@ -61,14 +61,13 @@ const useLoadMoreHook = (query, props, type = '') => {
   }, []);
 
   const fetchingContent = async () => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
+    setState({
+      ...state,
+      isLoading: true,
+    });
+
     const responseData = await apolloClient.query({
-      query: query,
+      query,
       variables: {
         cursor: state.endCursor,
       },
@@ -127,12 +126,6 @@ const useLoadMoreHook = (query, props, type = '') => {
         break;
     }
   };
-  if (state.isLoading) {
-    setState({
-      ...state,
-      isLoading: false,
-    });
-  }
   return {
     state,
     fetchingContent,

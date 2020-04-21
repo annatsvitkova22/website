@@ -15,6 +15,7 @@ import SiteLink from '~/components/SiteLink';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
+import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
@@ -88,6 +89,14 @@ class Category extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currCatId !== this.props.currCatId) {
+      this.setState({
+        videos: this.props.videos,
+      });
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll);
   }
@@ -133,6 +142,7 @@ class Category extends Component {
 
   render() {
     const { categoryName, currCatId, categories } = this.props;
+    const { isLoading } = this.state;
 
     return (
       <div className="videos-page">
@@ -166,8 +176,12 @@ class Category extends Component {
                           className="cat-list__item d-inline-block"
                           key={categoryId}
                         >
-                          <Link href={slug}>
+                          <Link
+                            href={`/videos/category/[slug]`}
+                            as={`/videos/category/${slug}`}
+                          >
                             <a
+                              href={`video/category/${slug}`}
                               className={`cat-list__button d-inline-block font-weight-bold tx-family-alt ${
                                 currCatId === categoryId
                                   ? 'cat-list__button--active'
@@ -192,6 +206,7 @@ class Category extends Component {
                 options={options()}
                 thumbnailContent={getThumbnailVideo}
               />
+              {isLoading && <VideoCategoryLoader />}
             </div>
           </div>
         </main>
