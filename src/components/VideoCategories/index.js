@@ -23,8 +23,14 @@ const VideoCategories = ({ categories }) => (
                 </h6>
               </div>
               <div className="col-6 text-right tx-green">
-                <Link href={`/videos/category/${category.slug}`}>
-                  <a className="video-category__watch-all tx-family-titles">
+                <Link
+                  href={`/videos/category/[slug]`}
+                  as={`/videos/category/${category.slug}`}
+                >
+                  <a
+                    href={`video/category/${category.slug}`}
+                    className="video-category__watch-all tx-family-titles"
+                  >
                     Дивись Усі
                   </a>
                 </Link>

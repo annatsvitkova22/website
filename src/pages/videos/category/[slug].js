@@ -17,7 +17,6 @@ import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
 import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
-
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
     categories(where: { slug: $slug }) {
@@ -87,6 +86,14 @@ class Category extends Component {
   componentDidMount() {
     if (this.state.hasNextPage) {
       window.addEventListener('scroll', this.onScroll);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currCatId !== this.props.currCatId) {
+      this.setState({
+        videos: this.props.videos,
+      });
     }
   }
 
@@ -170,8 +177,8 @@ class Category extends Component {
                           key={categoryId}
                         >
                           <Link
-                            href={`[slug]`}
-                            as={`${slug}`}
+                            href={`/videos/category/[slug]`}
+                            as={`/videos/category/${slug}`}
                           >
                             <a
                               href={`video/category/${slug}`}
