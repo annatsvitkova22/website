@@ -15,8 +15,8 @@ import SiteLink from '~/components/SiteLink';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
-import VideoLoader from '~/components/Loaders/VideoLoader';
 import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
+
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
@@ -169,8 +169,12 @@ class Category extends Component {
                           className="cat-list__item d-inline-block"
                           key={categoryId}
                         >
-                          <Link href={slug}>
+                          <Link
+                            href={`[slug]`}
+                            as={`${slug}`}
+                          >
                             <a
+                              href={`video/category/${slug}`}
                               className={`cat-list__button d-inline-block font-weight-bold tx-family-alt ${
                                 currCatId === categoryId
                                   ? 'cat-list__button--active'
