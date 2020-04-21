@@ -35,7 +35,6 @@ const Publications = (props) => {
   );
 
   if (!state.data.nodes) return <PublicationMainLoader />;
-  console.log(state);
   const { nodes, pageInfo } = state.data;
 
   return (
