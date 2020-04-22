@@ -60,8 +60,8 @@ const POST = gql`
   }
 `;
 const NEWS = gql`
-  query News($cursor: String) {
-    posts(first: 5, before: $cursor) {
+  query News($cursor: String, $articles: Int) {
+    posts(first: $articles, before: $cursor) {
       nodes {
         title
         link
@@ -95,6 +95,7 @@ const Post = ({ post, news }) => {
     const postsData = await apolloClient.query({
       query: NEWS,
       variables: {
+        articles: 3,
         cursor: state.endCursor,
       },
     });
@@ -177,6 +178,7 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   const news = await apolloClient.query({
     query: NEWS,
     variables: {
+      articles: 10,
       cursor: null,
     },
   });

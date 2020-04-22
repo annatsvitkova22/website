@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import Tags from '~/components/Tags';
 import ShareItems from '~/components/ShareItems';
@@ -7,11 +8,11 @@ import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const NewsHead = (props) => {
   const { post } = props;
+  moment.locale('uk');
 
-  const date = new Date(post.date);
   const [isLoad, setIsLoad] = React.useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     post ? setIsLoad(!isLoad) : setIsLoad(false);
   }, []);
 
@@ -35,7 +36,7 @@ const NewsHead = (props) => {
                   {post.author.firstName} {post.author.lastName}
                 </span>
                 <span className={'title__socials-date'}>
-                  {date.toDateString()}
+                  {moment(post.date).format('LLL')}
                 </span>
               </div>
             </div>
