@@ -47,6 +47,15 @@ body.isB-MenuOpen {
 
     width: 32px;
     height: 32px;
+
+    position: relative;
+
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    background: none;
+
+    cursor: pointer;
   }
   &__overlay {
     display: none;
@@ -98,14 +107,16 @@ body.isB-MenuOpen {
     line-height: 1.21;
     letter-spacing: 0.07em;
     text-transform: uppercase;
+  }
 
-    &-link {
-      display: block;
+  &__link {
+    display: block;
 
-      padding: 25px 16px;
-    }
+    padding: 25px 16px;
+  }
 
-    & > li:first-child {
+  &__item {
+    &--highlighted {
       display: flex;
       align-items: center;
 
@@ -117,14 +128,16 @@ body.isB-MenuOpen {
       line-height: 1.2;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-    }
-    & > li:first-child > a {
-      padding: 5px 10px;
 
-      background-color: $green;
+      .navigation__link {
+        padding: 5px 10px;
+
+        background-color: $green;
+      }
     }
   }
 }
+
 .burger__navigation {
   display: none;
 }
@@ -140,8 +153,6 @@ body.isB-MenuOpen {
     padding-left: 20px;
     &__overlay {
       display: flex;
-
-      margin-top: -68px;
 
       width: 100%;
       height: 100vh;

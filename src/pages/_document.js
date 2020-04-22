@@ -17,6 +17,9 @@ class ZmistDocument extends Document {
           <div id="modal" />
           <NextScript />
         </body>
+        {process.env.ENV === 'staging' && (
+          <script type="text/javascript" src="/scripts/usersnap.js" />
+        )}
       </Html>
     );
   }

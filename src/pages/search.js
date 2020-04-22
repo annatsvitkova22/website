@@ -1,25 +1,35 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { Waypoint } from 'react-waypoint';
 import Select, { components } from 'react-select';
 
+import apolloClient from '~/lib/ApolloClient';
+import NewsLoader from '~/components/Loaders/NewsLoader';
+import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChevronDown from '~/static/images/chevron-down';
 import Times from '~/static/images/times-small';
-import apolloClient from '~/lib/ApolloClient';
 
-const PAGE = gql`
-  query Page($uri: String!) {
-    pageBy(uri: $uri) {
-      title
-      content
+const SEARCH_QUERY = gql`
+  query SearchQuery($cursor: String) {
+    posts(first: 5, before: $cursor) {
+      nodes {
+        id
+        excerpt
+        title
+        slug
+      }
+      pageInfo {
+        endCursor
+        total
+      }
     }
   }
 `;
 
-const Page = (props) => {
-  const { page } = props;
-
+const Search = (props) => {
   const optionsTag = [
     {
       value: 'новини',
@@ -162,72 +172,110 @@ const Page = (props) => {
     }),
   };
 
+  const { fetchingContent, state } = useLoadMoreHook(
+    SEARCH_QUERY,
+    props,
+    'news'
+  );
+
+  if (!state.data.nodes) {
+    return (
+      <div>
+        <NewsLoader />
+        <NewsLoader />
+        <NewsLoader />
+      </div>
+    );
+  }
+  const { nodes, pageInfo } = state.data;
+
   return (
-    <div className="page">
+    <div className="news-page">
       <Head>
-        <title>{'Пошук'}</title>
+        {/* TODO: change title */}
+        <title>{'Change this!'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <input
-                className="search-form__field w-100"
-                type="search"
-                value="Полтава"
-              />
-              <form className="search-form d-flex">
-                <div className="search-form__row tx-small">
-                  <div className="search-form__text search-form__col">
-                    Текст
+        <React.Fragment>
+          <div className={'container'}>
+            {nodes.map((post, i) => (
+              <article key={post.id} style={{ height: '300px' }}>
+                <Link href="/news/[slug]" as={`/news/${post.slug}`}>
+                  <a href={`/news/${post.slug}`}>
+                    <h3>{post.title}</h3>
+                  </a>
+                </Link>
+                <div>{post.excerpt}</div>
+                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                  <Waypoint onEnter={fetchingContent} />
+                )}
+              </article>
+            ))}
+            {state.isLoading && <NewsLoader />}
+          </div>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <input
+                  className="search-form__field w-100"
+                  type="search"
+                  value="Полтава"
+                />
+                <form className="search-form d-flex">
+                  <div className="search-form__row tx-small">
+                    <div className="search-form__text search-form__col">
+                      Текст
+                    </div>
+                    <div className="search-form__authors search-form__col">
+                      Автори
+                    </div>
+                    <div className="search-form__tags search-form__col">
+                      Теги
+                    </div>
+                    <Select
+                      classNamePrefix="react-select"
+                      className="search-form__col search-form__col--select"
+                      isClearable
+                      options={optionsTag}
+                      placeholder="Тип"
+                      styles={colorStyles}
+                      components={{ ClearIndicator, DropdownIndicator }}
+                    />
+                    <Select
+                      classNamePrefix="react-select"
+                      className="search-form__col search-form__col--select"
+                      isClearable
+                      options={optionsCat}
+                      placeholder="Категорії"
+                      styles={colorStyles}
+                      components={{ ClearIndicator, DropdownIndicator }}
+                    />
+                    <Select
+                      classNamePrefix="react-select"
+                      className="search-form__col search-form__col--select"
+                      isClearable
+                      options={optionsPubdate}
+                      placeholder="Період"
+                      styles={colorStyles}
+                      components={{ ClearIndicator, DropdownIndicator }}
+                    />
+                    <Select
+                      classNamePrefix="react-select"
+                      className="search-form__col search-form__col--select"
+                      isClearable
+                      options={optionsShow}
+                      placeholder="Показати"
+                      styles={colorStyles}
+                      components={{ ClearIndicator, DropdownIndicator }}
+                    />
                   </div>
-                  <div className="search-form__authors search-form__col">
-                    Автори
-                  </div>
-                  <div className="search-form__tags search-form__col">Теги</div>
-                  <Select
-                    classNamePrefix="react-select"
-                    className="search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsTag}
-                    placeholder="Тип"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsCat}
-                    placeholder="Категорії"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsPubdate}
-                    placeholder="Період"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsShow}
-                    placeholder="Показати"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        </React.Fragment>
       </main>
     </div>
   );
@@ -259,19 +307,22 @@ const ClearIndicator = (props) => {
   );
 };
 
-Page.propTypes = {
-  page: PropTypes.any,
+Search.propTypes = {
+  posts: PropTypes.any,
 };
 
-// Page.getInitialProps = async ({ query: { uri } }) => {
-//   const { data } = await apolloClient.query({
-//     query: PAGE,
-//     variables: { uri },
-//   });
+Search.getInitialProps = async () => {
+  if (process.browser) {
+    return {};
+  }
+  const { data } = await apolloClient.query({
+    query: SEARCH_QUERY,
+    variables: {
+      cursor: null,
+    },
+  });
+  const { posts } = data;
+  return posts;
+};
 
-//   return {
-//     page: data.pageBy,
-//   };
-// };
-
-export default Page;
+export default Search;
