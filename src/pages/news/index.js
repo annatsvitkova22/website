@@ -1,22 +1,48 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
+import Article from '~/components/Article';
+import SidebarLoader from '~/components/Loaders/SidebarLoader';
+import '~/styles/pages/news.scss';
+import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String) {
     posts(first: 5, before: $cursor) {
       nodes {
         id
-        excerpt
         title
         slug
+        featuredImage {
+          mediaItemUrl
+        }
+        categories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+        author {
+          name
+          nicename
+          nickname
+          slug
+          userId
+          username
+        }
+        comments {
+          pageInfo {
+            total
+          }
+        }
+        date
       }
       pageInfo {
         endCursor
@@ -35,10 +61,19 @@ const News = (props) => {
 
   if (!state.data.nodes) {
     return (
-      <div>
-        <NewsLoader />
-        <NewsLoader />
-        <NewsLoader />
+      <div className="container">
+        <div className="news-archive row">
+          <main className="news-archive__content col-md-8">
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+          </main>
+          <aside className="news-archive__sidebar col-md-4">
+            <SidebarLoader />
+          </aside>
+        </div>
       </div>
     );
   }
@@ -52,26 +87,26 @@ const News = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <React.Fragment>
-          <div className={'container'}>
+      <div className="container">
+        <div className="news-archive row">
+          <main className="news-archive__content col-md-8">
             {nodes.map((post, i) => (
-              <article key={post.id} style={{ height: '300px' }}>
-                <Link href="/news/[slug]" as={`/news/${post.slug}`}>
-                  <a href={`/news/${post.slug}`}>
-                    <h3>{post.title}</h3>
-                  </a>
-                </Link>
-                <div>{post.excerpt}</div>
-                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                  <Waypoint onEnter={fetchingContent} />
-                )}
-              </article>
+              <>
+                <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                <Article type="news" post={post} key={post.id}>
+                  {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                    <Waypoint onEnter={fetchingContent} />
+                  )}
+                </Article>
+              </>
             ))}
             {state.isLoading && <NewsLoader />}
-          </div>
-        </React.Fragment>
-      </main>
+          </main>
+          <aside className="news-archive__sidebar col-md-4">
+            <SidebarLoader />
+          </aside>
+        </div>
+      </div>
     </div>
   );
 };

@@ -33,6 +33,7 @@ import NextPage from '../Gutenberg/NextPage';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
+  console.log(content);
 
   return (
     <>
