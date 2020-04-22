@@ -4,7 +4,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
-import '../../styles/pages/singleNews.scss';
+import '../../styles/pages/post.scss';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
@@ -13,6 +13,7 @@ import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import FeaturedImage from '~/components/FeaturedImage';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -109,6 +110,7 @@ const Post = ({ post, news }) => {
       },
     });
   };
+
   return (
     <>
       <Head>
@@ -116,28 +118,18 @@ const Post = ({ post, news }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="single-news">
+      <main className="single-post container">
         {post ? (
           <>
-            <NewsHead post={post} />
-            <section
-              className={'main row no-gutters justify-content-between'}
-              style={{ display: 'flex', alignItems: 'flex-start' }}
-            >
+            <div className={'single-post__title row'}>
+              <div className={'col-xl-9 col-12'}>
+                <NewsHead post={post} />
+                <FeaturedImage data={post.featuredImage} />
+              </div>
               <StickyBox
                 offsetTop={20}
                 offsetBottom={20}
-                className={'side-bar__wrapper col-1'}
-              >
-                <Share />
-              </StickyBox>
-              <section className={'description col-7'}>
-                <Content content={post.blocks} />
-              </section>
-              <StickyBox
-                offsetTop={20}
-                offsetBottom={20}
-                className={'side-bar__wrapper col-3'}
+                className={'side-bar__wrapper col-xl-3'}
               >
                 <section className={'latest'}>
                   <SideBarNews
@@ -148,8 +140,21 @@ const Post = ({ post, news }) => {
                   />
                 </section>
               </StickyBox>
-            </section>
-            <NewsFooter post={post} />
+
+              <section className={'single-post__main col-xl-9 col-12'}>
+                <StickyBox
+                  offsetTop={20}
+                  offsetBottom={20}
+                  className={'side-bar__wrapper col-xl-1'}
+                >
+                  <Share />
+                </StickyBox>
+                <section className={'single-post__content'}>
+                  <Content content={post.blocks} className={'content__posts'} />
+                  <NewsFooter post={post} />
+                </section>
+              </section>
+            </div>
           </>
         ) : (
           <PostHeaderLoader />
@@ -183,3 +188,4 @@ Post.getInitialProps = async ({ query: { slug } }) => {
 };
 
 export default Post;
+/**/

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Paragraph = ({ block }) => {
+const Paragraph = ({ block, className = '' }) => {
   // TODO: implement all other attributes
   const { attributes } = block;
   const style = {
@@ -16,7 +16,7 @@ const Paragraph = ({ block }) => {
   return (
     <p
       style={style}
-      className={`${attributes.className} gutenberg__paragraph`}
+      className={`${attributes.className} gutenberg__paragraph ${className}`}
       dangerouslySetInnerHTML={{ __html: attributes.content }}
     />
   );
