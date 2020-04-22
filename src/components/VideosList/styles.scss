@@ -25,20 +25,14 @@
   cursor: pointer;
 
   &__title {
-    // display: -webkit-box;
-
     max-height: 3.6rem;
-    // -webkit-box-orient: vertical;
+
     font-size: 14px;
 
-    // text-overflow: ellipsis;
-    // white-space: normal;
-    // -webkit-line-clamp: 3;
-
-    line-height: 1.2rem;
+    line-height: 1.05rem;
+    letter-spacing: 0.02em;
 
     overflow: hidden;
-
 
     @include media-breakpoint-down(sm) {
       margin-top: 5px;
@@ -49,7 +43,7 @@
     display: flex;
     align-items: center;
 
-    min-width: 100px;
+    min-width: 108px;
     
     &--current {
       color: $green;
@@ -60,5 +54,7 @@
     margin-left: 13px;
 
     font-size: 12px;
+    line-height: 1.333;
+    letter-spacing: 0.06em;
   }
 }

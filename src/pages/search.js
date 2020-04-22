@@ -11,6 +11,7 @@ import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChevronDown from '~/static/images/chevron-down';
 import Times from '~/static/images/times-small';
+import SearchIcon from '~/static/images/search';
 
 const SEARCH_QUERY = gql`
   query SearchQuery($cursor: String) {
@@ -198,10 +199,100 @@ const Search = (props) => {
       </Head>
 
       <main>
-        <React.Fragment>
-          <div className={'container'}>
+        <>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="search-form__field-wrapper pos-relative">
+                  <input
+                    className="search-form__field tx-family-titles font-weight-semibold w-100"
+                    type="search"
+                    // value="Полтава"
+                    placeholder="Пошук"
+                  />
+                  <button className="search-form__button pos-absolute pos-center-right">
+                    <SearchIcon />
+                  </button>
+                </div>
+                <form className="search-form d-flex">
+                  <ul className="search-form__row tx-small list-unstyled">
+                    <li className="search-form__text search-form__col">
+                      <input
+                        className="search-form__radio"
+                        type="radio"
+                        id="text"
+                        name="searchBy"
+                      />
+                      <label className="search-form__label" for="text">
+                        Текст
+                      </label>
+                    </li>
+                    <li className="search-form__authors search-form__col">
+                      <input
+                        className="search-form__radio"
+                        type="radio"
+                        id="author"
+                        name="searchBy"
+                      />
+                      <label className="search-form__label" for="author">
+                        Автори
+                      </label>
+                    </li>
+                    <li className="search-form__tags search-form__col">
+                      <input
+                        className="search-form__radio"
+                        type="radio"
+                        id="tags"
+                        name="searchBy"
+                      />
+                      <label className="search-form__label" for="tags">
+                        Теги
+                      </label>
+                    </li>
+                  </ul>
+                  <Select
+                    classNamePrefix="react-select"
+                    className="tx-tiny search-form__col search-form__col--select"
+                    isClearable
+                    options={optionsTag}
+                    placeholder="Тип"
+                    styles={colorStyles}
+                    components={{ ClearIndicator, DropdownIndicator }}
+                  />
+                  <Select
+                    classNamePrefix="react-select"
+                    className="tx-tiny search-form__col search-form__col--select"
+                    isClearable
+                    options={optionsCat}
+                    placeholder="Категорії"
+                    styles={colorStyles}
+                    components={{ ClearIndicator, DropdownIndicator }}
+                  />
+                  <Select
+                    classNamePrefix="react-select"
+                    className="tx-tiny search-form__col search-form__col--select"
+                    isClearable
+                    options={optionsPubdate}
+                    placeholder="Період"
+                    styles={colorStyles}
+                    components={{ ClearIndicator, DropdownIndicator }}
+                  />
+                  <Select
+                    classNamePrefix="react-select"
+                    className="tx-tiny search-form__col search-form__col--select"
+                    isClearable
+                    options={optionsShow}
+                    placeholder="Показати"
+                    styles={colorStyles}
+                    components={{ ClearIndicator, DropdownIndicator }}
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="container">
             {nodes.map((post, i) => (
-              <article key={post.id} style={{ height: '300px' }}>
+              <article key={post.id}>
                 <Link href="/news/[slug]" as={`/news/${post.slug}`}>
                   <a href={`/news/${post.slug}`}>
                     <h3>{post.title}</h3>
@@ -215,67 +306,7 @@ const Search = (props) => {
             ))}
             {state.isLoading && <NewsLoader />}
           </div>
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <input
-                  className="search-form__field w-100"
-                  type="search"
-                  value="Полтава"
-                />
-                <form className="search-form d-flex">
-                  <div className="search-form__row tx-small">
-                    <div className="search-form__text search-form__col">
-                      Текст
-                    </div>
-                    <div className="search-form__authors search-form__col">
-                      Автори
-                    </div>
-                    <div className="search-form__tags search-form__col">
-                      Теги
-                    </div>
-                    <Select
-                      classNamePrefix="react-select"
-                      className="search-form__col search-form__col--select"
-                      isClearable
-                      options={optionsTag}
-                      placeholder="Тип"
-                      styles={colorStyles}
-                      components={{ ClearIndicator, DropdownIndicator }}
-                    />
-                    <Select
-                      classNamePrefix="react-select"
-                      className="search-form__col search-form__col--select"
-                      isClearable
-                      options={optionsCat}
-                      placeholder="Категорії"
-                      styles={colorStyles}
-                      components={{ ClearIndicator, DropdownIndicator }}
-                    />
-                    <Select
-                      classNamePrefix="react-select"
-                      className="search-form__col search-form__col--select"
-                      isClearable
-                      options={optionsPubdate}
-                      placeholder="Період"
-                      styles={colorStyles}
-                      components={{ ClearIndicator, DropdownIndicator }}
-                    />
-                    <Select
-                      classNamePrefix="react-select"
-                      className="search-form__col search-form__col--select"
-                      isClearable
-                      options={optionsShow}
-                      placeholder="Показати"
-                      styles={colorStyles}
-                      components={{ ClearIndicator, DropdownIndicator }}
-                    />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </React.Fragment>
+        </>
       </main>
     </div>
   );

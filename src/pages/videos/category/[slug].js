@@ -155,7 +155,7 @@ class Category extends Component {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1 className="cat-page__title text-uppercase d-flex">
+                <h1 className="cat-page__title text-uppercase d-flex heading-huge">
                   <span className="tx-ellipsis">{categoryName}</span>
                   <Link href="/videos/">
                     <a href="/videos/" className="cat-page__back line-height-1">

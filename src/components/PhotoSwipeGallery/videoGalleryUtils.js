@@ -20,7 +20,7 @@ const getThumbnailVideo = (item) => {
       <h6 className="video-category__duration tx-tiny font-weight-medium">
         {item.duration}
       </h6>
-      <h6 className="video-category__name">{item.name}</h6>
+      <h4 className="video-category__name text-capitalize">{item.name}</h4>
     </>
   );
 };
@@ -40,8 +40,8 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                 )}" frameborder="0"></iframe>
               </div>
               <div class="video-category__info tx-white">
-                <h3>${title}</h3>
-                <div class="tx-small">${excerpt}</div>
+                <h3 class="video-popup__title">${title}</h3>
+                <div class="video-popup__excerpt tx-small">${excerpt}</div>
                 <div class="row">
                   <div class="col-6">
                     <time class="tx-tiny font-weight-bold tx-family-titles"
@@ -51,9 +51,15 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                   </div>
                   <div class="col-6">
                     <ul class="share-list list-unstyled d-flex justify-content-end">
-                      <li class="share-list__item">${share}</li>
-                      <li class="share-list__item">${facebook}</li>
-                      <li class="share-list__item">${telegram}</li>
+                      <li class="share-list__item">
+                        <a href="https://google.com/" target="_blank">${share}</a>
+                      </li>
+                      <li class="share-list__item">
+                        <a href="https://facebook.com/" target="_blank">${facebook}</a>
+                       </li>
+                      <li class="share-list__item">
+                        <a href="https://telegram.org/" target="_blank">${telegram}</a>
+                      </li>
                     </ul>
                   </div>
                 </div>

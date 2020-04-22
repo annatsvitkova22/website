@@ -4,15 +4,52 @@
   }
 
   &__button {
-    width: 64px;
-    height: 64px;
-    margin-right: 12px;
-    margin-top: 12px;
 
     &--close {
+      width: 64px;
+      height: 64px;
+      margin-right: 12px;
+      margin-top: 12px;
+      
       background-color: rgba($black, 0.8);
       border-radius: 50%;
       background-position: 10px -34px;
+
+      @include media-breakpoint-down(sm) {
+        background-color: rgba(244, 244, 244, 0.8);
+        background-image: none !important;
+
+        &::before,
+        &::after {
+          content: '';
+
+          width: 21px;
+          height: 2px;
+
+          position: absolute;
+          top: 50%;
+          left: 50%;
+
+          background-color: $black;
+
+          transform: translate(-50%, -50%);
+        }
+
+        &::before {
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        &::after {
+          transform: translate(-50%, -50%) rotate(-45deg);
+        }
+      }
+    }
+
+    &--arrow--left,
+    &--arrow--right {
+      @include media-breakpoint-down(sm) {
+        visibility: hidden;
+      }
     }
   }
 }
