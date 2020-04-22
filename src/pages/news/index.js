@@ -10,6 +10,7 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import Article from '~/components/Article';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import '~/styles/pages/news.scss';
+import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String) {
@@ -81,11 +82,14 @@ const News = (props) => {
         <div className="news-archive row">
           <main className="news-archive__content col-md-8">
             {nodes.map((post, i) => (
-              <Article type="news" post={post} key={post.id}>
-                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                  <Waypoint onEnter={fetchingContent} />
-                )}
-              </Article>
+              <>
+                <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                <Article type="news" post={post} key={post.id}>
+                  {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                    <Waypoint onEnter={fetchingContent} />
+                  )}
+                </Article>
+              </>
             ))}
             {state.isLoading && <NewsLoader />}
           </main>
