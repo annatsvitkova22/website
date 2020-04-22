@@ -70,10 +70,10 @@ const Header = () => {
 
   const fixedHeader = (event) => {
     if (window.scrollY < 100) {
-      setIsFixedHeader(false);
+     // setIsFixedHeader(false);
       setIsUnpinned(false);
-      setIsHidden(false);
-      setIsFixedHeader(false);
+     // setIsHidden(false);
+      //setIsFixedHeader(false);
     }
     const st = window.scrollY;
     if (window.scrollY > 100 && st > scrollPos) {
@@ -84,21 +84,21 @@ const Header = () => {
       setIsUnpinned(false);
     }
     if (window.scrollY > 250) {
-      setIsHidden(true);
+     // setIsHidden(true);
     }
     if (window.scrollY > 300) {
-      setIsFixedHeader(true);
+     // setIsFixedHeader(true);
     }
     scrollPos = st;
     if (window.scrollY > 500) {
-      setIsHidden(false);
+     // setIsHidden(false);
     }
 
     if (window.scrollY < 250) {
-      setIsHidden(false);
+     // setIsHidden(false);
     }
     if (window.scrollY < 300) {
-      setIsFixedHeader(false);
+     // setIsFixedHeader(false);
     }
   };
   const handleOpenClick = () => {
