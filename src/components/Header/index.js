@@ -47,9 +47,7 @@ const HEADER_QUERY = gql`
 const Header = () => {
   const { loading, data } = useQuery(HEADER_QUERY);
 
-  const [isFixedHeader, setIsFixedHeader] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
   const [isUnPinned, setIsUnpinned] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -58,8 +56,6 @@ const Header = () => {
     header: true,
     'fixed-header-pinned': isPinned,
     'fixed-header-unpinned': isUnPinned,
-    'fixed-header-hidden': isHidden,
-    'fixed-header': isFixedHeader,
     isMenuOpen,
   });
   React.useEffect(() => {
@@ -73,10 +69,7 @@ const Header = () => {
 
   const fixedHeader = () => {
     if (window.scrollY < 100) {
-      setIsFixedHeader(false);
       setIsUnpinned(false);
-      setIsHidden(false);
-      setIsFixedHeader(false);
     }
     const st = window.scrollY;
     if (window.scrollY > 100 && st > scrollPos) {
@@ -86,29 +79,15 @@ const Header = () => {
       setIsPinned(true);
       setIsUnpinned(false);
     }
-    if (window.scrollY > 250) {
-      setIsHidden(true);
-    }
-    if (window.scrollY > 300) {
-      setIsFixedHeader(true);
-    }
     scrollPos = st;
-    if (window.scrollY > 500) {
-      setIsHidden(false);
-    }
-
-    if (window.scrollY < 250) {
-      setIsHidden(false);
-    }
-    if (window.scrollY < 300) {
-      setIsFixedHeader(false);
-    }
   };
   const handleOpenClick = () => {
-    document.querySelector('body').classList.toggle('isB-MenuOpen');
-    setIsMenuOpen(!isMenuOpen);
     setIsPinned(false);
     setIsUnpinned(false);
+    setIsMenuOpen(!isMenuOpen);
+    !isMenuOpen
+      ? document.querySelector('body').classList.add('isB-MenuOpen')
+      : document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   const handleCloseClick = () => {
