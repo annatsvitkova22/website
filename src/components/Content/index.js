@@ -83,7 +83,7 @@ const Content = ({ content, className = '' }) => {
           }
           if (block.__typename === 'CoreHeadingBlock') {
             return (
-              <Heading block={block} key={`${block.__typename}-${index}`} />
+              <Heading className={className} block={block} key={`${block.__typename}-${index}`} />
             );
           }
           if (block.__typename === 'CoreGalleryBlock') {
@@ -92,10 +92,10 @@ const Content = ({ content, className = '' }) => {
             );
           }
           if (block.__typename === 'CoreListBlock') {
-            return <List block={block} key={`${block.__typename}-${index}`} />;
+            return <List className={className} block={block} key={`${block.__typename}-${index}`} />;
           }
           if (block.__typename === 'CoreQuoteBlock') {
-            return <Quote block={block} key={`${block.__typename}-${index}`} />;
+            return <Quote className={className} block={block} key={`${block.__typename}-${index}`} />;
           }
           if (block.__typename === 'CoreCoverBlock') {
             return <Cover block={block} key={`${block.__typename}-${index}`} />;

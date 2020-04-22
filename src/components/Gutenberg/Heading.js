@@ -1,43 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Heading = ({ block }) => {
+const Heading = ({ block, className = '' }) => {
   const style = {
     textAlign: block.attributes.align,
     color: block.attributes.textColor,
   };
   if (block.attributes.level === 1)
     return (
-      <h1 style={style} className={block.attributes.className}>
+      <h1
+        style={style}
+        className={`${block.attributes.className} ${className} gutenberg__title`}
+      >
         {block.attributes.content}
       </h1>
     );
   if (block.attributes.level === 2)
     return (
-      <h2 style={style} className={block.attributes.className}>
+      <h2
+        style={style}
+        className={`${block.attributes.className} ${className} gutenberg__title`}
+      >
         {block.attributes.content}
       </h2>
     );
   if (block.attributes.level === 3)
     return (
-      <h3 style={style} className={block.attributes.className}>
+      <h3
+        style={style}
+        className={`${block.attributes.className} ${className} gutenberg__title`}
+      >
         {block.attributes.content}
       </h3>
     );
   if (block.attributes.level === 4)
     return (
-      <h4 style={style} className={block.attributes.className}>
+      <h4
+        style={style}
+        className={`${block.attributes.className} ${className} gutenberg__title`}
+      >
         {block.attributes.content}
       </h4>
     );
   if (block.attributes.level === 5)
     return (
-      <h5 style={style} className={block.attributes.className}>
+      <h5
+        style={style}
+        className={`${block.attributes.className} ${className} gutenberg__title`}
+      >
         {block.attributes.content}
       </h5>
     );
   return (
-    <p style={style} className={block.attributes.className}>
+    <p
+      style={style}
+      className={`${block.attributes.className} ${className} gutenberg__title`}
+    >
       {block.attributes.content}
     </p>
   );
