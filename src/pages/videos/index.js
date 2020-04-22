@@ -12,6 +12,7 @@ import {
   addCategoryVideosDurations,
 } from '~/util';
 import Play from '~/static/images/play';
+import VideoLoader from '~/components/Loaders/VideoLoader';
 
 const VIDEOS_ARCHIVE = gql`
   query VideosArchive {
@@ -178,6 +179,7 @@ class VideosArchive extends Component {
   };
 
   render() {
+    const { isLoading } = this.state;
     const { videos } = this.props;
     const { isPlaying } = this.state;
     const { url, imageUrl, title, duration } = this.state.selectedVideo;
@@ -193,7 +195,7 @@ class VideosArchive extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-8">
-                <div className="pos-relative">
+                <div className="pos-relative video-detail__wrapper">
                   <img
                     className="video-detail__sizer w-100 h-auto"
                     src="/assets/videos/video-sizer-detail.png"
@@ -219,7 +221,7 @@ class VideosArchive extends Component {
                   )}
                 </div>
                 <div className="d-block d-lg-none">
-                  <div className="video-detail__duration tx-tiny font-weight-medium">
+                  <div className="video-detail__duration tx-tiny font-weight-medium tx-family-titles">
                     {duration}
                   </div>
                   <h1 className="video-detail__title">{title}</h1>
@@ -233,7 +235,7 @@ class VideosArchive extends Component {
                 />
               </div>
               <div className="col-12 d-none d-lg-block">
-                <div className="video-detail__duration tx-tiny font-weight-medium">
+                <div className="video-detail__duration tx-tiny font-weight-medium tx-family-titles">
                   {duration}
                 </div>
                 <h1 className="video-detail__title">{title}</h1>
@@ -242,6 +244,7 @@ class VideosArchive extends Component {
           </div>
           <div ref={this.categoriesRef}>
             <VideoCategories categories={this.state.categories} />
+            {isLoading && <VideoLoader />}
           </div>
         </main>
       </div>

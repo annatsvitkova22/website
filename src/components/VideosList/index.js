@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Play from '~/static/images/play';
 
 const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
-  <ul className="list-unstyled videos-list">
+  <ul className="list-unstyled videos-list tx-family-titles">
     {videos.slice(0, 20).map((video, i) => {
       const { title } = video;
       const { videoUrl, videoCover, duration } = video.zmVideoACF;

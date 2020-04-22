@@ -11,10 +11,10 @@ import {
   prepareGalleryItems,
   options,
 } from '~/components/PhotoSwipeGallery/videoGalleryUtils';
-import SiteLink from '~/components/SiteLink';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
+import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
@@ -88,6 +88,14 @@ class Category extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currCatId !== this.props.currCatId) {
+      this.setState({
+        videos: this.props.videos,
+      });
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll);
   }
@@ -133,6 +141,7 @@ class Category extends Component {
 
   render() {
     const { categoryName, currCatId, categories } = this.props;
+    const { isLoading } = this.state;
 
     return (
       <div className="videos-page">
@@ -146,14 +155,13 @@ class Category extends Component {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1 className="cat-page__title text-uppercase d-flex">
+                <h1 className="cat-page__title text-uppercase d-flex heading-huge">
                   <span className="tx-ellipsis">{categoryName}</span>
-                  <SiteLink
-                    href="/videos"
-                    className="cat-page__back line-height-1"
-                  >
-                    <Times />
-                  </SiteLink>
+                  <Link href="/videos/">
+                    <a href="/videos/" className="cat-page__back line-height-1">
+                      <Times />
+                    </a>
+                  </Link>
                 </h1>
               </div>
               <div className="col-12">
@@ -166,8 +174,12 @@ class Category extends Component {
                           className="cat-list__item d-inline-block"
                           key={categoryId}
                         >
-                          <Link href={slug}>
+                          <Link
+                            href={`/videos/category/[slug]`}
+                            as={`/videos/category/${slug}`}
+                          >
                             <a
+                              href={`video/category/${slug}`}
                               className={`cat-list__button d-inline-block font-weight-bold tx-family-alt ${
                                 currCatId === categoryId
                                   ? 'cat-list__button--active'
@@ -192,6 +204,7 @@ class Category extends Component {
                 options={options()}
                 thumbnailContent={getThumbnailVideo}
               />
+              {isLoading && <VideoCategoryLoader />}
             </div>
           </div>
         </main>

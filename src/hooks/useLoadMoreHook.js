@@ -70,12 +70,11 @@ const useLoadMoreHook = (query, props, type = '') => {
   }, []);
 
   const fetchingContent = async () => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
+    setState({
+      ...state,
+      isLoading: true,
+    });
+
     const responseData = await apolloClient.query({
       query,
       variables: {
@@ -153,12 +152,6 @@ const useLoadMoreHook = (query, props, type = '') => {
         console.log('no such type');
     }
   };
-  if (state.isLoading) {
-    setState({
-      ...state,
-      isLoading: false,
-    });
-  }
   return {
     state,
     fetchingContent,

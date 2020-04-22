@@ -11,6 +11,7 @@ $pswp__assets-path: '../../node_modules/photoswipe/src/css/default-skin/';
 // Pages
 @import 'pages/videos';
 @import 'pages/category';
+@import 'pages/search';
 
 //Import all styles.scss files from /components folder
 @import '../components/**/styles.scss';

@@ -12,27 +12,6 @@ h6, .h6 {
   font-family: $font-family-titles;
 }
 
-.heading {
-  &-huge {
-    font-size: 64px;
-  }
-
-  &-big {
-    font-size: 48px;
-    line-height: 1.2;
-  }
-
-  &-large {
-    font-size: 44px;
-    line-height: 1.1;
-  }
-
-  &-medium {
-    font-size: 32px;
-    line-height: 1.26;
-  }
-}
-
 h1, .h1 {
   margin-bottom: 36px;
 
@@ -56,12 +35,20 @@ h3, .h3 {
   font-size: 20px;
   line-height: 1.2;
   letter-spacing: 0.03em;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 18px;
+  }
 }
 
 h4, .h4 {
   font-size: 18px;
   line-height: 1.26;
   letter-spacing: 0.02em;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 14px;
+  }
 }
 
 h5, .h5 {
@@ -74,6 +61,33 @@ h6, .h6 {
   font-size: 14px;
   line-height: 1.2;
   letter-spacing: 0.05em;
+}
+
+.heading {
+  &-huge {
+    font-size: 64px;
+    letter-spacing: 0.05em;
+    line-height: 1.22;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 28px;
+    }
+  }
+
+  &-big {
+    font-size: 48px;
+    line-height: 1.2;
+  }
+
+  &-large {
+    font-size: 44px;
+    line-height: 1.1;
+  }
+
+  &-medium {
+    font-size: 32px;
+    line-height: 1.26;
+  }
 }
 
 .unordered-list,

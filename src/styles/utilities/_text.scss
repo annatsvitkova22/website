@@ -73,6 +73,7 @@ $tx-sizes: (
 @include media-breakpoint-down(sm) {
   $tx-sizes: (
     'base': 13,
+    'small': 13
   );
 
   @each $name, $size in $tx-sizes {

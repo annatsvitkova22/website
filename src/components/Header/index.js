@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import classNames from 'classnames';
 import Link from 'next/link';
 
-import Navigation from '../Navigation';
-import Logo from '../Logo';
-import Search from '../Search';
-import Icons from '../Icons';
-
+import Navigation from '~/components/Navigation';
+import Logo from '~/components/Logo';
+import Icons from '~/components/Icons';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
-import HeaderCategory from '~/components/Header/HeaderCategory';
+import SearchIcon from '~/components/Search/Icon';
+import SearchField from '~/components/Search/Field';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -34,6 +34,9 @@ const HEADER_QUERY = gql`
             id
             label
             url
+            menuItemACF {
+              ishighlighted
+            }
           }
         }
       }
@@ -43,22 +46,60 @@ const HEADER_QUERY = gql`
 
 const Header = () => {
   const { loading, data } = useQuery(HEADER_QUERY);
-  const [isOpen, setIsOpen] = React.useState('');
 
-  const ref = React.useRef(null);
+  const [isPinned, setIsPinned] = useState(false);
+  const [isUnPinned, setIsUnpinned] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  const headerCls = classNames({
+    header: true,
+    'fixed-header-pinned': isPinned,
+    'fixed-header-unpinned': isUnPinned,
+    isMenuOpen,
+  });
+  React.useEffect(() => {
+    window.addEventListener('scroll', fixedHeader);
+    return () => {
+      window.removeEventListener('scroll', fixedHeader);
+    };
+  }, []);
+
+  let scrollPos = 0;
+
+  const fixedHeader = () => {
+    if (window.scrollY < 100) {
+      setIsUnpinned(false);
+    }
+    const st = window.scrollY;
+    if (window.scrollY > 100 && st > scrollPos) {
+      setIsPinned(false);
+      setIsUnpinned(true);
+    } else if (window.scrollY > 100 && st < scrollPos) {
+      setIsPinned(true);
+      setIsUnpinned(false);
+    }
+    scrollPos = st;
+  };
   const handleOpenClick = () => {
-    // console.log(ref.current.classList.toggle('isOpen'));
-    isOpen === 'isOpen' ? setIsOpen('') : setIsOpen('isOpen');
+    setIsPinned(false);
+    setIsUnpinned(false);
+    setIsMenuOpen(!isMenuOpen);
+    !isMenuOpen
+      ? document.querySelector('body').classList.add('isB-MenuOpen')
+      : document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
+  const handleCloseClick = () => {
+    setIsMenuOpen(false);
+    document.querySelector('body').classList.remove('isB-MenuOpen');
+  };
   if (loading) return null;
 
   return (
-    <header className={'header'}>
+    <header className={`${headerCls}`}>
       <div className={'header__wrapper'}>
-        <Burger handleOpenClick={handleOpenClick} className={isOpen} />
-        <HeaderCategory className="navigation__list-link header__burger-category" />
+        <Burger handleOpenClick={handleOpenClick} />
         <Link href="/">
           <a>
             <Logo
@@ -76,11 +117,16 @@ const Header = () => {
             <Icons icon={'crest-location'} />
           </a>
         </div>
-        <div className={'header__search'}>
-          <Search color={'white'} className={'header__search-link'} />
-        </div>
+        <SearchIcon
+          onClick={() => setIsSearchOpen(!isSearchOpen)}
+          color={'white'}
+          className={'header__search'}
+        />
+        {isSearchOpen && (
+          <SearchField onSearch={() => setIsSearchOpen(false)} />
+        )}
       </div>
-      <div className={`header__overlay ${isOpen}`} ref={ref}>
+      <div className={`header__overlay`} onClick={handleCloseClick}>
         <HeaderMenu data={data} />
       </div>
     </header>
