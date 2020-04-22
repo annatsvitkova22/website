@@ -1,6 +1,6 @@
 .video-category {
   &__info {
-    padding: 26px 45px;
+    padding: 26px 45px 20px;
 
     background-color: $grey-700;
 
@@ -85,8 +85,22 @@
   }
 }
 
+.video-popup { 
+  &__title {
+    margin-bottom: 11px;
+  }
+
+  &__excerpt {
+    p {
+      margin-bottom: 17px;
+    }
+  }
+}
+
 .share-list {
+  margin-right: 10px;
+
   &__item + &__item{
-    margin-left: 25px;
+    margin-left: 21px;
   }
 }

@@ -40,5 +40,12 @@
 
   &__watch-all {
     font-size: 13px;
+
+    transition: color 0.3s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: lighten($green, 10%);
+    }
   }
 }

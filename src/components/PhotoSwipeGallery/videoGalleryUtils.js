@@ -40,8 +40,8 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                 )}" frameborder="0"></iframe>
               </div>
               <div class="video-category__info tx-white">
-                <h3>${title}</h3>
-                <div class="tx-small">${excerpt}</div>
+                <h3 class="video-popup__title">${title}</h3>
+                <div class="video-popup__excerpt tx-small">${excerpt}</div>
                 <div class="row">
                   <div class="col-6">
                     <time class="tx-tiny font-weight-bold tx-family-titles"
