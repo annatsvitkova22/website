@@ -58,7 +58,13 @@ const Content = ({ content, className = '' }) => {
             );
           }
           if (block.__typename === 'CoreAudioBlock') {
-            return <Audio className={className} block={block} key={`${block.__typename}-${index}`} />;
+            return (
+              <Audio
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
           }
           if (block.__typename === 'CoreEmbedYoutubeBlock') {
             return (
