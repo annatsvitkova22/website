@@ -11,9 +11,7 @@ const ChronologicalSeparator = ({ posts, currentIndex }) => {
     text = 'Вчора';
   }
   const date = posts[currentIndex].date;
-  return (
-    <time dateTime={date}>{text}</time>
-  )
-}
+  return <time dateTime={date}>{text}</time>;
+};
 
 export default ChronologicalSeparator;

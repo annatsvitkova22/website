@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
@@ -11,6 +11,10 @@ import Article from '~/components/Article';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import '~/styles/pages/news.scss';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
+import SidebarNews from '~/components/Sidebar/News';
+import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
+import NewsContext, { withNewsProvider } from '~/stores/News';
+import ArticleContext from '~/components/Article/Context';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String) {
@@ -59,6 +63,9 @@ const News = (props) => {
     'news'
   );
 
+  const newsContext = useContext(NewsContext);
+  console.log(newsContext);
+
   if (!state.data.nodes) {
     return (
       <div className="container">
@@ -72,6 +79,8 @@ const News = (props) => {
           </main>
           <aside className="news-archive__sidebar col-md-4">
             <SidebarLoader />
+            <SidebarLoader />
+            <ActionbarLoader />
           </aside>
         </div>
       </div>
@@ -102,9 +111,7 @@ const News = (props) => {
             ))}
             {state.isLoading && <NewsLoader />}
           </main>
-          <aside className="news-archive__sidebar col-md-4">
-            <SidebarLoader />
-          </aside>
+          <SidebarNews className="news-archive__sidebar col-md-4" />
         </div>
       </div>
     </div>
@@ -129,4 +136,4 @@ News.getInitialProps = async () => {
   return posts;
 };
 
-export default News;
+export default withNewsProvider(News);
