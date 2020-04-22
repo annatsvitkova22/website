@@ -111,18 +111,6 @@ const gutenbergBlocksQuery = `blocks {
               showDownloadButton
             }
           }
-          ... on CoreGalleryBlock {
-            saveContent
-            attributes {
-              images
-              linkTo
-              columns
-              className
-              align
-              imageCrop
-              caption
-            }
-          }
           ... on CoreCoverBlock {
             attributes {
               align
