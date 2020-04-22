@@ -1,4 +1,5 @@
 import React from 'react';
+import * as classnames from 'classnames';
 
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleComments from '~/components/Article/Comments';
@@ -6,7 +7,6 @@ import ArticleTitle from '~/components/Article/Title';
 import ArticleTaxonomies from '~/components/Article/Categories';
 import ArticleDate from '~/components/Article/Date';
 import ArticleFeatured from '~/components/Article/Featured';
-import * as classnames from 'classnames';
 
 const ArticleNews = ({ post, children, className }) => {
   return (

@@ -61,10 +61,19 @@ const News = (props) => {
 
   if (!state.data.nodes) {
     return (
-      <div>
-        <NewsLoader />
-        <NewsLoader />
-        <NewsLoader />
+      <div className="container">
+        <div className="news-archive row">
+          <main className="news-archive__content col-md-8">
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+          </main>
+          <aside className="news-archive__sidebar col-md-4">
+            <SidebarLoader />
+          </aside>
+        </div>
       </div>
     );
   }
