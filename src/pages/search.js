@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChevronDown from '~/static/images/chevron-down';
 import Times from '~/static/images/times-small';
 import SearchIcon from '~/static/images/search';
+import Filter from '~/static/images/filter';
 
 const SEARCH_QUERY = gql`
   query SearchQuery($cursor: String) {
@@ -179,6 +180,21 @@ const Search = (props) => {
     'news'
   );
 
+  const [mobile, setMobile] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+
+  const updateMobile = () => {
+    window.outerWidth < 768 ? setMobile(true) : setMobile(false);
+  };
+
+  useEffect(() => {
+    updateMobile();
+    window.addEventListener('resize', updateMobile);
+    return () => {
+      window.removeEventListener('resize', updateMobile);
+    };
+  }, [mobile]);
+
   if (!state.data.nodes) {
     return (
       <div>
@@ -189,6 +205,14 @@ const Search = (props) => {
     );
   }
   const { nodes, pageInfo } = state.data;
+
+  function onClick() {
+    setShowFilters(!showFilters);
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+  }
 
   return (
     <div className="news-page">
@@ -210,11 +234,17 @@ const Search = (props) => {
                     // value="Полтава"
                     placeholder="Пошук"
                   />
-                  <button className="search-form__button pos-absolute pos-center-right">
+                  <button
+                    type="button"
+                    className="search-form__button pos-absolute pos-center-right"
+                  >
                     <SearchIcon />
                   </button>
                 </div>
-                <form className="search-form d-flex">
+                <form
+                  onSubmit={onSubmit}
+                  className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap"
+                >
                   <ul className="search-form__row tx-small list-unstyled">
                     <li className="search-form__text search-form__col">
                       <input
@@ -250,42 +280,58 @@ const Search = (props) => {
                       </label>
                     </li>
                   </ul>
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsTag}
-                    placeholder="Тип"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsCat}
-                    placeholder="Категорії"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsPubdate}
-                    placeholder="Період"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsShow}
-                    placeholder="Показати"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
+                  {mobile && (
+                    <button
+                      onClick={onClick}
+                      className={`${showFilters ? 'tx-green' : 'tx-black'}`}
+                    >
+                      <Filter />
+                    </button>
+                  )}
+                  {true && (
+                    <div
+                      className={`search-form__selects w-100 ${
+                        showFilters ? 'd-flex' : 'd-none d-md-flex'
+                      } flex-column flex-md-row`}
+                    >
+                      <Select
+                        classNamePrefix="react-select"
+                        className="tx-tiny search-form__col search-form__col--select"
+                        isClearable
+                        options={optionsTag}
+                        placeholder="Тип"
+                        styles={colorStyles}
+                        components={{ ClearIndicator, DropdownIndicator }}
+                      />
+                      <Select
+                        classNamePrefix="react-select"
+                        className="tx-tiny search-form__col search-form__col--select"
+                        isClearable
+                        options={optionsCat}
+                        placeholder="Категорії"
+                        styles={colorStyles}
+                        components={{ ClearIndicator, DropdownIndicator }}
+                      />
+                      <Select
+                        classNamePrefix="react-select"
+                        className="tx-tiny search-form__col search-form__col--select"
+                        isClearable
+                        options={optionsPubdate}
+                        placeholder="Період"
+                        styles={colorStyles}
+                        components={{ ClearIndicator, DropdownIndicator }}
+                      />
+                      <Select
+                        classNamePrefix="react-select"
+                        className="tx-tiny search-form__col search-form__col--select"
+                        isClearable
+                        options={optionsShow}
+                        placeholder="Показати"
+                        styles={colorStyles}
+                        components={{ ClearIndicator, DropdownIndicator }}
+                      />
+                    </div>
+                  )}
                 </form>
               </div>
             </div>
