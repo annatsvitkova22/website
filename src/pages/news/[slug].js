@@ -111,7 +111,6 @@ const Post = ({ post, news }) => {
     });
   };
 
-  console.log(post.featuredImage);
   return (
     <>
       <Head>
