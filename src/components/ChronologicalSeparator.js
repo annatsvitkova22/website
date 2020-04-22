@@ -7,7 +7,7 @@ const ChronologicalSeparator = ({ posts, currentIndex }) => {
   const currentDate = moment(posts[currentIndex].date);
   if (currentDate.isSame(prevDate, 'day')) return null;
   let text = currentDate.locale('uk').format('D MMMM');
-  if (moment().subtract(1, 'days').isSame(currentDate)) {
+  if (moment().subtract(1, 'days').isSame(currentDate, 'day')) {
     text = 'Вчора';
   }
   const date = posts[currentIndex].date;
