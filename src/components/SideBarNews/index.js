@@ -7,7 +7,7 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 const SideBarNews = ({ news, fetchingContent, isLoading }) => {
   if (!news) return <SidebarLoader />;
   return (
-    <ul>
+    <ul className={'latest__news'}>
       <span>Новини</span>
       {news.nodes.map((item, i) => {
         return (

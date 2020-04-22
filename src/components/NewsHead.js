@@ -24,7 +24,7 @@ const NewsHead = (props) => {
         <>
           <Tags list={post.categories.nodes} className={'category'} />
           <h1>{post.title}</h1>
-          <article dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+          <article className={'title__title'} dangerouslySetInnerHTML={{ __html: post.excerpt }} />
           <div className={'title__socials'}>
             <div className={'title__socials-about'}>
               <span className="title__socials-image">

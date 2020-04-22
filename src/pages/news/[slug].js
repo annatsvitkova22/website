@@ -110,6 +110,8 @@ const Post = ({ post, news }) => {
       },
     });
   };
+
+  console.log(post.featuredImage);
   return (
     <>
       <Head>
@@ -139,23 +141,21 @@ const Post = ({ post, news }) => {
                   />
                 </section>
               </StickyBox>
-            </div>
-            <section
-              className={'main row no-gutters justify-content-between'}
-              style={{ display: 'flex', alignItems: 'flex-start' }}
-            >
-              <StickyBox
-                offsetTop={20}
-                offsetBottom={20}
-                className={'side-bar__wrapper col-1'}
-              >
-                <Share />
-              </StickyBox>
-              <section className={'description col-7'}>
-                <Content content={post.blocks} />
+
+              <section className={'single-post__main col-lg-9'}>
+                <StickyBox
+                  offsetTop={20}
+                  offsetBottom={20}
+                  className={'side-bar__wrapper col-lg-1'}
+                >
+                  <Share />
+                </StickyBox>
+                <section className={'single-post__content'}>
+                  <Content content={post.blocks} className={'content__posts'} />
+                  <NewsFooter post={post} />
+                </section>
               </section>
-            </section>
-            <NewsFooter post={post} />
+            </div>
           </>
         ) : (
           <PostHeaderLoader />

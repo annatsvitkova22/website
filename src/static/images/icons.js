@@ -151,6 +151,14 @@ const icons = [
 </svg>
 `,
   },
+  {
+    type: 'likes',
+    tag: `<svg width="5" height="24" viewBox="0 0 5 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.41669 18.3124H0L0.0622069 -4.57764e-05H4.61886L4.41669 18.3124Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 24H4.41669V20.0874H0V24Z" fill="#1D9E74"/>
+</svg>
+`
+  },
 ];
 
 export default icons;
