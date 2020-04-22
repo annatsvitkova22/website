@@ -1,22 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import * as classnames from 'classnames';
+import { useStateLink } from '@hookstate/core';
 
 import Sorting from '~/components/Sorting';
-import NewsContext from '~/stores/News';
+import { newsStore, setSorting } from '~/stores/News';
 
 const SidebarNews = ({ className }) => {
-  const changeSorting = (option) => {
-    console.log(option);
-  }
+  const stateLink = useStateLink(newsStore);
+  const state = stateLink.get();
 
-  const newsContext = useContext(NewsContext);
+  const currentOption = state.sorting.find((i) => i.active);
 
   return (
     <aside className={classnames('sidebar--news', className)}>
       <Sorting
-        options={newsContext.sorting}
+        currentOption={currentOption}
+        options={state.sorting}
         className={classnames('sorting--news', className)}
-        onChange={changeSorting}
+        onChange={setSorting}
       />
     </aside>
   );

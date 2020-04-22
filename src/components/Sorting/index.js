@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as classnames from 'classnames';
 
+import './styles.scss';
+
 const Sorting = ({
-  defaultValue,
+  currentOption,
   onChange = () => {},
   options = [],
   className,
 }) => {
   if (!options.length) return null;
-  defaultValue = defaultValue || options[0].value;
-
-  const [currentOption, setCurrentOption] = useState(defaultValue);
-
-  const change = (option) => {
-    setCurrentOption(option);
-    onChange();
-  };
 
   return (
     <ul className={classnames('sorting', className)}>
@@ -23,10 +17,12 @@ const Sorting = ({
         <li
           key={option.value}
           className={classnames('sorting__item', {
-            'sorting__item--active': option.value === currentOption,
+            'sorting__item--active': option.value === currentOption.value,
           })}
         >
-          <button onClick={() => change(option.value)}>{option.label}</button>
+          <button className="sorting__button" onClick={() => onChange(option)}>
+            {option.label}
+          </button>
         </li>
       ))}
     </ul>

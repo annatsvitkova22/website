@@ -1,10 +1,11 @@
-import React from 'react';
+import { createStateLink } from '@hookstate/core';
 
-const NewsContext = React.createContext({
+export const newsStore = createStateLink({
   sorting: [
     {
       label: 'останні',
       value: 'latest',
+      active: true,
     },
     {
       label: 'найбільше переглядів',
@@ -18,11 +19,15 @@ const NewsContext = React.createContext({
       label: 'спочатку старі',
       value: 'old-first',
     },
-  ]
+  ],
 });
-export const NewsProvider = NewsContext.Provider;
-export default NewsContext;
 
-export const withNewsProvider = ({ children }) => {
-  return <NewsProvider>{children}</NewsProvider>;
+export const setSorting = (option) => {
+  const newStore = newsStore.get();
+  newStore.sorting.map((i) => {
+    const newValue = i;
+    newValue.active = newValue.value === option.value;
+    return newValue;
+  });
+  newsStore.set(newStore);
 };

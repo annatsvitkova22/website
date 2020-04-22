@@ -1,0 +1,9 @@
+.sorting {
+  &__item {
+    &--active {
+      .sorting__button {
+        background-color: red;
+      }
+    }
+  }
+}
