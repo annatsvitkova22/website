@@ -8,9 +8,6 @@
   }
 
   &__back {
-    display: flex;
-    align-items: center;
-
     margin-left: 34px;
 
     opacity: 0.24;
@@ -20,6 +17,11 @@
     &:focus,
     &:hover {
       opacity: 1;
+    }
+
+    svg {
+      width: 13px;
+      height: 13px;
     }
   }
 }
