@@ -41,8 +41,8 @@ const Crowdfunding = (props) => {
       </Head>
 
       <main>
-        <section className="cf-crowdfunding">
-          <section className="cf-content">
+        <section className="cf-crowdfunding row">
+          <section className="cf-content col-9">
             <div className="cfsingle__title">
               {crowdfunding.title}
             </div>
@@ -55,18 +55,16 @@ const Crowdfunding = (props) => {
             </div>
             <div className="cfitem__timeout"></div>
           </section>
-          <section className="cf-sidebar">
+          <section className="cf-sidebar col-3">
             <div className="cfsingle__collected">
+              <span className="cfsingle__collected__target">Ціль <NumberFormat value={crowdfunding.cfACF.crowdfundingRequiredAmountToCollect} displayType={'text'} format="## ### ### ₴"/></span>
               <div className="cfsingle__collected__amount">
-                <NumberFormat value={10000} displayType={'text'} format="## ### ### ₴"/>
-                Зібрано з <NumberFormat value={crowdfunding.cfACF.crowdfundingRequiredAmountToCollect} displayType={'text'} format="## ### ### ₴"/>
-                <ProgressBar now={60}/>
+                <NumberFormat value={10000} displayType={'text'} format="## ### ### грн"/> <span className="cfsingle__collected__amount__word"> зібрано</span>
+                <ProgressBar now={60} />
               </div>
-            </div>
-            <div className="cf-sidebar__info">
-                <div>14<br />Підтримали</div>
-                <div>{crowdfunding.cfACF.crowdfundingExpirationDate}<br />Запушено</div>
-                <div>25 днів<br />Залишилося</div>
+              <div className="cf-sidebar__info__supported">Підтримали<span>145</span></div>
+              <div className="cf-sidebar__info__spread">Підтримали<span>123</span></div>
+              <div className="cf-sidebar__info__spread"><span>{crowdfunding.cfACF.crowdfundingExpirationDate} днів</span> Залишилося</div>
             </div>
             <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">Підтримати проєкт</a>
             <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">Поділитися</a>

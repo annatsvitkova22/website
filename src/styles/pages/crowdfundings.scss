@@ -180,7 +180,7 @@
       flex-wrap: wrap;
 
       .cf-content {
-        width: 70%;
+        /* width: 70%; */
         padding-right: 79px;
 
         .cfsingle__thumb {
@@ -212,7 +212,7 @@
         /* align-items: flex-start; */
         align-items: center;
 
-        width: 30%;
+        /* width: 30%; */
 
         .cfsingle__collected {
           display: flex;
@@ -222,12 +222,48 @@
 
           margin-top: 40px;
 
+          .cfsingle__collected__target {
+            font-family: sans-serif;
+            font-style: normal;
+
+            font-weight: 600;
+            font-size: 10px;
+            line-height: 16px;
+
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #606664;
+          }
+
           .cfsingle__collected__amount {
-            font-size: 20px;
+            font-family: sans-serif;
+            font-style: normal;
+
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 120%;
+            /* identical to box height, or 36px */
+
+            letter-spacing: 0.02em;
+
+            /* brand / green */
+
+            color: #1D9E74;
+
+            .cfsingle__collected__amount__word {
+              font-weight: 600;
+              font-size: 18px;
+              line-height: 120%;
+
+              letter-spacing: 0.02em;
+
+              color: #1D9E74;
+            }
           }
 
         }
 
+        /*
         .cf-sidebar__info {
           display: flex;
           flex-direction: row;
@@ -240,6 +276,7 @@
           font-size: 14px;
           line-height: 150%;
         }
+        */
 
         .cf-sidebar__btn {
           padding: 22px 0 22px 0;
