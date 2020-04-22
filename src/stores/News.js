@@ -1,4 +1,5 @@
 import { createStateLink } from '@hookstate/core';
+import * as moment from 'moment';
 
 export const NewsStore = createStateLink({
   sorting: [
@@ -21,6 +22,10 @@ export const NewsStore = createStateLink({
       value: 'old',
     },
   ],
+  filters: {
+    date: moment().format(),
+    categories: []
+  }
 });
 
 export const setSorting = (option) => {
@@ -30,5 +35,11 @@ export const setSorting = (option) => {
     newValue.active = newValue.value === option.value;
     return newValue;
   });
+  NewsStore.merge(newStore);
+};
+
+export const setDate = (date) => {
+  const newStore = NewsStore.get();
+  newStore.filters.date = moment(date).format();
   NewsStore.merge(newStore);
 };
