@@ -17,7 +17,7 @@ const CommentsButton = ({ className, comments }) => {
     <>
       <button className={`comments-button`} onClick={changeVisibility}>
         <Icons icon={'comment'} />
-        <span>Кометарі</span>
+        <span>Коментарі</span>
         {comments && <span>( {comments.pageInfo.total})</span>}
       </button>
       <CommentsPopUp isVisible={isVisible} />

@@ -11,8 +11,8 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import PublicationMainLoader from '~/components/Loaders/PublicationMainLoader';
 
 const PUBLICATIONS_ARCHIVE = gql`
-  query PublicationsArchive($cursor: String) {
-    publications(first: 5, before: $cursor) {
+  query PublicationsArchive($cursor: String, $articles: Inh) {
+    publications(first: $articles, before: $cursor) {
       nodes {
         excerpt
         title

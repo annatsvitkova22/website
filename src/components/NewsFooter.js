@@ -4,16 +4,19 @@ import PropTypes from 'prop-types';
 import Tags from '~/components/Tags';
 import ShareItems from '~/components/ShareItems';
 import CommentsButton from '~/components/CommentsButton';
+import Icons from '~/components/Icons';
 
 const NewsFooter = ({ post }) => {
   return (
-    <section className={'news-footer'}>
+    <section className={'single-post__footer'}>
       <Tags list={post.tags.nodes} className={'tag'} />
-      <div className={'news-footer__comments row no-gutters'}>
+      <div className={'footer__comments'}>
         <CommentsButton className={'col-3'} commetnts={post.comments} />
-        <div className={'comments__share col-4'}>
-          <span className={'like'}>!</span>
-          <ShareItems />
+        <div className={'footer__comments-share'}>
+          <span className={'like'}>
+            <Icons icon={'likes'} />
+          </span>
+          <ShareItems className={'title__socials-items'} />
         </div>
       </div>
     </section>

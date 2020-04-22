@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import * as classnames from 'classnames';
-import ArticleContext from '~/components/Article/Context';
 import Link from 'next/link';
+
+import ArticleContext from '~/components/Article/Context';
 
 const ArticleFeatured = ({ image, alt = '', slug, className }) => {
   if (!image || !image.mediaItemUrl) return null;
