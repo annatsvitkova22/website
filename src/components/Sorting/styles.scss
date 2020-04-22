@@ -1,8 +1,26 @@
 .sorting {
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+
+  &__button {
+    display: flex;
+
+    padding: 0;
+
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent;
+
+    cursor: pointer;
+  }
+
   &__item {
     &--active {
       .sorting__button {
-        background-color: red;
+        font-weight: bold;
       }
     }
   }

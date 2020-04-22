@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import apolloClient from '~/lib/ApolloClient';
+import { orderByEnumType } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
@@ -21,7 +22,7 @@ const useLoadMoreHook = (
         query,
         variables: {
           articles: initialNumber,
-          cursor: null,
+          cursor: null
         },
       });
       switch (type) {

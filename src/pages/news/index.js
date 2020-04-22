@@ -15,7 +15,11 @@ import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String, $articles: Int) {
-    posts(first: $articles, before: $cursor) {
+    posts(
+      where: { orderby: { field: DATE, order: DESC } }
+      first: $articles
+      before: $cursor
+    ) {
       nodes {
         id
         title
@@ -59,8 +63,31 @@ const News = (props) => {
     props,
     'news',
     10,
-    2
+    2,
+    'DATE',
+    'ASC'
   );
+
+  // const router = useRouter();
+  // console.log(router);
+  //
+  // const newsStore = useStateLink(NewsStore);
+  // console.log(newsStore);
+
+  // const { sorting } = newsStore.get();
+  //
+  // const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+  //   if (current.active) acc.currentSorting = current;
+  //   if (current.default) acc.defaultSorting = current;
+  //   return acc;
+  // }, {});
+  //
+  // if (currentSorting.value !== defaultSorting.value) {
+  //   router.replace({
+  //     pathname: '/news',
+  //     query: { sorting: currentSorting.value },
+  //   });
+  // }
 
   if (!state.data.nodes) {
     return (
@@ -122,13 +149,17 @@ News.getInitialProps = async () => {
   if (process.browser) {
     return {};
   }
+
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
     variables: {
       articles: 10,
       cursor: null,
+      orderby: 'DATE',
+      order: 'ASC',
     },
   });
+
   const { posts } = data;
   return posts;
 };

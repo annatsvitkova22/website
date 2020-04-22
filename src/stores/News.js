@@ -1,10 +1,11 @@
 import { createStateLink } from '@hookstate/core';
 
-export const newsStore = createStateLink({
+export const NewsStore = createStateLink({
   sorting: [
     {
       label: 'останні',
-      value: 'latest',
+      value: 'recent',
+      default: true,
       active: true,
     },
     {
@@ -17,17 +18,17 @@ export const newsStore = createStateLink({
     },
     {
       label: 'спочатку старі',
-      value: 'old-first',
+      value: 'old',
     },
   ],
 });
 
 export const setSorting = (option) => {
-  const newStore = newsStore.get();
+  const newStore = NewsStore.get();
   newStore.sorting.map((i) => {
     const newValue = i;
     newValue.active = newValue.value === option.value;
     return newValue;
   });
-  newsStore.set(newStore);
+  NewsStore.merge(newStore);
 };
