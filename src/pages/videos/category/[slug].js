@@ -11,12 +11,10 @@ import {
   prepareGalleryItems,
   options,
 } from '~/components/PhotoSwipeGallery/videoGalleryUtils';
-import SiteLink from '~/components/SiteLink';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
 import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
-import NavLink from '~/components/SiteLink';
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
