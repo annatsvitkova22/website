@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 
 import apolloClient from '~/lib/ApolloClient';
 
-const useLoadMoreHook = (query, props, type = '') => {
+const useLoadMoreHook = (
+  query,
+  props,
+  type = '',
+  initialNumber = 10,
+  onLoadNumber = 3
+) => {
   const [state, setState] = useState({
     data: props,
     endCursor: props.pageInfo ? props.pageInfo.endCursor : null,
@@ -14,7 +20,7 @@ const useLoadMoreHook = (query, props, type = '') => {
       const response = await apolloClient.query({
         query,
         variables: {
-          articles: 10,
+          articles: initialNumber,
           cursor: null,
         },
       });
@@ -70,7 +76,7 @@ const useLoadMoreHook = (query, props, type = '') => {
     const responseData = await apolloClient.query({
       query,
       variables: {
-        articles: 3,
+        articles: onLoadNumber,
         cursor: state.endCursor,
       },
     });

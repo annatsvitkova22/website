@@ -57,7 +57,9 @@ const News = (props) => {
   const { fetchingContent, state } = useLoadMoreHook(
     NEWS_ARCHIVE,
     props,
-    'news'
+    'news',
+    10,
+    2
   );
 
   if (!state.data.nodes) {
