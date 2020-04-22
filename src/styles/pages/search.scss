@@ -3,9 +3,23 @@
   padding-bottom: 10px;
 
   border-bottom: 1px solid $grey-100;
+
+  &__button {
+    background-color: transparent;
+    border: none;
+
+    color: $grey-200;
+
+    cursor: pointer;
+    transition: color 0.3s ease-in;
+
+    &:hover,
+    &:focus {
+      color: $green;
+    }
+  }
   
   &__field {
-    max-width: 872px;
     padding-bottom: 8px;
     margin-bottom: 22px;
 
@@ -16,6 +30,10 @@
     outline: none;
 
     font-size: 32px;
+  }
+
+  &__field-wrapper {
+    max-width: 872px;
   }
 
   &__col {
@@ -35,6 +53,23 @@
 
     margin-left: -#{$grid-columns}px;
     margin-right: -#{$grid-columns}px;
+  }
+
+  &__radio {
+    height: 0;
+    width: 0;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    &:checked + label {
+      font-weight: 700;
+    }
+  }
+
+  &__label {
+    margin-bottom: 0;
   }
 }
 
