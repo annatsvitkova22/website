@@ -41,6 +41,10 @@ h4, .h4 {
   font-size: 18px;
   line-height: 1.26;
   letter-spacing: 0.02em;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 14px;
+  }
 }
 
 h5, .h5 {
@@ -60,6 +64,10 @@ h6, .h6 {
     font-size: 64px;
     letter-spacing: 0.05em;
     line-height: 1.22;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 28px;
+    }
   }
 
   &-big {
