@@ -16,15 +16,15 @@ const NewsHead = (props) => {
   }, []);
 
   return (
-    <section className={'single-post__title-wrapper col-lg-11'}>
+    <section className={'single-post__title-wrapper col-xl-11'}>
       {!isLoad ? (
         <PostHeaderLoader />
       ) : (
         <>
           <Tags list={post.categories.nodes} className={'category'} />
-          <h1>{post.title}</h1>
+          <h1 className={'title__title'}>{post.title}</h1>
           <article
-            className={'title__title'}
+            className={'title__description'}
             dangerouslySetInnerHTML={{ __html: post.excerpt }}
           />
           <div className={'title__socials'}>

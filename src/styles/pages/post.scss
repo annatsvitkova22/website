@@ -38,7 +38,7 @@
 
   height: 170px;
 }
-.title__title > p {
+.title__description > p {
   margin-bottom: 37px;
 }
 .title__socials {
@@ -159,9 +159,6 @@
     margin-left: auto;
   }
 }
-
-/*------------ old ------------*/
-
 .share {
   display: flex;
   flex-direction: column;
@@ -189,23 +186,9 @@
     border-top: 1px solid grey;
   }
 }
-
 .svg-icon:hover {
   color: #1d9e74;
 }
-.news-footer__comments {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  .comments__share {
-    display: flex;
-    align-items: center;
-  }
-}
-.gutenberg__image:last-of-type {
-  width: 1440px;
-}
-
 .latest {
   height: 300px;
 
@@ -216,7 +199,103 @@
     padding-bottom: 15px;
   }
 }
-.main {
-  display: flex;
-  flex-wrap: nowrap;
+
+
+@media screen and (max-width: 1024px) {
+  .single-post__title {
+    margin-left: -12px;
+  }
+  .side-bar__wrapper {
+    display: none;
+  }
+  .single-post__main {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .single-post {
+    padding-top: 88px;
+  }
+  .category-tag__list {
+    flex-wrap: wrap;
+
+    margin-bottom: 0;
+  }
+  .tag {
+    padding: 0;
+  }
+  .category-tag__list > li {
+    margin-bottom: 10px;
+  }
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .title {
+    &__title {
+      margin-bottom: 8px;
+
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 31px;
+      letter-spacing: -0.01em;
+      text-transform: capitalize;
+    }
+    &__description > p {
+      margin-bottom: 20px;
+
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      letter-spacing: 0.03em;
+    }
+    &__socials {
+      padding-bottom: 20px;
+      &-name {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.05em;
+      }
+      &-date {
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.07em;
+      }
+    }
+  }
+  .feature__image {
+    margin-left: 0;
+    margin-bottom: 20px;
+    &-caption {
+      padding-bottom: 0;
+    }
+    &-description > p {
+      margin-bottom: 0;
+    }
+  }
+  .footer__comments {
+    flex-direction: column;
+    &-share {
+      margin: 0 auto;
+    }
+  }
+  .comments-button {
+    width: 100%;
+
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .title__socials-items > a:nth-child(2) {
+    display: none;
+  }
+
+  .footer__comments-share {
+    .title__socials-items > a:nth-child(2) {
+      display: block;
+    }
+  }
 }

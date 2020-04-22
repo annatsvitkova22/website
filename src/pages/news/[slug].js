@@ -122,14 +122,14 @@ const Post = ({ post, news }) => {
         {post ? (
           <>
             <div className={'single-post__title row'}>
-              <div className={'col-lg-9'}>
+              <div className={'col-xl-9 col-12'}>
                 <NewsHead post={post} />
                 <FeaturedImage data={post.featuredImage} />
               </div>
               <StickyBox
                 offsetTop={20}
                 offsetBottom={20}
-                className={'side-bar__wrapper col-lg-3'}
+                className={'side-bar__wrapper col-xl-3'}
               >
                 <section className={'latest'}>
                   <SideBarNews
@@ -141,11 +141,11 @@ const Post = ({ post, news }) => {
                 </section>
               </StickyBox>
 
-              <section className={'single-post__main col-lg-9'}>
+              <section className={'single-post__main col-xl-9 col-12'}>
                 <StickyBox
                   offsetTop={20}
                   offsetBottom={20}
-                  className={'side-bar__wrapper col-lg-1'}
+                  className={'side-bar__wrapper col-xl-1'}
                 >
                   <Share />
                 </StickyBox>

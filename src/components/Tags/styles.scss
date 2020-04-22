@@ -7,7 +7,6 @@
   li {
     list-style: none;
 
-    margin-right: 10px;
     padding: 5px 10px;
 
     font-size: 10px;
@@ -15,21 +14,27 @@
     text-transform: uppercase;
   }
 }
-
-.category > li {
-  background-color: $green;
-
-  color: $white;
-}
-.tag {
-  padding-bottom: 32px;
-}
 .tag > li {
   background-color: rgba(29, 158, 116, 0.08);
 
   color: $green;
 }
 
-.tag-item:hover  {
+.category > li {
+  background-color: $green;
+
+  color: $white;
+}
+.category > li:not(:last-child) {
+  margin-right: 10px;
+}
+.tag {
+  padding-bottom: 32px;
+}
+.tag > li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.tag-item:hover {
   background: rgba(29, 158, 116, 0.16);
 }
