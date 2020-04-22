@@ -1,0 +1,146 @@
+.single-post {
+  padding-top: 118px;
+  &__title {
+    display: flex;
+
+    margin-left: auto;
+    &-wrapper {
+      margin-left: auto;
+    }
+    &-title {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .side-bar__wrapper {
+    height: 100%;
+  }
+  .title__socials {
+    display: flex;
+    align-items: center;
+
+    padding-bottom: 48px;
+    &-about {
+      display: flex;
+    }
+    &-image {
+      width: 40px;
+      height: 40px;
+
+      margin-right: 8px;
+
+      background-color: black;
+
+      border-radius: 40px;
+    }
+    &-author {
+      display: flex;
+      flex-direction: column;
+
+      margin-left: 8px;
+    }
+    &-name {
+      padding-bottom: 6px;
+
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: 0.05em;
+      text-transform: capitalize;
+    }
+    &-date {
+      color: #8a9994;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.07em;
+      text-transform: capitalize;
+    }
+    &-items {
+      display: flex;
+
+      margin-left: auto;
+      & > a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 24px;
+        width: 24px;
+      }
+      & > a:not(:first-child) {
+        margin-left: 15px;
+      }
+      & > a:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+/*------------ old ------------*/
+
+.title__wrapper {
+  display: flex;
+  justify-content: space-around;
+  .title__author {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.share {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+  .like {
+    margin-top: 24px;
+  }
+  .like:before {
+    content: '';
+
+    width: 50px;
+
+    position: absolute;
+    top: -24px;
+
+    border-top: 1px solid grey;
+  }
+}
+
+.svg-icon:hover {
+  color: #1d9e74;
+}
+.news-footer__comments {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  .comments__share {
+    display: flex;
+    align-items: center;
+  }
+}
+.gutenberg__image:last-of-type {
+  width: 1440px;
+}
+.feature__image {
+  width: 100%;
+  img {
+    width: 100%;
+  }
+}
+.latest {
+  height: 300px;
+
+  overflow: scroll;
+
+  & li {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+.main {
+  display: flex;
+  flex-wrap: nowrap;
+}

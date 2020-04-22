@@ -5,7 +5,7 @@ const FeaturedImage = ({ data }) => {
   return (
     <>
       {data && (
-        <figure className={'feature__image col-10'}>
+        <figure className={'feature__image col-lg-12'}>
           <img src={data.mediaItemUrl} alt={data.title} />
           <caption>
             {data.author.name} {data.author.description}

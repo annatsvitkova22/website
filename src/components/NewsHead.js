@@ -17,7 +17,7 @@ const NewsHead = (props) => {
   }, []);
 
   return (
-    <section className={'title'}>
+    <section className={'single-post__title-wrapper col-lg-11'}>
       {!isLoad ? (
         <PostHeaderLoader />
       ) : (
@@ -25,18 +25,22 @@ const NewsHead = (props) => {
           <Tags list={post.categories.nodes} className={'category'} />
           <h1>{post.title}</h1>
           <article dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-          <div className={'title__wrapper'}>
-            <div className={'title__author'}>
-              <span>
-                {post.author.firstName} {post.author.lastName}
+          <div className={'title__socials'}>
+            <div className={'title__socials-about'}>
+              <span className="title__socials-image">
+
               </span>
-              <span>{date.toDateString()}</span>
+              <div className={'title__socials-author'}>
+                <span className={'title__socials-name'}>
+                  {post.author.firstName} {post.author.lastName}
+                </span>
+                <span className={'title__socials-date'}>
+                  {date.toDateString()}
+                </span>
+              </div>
             </div>
-            <div className={'title__social'}>
-              <ShareItems />
-            </div>
+            <ShareItems className={'title__socials-items'} />
           </div>
-          <FeaturedImage data={post.featuredImage} />
         </>
       )}
     </section>

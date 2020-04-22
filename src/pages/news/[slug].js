@@ -4,7 +4,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
-import '../../styles/pages/singleNews.scss';
+import '../../styles/pages/post.scss';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
@@ -13,6 +13,7 @@ import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import FeaturedImage from '~/components/FeaturedImage';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -116,10 +117,29 @@ const Post = ({ post, news }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="single-news">
+      <main className="single-post container">
         {post ? (
           <>
-            <NewsHead post={post} />
+            <div className={'single-post__title row'}>
+              <div className={'col-lg-9'}>
+                <NewsHead post={post} />
+                <FeaturedImage data={post.featuredImage} />
+              </div>
+              <StickyBox
+                offsetTop={20}
+                offsetBottom={20}
+                className={'side-bar__wrapper col-lg-3'}
+              >
+                <section className={'latest'}>
+                  <SideBarNews
+                    news={state.updNews}
+                    ref={ref}
+                    fetchingContent={fetchingContent}
+                    isLoading={state.isLoading}
+                  />
+                </section>
+              </StickyBox>
+            </div>
             <section
               className={'main row no-gutters justify-content-between'}
               style={{ display: 'flex', alignItems: 'flex-start' }}
@@ -134,20 +154,6 @@ const Post = ({ post, news }) => {
               <section className={'description col-7'}>
                 <Content content={post.blocks} />
               </section>
-              <StickyBox
-                offsetTop={20}
-                offsetBottom={20}
-                className={'side-bar__wrapper col-3'}
-              >
-                <section className={'latest'}>
-                  <SideBarNews
-                    news={state.updNews}
-                    ref={ref}
-                    fetchingContent={fetchingContent}
-                    isLoading={state.isLoading}
-                  />
-                </section>
-              </StickyBox>
             </section>
             <NewsFooter post={post} />
           </>
@@ -183,3 +189,4 @@ Post.getInitialProps = async ({ query: { slug } }) => {
 };
 
 export default Post;
+/**/

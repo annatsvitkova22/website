@@ -2,9 +2,9 @@ import React from 'react';
 
 import Icons from '~/components/Icons';
 
-const ShareItems = () => {
+const ShareItems = ({ className = ''}) => {
   return (
-    <div>
+    <div className={className}>
       <a href={'https://facebook.com'}>
         <Icons icon={'facebook'} />
       </a>
