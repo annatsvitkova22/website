@@ -22,13 +22,11 @@ const ArticleNews = ({ post, children, className }) => {
           />
           <ArticleTitle post={post} className="article__title" />
           <div className="article__meta">
-            <ArticleAuthor
-              className="article__author"
-              author={post.author}
-            />
+            <ArticleAuthor className="article__author" author={post.author} />
             <ArticleComments
               className="article__comments"
               comments={post.comments}
+              slug={post.slug}
             />
           </div>
         </div>
@@ -36,6 +34,7 @@ const ArticleNews = ({ post, children, className }) => {
           className="article__image"
           image={post.featuredImage}
           alt={post.title}
+          slug={post.slug}
         />
       </div>
       {children}
