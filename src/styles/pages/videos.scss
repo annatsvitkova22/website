@@ -12,14 +12,17 @@
 
 .video-detail {
   &__duration {
-    margin-bottom: 3px;
+    margin-bottom: 1px;
     margin-top: 14px;
   }
 
   &__title {
-    margin-bottom: 40px;
+    max-width: 872px;
+    margin-bottom: 51px;
 
     font-size: 20px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
 
     @include media-breakpoint-down(md) {
       margin-bottom: 0;
@@ -46,12 +49,12 @@
     cursor: pointer;
 
     svg {
-      width: 42px;
+      width: 48px;
       height: 48px;
 
       position: absolute;
-      left: 25px;
-      bottom: 22px;
+      left: 20px;
+      bottom: 20px;
     }
   }
 }

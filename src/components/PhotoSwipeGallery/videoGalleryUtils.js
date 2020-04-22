@@ -20,7 +20,7 @@ const getThumbnailVideo = (item) => {
       <h6 className="video-category__duration tx-tiny font-weight-medium">
         {item.duration}
       </h6>
-      <h6 className="video-category__name">{item.name}</h6>
+      <h4 className="video-category__name text-capitalize">{item.name}</h4>
     </>
   );
 };

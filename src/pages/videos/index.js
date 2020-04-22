@@ -235,7 +235,7 @@ class VideosArchive extends Component {
                 />
               </div>
               <div className="col-12 d-none d-lg-block">
-                <div className="video-detail__duration tx-tiny font-weight-medium">
+                <div className="video-detail__duration tx-tiny font-weight-medium tx-family-titles">
                   {duration}
                 </div>
                 <h1 className="video-detail__title">{title}</h1>
