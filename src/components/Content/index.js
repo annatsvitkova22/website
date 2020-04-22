@@ -31,7 +31,7 @@ import More from '../Gutenberg/More';
 import Spacer from '../Gutenberg/Space';
 import NextPage from '../Gutenberg/NextPage';
 
-const Content = ({ content }) => {
+const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
   console.log(content);
 
@@ -41,14 +41,30 @@ const Content = ({ content }) => {
         content.map((block, index) => {
           if (block.__typename === 'CoreParagraphBlock') {
             return (
-              <Paragraph block={block} key={`${block.__typename}-${index}`} />
+              <Paragraph
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
             );
           }
           if (block.__typename === 'CoreImageBlock') {
-            return <Image block={block} key={`${block.__typename}-${index}`} />;
+            return (
+              <Image
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
           }
           if (block.__typename === 'CoreAudioBlock') {
-            return <Audio block={block} key={`${block.__typename}-${index}`} />;
+            return (
+              <Audio
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
           }
           if (block.__typename === 'CoreEmbedYoutubeBlock') {
             return (

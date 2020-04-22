@@ -5,14 +5,14 @@ const icons = [
   },
   {
     type: 'telegram',
-    tag: `<svg width="22" height="18" viewBox="0 0 22 18" xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+    tag: `<svg width="21" height="17.61" viewBox="0 0 22 18" xmlns="http://www.w3.org/2000/svg" class="svg-icon">
 <path fill="currentColor" clip-rule="evenodd" d="M21.439 1.62189L18.2703 16.5656C18.0312 17.6203 17.4078 17.8828 16.5218 17.386L11.6937 13.8281L9.36403 16.0688C9.10622 16.3266 8.89059 16.5422 8.39372 16.5422L8.74059 11.625L17.689 3.53908C18.0781 3.1922 17.6047 3.00002 17.0843 3.34689L6.02184 10.3125L1.25934 8.82189C0.223404 8.49845 0.204654 7.78595 1.47497 7.28908L20.1031 0.112516C20.9656 -0.210922 21.7203 0.304703 21.439 1.62189Z"/>
 </svg>
 `,
   },
   {
     type: 'facebook',
-    tag: `<svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+    tag: `<svg width="12.85" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg" class="svg-icon">
 <path fill="currentColor" clip-rule="evenodd" d="M12.5847 13.5L13.2513 9.15656H9.08362V6.33797C9.08362 5.14969 9.66581 3.99141 11.5324 3.99141H13.4271V0.293438C13.4271 0.293438 11.7077 0 10.0638 0C6.63159 0 4.38815 2.08031 4.38815 5.84625V9.15656H0.572998V13.5H4.38815V24H9.08362V13.5H12.5847Z" />
 </svg>
 `,
@@ -148,6 +148,14 @@ const icons = [
     type: 'footer-chevron',
     tag: `<svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="svg-icon">
 <path fill="currentColor" clip-rule="evenodd" d="M13.8594 1.0813L13.6375 0.859424C13.4906 0.712549 13.2531 0.712549 13.1062 0.859424L7 6.9688L0.890625 0.859424C0.74375 0.712549 0.50625 0.712549 0.359375 0.859424L0.1375 1.0813C-0.00937499 1.22817 -0.00937499 1.46567 0.1375 1.61255L6.73125 8.20943C6.87812 8.3563 7.11562 8.3563 7.2625 8.20943L13.8562 1.61255C14.0062 1.46567 14.0062 1.22817 13.8594 1.0813Z"/>
+</svg>
+`,
+  },
+  {
+    type: 'likes',
+    tag: `<svg width="5" height="24" viewBox="0 0 5 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.41669 18.3124H0L0.0622069 -4.57764e-05H4.61886L4.41669 18.3124Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 24H4.41669V20.0874H0V24Z" fill="#1D9E74"/>
 </svg>
 `,
   },

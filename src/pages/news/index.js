@@ -9,7 +9,6 @@ import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import Article from '~/components/Article';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
-import '~/styles/pages/news.scss';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
@@ -17,8 +16,8 @@ import NewsContext, { withNewsProvider } from '~/stores/News';
 import ArticleContext from '~/components/Article/Context';
 
 const NEWS_ARCHIVE = gql`
-  query NewsArchive($cursor: String) {
-    posts(first: 5, before: $cursor) {
+  query NewsArchive($cursor: String, $articles: Int) {
+    posts(first: $articles, before: $cursor) {
       nodes {
         id
         title
@@ -129,6 +128,7 @@ News.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
     variables: {
+      articles: 10,
       cursor: null,
     },
   });

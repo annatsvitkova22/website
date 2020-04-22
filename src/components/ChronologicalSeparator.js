@@ -10,7 +10,7 @@ const ChronologicalSeparator = ({ posts, currentIndex }) => {
   if (moment().subtract(1, 'days').isSame(currentDate, 'day')) {
     text = 'Вчора';
   }
-  const date = posts[currentIndex].date;
+  const { date } = posts[currentIndex];
   return <time dateTime={date}>{text}</time>;
 };
 
