@@ -174,6 +174,9 @@ const gutenbergBlocksQuery = `blocks {
               textColor
             }
         }
+      ... on CoreButtonsBlock {
+          saveContent
+        }
       ... on CoreColumnsBlock {
             attributes {
               align

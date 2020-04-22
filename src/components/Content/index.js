@@ -31,6 +31,8 @@ import More from '../Gutenberg/More';
 import Spacer from '../Gutenberg/Space';
 import NextPage from '../Gutenberg/NextPage';
 
+import Buttons from '~/components/Gutenberg/Buttons';
+
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
   console.log(content);
@@ -190,6 +192,11 @@ const Content = ({ content, className = '' }) => {
           if (block.__typename === 'CoreNextpageBlock') {
             return (
               <NextPage block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreButtonsBlock') {
+            return (
+              <Buttons className={className} block={block} key={`${block.__typename}-${index}`} />
             );
           }
           return null;
