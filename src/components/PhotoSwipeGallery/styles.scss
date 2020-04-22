@@ -36,14 +36,14 @@
     overflow: auto;
 
     transform: translate(-50%, -50%);
-
-    @include media-breakpoint-down(md) {
-      padding-top: 143px;
-    }
   }
 
   &__wrapper {
     position: relative;
+
+    @include media-breakpoint-down(md) {
+      margin-top: 143px;
+    }
 
     img {
       max-width: 100%;

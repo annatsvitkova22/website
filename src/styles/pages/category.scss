@@ -2,8 +2,14 @@
   &__title {
     margin-bottom: 45px;
 
-    &::before {
-      content: '!';
+    span {
+      &::before {
+        content: '!';
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      justify-content: space-between;
     }
   }
 
@@ -19,9 +25,11 @@
       opacity: 1;
     }
 
-    svg {
-      width: 13px;
-      height: 13px;
+    @include media-breakpoint-down(sm) {
+      svg {
+        width: 13px;
+        height: 13px;
+      }
     }
   }
 }

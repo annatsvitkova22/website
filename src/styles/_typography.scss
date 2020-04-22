@@ -35,6 +35,10 @@ h3, .h3 {
   font-size: 20px;
   line-height: 1.2;
   letter-spacing: 0.03em;
+
+  @include media-breakpoint-down(sm) {
+    font-size: 18px;
+  }
 }
 
 h4, .h4 {
