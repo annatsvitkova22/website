@@ -23,6 +23,16 @@ const NavLink = ({ children, href, ...otherProps }) => {
       RoutesList.findIndex((item) => tempHref.startsWith(item)) !== -1 ||
       tempHref === '/';
 
+    if (!isStrictRoute && tempHref.startsWith('/tag')) {
+      return (
+        <Link
+          href={`/search?query=${cleanUrl(tempHref.split('/tag/')[1])}&by=tag`}
+        >
+          <a {...otherProps}>{children}</a>
+        </Link>
+      );
+    }
+
     if (!isStrictRoute) {
       return (
         <Link href="[uri]" as={tempHref}>
@@ -48,6 +58,13 @@ const NavLink = ({ children, href, ...otherProps }) => {
 NavLink.propTypes = {
   children: PropTypes.string,
   href: PropTypes.string,
+};
+
+const cleanUrl = (url) => {
+  if (url[url.length - 1] === '/') {
+    return url.slice(0, -1);
+  }
+  return url;
 };
 
 export default NavLink;
