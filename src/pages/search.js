@@ -198,23 +198,7 @@ const Search = (props) => {
       </Head>
 
       <main>
-        <React.Fragment>
-          <div className={'container'}>
-            {nodes.map((post, i) => (
-              <article key={post.id} style={{ height: '300px' }}>
-                <Link href="/news/[slug]" as={`/news/${post.slug}`}>
-                  <a href={`/news/${post.slug}`}>
-                    <h3>{post.title}</h3>
-                  </a>
-                </Link>
-                <div>{post.excerpt}</div>
-                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                  <Waypoint onEnter={fetchingContent} />
-                )}
-              </article>
-            ))}
-            {state.isLoading && <NewsLoader />}
-          </div>
+        <>
           <div className="container">
             <div className="row">
               <div className="col-12">
@@ -275,7 +259,23 @@ const Search = (props) => {
               </div>
             </div>
           </div>
-        </React.Fragment>
+          <div className="container">
+            {nodes.map((post, i) => (
+              <article key={post.id}>
+                <Link href="/news/[slug]" as={`/news/${post.slug}`}>
+                  <a href={`/news/${post.slug}`}>
+                    <h3>{post.title}</h3>
+                  </a>
+                </Link>
+                <div>{post.excerpt}</div>
+                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                  <Waypoint onEnter={fetchingContent} />
+                )}
+              </article>
+            ))}
+            {state.isLoading && <NewsLoader />}
+          </div>
+        </>
       </main>
     </div>
   );
