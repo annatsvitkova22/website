@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as classnames from 'classnames';
 
+import './styles.scss';
+
 const Filter = ({
-  defaultValue,
+  currentOption = {},
   onChange = () => {},
   options = [],
   className,
 }) => {
-  const [currentOption, setCurrentOption] = useState(defaultValue);
-
   if (!options.length) return null;
-
-  const change = (option) => {
-    setCurrentOption(option);
-    onChange();
-  };
 
   return (
     <ul className={classnames('filter', className)}>
@@ -22,10 +17,12 @@ const Filter = ({
         <li
           key={option.value}
           className={classnames('filter__item', {
-            'filter__item--active': option.value === currentOption,
+            'filter__item--active': option.value === currentOption.value,
           })}
         >
-          <button onClick={() => change(option.value)}>{option.label}</button>
+          <button className="filter__button" onClick={() => onChange(option)}>
+            {option.label}
+          </button>
         </li>
       ))}
     </ul>

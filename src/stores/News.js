@@ -24,8 +24,8 @@ export const NewsStore = createStateLink({
   ],
   filters: {
     date: moment().format(),
-    categories: []
-  }
+    categories: [],
+  },
 });
 
 export const setSorting = (option) => {
@@ -41,5 +41,31 @@ export const setSorting = (option) => {
 export const setDate = (date) => {
   const newStore = NewsStore.get();
   newStore.filters.date = moment(date).format();
+  NewsStore.merge(newStore);
+};
+
+export const setCategories = (categories) => {
+  const currentStore = NewsStore.get();
+  currentStore.filters.categories = categories.nodes.map((i) => {
+    const updatedItem = i;
+    updatedItem.label = updatedItem.name;
+    delete updatedItem.name;
+    updatedItem.value = updatedItem.slug;
+    delete updatedItem.slug;
+    return updatedItem;
+  });
+  NewsStore.merge(currentStore);
+};
+
+export const setCategory = (category) => {
+  const newStore = NewsStore.get();
+  const current = newStore.filters.categories.find((i) => i.active);
+  const isCurrent = current && current.value === category.value;
+
+  newStore.filters.categories.map((i) => {
+    const newValue = i;
+    newValue.active = isCurrent ? false : newValue.value === category.value;
+    return newValue;
+  });
   NewsStore.merge(newStore);
 };

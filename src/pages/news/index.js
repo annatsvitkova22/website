@@ -12,9 +12,17 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
+import { NewsStore, setCategories } from '~/stores/News';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String, $articles: Int) {
+    categories(where: { hideEmpty: true }) {
+      nodes {
+        id
+        name
+        slug
+      }
+    }
     posts(
       where: { orderby: { field: DATE, order: DESC } }
       first: $articles
@@ -68,14 +76,6 @@ const News = (props) => {
     'ASC'
   );
 
-  // const router = useRouter();
-  // console.log(router);
-  //
-  // const newsStore = useStateLink(NewsStore);
-  // console.log(newsStore);
-
-  // const { sorting } = newsStore.get();
-  //
   // const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
   //   if (current.active) acc.currentSorting = current;
   //   if (current.default) acc.defaultSorting = current;
@@ -159,8 +159,9 @@ News.getInitialProps = async () => {
       order: 'ASC',
     },
   });
+  const { posts, categories } = data;
 
-  const { posts } = data;
+  setCategories(categories);
   return posts;
 };
 
