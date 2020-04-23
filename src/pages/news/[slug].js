@@ -14,6 +14,7 @@ import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import FeaturedImage from '~/components/FeaturedImage';
+import SimilarPosts from '~/components/SimilarPosts';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -37,6 +38,7 @@ const POST = gql`
           link
         }
       }
+      id
       comments {
         pageInfo {
           total
@@ -59,6 +61,24 @@ const POST = gql`
     }
   }
 `;
+const SIMILAR = gql`
+  query SimilarPosts {
+    posts(first: 7, where: { authorName: "slava_nedostupa" }) {
+      nodes {
+        author {
+          firstName
+          lastName
+        }
+        id
+        title
+        featuredImage {
+          link
+          mediaItemUrl
+        }
+      }
+    }
+  }
+`;
 const NEWS = gql`
   query News($cursor: String, $articles: Int) {
     posts(first: $articles, before: $cursor) {
@@ -75,8 +95,12 @@ const NEWS = gql`
   }
 `;
 
-const Post = ({ post, news }) => {
+const Post = ({ post, news, similarPosts }) => {
   const ref = React.useRef();
+
+  const filteredSimilarPost = similarPosts.nodes.filter(
+    (node) => node.id !== post.id
+  );
 
   const [state, setState] = useState({
     updNews: news,
@@ -156,6 +180,7 @@ const Post = ({ post, news }) => {
                 </section>
               </section>
             </div>
+            <SimilarPosts similarPosts={filteredSimilarPost} />
           </>
         ) : (
           <PostHeaderLoader />
@@ -182,12 +207,15 @@ Post.getInitialProps = async ({ query: { slug } }) => {
       cursor: null,
     },
   });
+  const similarPosts = await apolloClient.query({
+    query: SIMILAR,
+  });
 
   return {
     post: data.postBy,
     news: news.data.posts,
+    similarPosts: similarPosts.data.posts,
   };
 };
 
 export default Post;
-/**/
