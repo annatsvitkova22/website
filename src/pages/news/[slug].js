@@ -103,7 +103,6 @@ const NEWS = gql`
 const Post = ({ post, news, similarPosts }) => {
   const ref = React.useRef();
 
-  console.log(post.author);
   const filteredSimilarPost = similarPosts.nodes.filter(
     (node) => node.id !== post.id
   );
