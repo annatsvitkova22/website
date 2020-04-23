@@ -93,10 +93,13 @@
   }
 }
 .gutenberg__youtube {
-  display: flex;
-  justify-content: center;
+  width: 696px;
 
   margin-bottom: 40px;
+}
+.gutenberg__youtube iframe {
+  width: 100%;
+
 }
 .gutenberg__title {
   width: 100%;

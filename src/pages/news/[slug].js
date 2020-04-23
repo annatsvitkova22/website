@@ -149,11 +149,11 @@ const Post = ({ post, news, similarPosts }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="single-post container no-gutters">
+      <main className="single-post container">
         {post ? (
           <>
             <div className={'single-post__title row'}>
-              <div className={'col-xl-9 col-12'}>
+              <div className={'single-post__wrapper col-xl-9 col-12'}>
                 <NewsHead post={post} />
                 <FeaturedImage data={post.featuredImage} />
               </div>

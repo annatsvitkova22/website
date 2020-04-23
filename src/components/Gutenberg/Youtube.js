@@ -12,11 +12,10 @@ const Youtube = ({ block, className = '' }) => {
     <div className={`${className} gutenberg__youtube`}>
       <iframe
         src={YoutubeUrl}
-        width={'696'}
-        height={'422'}
+        width={'560'}
+        height={'349'}
         frameBorder="0"
         allowFullScreen
-        ng-show="showvideo"
       />
     </div>
   );

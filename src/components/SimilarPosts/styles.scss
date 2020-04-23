@@ -1,9 +1,3 @@
-.single-post {
-  margin: 0 auto;
-
-  padding-right: 0;
-  padding-left: 0;
-}
 .similar-posts {
   display: flex;
   flex-direction: column;
@@ -132,6 +126,7 @@
       height: 88px;
       width: 88px;
 
+      padding-bottom: 0;
       img {
         max-width: max-content;
         width: auto;
@@ -143,6 +138,9 @@
       line-height: 17px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
+    }
+    &__about {
+      max-width: 235px;
     }
     &__title {
       font-weight: 600;
