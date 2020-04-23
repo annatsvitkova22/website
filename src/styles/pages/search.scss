@@ -43,7 +43,16 @@
     font-family: $font-family-titles;
 
     &--select {
-      min-width: 211px;
+      width: 100%;
+      
+      @include media-breakpoint-up(md) {
+        max-width: 211px;
+      }
+
+      @include media-breakpoint-down(sm) {
+        margin-left: 0;
+        margin-right: 0;
+      }
     }
   }
 
@@ -71,30 +80,10 @@
   &__label {
     margin-bottom: 0;
   }
-}
 
-.react-select {
-  &__clear-indicator ~ &__dropdown-indicator {
-    display: none;
-  }
-
-  &__menu {
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
-  }
-
-  &__indicator {
-    line-height: 1;
-  }
-
-  &__control {
-    box-shadow: none !important;
-
-    &--menu-is-open {
-      box-shadow: 0px 0 6px white, 0px 0px 6px rgba(0, 0, 0, 0.25) !important;
-
-      .react-select__dropdown-indicator {
-        transform: rotate(180deg)
-      }
+  &__selects {
+    @include media-breakpoint-down(sm) {
+      border-top: 1px solid $grey-100;
     }
   }
 }

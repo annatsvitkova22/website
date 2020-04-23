@@ -10,10 +10,24 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import Article from '~/components/Article';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
+import SidebarNews from '~/components/Sidebar/News';
+import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
+import { NewsStore, setCategories } from '~/stores/News';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String, $articles: Int) {
-    posts(first: $articles, before: $cursor) {
+    categories(where: { hideEmpty: true }) {
+      nodes {
+        id
+        name
+        slug
+      }
+    }
+    posts(
+      where: { orderby: { field: DATE, order: DESC } }
+      first: $articles
+      before: $cursor
+    ) {
       nodes {
         id
         title
@@ -55,8 +69,25 @@ const News = (props) => {
   const { fetchingContent, state } = useLoadMoreHook(
     NEWS_ARCHIVE,
     props,
-    'news'
+    'news',
+    10,
+    2,
+    'DATE',
+    'ASC'
   );
+
+  // const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+  //   if (current.active) acc.currentSorting = current;
+  //   if (current.default) acc.defaultSorting = current;
+  //   return acc;
+  // }, {});
+  //
+  // if (currentSorting.value !== defaultSorting.value) {
+  //   router.replace({
+  //     pathname: '/news',
+  //     query: { sorting: currentSorting.value },
+  //   });
+  // }
 
   if (!state.data.nodes) {
     return (
@@ -71,6 +102,8 @@ const News = (props) => {
           </main>
           <aside className="news-archive__sidebar col-md-4">
             <SidebarLoader />
+            <SidebarLoader />
+            <ActionbarLoader />
           </aside>
         </div>
       </div>
@@ -90,20 +123,18 @@ const News = (props) => {
         <div className="news-archive row">
           <main className="news-archive__content col-md-8">
             {nodes.map((post, i) => (
-              <>
+              <React.Fragment key={i}>
                 <ChronologicalSeparator posts={nodes} currentIndex={i} />
                 <Article type="news" post={post} key={post.id}>
                   {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                     <Waypoint onEnter={fetchingContent} />
                   )}
                 </Article>
-              </>
+              </React.Fragment>
             ))}
             {state.isLoading && <NewsLoader />}
           </main>
-          <aside className="news-archive__sidebar col-md-4">
-            <SidebarLoader />
-          </aside>
+          <SidebarNews className="news-archive__sidebar col-md-4" />
         </div>
       </div>
     </div>
@@ -118,14 +149,19 @@ News.getInitialProps = async () => {
   if (process.browser) {
     return {};
   }
+
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
     variables: {
       articles: 10,
       cursor: null,
+      orderby: 'DATE',
+      order: 'ASC',
     },
   });
-  const { posts } = data;
+  const { posts, categories } = data;
+
+  setCategories(categories);
   return posts;
 };
 
