@@ -1,0 +1,9 @@
+@import "../../styles/site-variables";
+
+.react-calendar {
+  &__tile {
+    &--active {
+      background-color: $green;
+    }
+  }
+}

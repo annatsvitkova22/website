@@ -5,8 +5,8 @@ import Link from 'next/link';
 import ArticleContext from '~/components/Article/Context';
 
 const ArticleFeatured = ({ image, alt = '', slug, className }) => {
-  if (!image || !image.mediaItemUrl) return null;
   const postType = useContext(ArticleContext);
+  if (!image || !image.mediaItemUrl) return null;
   return (
     <div className={classnames('article-featured', className)}>
       <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>
