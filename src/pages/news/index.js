@@ -12,7 +12,7 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
-import { NewsStore, setCategories } from '~/stores/News';
+import { setCategories } from '~/stores/News';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String, $articles: Int) {

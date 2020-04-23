@@ -1,0 +1,176 @@
+.comments-pp {
+  max-width: 910px;
+  height: 100%;
+  margin: 47px auto;
+
+  background: #fff;
+  &__wrapper {
+    width: 100%;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: #242424;
+
+    z-index: 100;
+  }
+  &__container {
+    max-width: 648px;
+    padding-top: 14px;
+    margin: 0 auto;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 46px;
+
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+    .social-icon {
+      display: flex;
+      align-items: center;
+
+      width: 20px;
+      height: 20px;
+    }
+    .facebook > svg {
+      height: 20px;
+    }
+    .telegram > svg {
+      width: 17.5px;
+    }
+    .share > svg {
+      width: 20px;
+    }
+  }
+  &__socials-items {
+    display: flex;
+    align-items: center;
+
+    margin-left: 15px;
+  }
+  &__socials-items > a {
+    width: 20px;
+    height: 20px;
+
+    line-height: 0;
+  }
+  &__socials-items > a:not(:last-child) {
+    margin-right: 30px;
+  }
+
+  &__close {
+    padding: 14px 14px 14px 0;
+  }
+  &__close-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: auto;
+    width: 36px;
+    height: 36px;
+  }
+  &__post {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 40px;
+  }
+  &__input {
+    height: 120px;
+    margin-bottom: 64px;
+
+    border: 1px solid #d6d6d6;
+  }
+  &__btn {
+    padding: 18px 32px;
+    margin-left: auto;
+
+    background: #1d9e74;
+
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #ffffff;
+  }
+  &__author {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 20px;
+  }
+  &__name {
+    display: flex;
+    flex-direction: column;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    & > span:not(:last-child) {
+      padding-bottom: 6px;
+    }
+    & > span:last-child {
+      color: #8a9994;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.07em;
+    }
+  }
+  &__photo {
+    display: flex;
+
+    width: 40px;
+    height: 40px;
+
+    margin-right: 16px;
+
+    background-color: black;
+
+    border-radius: 40px;
+  }
+  &__text {
+    margin-bottom: 26px;
+
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+  }
+  &__actions {
+    display: flex;
+    align-items: center;
+
+    &-item {
+      display: flex;
+      align-items: center;
+
+      margin-right: 40px;
+
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 19px;
+      letter-spacing: 0.2px;
+    }
+    &-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 24px;
+      height: 24px;
+
+      margin-right: 10px;
+    }
+  }
+}

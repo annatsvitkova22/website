@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import apolloClient from '~/lib/ApolloClient';
-import { NewsStore, orderByEnumType, setCategories } from '~/stores/News';
+import { setCategories } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
