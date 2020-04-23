@@ -4,13 +4,11 @@ import gql from 'graphql-tag';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
-import Select, { components } from 'react-select';
 
+import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
-import ChevronDown from '~/static/images/chevron-down';
-import Times from '~/static/images/times-small';
 import SearchIcon from '~/static/images/search';
 import Filter from '~/static/images/filter';
 
@@ -145,35 +143,6 @@ const Search = (props) => {
     },
   ];
 
-  const colorStyles = {
-    valueContainer: (styles) => ({
-      ...styles,
-      paddingLeft: 0,
-      paddingRight: 0,
-    }),
-    placeholder: (styles) => ({ ...styles, color: '#242424' }),
-    control: (styles) => ({
-      ...styles,
-      border: 'none',
-      borderRadius: 0,
-      paddingLeft: 12,
-      paddingRight: 15,
-    }),
-    menu: (styles) => ({
-      ...styles,
-      marginTop: 0,
-      marginBottom: 0,
-      borderRadius: 0,
-      left: 0,
-      boxShadow: '0px -6px 6px white, 0px 0px 6px rgba(0, 0, 0, 0.25)',
-    }),
-    menuList: (styles) => ({ ...styles, paddingTop: 0, paddingBottom: 0 }),
-    indicatorSeparator: (styles) => ({
-      ...styles,
-      display: 'none',
-    }),
-  };
-
   const { fetchingContent, state } = useLoadMoreHook(
     SEARCH_QUERY,
     props,
@@ -253,7 +222,7 @@ const Search = (props) => {
                         id="text"
                         name="searchBy"
                       />
-                      <label className="search-form__label" for="text">
+                      <label className="search-form__label" htmlFor="text">
                         Текст
                       </label>
                     </li>
@@ -264,7 +233,7 @@ const Search = (props) => {
                         id="author"
                         name="searchBy"
                       />
-                      <label className="search-form__label" for="author">
+                      <label className="search-form__label" htmlFor="author">
                         Автори
                       </label>
                     </li>
@@ -275,7 +244,7 @@ const Search = (props) => {
                         id="tags"
                         name="searchBy"
                       />
-                      <label className="search-form__label" for="tags">
+                      <label className="search-form__label" htmlFor="tags">
                         Теги
                       </label>
                     </li>
@@ -288,50 +257,32 @@ const Search = (props) => {
                       <Filter />
                     </button>
                   )}
-                  {true && (
-                    <div
-                      className={`search-form__selects w-100 ${
-                        showFilters ? 'd-flex' : 'd-none d-md-flex'
-                      } flex-column flex-md-row`}
-                    >
-                      <Select
-                        classNamePrefix="react-select"
-                        className="tx-tiny search-form__col search-form__col--select"
-                        isClearable
-                        options={optionsTag}
-                        placeholder="Тип"
-                        styles={colorStyles}
-                        components={{ ClearIndicator, DropdownIndicator }}
-                      />
-                      <Select
-                        classNamePrefix="react-select"
-                        className="tx-tiny search-form__col search-form__col--select"
-                        isClearable
-                        options={optionsCat}
-                        placeholder="Категорії"
-                        styles={colorStyles}
-                        components={{ ClearIndicator, DropdownIndicator }}
-                      />
-                      <Select
-                        classNamePrefix="react-select"
-                        className="tx-tiny search-form__col search-form__col--select"
-                        isClearable
-                        options={optionsPubdate}
-                        placeholder="Період"
-                        styles={colorStyles}
-                        components={{ ClearIndicator, DropdownIndicator }}
-                      />
-                      <Select
-                        classNamePrefix="react-select"
-                        className="tx-tiny search-form__col search-form__col--select"
-                        isClearable
-                        options={optionsShow}
-                        placeholder="Показати"
-                        styles={colorStyles}
-                        components={{ ClearIndicator, DropdownIndicator }}
-                      />
-                    </div>
-                  )}
+                  <div
+                    className={`search-form__selects w-100 ${
+                      showFilters ? 'd-flex' : 'd-none d-md-flex'
+                    } flex-column flex-md-row`}
+                  >
+                    <Select
+                      instanceId="1"
+                      options={optionsTag}
+                      placeholder="Тип"
+                    />
+                    <Select
+                      instanceId="2"
+                      options={optionsCat}
+                      placeholder="Категорії"
+                    />
+                    <Select
+                      instanceId="3"
+                      options={optionsPubdate}
+                      placeholder="Період"
+                    />
+                    <Select
+                      instanceId="4"
+                      options={optionsShow}
+                      placeholder="Показати"
+                    />
+                  </div>
                 </form>
               </div>
             </div>
@@ -354,32 +305,6 @@ const Search = (props) => {
           </div>
         </>
       </main>
-    </div>
-  );
-};
-
-const DropdownIndicator = (props) => {
-  return (
-    <components.DropdownIndicator {...props}>
-      <ChevronDown />
-    </components.DropdownIndicator>
-  );
-};
-
-const ClearIndicator = (props) => {
-  const {
-    children = <Times />,
-    getStyles,
-    innerProps: { ref, ...restInnerProps },
-  } = props;
-  return (
-    <div
-      {...restInnerProps}
-      ref={ref}
-      style={getStyles('clearIndicator', props)}
-      className="react-select__indicator react-select__clear-indicator"
-    >
-      {children}
     </div>
   );
 };
