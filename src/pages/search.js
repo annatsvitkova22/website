@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
@@ -11,6 +12,7 @@ import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import SearchIcon from '~/static/images/search';
 import Filter from '~/static/images/filter';
+import queryReducer from '~/hooks/queryReducer';
 
 const SEARCH_QUERY = gql`
   query SearchQuery($cursor: String) {
@@ -143,6 +145,29 @@ const Search = (props) => {
     },
   ];
 
+  const selects = [
+    {
+      name: 'type',
+      placeholder: 'Тип',
+      options: optionsTag,
+    },
+    {
+      name: 'cat',
+      placeholder: 'Категорії',
+      options: optionsCat,
+    },
+    {
+      name: 'pubd',
+      placeholder: 'Період',
+      options: optionsPubdate,
+    },
+    {
+      name: 'show',
+      placeholder: 'Показати',
+      options: optionsShow,
+    },
+  ];
+
   const { fetchingContent, state } = useLoadMoreHook(
     SEARCH_QUERY,
     props,
@@ -183,6 +208,37 @@ const Search = (props) => {
     e.preventDefault();
   }
 
+  function onChangeField({ target: { name, value } }) {
+    const { query } = Router.router;
+    const queryUpdated = queryReducer(query, 'change-field', name, value);
+
+    Router.push({
+      pathname: '/search',
+      query: { ...queryUpdated },
+    });
+  }
+
+  function onChangeRadio({ target: { name, value } }) {
+    const { query } = Router.router;
+    const queryUpdated = queryReducer(query, 'change-radio', name, value);
+
+    Router.push({
+      pathname: '/search',
+      query: { ...queryUpdated },
+    });
+  }
+
+  function onChangeSelect(e, { action, name }) {
+    const { query } = Router.router;
+    const value = e ? e.value : '';
+    const queryUpdated = queryReducer(query, action, name, value);
+
+    Router.push({
+      pathname: '/search',
+      query: { ...queryUpdated },
+    });
+  }
+
   return (
     <div className="news-page">
       <Head>
@@ -198,9 +254,10 @@ const Search = (props) => {
               <div className="col-12">
                 <div className="search-form__field-wrapper pos-relative">
                   <input
+                    onChange={onChangeField}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
                     type="search"
-                    // value="Полтава"
+                    name="searchField"
                     placeholder="Пошук"
                   />
                   <button
@@ -214,10 +271,14 @@ const Search = (props) => {
                   onSubmit={onSubmit}
                   className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap"
                 >
-                  <ul className="search-form__row tx-small list-unstyled">
+                  <ul
+                    className="search-form__row tx-small list-unstyled"
+                    onChange={onChangeRadio}
+                  >
                     <li className="search-form__text search-form__col">
                       <input
                         className="search-form__radio"
+                        value="text"
                         type="radio"
                         id="text"
                         name="searchBy"
@@ -229,6 +290,7 @@ const Search = (props) => {
                     <li className="search-form__authors search-form__col">
                       <input
                         className="search-form__radio"
+                        value="author"
                         type="radio"
                         id="author"
                         name="searchBy"
@@ -240,6 +302,7 @@ const Search = (props) => {
                     <li className="search-form__tags search-form__col">
                       <input
                         className="search-form__radio"
+                        value="tags"
                         type="radio"
                         id="tags"
                         name="searchBy"
@@ -262,26 +325,31 @@ const Search = (props) => {
                       showFilters ? 'd-flex' : 'd-none d-md-flex'
                     } flex-column flex-md-row`}
                   >
-                    <Select
-                      instanceId="1"
-                      options={optionsTag}
-                      placeholder="Тип"
-                    />
-                    <Select
-                      instanceId="2"
-                      options={optionsCat}
-                      placeholder="Категорії"
-                    />
-                    <Select
-                      instanceId="3"
-                      options={optionsPubdate}
-                      placeholder="Період"
-                    />
-                    <Select
-                      instanceId="4"
-                      options={optionsShow}
-                      placeholder="Показати"
-                    />
+                    {selects.map(({ name, placeholder, options }, i) => (
+                      <Select
+                        key={i}
+                        instanceId={i}
+                        name={name}
+                        options={options}
+                        placeholder={placeholder}
+                        onChange={onChangeSelect}
+                      />
+                    ))}
+
+                    {/* {mobile && (
+                      <>
+                        <select name="tag" id="" className="tx-family-titles">
+                          <option value="" disabled selected>
+                            Тип
+                          </option>
+                          {optionsTag.map(({ value, label }, i) => (
+                            <option key={i} value={value}>
+                              {label}
+                            </option>
+                          ))}
+                        </select>
+                      </>
+                    )} */}
                   </div>
                 </form>
               </div>
