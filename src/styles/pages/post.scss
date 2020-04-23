@@ -23,6 +23,9 @@
 
     max-width: 872px;
   }
+  &__content > *:nth-last-child(2) {
+    margin-bottom: 80px;
+  }
   &__footer {
     max-width: 648px;
     width: 100%;

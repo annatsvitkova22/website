@@ -92,7 +92,12 @@
     background-color: transparent;
   }
 }
+.gutenberg__youtube {
+  display: flex;
+  justify-content: center;
 
+  margin-bottom: 40px;
+}
 .gutenberg__title {
   width: 100%;
 }
