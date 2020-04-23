@@ -31,36 +31,122 @@ const SEARCH_QUERY = gql`
   }
 `;
 
+const CATEGORY = `
+  query Categories {
+    categories(where: {hideEmpty: true}) {
+      nodes {
+        name
+        slug
+        count
+      }
+    }
+  }
+`;
+
+const POST_TYPES = `
+  query PostTypes {
+    posts {
+      pageInfo {
+        total
+      }
+    }
+    blogs {
+      pageInfo {
+        total
+      }
+    }
+    publications {
+      pageInfo {
+        total
+      }
+    }
+    crowdfundings {
+      pageInfo {
+        total
+      }
+    }
+    events {
+      pageInfo {
+        total
+      }
+    }
+    opportunities {
+      pageInfo {
+        total
+      }
+    }
+    others {
+      pageInfo {
+        total
+      }
+    }
+    contentTypes {
+      nodes {
+        label
+        graphqlPluralName
+      }
+    }
+}
+`;
+
 const Search = (props) => {
   const optionsTag = [
     {
       value: 'новини',
-      label: 'Новини',
+      label: (
+        <span>
+          Новини <span className="tx-green">6</span>
+        </span>
+      ),
     },
     {
       value: 'публікації',
-      label: 'Публікації',
+      label: (
+        <span>
+          Публікації <span className="tx-green">6</span>
+        </span>
+      ),
       isFixed: true,
     },
     {
       value: 'блоги',
-      label: 'Блоги',
+      label: (
+        <span>
+          Блоги <span className="tx-green">6</span>
+        </span>
+      ),
     },
     {
       value: 'відео',
-      label: 'Відео',
+      label: (
+        <span>
+          Відео <span className="tx-green">6</span>
+        </span>
+      ),
     },
     {
       value: 'події',
-      label: 'Події',
+      label: (
+        <span>
+          Події <span className="tx-green">6</span>
+        </span>
+      ),
     },
     {
       value: 'збір-коштів',
-      label: 'Збір коштів',
+      label: (
+        <span>
+          Збір коштів <span className="tx-green">6</span>
+        </span>
+      ),
     },
     {
       value: 'можливості',
-      label: 'Можливості',
+      label: (
+        <span>
+          Можливості <span className="tx-green">6</span>
+        </span>
+      ),
     },
   ];
 
