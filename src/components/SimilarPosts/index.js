@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ArticleFeatured from '~/components/Article/Featured';
+import ArticleAuthor from '~/components/Article/Author';
 
 const SimilarPosts = ({ similarPosts }) => {
   return (
@@ -19,9 +20,10 @@ const SimilarPosts = ({ similarPosts }) => {
                   />
                   <div className={'similar-posts__about'}>
                     <div className={'similar-posts__title'}>{item.title}</div>
-                    <div className={'similar-posts__author'}>
-                      {item.author.firstName} {item.author.lastName}
-                    </div>
+                    <ArticleAuthor
+                      author={item.author}
+                      className={'similar-posts__author'}
+                    />
                   </div>
                 </div>
               );

@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import Tags from '~/components/Tags';
 import ShareItems from '~/components/ShareItems';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import ArticleAuthor from '~/components/Article/Author';
 
 const NewsHead = (props) => {
   const { post } = props;
@@ -12,7 +13,7 @@ const NewsHead = (props) => {
 
   const [isLoad, setIsLoad] = React.useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     post ? setIsLoad(!isLoad) : setIsLoad(false);
   }, []);
 
@@ -32,9 +33,10 @@ const NewsHead = (props) => {
             <div className={'title__socials-about'}>
               <span className="title__socials-image" />
               <div className={'title__socials-author'}>
-                <span className={'title__socials-name'}>
-                  {post.author.firstName} {post.author.lastName}
-                </span>
+                <ArticleAuthor
+                  author={post.author}
+                  className={'title__socials-name'}
+                />
                 <span className={'title__socials-date'}>
                   {moment(post.date).format('LLL')}
                 </span>

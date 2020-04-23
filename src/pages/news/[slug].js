@@ -50,6 +50,7 @@ const POST = gql`
         firstName
         nickname
         username
+        name
       }
       featuredImage {
         id
@@ -71,6 +72,7 @@ const SIMILAR = gql`
         author {
           firstName
           lastName
+          name
         }
         id
         title
