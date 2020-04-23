@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Icons from '~/components/Icons';
 
@@ -16,6 +17,10 @@ const ShareItems = ({ className = '' }) => {
       </a>
     </div>
   );
+};
+
+ShareItems.propTypes = {
+  className: PropTypes.string,
 };
 
 export default ShareItems;

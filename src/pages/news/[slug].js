@@ -15,6 +15,8 @@ import SideBarNews from '~/components/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import FeaturedImage from '~/components/FeaturedImage';
 import SimilarPosts from '~/components/SimilarPosts';
+import SideBarPopular from '~/components/SideBarPopular';
+import SideBarBlogs from '~/components/SideBarBlogs';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -101,8 +103,6 @@ const NEWS = gql`
 `;
 
 const Post = ({ post, news, similarPosts }) => {
-  const ref = React.useRef();
-
   const filteredSimilarPost = similarPosts.nodes.filter(
     (node) => node.id !== post.id
   );
@@ -157,14 +157,23 @@ const Post = ({ post, news, similarPosts }) => {
                 <FeaturedImage data={post.featuredImage} />
               </div>
               <StickyBox
-                offsetTop={70}
+                offsetTop={118}
                 offsetBottom={20}
                 className={'side-bar__wrapper col-xl-3'}
               >
-                <section className={'latest'}>
+                <section className={'sidebar-latest'}>
                   <SideBarNews
                     news={state.updNews}
-                    ref={ref}
+                    fetchingContent={fetchingContent}
+                    isLoading={state.isLoading}
+                  />
+                  <SideBarPopular
+                    news={state.updNews}
+                    fetchingContent={fetchingContent}
+                    isLoading={state.isLoading}
+                  />
+                  <SideBarBlogs
+                    news={state.updNews}
                     fetchingContent={fetchingContent}
                     isLoading={state.isLoading}
                   />
@@ -198,6 +207,7 @@ const Post = ({ post, news, similarPosts }) => {
 Post.propTypes = {
   post: PropTypes.object,
   news: PropTypes.object,
+  similarPosts: PropTypes.object,
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {

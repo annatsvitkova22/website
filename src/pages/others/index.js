@@ -40,7 +40,7 @@ const OthersArchive = (props) => {
         <NewsLoader />
       </div>
     );
-  console.log(state);
+
   const { nodes, pageInfo } = state.data;
   return (
     <div className="others-page">
