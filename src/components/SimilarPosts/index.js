@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import ArticleFeatured from '~/components/Article/Featured';
 
 const SimilarPosts = ({ similarPosts }) => {
-  console.log(similarPosts);
   return (
     <div className={'similar-posts'}>
       <div className="similar-posts__wrapper">

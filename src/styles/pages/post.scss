@@ -34,9 +34,12 @@
 }
 .side-bar__wrapper {
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
 
-  height: 170px;
+  height: 300px;
+  &:first-child {
+    height: 175px;
+  }
 }
 .title__description > p {
   margin-bottom: 37px;
@@ -194,12 +197,17 @@
 
   overflow: scroll;
 
+  &__news {
+    height: inherit;
+
+    padding-left: 0;
+  }
+
   & li {
     padding-top: 15px;
     padding-bottom: 15px;
   }
 }
-
 
 @media screen and (max-width: 1200px) {
   .single-post__title {
@@ -285,6 +293,11 @@
 
     margin-top: 20px;
     margin-bottom: 24px;
+  }
+  .wp-block-buttons {
+    width: 100%;
+
+    text-align: center;
   }
 }
 

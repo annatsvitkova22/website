@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
@@ -12,7 +12,7 @@ const NewsHead = (props) => {
 
   const [isLoad, setIsLoad] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     post ? setIsLoad(!isLoad) : setIsLoad(false);
   }, []);
 

@@ -45,8 +45,11 @@ const POST = gql`
         }
       }
       author {
+        nicename
         lastName
         firstName
+        nickname
+        username
       }
       featuredImage {
         id
@@ -62,8 +65,8 @@ const POST = gql`
   }
 `;
 const SIMILAR = gql`
-  query SimilarPosts {
-    posts(first: 7, where: { authorName: "slava_nedostupa" }) {
+  query SimilarPosts($nicename: String) {
+    posts(first: 7, where: { authorName: $nicename }) {
       nodes {
         author {
           firstName
@@ -98,6 +101,7 @@ const NEWS = gql`
 const Post = ({ post, news, similarPosts }) => {
   const ref = React.useRef();
 
+  console.log(post.author);
   const filteredSimilarPost = similarPosts.nodes.filter(
     (node) => node.id !== post.id
   );
@@ -143,7 +147,7 @@ const Post = ({ post, news, similarPosts }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="single-post container">
+      <main className="single-post container no-gutters">
         {post ? (
           <>
             <div className={'single-post__title row'}>
@@ -152,7 +156,7 @@ const Post = ({ post, news, similarPosts }) => {
                 <FeaturedImage data={post.featuredImage} />
               </div>
               <StickyBox
-                offsetTop={20}
+                offsetTop={70}
                 offsetBottom={20}
                 className={'side-bar__wrapper col-xl-3'}
               >
@@ -168,7 +172,7 @@ const Post = ({ post, news, similarPosts }) => {
 
               <section className={'single-post__main col-xl-9 col-12'}>
                 <StickyBox
-                  offsetTop={20}
+                  offsetTop={70}
                   offsetBottom={20}
                   className={'side-bar__wrapper col-xl-1'}
                 >
@@ -209,6 +213,9 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   });
   const similarPosts = await apolloClient.query({
     query: SIMILAR,
+    variables: {
+      nicename: data.postBy.author.nicename,
+    },
   });
 
   return {
