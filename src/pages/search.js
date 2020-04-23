@@ -209,13 +209,15 @@ const Search = (props) => {
   }
 
   function onChangeField({ target: { name, value } }) {
-    const { query } = Router.router;
-    const queryUpdated = queryReducer(query, 'change-field', name, value);
+    if (value.length > 1) {
+      const { query } = Router.router;
+      const queryUpdated = queryReducer(query, 'change-field', name, value);
 
-    Router.push({
-      pathname: '/search',
-      query: { ...queryUpdated },
-    });
+      Router.push({
+        pathname: '/search',
+        query: { ...queryUpdated },
+      });
+    }
   }
 
   function onChangeRadio({ target: { name, value } }) {
