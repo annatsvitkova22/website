@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import gql from 'graphql-tag';
@@ -68,8 +68,8 @@ const POST = gql`
   }
 `;
 const SIMILAR = gql`
-  query SimilarPosts($nicename: String) {
-    posts(first: 7, where: { authorName: $nicename }) {
+  query SimilarPosts($category: String) {
+    posts(first: 7, where: { categoryName: $category }) {
       nodes {
         author {
           firstName
@@ -103,9 +103,21 @@ const NEWS = gql`
 `;
 
 const Post = ({ post, news, similarPosts }) => {
-  const filteredSimilarPost = similarPosts.nodes.filter(
-    (node) => node.id !== post.id
+  const [similar, setSimilar] = useState(
+    similarPosts.nodes ? similarPosts.nodes : null
   );
+
+  useEffect(() => {
+    if (similarPosts.nodes) {
+      const filteredSimilarPost = similarPosts.nodes.filter(
+        (node) => node.id !== post.id
+      );
+      if (filteredSimilarPost.length > 6) {
+        setSimilar(filteredSimilarPost.splice(6));
+      }
+      setSimilar(filteredSimilarPost);
+    }
+  }, []);
 
   const [state, setState] = useState({
     updNews: news,
@@ -194,7 +206,7 @@ const Post = ({ post, news, similarPosts }) => {
                 </section>
               </section>
             </div>
-            <SimilarPosts similarPosts={filteredSimilarPost} />
+            <SimilarPosts similarPosts={similar} />
           </>
         ) : (
           <PostHeaderLoader />
@@ -218,14 +230,14 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   const news = await apolloClient.query({
     query: NEWS,
     variables: {
-      articles: 10,
+      articles: 5,
       cursor: null,
     },
   });
   const similarPosts = await apolloClient.query({
     query: SIMILAR,
     variables: {
-      nicename: data.postBy.author.nicename,
+      category: data.postBy.categories.nodes[0].name,
     },
   });
 
