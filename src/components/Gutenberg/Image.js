@@ -7,6 +7,8 @@ import Icons from '~/components/Icons';
 const Image = ({ block, className = '' }) => {
   const [isActive, setIsActive] = React.useState(false);
 
+  console.log(block);
+
   const openPopup = () => {
     setIsActive(!isActive);
   };

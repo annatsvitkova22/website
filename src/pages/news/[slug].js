@@ -4,9 +4,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { createStateLink, useStateLink } from '@hookstate/core';
 
-import { PostStore } from '~/stores/Post';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';

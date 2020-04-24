@@ -36,21 +36,23 @@ const gutenbergBlocksQuery = `blocks {
             }
           }
           ... on CoreImageBlock {
-            attributes {
-              align
-              alt
-              className
-              caption
-              height
-              href
-              id
-              linkClass
-              linkDestination
-              linkTarget
-              rel
-              url
-              sizeSlug
-            }
+              attributes {
+            height
+            align
+            alt
+            caption
+            className
+            href
+            id
+            linkClass
+            linkDestination
+            linkTarget
+            rel
+            sizeSlug
+            title
+            url
+
+          }
           }
           ... on CoreEmbedYoutubeBlock {
             attributes {

@@ -50,6 +50,27 @@
 
     color: black;
   }
+  .pswp__top-bar {
+    background-color: transparent;
+  }
+  .pswp__button {
+    &--share,
+    &--fs,
+    &--zoom,
+    &--arrow--right,
+    &--arrow--left{
+      display: none;
+    }
+  }
+  .pswp__caption {
+    display: none;
+  }
+  .pswp__img {
+    margin-right: auto;
+  }
+  .pswp__counter {
+    display: none;
+  }
 }
 .gutenberg__image:hover > .expand-image {
   visibility: visible;
