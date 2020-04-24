@@ -4,6 +4,7 @@ import { withRouter } from 'next/router';
 import Link from 'next/link';
 
 import Times from '~/static/images/times';
+import ChevronDown from '~/static/images/chevron-down';
 
 const CatSelect = ({ categories, currCatId, router }) => {
   function onChange(e) {
@@ -11,7 +12,7 @@ const CatSelect = ({ categories, currCatId, router }) => {
   }
 
   return (
-    <div className="pos-relative cat-select">
+    <div className="pos-relative cat-select d-flex align-items-center">
       <label
         htmlFor="cat-select"
         className="cat-select__label pos-absolute pos-center-left text-uppercase heading-huge tx-family-titles font-weight-bold"
@@ -21,7 +22,7 @@ const CatSelect = ({ categories, currCatId, router }) => {
       <select
         id="cat-select"
         name="cat-select"
-        className="cat-select__main w-100 tx-white text-uppercase heading-huge tx-family-titles font-weight-bold"
+        className="cat-select__main tx-white text-uppercase heading-huge tx-family-titles font-weight-bold"
         onChange={onChange}
       >
         {categories.map((category) => {
@@ -40,6 +41,7 @@ const CatSelect = ({ categories, currCatId, router }) => {
           return '';
         })}
       </select>
+      <ChevronDown />
       <Link href="/videos">
         <a className="cat-page__back line-height-1 pos-absolute pos-center-right">
           <Times />
