@@ -1,13 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
-import BlogsLoader from '~/components/Loaders/BlogsLoader';
+import Article from '~/components/Article';
+import NewsLoader from '~/components/Loaders/NewsLoader';
 
 const OPPORTUNITIES_ARCHIVE = gql`
   query OpportunitiesArchive($cursor: String) {
@@ -16,10 +16,20 @@ const OPPORTUNITIES_ARCHIVE = gql`
         featuredImage {
           sourceUrl(size: THUMBNAIL)
         }
-        excerpt
         title
         slug
         id
+        zmAfishaACF {
+          eventAddress {
+            streetAddress
+            latitude
+            longitude
+          }
+          eventTime
+          eventDays {
+            day
+          }
+        }
       }
       pageInfo {
         endCursor
@@ -39,8 +49,8 @@ const OpportunitiesArchive = (props) => {
   if (!state.data.nodes)
     return (
       <div style={{ margin: '0 auto' }}>
-        <BlogsLoader />
-        <BlogsLoader />
+        <NewsLoader />
+        <NewsLoader />
       </div>
     );
 
@@ -55,29 +65,18 @@ const OpportunitiesArchive = (props) => {
       </Head>
 
       <main>
-        <div class="container">
-          {nodes.map((opportunity, i) => (
-            <article className="opportunity__card" key={i}>
-              <img
-                src={opportunity.featuredImage.sourceUrl}
-                alt={opportunity.title}
-              />
-              <Link
-                href="/opportunities/[slug]"
-                as={`/opportunities/${opportunity.slug}`}
-              >
-                <a>
-                  <h3>{opportunity.title}</h3>
-                </a>
-              </Link>
-              <div>{opportunity.excerpt}</div>
-              {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                <Waypoint onEnter={fetchingContent} />
-              )}
-            </article>
+        <div className="container">
+          {nodes.map((post, i) => (
+            <>
+              <Article type="opportunities" post={post} key={post.id}>
+                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                  <Waypoint onEnter={fetchingContent} />
+                )}
+              </Article>
+            </>
           ))}
+          {state.isLoading && <NewsLoader />}
         </div>
-        {state.isLoading && <BlogsLoader />}
       </main>
     </div>
   );
@@ -87,7 +86,6 @@ OpportunitiesArchive.propTypes = {
   opportunities: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      excerpt: PropTypes.string,
       slug: PropTypes.string,
       cursor: PropTypes.string,
     })
