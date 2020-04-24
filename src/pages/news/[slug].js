@@ -23,9 +23,7 @@ const POST = gql`
     postBy(slug: $slug) {
       ${gutenbergBlocksQuery}
       title
-      content
       date
-      excerpt
       categories {
         nodes {
           id
