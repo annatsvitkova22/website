@@ -19,7 +19,13 @@
     overflow: hidden;
   }
   .expand-image {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+    width: 64px;
+    height: 64px;
 
     position: absolute;
     bottom: 30px;
