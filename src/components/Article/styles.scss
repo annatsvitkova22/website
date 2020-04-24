@@ -2,4 +2,21 @@
   &__wrapper {
     display: flex;
   }
+
+  &__image {
+    max-width: 200px;
+    width: 100%;
+  }
+
+  // &--opportunities {
+  //   .article {
+
+  //   }
+  // }
+
+  // @include media-breakpoint-up(md) {
+  //   &__main {
+  //     padding-left: 24px;
+  //   }
+  // }
 }

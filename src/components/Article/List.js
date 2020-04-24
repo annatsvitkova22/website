@@ -3,7 +3,7 @@ import * as classnames from 'classnames';
 
 const ArticleList = ({ post, className }) => {
   return (
-    <ul className={classnames('article-list list-reset', className)}>
+    <ul className={classnames('article-list', className)}>
       <li>{post.zmAfishaACF.eventAddress.streetAddress}</li>
       <li>
         {post.zmAfishaACF.eventDays &&
