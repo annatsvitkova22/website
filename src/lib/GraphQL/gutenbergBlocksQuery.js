@@ -36,12 +36,13 @@ const gutenbergBlocksQuery = `blocks {
             }
           }
           ... on CoreImageBlock {
-            attributes {
+            imageAttributes: attributes {
               align
               alt
               className
               caption
               height
+              width
               href
               id
               linkClass

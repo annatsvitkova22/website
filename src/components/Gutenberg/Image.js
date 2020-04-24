@@ -13,37 +13,37 @@ const Image = ({ block }) => {
 
   const img = [
     {
-      src: block.attributes.url,
+      src: block.imageAttributes.url,
       w: 1200,
       h: 900,
       title: 'image 1',
     },
     {
-      src: block.attributes.url,
+      src: block.imageAttributes.url,
       w: 1200,
       h: 900,
       title: 'image 2',
     },
   ];
   const style = {
-    alignSelf: block.attributes.align,
+    alignSelf: block.imageAttributes.align,
   };
-  // TODO: implement all other attributes
-  // TODO: if block.attributes.linkDestination === 'media' then open modal with image
+  // TODO: implement all other imageAttributes
+  // TODO: if block.imageAttributes.linkDestination === 'media' then open modal with image
   const image = (
     <img
-      src={block.attributes.url}
-      alt={block.attributes.alt}
-      className={block.attributes.className}
+      src={block.imageAttributes.url}
+      alt={block.imageAttributes.alt}
+      className={block.imageAttributes.className}
       style={style}
     />
   );
-  if (block.attributes.linkDestination) {
+  if (block.imageAttributes.linkDestination) {
     return (
       <figure className={'gutenberg__image'}>
         {image}
         <figcaption
-          dangerouslySetInnerHTML={{ __html: block.attributes.caption }}
+          dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
         />
         {isActive && (
           <figure>
@@ -56,19 +56,19 @@ const Image = ({ block }) => {
       </figure>
     );
   }
-  if (block.attributes.caption) {
+  if (block.imageAttributes.caption) {
     return (
       <figure className={'gutenberg__image'}>
         {image}
         <figcaption
-          dangerouslySetInnerHTML={{ __html: block.attributes.caption }}
+          dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
         />
       </figure>
     );
   }
-  if (block.attributes.href) {
+  if (block.imageAttributes.href) {
     return (
-      <a href={block.attributes.href} target="_blank">
+      <a href={block.imageAttributes.href} target="_blank">
         {image}
       </a>
     );
