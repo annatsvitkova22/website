@@ -11,6 +11,7 @@ import {
   prepareGalleryItems,
   options,
 } from '~/components/PhotoSwipeGallery/videoGalleryUtils';
+import CatList from '~/components/CatList';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
@@ -78,11 +79,21 @@ class Category extends Component {
       isLoading: false,
       endCursor: this.props.endCursor,
       hasNextPage: this.props.hasNextPage,
+      mobile: false,
     };
     this.videosRef = React.createRef();
   }
 
+  updateMobile = () => {
+    window.outerWidth < 768
+      ? this.setState({ mobile: true })
+      : this.setState({ mobile: false });
+  };
+
   componentDidMount() {
+    this.updateMobile();
+    window.addEventListener('resize', this.updateMobile);
+
     if (this.state.hasNextPage) {
       window.addEventListener('scroll', this.onScroll);
     }
@@ -97,6 +108,7 @@ class Category extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this.updateMobile);
     window.removeEventListener('scroll', this.onScroll);
   }
 
@@ -165,36 +177,7 @@ class Category extends Component {
                 </h1>
               </div>
               <div className="col-12">
-                <ul className="list-unstyled cat-list">
-                  {categories.map((category) => {
-                    const { categoryId, slug, name, videos } = category;
-                    if (videos.nodes.length !== 0) {
-                      return (
-                        <li
-                          className="cat-list__item d-inline-block"
-                          key={categoryId}
-                        >
-                          <Link
-                            href={`/videos/category/[slug]`}
-                            as={`/videos/category/${slug}`}
-                          >
-                            <a
-                              href={`video/category/${slug}`}
-                              className={`cat-list__button d-inline-block font-weight-bold tx-family-alt ${
-                                currCatId === categoryId
-                                  ? 'cat-list__button--active'
-                                  : ''
-                              }`}
-                            >
-                              {name}
-                            </a>
-                          </Link>
-                        </li>
-                      );
-                    }
-                    return '';
-                  })}
-                </ul>
+                <CatList categories={categories} currCatId={currCatId} />
               </div>
             </div>
             <div ref={this.videosRef} className="row">
