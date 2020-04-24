@@ -4,7 +4,7 @@ import { PhotoSwipe } from 'react-photoswipe';
 
 import Icons from '~/components/Icons';
 
-const Image = ({ block }) => {
+const Image = ({ block, className = '' }) => {
   const [isActive, setIsActive] = React.useState(false);
 
   const openPopup = () => {
@@ -40,7 +40,7 @@ const Image = ({ block }) => {
   );
   if (block.attributes.linkDestination) {
     return (
-      <figure className={'gutenberg__image'}>
+      <figure className={`gutenberg__image ${className}`}>
         {image}
         <figcaption
           dangerouslySetInnerHTML={{ __html: block.attributes.caption }}
