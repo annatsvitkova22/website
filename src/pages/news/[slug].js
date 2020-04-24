@@ -10,7 +10,7 @@ import { PostStore } from '~/stores/Post';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
-import Share from '~/components/Share';
+import Share from '~/components/ShareSideBar';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';

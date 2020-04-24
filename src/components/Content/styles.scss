@@ -8,6 +8,8 @@
   flex-direction: column;
   justify-content: center;
 
+  position: relative;
+
   .is-style-circle-mask {
     width: 100%;
     height: auto;
@@ -40,6 +42,11 @@
     font-size: 11px;
     line-height: 1.45;
     letter-spacing: 0.02em;
+  }
+  .pswp__bg {
+    background-color: white;
+
+    color: black;
   }
 }
 .gutenberg__image:hover > .expand-image {
@@ -99,7 +106,6 @@
 }
 .gutenberg__youtube iframe {
   width: 100%;
-
 }
 .gutenberg__title {
   width: 100%;

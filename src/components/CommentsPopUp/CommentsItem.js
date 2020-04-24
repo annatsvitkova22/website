@@ -6,7 +6,6 @@ const CommentsItem = () => {
   return (
     <div className={'comments-pp__comment'}>
       <div className={'comments-pp__author'}>
-        <span className={'comments-pp__photo'} />
         <div className={'comments-pp__name'}>
           <span>Егор Рудь</span>
           <span>12 Березня, 14:24</span>
