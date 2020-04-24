@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
+import { useStateLink } from '@hookstate/core';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -12,7 +13,7 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
-import { setCategories } from '~/stores/News';
+import { NewsStore, setCategories } from '~/stores/News';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String, $articles: Int) {
@@ -65,16 +66,26 @@ const NEWS_ARCHIVE = gql`
   }
 `;
 
-const News = (props) => {
+const News = ({ posts, categories }) => {
+  const stateLink = useStateLink(NewsStore);
+  const { sorting, filters } = stateLink.get();
+
+  const currentSorting = sorting.find((i) => i.active);
+  const currentCategory = filters.categories.find((i) => i.active);
+
   const { fetchingContent, state } = useLoadMoreHook(
     NEWS_ARCHIVE,
-    props,
+    posts,
     'news',
     10,
     2,
     'DATE',
     'ASC'
   );
+
+  useEffect(() => {
+    if (categories && !filters.categories.length) setCategories(categories);
+  }, []);
 
   // const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
   //   if (current.active) acc.currentSorting = current;
@@ -134,7 +145,13 @@ const News = (props) => {
             ))}
             {state.isLoading && <NewsLoader />}
           </main>
-          <SidebarNews className="news-archive__sidebar col-md-4" />
+          <SidebarNews
+            className="news-archive__sidebar col-md-4"
+            sorting={sorting}
+            filters={filters}
+            currentCategory={currentCategory}
+            currentSorting={currentSorting}
+          />
         </div>
       </div>
     </div>
@@ -161,8 +178,7 @@ News.getInitialProps = async () => {
   });
   const { posts, categories } = data;
 
-  setCategories(categories);
-  return posts;
+  return { posts, categories };
 };
 
 export default News;

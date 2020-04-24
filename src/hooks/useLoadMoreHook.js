@@ -5,7 +5,7 @@ import { setCategories } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
-  props,
+  props = {},
   type = '',
   initialNumber = 10,
   onLoadNumber = 3
