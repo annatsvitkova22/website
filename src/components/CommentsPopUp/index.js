@@ -1,28 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useStateLink } from '@hookstate/core';
 
 import ShareItems from '~/components/ShareItems';
 import CommentsItem from '~/components/CommentsPopUp/CommentsItem';
 import Icons from '~/components/Icons';
+import { PostStore } from '~/stores/Post';
 
-const CommentsPopUp = ({ isVisible, handleClose }) => {
+const CommentsPopUp = () => {
   const [text, setText] = useState('');
+  const state = useStateLink(PostStore);
 
   const handleInputChange = (event) => {
     setText(event.target.value);
   };
 
-  const handleSubmitComment = () => {
-    clearFields();
+  const handleClose = () => {
+    state.set((visibility) => {
+      return {
+        ...visibility,
+        isVisible: false,
+      };
+    });
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
-  const clearFields = () => {
+  const handleSubmitComment = () => {
     setText('');
+    handleClose();
   };
 
   return (
     <>
-      {isVisible && (
+      {state.get().isVisible && (
         <div className={'comments-pp__wrapper'}>
           <div className={'comments-pp'}>
             <div className={'comments-pp__close'}>

@@ -4,7 +4,7 @@ import SideBarNews from '~/components/Sidebar/Post/SideBarNews';
 import SideBarPopular from '~/components/Sidebar/Post/SideBarPopular';
 import SideBarBlogs from '~/components/Sidebar/Post/SideBarBlogs';
 
-const SideBar = ({ news, blogs }) => {
+const SideBarPost = ({ news, blogs }) => {
   return (
     <section className={'sidebar-latest'}>
       <SideBarNews news={news} />
@@ -14,4 +14,4 @@ const SideBar = ({ news, blogs }) => {
   );
 };
 
-export default SideBar;
+export default SideBarPost;

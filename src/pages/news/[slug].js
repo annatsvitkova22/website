@@ -4,23 +4,21 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { createStateLink, useStateLink } from '@hookstate/core';
 
-import '../../styles/pages/post.scss';
+import { PostStore } from '~/stores/Post';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
 import Share from '~/components/Share';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
-import SideBarNews from '~/components/Sidebar/Post/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import FeaturedImage from '~/components/FeaturedImage';
 import SimilarPosts from '~/components/SimilarPosts';
-import SideBarPopular from '~/components/Sidebar/Post/SideBarPopular';
-import SideBarBlogs from '~/components/Sidebar/Post/SideBarBlogs';
 import ArticleAuthor from '~/components/Article/Author';
 import ShareItems from '~/components/ShareItems';
-import SideBar from '~/components/Sidebar/Post';
+import SideBarPost from '~/components/Sidebar/Post';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -125,8 +123,6 @@ const Post = ({ post, news, similarPosts, blogs }) => {
     similarPosts.nodes ? similarPosts.nodes : null
   );
 
-  console.log(blogs);
-
   useEffect(() => {
     if (similarPosts.nodes) {
       const filteredSimilarPost = similarPosts.nodes.filter(
@@ -194,7 +190,7 @@ const Post = ({ post, news, similarPosts, blogs }) => {
                 offsetBottom={20}
                 className={'sidebar__wrapper col-xl-3'}
               >
-                <SideBar news={news} blogs={blogs} />
+                <SideBarPost news={news} blogs={blogs} />
               </StickyBox>
             </div>
             <SimilarPosts similarPosts={similar} />
