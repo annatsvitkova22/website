@@ -31,20 +31,15 @@ const SEARCH_QUERY = gql`
   }
 `;
 
-const CATEGORY = `
-  query Categories {
-    categories(where: {hideEmpty: true}) {
+const QUANTITIES = gql`
+  query TypesQuantity {
+    categories(where: { hideEmpty: true }) {
       nodes {
         name
         slug
         count
       }
     }
-  }
-`;
-
-const POST_TYPES = `
-  query PostTypes {
     posts {
       pageInfo {
         total
@@ -56,6 +51,11 @@ const POST_TYPES = `
       }
     }
     publications {
+      pageInfo {
+        total
+      }
+    }
+    videos {
       pageInfo {
         total
       }
@@ -75,119 +75,58 @@ const POST_TYPES = `
         total
       }
     }
-    others {
-      pageInfo {
-        total
-      }
-    }
-    contentTypes {
-      nodes {
-        label
-        graphqlPluralName
-      }
-    }
-}
+  }
 `;
 
 const Search = (props) => {
-  const optionsTag = [
-    {
-      value: 'новини',
-      label: (
-        <span>
-          Новини <span className="tx-green">6</span>
-        </span>
-      ),
-    },
-    {
-      value: 'публікації',
-      label: (
-        <span>
-          Публікації <span className="tx-green">6</span>
-        </span>
-      ),
-      isFixed: true,
-    },
-    {
-      value: 'блоги',
-      label: (
-        <span>
-          Блоги <span className="tx-green">6</span>
-        </span>
-      ),
-    },
-    {
-      value: 'відео',
-      label: (
-        <span>
-          Відео <span className="tx-green">6</span>
-        </span>
-      ),
-    },
-    {
-      value: 'події',
-      label: (
-        <span>
-          Події <span className="tx-green">6</span>
-        </span>
-      ),
-    },
-    {
-      value: 'збір-коштів',
-      label: (
-        <span>
-          Збір коштів <span className="tx-green">6</span>
-        </span>
-      ),
-    },
-    {
-      value: 'можливості',
-      label: (
-        <span>
-          Можливості <span className="tx-green">6</span>
-        </span>
-      ),
-    },
-  ];
+  const [mobile, setMobile] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [searchState, setSearchState] = useState({
+    posts: props ? props.posts : {},
+    types: props ? props.types : {},
+    categories: props ? props.categories : [],
+    query: Router.router ? Router.router.query : {},
+  });
 
-  const optionsCat = [
-    {
-      value: 'політика',
-      label: 'Політика',
-    },
-    {
-      value: 'освіта',
-      label: 'Освіта',
-    },
-    {
-      value: "здоров'я",
-      label: "Здоров'я",
-    },
-    {
-      value: 'спорт',
-      label: 'Спорт',
-    },
-    {
-      value: 'культура',
-      label: 'Культура',
-    },
-    {
-      value: 'політика',
-      label: 'Політика',
-    },
-    {
-      value: 'економіка-і-бізнес',
-      label: 'Економіка і бізнес',
-    },
-    {
-      value: 'суспільство',
-      label: 'Суспільство',
-    },
-    {
-      value: 'історії-успіху',
-      label: 'Історії успіху',
-    },
-  ];
+  const { posts, types, categories, query } = searchState;
+  console.log(query);
+
+  const typeLabels = {
+    posts: 'Новини',
+    publications: 'Публікації',
+    blogs: 'Блоги',
+    videos: 'Відео',
+    events: 'Події',
+    crowdfundings: 'Збір коштів',
+    opportunities: 'Можливості',
+  };
+
+  let typesFormated = Object.keys(types).map((type) => {
+    if (type !== 'categories') {
+      const quantity = types[type].pageInfo ? types[type].pageInfo.total : 0;
+      return {
+        value: type,
+        label: (
+          <span>
+            {typeLabels[type]} <span className="tx-green">{quantity}</span>
+          </span>
+        ),
+      };
+    }
+    return '';
+  });
+  typesFormated = typesFormated.filter((el) => el !== '');
+
+  const categoriesFormated = categories.map(({ count = 0, slug, name }) => {
+    return {
+      value: slug,
+      label: (
+        <span>
+          {name} <span className="tx-green">{count}</span>
+        </span>
+      ),
+    };
+  });
 
   const optionsPubdate = [
     {
@@ -235,12 +174,12 @@ const Search = (props) => {
     {
       name: 'type',
       placeholder: 'Тип',
-      options: optionsTag,
+      options: typesFormated,
     },
     {
       name: 'cat',
       placeholder: 'Категорії',
-      options: optionsCat,
+      options: categoriesFormated,
     },
     {
       name: 'pubd',
@@ -254,20 +193,22 @@ const Search = (props) => {
     },
   ];
 
-  const { fetchingContent, state } = useLoadMoreHook(
-    SEARCH_QUERY,
-    props,
-    'news'
-  );
-
-  const [mobile, setMobile] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
+  // const { fetchingContent, state } = useLoadMoreHook(
+  //   SEARCH_QUERY,
+  //   props.posts,
+  //   'news'
+  // );
 
   const updateMobile = () => {
     window.outerWidth < 768 ? setMobile(true) : setMobile(false);
   };
 
   useEffect(() => {
+    setSearchState((state) => ({
+      ...state,
+      query: searchState.query,
+    }));
+
     updateMobile();
     window.addEventListener('resize', updateMobile);
     return () => {
@@ -275,16 +216,16 @@ const Search = (props) => {
     };
   }, [mobile]);
 
-  if (!state.data.nodes) {
-    return (
-      <div>
-        <NewsLoader />
-        <NewsLoader />
-        <NewsLoader />
-      </div>
-    );
-  }
-  const { nodes, pageInfo } = state.data;
+  // if (!state.data.nodes) {
+  //   return (
+  //     <div>
+  //       <NewsLoader />
+  //       <NewsLoader />
+  //       <NewsLoader />
+  //     </div>
+  //   );
+  // }
+  // const { nodes, pageInfo } = state.data;
 
   function onClick() {
     setShowFilters(!showFilters);
@@ -296,7 +237,6 @@ const Search = (props) => {
 
   function onChangeField({ target: { name, value } }) {
     if (value.length > 1) {
-      const { query } = Router.router;
       const queryUpdated = queryReducer(query, 'change-field', name, value);
 
       Router.push({
@@ -307,7 +247,6 @@ const Search = (props) => {
   }
 
   function onChangeRadio({ target: { name, value } }) {
-    const { query } = Router.router;
     const queryUpdated = queryReducer(query, 'change-radio', name, value);
 
     Router.push({
@@ -317,7 +256,6 @@ const Search = (props) => {
   }
 
   function onChangeSelect(e, { action, name }) {
-    const { query } = Router.router;
     const value = e ? e.value : '';
     const queryUpdated = queryReducer(query, action, name, value);
 
@@ -443,7 +381,7 @@ const Search = (props) => {
               </div>
             </div>
           </div>
-          <div className="container">
+          {/* <div className="container">
             {nodes.map((post, i) => (
               <article key={post.id}>
                 <Link href="/news/[slug]" as={`/news/${post.slug}`}>
@@ -458,7 +396,7 @@ const Search = (props) => {
               </article>
             ))}
             {state.isLoading && <NewsLoader />}
-          </div>
+          </div> */}
         </>
       </main>
     </div>
@@ -479,8 +417,21 @@ Search.getInitialProps = async () => {
       cursor: null,
     },
   });
+
+  // const responseCats = await apolloClient.query({
+  //   query: CATEGORIES_QUANTITY,
+  // });
+
+  const responseQuant = await apolloClient.query({
+    query: QUANTITIES,
+  });
+
   const { posts } = data;
-  return posts;
+  return {
+    posts,
+    types: responseQuant.data,
+    categories: responseQuant.data.categories.nodes,
+  };
 };
 
 export default Search;
