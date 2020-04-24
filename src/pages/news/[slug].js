@@ -14,6 +14,9 @@ import Content from '~/components/Content';
 import SideBarNews from '~/components/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import FeaturedImage from '~/components/FeaturedImage';
+import SimilarPosts from '~/components/SimilarPosts';
+import SideBarPopular from '~/components/SideBarPopular';
+import SideBarBlogs from '~/components/SideBarBlogs';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -37,14 +40,19 @@ const POST = gql`
           link
         }
       }
+      id
       comments {
         pageInfo {
           total
         }
       }
       author {
+        nicename
         lastName
         firstName
+        nickname
+        username
+        name
       }
       featuredImage {
         id
@@ -59,9 +67,28 @@ const POST = gql`
     }
   }
 `;
+const SIMILAR = gql`
+  query SimilarPosts($nicename: String) {
+    posts(first: 7, where: { authorName: $nicename }) {
+      nodes {
+        author {
+          firstName
+          lastName
+          name
+        }
+        id
+        title
+        featuredImage {
+          link
+          mediaItemUrl
+        }
+      }
+    }
+  }
+`;
 const NEWS = gql`
-  query News($cursor: String) {
-    posts(first: 5, before: $cursor) {
+  query News($cursor: String, $articles: Int) {
+    posts(first: $articles, before: $cursor) {
       nodes {
         title
         link
@@ -75,8 +102,10 @@ const NEWS = gql`
   }
 `;
 
-const Post = ({ post, news }) => {
-  const ref = React.useRef();
+const Post = ({ post, news, similarPosts }) => {
+  const filteredSimilarPost = similarPosts.nodes.filter(
+    (node) => node.id !== post.id
+  );
 
   const [state, setState] = useState({
     updNews: news,
@@ -95,6 +124,7 @@ const Post = ({ post, news }) => {
     const postsData = await apolloClient.query({
       query: NEWS,
       variables: {
+        articles: 3,
         cursor: state.endCursor,
       },
     });
@@ -122,19 +152,28 @@ const Post = ({ post, news }) => {
         {post ? (
           <>
             <div className={'single-post__title row'}>
-              <div className={'col-xl-9 col-12'}>
+              <div className={'single-post__wrapper col-xl-9 col-12'}>
                 <NewsHead post={post} />
                 <FeaturedImage data={post.featuredImage} />
               </div>
               <StickyBox
-                offsetTop={20}
+                offsetTop={118}
                 offsetBottom={20}
                 className={'side-bar__wrapper col-xl-3'}
               >
-                <section className={'latest'}>
+                <section className={'sidebar-latest'}>
                   <SideBarNews
                     news={state.updNews}
-                    ref={ref}
+                    fetchingContent={fetchingContent}
+                    isLoading={state.isLoading}
+                  />
+                  <SideBarPopular
+                    news={state.updNews}
+                    fetchingContent={fetchingContent}
+                    isLoading={state.isLoading}
+                  />
+                  <SideBarBlogs
+                    news={state.updNews}
                     fetchingContent={fetchingContent}
                     isLoading={state.isLoading}
                   />
@@ -143,7 +182,7 @@ const Post = ({ post, news }) => {
 
               <section className={'single-post__main col-xl-9 col-12'}>
                 <StickyBox
-                  offsetTop={20}
+                  offsetTop={70}
                   offsetBottom={20}
                   className={'side-bar__wrapper col-xl-1'}
                 >
@@ -155,6 +194,7 @@ const Post = ({ post, news }) => {
                 </section>
               </section>
             </div>
+            <SimilarPosts similarPosts={filteredSimilarPost} />
           </>
         ) : (
           <PostHeaderLoader />
@@ -167,6 +207,7 @@ const Post = ({ post, news }) => {
 Post.propTypes = {
   post: PropTypes.object,
   news: PropTypes.object,
+  similarPosts: PropTypes.object,
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {
@@ -177,15 +218,22 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   const news = await apolloClient.query({
     query: NEWS,
     variables: {
+      articles: 10,
       cursor: null,
+    },
+  });
+  const similarPosts = await apolloClient.query({
+    query: SIMILAR,
+    variables: {
+      nicename: data.postBy.author.nicename,
     },
   });
 
   return {
     post: data.postBy,
     news: news.data.posts,
+    similarPosts: similarPosts.data.posts,
   };
 };
 
 export default Post;
-/**/

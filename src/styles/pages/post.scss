@@ -2,8 +2,6 @@
   padding-top: 118px;
   &__title {
     display: flex;
-
-    margin-left: auto;
     &-wrapper {
       margin-left: auto;
     }
@@ -12,7 +10,6 @@
       flex-direction: column;
     }
   }
-
   &__main {
     display: flex;
   }
@@ -22,6 +19,9 @@
     align-items: center;
 
     max-width: 872px;
+  }
+  &__content > *:nth-last-child(2) {
+    margin-bottom: 80px;
   }
   &__footer {
     max-width: 648px;
@@ -34,9 +34,12 @@
 }
 .side-bar__wrapper {
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
 
-  height: 170px;
+  height: 100vh;
+  &:first-child {
+    height: 175px;
+  }
 }
 .title__description > p {
   margin-bottom: 37px;
@@ -189,33 +192,163 @@
 .svg-icon:hover {
   color: #1d9e74;
 }
-.latest {
-  height: 300px;
+.sidebar-latest {
+  height: 100vh;
+
+  padding-left: 12px;
 
   overflow: scroll;
+}
+.sidebar {
+  &-news {
+    padding-left: 0;
+    margin-bottom: 40px;
 
-  & li {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    list-style: none;
+    &__item {
+      padding-top: 8px;
+      padding-bottom: 8px;
+
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 3px;
+      letter-spacing: 0.06em;
+    }
+    &__item:not(:first-child) {
+      box-shadow: inset 0px 1px 0px #eff0f4;
+    }
+    &__link {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+  &-popular {
+    padding-left: 0;
+    margin-bottom: 40px;
+
+    list-style: none;
+
+    &__title {
+      padding-top: 16px;
+      padding-bottom: 2px;
+
+      border-top: 1px solid #c1c1c1;
+
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    &__item {
+      padding-top: 12px;
+    }
+    &__item:not(:last-child) {
+      padding-bottom: 12px;
+    }
+    &__wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.02em;
+    }
+    &__text {
+      max-width: 200px;
+    }
+    &__image {
+      width: 64px;
+      height: 64px;
+
+      background-color: #242424;
+    }
+  }
+  &-blogs {
+    padding-left: 0;
+
+    list-style: none;
+    &__title {
+      padding-top: 16px;
+      padding-bottom: 2px;
+
+      border-top: 1px solid #c1c1c1;
+
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    &__item {
+      padding-top: 12px;
+    }
+    &__item:not(:last-child) {
+      padding-bottom: 12px;
+    }
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.02em;
+    }
+    &__text {
+      padding-bottom: 14px;
+    }
+    &__author {
+      color: #b0b0b0;
+
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.07em;
+      text-transform: capitalize;
+    }
   }
 }
 
-
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1200px) {
   .single-post__title {
     margin-left: -12px;
+  }
+  .single-post__wrapper {
+    flex: 0 0 100%;
+
+    max-width: 100%;
   }
   .side-bar__wrapper {
     display: none;
   }
   .single-post__main {
     justify-content: center;
+    flex: 0 0 100%;
+
+    max-width: 100%;
   }
 }
 
 @media screen and (max-width: 768px) {
   .single-post {
     padding-top: 88px;
+  }
+  .content__posts {
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.03em;
+  }
+  .content__posts.gutenberg__youtube {
+    width: 100%;
+  }
+  h2.content__posts {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.03em;
   }
   .category-tag__list {
     flex-wrap: wrap;
@@ -267,6 +400,7 @@
   .feature__image {
     margin-left: 0;
     margin-bottom: 20px;
+
     &-caption {
       padding-bottom: 0;
     }
@@ -285,6 +419,11 @@
 
     margin-top: 20px;
     margin-bottom: 24px;
+  }
+  .wp-block-buttons {
+    width: 100%;
+
+    text-align: center;
   }
 }
 

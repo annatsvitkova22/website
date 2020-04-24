@@ -4,21 +4,20 @@ import { Waypoint } from 'react-waypoint';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 
-const SideBarNews = ({ news, fetchingContent, isLoading }) => {
+const SideBarNews = ({ news, isLoading }) => {
   if (!news) return <SidebarLoader />;
   return (
-    <ul className={'latest__news'}>
-      <span>Новини</span>
+    <ul className={'sidebar-news'}>
       {news.nodes.map((item, i) => {
         return (
-          <React.Fragment key={i}>
-            <a href={item.link}>
-              <li key={item.id}>{item.title}</li>
+          <li key={i} className={'sidebar-news__item'}>
+            <a href={item.link} className={'sidebar-news__link'}>
+              {item.title}
             </a>
             {i === news.nodes.length - 5 && i < news.pageInfo.total && (
-              <Waypoint onEnter={fetchingContent} />
+              <Waypoint />
             )}
-          </React.Fragment>
+          </li>
         );
       })}
       {isLoading && <SidebarLoader />}
@@ -28,6 +27,7 @@ const SideBarNews = ({ news, fetchingContent, isLoading }) => {
 
 SideBarNews.propTypes = {
   news: PropTypes.array,
+  isLoading: PropTypes.bool,
 };
 
 export default SideBarNews;

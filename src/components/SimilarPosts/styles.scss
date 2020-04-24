@@ -1,0 +1,159 @@
+.similar-posts {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  padding-top: 16px;
+
+  border-top: 1px solid #c1c1c1;
+  &__wrapper {
+    padding-bottom: 80px;
+  }
+  &__type {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  &__items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding-top: 17px;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 200px;
+  }
+  &__image {
+    padding-bottom: 16px;
+  }
+  &__about {
+    display: flex;
+    flex-direction: column;
+  }
+  &__title {
+    padding-bottom: 14px;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+  }
+  &__author {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.03em;
+    text-transform: capitalize;
+    color: #666666;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .similar-posts {
+    &__wrapper {
+      width: 827px;
+
+      margin: 0 auto;
+    }
+    &__type {
+      margin-bottom: 17px;
+    }
+    &__items {
+      flex-direction: column;
+      align-items: center;
+    }
+    &__item {
+      flex-direction: row;
+      justify-content: space-between;
+
+      width: 100%;
+      max-width: 100%;
+    }
+    &__item:not(:last-child) {
+      margin-bottom: 40px;
+    }
+    &__about {
+      order: 1;
+
+      max-width: 300px;
+    }
+    &__image {
+      order: 2;
+
+      height: 150px;
+      width: 250px;
+
+      margin-bottom: 0px;
+
+      position: relative;
+
+      overflow: hidden;
+      img {
+        width: 100%;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .similar-posts {
+    &__wrapper {
+      width: auto;
+    }
+  }
+}
+@media screen and (max-width: 650px) {
+  .similar-posts {
+    &__wrapper {
+      padding-bottom: 50px;
+    }
+    &__item:not(:last-child) {
+      margin-bottom: 26px;
+    }
+    &__image {
+      height: 88px;
+      width: 88px;
+
+      padding-bottom: 0;
+      img {
+        max-width: max-content;
+        width: auto;
+      }
+    }
+    &__type {
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    &__about {
+      max-width: 235px;
+    }
+    &__title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0.02em;
+    }
+    &__author {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.07em;
+      text-transform: capitalize;
+      color: #b0b0b0;
+    }
+  }
+}

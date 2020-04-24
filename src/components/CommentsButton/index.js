@@ -11,6 +11,14 @@ const CommentsButton = ({ className, comments }) => {
     setIsVisible(() => {
       return !isVisible;
     });
+    !isVisible
+      ? document.querySelector('body').classList.add('isB-MenuOpen')
+      : document.querySelector('body').classList.remove('isB-MenuOpen');
+  };
+
+  const handleClose = () => {
+    setIsVisible(false);
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   return (
@@ -20,7 +28,7 @@ const CommentsButton = ({ className, comments }) => {
         <span>Коментарі</span>
         {comments && <span>( {comments.pageInfo.total})</span>}
       </button>
-      <CommentsPopUp isVisible={isVisible} />
+      <CommentsPopUp isVisible={isVisible} handleClose={handleClose} />
     </>
   );
 };
