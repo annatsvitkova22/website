@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 import { useStateLink } from '@hookstate/core';
+import { useRouter } from 'next/router';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -14,6 +15,7 @@ import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import { NewsStore, setCategories } from '~/stores/News';
+import useRouterSubscription from '~/hooks/useRouterSubscription';
 
 const NEWS_ARCHIVE = gql`
   query NewsArchive($cursor: String, $articles: Int) {
@@ -70,7 +72,11 @@ const News = ({ posts, categories }) => {
   const stateLink = useStateLink(NewsStore);
   const { sorting, filters } = stateLink.get();
 
-  const currentSorting = sorting.find((i) => i.active);
+  const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+    if (current.active) acc.currentSorting = current;
+    if (current.default) acc.defaultSorting = current;
+    return acc;
+  }, {});
   const currentCategory = filters.categories.find((i) => i.active);
 
   const { fetchingContent, state } = useLoadMoreHook(
@@ -83,22 +89,25 @@ const News = ({ posts, categories }) => {
     'ASC'
   );
 
+  useRouterSubscription(
+    {
+      name: 'sorting',
+      current: currentSorting.value,
+      default: defaultSorting.value,
+    },
+    {
+      name: 'date',
+      current: filters.date,
+    },
+    {
+      name: 'category',
+      current: currentCategory ? currentCategory.value : undefined,
+    }
+  );
+
   useEffect(() => {
     if (categories && !filters.categories.length) setCategories(categories);
   }, []);
-
-  // const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
-  //   if (current.active) acc.currentSorting = current;
-  //   if (current.default) acc.defaultSorting = current;
-  //   return acc;
-  // }, {});
-  //
-  // if (currentSorting.value !== defaultSorting.value) {
-  //   router.replace({
-  //     pathname: '/news',
-  //     query: { sorting: currentSorting.value },
-  //   });
-  // }
 
   if (!state.data.nodes) {
     return (

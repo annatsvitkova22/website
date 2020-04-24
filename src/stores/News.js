@@ -23,13 +23,16 @@ export const NewsStore = createStateLink({
     },
   ],
   filters: {
-    date: moment().format(),
+    date: undefined,
     categories: [],
   },
 });
 
 export const setSorting = (option) => {
   const newStore = NewsStore.get();
+  const current = newStore.filters.categories.find((i) => i.active);
+  const isCurrent = current && current.value === option.value;
+  if (isCurrent) return;
   newStore.sorting.map((i) => {
     const newValue = i;
     newValue.active = newValue.value === option.value;
@@ -40,7 +43,15 @@ export const setSorting = (option) => {
 
 export const setDate = (date) => {
   const newStore = NewsStore.get();
-  newStore.filters.date = moment(date).format();
+  if (newStore.filters.date) {
+    if (moment(newStore.filters.date).isSame(date, 'day')) {
+      newStore.filters.date = undefined;
+    } else {
+      newStore.filters.date = moment(date).format('YYYY-MM-DD');
+    }
+  } else {
+    newStore.filters.date = moment(date).format('YYYY-MM-DD');
+  }
   NewsStore.merge(newStore);
 };
 

@@ -21,7 +21,7 @@ const SidebarNews = ({
         className="sorting--news"
         onChange={setSorting}
       />
-      <Calendar onChange={setDate} currentValue={new Date(filters.date)} />
+      <Calendar onChange={setDate} currentValue={filters.date} />
       <Filter
         currentOption={currentCategory}
         className="filter--categories"
