@@ -25,11 +25,10 @@
     bottom: 30px;
     right: 20px;
 
+    border: none;
+    background: transparent;
 
     visibility: hidden;
-    .svg-icon {
-      color: $white;
-    }
   }
   & > img {
     margin-bottom: 7px;
