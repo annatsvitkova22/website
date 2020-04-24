@@ -5,14 +5,12 @@ import { isEqual } from 'lodash';
 const useRouterSubscription = (...parameters) => {
   useEffect(() => {
     const { query, pathname } = Router.router;
-    const newQuery = {};
+    const newQuery = { ...query };
     parameters.forEach((param) => {
-      if (
-        newQuery[param.name] !== param.current
-        // param.current !== param.default
-      ) {
-        newQuery[param.name] = param.current;
-      }
+      // console.log(param.initial, newQuery[param.name]);
+      // newQuery[param.name] = param.initial;
+      // if (param.initial === newQuery[param.name]) return;
+      newQuery[param.name] = param.current;
       if (newQuery[param.name] === param.default) {
         delete newQuery[param.name];
       }

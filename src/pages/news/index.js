@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 import { useStateLink } from '@hookstate/core';
-import { useRouter } from 'next/router';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -14,7 +13,13 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
-import { NewsStore, setCategories } from '~/stores/News';
+import {
+  NewsStore,
+  setCategories,
+  setCategory,
+  setDate,
+  setSorting,
+} from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 
 const NEWS_ARCHIVE = gql`
@@ -68,11 +73,11 @@ const NEWS_ARCHIVE = gql`
   }
 `;
 
-const News = ({ posts, categories }) => {
+const News = ({ posts, categories, query }) => {
   const stateLink = useStateLink(NewsStore);
   const { sorting, filters } = stateLink.get();
 
-  const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+  let { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
     if (current.active) acc.currentSorting = current;
     if (current.default) acc.defaultSorting = current;
     return acc;
@@ -89,25 +94,43 @@ const News = ({ posts, categories }) => {
     'ASC'
   );
 
+  useEffect(() => {
+    if (categories && !filters.categories.length) setCategories(categories);
+    const { sorting, date, category } = query;
+    if (sorting) {
+      setSorting(sorting);
+    }
+    if (date) {
+      setDate(date);
+    }
+    if (category) {
+      setCategory(category);
+    }
+    return () => {
+      setSorting(defaultSorting.value);
+      if (filters.date) setDate(filters.date);
+      setCategory(null);
+    };
+  }, []);
+
   useRouterSubscription(
     {
       name: 'sorting',
       current: currentSorting.value,
       default: defaultSorting.value,
+      initial: query.sorting,
     },
     {
       name: 'date',
       current: filters.date,
+      initial: query.date,
     },
     {
       name: 'category',
       current: currentCategory ? currentCategory.value : undefined,
+      initial: query.category,
     }
   );
-
-  useEffect(() => {
-    if (categories && !filters.categories.length) setCategories(categories);
-  }, []);
 
   if (!state.data.nodes) {
     return (
@@ -171,9 +194,9 @@ News.propTypes = {
   posts: PropTypes.any,
 };
 
-News.getInitialProps = async () => {
+News.getInitialProps = async ({ query }) => {
   if (process.browser) {
-    return {};
+    return { query };
   }
 
   const { data } = await apolloClient.query({
@@ -187,7 +210,7 @@ News.getInitialProps = async () => {
   });
   const { posts, categories } = data;
 
-  return { posts, categories };
+  return { posts, categories, query };
 };
 
 export default News;

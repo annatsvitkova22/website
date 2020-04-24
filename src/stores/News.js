@@ -1,7 +1,7 @@
 import { createStateLink } from '@hookstate/core';
 import * as moment from 'moment';
 
-export const NewsStore = createStateLink({
+const initialState = {
   sorting: [
     {
       label: 'останні',
@@ -26,16 +26,18 @@ export const NewsStore = createStateLink({
     date: undefined,
     categories: [],
   },
-});
+};
+
+export const NewsStore = createStateLink(initialState);
 
 export const setSorting = (option) => {
   const newStore = NewsStore.get();
   const current = newStore.filters.categories.find((i) => i.active);
-  const isCurrent = current && current.value === option.value;
+  const isCurrent = current && current.value === option;
   if (isCurrent) return;
   newStore.sorting.map((i) => {
     const newValue = i;
-    newValue.active = newValue.value === option.value;
+    newValue.active = newValue.value === option;
     return newValue;
   });
   NewsStore.merge(newStore);
@@ -70,12 +72,16 @@ export const setCategories = (categories) => {
 
 export const setCategory = (category) => {
   const newStore = NewsStore.get();
+  if (category === null) {
+    newStore.filters.categories = [];
+    return NewsStore.merge(newStore);
+  }
   const current = newStore.filters.categories.find((i) => i.active);
-  const isCurrent = current && current.value === category.value;
+  const isCurrent = current && current.value === category;
 
   newStore.filters.categories.map((i) => {
     const newValue = i;
-    newValue.active = isCurrent ? false : newValue.value === category.value;
+    newValue.active = isCurrent ? false : newValue.value === category;
     return newValue;
   });
   NewsStore.merge(newStore);
