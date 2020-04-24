@@ -1,0 +1,16 @@
+.cat-select {
+  margin-top: 19px;
+  margin-bottom: 8px;
+
+  &__main {
+    padding-left: 5px;
+    outline: none;
+
+    border: none;
+    background-color: transparent;
+  }
+
+  &__label {
+    margin-bottom: 0;
+  }
+}

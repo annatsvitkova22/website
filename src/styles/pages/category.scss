@@ -26,9 +26,12 @@
     }
 
     @include media-breakpoint-down(sm) {
+      margin-left: 0;
+      margin-right: 7px;
+
       svg {
-        width: 13px;
-        height: 13px;
+        width: 15px;
+        height: 15px;
       }
     }
   }

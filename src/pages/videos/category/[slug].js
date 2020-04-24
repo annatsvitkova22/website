@@ -12,6 +12,7 @@ import {
   options,
 } from '~/components/PhotoSwipeGallery/videoGalleryUtils';
 import CatList from '~/components/CatList';
+import CatSelect from '~/components/CatSelect';
 import apolloClient from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
@@ -153,7 +154,7 @@ class Category extends Component {
 
   render() {
     const { categoryName, currCatId, categories } = this.props;
-    const { isLoading } = this.state;
+    const { isLoading, mobile } = this.state;
 
     return (
       <div className="videos-page">
@@ -167,17 +168,24 @@ class Category extends Component {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h1 className="cat-page__title text-uppercase d-flex heading-huge">
-                  <span className="tx-ellipsis">{categoryName}</span>
-                  <Link href="/videos/">
-                    <a href="/videos/" className="cat-page__back line-height-1">
-                      <Times />
-                    </a>
-                  </Link>
-                </h1>
+                {mobile && (
+                  <CatSelect categories={categories} currCatId={currCatId} />
+                )}
+                {!mobile && (
+                  <h1 className="cat-page__title text-uppercase d-flex heading-huge">
+                    <span className="tx-ellipsis">{categoryName}</span>
+                    <Link href="/videos">
+                      <a className="cat-page__back line-height-1">
+                        <Times />
+                      </a>
+                    </Link>
+                  </h1>
+                )}
               </div>
               <div className="col-12">
-                <CatList categories={categories} currCatId={currCatId} />
+                {!mobile && (
+                  <CatList categories={categories} currCatId={currCatId} />
+                )}
               </div>
             </div>
             <div ref={this.videosRef} className="row">
