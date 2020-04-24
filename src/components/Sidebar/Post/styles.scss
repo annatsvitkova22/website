@@ -125,3 +125,11 @@
     }
   }
 }
+@media screen and (max-width: 1200px) {
+  .sidebar__wrapper {
+    display: none;
+  }
+  .side-bar__wrapper {
+    display: none;
+  }
+}

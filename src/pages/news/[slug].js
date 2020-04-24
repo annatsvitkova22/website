@@ -11,7 +11,7 @@ import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
 import Share from '~/components/ShareSideBar';
-import NewsFooter from '~/components/NewsFooter';
+import NewsFooter from '~/components/SinglePageFooter';
 import Content from '~/components/Content';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import FeaturedImage from '~/components/FeaturedImage';
