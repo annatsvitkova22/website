@@ -154,13 +154,14 @@
 @media screen and (max-width: 1200px) {
   .feature__image {
     margin: 0 auto;
+    padding: 0;
   }
   .single-post__title {
     margin-left: -12px;
     &-wrapper {
-      max-width: 1037px;
-
-      margin: 0 auto;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
       padding: 0;
     }
   }
@@ -243,7 +244,7 @@
     }
   }
   .feature__image {
-    margin-left: 0;
+    margin-top: 8px;
     margin-bottom: 20px;
 
     &-caption {
