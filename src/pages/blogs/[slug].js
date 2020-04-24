@@ -8,7 +8,7 @@ import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Share from '~/components/Share';
 import Content from '~/components/Content';
-import SideBarNews from '~/components/SideBarNews';
+import SideBarNews from '~/components/Sidebar/Post/SideBarNews';
 
 const BLOG = gql`
   query Blog($slug: String!) {

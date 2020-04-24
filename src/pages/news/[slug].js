@@ -12,14 +12,15 @@ import NewsHead from '~/components/NewsHead';
 import Share from '~/components/Share';
 import NewsFooter from '~/components/NewsFooter';
 import Content from '~/components/Content';
-import SideBarNews from '~/components/SideBarNews';
+import SideBarNews from '~/components/Sidebar/Post/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import FeaturedImage from '~/components/FeaturedImage';
 import SimilarPosts from '~/components/SimilarPosts';
-import SideBarPopular from '~/components/SideBarPopular';
-import SideBarBlogs from '~/components/SideBarBlogs';
+import SideBarPopular from '~/components/Sidebar/Post/SideBarPopular';
+import SideBarBlogs from '~/components/Sidebar/Post/SideBarBlogs';
 import ArticleAuthor from '~/components/Article/Author';
 import ShareItems from '~/components/ShareItems';
+import SideBar from '~/components/Sidebar/Post';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -104,12 +105,27 @@ const NEWS = gql`
     }
   }
 `;
+const BLOGS = gql`
+  query Blogs {
+    blogs(first: 4) {
+      nodes {
+        link
+        title
+        author {
+          name
+        }
+      }
+    }
+  }
+`;
 
-const Post = ({ post, news, similarPosts }) => {
+const Post = ({ post, news, similarPosts, blogs }) => {
   moment.locale('uk');
   const [similar, setSimilar] = useState(
     similarPosts.nodes ? similarPosts.nodes : null
   );
+
+  console.log(blogs);
 
   useEffect(() => {
     if (similarPosts.nodes) {
@@ -122,40 +138,6 @@ const Post = ({ post, news, similarPosts }) => {
       setSimilar(filteredSimilarPost);
     }
   }, []);
-
-  const [state, setState] = useState({
-    updNews: news,
-    isLoading: false,
-    endCursor: news.pageInfo.endCursor ? news.pageInfo.endCursor : null,
-  });
-
-  const fetchingContent = async () => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
-    }
-
-    const postsData = await apolloClient.query({
-      query: NEWS,
-      variables: {
-        articles: 3,
-        cursor: state.endCursor,
-      },
-    });
-
-    setState({
-      isLoading: false,
-      endCursor: postsData.data.posts.pageInfo
-        ? postsData.data.posts.pageInfo.endCursor
-        : false,
-      updNews: {
-        pageInfo: postsData.data.posts.pageInfo,
-        nodes: [...state.updNews.nodes, ...postsData.data.posts.nodes],
-      },
-    });
-  };
 
   return (
     <>
@@ -212,23 +194,7 @@ const Post = ({ post, news, similarPosts }) => {
                 offsetBottom={20}
                 className={'sidebar__wrapper col-xl-3'}
               >
-                <section className={'sidebar-latest'}>
-                  <SideBarNews
-                    news={state.updNews}
-                    fetchingContent={fetchingContent}
-                    isLoading={state.isLoading}
-                  />
-                  <SideBarPopular
-                    news={state.updNews}
-                    fetchingContent={fetchingContent}
-                    isLoading={state.isLoading}
-                  />
-                  <SideBarBlogs
-                    news={state.updNews}
-                    fetchingContent={fetchingContent}
-                    isLoading={state.isLoading}
-                  />
-                </section>
+                <SideBar news={news} blogs={blogs} />
               </StickyBox>
             </div>
             <SimilarPosts similarPosts={similar} />
@@ -265,11 +231,15 @@ Post.getInitialProps = async ({ query: { slug } }) => {
       category: data.postBy.categories.nodes[0].name,
     },
   });
+  const blogs = await apolloClient.query({
+    query: BLOGS,
+  });
 
   return {
     post: data.postBy,
     news: news.data.posts,
     similarPosts: similarPosts.data.posts,
+    blogs: blogs.data.blogs,
   };
 };
 

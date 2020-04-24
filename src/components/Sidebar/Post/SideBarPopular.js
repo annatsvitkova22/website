@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Waypoint } from 'react-waypoint';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 
@@ -19,9 +18,6 @@ const SideBarPopular = ({ news }) => {
                 <span className="sidebar-popular__image" />
               </div>
             </a>
-            {i === news.nodes.length - 5 && i < news.pageInfo.total && (
-              <Waypoint />
-            )}
           </li>
         );
       })}
