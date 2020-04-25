@@ -13,9 +13,9 @@ const NewsFooter = ({ post }) => {
       <div className={'footer__comments'}>
         <CommentsButton className={'col-3'} commetnts={post.comments} />
         <div className={'footer__comments-share'}>
-          <span className={'like'}>
+          <button className={'like'}>
             <Icons icon={'likes'} />
-          </span>
+          </button>
           <ShareItems className={'title__socials-items'} />
         </div>
       </div>

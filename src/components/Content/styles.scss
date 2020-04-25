@@ -4,47 +4,7 @@
   }
 }
 
-.gutenberg__image {
-  flex-direction: column;
-  justify-content: center;
 
-  .is-style-circle-mask {
-    width: 100%;
-    height: auto;
-
-    border-radius: 100%;
-
-    overflow: hidden;
-  }
-  .expand-image {
-    display: block;
-
-    position: absolute;
-    bottom: 50px;
-    right: 50px;
-
-    background-color: $black;
-    border: none;
-    border-radius: 50%;
-
-    visibility: hidden;
-    .svg-icon {
-      color: $white;
-    }
-  }
-  & > img {
-    margin-bottom: 7px;
-  }
-  figcaption {
-    color: #8a9994;
-    font-size: 11px;
-    line-height: 1.45;
-    letter-spacing: 0.02em;
-  }
-}
-.gutenberg__image:hover > .expand-image {
-  visibility: visible;
-}
 
 .gutenberg__quote {
   padding-left: 36px;
@@ -99,7 +59,6 @@
 }
 .gutenberg__youtube iframe {
   width: 100%;
-
 }
 .gutenberg__title {
   width: 100%;

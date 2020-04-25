@@ -1,56 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { PhotoSwipe } from 'react-photoswipe';
 
 import Icons from '~/components/Icons';
+import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 
-const Image = ({ block }) => {
-  const [isActive, setIsActive] = React.useState(false);
+const Image = ({ block, className = '' }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const openPopup = () => {
-    setIsActive(!isActive);
+  const handleOpen = () => {
+    setIsOpen(true);
   };
 
-  const img = [
-    {
-      src: block.imageAttributes.url,
-      w: 1200,
-      h: 900,
-      title: 'image 1',
-    },
-    {
-      src: block.imageAttributes.url,
-      w: 1200,
-      h: 900,
-      title: 'image 2',
-    },
-  ];
-  const style = {
-    alignSelf: block.imageAttributes.align,
+  const handleClose = () => {
+    setIsOpen(false);
   };
-  // TODO: implement all other imageAttributes
-  // TODO: if block.imageAttributes.linkDestination === 'media' then open modal with image
+
   const image = (
     <img
       src={block.imageAttributes.url}
       alt={block.imageAttributes.alt}
       className={block.imageAttributes.className}
-      style={style}
     />
   );
+
+  const img = [
+    {
+      src: block.imageAttributes.url,
+      w: block.imageAttributes.width,
+      h: block.imageAttributes.height,
+      title: block.imageAttributes.caption,
+    },
+  ];
   if (block.imageAttributes.linkDestination) {
     return (
-      <figure className={'gutenberg__image'}>
+      <figure className={`gutenberg__image ${className}`}>
         {image}
         <figcaption
           dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
         />
-        {isActive && (
-          <figure>
-            <PhotoSwipe isOpen={isActive} items={img} onClose={openPopup} />
-          </figure>
-        )}
-        <button className={'expand-image'} onClick={openPopup}>
+        <PhotoSwipeWrapper items={img} isOpen={isOpen} onClose={handleClose} />
+        <button className={'expand-image'} onClick={handleOpen}>
           <Icons icon={'expand'} />
         </button>
       </figure>

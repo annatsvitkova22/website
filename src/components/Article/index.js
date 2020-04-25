@@ -2,7 +2,6 @@ import React from 'react';
 import * as classnames from 'classnames';
 
 import ArticleNews from '~/components/Article/News';
-import './styles.scss';
 import { ArticleProvider } from '~/components/Article/Context';
 
 const Article = ({ type, className, ...props }) => {
