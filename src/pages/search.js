@@ -80,7 +80,7 @@ const QUANTITIES = gql`
 
 const Search = (props) => {
   const [mobile, setMobile] = useState(false);
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
   const [searchState, setSearchState] = useState({
     posts: props ? props.posts : {},
     types: props ? props.types : {},
@@ -316,7 +316,7 @@ const Search = (props) => {
                   className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap"
                 >
                   <ul
-                    className="search-form__row tx-small list-unstyled"
+                    className="search-form__row list-unstyled"
                     onChange={onChangeHtml}
                   >
                     {radios.map(({ value, label }, i) => (

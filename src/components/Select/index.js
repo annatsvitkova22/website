@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import DropdownIndicator from './DropdownIndicator';
 import ClearIndicator from './ClearIndicator';
 
+import ChevronDown from '~/static/images/chevron-down';
+
 const SiteSelect = (props) => {
   const colorStyles = {
     valueContainer: (styles) => ({
@@ -64,25 +66,28 @@ const SiteSelect = (props) => {
   }
 
   return (
-    <select
-      name={name}
-      id={`mobile-filter-${instanceId}`}
-      className="mobile-select tx-family-titles tx-small"
-      defaultValue="placeholder"
-      onChange={onChangeHtml}
-    >
-      <option value="placeholder" disabled>
-        {placeholder}
-      </option>
-      {options.map(({ value, label, mobileLabel }, k) => {
-        const optionTitle = mobileLabel || label;
-        return (
-          <option key={k} value={value}>
-            {optionTitle}
-          </option>
-        );
-      })}
-    </select>
+    <div className="pos-relative">
+      <select
+        name={name}
+        id={`mobile-filter-${instanceId}`}
+        className="mobile-select tx-family-titles w-100"
+        defaultValue="placeholder"
+        onChange={onChangeHtml}
+      >
+        <option value="placeholder" disabled>
+          {placeholder}
+        </option>
+        {options.map(({ value, label, mobileLabel }, k) => {
+          const optionTitle = mobileLabel || label;
+          return (
+            <option key={k} value={value}>
+              {optionTitle}
+            </option>
+          );
+        })}
+      </select>
+      <ChevronDown className="pos-absolute pos-center-right" />
+    </div>
   );
 };
 
