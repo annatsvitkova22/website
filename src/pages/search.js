@@ -508,14 +508,20 @@ const Search = ({ posts, categories, types, query }) => {
           <div className="row">
             <div className="col-12">
               {nodes.map((post, i) => {
-                // TODO: return when all types ready
-                // let typeName = `${post.__typename.toLowerCase()}s`;
-                // if (typeName === 'posts') typeName = 'news';
-                const typeName = 'news';
+                let typeName = `${post.__typename.toLowerCase()}s`;
+                if (typeName === 'posts') typeName = 'news';
+                const showAuthor = !!authorsExcluded.findIndex(
+                  (i) => i !== typeName
+                );
                 return (
                   <React.Fragment key={i}>
                     <ChronologicalSeparator posts={nodes} currentIndex={i} />
-                    <Article type={typeName} post={post} key={post.id}>
+                    <Article
+                      type={'news'}
+                      post={post}
+                      key={post.id}
+                      showAuthor={showAuthor}
+                    >
                       {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                         <Waypoint onEnter={fetchingContent} />
                       )}
@@ -618,3 +624,11 @@ const setQueryVariables = (query) => {
 
   return variables;
 };
+
+const authorsExcluded = [
+  'videos',
+  'events',
+  'crowdfundings',
+  'opportunities',
+  'different',
+];

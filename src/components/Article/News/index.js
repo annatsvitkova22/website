@@ -8,33 +8,48 @@ import ArticleTaxonomies from '~/components/Article/Taxonomies';
 import ArticleDate from '~/components/Article/Date';
 import ArticleFeatured from '~/components/Article/Featured';
 
-const ArticleNews = ({ post, children, className }) => {
+const ArticleNews = ({ post, children, className, showAuthor = true }) => {
+  const {
+    date,
+    categories,
+    comments,
+    title,
+    slug,
+    author,
+    featuredImage,
+  } = post;
+  const showMeta =
+    showAuthor || !!(comments && comments.pageInfo && comments.pageInfo.total);
   return (
     <article className={classnames('article--news', className)}>
       <div className="article__wrapper">
         <div className="article__chronology">
-          <ArticleDate className="article__time" date={post.date} />
+          <ArticleDate className="article__time" date={date} />
         </div>
         <div className="article__main">
           <ArticleTaxonomies
-            categories={post.categories}
+            categories={categories}
             className="article__category"
           />
           <ArticleTitle post={post} className="article__title" />
-          <div className="article__meta">
-            <ArticleAuthor className="article__author" author={post.author} />
-            <ArticleComments
-              className="article__comments"
-              comments={post.comments}
-              slug={post.slug}
-            />
-          </div>
+          {showMeta && (
+            <div className="article__meta">
+              {showAuthor && (
+                <ArticleAuthor className="article__author" author={author} />
+              )}
+              <ArticleComments
+                className="article__comments"
+                comments={comments}
+                slug={slug}
+              />
+            </div>
+          )}
         </div>
         <ArticleFeatured
           className="article__image"
-          image={post.featuredImage}
-          alt={post.title}
-          slug={post.slug}
+          image={featuredImage}
+          alt={title}
+          slug={slug}
         />
       </div>
       {children}
