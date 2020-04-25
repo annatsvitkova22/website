@@ -558,25 +558,27 @@ Search.propTypes = {
 };
 
 Search.getInitialProps = async ({ query }) => {
-  if (process.browser) {
-    return { query };
-  }
-
-  const variables = setQueryVariables(query);
-
-  const res = await apolloClient.query({
-    query: composeQuery(variables),
-    variables: {},
-  });
-
-  // TODO: remove
-  console.log(variables.type, res);
-
+  // TODO: move this query to client side
   const responseQuant = await apolloClient.query({
     query: QUANTITIES,
   });
 
-  const { posts } = res.data;
+  if (process.browser) {
+    return {
+      query,
+      types: responseQuant.data,
+      categories: responseQuant.data.categories.nodes,
+    };
+  }
+
+  const variables = setQueryVariables(query);
+
+  const { data } = await apolloClient.query({
+    query: composeQuery(variables),
+    variables: {},
+  });
+
+  const { posts } = data;
 
   return {
     posts,
