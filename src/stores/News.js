@@ -63,6 +63,7 @@ export const CreateNewsStore = (
       return newValue;
     });
   }
+  NewsStore.set(state);
   return NewsStore;
 };
 

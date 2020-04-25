@@ -15,9 +15,16 @@ import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import { NewsStore, CreateNewsStore } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
+import { dateToGraphQLQuery } from '~/util/date';
 
 const NEWS_ARCHIVE = gql`
-  query NewsArchive($cursor: String, $articles: Int) {
+  query NewsArchive(
+    $cursor: String
+    $articles: Int
+    $day: Int = null
+    $month: Int = null
+    $year: Int = null
+  ) {
     categories(where: { hideEmpty: true }) {
       nodes {
         id
@@ -26,7 +33,10 @@ const NEWS_ARCHIVE = gql`
       }
     }
     posts(
-      where: { orderby: { field: DATE, order: DESC } }
+      where: {
+        orderby: { field: DATE, order: DESC }
+        dateQuery: { day: $day, month: $month, year: $year }
+      }
       first: $articles
       before: $cursor
     ) {
@@ -180,14 +190,27 @@ News.getInitialProps = async ({ query }) => {
     return { query };
   }
 
+  let variables = {
+    articles: 10,
+    cursor: null,
+  };
+
+  const { date } = query;
+
+  if (date) {
+    variables = {
+      ...variables,
+      ...dateToGraphQLQuery(date),
+    };
+  }
+
   const { data } = await apolloClient.query({
     query: NEWS_ARCHIVE,
-    variables: {
-      articles: 10,
-      cursor: null,
-    },
+    variables,
   });
   const { posts, categories } = data;
+
+  console.log(categories);
 
   return { posts, categories, query };
 };
