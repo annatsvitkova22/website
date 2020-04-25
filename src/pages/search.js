@@ -23,7 +23,6 @@ import {
 } from '~/stores/Search';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import NewsLoader from '~/components/Loaders/NewsLoader';
-import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
@@ -36,13 +35,6 @@ const sharedNodes = `id
           featuredImage {
             mediaItemUrl
           }
-          categories {
-            nodes {
-              id
-              name
-              slug
-            }
-          }
           author {
             name
             nicename
@@ -50,11 +42,6 @@ const sharedNodes = `id
             slug
             userId
             username
-          }
-          comments {
-            pageInfo {
-              total
-            }
           }
           date`;
 const singlePostType = `
