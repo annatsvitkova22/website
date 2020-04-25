@@ -25,11 +25,11 @@ const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
             }`}
           >
             <Play />
-            <div className="video-item__duration">
+            <div className="video-item__duration font-weight-medium">
               {i === selectedIndex ? 'Відтво...' : duration}
             </div>
           </div>
-          <div className="video-item__title">{title}</div>
+          <div className="video-item__title font-weight-medium">{title}</div>
         </li>
       );
     })}
