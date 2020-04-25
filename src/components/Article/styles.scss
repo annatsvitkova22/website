@@ -3,3 +3,44 @@
     display: flex;
   }
 }
+.meta-taxonomy {
+  display: flex;
+
+  padding-left: 0;
+
+  list-style: none;
+  &__item:not(:last-child) {
+    margin-right: 5px;
+  }
+  &__item:not(:first-child) {
+    margin-left: 5px;
+  }
+  &__link {
+    padding: 5px 10px;
+  }
+  &__link:before {
+    content: '!';
+  }
+}
+.meta-comments {
+  display: flex;
+  align-items: center;
+
+  margin-left: 24px;
+  &__icon {
+    display: flex;
+
+    margin-right: 8px;
+  }
+
+  &__count {
+    display: flex;
+
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.06em;
+
+    color: #a6a6a6;
+  }
+}
