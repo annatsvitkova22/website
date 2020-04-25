@@ -22,6 +22,7 @@ const OPPORTUNITIES_ARCHIVE = gql`
         zmAfishaACF {
           eventAddress {
             streetAddress
+            streetName
             latitude
             longitude
           }

@@ -68,7 +68,7 @@ const useLoadMoreHook = (
           });
           break;
         default:
-          console.log('no such type');
+          return null;
       }
     }
 
@@ -165,7 +165,7 @@ const useLoadMoreHook = (
         });
         break;
       default:
-        console.log('no such type');
+        return null;
     }
   };
   return {
