@@ -10,8 +10,6 @@
 }
 
 .search-form {
-  margin-bottom: 30px;
-
   border-bottom: 1px solid $grey-100;
 
   &__button {
@@ -36,7 +34,7 @@
       color: $green;
     }
   }
-  
+
   &__field {
     border-left: none;
     border-top: none;
@@ -91,14 +89,14 @@
               padding-right: 0;
 
               position: relative;
-              
+
               transition: none;
-              
+
               &--menu-is-open {
                 padding-right: 13px;
 
                 left: -100%;
-                
+
                 z-index: 100;
 
                 & + .react-select__menu {
@@ -128,21 +126,15 @@
     font-size: 14px;
   }
 
-  &__radio {
-    height: 0;
-    width: 0;
+  &__text {
+    color: $grey-200;
 
     cursor: pointer;
 
-    opacity: 0;
-
-    &:checked + label {
+    &--active {
+      color: #242424;
       font-weight: 700;
     }
-  }
-
-  &__label {
-    margin-bottom: 0;
   }
 
   &__selects {
@@ -155,8 +147,13 @@
 
       padding-top: 10px;
       padding-bottom: 8px;
-      
+
       border-top: 1px solid $grey-100;
     }
   }
+}
+
+.search-results {
+  max-width: 896px;
+  margin: 48px auto;
 }

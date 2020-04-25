@@ -411,19 +411,19 @@ const Search = ({ posts, categories, types, query }) => {
           <ActionbarLoader />
           <ActionbarLoader />
         </div>
-        <div className="search-content container">
-          <main className="search-results">
-            <NewsLoader />
-            <NewsLoader />
-            <NewsLoader />
-            <NewsLoader />
-            <NewsLoader />
-          </main>
-          <aside className="search-sidebar">
-            <SidebarLoader />
-            <SidebarLoader />
-          </aside>
-        </div>
+        <main className="search-results">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
@@ -469,7 +469,7 @@ const Search = ({ posts, categories, types, query }) => {
                         <li
                           className={classnames(
                             'search-form__text search-form__col',
-                            { current: i.active }
+                            { 'search-form__text--active': i.active }
                           )}
                           onClick={() => setBy(i.value)}
                           key={i.value}
@@ -516,39 +516,37 @@ const Search = ({ posts, categories, types, query }) => {
           </div>
         </>
       </div>
-      <div className="container">
-        <div className="search-content row">
-          <main className="search-results col-md-8">
-            {nodes.map((post, i) => {
-              // TODO: return when all types ready
-              // let typeName = `${post.__typename.toLowerCase()}s`;
-              // if (typeName === 'posts') typeName = 'news';
-              const typeName = 'news';
-              return (
-                <React.Fragment key={i}>
-                  <ChronologicalSeparator posts={nodes} currentIndex={i} />
-                  <Article type={typeName} post={post} key={post.id}>
-                    {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                      <Waypoint onEnter={fetchingContent} />
-                    )}
-                  </Article>
-                </React.Fragment>
-              );
-            })}
-            {state.isLoading && (
-              <>
-                <NewsLoader />
-                <NewsLoader />
-                <NewsLoader />
-              </>
-            )}
-          </main>
-          <aside className="search-sidebar col-md-4">
-            <SidebarLoader />
-            <SidebarLoader />
-          </aside>
+      <main className="search-results">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              {nodes.map((post, i) => {
+                // TODO: return when all types ready
+                // let typeName = `${post.__typename.toLowerCase()}s`;
+                // if (typeName === 'posts') typeName = 'news';
+                const typeName = 'news';
+                return (
+                  <React.Fragment key={i}>
+                    <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                    <Article type={typeName} post={post} key={post.id}>
+                      {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                        <Waypoint onEnter={fetchingContent} />
+                      )}
+                    </Article>
+                  </React.Fragment>
+                );
+              })}
+              {state.isLoading && (
+                <>
+                  <NewsLoader />
+                  <NewsLoader />
+                  <NewsLoader />
+                </>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

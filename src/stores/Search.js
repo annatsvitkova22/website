@@ -42,11 +42,11 @@ export const initialState = {
         active: true,
       },
       // {
-      //   label: 'Автор',
+      //   label: 'Автори',
       //   value: 'author',
       // },
       {
-        label: 'Тег',
+        label: 'Теги',
         value: 'tag',
       },
     ],
