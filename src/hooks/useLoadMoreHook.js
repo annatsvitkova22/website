@@ -6,7 +6,7 @@ import { setCategories } from '~/stores/News';
 const useLoadMoreHook = (
   query,
   props = {},
-  type = '',
+  type,
   initialNumber = 10,
   onLoadNumber = 3,
   isChanged,
@@ -27,6 +27,7 @@ const useLoadMoreHook = (
           cursor: null,
         },
       });
+      console.log({type});
       switch (type) {
         case 'blogs':
           setState({
@@ -55,7 +56,6 @@ const useLoadMoreHook = (
           });
           break;
         case 'search':
-          if (!isChanged) {}
           const currentType = Object.keys(response.data)[0];
           setState({
             data: response.data[currentType],
@@ -80,7 +80,7 @@ const useLoadMoreHook = (
           });
           break;
         default:
-          console.log('no such type');
+          console.log('no such type', type);
       }
     }
 

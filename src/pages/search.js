@@ -93,22 +93,8 @@ const allPostTypes = `nodes {
           total
         }`;
 
-const composeQuery = ({
-  cursor,
-  articles,
-  q,
-  type = 'contentNodes',
-  category,
-  period,
-  sorting,
-}) => {
-  return gql`
-    query SearchQuery(
-      $cursor: String = ${cursor}
-      $articles: Int = ${articles}
-      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
-    ) {
-      ${type === 'news' ? `posts` : type}(
+const innerQuery = ({type, category, q, period, sorting}) => {
+  return `${type === 'news' ? `posts` : type}(
         where: {
           ${q ? `search: "${q}"` : ``}
           ${
@@ -142,7 +128,25 @@ const composeQuery = ({
         before: $cursor
       ) {
         ${type === 'contentNodes' ? `${allPostTypes}` : `${singlePostType}`}
-      }
+      }`;
+};
+
+const composeQuery = ({
+  cursor,
+  articles,
+  q,
+  type = 'contentNodes',
+  category,
+  period,
+  sorting,
+}) => {
+  return gql`
+    query SearchQuery(
+      $cursor: String = ${cursor}
+      $articles: Int = ${articles}
+      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
+    ) {
+      ${innerQuery({type, category, q, period, sorting})}
     }
   `;
 };
