@@ -124,12 +124,14 @@
   }
 
   &__selects {
-
     @include media-breakpoint-up(md) {
       max-width: 648px;
     }
 
     @include media-breakpoint-down(sm) {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      
       border-top: 1px solid $grey-100;
     }
   }

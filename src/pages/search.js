@@ -105,6 +105,7 @@ const Search = (props) => {
       const quantity = types[type].pageInfo ? types[type].pageInfo.total : 0;
       return {
         value: type,
+        mobileLabel: `${typeLabels[type]} ${quantity}`,
         label: (
           <span>
             {typeLabels[type]}{' '}
@@ -120,6 +121,7 @@ const Search = (props) => {
   const categoriesFormated = categories.map(({ count = 0, slug, name }) => {
     return {
       value: slug,
+      mobileLabel: `${name} ${count}`,
       label: (
         <span>
           {name}{' '}
@@ -356,30 +358,13 @@ const Search = (props) => {
                       .reverse()
                       .map(({ name, placeholder, options }, i) => (
                         <Select
-                          className="tx-tiny tx-family-titles search-form__col--select"
                           key={i}
                           instanceId={i}
-                          name={name}
-                          options={options}
-                          placeholder={placeholder}
+                          className="tx-tiny tx-family-titles search-form__col--select"
+                          {...{ mobile, name, options, placeholder }}
                           onChange={onChangeSelect}
                         />
                       ))}
-
-                    {/* {mobile && (
-                      <>
-                        <select name="tag" id="" className="tx-family-titles">
-                          <option value="" disabled selected>
-                            Тип
-                          </option>
-                          {optionsTag.map(({ value, label }, i) => (
-                            <option key={i} value={value}>
-                              {label}
-                            </option>
-                          ))}
-                        </select>
-                      </>
-                    )} */}
                   </div>
                 </form>
               </div>

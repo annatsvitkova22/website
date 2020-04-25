@@ -40,16 +40,41 @@ const SiteSelect = (props) => {
     }),
   };
 
+  const { name, placeholder, options, mobile, instanceId } = props;
+
+  if (!mobile) {
+    return (
+      <Select
+        classNamePrefix="react-select"
+        // defaultMenuIsOpen={props.instanceId === 0}
+        isClearable
+        isSearchable={false}
+        styles={colorStyles}
+        components={{ ClearIndicator, DropdownIndicator }}
+        {...props}
+      />
+    );
+  }
+
   return (
-    <Select
-      classNamePrefix="react-select"
-      // defaultMenuIsOpen={props.instanceId === 0}
-      isClearable
-      isSearchable={false}
-      styles={colorStyles}
-      components={{ ClearIndicator, DropdownIndicator }}
-      {...props}
-    />
+    <select
+      name={name}
+      id={`mobile-filter-${instanceId}`}
+      className="mobile-select tx-family-titles tx-small"
+      defaultValue="placeholder"
+    >
+      <option value="placeholder" disabled>
+        {placeholder}
+      </option>
+      {options.map(({ value, label, mobileLabel }, k) => {
+        const test = mobileLabel || label;
+        return (
+          <option key={k} value={value}>
+            {test}
+          </option>
+        );
+      })}
+    </select>
   );
 };
 
