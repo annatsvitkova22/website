@@ -65,7 +65,7 @@ const OpportunitiesArchive = (props) => {
       </Head>
 
       <main>
-        <div className="container">
+        <div className="container articles-container-sm">
           {nodes.map((post, i) => (
             <>
               <Article type="opportunities" post={post} key={post.id}>
