@@ -28,6 +28,7 @@ import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
+import { composeTaxQuery } from '~/util/taxQuery';
 
 const sharedNodes = `id
           title
@@ -93,22 +94,18 @@ const allPostTypes = `nodes {
           total
         }`;
 
-const innerQuery = ({type, category, q, period, sorting}) => {
+const innerQuery = ({ type, category, q, period, sorting, tag }) => {
   return `${type === 'news' ? `posts` : type}(
         where: {
-          ${q ? `search: "${q}"` : ``}
+          ${q && !tag ? `search: "${q}"` : ``}
           ${
-            category
+            category || tag
               ? `taxQuery: {
             relation: OR
-            taxArray: [
-              {
-                terms: $category
-                taxonomy: CATEGORY
-                operator: IN
-                field: SLUG
-              }
-            ]
+            ${composeTaxQuery(
+              { type: 'category', terms: category },
+              { type: 'tag', terms: tag ? q : '', field: 'name' }
+            )}
           }`
               : ``
           }
@@ -135,6 +132,7 @@ const composeQuery = ({
   cursor,
   articles,
   q,
+  by = 'text',
   type = 'contentNodes',
   category,
   period,
@@ -144,9 +142,17 @@ const composeQuery = ({
     query SearchQuery(
       $cursor: String = ${cursor}
       $articles: Int = ${articles}
-      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
-      ${innerQuery({type, category, q, period, sorting})}
+      ${
+        by === 'text'
+          ? `${innerQuery({ type, category, q, period, sorting })}`
+          : ``
+      }
+      ${
+        by === 'tag'
+          ? `${innerQuery({ type, category, q, period, sorting, tag: q })}`
+          : ``
+      }
     }
   `;
 };
