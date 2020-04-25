@@ -271,7 +271,7 @@ const Search = ({ posts, categories, types, query }) => {
     }
   );
 
-  const [mobile, setMobile] = useState(false);
+  const [isMobile, setMobile] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
   const typesFormated = filters.types.map(
@@ -341,7 +341,7 @@ const Search = ({ posts, categories, types, query }) => {
     return () => {
       window.removeEventListener('resize', updateMobile);
     };
-  }, [mobile]);
+  }, [isMobile]);
 
   function onClick() {
     setShowFilters(!showFilters);
@@ -453,7 +453,7 @@ const Search = ({ posts, categories, types, query }) => {
                     placeholder="Пошук"
                   />
                   <button
-                    type="button"
+                    type="submit"
                     className="search-form__button pos-absolute pos-center-right"
                     onClick={handleSearchString}
                   >
@@ -476,7 +476,7 @@ const Search = ({ posts, categories, types, query }) => {
                       );
                     })}
                   </ul>
-                  {mobile && (
+                  {isMobile && (
                     <button
                       onClick={onClick}
                       className={`${showFilters ? 'tx-green' : 'tx-black'}`}
@@ -496,7 +496,13 @@ const Search = ({ posts, categories, types, query }) => {
                           key={i}
                           instanceId={i}
                           className="tx-tiny tx-family-titles search-form__col--select"
-                          {...{ mobile, name, options, placeholder }}
+                          {...{
+                            isMobile,
+                            name,
+                            options,
+                            placeholder,
+                            // onChangeHtml,
+                          }}
                           onChange={onChangeSelect}
                         />
                       ))}
