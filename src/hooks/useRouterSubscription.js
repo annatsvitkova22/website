@@ -15,11 +15,11 @@ const useRouterSubscription = (runUpdate = () => {}, ...parameters) => {
       }
     });
     if (!isEqual(query, newQuery)) {
-      runUpdate();
       Router.router.replace({
         pathname,
         query: newQuery,
       });
+      runUpdate();
     }
   });
 };
