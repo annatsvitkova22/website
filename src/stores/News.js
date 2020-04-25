@@ -10,7 +10,7 @@ export const initialState = {
       default: true,
       active: true,
       gqlOrderBy: {
-        orderby: 'DATE',
+        field: 'DATE',
         order: 'DESC',
       },
     },

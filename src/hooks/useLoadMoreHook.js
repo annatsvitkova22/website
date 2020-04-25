@@ -8,7 +8,7 @@ const useLoadMoreHook = (
   props = {},
   type = '',
   initialNumber = 10,
-  onLoadNumber = 3
+  onLoadNumber = 3,
 ) => {
   const [state, setState] = useState({
     data: props,
@@ -111,6 +111,7 @@ const useLoadMoreHook = (
         });
         break;
       case 'news':
+        console.log(responseData);
         setState({
           data: {
             ...state.data,

@@ -107,80 +107,9 @@ const composeQuery = ({
   `;
 };
 
-const NEWS_ARCHIVE = gql`
-  query NewsArchive(
-    $cursor: String
-    $articles: Int
-    $day: Int = null
-    $month: Int = null
-    $year: Int = null
-    $category: String
-  ) {
-    categories(where: { hideEmpty: true }) {
-      nodes {
-        id
-        name
-        slug
-      }
-    }
-    posts(
-      where: {
-        orderby: { field: DATE, order: DESC }
-        dateQuery: { day: $day, month: $month, year: $year }
-        taxQuery: {
-          relation: OR
-          taxArray: [
-            {
-              terms: [$category]
-              taxonomy: CATEGORY
-              operator: IN
-              field: SLUG
-            }
-          ]
-        }
-      }
-      first: $articles
-      before: $cursor
-    ) {
-      nodes {
-        id
-        title
-        slug
-        featuredImage {
-          mediaItemUrl
-        }
-        categories {
-          nodes {
-            id
-            name
-            slug
-          }
-        }
-        author {
-          name
-          nicename
-          nickname
-          slug
-          userId
-          username
-        }
-        comments {
-          pageInfo {
-            total
-          }
-        }
-        date
-      }
-      pageInfo {
-        endCursor
-        total
-      }
-    }
-  }
-`;
-
 const News = ({ posts, categories, query }) => {
   const [loaded, setLoaded] = useState(false);
+
   const stateLink = useStateLink(
     loaded ? NewsStore : CreateNewsStore(loaded, { categories, ...query })
   );
@@ -194,12 +123,31 @@ const News = ({ posts, categories, query }) => {
   }, {});
   const currentCategory = filters.categories.find((i) => i.active);
 
+  let variables = {
+    articles: 10,
+    cursor: null,
+  };
+
+  if (currentSorting) {
+    variables.sorting = currentSorting.gqlOrderBy;
+  }
+
+  if (filters.date) {
+    variables = {
+      ...variables,
+      ...dateToGraphQLQuery(filters.date),
+    };
+  }
+
+  if (currentCategory) {
+    variables.category = [currentCategory.value];
+  }
+
   const { fetchingContent, state } = useLoadMoreHook(
-    NEWS_ARCHIVE,
+    composeQuery(variables),
     posts,
     'news',
-    10,
-    2
+    variables.articles,
   );
 
   useEffect(() => {
@@ -207,6 +155,10 @@ const News = ({ posts, categories, query }) => {
   }, []);
 
   useRouterSubscription(
+    () => {
+      // TODO: make it work
+      console.log('force component update, so new query loaded');
+    },
     {
       name: 'sorting',
       current: currentSorting.value,
