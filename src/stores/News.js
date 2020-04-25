@@ -31,7 +31,10 @@ const initialState = {
 };
 export const NewsStore = createStateLink(initialState);
 
-export const CreateNewsStore = (loaded, { categories,  sorting, date, category } = {}) => {
+export const CreateNewsStore = (
+  loaded,
+  { categories, sorting, date, category } = {}
+) => {
   const state = cloneDeep(initialState);
   if (categories) {
     state.filters.categories = categories.nodes.map((i) => {

@@ -13,10 +13,7 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
-import {
-  NewsStore,
-  CreateNewsStore,
-} from '~/stores/News';
+import { NewsStore, CreateNewsStore } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 
 const NEWS_ARCHIVE = gql`
@@ -78,7 +75,7 @@ const News = ({ posts, categories, query }) => {
 
   const { sorting, filters } = stateLink.get();
 
-  let { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+  const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
     if (current.active) acc.currentSorting = current;
     if (current.default) acc.defaultSorting = current;
     return acc;
@@ -90,7 +87,7 @@ const News = ({ posts, categories, query }) => {
     posts,
     'news',
     10,
-    2,
+    2
   );
 
   useEffect(() => {
@@ -187,7 +184,7 @@ News.getInitialProps = async ({ query }) => {
     query: NEWS_ARCHIVE,
     variables: {
       articles: 10,
-      cursor: null
+      cursor: null,
     },
   });
   const { posts, categories } = data;

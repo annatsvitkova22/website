@@ -21,7 +21,6 @@ const Calendar = ({
       tileDisabled={({ activeStartDate, date, view }) => {
         if (view !== 'month') return;
         const now = moment(activeStartDate);
-        // console.log(now.format(), moment(date).format());
         return !moment(date).isSame(now, 'month');
       }}
     />
