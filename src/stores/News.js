@@ -36,8 +36,15 @@ export const initialState = {
     date: undefined,
     categories: [],
   },
+  isChanged: false,
 };
 export const NewsStore = createStateLink(initialState);
+
+export const setIsChanged = (st = false) => {
+  const newState = NewsStore.get();
+  newState.isChanged = st;
+  NewsStore.merge(newState);
+}
 
 export const CreateNewsStore = (
   loaded,
