@@ -1,7 +1,7 @@
 const queryReducer = (queryState, actionType, name, value) => {
   switch (actionType) {
+    case 'change':
     case 'change-field':
-    case 'change-radio':
     case 'select-option':
       return { ...queryState, [name]: value };
     case 'clear':

@@ -40,7 +40,14 @@ const SiteSelect = (props) => {
     }),
   };
 
-  const { name, placeholder, options, mobile, instanceId } = props;
+  const {
+    name,
+    placeholder,
+    options,
+    mobile,
+    instanceId,
+    onChangeHtml,
+  } = props;
 
   if (!mobile) {
     return (
@@ -62,15 +69,16 @@ const SiteSelect = (props) => {
       id={`mobile-filter-${instanceId}`}
       className="mobile-select tx-family-titles tx-small"
       defaultValue="placeholder"
+      onChange={onChangeHtml}
     >
       <option value="placeholder" disabled>
         {placeholder}
       </option>
       {options.map(({ value, label, mobileLabel }, k) => {
-        const test = mobileLabel || label;
+        const optionTitle = mobileLabel || label;
         return (
           <option key={k} value={value}>
-            {test}
+            {optionTitle}
           </option>
         );
       })}

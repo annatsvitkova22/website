@@ -80,7 +80,7 @@ const QUANTITIES = gql`
 
 const Search = (props) => {
   const [mobile, setMobile] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const [searchState, setSearchState] = useState({
     posts: props ? props.posts : {},
     types: props ? props.types : {},
@@ -196,6 +196,21 @@ const Search = (props) => {
     },
   ];
 
+  const radios = [
+    {
+      value: 'text',
+      label: 'Текст',
+    },
+    {
+      value: 'author',
+      label: 'Автори',
+    },
+    {
+      value: 'tags',
+      label: 'Теги',
+    },
+  ];
+
   // const { fetchingContent, state } = useLoadMoreHook(
   //   SEARCH_QUERY,
   //   props.posts,
@@ -249,8 +264,8 @@ const Search = (props) => {
     }
   }
 
-  function onChangeRadio({ target: { name, value } }) {
-    const queryUpdated = queryReducer(query, 'change-radio', name, value);
+  function onChangeHtml({ target: { name, value } }) {
+    const queryUpdated = queryReducer(query, 'change', name, value);
 
     Router.push({
       pathname: '/search',
@@ -302,44 +317,26 @@ const Search = (props) => {
                 >
                   <ul
                     className="search-form__row tx-small list-unstyled"
-                    onChange={onChangeRadio}
+                    onChange={onChangeHtml}
                   >
-                    <li className="search-form__text search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="text"
-                        type="radio"
-                        id="text"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="text">
-                        Текст
-                      </label>
-                    </li>
-                    <li className="search-form__authors search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="author"
-                        type="radio"
-                        id="author"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="author">
-                        Автори
-                      </label>
-                    </li>
-                    <li className="search-form__tags search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="tags"
-                        type="radio"
-                        id="tags"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="tags">
-                        Теги
-                      </label>
-                    </li>
+                    {radios.map(({ value, label }, i) => (
+                      <li
+                        key={i}
+                        className="search-form__text search-form__col"
+                      >
+                        <input
+                          defaultChecked={i === 0}
+                          className="search-form__radio"
+                          value={value}
+                          type="radio"
+                          id={value}
+                          name="searchBy"
+                        />
+                        <label className="search-form__label" htmlFor={value}>
+                          {label}
+                        </label>
+                      </li>
+                    ))}
                   </ul>
                   {mobile && (
                     <button
@@ -361,7 +358,13 @@ const Search = (props) => {
                           key={i}
                           instanceId={i}
                           className="tx-tiny tx-family-titles search-form__col--select"
-                          {...{ mobile, name, options, placeholder }}
+                          {...{
+                            mobile,
+                            name,
+                            options,
+                            placeholder,
+                            onChangeHtml,
+                          }}
                           onChange={onChangeSelect}
                         />
                       ))}
