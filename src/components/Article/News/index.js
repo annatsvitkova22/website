@@ -8,7 +8,13 @@ import ArticleTaxonomies from '~/components/Article/Taxonomies';
 import ArticleDate from '~/components/Article/Date';
 import ArticleFeatured from '~/components/Article/Featured';
 
-const ArticleNews = ({ post, children, className, showAuthor = true }) => {
+const ArticleNews = ({
+  post,
+  children,
+  className,
+  showAuthor = true,
+  highlightInTitle,
+}) => {
   const {
     date,
     categories,
@@ -31,7 +37,11 @@ const ArticleNews = ({ post, children, className, showAuthor = true }) => {
             categories={categories}
             className="article__category"
           />
-          <ArticleTitle post={post} className="article__title" />
+          <ArticleTitle
+            highlightInTitle={highlightInTitle}
+            post={post}
+            className="article__title"
+          />
           {showMeta && (
             <div className="article__meta">
               {showAuthor && (

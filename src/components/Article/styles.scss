@@ -134,6 +134,12 @@
   }
 }
 
+.article-title {
+  &__highlighted {
+    background-color: rgba(29, 158, 116, 0.24);
+  }
+}
+
 .article-title__link,
 .article-title {
   font-size: 16px;
@@ -145,7 +151,6 @@
     line-height: 1.2;
   }
 }
-
 
 .article-featured {
   &__image {

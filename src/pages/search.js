@@ -517,6 +517,7 @@ const Search = ({ posts, categories, types, query }) => {
                   <React.Fragment key={i}>
                     <ChronologicalSeparator posts={nodes} currentIndex={i} />
                     <Article
+                      highlightInTitle={filters.q}
                       type={'news'}
                       post={post}
                       key={post.id}
