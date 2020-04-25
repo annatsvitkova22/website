@@ -91,8 +91,6 @@ const News = ({ posts, categories, query }) => {
     'news',
     10,
     2,
-    'DATE',
-    'ASC'
   );
 
   useEffect(() => {
@@ -189,9 +187,7 @@ News.getInitialProps = async ({ query }) => {
     query: NEWS_ARCHIVE,
     variables: {
       articles: 10,
-      cursor: null,
-      orderby: 'DATE',
-      order: 'ASC',
+      cursor: null
     },
   });
   const { posts, categories } = data;
