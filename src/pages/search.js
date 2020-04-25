@@ -29,39 +29,21 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
 
-const composeQuery = ({
-  cursor,
-  articles,
-  day,
-  month,
-  year,
-  category,
-  sorting,
-}) => {
+const composeQuery = ({ cursor, articles, q, category, sorting }) => {
   return gql`
     query SearchQuery(
       $cursor: String = ${cursor}
       $articles: Int = ${articles}
-      $day: Int = ${day ? day : null}
-      $month: Int = ${month ? month : null}
-      $year: Int = ${year ? year : null}
       ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
-      categories(where: { hideEmpty: true }) {
-        nodes {
-          id
-          name
-          slug
-        }
-      }
       posts(
         where: {
+          ${q ? `search: "${q}"` : ``}
           ${
             sorting
               ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
               : ``
           }
-          dateQuery: { day: $day, month: $month, year: $year }
           ${
             category
               ? `taxQuery: {
@@ -504,16 +486,19 @@ Search.getInitialProps = async ({ query }) => {
 
   const variables = setQueryVariables(query);
 
-  const { data } = await apolloClient.query({
+  const res = await apolloClient.query({
     query: composeQuery(variables),
     variables: {},
   });
+
+  // TODO: remove
+  console.log(res);
 
   const responseQuant = await apolloClient.query({
     query: QUANTITIES,
   });
 
-  const { posts } = data;
+  const { posts } = res.data;
 
   return {
     posts,
