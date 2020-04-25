@@ -15,7 +15,12 @@ const SearchField = ({ className = '', onSearch = () => {} }) => {
   }, []);
 
   const search = async () => {
-    if (!query) return;
+    if (!query) {
+      router.push({
+        pathname: '/search',
+      });
+      return onSearch();
+    }
     await router.push({
       pathname: '/search',
       query: { q: query },
