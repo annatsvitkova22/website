@@ -29,7 +29,7 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
 
-const composeQuery = ({ cursor, articles, q, category, sorting }) => {
+const composeQuery = ({ cursor, articles, q, category, period, sorting }) => {
   return gql`
     query SearchQuery(
       $cursor: String = ${cursor}
@@ -39,11 +39,6 @@ const composeQuery = ({ cursor, articles, q, category, sorting }) => {
       posts(
         where: {
           ${q ? `search: "${q}"` : ``}
-          ${
-            sorting
-              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
-              : ``
-          }
           ${
             category
               ? `taxQuery: {
@@ -57,6 +52,17 @@ const composeQuery = ({ cursor, articles, q, category, sorting }) => {
               }
             ]
           }`
+              : ``
+          }
+          ${
+            period
+              ? `dateQuery: {after: {day: ${period.after.day}, month: ${period.after.month}, year: ${period.after.year}},
+              before: {day: ${period.before.day}, month: ${period.before.month}, year: ${period.before.year}}}`
+              : ``
+          }
+          ${
+            sorting
+              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
               : ``
           }
         }
@@ -492,7 +498,7 @@ Search.getInitialProps = async ({ query }) => {
   });
 
   // TODO: remove
-  console.log(res);
+  console.log(variables.period, res);
 
   const responseQuant = await apolloClient.query({
     query: QUANTITIES,
