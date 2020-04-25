@@ -6,11 +6,11 @@ import SideBarBlogs from '~/components/Sidebar/Post/SideBarBlogs';
 
 const SideBarPost = ({ news, blogs }) => {
   return (
-    <section className={'sidebar-latest'}>
+    <aside className={'sidebar-latest'}>
       <SideBarNews news={news} />
       <SideBarPopular news={news} />
       <SideBarBlogs news={blogs} />
-    </section>
+    </aside>
   );
 };
 

@@ -11,7 +11,7 @@ const Share = () => {
   };
 
   return (
-    <div className={'share'}>
+    <aside className={'share'}>
       <div className={'share-wrapper'}>
         <button onClick={handleLike} className={'like'}>
           <Icons icon={'likes'} />
@@ -23,7 +23,7 @@ const Share = () => {
           <Icons icon={'share'} />
         </button>
       </div>
-    </div>
+    </aside>
   );
 };
 
