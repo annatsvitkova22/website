@@ -3,8 +3,6 @@ import ReactCalendar from 'react-calendar';
 import * as classnames from 'classnames';
 import * as moment from 'moment';
 
-import './styles.scss';
-
 const Calendar = ({
   max = new Date(),
   currentValue,
