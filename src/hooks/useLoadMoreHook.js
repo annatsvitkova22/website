@@ -54,6 +54,17 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
+        case 'search':
+          if (!isChanged) {}
+          const currentType = Object.keys(response.data)[0];
+          setState({
+            data: response.data[currentType],
+            endCursor: response.data[currentType].pageInfo
+              ? response.data[currentType].pageInfo.endCursor
+              : null,
+            isLoading: false,
+          });
+          break;
         case 'opportunities':
           setState({
             data: response.data.opportunities,

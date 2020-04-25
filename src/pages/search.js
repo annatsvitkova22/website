@@ -29,14 +29,14 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
 
-const composeQuery = ({ cursor, articles, q, category, period, sorting }) => {
+const composeQuery = ({ cursor, articles, q, type, category, period, sorting }) => {
   return gql`
     query SearchQuery(
       $cursor: String = ${cursor}
       $articles: Int = ${articles}
       ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
-      posts(
+      ${!type || type === 'news' ? `posts` : type}(
         where: {
           ${q ? `search: "${q}"` : ``}
           ${
@@ -342,7 +342,7 @@ const Search = ({ posts, categories, types, query }) => {
   const { fetchingContent, state } = useLoadMoreHook(
     composeQuery(variables),
     posts,
-    'news',
+    'search',
     variables.articles,
     variables.onLoadNumber,
     isChanged,
@@ -498,7 +498,7 @@ Search.getInitialProps = async ({ query }) => {
   });
 
   // TODO: remove
-  console.log(variables.period, res);
+  console.log(variables.type, res);
 
   const responseQuant = await apolloClient.query({
     query: QUANTITIES,
