@@ -13,7 +13,7 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
-import { NewsStore, CreateNewsStore } from '~/stores/News';
+import { NewsStore, CreateNewsStore, setIsChanged } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import { dateToGraphQLQuery } from '~/util/date';
 
@@ -114,7 +114,7 @@ const News = ({ posts, categories, query }) => {
     loaded ? NewsStore : CreateNewsStore(loaded, { categories, ...query })
   );
 
-  const { sorting, filters } = stateLink.get();
+  const { sorting, filters, isChanged } = stateLink.get();
 
   const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
     if (current.active) acc.currentSorting = current;
@@ -125,6 +125,7 @@ const News = ({ posts, categories, query }) => {
 
   let variables = {
     articles: 10,
+    onLoadNumber: 3,
     cursor: null,
   };
 
@@ -143,21 +144,9 @@ const News = ({ posts, categories, query }) => {
     variables.category = [currentCategory.value];
   }
 
-  const { fetchingContent, state } = useLoadMoreHook(
-    composeQuery(variables),
-    posts,
-    'news',
-    variables.articles,
-  );
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-
   useRouterSubscription(
     () => {
-      // TODO: make it work
-      console.log('force component update, so new query loaded');
+      setIsChanged(true);
     },
     {
       name: 'sorting',
@@ -176,6 +165,19 @@ const News = ({ posts, categories, query }) => {
       initial: query.category,
     }
   );
+
+  const { fetchingContent, state } = useLoadMoreHook(
+    composeQuery(variables),
+    posts,
+    'news',
+    variables.articles,
+    variables.onLoadNumber,
+    isChanged,
+  );
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   if (!state.data.nodes) {
     return (
