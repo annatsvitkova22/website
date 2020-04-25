@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
-import Router from 'next/router';
 import PropTypes from 'prop-types';
-import { Waypoint } from 'react-waypoint';
+import { useStateLink } from '@hookstate/core';
+import * as classnames from 'classnames';
 
 import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
-import NewsLoader from '~/components/Loaders/NewsLoader';
-import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import SearchIcon from '~/static/images/search';
 import Filter from '~/static/images/filter';
-import queryReducer from '~/hooks/queryReducer';
+import { dateToGraphQLQuery } from '~/util/date';
+import {
+  CreateSearchStore,
+  SearchStore,
+  setBy, setFilter,
+  setSearchQuery, setSorting,
+} from '~/stores/Search';
 
 const SEARCH_QUERY = gql`
   query SearchQuery($cursor: String) {
@@ -78,192 +81,100 @@ const QUANTITIES = gql`
   }
 `;
 
-const Search = (props) => {
+const Search = ({ posts, categories, types, query }) => {
+  const [loaded, setLoaded] = useState(false);
+  const stateLink = useStateLink(
+    loaded
+      ? SearchStore
+      : CreateSearchStore(loaded, { types, categories, ...query })
+  );
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
+  const { sorting, filters, isChanged } = stateLink.get();
+
   const [mobile, setMobile] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const [searchState, setSearchState] = useState({
-    posts: props ? props.posts : {},
-    types: props ? props.types : {},
-    categories: props ? props.categories : [],
-    query: Router.router ? Router.router.query : {},
-  });
 
-  const { posts, types, categories, query } = searchState;
-
-  const typeLabels = {
-    posts: 'Новини',
-    publications: 'Публікації',
-    blogs: 'Блоги',
-    videos: 'Відео',
-    events: 'Події',
-    crowdfundings: 'Збір коштів',
-    opportunities: 'Можливості',
-  };
-
-  let typesFormated = Object.keys(types).map((type) => {
-    if (type !== 'categories') {
-      const quantity = types[type].pageInfo ? types[type].pageInfo.total : 0;
+  const typesFormated = filters.types.map(
+    ({ quantity, label, value, active }) => {
       return {
-        value: type,
+        active,
+        value,
         label: (
           <span>
-            {typeLabels[type]}{' '}
+            {label}{' '}
             <span className="tx-green react-select__quantity">{quantity}</span>
           </span>
         ),
       };
     }
-    return '';
-  });
-  typesFormated = typesFormated.filter((el) => el !== '');
+  );
 
-  const categoriesFormated = categories.map(({ count = 0, slug, name }) => {
-    return {
-      value: slug,
-      label: (
-        <span>
-          {name}{' '}
-          <span className="tx-green react-select__quantity">{count}</span>
-        </span>
-      ),
-    };
-  });
-
-  const optionsPubdate = [
-    {
-      value: 'week',
-      label: 'За тиждень',
-    },
-    {
-      value: 'month',
-      label: 'За місяць',
-    },
-    {
-      value: '3-months',
-      label: 'За 3 місяці',
-    },
-    {
-      value: '6-months',
-      label: 'За 6 місяців',
-    },
-    {
-      value: 'year',
-      label: 'За рік',
-    },
-  ];
-
-  const optionsShow = [
-    {
-      value: 'last',
-      label: 'Останні',
-    },
-    {
-      value: 'last',
-      label: 'Найбільше переглядів',
-    },
-    {
-      value: 'last',
-      label: 'Найбільше коментарів',
-    },
-    {
-      value: 'last',
-      label: 'Спочатку старі',
-    },
-  ];
+  const categoriesFormated = filters.categories.map(
+    ({ count = 0, value, label, active }) => {
+      return {
+        active,
+        value,
+        label: (
+          <span>
+            {label}{' '}
+            <span className="tx-green react-select__quantity">{count}</span>
+          </span>
+        ),
+      };
+    }
+  );
 
   const selects = [
     {
-      name: 'type',
+      name: 'types',
       placeholder: 'Тип',
       options: typesFormated,
     },
     {
-      name: 'cat',
+      name: 'categories',
       placeholder: 'Категорії',
       options: categoriesFormated,
     },
     {
-      name: 'pubd',
+      name: 'period',
       placeholder: 'Період',
-      options: optionsPubdate,
+      options: filters.period,
     },
     {
-      name: 'show',
+      name: 'sorting',
       placeholder: 'Показати',
-      options: optionsShow,
+      options: sorting,
     },
   ];
-
-  // const { fetchingContent, state } = useLoadMoreHook(
-  //   SEARCH_QUERY,
-  //   props.posts,
-  //   'news'
-  // );
 
   const updateMobile = () => {
     window.outerWidth < 768 ? setMobile(true) : setMobile(false);
   };
 
   useEffect(() => {
-    setSearchState((state) => ({
-      ...state,
-      query: searchState.query,
-    }));
-
     updateMobile();
+
     window.addEventListener('resize', updateMobile);
+
     return () => {
       window.removeEventListener('resize', updateMobile);
     };
   }, [mobile]);
 
-  // if (!state.data.nodes) {
-  //   return (
-  //     <div>
-  //       <NewsLoader />
-  //       <NewsLoader />
-  //       <NewsLoader />
-  //     </div>
-  //   );
-  // }
-  // const { nodes, pageInfo } = state.data;
-
   function onClick() {
     setShowFilters(!showFilters);
   }
 
-  function onSubmit(e) {
-    e.preventDefault();
-  }
-
-  function onChangeField({ target: { name, value } }) {
-    if (value.length > 1) {
-      const queryUpdated = queryReducer(query, 'change-field', name, value);
-
-      Router.push({
-        pathname: '/search',
-        query: { ...queryUpdated },
-      });
-    }
-  }
-
-  function onChangeRadio({ target: { name, value } }) {
-    const queryUpdated = queryReducer(query, 'change-radio', name, value);
-
-    Router.push({
-      pathname: '/search',
-      query: { ...queryUpdated },
-    });
-  }
-
-  function onChangeSelect(e, { action, name }) {
+  function onChangeSelect(e, { name }) {
     const value = e ? e.value : '';
-    const queryUpdated = queryReducer(query, action, name, value);
-
-    Router.push({
-      pathname: '/search',
-      query: { ...queryUpdated },
-    });
+    if (name === 'sorting') {
+      setSorting(value);
+    } else {
+      setFilter(name, value);
+    }
   }
 
   return (
@@ -281,10 +192,11 @@ const Search = (props) => {
               <div className="col-12">
                 <div className="search-form__field-wrapper pos-relative">
                   <input
-                    onChange={onChangeField}
+                    onChange={({ target: { value } }) => setSearchQuery(value)}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
-                    type="search"
-                    name="searchField"
+                    type="text"
+                    name="q"
+                    value={filters.q}
                     placeholder="Пошук"
                   />
                   <button
@@ -294,50 +206,21 @@ const Search = (props) => {
                     <SearchIcon />
                   </button>
                 </div>
-                <form
-                  onSubmit={onSubmit}
-                  className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap"
-                >
-                  <ul
-                    className="search-form__row tx-small list-unstyled"
-                    onChange={onChangeRadio}
-                  >
-                    <li className="search-form__text search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="text"
-                        type="radio"
-                        id="text"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="text">
-                        Текст
-                      </label>
-                    </li>
-                    <li className="search-form__authors search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="author"
-                        type="radio"
-                        id="author"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="author">
-                        Автори
-                      </label>
-                    </li>
-                    <li className="search-form__tags search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="tags"
-                        type="radio"
-                        id="tags"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="tags">
-                        Теги
-                      </label>
-                    </li>
+                <div className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap">
+                  <ul className="search-form__row tx-small list-unstyled">
+                    {filters.by.map((i) => {
+                      return (
+                        <li
+                          className={classnames(
+                            'search-form__text search-form__col',
+                            { current: i.active }
+                          )}
+                          onClick={() => setBy(i.value)}
+                        >
+                          {i.label}
+                        </li>
+                      );
+                    })}
                   </ul>
                   {mobile && (
                     <button
@@ -354,7 +237,7 @@ const Search = (props) => {
                   >
                     {selects
                       .reverse()
-                      .map(({ name, placeholder, options }, i) => (
+                      .map(({ name, placeholder, options, active }, i) => (
                         <Select
                           className="tx-tiny tx-family-titles search-form__col--select"
                           key={i}
@@ -365,42 +248,11 @@ const Search = (props) => {
                           onChange={onChangeSelect}
                         />
                       ))}
-
-                    {/* {mobile && (
-                      <>
-                        <select name="tag" id="" className="tx-family-titles">
-                          <option value="" disabled selected>
-                            Тип
-                          </option>
-                          {optionsTag.map(({ value, label }, i) => (
-                            <option key={i} value={value}>
-                              {label}
-                            </option>
-                          ))}
-                        </select>
-                      </>
-                    )} */}
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
-          {/* <div className="container">
-            {nodes.map((post, i) => (
-              <article key={post.id}>
-                <Link href="/news/[slug]" as={`/news/${post.slug}`}>
-                  <a href={`/news/${post.slug}`}>
-                    <h3>{post.title}</h3>
-                  </a>
-                </Link>
-                <div>{post.excerpt}</div>
-                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                  <Waypoint onEnter={fetchingContent} />
-                )}
-              </article>
-            ))}
-            {state.isLoading && <NewsLoader />}
-          </div> */}
         </>
       </main>
     </div>
@@ -411,9 +263,34 @@ Search.propTypes = {
   posts: PropTypes.any,
 };
 
-Search.getInitialProps = async () => {
+Search.getInitialProps = async ({ query }) => {
   if (process.browser) {
-    return {};
+    return { query };
+  }
+
+  let variables = {
+    articles: 10,
+    cursor: null,
+  };
+
+  const { sorting, date, category } = query;
+
+  if (sorting) {
+    const customSorting = NewsStore.get().sorting.find(
+      (i) => i.value === sorting
+    );
+    variables.sorting = customSorting.gqlOrderBy;
+  }
+
+  if (date) {
+    variables = {
+      ...variables,
+      ...dateToGraphQLQuery(date),
+    };
+  }
+
+  if (category) {
+    variables.category = [category];
   }
   const { data } = await apolloClient.query({
     query: SEARCH_QUERY,
@@ -433,6 +310,7 @@ Search.getInitialProps = async () => {
   const { posts } = data;
   return {
     posts,
+    query,
     types: responseQuant.data,
     categories: responseQuant.data.categories.nodes,
   };

@@ -40,15 +40,18 @@ const SiteSelect = (props) => {
     }),
   };
 
+  const value = props.options.find(i => i.active);
+
   return (
     <Select
+      {...props}
+      value={value}
       classNamePrefix="react-select"
       // defaultMenuIsOpen={props.instanceId === 0}
       isClearable
       isSearchable={false}
       styles={colorStyles}
       components={{ ClearIndicator, DropdownIndicator }}
-      {...props}
     />
   );
 };
