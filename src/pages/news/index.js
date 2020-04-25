@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 import { useStateLink } from '@hookstate/core';
+import { Router } from 'next/router';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -156,12 +157,13 @@ const News = ({ posts, categories, query }) => {
 
   useEffect(() => {
     setLoaded(true);
+
+    Router.events.on('routeChangeComplete', () => {
+      setIsChanged(true);
+    });
   }, []);
 
   useRouterSubscription(
-    () => {
-      setIsChanged(true);
-    },
     {
       name: 'sorting',
       current: currentSorting.value,

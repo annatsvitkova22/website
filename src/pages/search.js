@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 import * as classnames from 'classnames';
 import { Waypoint } from 'react-waypoint';
+import { Router } from 'next/router';
 
 import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
@@ -174,6 +175,10 @@ const Search = ({ posts, categories, types, query }) => {
   );
   useEffect(() => {
     setLoaded(true);
+
+    Router.events.on('routeChangeComplete', () => {
+      setIsChanged(true);
+    });
   }, []);
 
   const { sorting, filters, isChanged } = stateLink.get();
@@ -193,9 +198,6 @@ const Search = ({ posts, categories, types, query }) => {
   }, {});
 
   useRouterSubscription(
-    () => {
-      setIsChanged(true);
-    },
     {
       name: 'q',
       current: filters.q,
@@ -347,8 +349,6 @@ const Search = ({ posts, categories, types, query }) => {
     variables.sorting = currentSorting.gqlOrderBy;
   }
 
-  console.log(isChanged);
-
   const { fetchingContent, state } = useLoadMoreHook(
     composeQuery(variables),
     posts,
@@ -475,7 +475,13 @@ const Search = ({ posts, categories, types, query }) => {
                 </Article>
               </React.Fragment>
             ))}
-            {state.isLoading && <NewsLoader />}
+            {state.isLoading && (
+              <>
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+              </>
+            )}
           </main>
           <aside className="search-sidebar col-md-4">
             <SidebarLoader />
@@ -501,7 +507,7 @@ Search.getInitialProps = async ({ query }) => {
   const { data } = await apolloClient.query({
     query: composeQuery(variables),
     variables: {},
-  })
+  });
 
   const responseQuant = await apolloClient.query({
     query: QUANTITIES,
@@ -561,4 +567,4 @@ const setQueryVariables = (query) => {
   }
 
   return variables;
-}
+};

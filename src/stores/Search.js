@@ -235,5 +235,6 @@ export const setSorting = (option) => {
   if (!newStore.sorting.find((i) => i.active)) {
     newStore.sorting.find((i) => i.default).active = true;
   }
+  console.log(newStore.sorting);
   SearchStore.set(newStore);
 };
