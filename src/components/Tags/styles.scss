@@ -1,16 +1,25 @@
 .category-tag__list {
   display: flex;
 
+  padding-left: 0;
+  margin-bottom: 8px;
+
   li {
     list-style: none;
 
-    margin-right: 10px;
     padding: 5px 10px;
+
+    font-family: $font-family-alt;
 
     font-size: 10px;
     line-height: 1.2;
     text-transform: uppercase;
   }
+}
+.tag > li {
+  background-color: rgba(29, 158, 116, 0.08);
+
+  color: $green;
 }
 
 .category > li {
@@ -18,13 +27,16 @@
 
   color: $white;
 }
-
-.tag > li {
-  background-color: rgba(29, 158, 116, 0.08);
-
-  color: $green;
+.category > li:not(:last-child) {
+  margin-right: 10px;
+}
+.tag {
+  padding-bottom: 32px;
+}
+.tag > li:not(:last-child) {
+  margin-right: 10px;
 }
 
-.tag-item:hover  {
+.tag-item:hover {
   background: rgba(29, 158, 116, 0.16);
 }

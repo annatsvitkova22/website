@@ -10,8 +10,8 @@ import apolloClient from '~/lib/ApolloClient';
 import BlogsLoader from '~/components/Loaders/BlogsLoader';
 
 const BLOGS_ARCHIVE = gql`
-  query BlogsArchive($cursor: String) {
-    blogs(first: 5, before: $cursor) {
+  query BlogsArchive($cursor: String, $articles: Int) {
+    blogs(first: $articles, before: $cursor) {
       nodes {
         excerpt
         title
@@ -90,6 +90,7 @@ BlogsArchive.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: BLOGS_ARCHIVE,
     variables: {
+      articles: 10,
       cursor: null,
     },
   });

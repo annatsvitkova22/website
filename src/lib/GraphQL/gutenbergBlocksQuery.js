@@ -36,12 +36,30 @@ const gutenbergBlocksQuery = `blocks {
             }
           }
           ... on CoreImageBlock {
-            attributes {
+              attributes {
+            height
+            align
+            alt
+            caption
+            className
+            href
+            id
+            linkClass
+            linkDestination
+            linkTarget
+            rel
+            sizeSlug
+            title
+            url
+
+          }
+            imageAttributes: attributes {
               align
               alt
               className
               caption
               height
+              width
               href
               id
               linkClass
@@ -173,6 +191,9 @@ const gutenbergBlocksQuery = `blocks {
               linkTarget
               textColor
             }
+        }
+      ... on CoreButtonsBlock {
+          saveContent
         }
       ... on CoreColumnsBlock {
             attributes {

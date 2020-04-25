@@ -46,6 +46,7 @@ $tx-ffamilies: (
 $tx-colors: (
   'green': $green,
   'white': $white,
+  'black': $black,
 );
 
 @each $name, $color in $tx-colors {

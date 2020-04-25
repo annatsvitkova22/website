@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
-import '../../styles/pages/singleNews.scss';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import NewsHead from '~/components/NewsHead';
-import Share from '~/components/Share';
-import NewsFooter from '~/components/NewsFooter';
+import Share from '~/components/ShareSideBar';
+import NewsFooter from '~/components/SinglePageFooter';
 import Content from '~/components/Content';
-import SideBarNews from '~/components/SideBarNews';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import FeaturedImage from '~/components/FeaturedImage';
+import SimilarPosts from '~/components/SimilarPosts';
+import ArticleAuthor from '~/components/Article/Author';
+import ShareItems from '~/components/ShareItems';
+import SideBarPost from '~/components/Sidebar/Post';
 
 const POST = gql`
   query Post($slug: String!) {
     postBy(slug: $slug) {
       ${gutenbergBlocksQuery}
       title
-      content
       date
-      excerpt
       categories {
         nodes {
           id
@@ -36,14 +38,19 @@ const POST = gql`
           link
         }
       }
+      id
       comments {
         pageInfo {
           total
         }
       }
       author {
+        nicename
         lastName
         firstName
+        nickname
+        username
+        name
       }
       featuredImage {
         id
@@ -58,9 +65,28 @@ const POST = gql`
     }
   }
 `;
+const SIMILAR = gql`
+  query SimilarPosts($category: String) {
+    posts(first: 7, where: { categoryName: $category }) {
+      nodes {
+        author {
+          firstName
+          lastName
+          name
+        }
+        id
+        title
+        featuredImage {
+          link
+          mediaItemUrl
+        }
+      }
+    }
+  }
+`;
 const NEWS = gql`
-  query News($cursor: String) {
-    posts(first: 5, before: $cursor) {
+  query News($cursor: String, $articles: Int) {
+    posts(first: $articles, before: $cursor) {
       nodes {
         title
         link
@@ -73,42 +99,38 @@ const NEWS = gql`
     }
   }
 `;
-
-const Post = ({ post, news }) => {
-  const ref = React.useRef();
-
-  const [state, setState] = useState({
-    updNews: news,
-    isLoading: false,
-    endCursor: news.pageInfo.endCursor ? news.pageInfo.endCursor : null,
-  });
-
-  const fetchingContent = async () => {
-    if (!state.isLoading) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
+const BLOGS = gql`
+  query Blogs {
+    blogs(first: 4) {
+      nodes {
+        link
+        title
+        author {
+          name
+        }
+      }
     }
+  }
+`;
 
-    const postsData = await apolloClient.query({
-      query: NEWS,
-      variables: {
-        cursor: state.endCursor,
-      },
-    });
+const Post = ({ post, news, similarPosts, blogs }) => {
+  moment.locale('uk');
+  const [similar, setSimilar] = useState(
+    similarPosts.nodes ? similarPosts.nodes : null
+  );
 
-    setState({
-      isLoading: false,
-      endCursor: postsData.data.posts.pageInfo
-        ? postsData.data.posts.pageInfo.endCursor
-        : false,
-      updNews: {
-        pageInfo: postsData.data.posts.pageInfo,
-        nodes: [...state.updNews.nodes, ...postsData.data.posts.nodes],
-      },
-    });
-  };
+  useEffect(() => {
+    if (similarPosts.nodes) {
+      const filteredSimilarPost = similarPosts.nodes.filter(
+        (node) => node.id !== post.id
+      );
+      if (filteredSimilarPost.length > 6) {
+        setSimilar(filteredSimilarPost.splice(6));
+      }
+      setSimilar(filteredSimilarPost);
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -116,40 +138,58 @@ const Post = ({ post, news }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="single-news">
+      <main className="single-post container">
         {post ? (
           <>
-            <NewsHead post={post} />
-            <section
-              className={'main row no-gutters justify-content-between'}
-              style={{ display: 'flex', alignItems: 'flex-start' }}
-            >
-              <StickyBox
-                offsetTop={20}
-                offsetBottom={20}
-                className={'side-bar__wrapper col-1'}
-              >
-                <Share />
-              </StickyBox>
-              <section className={'description col-7'}>
-                <Content content={post.blocks} />
-              </section>
-              <StickyBox
-                offsetTop={20}
-                offsetBottom={20}
-                className={'side-bar__wrapper col-3'}
-              >
-                <section className={'latest'}>
-                  <SideBarNews
-                    news={state.updNews}
-                    ref={ref}
-                    fetchingContent={fetchingContent}
-                    isLoading={state.isLoading}
-                  />
+            <div className={'single-post__title row'}>
+              <div className={'single-post__wrapper col-xl-9 col-12'}>
+                <NewsHead post={post} />
+                <FeaturedImage data={post.featuredImage} />
+                <section className={'single-post__main col-12'}>
+                  <StickyBox
+                    offsetTop={70}
+                    offsetBottom={20}
+                    className={'side-bar__wrapper col-xl-1'}
+                  >
+                    <Share />
+                  </StickyBox>
+                  <section className={'single-post__content'}>
+                    <div className={'title__socials'}>
+                      <div className={'title__socials-about'}>
+                        <span className="title__socials-image" />
+                        <div className={'title__socials-author'}>
+                          <ArticleAuthor
+                            author={post.author}
+                            className={'title__socials-name'}
+                          />
+                          <span className={'title__socials-date'}>
+                            {moment(post.date).format('LLL')}
+                          </span>
+                        </div>
+                      </div>
+                      <ShareItems className={'title__socials-items'} />
+                    </div>
+                    <article
+                      className={'title__description'}
+                      dangerouslySetInnerHTML={{ __html: post.excerpt }}
+                    />
+                    <Content
+                      content={post.blocks}
+                      className={'content__posts'}
+                    />
+                    <NewsFooter post={post} />
+                  </section>
                 </section>
+              </div>
+              <StickyBox
+                offsetTop={118}
+                offsetBottom={20}
+                className={'sidebar__wrapper col-xl-3'}
+              >
+                <SideBarPost news={news} blogs={blogs} />
               </StickyBox>
-            </section>
-            <NewsFooter post={post} />
+            </div>
+            <SimilarPosts similarPosts={similar} />
           </>
         ) : (
           <PostHeaderLoader />
@@ -162,6 +202,7 @@ const Post = ({ post, news }) => {
 Post.propTypes = {
   post: PropTypes.object,
   news: PropTypes.object,
+  similarPosts: PropTypes.object,
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {
@@ -172,13 +213,25 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   const news = await apolloClient.query({
     query: NEWS,
     variables: {
+      articles: 10,
       cursor: null,
     },
+  });
+  const similarPosts = await apolloClient.query({
+    query: SIMILAR,
+    variables: {
+      category: data.postBy.categories.nodes[0].name,
+    },
+  });
+  const blogs = await apolloClient.query({
+    query: BLOGS,
   });
 
   return {
     post: data.postBy,
     news: news.data.posts,
+    similarPosts: similarPosts.data.posts,
+    blogs: blogs.data.blogs,
   };
 };
 

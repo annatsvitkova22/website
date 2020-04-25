@@ -31,9 +31,11 @@ import More from '../Gutenberg/More';
 import Spacer from '../Gutenberg/Space';
 import NextPage from '../Gutenberg/NextPage';
 
-const Content = ({ content }) => {
+import Buttons from '~/components/Gutenberg/Buttons';
+
+const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
-  console.log(content);
+  // console.log(content);
 
   return (
     <>
@@ -41,18 +43,38 @@ const Content = ({ content }) => {
         content.map((block, index) => {
           if (block.__typename === 'CoreParagraphBlock') {
             return (
-              <Paragraph block={block} key={`${block.__typename}-${index}`} />
+              <Paragraph
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
             );
           }
           if (block.__typename === 'CoreImageBlock') {
-            return <Image block={block} key={`${block.__typename}-${index}`} />;
+            return (
+              <Image
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
           }
           if (block.__typename === 'CoreAudioBlock') {
-            return <Audio block={block} key={`${block.__typename}-${index}`} />;
+            return (
+              <Audio
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
           }
           if (block.__typename === 'CoreEmbedYoutubeBlock') {
             return (
-              <Youtube block={block} key={`${block.__typename}-${index}`} />
+              <Youtube
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
             );
           }
           if (block.__typename === 'CoreArchivesBlock') {
@@ -67,7 +89,11 @@ const Content = ({ content }) => {
           }
           if (block.__typename === 'CoreHeadingBlock') {
             return (
-              <Heading block={block} key={`${block.__typename}-${index}`} />
+              <Heading
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
             );
           }
           if (block.__typename === 'CoreGalleryBlock') {
@@ -76,10 +102,22 @@ const Content = ({ content }) => {
             );
           }
           if (block.__typename === 'CoreListBlock') {
-            return <List block={block} key={`${block.__typename}-${index}`} />;
+            return (
+              <List
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
           }
           if (block.__typename === 'CoreQuoteBlock') {
-            return <Quote block={block} key={`${block.__typename}-${index}`} />;
+            return (
+              <Quote
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
+            );
           }
           if (block.__typename === 'CoreCoverBlock') {
             return <Cover block={block} key={`${block.__typename}-${index}`} />;
@@ -174,6 +212,15 @@ const Content = ({ content }) => {
           if (block.__typename === 'CoreNextpageBlock') {
             return (
               <NextPage block={block} key={`${block.__typename}-${index}`} />
+            );
+          }
+          if (block.__typename === 'CoreButtonsBlock') {
+            return (
+              <Buttons
+                className={className}
+                block={block}
+                key={`${block.__typename}-${index}`}
+              />
             );
           }
           return null;

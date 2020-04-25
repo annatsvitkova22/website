@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import * as classnames from 'classnames';
+
 import ArticleContext from '~/components/Article/Context';
 
 const ArticleTitle = ({ post, className }) => {

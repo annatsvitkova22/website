@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
-import Select, { components } from 'react-select';
 
+import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
-import ChevronDown from '~/static/images/chevron-down';
-import Times from '~/static/images/times-small';
 import SearchIcon from '~/static/images/search';
+import Filter from '~/static/images/filter';
+import queryReducer from '~/hooks/queryReducer';
 
 const SEARCH_QUERY = gql`
   query SearchQuery($cursor: String) {
@@ -30,77 +31,105 @@ const SEARCH_QUERY = gql`
   }
 `;
 
-const Search = (props) => {
-  const optionsTag = [
-    {
-      value: 'новини',
-      label: 'Новини',
-    },
-    {
-      value: 'публікації',
-      label: 'Публікації',
-      isFixed: true,
-    },
-    {
-      value: 'блоги',
-      label: 'Блоги',
-    },
-    {
-      value: 'відео',
-      label: 'Відео',
-    },
-    {
-      value: 'події',
-      label: 'Події',
-    },
-    {
-      value: 'збір-коштів',
-      label: 'Збір коштів',
-    },
-    {
-      value: 'можливості',
-      label: 'Можливості',
-    },
-  ];
+const QUANTITIES = gql`
+  query TypesQuantity {
+    categories(where: { hideEmpty: true }) {
+      nodes {
+        name
+        slug
+        count
+      }
+    }
+    posts {
+      pageInfo {
+        total
+      }
+    }
+    blogs {
+      pageInfo {
+        total
+      }
+    }
+    publications {
+      pageInfo {
+        total
+      }
+    }
+    videos {
+      pageInfo {
+        total
+      }
+    }
+    crowdfundings {
+      pageInfo {
+        total
+      }
+    }
+    events {
+      pageInfo {
+        total
+      }
+    }
+    opportunities {
+      pageInfo {
+        total
+      }
+    }
+  }
+`;
 
-  const optionsCat = [
-    {
-      value: 'політика',
-      label: 'Політика',
-    },
-    {
-      value: 'освіта',
-      label: 'Освіта',
-    },
-    {
-      value: "здоров'я",
-      label: "Здоров'я",
-    },
-    {
-      value: 'спорт',
-      label: 'Спорт',
-    },
-    {
-      value: 'культура',
-      label: 'Культура',
-    },
-    {
-      value: 'політика',
-      label: 'Політика',
-    },
-    {
-      value: 'економіка-і-бізнес',
-      label: 'Економіка і бізнес',
-    },
-    {
-      value: 'суспільство',
-      label: 'Суспільство',
-    },
-    {
-      value: 'історії-успіху',
-      label: 'Історії успіху',
-    },
-  ];
+const Search = (props) => {
+  const [mobile, setMobile] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [searchState, setSearchState] = useState({
+    posts: props ? props.posts : {},
+    types: props ? props.types : {},
+    categories: props ? props.categories : [],
+    query: Router.router ? Router.router.query : {},
+  });
+
+  const { posts, types, categories, query } = searchState;
+
+  const typeLabels = {
+    posts: 'Новини',
+    publications: 'Публікації',
+    blogs: 'Блоги',
+    videos: 'Відео',
+    events: 'Події',
+    crowdfundings: 'Збір коштів',
+    opportunities: 'Можливості',
+  };
+
+  let typesFormated = Object.keys(types).map((type) => {
+    if (type !== 'categories') {
+      const quantity = types[type].pageInfo ? types[type].pageInfo.total : 0;
+      return {
+        value: type,
+        mobileLabel: `${typeLabels[type]} ${quantity}`,
+        label: (
+          <span>
+            {typeLabels[type]}{' '}
+            <span className="tx-green react-select__quantity">{quantity}</span>
+          </span>
+        ),
+      };
+    }
+    return '';
+  });
+  typesFormated = typesFormated.filter((el) => el !== '');
+
+  const categoriesFormated = categories.map(({ count = 0, slug, name }) => {
+    return {
+      value: slug,
+      mobileLabel: `${name} ${count}`,
+      label: (
+        <span>
+          {name}{' '}
+          <span className="tx-green react-select__quantity">{count}</span>
+        </span>
+      ),
+    };
+  });
 
   const optionsPubdate = [
     {
@@ -144,153 +173,204 @@ const Search = (props) => {
     },
   ];
 
-  const colorStyles = {
-    valueContainer: (styles) => ({
-      ...styles,
-      paddingLeft: 0,
-      paddingRight: 0,
-    }),
-    placeholder: (styles) => ({ ...styles, color: '#242424' }),
-    control: (styles) => ({
-      ...styles,
-      border: 'none',
-      borderRadius: 0,
-      paddingLeft: 12,
-      paddingRight: 15,
-    }),
-    menu: (styles) => ({
-      ...styles,
-      marginTop: 0,
-      marginBottom: 0,
-      borderRadius: 0,
-      left: 0,
-      boxShadow: '0px -6px 6px white, 0px 0px 6px rgba(0, 0, 0, 0.25)',
-    }),
-    menuList: (styles) => ({ ...styles, paddingTop: 0, paddingBottom: 0 }),
-    indicatorSeparator: (styles) => ({
-      ...styles,
-      display: 'none',
-    }),
+  const selects = [
+    {
+      name: 'type',
+      placeholder: 'Тип',
+      options: typesFormated,
+    },
+    {
+      name: 'cat',
+      placeholder: 'Категорії',
+      options: categoriesFormated,
+    },
+    {
+      name: 'pubd',
+      placeholder: 'Період',
+      options: optionsPubdate,
+    },
+    {
+      name: 'show',
+      placeholder: 'Показати',
+      options: optionsShow,
+    },
+  ];
+
+  // const { fetchingContent, state } = useLoadMoreHook(
+  //   SEARCH_QUERY,
+  //   props.posts,
+  //   'news'
+  // );
+
+  const updateMobile = () => {
+    window.outerWidth < 768 ? setMobile(true) : setMobile(false);
   };
 
-  const { fetchingContent, state } = useLoadMoreHook(
-    SEARCH_QUERY,
-    props,
-    'news'
-  );
+  useEffect(() => {
+    setSearchState((state) => ({
+      ...state,
+      query: searchState.query,
+    }));
 
-  if (!state.data.nodes) {
-    return (
-      <div>
-        <NewsLoader />
-        <NewsLoader />
-        <NewsLoader />
-      </div>
-    );
+    updateMobile();
+    window.addEventListener('resize', updateMobile);
+    return () => {
+      window.removeEventListener('resize', updateMobile);
+    };
+  }, [mobile]);
+
+  // if (!state.data.nodes) {
+  //   return (
+  //     <div>
+  //       <NewsLoader />
+  //       <NewsLoader />
+  //       <NewsLoader />
+  //     </div>
+  //   );
+  // }
+  // const { nodes, pageInfo } = state.data;
+
+  function onClick() {
+    setShowFilters(!showFilters);
   }
-  const { nodes, pageInfo } = state.data;
+
+  function onSubmit(e) {
+    e.preventDefault();
+  }
+
+  function onChangeField({ target: { name, value } }) {
+    if (value.length > 1) {
+      const queryUpdated = queryReducer(query, 'change-field', name, value);
+
+      Router.push({
+        pathname: '/search',
+        query: { ...queryUpdated },
+      });
+    }
+  }
+
+  function onChangeRadio({ target: { name, value } }) {
+    const queryUpdated = queryReducer(query, 'change-radio', name, value);
+
+    Router.push({
+      pathname: '/search',
+      query: { ...queryUpdated },
+    });
+  }
+
+  function onChangeSelect(e, { action, name }) {
+    const value = e ? e.value : '';
+    const queryUpdated = queryReducer(query, action, name, value);
+
+    Router.push({
+      pathname: '/search',
+      query: { ...queryUpdated },
+    });
+  }
 
   return (
-    <div className="news-page">
+    <div className="search-page">
       <Head>
         {/* TODO: change title */}
         <title>{'Change this!'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="search-main">
         <>
           <div className="container">
             <div className="row">
               <div className="col-12">
                 <div className="search-form__field-wrapper pos-relative">
                   <input
+                    onChange={onChangeField}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
                     type="search"
-                    // value="Полтава"
+                    name="searchField"
                     placeholder="Пошук"
                   />
-                  <button className="search-form__button pos-absolute pos-center-right">
+                  <button
+                    type="button"
+                    className="search-form__button pos-absolute pos-center-right"
+                  >
                     <SearchIcon />
                   </button>
                 </div>
-                <form className="search-form d-flex">
-                  <ul className="search-form__row tx-small list-unstyled">
+                <form
+                  onSubmit={onSubmit}
+                  className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap"
+                >
+                  <ul
+                    className="search-form__row tx-small list-unstyled"
+                    onChange={onChangeRadio}
+                  >
                     <li className="search-form__text search-form__col">
                       <input
                         className="search-form__radio"
+                        value="text"
                         type="radio"
                         id="text"
                         name="searchBy"
                       />
-                      <label className="search-form__label" for="text">
+                      <label className="search-form__label" htmlFor="text">
                         Текст
                       </label>
                     </li>
                     <li className="search-form__authors search-form__col">
                       <input
                         className="search-form__radio"
+                        value="author"
                         type="radio"
                         id="author"
                         name="searchBy"
                       />
-                      <label className="search-form__label" for="author">
+                      <label className="search-form__label" htmlFor="author">
                         Автори
                       </label>
                     </li>
                     <li className="search-form__tags search-form__col">
                       <input
                         className="search-form__radio"
+                        value="tags"
                         type="radio"
                         id="tags"
                         name="searchBy"
                       />
-                      <label className="search-form__label" for="tags">
+                      <label className="search-form__label" htmlFor="tags">
                         Теги
                       </label>
                     </li>
                   </ul>
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsTag}
-                    placeholder="Тип"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsCat}
-                    placeholder="Категорії"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsPubdate}
-                    placeholder="Період"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
-                  <Select
-                    classNamePrefix="react-select"
-                    className="tx-tiny search-form__col search-form__col--select"
-                    isClearable
-                    options={optionsShow}
-                    placeholder="Показати"
-                    styles={colorStyles}
-                    components={{ ClearIndicator, DropdownIndicator }}
-                  />
+                  {mobile && (
+                    <button
+                      onClick={onClick}
+                      className={`${showFilters ? 'tx-green' : 'tx-black'}`}
+                    >
+                      <Filter />
+                    </button>
+                  )}
+                  <div
+                    className={`search-form__selects w-100 ${
+                      showFilters ? 'd-flex' : 'd-none d-md-flex'
+                    } flex-column-reverse flex-md-row-reverse justify-content-between`}
+                  >
+                    {selects
+                      .reverse()
+                      .map(({ name, placeholder, options }, i) => (
+                        <Select
+                          key={i}
+                          instanceId={i}
+                          className="tx-tiny tx-family-titles search-form__col--select"
+                          {...{ mobile, name, options, placeholder }}
+                          onChange={onChangeSelect}
+                        />
+                      ))}
+                  </div>
                 </form>
               </div>
             </div>
           </div>
-          <div className="container">
+          {/* <div className="container">
             {nodes.map((post, i) => (
               <article key={post.id}>
                 <Link href="/news/[slug]" as={`/news/${post.slug}`}>
@@ -305,35 +385,9 @@ const Search = (props) => {
               </article>
             ))}
             {state.isLoading && <NewsLoader />}
-          </div>
+          </div> */}
         </>
       </main>
-    </div>
-  );
-};
-
-const DropdownIndicator = (props) => {
-  return (
-    <components.DropdownIndicator {...props}>
-      <ChevronDown />
-    </components.DropdownIndicator>
-  );
-};
-
-const ClearIndicator = (props) => {
-  const {
-    children = <Times />,
-    getStyles,
-    innerProps: { ref, ...restInnerProps },
-  } = props;
-  return (
-    <div
-      {...restInnerProps}
-      ref={ref}
-      style={getStyles('clearIndicator', props)}
-      className="react-select__indicator react-select__clear-indicator"
-    >
-      {children}
     </div>
   );
 };
@@ -352,8 +406,21 @@ Search.getInitialProps = async () => {
       cursor: null,
     },
   });
+
+  // const responseCats = await apolloClient.query({
+  //   query: CATEGORIES_QUANTITY,
+  // });
+
+  const responseQuant = await apolloClient.query({
+    query: QUANTITIES,
+  });
+
   const { posts } = data;
-  return posts;
+  return {
+    posts,
+    types: responseQuant.data,
+    categories: responseQuant.data.categories.nodes,
+  };
 };
 
 export default Search;

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Audio = ({ block }) => {
+const Audio = ({ block, className = '' }) => {
   if (block.attributes) {
     return (
-      <figure className={'gutenberg__audio'}>
+      <figure className={`gutenberg__audio ${className}`}>
         <figcaption>{block.attributes.caption}</figcaption>
         <audio controls src={block.attributes.src} />
       </figure>

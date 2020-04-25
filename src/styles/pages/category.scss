@@ -26,49 +26,14 @@
     }
 
     @include media-breakpoint-down(sm) {
+      margin-left: 0;
+      margin-right: 7px;
+
       svg {
-        width: 13px;
-        height: 13px;
+        width: 15px;
+        height: 15px;
       }
     }
-  }
-}
-
-.cat-list {
-  margin-bottom: 34px;
-  margin-left: -5px;
-  margin-right: -5px;
-
-  &__button {
-    padding: 5px 10px 4px;
-
-    background-color: $green;
-
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-
-    transition:
-      color 0.3s ease-in-out,
-      background-color 0.3s ease-in-out;
-
-    &::before {
-      content: '!';
-    }
-
-    &:focus,
-    &:hover,
-    &--active {
-      background-color: $white;
-
-      color: $black;
-    }
-  }
-
-  &__item {
-    padding: 5px;
-
-    line-height: 1;
   }
 }
 

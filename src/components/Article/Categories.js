@@ -8,9 +8,7 @@ const ArticleTaxonomies = ({
   className,
 }) => {
   const taxonomies =
-    categories.nodes.length > categories.nodes.length
-      ? categories.nodes
-      : tags.nodes;
+    categories.nodes.length > tags.nodes.length ? categories.nodes : tags.nodes;
   if (!taxonomies.length) return null;
   return (
     <ul
