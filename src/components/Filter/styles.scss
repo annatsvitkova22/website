@@ -1,5 +1,44 @@
 .filter {
+  &--categories {
+    display: flex;
+    flex-wrap: wrap;
+
+    padding-left: 0;
+
+    list-style: none;
+  }
+  &__button {
+    padding: 5px 10px;
+
+    background-color: $green;
+
+    border: none;
+    box-shadow: none;
+
+    font-family: $font-family-alt;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $white;
+
+    cursor: pointer;
+    &:before {
+      content: '!';
+    }
+    &:focus {
+      outline: none;
+    }
+  }
   &__item {
+    display: flex;
+
+    margin-bottom: 10px;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
     &--active {
       .filter__button {
         background-color: red;
