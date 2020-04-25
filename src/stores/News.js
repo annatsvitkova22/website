@@ -2,13 +2,17 @@ import { createStateLink } from '@hookstate/core';
 import * as moment from 'moment';
 import { cloneDeep } from 'lodash';
 
-const initialState = {
+export const initialState = {
   sorting: [
     {
       label: 'останні',
       value: 'recent',
       default: true,
       active: true,
+      gqlOrderBy: {
+        orderby: 'DATE',
+        order: 'DESC',
+      },
     },
     // TODO: implement backend
     // {
@@ -22,6 +26,10 @@ const initialState = {
     {
       label: 'спочатку старі',
       value: 'old',
+      gqlOrderBy: {
+        field: 'DATE',
+        order: 'ASC',
+      },
     },
   ],
   filters: {

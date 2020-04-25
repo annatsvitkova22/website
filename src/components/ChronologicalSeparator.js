@@ -4,7 +4,7 @@ import * as moment from 'moment';
 const ChronologicalSeparator = ({ posts, currentIndex }) => {
   const currentDate = moment(posts[currentIndex].date);
   let text = '';
-  if (currentIndex === 0 && !currentDate.isSame(moment() ,'day')) {
+  if (currentIndex === 0 && !currentDate.isSame(moment(), 'day')) {
     text = currentDate.locale('uk').format('D MMMM');
   } else {
     if (currentIndex === 0) return null;

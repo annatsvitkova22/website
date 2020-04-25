@@ -17,8 +17,15 @@ import { NewsStore, CreateNewsStore } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import { dateToGraphQLQuery } from '~/util/date';
 
-const composeQuery = ({ cursor, articles, day, month, year, category }) => {
-  // return console.log(cursor, articles, category);
+const composeQuery = ({
+  cursor,
+  articles,
+  day,
+  month,
+  year,
+  category,
+  sorting,
+}) => {
   return gql`
     query NewsArchive(
       $cursor: String = ${cursor}
@@ -37,7 +44,11 @@ const composeQuery = ({ cursor, articles, day, month, year, category }) => {
       }
       posts(
         where: {
-          orderby: { field: DATE, order: DESC }
+          ${
+            sorting
+              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
+              : ``
+          }
           dateQuery: { day: $day, month: $month, year: $year }
           ${
             category
@@ -286,7 +297,14 @@ News.getInitialProps = async ({ query }) => {
     cursor: null,
   };
 
-  const { date, category } = query;
+  const { sorting, date, category } = query;
+
+  if (sorting) {
+    const customSorting = NewsStore.get().sorting.find(
+      (i) => i.value === sorting
+    );
+    variables.sorting = customSorting.gqlOrderBy;
+  }
 
   if (date) {
     variables = {
