@@ -9,6 +9,7 @@ import ArticleDate from '~/components/Article/Date';
 import ArticleFeatured from '~/components/Article/Featured';
 
 const ArticleNews = ({ post, children, className }) => {
+  console.log(post.featuredImage);
   return (
     <article className={classnames('article--news', className)}>
       <div className="article__wrapper">

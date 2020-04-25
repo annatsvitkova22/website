@@ -26,7 +26,7 @@ const NavLink = ({ children, href, ...otherProps }) => {
     if (!isStrictRoute && tempHref.startsWith('/tag')) {
       return (
         <Link
-          href={`/search?query=${cleanUrl(tempHref.split('/tag/')[1])}&by=tag`}
+          href={`/search?q=${cleanUrl(tempHref.split('/tag/')[1])}&by=tag`}
         >
           <a {...otherProps}>{children}</a>
         </Link>
