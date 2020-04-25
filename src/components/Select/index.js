@@ -42,6 +42,7 @@ const SiteSelect = (props) => {
       classNamePrefix="react-select"
       className="tx-tiny search-form__col search-form__col--select"
       isClearable
+      isSearchable={false}
       options={options}
       placeholder={placeholder}
       styles={colorStyles}

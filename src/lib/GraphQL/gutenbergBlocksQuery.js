@@ -53,6 +53,22 @@ const gutenbergBlocksQuery = `blocks {
             url
 
           }
+            imageAttributes: attributes {
+              align
+              alt
+              className
+              caption
+              height
+              width
+              href
+              id
+              linkClass
+              linkDestination
+              linkTarget
+              rel
+              url
+              sizeSlug
+            }
           }
           ... on CoreEmbedYoutubeBlock {
             attributes {
