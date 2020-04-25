@@ -446,7 +446,9 @@ const Search = ({ posts, categories, types, query }) => {
                   <input
                     onChange={({ target: { value } }) => setSearchString(value)}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
-                    onKeyPress={({ key }) => { if (key === 'Enter') handleSearchString()}}
+                    onKeyPress={({ key }) => {
+                      if (key === 'Enter') handleSearchString();
+                    }}
                     type="text"
                     name="q"
                     value={searchString}
@@ -470,6 +472,7 @@ const Search = ({ posts, categories, types, query }) => {
                             { current: i.active }
                           )}
                           onClick={() => setBy(i.value)}
+                          key={i.value}
                         >
                           {i.label}
                         </li>
@@ -516,16 +519,22 @@ const Search = ({ posts, categories, types, query }) => {
       <div className="container">
         <div className="search-content row">
           <main className="search-results col-md-8">
-            {nodes.map((post, i) => (
-              <React.Fragment key={i}>
-                <ChronologicalSeparator posts={nodes} currentIndex={i} />
-                <Article type="news" post={post} key={post.id}>
-                  {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                    <Waypoint onEnter={fetchingContent} />
-                  )}
-                </Article>
-              </React.Fragment>
-            ))}
+            {nodes.map((post, i) => {
+              // TODO: return when all types ready
+              // let typeName = `${post.__typename.toLowerCase()}s`;
+              // if (typeName === 'posts') typeName = 'news';
+              const typeName = 'news';
+              return (
+                <React.Fragment key={i}>
+                  <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                  <Article type={typeName} post={post} key={post.id}>
+                    {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                      <Waypoint onEnter={fetchingContent} />
+                    )}
+                  </Article>
+                </React.Fragment>
+              );
+            })}
             {state.isLoading && (
               <>
                 <NewsLoader />

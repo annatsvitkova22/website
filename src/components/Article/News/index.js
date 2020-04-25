@@ -4,7 +4,7 @@ import * as classnames from 'classnames';
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleComments from '~/components/Article/Comments';
 import ArticleTitle from '~/components/Article/Title';
-import ArticleTaxonomies from '~/components/Article/Categories';
+import ArticleTaxonomies from '~/components/Article/Taxonomies';
 import ArticleDate from '~/components/Article/Date';
 import ArticleFeatured from '~/components/Article/Featured';
 
