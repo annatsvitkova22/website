@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import apolloClient from '~/lib/ApolloClient';
-import { setCategories, setIsChanged } from '~/stores/News';
+import { setCategories } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
@@ -9,7 +9,8 @@ const useLoadMoreHook = (
   type = '',
   initialNumber = 10,
   onLoadNumber = 3,
-  isChanged
+  isChanged,
+  setIsChanged = () => {}
 ) => {
   const [state, setState] = useState({
     data: props,

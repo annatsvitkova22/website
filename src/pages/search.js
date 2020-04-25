@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 import * as classnames from 'classnames';
+import { Waypoint } from 'react-waypoint';
 
 import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
@@ -17,26 +18,105 @@ import {
   setFilter,
   setSearchQuery,
   setSorting,
+  setIsChanged,
 } from '~/stores/Search';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
-import { setIsChanged } from '~/stores/News';
+import NewsLoader from '~/components/Loaders/NewsLoader';
+import SidebarLoader from '~/components/Loaders/SidebarLoader';
+import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
+import useLoadMoreHook from '~/hooks/useLoadMoreHook';
+import ChronologicalSeparator from '~/components/ChronologicalSeparator';
+import Article from '~/components/Article';
 
-const SEARCH_QUERY = gql`
-  query SearchQuery($cursor: String) {
-    posts(first: 5, before: $cursor) {
-      nodes {
-        id
-        excerpt
-        title
-        slug
+const composeQuery = ({
+  cursor,
+  articles,
+  day,
+  month,
+  year,
+  category,
+  sorting,
+}) => {
+  return gql`
+    query SearchQuery(
+      $cursor: String = ${cursor}
+      $articles: Int = ${articles}
+      $day: Int = ${day ? day : null}
+      $month: Int = ${month ? month : null}
+      $year: Int = ${year ? year : null}
+      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
+    ) {
+      categories(where: { hideEmpty: true }) {
+        nodes {
+          id
+          name
+          slug
+        }
       }
-      pageInfo {
-        endCursor
-        total
+      posts(
+        where: {
+          ${
+            sorting
+              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
+              : ``
+          }
+          dateQuery: { day: $day, month: $month, year: $year }
+          ${
+            category
+              ? `taxQuery: {
+            relation: OR
+            taxArray: [
+              {
+                terms: $category
+                taxonomy: CATEGORY
+                operator: IN
+                field: SLUG
+              }
+            ]
+          }`
+              : ``
+          }
+        }
+        first: $articles
+        before: $cursor
+      ) {
+        nodes {
+          id
+          title
+          slug
+          featuredImage {
+            mediaItemUrl
+          }
+          categories {
+            nodes {
+              id
+              name
+              slug
+            }
+          }
+          author {
+            name
+            nicename
+            nickname
+            slug
+            userId
+            username
+          }
+          comments {
+            pageInfo {
+              total
+            }
+          }
+          date
+        }
+        pageInfo {
+          endCursor
+          total
+        }
       }
     }
-  }
-`;
+  `;
+};
 
 const QUANTITIES = gql`
   query TypesQuantity {
@@ -233,6 +313,77 @@ const Search = ({ posts, categories, types, query }) => {
     }
   }
 
+  const variables = {
+    articles: 10,
+    onLoadNumber: 3,
+    cursor: null,
+  };
+
+  if (filters.q) {
+    variables.q = filters.q;
+  }
+
+  if (currentBy) {
+    variables.by = currentBy.value;
+  }
+
+  if (currentType) {
+    variables.type = currentType.value;
+  }
+
+  if (currentCategory) {
+    variables.category = [currentCategory.value];
+  }
+
+  if (currentPeriod) {
+    const { gqlDateQuery } = currentPeriod;
+    variables.period = {
+      after: dateToGraphQLQuery(gqlDateQuery.after),
+      before: dateToGraphQLQuery(gqlDateQuery.before),
+    };
+  }
+
+  if (currentSorting) {
+    variables.sorting = currentSorting.gqlOrderBy;
+  }
+
+  console.log(isChanged);
+
+  const { fetchingContent, state } = useLoadMoreHook(
+    composeQuery(variables),
+    posts,
+    'news',
+    variables.articles,
+    variables.onLoadNumber,
+    isChanged,
+    (state) => setIsChanged(state)
+  );
+
+  if (!state.data.nodes) {
+    return (
+      <div className="search-page">
+        <div className="search-main">
+          <ActionbarLoader />
+          <ActionbarLoader />
+        </div>
+        <div className="search-content container">
+          <main className="search-results">
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+          </main>
+          <aside className="search-sidebar">
+            <SidebarLoader />
+            <SidebarLoader />
+          </aside>
+        </div>
+      </div>
+    );
+  }
+  const { nodes, pageInfo } = state.data;
+
   return (
     <div className="search-page">
       <Head>
@@ -241,7 +392,7 @@ const Search = ({ posts, categories, types, query }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="search-main">
+      <div className="search-main">
         <>
           <div className="container">
             <div className="row">
@@ -310,7 +461,28 @@ const Search = ({ posts, categories, types, query }) => {
             </div>
           </div>
         </>
-      </main>
+      </div>
+      <div className="container">
+        <div className="search-content row">
+          <main className="search-results col-md-8">
+            {nodes.map((post, i) => (
+              <React.Fragment key={i}>
+                <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                <Article type="news" post={post} key={post.id}>
+                  {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                    <Waypoint onEnter={fetchingContent} />
+                  )}
+                </Article>
+              </React.Fragment>
+            ))}
+            {state.isLoading && <NewsLoader />}
+          </main>
+          <aside className="search-sidebar col-md-4">
+            <SidebarLoader />
+            <SidebarLoader />
+          </aside>
+        </div>
+      </div>
     </div>
   );
 };
@@ -324,46 +496,19 @@ Search.getInitialProps = async ({ query }) => {
     return { query };
   }
 
-  let variables = {
-    articles: 10,
-    cursor: null,
-  };
+  const variables = setQueryVariables(query);
 
-  const { sorting, date, category } = query;
-
-  if (sorting) {
-    const customSorting = NewsStore.get().sorting.find(
-      (i) => i.value === sorting
-    );
-    variables.sorting = customSorting.gqlOrderBy;
-  }
-
-  if (date) {
-    variables = {
-      ...variables,
-      ...dateToGraphQLQuery(date),
-    };
-  }
-
-  if (category) {
-    variables.category = [category];
-  }
   const { data } = await apolloClient.query({
-    query: SEARCH_QUERY,
-    variables: {
-      cursor: null,
-    },
-  });
-
-  // const responseCats = await apolloClient.query({
-  //   query: CATEGORIES_QUANTITY,
-  // });
+    query: composeQuery(variables),
+    variables: {},
+  })
 
   const responseQuant = await apolloClient.query({
     query: QUANTITIES,
   });
 
   const { posts } = data;
+
   return {
     posts,
     query,
@@ -373,3 +518,47 @@ Search.getInitialProps = async ({ query }) => {
 };
 
 export default Search;
+
+const setQueryVariables = (query) => {
+  const variables = {
+    articles: 10,
+    cursor: null,
+  };
+
+  const { q, by, type, category, period, sorting } = query;
+
+  if (q) {
+    variables.q = q;
+  }
+
+  if (by) {
+    variables.by = by;
+  }
+
+  if (type) {
+    variables.type = type;
+  }
+
+  if (category) {
+    variables.category = [category];
+  }
+
+  if (period) {
+    const { gqlDateQuery } = SearchStore.get().filters.period.find(
+      (i) => i.value === period
+    );
+    variables.period = {
+      after: dateToGraphQLQuery(gqlDateQuery.after),
+      before: dateToGraphQLQuery(gqlDateQuery.before),
+    };
+  }
+
+  if (sorting) {
+    const customSorting = SearchStore.get().sorting.find(
+      (i) => i.value === sorting
+    );
+    variables.sorting = customSorting.gqlOrderBy;
+  }
+
+  return variables;
+}

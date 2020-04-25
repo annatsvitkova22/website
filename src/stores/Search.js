@@ -233,7 +233,7 @@ export const setSorting = (option) => {
     return newValue;
   });
   if (!newStore.sorting.find((i) => i.active)) {
-    newStore.sorting.find(i => i.default).active = true;
+    newStore.sorting.find((i) => i.default).active = true;
   }
   SearchStore.set(newStore);
 };

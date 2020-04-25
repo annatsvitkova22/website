@@ -150,7 +150,8 @@ const News = ({ posts, categories, query }) => {
     'news',
     variables.articles,
     variables.onLoadNumber,
-    isChanged
+    isChanged,
+    (state) => setIsChanged(state)
   );
 
   useEffect(() => {
