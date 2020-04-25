@@ -41,17 +41,19 @@ const SiteSelect = (props) => {
   };
 
   const { name, placeholder, options, mobile, instanceId } = props;
+  const value = options.find(i => i.active);
 
   if (!mobile) {
     return (
       <Select
+        {...props}
+        value={value}
         classNamePrefix="react-select"
         // defaultMenuIsOpen={props.instanceId === 0}
         isClearable
         isSearchable={false}
         styles={colorStyles}
         components={{ ClearIndicator, DropdownIndicator }}
-        {...props}
       />
     );
   }
@@ -66,10 +68,10 @@ const SiteSelect = (props) => {
       <option value="placeholder" disabled>
         {placeholder}
       </option>
-      {options.map(({ value, label, mobileLabel }, k) => {
+      {options.map(({ value, label, mobileLabel, active }, k) => {
         const test = mobileLabel || label;
         return (
-          <option key={k} value={value}>
+          <option selected={active} key={k} value={value}>
             {test}
           </option>
         );

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Router from 'next/router';
 import { isEqual } from 'lodash';
 
-const useRouterSubscription = (runUpdate = () => {}, ...parameters) => {
+const useRouterSubscription = (...parameters) => {
   useEffect(() => {
     const { query, pathname } = Router.router;
     const newQuery = { ...query };
@@ -19,7 +19,6 @@ const useRouterSubscription = (runUpdate = () => {}, ...parameters) => {
         pathname,
         query: newQuery,
       });
-      runUpdate();
     }
   });
 };
