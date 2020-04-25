@@ -12,11 +12,11 @@ const ArticleTitle = ({
   let displayTitle = title;
   if (highlightInTitle) {
     displayTitle = generateHightlightedParts(title, highlightInTitle).map(
-      (part) => {
+      (part, key) => {
         if (part.isHighlighted) {
-          return <span class="article-title__highlighted">{part.value}</span>;
+          return <span key={key} class="article-title__highlighted">{part.value}</span>;
         }
-        return part.value;
+        return <span key={key}>{part.value}</span>;
       }
     );
   }
