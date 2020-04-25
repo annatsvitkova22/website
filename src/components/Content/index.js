@@ -35,7 +35,7 @@ import Buttons from '~/components/Gutenberg/Buttons';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
-  console.log(content);
+  // console.log(content);
 
   return (
     <>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
+import { useStateLink } from '@hookstate/core';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -12,82 +13,169 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
-import { setCategories } from '~/stores/News';
+import { NewsStore, CreateNewsStore } from '~/stores/News';
+import useRouterSubscription from '~/hooks/useRouterSubscription';
+import { dateToGraphQLQuery } from '~/util/date';
 
-const NEWS_ARCHIVE = gql`
-  query NewsArchive($cursor: String, $articles: Int) {
-    categories(where: { hideEmpty: true }) {
-      nodes {
-        id
-        name
-        slug
-      }
-    }
-    posts(
-      where: { orderby: { field: DATE, order: DESC } }
-      first: $articles
-      before: $cursor
+const composeQuery = ({
+  cursor,
+  articles,
+  day,
+  month,
+  year,
+  category,
+  sorting,
+}) => {
+  return gql`
+    query NewsArchive(
+      $cursor: String = ${cursor}
+      $articles: Int = ${articles}
+      $day: Int = ${day ? day : null}
+      $month: Int = ${month ? month : null}
+      $year: Int = ${year ? year : null}
+      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
-      nodes {
-        id
-        title
-        slug
-        featuredImage {
-          mediaItemUrl
-        }
-        categories {
-          nodes {
-            id
-            name
-            slug
-          }
-        }
-        author {
+      categories(where: { hideEmpty: true }) {
+        nodes {
+          id
           name
-          nicename
-          nickname
           slug
-          userId
-          username
         }
-        comments {
-          pageInfo {
-            total
+      }
+      posts(
+        where: {
+          ${
+            sorting
+              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
+              : ``
+          }
+          dateQuery: { day: $day, month: $month, year: $year }
+          ${
+            category
+              ? `taxQuery: {
+            relation: OR
+            taxArray: [
+              {
+                terms: $category
+                taxonomy: CATEGORY
+                operator: IN
+                field: SLUG
+              }
+            ]
+          }`
+              : ``
           }
         }
-        date
-      }
-      pageInfo {
-        endCursor
-        total
+        first: $articles
+        before: $cursor
+      ) {
+        nodes {
+          id
+          title
+          slug
+          featuredImage {
+            mediaItemUrl
+          }
+          categories {
+            nodes {
+              id
+              name
+              slug
+            }
+          }
+          author {
+            name
+            nicename
+            nickname
+            slug
+            userId
+            username
+          }
+          comments {
+            pageInfo {
+              total
+            }
+          }
+          date
+        }
+        pageInfo {
+          endCursor
+          total
+        }
       }
     }
-  }
-`;
+  `;
+};
 
-const News = (props) => {
-  const { fetchingContent, state } = useLoadMoreHook(
-    NEWS_ARCHIVE,
-    props,
-    'news',
-    10,
-    2,
-    'DATE',
-    'ASC'
+const News = ({ posts, categories, query }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  const stateLink = useStateLink(
+    loaded ? NewsStore : CreateNewsStore(loaded, { categories, ...query })
   );
 
-  // const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
-  //   if (current.active) acc.currentSorting = current;
-  //   if (current.default) acc.defaultSorting = current;
-  //   return acc;
-  // }, {});
-  //
-  // if (currentSorting.value !== defaultSorting.value) {
-  //   router.replace({
-  //     pathname: '/news',
-  //     query: { sorting: currentSorting.value },
-  //   });
-  // }
+  const { sorting, filters } = stateLink.get();
+
+  const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+    if (current.active) acc.currentSorting = current;
+    if (current.default) acc.defaultSorting = current;
+    return acc;
+  }, {});
+  const currentCategory = filters.categories.find((i) => i.active);
+
+  let variables = {
+    articles: 10,
+    cursor: null,
+  };
+
+  if (currentSorting) {
+    variables.sorting = currentSorting.gqlOrderBy;
+  }
+
+  if (filters.date) {
+    variables = {
+      ...variables,
+      ...dateToGraphQLQuery(filters.date),
+    };
+  }
+
+  if (currentCategory) {
+    variables.category = [currentCategory.value];
+  }
+
+  const { fetchingContent, state } = useLoadMoreHook(
+    composeQuery(variables),
+    posts,
+    'news',
+    variables.articles,
+  );
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
+  useRouterSubscription(
+    () => {
+      // TODO: make it work
+      console.log('force component update, so new query loaded');
+    },
+    {
+      name: 'sorting',
+      current: currentSorting.value,
+      default: defaultSorting.value,
+      initial: query.sorting,
+    },
+    {
+      name: 'date',
+      current: filters.date,
+      initial: query.date,
+    },
+    {
+      name: 'category',
+      current: currentCategory ? currentCategory.value : undefined,
+      initial: query.category,
+    }
+  );
 
   if (!state.data.nodes) {
     return (
@@ -134,7 +222,13 @@ const News = (props) => {
             ))}
             {state.isLoading && <NewsLoader />}
           </main>
-          <SidebarNews className="news-archive__sidebar col-md-4" />
+          <SidebarNews
+            className="news-archive__sidebar col-md-4"
+            sorting={sorting}
+            filters={filters}
+            currentCategory={currentCategory}
+            currentSorting={currentSorting}
+          />
         </div>
       </div>
     </div>
@@ -145,24 +239,43 @@ News.propTypes = {
   posts: PropTypes.any,
 };
 
-News.getInitialProps = async () => {
+News.getInitialProps = async ({ query }) => {
   if (process.browser) {
-    return {};
+    return { query };
+  }
+
+  let variables = {
+    articles: 10,
+    cursor: null,
+  };
+
+  const { sorting, date, category } = query;
+
+  if (sorting) {
+    const customSorting = NewsStore.get().sorting.find(
+      (i) => i.value === sorting
+    );
+    variables.sorting = customSorting.gqlOrderBy;
+  }
+
+  if (date) {
+    variables = {
+      ...variables,
+      ...dateToGraphQLQuery(date),
+    };
+  }
+
+  if (category) {
+    variables.category = [category];
   }
 
   const { data } = await apolloClient.query({
-    query: NEWS_ARCHIVE,
-    variables: {
-      articles: 10,
-      cursor: null,
-      orderby: 'DATE',
-      order: 'ASC',
-    },
+    query: composeQuery(variables),
+    variables: {},
   });
   const { posts, categories } = data;
 
-  setCategories(categories);
-  return posts;
+  return { posts, categories, query };
 };
 
 export default News;

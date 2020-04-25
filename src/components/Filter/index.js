@@ -20,7 +20,10 @@ const Filter = ({
             'filter__item--active': option.value === currentOption.value,
           })}
         >
-          <button className="filter__button" onClick={() => onChange(option)}>
+          <button
+            className="filter__button"
+            onClick={() => onChange(option.value)}
+          >
             {option.label}
           </button>
         </li>

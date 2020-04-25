@@ -262,7 +262,7 @@ VideosArchive.propTypes = {
   ),
   endCursor: PropTypes.string,
   hasNextPage: PropTypes.bool,
-  videoDurations: PropTypes.string,
+  videoDurations: PropTypes.object,
   categories: PropTypes.array,
 };
 

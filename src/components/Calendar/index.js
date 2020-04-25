@@ -7,7 +7,7 @@ import './styles.scss';
 
 const Calendar = ({
   max = new Date(),
-  currentValue = new Date(),
+  currentValue,
   onChange = () => {},
   classNames,
 }) => {
@@ -17,11 +17,10 @@ const Calendar = ({
       locale="uk"
       maxDate={max}
       onChange={onChange}
-      value={currentValue}
+      value={currentValue ? new Date(currentValue) : ''}
       tileDisabled={({ activeStartDate, date, view }) => {
         if (view !== 'month') return;
         const now = moment(activeStartDate);
-        // console.log(now.format(), moment(date).format());
         return !moment(date).isSame(now, 'month');
       }}
     />
