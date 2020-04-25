@@ -29,14 +29,86 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
 
-const composeQuery = ({ cursor, articles, q, type, category, period, sorting }) => {
+const sharedNodes = `id
+          title
+          slug
+          featuredImage {
+            mediaItemUrl
+          }
+          categories {
+            nodes {
+              id
+              name
+              slug
+            }
+          }
+          author {
+            name
+            nicename
+            nickname
+            slug
+            userId
+            username
+          }
+          comments {
+            pageInfo {
+              total
+            }
+          }
+          date`;
+const singlePostType = `
+        nodes { ${sharedNodes} }
+        pageInfo {
+          endCursor
+          total
+        }`;
+const allPostTypes = `nodes {
+          ... on Post {
+        ${sharedNodes}
+      }
+      ... on Publication {
+        ${sharedNodes}
+      }
+      ... on Blog {
+        ${sharedNodes}
+      }
+      ... on Crowdfunding {
+        ${sharedNodes}
+      }
+      ... on Event {
+        ${sharedNodes}
+      }
+      ... on Opportunity {
+        ${sharedNodes}
+      }
+      ... on Other {
+        ${sharedNodes}
+      }
+      ... on Video {
+        ${sharedNodes}
+      }
+        }
+        pageInfo {
+          endCursor
+          total
+        }`;
+
+const composeQuery = ({
+  cursor,
+  articles,
+  q,
+  type = 'contentNodes',
+  category,
+  period,
+  sorting,
+}) => {
   return gql`
     query SearchQuery(
       $cursor: String = ${cursor}
       $articles: Int = ${articles}
       ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
-      ${!type || type === 'news' ? `posts` : type}(
+      ${type === 'news' ? `posts` : type}(
         where: {
           ${q ? `search: "${q}"` : ``}
           ${
@@ -69,39 +141,7 @@ const composeQuery = ({ cursor, articles, q, type, category, period, sorting }) 
         first: $articles
         before: $cursor
       ) {
-        nodes {
-          id
-          title
-          slug
-          featuredImage {
-            mediaItemUrl
-          }
-          categories {
-            nodes {
-              id
-              name
-              slug
-            }
-          }
-          author {
-            name
-            nicename
-            nickname
-            slug
-            userId
-            username
-          }
-          comments {
-            pageInfo {
-              total
-            }
-          }
-          date
-        }
-        pageInfo {
-          endCursor
-          total
-        }
+        ${type === 'contentNodes' ? `${allPostTypes}` : `${singlePostType}`}
       }
     }
   `;
