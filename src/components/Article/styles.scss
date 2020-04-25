@@ -1,5 +1,154 @@
+.articles-container-sm {
+  max-width: 896px;
+  padding-top: 50px;
+  padding-bottom: 80px;
+}
+
 .article {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    &:not(:last-child) {
+      margin-bottom: 40px;
+    }
+  }
+
   &__wrapper {
     display: flex;
+
+    @include media-breakpoint-down(xs) {
+      flex-direction: column;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    margin-bottom: 10px;
+
+    @include media-breakpoint-up(sm) {
+      max-width: 200px;
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    margin-bottom: 10px;
+
+    line-height: 1;
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 16px;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    &__main {
+      padding-left: 24px;
+    }
+  }
+}
+
+.article-list {
+  &__item,
+  &__item-link {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 24px;
+  }
+
+  &__item {
+    padding-left: 32px;
+
+    &:not(:last-child) {
+      margin-bottom: 6px;
+    }
+
+    position: relative;
+
+    font-family: $font-family-titles;
+
+    @include media-breakpoint-up(sm) {
+      &:not(:last-child) {
+        margin-bottom: 6px;
+      }
+    }
+  }
+
+  &__item-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 20px;
+    height: 20px;
+
+    left: 0;
+    top: 2px;
+    position: absolute;
+
+    &--location {
+      svg {
+        max-width: 10px;
+
+        @include media-breakpoint-up(sm) {
+          max-width: 12px;
+        }
+      }
+    }
+
+    &--callendar {
+      svg {
+        max-width: 12px;
+
+        @include media-breakpoint-up(sm) {
+          max-width: 15px;
+        }
+      }
+    }
+
+    &--clock {
+      svg {
+        max-width: 14px;
+
+        @include media-breakpoint-up(sm) {
+          max-width: 16px;
+        }
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      width: 24px;
+      height: 24px;
+
+      top: 0;
+    }
+  }
+
+  &__item-days {
+    &:not(:last-child) {
+      padding-right: 3px;
+    }
+  }
+}
+
+.article-title__link,
+.article-title {
+  font-size: 16px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+}
+
+
+.article-featured {
+  &__image {
+    margin-bottom: 0;
   }
 }

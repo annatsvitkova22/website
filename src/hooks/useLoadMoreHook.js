@@ -53,6 +53,13 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
+        case 'opportunities':
+          setState({
+            data: response.data.opportunities,
+            endCursor: response.data.opportunities.pageInfo.endCursor,
+            isLoading: false,
+          });
+          break;
         case 'others':
           setState({
             data: response.data.others,
@@ -60,6 +67,8 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
+        default:
+          console.log('no such type');
       }
     }
 
@@ -128,6 +137,21 @@ const useLoadMoreHook = (
           isLoading: false,
         });
         break;
+      case 'opportunities':
+        setState({
+          data: {
+            ...state.data,
+            nodes: [
+              ...state.data.nodes,
+              ...responseData.data.opportunities.nodes,
+            ],
+          },
+          endCursor: responseData.data.opportunities.pageInfo
+            ? responseData.data.opportunities.pageInfo.endCursor
+            : false,
+          isLoading: false,
+        });
+        break;
       case 'others':
         setState({
           isLoading: false,
@@ -140,6 +164,8 @@ const useLoadMoreHook = (
             : false,
         });
         break;
+      default:
+        console.log('no such type');
     }
   };
   return {
