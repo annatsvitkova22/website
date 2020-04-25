@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Waypoint } from 'react-waypoint';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 
-const SideBarBlogs = ({ news, fetchingContent, isLoading }) => {
+const SideBarBlogs = ({ news }) => {
   if (!news) return <SidebarLoader />;
   return (
     <ul className={'sidebar-blogs'}>
@@ -16,17 +15,13 @@ const SideBarBlogs = ({ news, fetchingContent, isLoading }) => {
               <div className={'sidebar-blogs__wrapper'}>
                 <span className={'sidebar-blogs__text'}>{item.title}</span>
                 <span className={'sidebar-blogs__author'}>
-                  Вікторія Іванченко
+                  {item.author.name}
                 </span>
               </div>
             </a>
-            {i === news.nodes.length - 5 && i < news.pageInfo.total && (
-              <Waypoint />
-            )}
           </li>
         );
       })}
-      {isLoading && <SidebarLoader />}
     </ul>
   );
 };

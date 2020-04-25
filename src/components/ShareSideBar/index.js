@@ -11,18 +11,19 @@ const Share = () => {
   };
 
   return (
-    <div className={'share'}>
+    <aside className={'share'}>
+      <div className={'share-wrapper'}>
+        <button onClick={handleLike} className={'like'}>
+          <Icons icon={'likes'} />
+        </button>
+        <span>123</span>
+      </div>
       <div className={'share-wrapper'}>
         <button onClick={changeVisibility} className={'share-button'}>
           <Icons icon={'share'} />
         </button>
       </div>
-      <div className={'share-wrapper'}>
-        <button onClick={handleLike} className={'like'}>
-          <Icons icon={'likes'} />
-        </button>
-      </div>
-    </div>
+    </aside>
   );
 };
 

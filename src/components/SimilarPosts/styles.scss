@@ -10,7 +10,9 @@
     padding-bottom: 80px;
   }
   &__type {
-    font-weight: bold;
+    font-family: $font-family-alt;
+
+    font-weight: 700;
     font-size: 14px;
     line-height: 17px;
     letter-spacing: 0.05em;
@@ -31,6 +33,10 @@
   }
   &__image {
     padding-bottom: 16px;
+
+    .article-featured__image{
+      margin: 0;
+    }
   }
   &__about {
     display: flex;
@@ -133,7 +139,6 @@
       }
     }
     &__type {
-      font-weight: bold;
       font-size: 14px;
       line-height: 17px;
       letter-spacing: 0.05em;

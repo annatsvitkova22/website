@@ -1,28 +1,44 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useStateLink } from '@hookstate/core';
 
 import ShareItems from '~/components/ShareItems';
 import CommentsItem from '~/components/CommentsPopUp/CommentsItem';
 import Icons from '~/components/Icons';
+import { PostStore } from '~/stores/Post';
 
-const CommentsPopUp = ({ isVisible, handleClose }) => {
-  const [text, setText] = useState('');
+const CommentsPopUp = () => {
+  const [form, setForm] = useState({
+    name: '',
+    message: '',
+  });
+  const state = useStateLink(PostStore);
 
   const handleInputChange = (event) => {
-    setText(event.target.value);
+    const { name, value } = event.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleClose = () => {
+    state.set((visibility) => {
+      return {
+        ...visibility,
+        isVisible: false,
+      };
+    });
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   const handleSubmitComment = () => {
-    clearFields();
-  };
-
-  const clearFields = () => {
-    setText('');
+    console.log(submit);
   };
 
   return (
     <>
-      {isVisible && (
+      {state.get().isVisible && (
         <div className={'comments-pp__wrapper'}>
           <div className={'comments-pp'}>
             <div className={'comments-pp__close'}>
@@ -38,20 +54,32 @@ const CommentsPopUp = ({ isVisible, handleClose }) => {
                 <span>Коментарі</span>
                 <ShareItems className={'comments-pp__socials-items'} />
               </div>
-              <div className={'comments-pp__post'}>
+              <form className={'comments-pp__post'}>
+                <input
+                  className={'comments-pp__input pp__input-name'}
+                  type={'text'}
+                  placeholder={`Ім'я`}
+                  onChange={handleInputChange}
+                  value={form.name}
+                  name={'name'}
+                  autofocus
+                  required
+                />
                 <textarea
-                  className={'comments-pp__input'}
+                  className={'comments-pp__input pp__input-message'}
                   placeholder={'Ваш коментар'}
                   onChange={handleInputChange}
-                  value={text}
+                  value={form.message}
+                  name={'message'}
+                  required
                 />
                 <button
                   className={'comments-pp__btn'}
                   onClick={handleSubmitComment}
                 >
-                  Залишити коментар
+                  Повідомлення
                 </button>
-              </div>
+              </form>
               <CommentsItem />
             </div>
           </div>
