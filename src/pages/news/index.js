@@ -144,6 +144,19 @@ const News = ({ posts, categories, query }) => {
     variables.category = [currentCategory.value];
   }
 
+  const { fetchingContent, state } = useLoadMoreHook(
+    composeQuery(variables),
+    posts,
+    'news',
+    variables.articles,
+    variables.onLoadNumber,
+    isChanged
+  );
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
   useRouterSubscription(
     () => {
       setIsChanged(true);
@@ -165,19 +178,6 @@ const News = ({ posts, categories, query }) => {
       initial: query.category,
     }
   );
-
-  const { fetchingContent, state } = useLoadMoreHook(
-    composeQuery(variables),
-    posts,
-    'news',
-    variables.articles,
-    variables.onLoadNumber,
-    isChanged,
-  );
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   if (!state.data.nodes) {
     return (

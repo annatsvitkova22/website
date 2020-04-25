@@ -42,7 +42,9 @@ const useLoadMoreHook = (
           });
           break;
         case 'news':
-          setCategories(response.data.categories);
+          if (!isChanged) {
+            setCategories(response.data.categories);
+          }
           setState({
             data: response.data.posts,
             endCursor: response.data.posts.pageInfo
@@ -115,7 +117,6 @@ const useLoadMoreHook = (
         });
         break;
       case 'news':
-        console.log(responseData);
         setState({
           data: {
             ...state.data,
