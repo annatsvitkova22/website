@@ -48,7 +48,7 @@ export const initialState = {
       {
         label: 'Тег',
         value: 'tag',
-      }
+      },
     ],
     types: [],
     categories: [],
@@ -107,7 +107,7 @@ export const setIsChanged = (st = false) => {
 
 export const CreateSearchStore = (
   loaded,
-  { types, categories, q, by, type, category, period, sorting} = {}
+  { types, categories, q, by, type, category, period, sorting } = {}
 ) => {
   const state = cloneDeep(initialState);
   if (types) {
@@ -194,7 +194,7 @@ export const setSearchQuery = (q) => {
   const newStore = SearchStore.get();
   newStore.filters.q = q;
   SearchStore.set(newStore);
-}
+};
 
 export const setBy = (value) => {
   const newStore = SearchStore.get();
@@ -207,11 +207,10 @@ export const setBy = (value) => {
     return newValue;
   });
   SearchStore.set(newStore);
-}
+};
 
 export const setFilter = (name, value) => {
   const newStore = SearchStore.get();
-  // return console.log(name, value, newStore.filters[name]);
   const current = newStore.filters[name].find((i) => i.active);
   const isCurrent = current && current.value === value;
   if (isCurrent) return;
@@ -221,11 +220,11 @@ export const setFilter = (name, value) => {
     return newValue;
   });
   SearchStore.set(newStore);
-}
+};
 
 export const setSorting = (option) => {
   const newStore = SearchStore.get();
-  const current = newStore.filters.categories.find((i) => i.active);
+  const current = newStore.sorting.find((i) => i.active);
   const isCurrent = current && current.value === option;
   if (isCurrent) return;
   newStore.sorting.map((i) => {
@@ -233,5 +232,8 @@ export const setSorting = (option) => {
     newValue.active = newValue.value === option;
     return newValue;
   });
+  if (!newStore.sorting.find((i) => i.active)) {
+    newStore.sorting.find(i => i.default).active = true;
+  }
   SearchStore.set(newStore);
 };

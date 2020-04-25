@@ -13,9 +13,13 @@ import { dateToGraphQLQuery } from '~/util/date';
 import {
   CreateSearchStore,
   SearchStore,
-  setBy, setFilter,
-  setSearchQuery, setSorting,
+  setBy,
+  setFilter,
+  setSearchQuery,
+  setSorting,
 } from '~/stores/Search';
+import useRouterSubscription from '~/hooks/useRouterSubscription';
+import { setIsChanged } from '~/stores/News';
 
 const SEARCH_QUERY = gql`
   query SearchQuery($cursor: String) {
@@ -93,6 +97,58 @@ const Search = ({ posts, categories, types, query }) => {
   }, []);
 
   const { sorting, filters, isChanged } = stateLink.get();
+
+  const { currentBy, defaultBy } = filters.by.reduce((acc, current) => {
+    if (current.active) acc.currentBy = current;
+    if (current.default) acc.defaultBy = current;
+    return acc;
+  }, {});
+  const currentType = filters.types.find((i) => i.active);
+  const currentCategory = filters.categories.find((i) => i.active);
+  const currentPeriod = filters.period.find((i) => i.active);
+  const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+    if (current.active) acc.currentSorting = current;
+    if (current.default) acc.defaultSorting = current;
+    return acc;
+  }, {});
+
+  useRouterSubscription(
+    () => {
+      setIsChanged(true);
+    },
+    {
+      name: 'q',
+      current: filters.q,
+      initial: query.q,
+    },
+    {
+      name: 'by',
+      current: currentBy ? currentBy.value : undefined,
+      default: defaultBy.value,
+      initial: query.by,
+    },
+    {
+      name: 'type',
+      current: currentType ? currentType.value : undefined,
+      initial: query.type,
+    },
+    {
+      name: 'category',
+      current: currentCategory ? currentCategory.value : undefined,
+      initial: query.category,
+    },
+    {
+      name: 'period',
+      current: currentPeriod ? currentPeriod.value : undefined,
+      initial: query.period,
+    },
+    {
+      name: 'sorting',
+      current: currentSorting.value,
+      default: defaultSorting.value,
+      initial: query.sorting,
+    }
+  );
 
   const [mobile, setMobile] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
