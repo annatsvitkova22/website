@@ -206,6 +206,7 @@ const QUANTITIES = gql`
 
 const Search = ({ posts, categories, types, query }) => {
   const [loaded, setLoaded] = useState(false);
+  const [searchString, setSearchString] = useState(query.q);
   const stateLink = useStateLink(
     loaded
       ? SearchStore
@@ -399,6 +400,10 @@ const Search = ({ posts, categories, types, query }) => {
     (state) => setIsChanged(state)
   );
 
+  const handleSearchString = () => {
+    setSearchQuery(searchString || undefined);
+  };
+
   if (!state.data.nodes) {
     return (
       <div className="search-page">
@@ -439,16 +444,18 @@ const Search = ({ posts, categories, types, query }) => {
               <div className="col-12">
                 <div className="search-form__field-wrapper pos-relative">
                   <input
-                    onChange={({ target: { value } }) => setSearchQuery(value)}
+                    onChange={({ target: { value } }) => setSearchString(value)}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
+                    onKeyPress={({ key }) => { if (key === 'Enter') handleSearchString()}}
                     type="text"
                     name="q"
-                    value={filters.q}
+                    value={searchString}
                     placeholder="Пошук"
                   />
                   <button
                     type="button"
                     className="search-form__button pos-absolute pos-center-right"
+                    onClick={handleSearchString}
                   >
                     <SearchIcon />
                   </button>

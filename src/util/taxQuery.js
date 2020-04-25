@@ -16,7 +16,5 @@ export const composeTaxQuery = (...taxonomies) => {
               )}
             ]`;
 
-  console.log(result);
-
   return result;
 };
