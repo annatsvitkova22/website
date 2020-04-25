@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import apolloClient from '~/lib/ApolloClient';
-import { setCategories } from '~/stores/News';
+import { setCategories, setIsChanged } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
@@ -9,6 +9,7 @@ const useLoadMoreHook = (
   type = '',
   initialNumber = 10,
   onLoadNumber = 3,
+  isChanged
 ) => {
   const [state, setState] = useState({
     data: props,
@@ -44,7 +45,9 @@ const useLoadMoreHook = (
           setCategories(response.data.categories);
           setState({
             data: response.data.posts,
-            endCursor: response.data.posts.pageInfo.endCursor,
+            endCursor: response.data.posts.pageInfo
+              ? response.data.posts.pageInfo.endCursor
+              : null,
             isLoading: false,
           });
           break;
@@ -58,16 +61,17 @@ const useLoadMoreHook = (
       }
     }
 
-    if (!state.data.nodes) {
+    if (!state.data.nodes || isChanged) {
       loadData();
       if (!state.isLoading) {
         setState({
           ...state,
           isLoading: true,
         });
+        setIsChanged(false);
       }
     }
-  }, []);
+  }, [isChanged]);
 
   const fetchingContent = async () => {
     setState({
