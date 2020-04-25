@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import * as classnames from 'classnames';
 import NavLink from '~/components/SiteLink';
 
@@ -22,13 +21,11 @@ const ArticleTaxonomies = ({
         const type = taxonomy.__typename.toLowerCase();
         return (
           <li className="meta-taxonomy__item" key={taxonomy.slug}>
-            <NavLink href={`/${type}/${taxonomy.name.toLowerCase()}`}>
-              <a
-                className={classnames('meta-taxonomy__link', className)}
-                href={`/search`}
-              >
-                {taxonomy.name}
-              </a>
+            <NavLink
+              className={classnames('meta-taxonomy__link', className)}
+              href={`/${type}/${taxonomy.slug.toLowerCase()}`}
+            >
+              {taxonomy.name}
             </NavLink>
           </li>
         );
