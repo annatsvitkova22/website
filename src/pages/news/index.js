@@ -24,6 +24,7 @@ const NEWS_ARCHIVE = gql`
     $day: Int = null
     $month: Int = null
     $year: Int = null
+    $category: String
   ) {
     categories(where: { hideEmpty: true }) {
       nodes {
@@ -36,6 +37,17 @@ const NEWS_ARCHIVE = gql`
       where: {
         orderby: { field: DATE, order: DESC }
         dateQuery: { day: $day, month: $month, year: $year }
+        taxQuery: {
+          relation: OR
+          taxArray: [
+            {
+              terms: [$category]
+              taxonomy: CATEGORY
+              operator: IN
+              field: SLUG
+            }
+          ]
+        }
       }
       first: $articles
       before: $cursor
@@ -195,13 +207,24 @@ News.getInitialProps = async ({ query }) => {
     cursor: null,
   };
 
-  const { date } = query;
+  const { date, category } = query;
 
   if (date) {
     variables = {
       ...variables,
       ...dateToGraphQLQuery(date),
     };
+  }
+
+  if (category) {
+    // console.log(composeTaxQuery('OR', {
+    //   filed: 'SLUG',
+    //   operator: 'IN',
+    //   taxonomy: 'CATEGORY',
+    //   terms: category
+    // }));
+    variables.category = category;
+    console.log(variables);
   }
 
   const { data } = await apolloClient.query({
