@@ -1,5 +1,5 @@
-//TODO: implement
-export const composeTaxQuery = (...taxonomies) => {
+// TODO: implement
+const composeTaxQuery = (...taxonomies) => {
   const realTaxes = taxonomies.filter((tax) => tax.terms);
   if (!realTaxes.length) return ``;
 
@@ -18,3 +18,5 @@ export const composeTaxQuery = (...taxonomies) => {
 
   return result;
 };
+
+export default composeTaxQuery;

@@ -16,7 +16,7 @@ import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import { NewsStore, CreateNewsStore, setIsChanged } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
-import { dateToGraphQLQuery } from '~/util/date';
+import dateToGraphQLQuery from '~/util/date';
 
 const composeQuery = ({
   cursor,
@@ -31,9 +31,9 @@ const composeQuery = ({
     query NewsArchive(
       $cursor: String = ${cursor}
       $articles: Int = ${articles}
-      $day: Int = ${day ? day : null}
-      $month: Int = ${month ? month : null}
-      $year: Int = ${year ? year : null}
+      $day: Int = ${day || null}
+      $month: Int = ${month || null}
+      $year: Int = ${year || null}
       ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
       categories(where: { hideEmpty: true }) {
@@ -152,7 +152,7 @@ const News = ({ posts, categories, query }) => {
     variables.articles,
     variables.onLoadNumber,
     isChanged,
-    (state) => setIsChanged(state)
+    (changed) => setIsChanged(changed)
   );
 
   useEffect(() => {

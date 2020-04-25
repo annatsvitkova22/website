@@ -44,7 +44,7 @@ export const setIsChanged = (st = false) => {
   const newState = NewsStore.get();
   newState.isChanged = st;
   NewsStore.merge(newState);
-}
+};
 
 export const CreateNewsStore = (
   loaded,
@@ -136,5 +136,5 @@ export const setCategory = (category) => {
     newValue.active = isCurrent ? false : newValue.value === category;
     return newValue;
   });
-  NewsStore.merge(newStore);
+  return NewsStore.merge(newStore);
 };

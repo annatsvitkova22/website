@@ -54,7 +54,7 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
-        case 'search':
+        case 'search': {
           const currentType = Object.keys(response.data)[0];
           setState({
             data: response.data[currentType],
@@ -64,6 +64,7 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
+        }
         case 'opportunities':
           setState({
             data: response.data.opportunities,
@@ -148,7 +149,7 @@ const useLoadMoreHook = (
           isLoading: false,
         });
         break;
-      case 'search':
+      case 'search': {
         const currentType = Object.keys(responseData.data)[0];
         setState({
           data: {
@@ -164,6 +165,7 @@ const useLoadMoreHook = (
           isLoading: false,
         });
         break;
+      }
       case 'opportunities':
         setState({
           data: {

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+
 import NavLink from '~/components/SiteLink';
 
 const ArticleTaxonomies = ({

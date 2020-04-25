@@ -50,13 +50,14 @@ const SiteSelect = (props) => {
     instanceId,
     onChangeHtml,
   } = props;
-  const value = options.find((i) => i.active);
+
+  const v = options.find((i) => i.active);
 
   if (!isMobile) {
     return (
       <Select
         {...props}
-        value={value}
+        value={v}
         classNamePrefix="react-select"
         // defaultMenuIsOpen={props.instanceId === 0}
         isClearable

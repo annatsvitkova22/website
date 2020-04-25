@@ -121,12 +121,12 @@ export const CreateSearchStore = (
       opportunities: 'Можливості',
     };
     const t = Object.keys(types)
-      .filter((type) => type !== 'categories')
-      .map((type) => {
-        const quantity = types[type].pageInfo ? types[type].pageInfo.total : 0;
+      .filter((tp) => tp !== 'categories')
+      .map((tp) => {
+        const quantity = types[tp].pageInfo ? types[tp].pageInfo.total : 0;
         return {
-          label: typeLabels[type === 'posts' ? 'news' : type],
-          value: type === 'posts' ? 'news' : type,
+          label: typeLabels[tp === 'posts' ? 'news' : tp],
+          value: tp === 'posts' ? 'news' : tp,
           quantity,
         };
       });
@@ -235,6 +235,5 @@ export const setSorting = (option) => {
   if (!newStore.sorting.find((i) => i.active)) {
     newStore.sorting.find((i) => i.default).active = true;
   }
-  console.log(newStore.sorting);
   SearchStore.set(newStore);
 };

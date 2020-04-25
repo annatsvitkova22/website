@@ -25,7 +25,7 @@ const SearchField = ({ className = '', onSearch = () => {} }) => {
       pathname: '/search',
       query: { q: query },
     });
-    onSearch();
+    return onSearch();
   };
 
   return (

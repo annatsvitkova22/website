@@ -14,7 +14,11 @@ const ArticleTitle = ({
     displayTitle = generateHightlightedParts(title, highlightInTitle).map(
       (part, key) => {
         if (part.isHighlighted) {
-          return <span key={key} class="article-title__highlighted">{part.value}</span>;
+          return (
+            <span key={key} class="article-title__highlighted">
+              {part.value}
+            </span>
+          );
         }
         return <span key={key}>{part.value}</span>;
       }
@@ -36,7 +40,7 @@ export default ArticleTitle;
 
 const generateHightlightedParts = (string, highlight) => {
   const indices = getIndicesOf(highlight, string);
-  const length = highlight.length;
+  const { length } = highlight;
   return string.split('').reduce((acc, current, index) => {
     const startHighlight = indices.find((i) => index === i);
     const endHighlight = indices.find((i) => index === i + length);
@@ -53,18 +57,20 @@ const generateHightlightedParts = (string, highlight) => {
 };
 
 const getIndicesOf = (searchStr, str, caseSensitive) => {
-  const searchStrLen = searchStr.length;
+  let newSearchStr = searchStr;
+  let newStr = str;
+  const searchStrLen = newSearchStr.length;
   if (searchStrLen == 0) {
     return [];
   }
-  let startIndex = 0,
-    index,
-    indices = [];
+  let startIndex = 0;
+  let index;
+  const indices = [];
   if (!caseSensitive) {
-    str = str.toLowerCase();
-    searchStr = searchStr.toLowerCase();
+    newStr = newStr.toLowerCase();
+    newSearchStr = newSearchStr.toLowerCase();
   }
-  while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+  while ((index = newStr.indexOf(newSearchStr, startIndex)) > -1) {
     indices.push(index);
     startIndex = index + searchStrLen;
   }

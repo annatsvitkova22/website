@@ -11,7 +11,7 @@ import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
 import SearchIcon from '~/static/images/search';
 import Filter from '~/static/images/filter';
-import { dateToGraphQLQuery } from '~/util/date';
+import dateToGraphQLQuery from '~/util/date';
 import {
   CreateSearchStore,
   SearchStore,
@@ -27,7 +27,7 @@ import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
-import { composeTaxQuery } from '~/util/taxQuery';
+import composeTaxQuery from '~/util/taxQuery';
 
 const sharedNodes = `id
           title
@@ -384,7 +384,7 @@ const Search = ({ posts, categories, types, query }) => {
     variables.articles,
     variables.onLoadNumber,
     isChanged,
-    (state) => setIsChanged(state)
+    (changed) => setIsChanged(changed)
   );
 
   const handleSearchString = () => {
@@ -511,7 +511,7 @@ const Search = ({ posts, categories, types, query }) => {
                 let typeName = `${post.__typename.toLowerCase()}s`;
                 if (typeName === 'posts') typeName = 'news';
                 const showAuthor = !!authorsExcluded.findIndex(
-                  (i) => i !== typeName
+                  (availableType) => availableType !== typeName
                 );
                 return (
                   <React.Fragment key={i}>
