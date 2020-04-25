@@ -17,6 +17,85 @@ import { NewsStore, CreateNewsStore } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import { dateToGraphQLQuery } from '~/util/date';
 
+const composeQuery = ({ cursor, articles, day, month, year, category }) => {
+  // return console.log(cursor, articles, category);
+  return gql`
+    query NewsArchive(
+      $cursor: String = ${cursor}
+      $articles: Int = ${articles}
+      $day: Int = ${day ? day : null}
+      $month: Int = ${month ? month : null}
+      $year: Int = ${year ? year : null}
+      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
+    ) {
+      categories(where: { hideEmpty: true }) {
+        nodes {
+          id
+          name
+          slug
+        }
+      }
+      posts(
+        where: {
+          orderby: { field: DATE, order: DESC }
+          dateQuery: { day: $day, month: $month, year: $year }
+          ${
+            category
+              ? `taxQuery: {
+            relation: OR
+            taxArray: [
+              {
+                terms: $category
+                taxonomy: CATEGORY
+                operator: IN
+                field: SLUG
+              }
+            ]
+          }`
+              : ``
+          }
+        }
+        first: $articles
+        before: $cursor
+      ) {
+        nodes {
+          id
+          title
+          slug
+          featuredImage {
+            mediaItemUrl
+          }
+          categories {
+            nodes {
+              id
+              name
+              slug
+            }
+          }
+          author {
+            name
+            nicename
+            nickname
+            slug
+            userId
+            username
+          }
+          comments {
+            pageInfo {
+              total
+            }
+          }
+          date
+        }
+        pageInfo {
+          endCursor
+          total
+        }
+      }
+    }
+  `;
+};
+
 const NEWS_ARCHIVE = gql`
   query NewsArchive(
     $cursor: String
@@ -217,23 +296,14 @@ News.getInitialProps = async ({ query }) => {
   }
 
   if (category) {
-    // console.log(composeTaxQuery('OR', {
-    //   filed: 'SLUG',
-    //   operator: 'IN',
-    //   taxonomy: 'CATEGORY',
-    //   terms: category
-    // }));
-    variables.category = category;
-    console.log(variables);
+    variables.category = [category];
   }
 
   const { data } = await apolloClient.query({
-    query: NEWS_ARCHIVE,
-    variables,
+    query: composeQuery(variables),
+    variables: {},
   });
   const { posts, categories } = data;
-
-  console.log(categories);
 
   return { posts, categories, query };
 };
