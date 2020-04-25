@@ -1,0 +1,51 @@
+.video-category {
+  padding-top: 16px;
+  padding-bottom: 36px;
+
+  position: relative;
+
+  @include media-breakpoint-down(md) {
+    padding-bottom: 12px;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+
+    position: absolute;
+    top: 0;
+    left: $grid-gutter-width / 2;
+    right: $grid-gutter-width / 2;
+
+    border-top: 1px solid $grey-300;
+  }
+
+  .pswp-thumbnail {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__top-row {
+    margin-bottom: 17px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+    
+    &::before {
+      content: '!';
+    }
+  }
+
+  &__watch-all {
+    font-size: 13px;
+
+    transition: color 0.3s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: lighten($green, 10%);
+    }
+  }
+}

@@ -4,12 +4,18 @@ import PropTypes from 'prop-types';
 import Play from '~/static/images/play';
 
 const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
-  <ul className="list-unstyled videos-list">
+  <ul className="list-unstyled videos-list tx-family-titles">
     {videos.slice(0, 20).map((video, i) => {
       const { title } = video;
       const { videoUrl, videoCover, duration } = video.zmVideoACF;
       function onClick() {
-        return onVideoSelect(videoUrl, videoCover.mediaItemUrl, title, i);
+        return onVideoSelect(
+          videoUrl,
+          videoCover.mediaItemUrl,
+          title,
+          duration,
+          i
+        );
       }
       return (
         <li key={i} onClick={onClick} className="videos-list__item video-item">
@@ -19,11 +25,11 @@ const VideosList = ({ videos, onVideoSelect, selectedIndex }) => (
             }`}
           >
             <Play />
-            <div className="video-item__duration">
+            <div className="video-item__duration font-weight-medium">
               {i === selectedIndex ? 'Відтво...' : duration}
             </div>
           </div>
-          <div className="video-item__title">{title}</div>
+          <div className="video-item__title font-weight-medium">{title}</div>
         </li>
       );
     })}

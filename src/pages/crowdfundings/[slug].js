@@ -2,12 +2,11 @@ import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-
-import apolloClient from '~/lib/ApolloClient';
-import Content from '~/components/Content';
-import '../../styles/pages/crowdfundings.scss';
-import NumberFormat from "react-number-format";
+import NumberFormat from 'react-number-format';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+
+import '../../styles/pages/crowdfundings.scss';
+import apolloClient from '~/lib/ApolloClient';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -41,33 +40,61 @@ const Crowdfunding = (props) => {
       </Head>
 
       <main>
-        <section className="cf-crowdfunding row">
-          <section className="cf-content col-9">
-            <div className="cfsingle__title">
-              {crowdfunding.title}
-            </div>
+        <section className="cf-crowdfunding">
+          <section className="cf-content">
+            <div className="cfsingle__title">{crowdfunding.title}</div>
             <div className="cfsingle__thumb">
-              <img src={crowdfunding.featuredImage.guid} alt={crowdfunding.title + 'thumbnail'}/>
+              <img
+                src={crowdfunding.featuredImage.guid}
+                alt={`${crowdfunding.title}thumbnail`}
+              />
             </div>
             <div className="cfsigle__descr">
               <div dangerouslySetInnerHTML={{ __html: crowdfunding.content }} />
               { /* <Content blocks={crowdfunding.content} /> */ }
             </div>
-            <div className="cfitem__timeout"></div>
+            <div className="cfitem__timeout" />
           </section>
-          <section className="cf-sidebar col-3">
+          <section className="cf-sidebar">
             <div className="cfsingle__collected">
-              <span className="cfsingle__collected__target">Ціль <NumberFormat value={crowdfunding.cfACF.crowdfundingRequiredAmountToCollect} displayType={'text'} format="## ### ### ₴"/></span>
               <div className="cfsingle__collected__amount">
-                <NumberFormat value={10000} displayType={'text'} format="## ### ### грн"/> <span className="cfsingle__collected__amount__word"> зібрано</span>
+                <NumberFormat
+                  value={10000}
+                  displayType={'text'}
+                  format="## ### ### ₴"
+                />
+                Зібрано з{' '}
+                <NumberFormat
+                  value={crowdfunding.cfACF.crowdfundingRequiredAmountToCollect}
+                  displayType={'text'}
+                  format="## ### ### ₴"
+                />
                 <ProgressBar now={60} />
               </div>
-              <div className="cf-sidebar__info__supported">Підтримали<span>145</span></div>
-              <div className="cf-sidebar__info__spread">Підтримали<span>123</span></div>
-              <div className="cf-sidebar__info__spread"><span>{crowdfunding.cfACF.crowdfundingExpirationDate} днів</span> Залишилося</div>
             </div>
-            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">Підтримати проєкт</a>
-            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">Поділитися</a>
+            <div className="cf-sidebar__info">
+              <div>
+                14
+                <br />
+                Підтримали
+              </div>
+              <div>
+                {crowdfunding.cfACF.crowdfundingExpirationDate}
+                <br />
+                Запушено
+              </div>
+              <div>
+                25 днів
+                <br />
+                Залишилося
+              </div>
+            </div>
+            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">
+              Підтримати проєкт
+            </a>
+            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">
+              Поділитися
+            </a>
           </section>
         </section>
       </main>

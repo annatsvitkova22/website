@@ -11,8 +11,8 @@
     .flex#{$infix}-row-reverse { flex-direction: row-reverse !important; }
     .flex#{$infix}-column-reverse { flex-direction: column-reverse !important; }
 
-    //.flex#{$infix}-wrap { flex-wrap: wrap !important; }
-    //.flex#{$infix}-nowrap { flex-wrap: nowrap !important; }
+    .flex#{$infix}-wrap { flex-wrap: wrap !important; }
+    .flex#{$infix}-nowrap { flex-wrap: nowrap !important; }
     //.flex#{$infix}-wrap-reverse { flex-wrap: wrap-reverse !important; }
     //.flex#{$infix}-fill { flex: 1 1 auto !important; }
     //.flex#{$infix}-grow-0 { flex-grow: 0 !important; }
