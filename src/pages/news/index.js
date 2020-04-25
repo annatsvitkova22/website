@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
@@ -15,10 +15,7 @@ import SidebarNews from '~/components/Sidebar/News';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import {
   NewsStore,
-  setCategories,
-  setCategory,
-  setDate,
-  setSorting,
+  CreateNewsStore,
 } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 
@@ -74,7 +71,11 @@ const NEWS_ARCHIVE = gql`
 `;
 
 const News = ({ posts, categories, query }) => {
-  const stateLink = useStateLink(NewsStore);
+  const [loaded, setLoaded] = useState(false);
+  const stateLink = useStateLink(
+    loaded ? NewsStore : CreateNewsStore(loaded, { categories, ...query })
+  );
+
   const { sorting, filters } = stateLink.get();
 
   let { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
@@ -95,22 +96,7 @@ const News = ({ posts, categories, query }) => {
   );
 
   useEffect(() => {
-    if (categories && !filters.categories.length) setCategories(categories);
-    const { sorting, date, category } = query;
-    if (sorting) {
-      setSorting(sorting);
-    }
-    if (date) {
-      setDate(date);
-    }
-    if (category) {
-      setCategory(category);
-    }
-    return () => {
-      setSorting(defaultSorting.value);
-      if (filters.date) setDate(filters.date);
-      setCategory(null);
-    };
+    setLoaded(true);
   }, []);
 
   useRouterSubscription(

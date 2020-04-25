@@ -9,13 +9,13 @@ const useRouterSubscription = (...parameters) => {
     parameters.forEach((param) => {
       // console.log(param.initial, newQuery[param.name]);
       // newQuery[param.name] = param.initial;
-      // if (param.initial === newQuery[param.name]) return;
       newQuery[param.name] = param.current;
       if (newQuery[param.name] === param.default) {
         delete newQuery[param.name];
       }
     });
     if (!isEqual(query, newQuery)) {
+      console.log('run updated query');
       Router.router.replace({
         pathname,
         query: newQuery,

@@ -1,5 +1,6 @@
 import { createStateLink } from '@hookstate/core';
 import * as moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 const initialState = {
   sorting: [
@@ -9,14 +10,15 @@ const initialState = {
       default: true,
       active: true,
     },
-    {
-      label: 'найбільше переглядів',
-      value: 'most-viewable',
-    },
-    {
-      label: 'найбільше коментарів',
-      value: 'most-commented',
-    },
+    // TODO: implement backend
+    // {
+    //   label: 'найбільше переглядів',
+    //   value: 'most-viewable',
+    // },
+    // {
+    //   label: 'найбільше коментарів',
+    //   value: 'most-commented',
+    // },
     {
       label: 'спочатку старі',
       value: 'old',
@@ -27,8 +29,39 @@ const initialState = {
     categories: [],
   },
 };
-
 export const NewsStore = createStateLink(initialState);
+
+export const CreateNewsStore = (loaded, { categories,  sorting, date, category } = {}) => {
+  const state = cloneDeep(initialState);
+  if (categories) {
+    state.filters.categories = categories.nodes.map((i) => {
+      const updatedItem = cloneDeep(i);
+      updatedItem.label = updatedItem.name;
+      delete updatedItem.name;
+      updatedItem.value = updatedItem.slug;
+      delete updatedItem.slug;
+      return updatedItem;
+    });
+  }
+  if (sorting) {
+    state.sorting.map((i) => {
+      const newValue = i;
+      newValue.active = newValue.value === sorting;
+      return newValue;
+    });
+  }
+  if (date) {
+    state.filters.date = moment(date).format('YYYY-MM-DD');
+  }
+  if (category) {
+    state.filters.categories.map((i) => {
+      const newValue = i;
+      newValue.active = category === newValue.value;
+      return newValue;
+    });
+  }
+  return NewsStore;
+};
 
 export const setSorting = (option) => {
   const newStore = NewsStore.get();
@@ -40,7 +73,7 @@ export const setSorting = (option) => {
     newValue.active = newValue.value === option;
     return newValue;
   });
-  NewsStore.merge(newStore);
+  NewsStore.set(newStore);
 };
 
 export const setDate = (date) => {
@@ -54,7 +87,7 @@ export const setDate = (date) => {
   } else {
     newStore.filters.date = moment(date).format('YYYY-MM-DD');
   }
-  NewsStore.merge(newStore);
+  NewsStore.set(newStore);
 };
 
 export const setCategories = (categories) => {
@@ -67,7 +100,7 @@ export const setCategories = (categories) => {
     delete updatedItem.slug;
     return updatedItem;
   });
-  NewsStore.merge(currentStore);
+  NewsStore.set(currentStore);
 };
 
 export const setCategory = (category) => {
@@ -86,3 +119,25 @@ export const setCategory = (category) => {
   });
   NewsStore.merge(newStore);
 };
+
+// export const testStore = ({ sorting, date, category }) => {
+//   const initialState = cloneDeep(NewsStore);
+//   if (sorting) {
+//     initialState.sorting.map((i) => {
+//       const newValue = i;
+//       newValue.active = newValue.value === sorting;
+//       return newValue;
+//     });
+//   }
+//   if (date) {
+//     initialState.filters.date = moment(date).format('YYYY-MM-DD');
+//   }
+//   if (category) {
+//     initialState.filters.categories.map((i) => {
+//       const newValue = i;
+//       newValue.active = category;
+//       return newValue;
+//     });
+//   }
+//   return createStateLink(initialState)
+// };
