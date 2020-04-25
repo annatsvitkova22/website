@@ -253,15 +253,20 @@ const Search = (props) => {
     e.preventDefault();
   }
 
-  function onChangeField({ target: { name, value } }) {
-    if (value.length > 1) {
-      const queryUpdated = queryReducer(query, 'change-field', name, value);
+  function onSubmitField(e) {
+    e.preventDefault();
+    const { value } = e.target.searchField;
+    const queryUpdated = queryReducer(
+      query,
+      'submit-field',
+      'searchField',
+      value
+    );
 
-      Router.push({
-        pathname: '/search',
-        query: { ...queryUpdated },
-      });
-    }
+    Router.push({
+      pathname: '/search',
+      query: { ...queryUpdated },
+    });
   }
 
   function onChangeHtml({ target: { name, value } }) {
@@ -296,21 +301,23 @@ const Search = (props) => {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <div className="search-form__field-wrapper pos-relative">
+                <form
+                  onSubmit={onSubmitField}
+                  className="search-form__field-wrapper pos-relative"
+                >
                   <input
-                    onChange={onChangeField}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
                     type="search"
                     name="searchField"
                     placeholder="Пошук"
                   />
                   <button
-                    type="button"
+                    type="submit"
                     className="search-form__button pos-absolute pos-center-right"
                   >
                     <SearchIcon />
                   </button>
-                </div>
+                </form>
                 <form
                   onSubmit={onSubmit}
                   className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap"
