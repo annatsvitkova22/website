@@ -5,19 +5,10 @@ import Icons from '~/components/Icons';
 import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 
 const Image = ({ block, className = '' }) => {
-  const [isActive, setIsActive] = React.useState(false);
-
-  console.log(block.imageAttributes);
-
-  const openPopup = () => {
-    setIsActive(setIsOpen(true));
-  };
   const [isOpen, setIsOpen] = useState(false);
-  const [index, setIndex] = useState(0);
 
-  const handleOpen = (index) => {
+  const handleOpen = () => {
     setIsOpen(true);
-    setIndex(index);
   };
 
   const handleClose = () => {
@@ -37,7 +28,7 @@ const Image = ({ block, className = '' }) => {
       src: block.imageAttributes.url,
       w: block.imageAttributes.width,
       h: block.imageAttributes.height,
-      title: 'image 1',
+      title: block.imageAttributes.caption,
     },
   ];
   if (block.imageAttributes.linkDestination) {
@@ -48,7 +39,7 @@ const Image = ({ block, className = '' }) => {
           dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
         />
         <PhotoSwipeWrapper items={img} isOpen={isOpen} onClose={handleClose} />
-        <button className={'expand-image'} onClick={openPopup}>
+        <button className={'expand-image'} onClick={handleOpen}>
           <Icons icon={'expand'} />
         </button>
       </figure>
