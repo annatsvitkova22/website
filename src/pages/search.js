@@ -156,19 +156,19 @@ const Search = (props) => {
 
   const optionsShow = [
     {
-      value: 'last',
+      value: 'new',
       label: 'Останні',
     },
     {
-      value: 'last',
+      value: 'viewed',
       label: 'Найбільше переглядів',
     },
     {
-      value: 'last',
+      value: 'commented',
       label: 'Найбільше коментарів',
     },
     {
-      value: 'last',
+      value: 'old',
       label: 'Спочатку старі',
     },
   ];
@@ -180,17 +180,17 @@ const Search = (props) => {
       options: typesFormated,
     },
     {
-      name: 'cat',
+      name: 'category',
       placeholder: 'Категорії',
       options: categoriesFormated,
     },
     {
-      name: 'pubd',
+      name: 'period',
       placeholder: 'Період',
       options: optionsPubdate,
     },
     {
-      name: 'show',
+      name: 'sorting',
       placeholder: 'Показати',
       options: optionsShow,
     },
@@ -206,7 +206,7 @@ const Search = (props) => {
       label: 'Автори',
     },
     {
-      value: 'tags',
+      value: 'tag',
       label: 'Теги',
     },
   ];
@@ -255,13 +255,8 @@ const Search = (props) => {
 
   function onSubmitField(e) {
     e.preventDefault();
-    const { value } = e.target.searchField;
-    const queryUpdated = queryReducer(
-      query,
-      'submit-field',
-      'searchField',
-      value
-    );
+    const { value } = e.target.query;
+    const queryUpdated = queryReducer(query, 'submit-field', 'query', value);
 
     Router.push({
       pathname: '/search',
@@ -308,7 +303,7 @@ const Search = (props) => {
                   <input
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
                     type="search"
-                    name="searchField"
+                    name="query"
                     placeholder="Пошук"
                   />
                   <button
@@ -337,7 +332,7 @@ const Search = (props) => {
                           value={value}
                           type="radio"
                           id={value}
-                          name="searchBy"
+                          name="by"
                         />
                         <label className="search-form__label" htmlFor={value}>
                           {label}
