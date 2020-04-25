@@ -46,12 +46,12 @@ const SiteSelect = (props) => {
     name,
     placeholder,
     options,
-    mobile,
+    isMobile,
     instanceId,
     onChangeHtml,
   } = props;
 
-  if (!mobile) {
+  if (!isMobile) {
     return (
       <Select
         classNamePrefix="react-select"
@@ -92,8 +92,12 @@ const SiteSelect = (props) => {
 };
 
 SiteSelect.propTypes = {
-  options: PropTypes.array,
+  name: PropTypes.string,
   placeholder: PropTypes.string,
+  options: PropTypes.array,
+  isMobile: PropTypes.bool,
+  instanceId: PropTypes.number,
+  onChangeHtml: PropTypes.func,
 };
 
 export default SiteSelect;

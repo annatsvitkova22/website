@@ -79,7 +79,7 @@ const QUANTITIES = gql`
 `;
 
 const Search = (props) => {
-  const [mobile, setMobile] = useState(false);
+  const [isMobile, setMobile] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [searchState, setSearchState] = useState({
     posts: props ? props.posts : {},
@@ -232,7 +232,7 @@ const Search = (props) => {
     return () => {
       window.removeEventListener('resize', updateMobile);
     };
-  }, [mobile]);
+  }, [isMobile]);
 
   // if (!state.data.nodes) {
   //   return (
@@ -338,7 +338,7 @@ const Search = (props) => {
                       </li>
                     ))}
                   </ul>
-                  {mobile && (
+                  {isMobile && (
                     <button
                       onClick={onClick}
                       className={`${showFilters ? 'tx-green' : 'tx-black'}`}
@@ -359,7 +359,7 @@ const Search = (props) => {
                           instanceId={i}
                           className="tx-tiny tx-family-titles search-form__col--select"
                           {...{
-                            mobile,
+                            isMobile,
                             name,
                             options,
                             placeholder,
