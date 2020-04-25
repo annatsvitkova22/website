@@ -27,7 +27,6 @@ const useLoadMoreHook = (
           cursor: null,
         },
       });
-      console.log({type});
       switch (type) {
         case 'blogs':
           setState({
@@ -146,6 +145,22 @@ const useLoadMoreHook = (
           endCursor: responseData.data.posts.pageInfo
             ? responseData.data.posts.pageInfo.endCursor
             : false,
+          isLoading: false,
+        });
+        break;
+      case 'search':
+        const currentType = Object.keys(responseData.data)[0];
+        setState({
+          data: {
+            ...state.data,
+            nodes: [
+              ...state.data.nodes,
+              ...responseData.data[currentType].nodes,
+            ],
+          },
+          endCursor: responseData.data[currentType].pageInfo
+            ? responseData.data[currentType].pageInfo.endCursor
+            : null,
           isLoading: false,
         });
         break;
