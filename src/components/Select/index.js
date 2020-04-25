@@ -6,8 +6,6 @@ import DropdownIndicator from './DropdownIndicator';
 import ClearIndicator from './ClearIndicator';
 
 const SiteSelect = (props) => {
-  const { options, placeholder } = props;
-
   const colorStyles = {
     valueContainer: (styles) => ({
       ...styles,
@@ -19,8 +17,8 @@ const SiteSelect = (props) => {
       ...styles,
       border: 'none',
       borderRadius: 0,
-      paddingLeft: 12,
-      paddingRight: 15,
+      paddingLeft: 13,
+      paddingRight: 13,
     }),
     menu: (styles) => ({
       ...styles,
@@ -35,16 +33,19 @@ const SiteSelect = (props) => {
       ...styles,
       display: 'none',
     }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      backgroundColor: isSelected || isFocused ? '#85e9c8' : '',
+      color: isSelected || isFocused ? '#242424' : '',
+    }),
   };
 
   return (
     <Select
       classNamePrefix="react-select"
-      className="tx-tiny search-form__col search-form__col--select"
+      // defaultMenuIsOpen={props.instanceId === 0}
       isClearable
       isSearchable={false}
-      options={options}
-      placeholder={placeholder}
       styles={colorStyles}
       components={{ ClearIndicator, DropdownIndicator }}
       {...props}

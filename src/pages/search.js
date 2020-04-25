@@ -89,7 +89,6 @@ const Search = (props) => {
   });
 
   const { posts, types, categories, query } = searchState;
-  console.log(query);
 
   const typeLabels = {
     posts: 'Новини',
@@ -108,7 +107,8 @@ const Search = (props) => {
         value: type,
         label: (
           <span>
-            {typeLabels[type]} <span className="tx-green">{quantity}</span>
+            {typeLabels[type]}{' '}
+            <span className="tx-green react-select__quantity">{quantity}</span>
           </span>
         ),
       };
@@ -122,7 +122,8 @@ const Search = (props) => {
       value: slug,
       label: (
         <span>
-          {name} <span className="tx-green">{count}</span>
+          {name}{' '}
+          <span className="tx-green react-select__quantity">{count}</span>
         </span>
       ),
     };
@@ -266,14 +267,14 @@ const Search = (props) => {
   }
 
   return (
-    <div className="news-page">
+    <div className="search-page">
       <Head>
         {/* TODO: change title */}
         <title>{'Change this!'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="search-main">
         <>
           <div className="container">
             <div className="row">
@@ -349,18 +350,21 @@ const Search = (props) => {
                   <div
                     className={`search-form__selects w-100 ${
                       showFilters ? 'd-flex' : 'd-none d-md-flex'
-                    } flex-column flex-md-row`}
+                    } flex-column-reverse flex-md-row-reverse justify-content-between`}
                   >
-                    {selects.map(({ name, placeholder, options }, i) => (
-                      <Select
-                        key={i}
-                        instanceId={i}
-                        name={name}
-                        options={options}
-                        placeholder={placeholder}
-                        onChange={onChangeSelect}
-                      />
-                    ))}
+                    {selects
+                      .reverse()
+                      .map(({ name, placeholder, options }, i) => (
+                        <Select
+                          className="tx-tiny tx-family-titles search-form__col--select"
+                          key={i}
+                          instanceId={i}
+                          name={name}
+                          options={options}
+                          placeholder={placeholder}
+                          onChange={onChangeSelect}
+                        />
+                      ))}
 
                     {/* {mobile && (
                       <>

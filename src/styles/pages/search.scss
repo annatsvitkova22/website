@@ -1,6 +1,12 @@
+.search-main {
+  max-width: 896px;
+  padding-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .search-form {
   margin-bottom: 30px;
-  padding-bottom: 10px;
 
   border-bottom: 1px solid $grey-100;
 
@@ -20,33 +26,69 @@
   }
   
   &__field {
-    padding-bottom: 8px;
-    margin-bottom: 22px;
-
     border-left: none;
     border-top: none;
     border-right: none;
-    border-bottom: 1px solid $grey-100;
+    border-bottom: 1px solid transparent;
     outline: none;
 
     font-size: 32px;
+    letter-spacing: 0.02em;
+
+    transition: border-bottom-color 0.3s ease-in-out;
+
+    &:hover,
+    &:focus {
+      border-bottom-color: $grey-100;
+    }
+
+    &::placeholder {
+      color: $black;
+    }
   }
 
   &__field-wrapper {
     max-width: 872px;
+    padding-bottom: 1px;
+    margin-bottom: 13px;
   }
 
   &__col {
-    margin-left: #{$grid-columns}px;
-    margin-right: #{$grid-columns}px;
+    margin-left: 13px;
+    margin-right: 13px;
 
     font-family: $font-family-titles;
 
     &--select {
-      width: 100%;
-      
+      width: 120px;
+
       @include media-breakpoint-up(md) {
-        max-width: 211px;
+        &:first-child() {
+          width: 105px;
+
+          .react-select {
+            &__control {
+              padding-right: 0;
+
+              position: relative;
+              
+              transition: none;
+              
+              &--menu-is-open {
+                padding-right: 13px;
+
+                left: -100%;
+                
+                z-index: 100;
+
+                & + .react-select__menu {
+                  left: auto;
+                  right: -2px;
+                }
+              }
+            }
+          }
+        }
       }
 
       @include media-breakpoint-down(sm) {
@@ -82,6 +124,11 @@
   }
 
   &__selects {
+
+    @include media-breakpoint-up(md) {
+      max-width: 648px;
+    }
+
     @include media-breakpoint-down(sm) {
       border-top: 1px solid $grey-100;
     }
