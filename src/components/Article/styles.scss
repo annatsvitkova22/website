@@ -50,6 +50,10 @@
     }
   }
 
+  &__category {
+    @include make-category;
+  }
+
   &__title {
     margin-bottom: 10px;
 
