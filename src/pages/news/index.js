@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 import { useStateLink } from '@hookstate/core';
 import { Router } from 'next/router';
+import StickyBox from 'react-sticky-box';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -227,13 +228,19 @@ const News = ({ posts, categories, query }) => {
             ))}
             {state.isLoading && <NewsLoader />}
           </main>
-          <SidebarNews
-            className="news-archive__sidebar col-md-4"
-            sorting={sorting}
-            filters={filters}
-            currentCategory={currentCategory}
-            currentSorting={currentSorting}
-          />
+          <StickyBox
+            offsetTop={80}
+            offsetBottom={20}
+            className={'news-archive__sidebar-wrapper col-md-4'}
+          >
+            <SidebarNews
+              className="news-archive__sidebar"
+              sorting={sorting}
+              filters={filters}
+              currentCategory={currentCategory}
+              currentSorting={currentSorting}
+            />
+          </StickyBox>
         </div>
       </div>
     </div>
