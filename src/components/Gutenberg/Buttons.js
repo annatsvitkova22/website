@@ -12,6 +12,7 @@ const Buttons = ({ block, className = '' }) => {
 
 Buttons.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default Buttons;

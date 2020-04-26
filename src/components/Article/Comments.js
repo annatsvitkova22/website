@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
 import Icons from '~/components/Icons';
@@ -24,4 +25,9 @@ const ArticleComments = ({ comments, slug, className }) => {
   );
 };
 
+ArticleComments.propTypes = {
+  comment: PropTypes.any,
+  slug: PropTypes.string,
+  className: PropTypes.string,
+};
 export default ArticleComments;

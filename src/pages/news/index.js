@@ -14,7 +14,6 @@ import Article from '~/components/Article';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
-import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import { NewsStore, CreateNewsStore, setIsChanged } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import dateToGraphQLQuery from '~/util/date';
@@ -195,9 +194,7 @@ const News = ({ posts, categories, query }) => {
             <NewsLoader />
           </main>
           <aside className="news-archive__sidebar col-md-4">
-            <SidebarLoader />
-            <SidebarLoader />
-            <ActionbarLoader />
+            <SidebarLoader type={'archive'} />
           </aside>
         </div>
       </div>
@@ -288,6 +285,11 @@ News.getInitialProps = async ({ query }) => {
   const { posts, categories } = data;
 
   return { posts, categories, query };
+};
+
+News.propTypes = {
+  className: PropTypes.string,
+  query: PropTypes.any,
 };
 
 export default News;

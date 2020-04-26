@@ -17,6 +17,7 @@ import SimilarPosts from '~/components/SimilarPosts';
 import ArticleAuthor from '~/components/Article/Author';
 import ShareItems from '~/components/ShareItems';
 import SideBarPost from '~/components/Sidebar/Post';
+import SidebarLoader from '~/components/Loaders/SidebarLoader';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -67,7 +68,7 @@ const POST = gql`
 `;
 const SIMILAR = gql`
   query SimilarPosts($category: String) {
-    posts(first: 7, where: { categoryName: $category }) {
+    posts(first: 6, where: { categoryName: $category }) {
       nodes {
         author {
           firstName
@@ -113,23 +114,83 @@ const BLOGS = gql`
   }
 `;
 
-const Post = ({ post, news, similarPosts, blogs }) => {
+const Post = (props) => {
+  const [state, setState] = useState({
+    post: props.post,
+    news: props.news,
+    blogs: props.blogs,
+    similarPosts: props.similarPosts,
+    isLoading: false,
+  });
+
   moment.locale('uk');
-  const [similar, setSimilar] = useState(
-    similarPosts.nodes ? similarPosts.nodes : null
-  );
 
   useEffect(() => {
-    if (similarPosts.nodes) {
-      const filteredSimilarPost = similarPosts.nodes.filter(
-        (node) => node.id !== post.id
-      );
-      if (filteredSimilarPost.length > 6) {
-        setSimilar(filteredSimilarPost.splice(6));
-      }
-      setSimilar(filteredSimilarPost);
+    if (!state.isLoading) {
+      setState({
+        ...state,
+        isLoading: true,
+      });
+    }
+    async function loadData() {
+      const postResponse = await apolloClient.query({
+        query: POST,
+        variables: {
+          slug: props.slug,
+        },
+      });
+      const newsResponse = await apolloClient.query({
+        query: NEWS,
+        variables: {
+          articles: 10,
+          cursor: null,
+        },
+      });
+      const similarResponse = await apolloClient.query({
+        query: SIMILAR,
+        variables: {
+          category: null,
+        },
+      });
+      const blogsResponse = await apolloClient.query({
+        query: BLOGS,
+      });
+
+      setState({
+        ...state,
+        post: postResponse.data.postBy,
+        news: newsResponse.data.posts,
+        blogs: blogsResponse.data.blogs,
+        similarPosts: similarResponse.data.posts,
+        isLoading: false,
+      });
+    }
+
+    if (props.slug) {
+      loadData();
+      setState({
+        ...state,
+        isLoading: true,
+      });
     }
   }, []);
+
+  if (!state.post || !state.news || !state.blogs || !state.similarPosts) {
+    return (
+      <div className={'container'}>
+        <div className={'row'}>
+          <div className={'col-md-9'}>
+            <PostHeaderLoader type={'news'} />
+          </div>
+          <aside className={'col-md-3'}>
+            <SidebarLoader type={'popular'} />
+          </aside>
+        </div>
+      </div>
+    );
+  }
+
+  const { post, news, blogs, similarPosts } = state;
 
   return (
     <>
@@ -189,7 +250,7 @@ const Post = ({ post, news, similarPosts, blogs }) => {
                 <SideBarPost news={news} blogs={blogs} />
               </StickyBox>
             </div>
-            <SimilarPosts similarPosts={similar} />
+            <SimilarPosts similarPosts={similarPosts.nodes} />
           </>
         ) : (
           <PostHeaderLoader />
@@ -206,7 +267,11 @@ Post.propTypes = {
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {
-  const { data } = await apolloClient.query({
+  if (process.browser) {
+    return { slug };
+  }
+
+  const post = await apolloClient.query({
     query: POST,
     variables: { slug },
   });
@@ -220,7 +285,7 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   const similarPosts = await apolloClient.query({
     query: SIMILAR,
     variables: {
-      category: data.postBy.categories.nodes[0].name,
+      category: post.data.postBy.categories.nodes[0].name,
     },
   });
   const blogs = await apolloClient.query({
@@ -228,7 +293,7 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   });
 
   return {
-    post: data.postBy,
+    post: post.data.postBy,
     news: news.data.posts,
     similarPosts: similarPosts.data.posts,
     blogs: blogs.data.blogs,
