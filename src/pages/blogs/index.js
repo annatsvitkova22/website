@@ -77,8 +77,15 @@ const BlogsArchive = ({ users }) => {
       <div className="blogs-page">
         <div className="row">
           <main className="blogs-page__content col-12">
-            {state.users.nodes.map((row) => {
-              return <BloggerRow {...row} />;
+            {state.users.nodes.map((row, index) => {
+              return (
+                <>
+                  <BloggerRow key={index} {...row} />
+                  {state.users.nodes.length / 2 - 1 === index && (
+                    <div>most popular block</div>
+                  )}
+                </>
+              );
             })}
           </main>
         </div>
@@ -106,6 +113,10 @@ BlogsArchive.getInitialProps = async () => {
     data: { users },
   } = await apolloClient.query({
     query: BLOGGERS,
+  });
+
+  users.nodes = users.nodes.filter((blogger) => {
+    return blogger.blogs.nodes.length > 0;
   });
 
   return { users };

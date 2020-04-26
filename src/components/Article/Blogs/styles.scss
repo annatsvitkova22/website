@@ -1,5 +1,22 @@
-.article--blog {
-  .article__wrapper {
-    display: flex;
+.article {
+  &--blog {
+    .article__wrapper {
+      flex-flow: row wrap;
+    }
+
+    .article__image {
+      width: 100%;
+      max-width: none;
+      margin-bottom: 21px;
+    }
+
+    .article__main {
+      width: 100%;
+      padding-left: 0;
+    }
+
+    .meta-taxonomy {
+      margin-bottom: 19px;
+    }
   }
 }

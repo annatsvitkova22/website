@@ -6,19 +6,8 @@ import ArticleTitle from '~/components/Article/Title';
 import ArticleTaxonomies from '~/components/Article/Taxonomies';
 import ArticleFeatured from '~/components/Article/Featured';
 
-const ArticleBlogs = ({
-  post,
-  children,
-  className,
-  highlightInTitle,
-}) => {
-  const {
-    categories,
-    title,
-    slug,
-    author,
-    featuredImage,
-  } = post;
+const ArticleBlogs = ({ post, children, className, highlightInTitle }) => {
+  const { categories, title, slug, author, featuredImage } = post;
   return (
     <article className={classnames('article--blog', className)}>
       <div className="article__wrapper">
