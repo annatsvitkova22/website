@@ -230,7 +230,7 @@ const News = ({ posts, categories, query }) => {
             <StickyBox
               offsetTop={80}
               offsetBottom={20}
-              className={'news-archive__sidebar-wrapper col-md-4'}
+              className={'news-archive__sidebar-wrapper'}
             >
               <SidebarNews
                 className="news-archive__sidebar"
