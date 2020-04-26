@@ -82,10 +82,11 @@ const allPostTypes = `nodes {
           total
         }`;
 
-const innerQuery = ({ type, category, q, period, sorting, tag }) => {
+const innerQuery = ({ type, category, q, period, sorting, tag, author }) => {
   return `${type === 'news' ? `posts` : type}(
         where: {
-          ${q && !tag ? `search: "${q}"` : ``}
+          ${q && !tag && !author ? `search: "${q}"` : ``}
+          ${author ? `authorName: "${q}"` : ``}
           ${
             category || tag
               ? `taxQuery: {
@@ -139,6 +140,11 @@ const composeQuery = ({
       ${
         by === 'tag'
           ? `${innerQuery({ type, category, q, period, sorting, tag: q })}`
+          : ``
+      }
+      ${
+        by === 'author'
+          ? `${innerQuery({ type, category, q, period, sorting, author: q })}`
           : ``
       }
     }

@@ -41,10 +41,10 @@ export const initialState = {
         default: true,
         active: true,
       },
-      // {
-      //   label: 'Автори',
-      //   value: 'author',
-      // },
+      {
+        label: 'Автори',
+        value: 'author',
+      },
       {
         label: 'Теги',
         value: 'tag',
