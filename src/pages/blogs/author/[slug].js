@@ -17,6 +17,7 @@ import NewsLoader from '~/components/Loaders/NewsLoader';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleNews from '~/components/Article/News';
 import ArticleBlogsWide from '~/components/Article/Blogs/Wide';
+import BloggerLoader from '~/components/Loaders/Blogger';
 
 const composeQuery = ({ cursor, articles, slug }) => {
   return gql`
@@ -123,9 +124,7 @@ const BlogsArchive = ({ users, query }) => {
         <div className="blogger-page">
           <div className="row">
             <main className="blogger-page__content col-12">
-              <BlogsLoader />
-              <BlogsLoader />
-              <BlogsLoader />
+              <BloggerLoader />
             </main>
           </div>
         </div>
