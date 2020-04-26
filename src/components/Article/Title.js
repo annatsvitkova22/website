@@ -15,7 +15,7 @@ const ArticleTitle = ({
       (part, key) => {
         if (part.isHighlighted) {
           return (
-            <span key={key} class="article-title__highlighted">
+            <span key={key} className="article-title__highlighted">
               {part.value}
             </span>
           );
