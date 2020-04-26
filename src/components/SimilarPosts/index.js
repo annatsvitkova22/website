@@ -1,14 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import ArticleFeatured from '~/components/Article/Featured';
 import ArticleAuthor from '~/components/Article/Author';
 
-const SimilarPosts = ({ similarPosts }) => {
+const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
   return (
     <div className={'similar-posts'}>
       <div className="similar-posts__wrapper">
-        <span className={'similar-posts__type'}>Схожі новини</span>
+        <div className="similar-posts__meta">
+          <span className={'similar-posts__type'}>{title}</span>
+          {link && (
+            <Link href={link.value}>
+              <a className={'similar-posts__link'} href={link.value}>
+                {link.label}
+              </a>
+            </Link>
+          )}
+        </div>
         <div className={'similar-posts__items'}>
           {similarPosts &&
             similarPosts.map((item) => {
@@ -35,7 +45,7 @@ const SimilarPosts = ({ similarPosts }) => {
 };
 
 SimilarPosts.propTypes = {
-  similarPosts: PropTypes.object,
+  similarPosts: PropTypes.array,
 };
 
 export default SimilarPosts;
