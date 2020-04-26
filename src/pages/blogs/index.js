@@ -191,7 +191,7 @@ const BlogsArchive = ({ users }) => {
             {mainState.users.nodes.map((row, index) => {
               return (
                 <React.Fragment key={index}>
-                  <BloggerRow {...row} />
+                  <BloggerRow inRow={3} {...row} />
                   {Math.round(mainState.users.nodes.length / 2) - 1 ===
                     index && (
                     <>

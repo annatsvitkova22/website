@@ -141,7 +141,9 @@ const BlogsArchive = ({ users, query }) => {
       </Head>
       <div className="blogger-page">
         <div className="row">
-          <main className="blogger-page__content col-12">content</main>
+          <main className="blogger-page__content col-12">
+
+          </main>
         </div>
       </div>
     </div>
