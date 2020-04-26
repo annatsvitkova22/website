@@ -1,73 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
-import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
+import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import BlogsLoader from '~/components/Loaders/BlogsLoader';
+import BloggerRow from '~/components/Blogger/Row';
 
-const BLOGS_ARCHIVE = gql`
-  query BlogsArchive($cursor: String, $articles: Int) {
-    blogs(first: $articles, before: $cursor) {
-      nodes {
-        excerpt
-        title
-        slug
-        id
+const BLOGGERS = gql`
+  query Bloggers {
+    users(
+      where: {
+        orderby: { field: REGISTERED, order: ASC }
+        hasPublishedPosts: BLOG
       }
-      pageInfo {
-        endCursor
-        total
+    ) {
+      nodes {
+        name
+        blogs(first: 3) {
+          nodes {
+            title
+            slug
+            featuredImage {
+              mediaItemUrl
+            }
+            categories {
+              nodes {
+                id
+                name
+                slug
+              }
+            }
+            author {
+              name
+              nicename
+              nickname
+              slug
+              userId
+              username
+            }
+          }
+        }
       }
     }
   }
 `;
 
-const BlogsArchive = (props) => {
-  const { fetchingContent, state } = useLoadMoreHook(
-    BLOGS_ARCHIVE,
-    props,
-    'blogs'
-  );
-  if (!state.data.nodes)
+const BlogsArchive = ({ users }) => {
+  const [state, setState] = useState({ users });
+
+  if (!state.users) {
     return (
-      <div style={{ margin: '0 auto' }}>
-        <BlogsLoader />
-        <BlogsLoader />
+      <div className="container">
+        <div className="blogs-page">
+          <div className="row">
+            <main className="blogs-page__content col-12">
+              <BlogsLoader />
+              <BlogsLoader />
+              <BlogsLoader />
+            </main>
+          </div>
+        </div>
       </div>
     );
-
-  const { nodes, pageInfo } = state.data;
+  }
 
   return (
-    <div className="news-page">
+    <div className="container">
       <Head>
         {/* TODO: change title */}
         <title>{'Change this!'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
-        <div>
-          {nodes.map((blog, i) => (
-            <article key={i} style={{ height: '300px' }}>
-              <Link href="/blogs/[slug]" as={`/blogs/${blog.slug}`}>
-                <a>
-                  <h3>{blog.title}</h3>
-                </a>
-              </Link>
-              <div>{blog.excerpt}</div>
-              {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                <Waypoint onEnter={fetchingContent} />
-              )}
-            </article>
-          ))}
+      <div className="blogs-page">
+        <div className="row">
+          <main className="blogs-page__content col-12">
+            {state.users.nodes.map((row) => {
+              return <BloggerRow {...row} />;
+            })}
+          </main>
         </div>
-        {state.isLoading && <BlogsLoader />}
-      </main>
+      </div>
     </div>
   );
 };
@@ -87,17 +102,13 @@ BlogsArchive.getInitialProps = async () => {
   if (process.browser) {
     return {};
   }
-  const { data } = await apolloClient.query({
-    query: BLOGS_ARCHIVE,
-    variables: {
-      articles: 10,
-      cursor: null,
-    },
+  const {
+    data: { users },
+  } = await apolloClient.query({
+    query: BLOGGERS,
   });
 
-  const { blogs } = data;
-
-  return blogs;
+  return { users };
 };
 
 export default BlogsArchive;
