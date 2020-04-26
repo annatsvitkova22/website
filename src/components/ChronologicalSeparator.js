@@ -2,7 +2,7 @@ import React from 'react';
 import * as classnames from 'classnames';
 import * as moment from 'moment';
 
-const ChronologicalSeparator = ({ posts, currentIndex, className}) => {
+const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
   const currentDate = moment(posts[currentIndex].date);
   let text = '';
   if (currentIndex === 0 && !currentDate.isSame(moment(), 'day')) {
