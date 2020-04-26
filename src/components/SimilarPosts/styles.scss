@@ -9,6 +9,10 @@
   &__wrapper {
     padding-bottom: 80px;
   }
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+  }
   &__type {
     font-family: $font-family-alt;
 

@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
-import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import BlogsLoader from '~/components/Loaders/BlogsLoader';
 import BloggerRow from '~/components/Blogger/Row';
+import SimilarPosts from '~/components/SimilarPosts';
+import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
 const BLOGGERS = gql`
   query Bloggers {
@@ -49,8 +50,33 @@ const BLOGGERS = gql`
   }
 `;
 
+// TODO: implement popular, not last
+const POPULAR = gql`
+  query Bloggers {
+    blogs(first: 6) {
+      nodes {
+        id
+        title
+        slug
+        featuredImage {
+          mediaItemUrl
+        }
+        author {
+          name
+          nicename
+          nickname
+          slug
+          userId
+          username
+        }
+      }
+    }
+  }
+`;
+
 const BlogsArchive = ({ users }) => {
   const [state, setState] = useState({ users });
+  const [popular, setPopular] = useState();
 
   useEffect(() => {
     const loadBlogs = async () => {
@@ -59,10 +85,22 @@ const BlogsArchive = ({ users }) => {
     };
 
     if (!state.users) {
-      console.log('fired?');
       loadBlogs();
     }
   }, []);
+
+  const loadMostPopular = async () => {
+    if (!popular) {
+      const {
+        data: { blogs },
+      } = await apolloClient.query({
+        query: POPULAR,
+      });
+      if (blogs.nodes.length > 0) {
+        setPopular(blogs.nodes);
+      }
+    }
+  };
 
   if (!state.users) {
     return (
@@ -94,8 +132,42 @@ const BlogsArchive = ({ users }) => {
               return (
                 <React.Fragment key={index}>
                   <BloggerRow {...row} />
-                  {state.users.nodes.length / 2 - 1 === index && (
-                    <div>most popular block</div>
+                  {Math.round(state.users.nodes.length / 2) - 1 === index && (
+                    <>
+                      <Waypoint onEnter={loadMostPopular} />
+                      {popular && (
+                        <SimilarPosts
+                          similarPosts={popular}
+                          title={'Популярні'}
+                          link={{
+                            label: 'Дивитися всі',
+                            value: '/search?type=blogs',
+                          }}
+                        />
+                      )}
+                      {!popular && (
+                        <div className="blogs-page__popular blogs-page__popular--loading">
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
                 </React.Fragment>
               );

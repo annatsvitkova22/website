@@ -60,7 +60,7 @@ const getIndicesOf = (searchStr, str, caseSensitive) => {
   let newSearchStr = searchStr;
   let newStr = str;
   const searchStrLen = newSearchStr.length;
-  if (searchStrLen == 0) {
+  if (searchStrLen === 0) {
     return [];
   }
   let startIndex = 0;

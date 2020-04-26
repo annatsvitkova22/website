@@ -253,7 +253,10 @@ const Post = (props) => {
                 <SideBarPost news={news} blogs={blogs} />
               </StickyBox>
             </div>
-            <SimilarPosts similarPosts={similarPosts.nodes} />
+            <SimilarPosts
+              similarPosts={similarPosts.nodes}
+              title={'Схожі новини'}
+            />
           </>
         ) : (
           <PostHeaderLoader />
@@ -278,6 +281,7 @@ Post.getInitialProps = async ({ query: { slug } }) => {
     query: POST,
     variables: { slug },
   });
+  // TODO: move to client only
   const news = await apolloClient.query({
     query: NEWS,
     variables: {
@@ -285,12 +289,14 @@ Post.getInitialProps = async ({ query: { slug } }) => {
       cursor: null,
     },
   });
+  // TODO: move to client only
   const similarPosts = await apolloClient.query({
     query: SIMILAR,
     variables: {
       category: post.data.postBy.categories.nodes[0].name,
     },
   });
+  // TODO: move to client only
   const blogs = await apolloClient.query({
     query: BLOGS,
   });
