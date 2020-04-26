@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Waypoint } from 'react-waypoint';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 
-const SideBarNews = ({ news, isLoading }) => {
+const SideBarNews = ({ news }) => {
   if (!news) return <SidebarLoader />;
   return (
     <ul className={'sidebar-news'}>
@@ -14,20 +13,15 @@ const SideBarNews = ({ news, isLoading }) => {
             <a href={item.link} className={'sidebar-news__link'}>
               {item.title}
             </a>
-            {i === news.nodes.length - 5 && i < news.pageInfo.total && (
-              <Waypoint />
-            )}
           </li>
         );
       })}
-      {isLoading && <SidebarLoader />}
     </ul>
   );
 };
 
 SideBarNews.propTypes = {
   news: PropTypes.array,
-  isLoading: PropTypes.bool,
 };
 
 export default SideBarNews;

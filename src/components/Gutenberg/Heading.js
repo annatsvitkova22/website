@@ -65,4 +65,5 @@ export default Heading;
 
 Heading.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };

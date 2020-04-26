@@ -1,35 +1,148 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
-import Router from 'next/router';
 import PropTypes from 'prop-types';
+import { useStateLink } from '@hookstate/core';
+import * as classnames from 'classnames';
 import { Waypoint } from 'react-waypoint';
+import { Router } from 'next/router';
 
 import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
-import NewsLoader from '~/components/Loaders/NewsLoader';
-import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import SearchIcon from '~/static/images/search';
 import Filter from '~/static/images/filter';
-import queryReducer from '~/hooks/queryReducer';
+import dateToGraphQLQuery from '~/util/date';
+import {
+  CreateSearchStore,
+  SearchStore,
+  setBy,
+  setFilter,
+  setSearchQuery,
+  setSorting,
+  setIsChanged,
+} from '~/stores/Search';
+import useRouterSubscription from '~/hooks/useRouterSubscription';
+import NewsLoader from '~/components/Loaders/NewsLoader';
+import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
+import useLoadMoreHook from '~/hooks/useLoadMoreHook';
+import ChronologicalSeparator from '~/components/ChronologicalSeparator';
+import Article from '~/components/Article';
+import composeTaxQuery from '~/util/taxQuery';
 
-const SEARCH_QUERY = gql`
-  query SearchQuery($cursor: String) {
-    posts(first: 5, before: $cursor) {
-      nodes {
-        id
-        excerpt
-        title
-        slug
+const sharedNodes = `id
+          title
+          slug
+          featuredImage {
+            mediaItemUrl
+          }
+          author {
+            name
+            nicename
+            nickname
+            slug
+            userId
+            username
+          }
+          date`;
+const singlePostType = `
+        nodes { ${sharedNodes} }
+        pageInfo {
+          endCursor
+          total
+        }`;
+const allPostTypes = `nodes {
+          ... on Post {
+        ${sharedNodes}
       }
-      pageInfo {
-        endCursor
-        total
+      ... on Publication {
+        ${sharedNodes}
+      }
+      ... on Blog {
+        ${sharedNodes}
+      }
+      ... on Crowdfunding {
+        ${sharedNodes}
+      }
+      ... on Event {
+        ${sharedNodes}
+      }
+      ... on Opportunity {
+        ${sharedNodes}
+      }
+      ... on Other {
+        ${sharedNodes}
+      }
+      ... on Video {
+        ${sharedNodes}
+      }
+        }
+        pageInfo {
+          endCursor
+          total
+        }`;
+
+const innerQuery = ({ type, category, q, period, sorting, tag }) => {
+  return `${type === 'news' ? `posts` : type}(
+        where: {
+          ${q && !tag ? `search: "${q}"` : ``}
+          ${
+            category || tag
+              ? `taxQuery: {
+            relation: OR
+            ${composeTaxQuery(
+              { type: 'category', terms: category },
+              { type: 'tag', terms: tag ? q : '', field: 'name' }
+            )}
+          }`
+              : ``
+          }
+          ${
+            period
+              ? `dateQuery: {after: {day: ${period.after.day}, month: ${period.after.month}, year: ${period.after.year}},
+              before: {day: ${period.before.day}, month: ${period.before.month}, year: ${period.before.year}}}`
+              : ``
+          }
+          ${
+            sorting
+              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
+              : ``
+          }
+        }
+        first: $articles
+        before: $cursor
+      ) {
+        ${type === 'contentNodes' ? `${allPostTypes}` : `${singlePostType}`}
+      }`;
+};
+
+const composeQuery = ({
+  cursor,
+  articles,
+  q,
+  by = 'text',
+  type = 'contentNodes',
+  category,
+  period,
+  sorting,
+}) => {
+  return gql`
+    query SearchQuery(
+      $cursor: String = ${cursor}
+      $articles: Int = ${articles}
+    ) {
+      ${
+        by === 'text'
+          ? `${innerQuery({ type, category, q, period, sorting })}`
+          : ``
+      }
+      ${
+        by === 'tag'
+          ? `${innerQuery({ type, category, q, period, sorting, tag: q })}`
+          : ``
       }
     }
-  }
-`;
+  `;
+};
 
 const QUANTITIES = gql`
   query TypesQuantity {
@@ -78,267 +191,282 @@ const QUANTITIES = gql`
   }
 `;
 
-const Search = (props) => {
-  const [mobile, setMobile] = useState(false);
+const Search = ({ posts, categories, types, query }) => {
+  const [loaded, setLoaded] = useState(false);
+  const [searchString, setSearchString] = useState(query.q);
+  const stateLink = useStateLink(
+    loaded
+      ? SearchStore
+      : CreateSearchStore(loaded, { types, categories, ...query })
+  );
+  useEffect(() => {
+    setLoaded(true);
+
+    Router.events.on('routeChangeComplete', () => {
+      setIsChanged(true);
+    });
+  }, []);
+
+  const { sorting, filters, isChanged } = stateLink.get();
+
+  const { currentBy, defaultBy } = filters.by.reduce((acc, current) => {
+    if (current.active) acc.currentBy = current;
+    if (current.default) acc.defaultBy = current;
+    return acc;
+  }, {});
+  const currentType = filters.types.find((i) => i.active);
+  const currentCategory = filters.categories.find((i) => i.active);
+  const currentPeriod = filters.period.find((i) => i.active);
+  const { currentSorting, defaultSorting } = sorting.reduce((acc, current) => {
+    if (current.active) acc.currentSorting = current;
+    if (current.default) acc.defaultSorting = current;
+    return acc;
+  }, {});
+
+  useRouterSubscription(
+    {
+      name: 'q',
+      current: filters.q,
+      initial: query.q,
+    },
+    {
+      name: 'by',
+      current: currentBy ? currentBy.value : undefined,
+      default: defaultBy.value,
+      initial: query.by,
+    },
+    {
+      name: 'type',
+      current: currentType ? currentType.value : undefined,
+      initial: query.type,
+    },
+    {
+      name: 'category',
+      current: currentCategory ? currentCategory.value : undefined,
+      initial: query.category,
+    },
+    {
+      name: 'period',
+      current: currentPeriod ? currentPeriod.value : undefined,
+      initial: query.period,
+    },
+    {
+      name: 'sorting',
+      current: currentSorting.value,
+      default: defaultSorting.value,
+      initial: query.sorting,
+    }
+  );
+
+  const [isMobile, setMobile] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const [searchState, setSearchState] = useState({
-    posts: props ? props.posts : {},
-    types: props ? props.types : {},
-    categories: props ? props.categories : [],
-    query: Router.router ? Router.router.query : {},
-  });
 
-  const { posts, types, categories, query } = searchState;
-  console.log(query);
-
-  const typeLabels = {
-    posts: 'Новини',
-    publications: 'Публікації',
-    blogs: 'Блоги',
-    videos: 'Відео',
-    events: 'Події',
-    crowdfundings: 'Збір коштів',
-    opportunities: 'Можливості',
-  };
-
-  let typesFormated = Object.keys(types).map((type) => {
-    if (type !== 'categories') {
-      const quantity = types[type].pageInfo ? types[type].pageInfo.total : 0;
+  const typesFormated = filters.types.map(
+    ({ quantity, label, value, active }) => {
       return {
-        value: type,
+        active,
+        value,
+        mobileLabel: `${label} ${quantity}`,
         label: (
           <span>
-            {typeLabels[type]} <span className="tx-green">{quantity}</span>
+            {label}{' '}
+            <span className="tx-green react-select__quantity">{quantity}</span>
           </span>
         ),
       };
     }
-    return '';
-  });
-  typesFormated = typesFormated.filter((el) => el !== '');
+  );
 
-  const categoriesFormated = categories.map(({ count = 0, slug, name }) => {
-    return {
-      value: slug,
-      label: (
-        <span>
-          {name} <span className="tx-green">{count}</span>
-        </span>
-      ),
-    };
-  });
-
-  const optionsPubdate = [
-    {
-      value: 'week',
-      label: 'За тиждень',
-    },
-    {
-      value: 'month',
-      label: 'За місяць',
-    },
-    {
-      value: '3-months',
-      label: 'За 3 місяці',
-    },
-    {
-      value: '6-months',
-      label: 'За 6 місяців',
-    },
-    {
-      value: 'year',
-      label: 'За рік',
-    },
-  ];
-
-  const optionsShow = [
-    {
-      value: 'last',
-      label: 'Останні',
-    },
-    {
-      value: 'last',
-      label: 'Найбільше переглядів',
-    },
-    {
-      value: 'last',
-      label: 'Найбільше коментарів',
-    },
-    {
-      value: 'last',
-      label: 'Спочатку старі',
-    },
-  ];
+  const categoriesFormated = filters.categories.map(
+    ({ count = 0, value, label, active }) => {
+      return {
+        active,
+        mobileLabel: `${label} ${count}`,
+        value,
+        label: (
+          <span>
+            {label}{' '}
+            <span className="tx-green react-select__quantity">{count}</span>
+          </span>
+        ),
+      };
+    }
+  );
 
   const selects = [
     {
-      name: 'type',
+      name: 'types',
       placeholder: 'Тип',
       options: typesFormated,
     },
     {
-      name: 'cat',
+      name: 'categories',
       placeholder: 'Категорії',
       options: categoriesFormated,
     },
     {
-      name: 'pubd',
+      name: 'period',
       placeholder: 'Період',
-      options: optionsPubdate,
+      options: filters.period,
     },
     {
-      name: 'show',
+      name: 'sorting',
       placeholder: 'Показати',
-      options: optionsShow,
+      options: sorting,
     },
   ];
-
-  // const { fetchingContent, state } = useLoadMoreHook(
-  //   SEARCH_QUERY,
-  //   props.posts,
-  //   'news'
-  // );
 
   const updateMobile = () => {
     window.outerWidth < 768 ? setMobile(true) : setMobile(false);
   };
 
   useEffect(() => {
-    setSearchState((state) => ({
-      ...state,
-      query: searchState.query,
-    }));
-
     updateMobile();
+
     window.addEventListener('resize', updateMobile);
+
     return () => {
       window.removeEventListener('resize', updateMobile);
     };
-  }, [mobile]);
-
-  // if (!state.data.nodes) {
-  //   return (
-  //     <div>
-  //       <NewsLoader />
-  //       <NewsLoader />
-  //       <NewsLoader />
-  //     </div>
-  //   );
-  // }
-  // const { nodes, pageInfo } = state.data;
+  }, [isMobile]);
 
   function onClick() {
     setShowFilters(!showFilters);
   }
 
-  function onSubmit(e) {
-    e.preventDefault();
-  }
-
-  function onChangeField({ target: { name, value } }) {
-    if (value.length > 1) {
-      const queryUpdated = queryReducer(query, 'change-field', name, value);
-
-      Router.push({
-        pathname: '/search',
-        query: { ...queryUpdated },
-      });
+  function onChangeSelect(e, { name }) {
+    const value = e ? e.value : '';
+    if (name === 'sorting') {
+      setSorting(value);
+    } else {
+      setFilter(name, value);
     }
   }
 
-  function onChangeRadio({ target: { name, value } }) {
-    const queryUpdated = queryReducer(query, 'change-radio', name, value);
+  const variables = {
+    articles: 10,
+    onLoadNumber: 3,
+    cursor: null,
+  };
 
-    Router.push({
-      pathname: '/search',
-      query: { ...queryUpdated },
-    });
+  if (filters.q) {
+    variables.q = filters.q;
   }
 
-  function onChangeSelect(e, { action, name }) {
-    const value = e ? e.value : '';
-    const queryUpdated = queryReducer(query, action, name, value);
-
-    Router.push({
-      pathname: '/search',
-      query: { ...queryUpdated },
-    });
+  if (currentBy) {
+    variables.by = currentBy.value;
   }
+
+  if (currentType) {
+    variables.type = currentType.value;
+  }
+
+  if (currentCategory) {
+    variables.category = [currentCategory.value];
+  }
+
+  if (currentPeriod) {
+    const { gqlDateQuery } = currentPeriod;
+    variables.period = {
+      after: dateToGraphQLQuery(gqlDateQuery.after),
+      before: dateToGraphQLQuery(gqlDateQuery.before),
+    };
+  }
+
+  if (currentSorting) {
+    variables.sorting = currentSorting.gqlOrderBy;
+  }
+
+  const { fetchingContent, state } = useLoadMoreHook(
+    composeQuery(variables),
+    posts,
+    'search',
+    variables.articles,
+    variables.onLoadNumber,
+    isChanged,
+    (changed) => setIsChanged(changed)
+  );
+
+  const handleSearchString = () => {
+    setSearchQuery(searchString || undefined);
+  };
+
+  if (!state.data.nodes) {
+    return (
+      <div className="search-page">
+        <div className="search-main">
+          <ActionbarLoader />
+          <ActionbarLoader />
+        </div>
+        <main className="search-results">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+  const { nodes, pageInfo } = state.data;
 
   return (
-    <div className="news-page">
+    <div className="search-page">
       <Head>
         {/* TODO: change title */}
         <title>{'Change this!'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <div className="search-main">
         <>
           <div className="container">
             <div className="row">
               <div className="col-12">
                 <div className="search-form__field-wrapper pos-relative">
                   <input
-                    onChange={onChangeField}
+                    onChange={({ target: { value } }) => setSearchString(value)}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
-                    type="search"
-                    name="searchField"
+                    onKeyPress={({ key }) => {
+                      if (key === 'Enter') handleSearchString();
+                    }}
+                    type="text"
+                    name="q"
+                    value={searchString}
                     placeholder="Пошук"
                   />
                   <button
-                    type="button"
+                    type="submit"
                     className="search-form__button pos-absolute pos-center-right"
+                    onClick={handleSearchString}
                   >
                     <SearchIcon />
                   </button>
                 </div>
-                <form
-                  onSubmit={onSubmit}
-                  className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap"
-                >
-                  <ul
-                    className="search-form__row tx-small list-unstyled"
-                    onChange={onChangeRadio}
-                  >
-                    <li className="search-form__text search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="text"
-                        type="radio"
-                        id="text"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="text">
-                        Текст
-                      </label>
-                    </li>
-                    <li className="search-form__authors search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="author"
-                        type="radio"
-                        id="author"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="author">
-                        Автори
-                      </label>
-                    </li>
-                    <li className="search-form__tags search-form__col">
-                      <input
-                        className="search-form__radio"
-                        value="tags"
-                        type="radio"
-                        id="tags"
-                        name="searchBy"
-                      />
-                      <label className="search-form__label" htmlFor="tags">
-                        Теги
-                      </label>
-                    </li>
+                <div className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap">
+                  <ul className="search-form__row tx-small list-unstyled">
+                    {filters.by.map((i) => {
+                      return (
+                        <li
+                          className={classnames(
+                            'search-form__text search-form__col',
+                            { 'search-form__text--active': i.active }
+                          )}
+                          onClick={() => setBy(i.value)}
+                          key={i.value}
+                        >
+                          {i.label}
+                        </li>
+                      );
+                    })}
                   </ul>
-                  {mobile && (
+                  {isMobile && (
                     <button
                       onClick={onClick}
                       className={`${showFilters ? 'tx-green' : 'tx-black'}`}
@@ -349,55 +477,69 @@ const Search = (props) => {
                   <div
                     className={`search-form__selects w-100 ${
                       showFilters ? 'd-flex' : 'd-none d-md-flex'
-                    } flex-column flex-md-row`}
+                    } flex-column-reverse flex-md-row-reverse justify-content-between`}
                   >
-                    {selects.map(({ name, placeholder, options }, i) => (
-                      <Select
-                        key={i}
-                        instanceId={i}
-                        name={name}
-                        options={options}
-                        placeholder={placeholder}
-                        onChange={onChangeSelect}
-                      />
-                    ))}
-
-                    {/* {mobile && (
-                      <>
-                        <select name="tag" id="" className="tx-family-titles">
-                          <option value="" disabled selected>
-                            Тип
-                          </option>
-                          {optionsTag.map(({ value, label }, i) => (
-                            <option key={i} value={value}>
-                              {label}
-                            </option>
-                          ))}
-                        </select>
-                      </>
-                    )} */}
+                    {selects
+                      .reverse()
+                      .map(({ name, placeholder, options, active }, i) => (
+                        <Select
+                          key={i}
+                          instanceId={i}
+                          className="tx-tiny tx-family-titles search-form__col--select"
+                          {...{
+                            isMobile,
+                            name,
+                            options,
+                            placeholder,
+                            // onChangeHtml,
+                          }}
+                          onChange={onChangeSelect}
+                        />
+                      ))}
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
-          {/* <div className="container">
-            {nodes.map((post, i) => (
-              <article key={post.id}>
-                <Link href="/news/[slug]" as={`/news/${post.slug}`}>
-                  <a href={`/news/${post.slug}`}>
-                    <h3>{post.title}</h3>
-                  </a>
-                </Link>
-                <div>{post.excerpt}</div>
-                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                  <Waypoint onEnter={fetchingContent} />
-                )}
-              </article>
-            ))}
-            {state.isLoading && <NewsLoader />}
-          </div> */}
         </>
+      </div>
+      <main className="search-results">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              {nodes.map((post, i) => {
+                let typeName = `${post.__typename.toLowerCase()}s`;
+                if (typeName === 'posts') typeName = 'news';
+                const showAuthor = !!authorsExcluded.findIndex(
+                  (availableType) => availableType !== typeName
+                );
+                return (
+                  <React.Fragment key={i}>
+                    <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                    <Article
+                      highlightInTitle={filters.q}
+                      type={'news'}
+                      post={post}
+                      key={post.id}
+                      showAuthor={showAuthor}
+                    >
+                      {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                        <Waypoint onEnter={fetchingContent} />
+                      )}
+                    </Article>
+                  </React.Fragment>
+                );
+              })}
+              {state.isLoading && (
+                <>
+                  <NewsLoader />
+                  <NewsLoader />
+                  <NewsLoader />
+                </>
+              )}
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
@@ -407,31 +549,87 @@ Search.propTypes = {
   posts: PropTypes.any,
 };
 
-Search.getInitialProps = async () => {
-  if (process.browser) {
-    return {};
-  }
-  const { data } = await apolloClient.query({
-    query: SEARCH_QUERY,
-    variables: {
-      cursor: null,
-    },
-  });
-
-  // const responseCats = await apolloClient.query({
-  //   query: CATEGORIES_QUANTITY,
-  // });
-
+Search.getInitialProps = async ({ query }) => {
+  // TODO: move this query to client side
   const responseQuant = await apolloClient.query({
     query: QUANTITIES,
   });
 
+  if (process.browser) {
+    return {
+      query,
+      types: responseQuant.data,
+      categories: responseQuant.data.categories.nodes,
+    };
+  }
+
+  const variables = setQueryVariables(query);
+
+  const { data } = await apolloClient.query({
+    query: composeQuery(variables),
+    variables: {},
+  });
+
   const { posts } = data;
+
   return {
     posts,
+    query,
     types: responseQuant.data,
     categories: responseQuant.data.categories.nodes,
   };
 };
 
 export default Search;
+
+const setQueryVariables = (query) => {
+  const variables = {
+    articles: 10,
+    cursor: null,
+  };
+
+  const { q, by, type, category, period, sorting } = query;
+
+  if (q) {
+    variables.q = q;
+  }
+
+  if (by) {
+    variables.by = by;
+  }
+
+  if (type) {
+    variables.type = type;
+  }
+
+  if (category) {
+    variables.category = [category];
+  }
+
+  if (period) {
+    const { gqlDateQuery } = SearchStore.get().filters.period.find(
+      (i) => i.value === period
+    );
+    variables.period = {
+      after: dateToGraphQLQuery(gqlDateQuery.after),
+      before: dateToGraphQLQuery(gqlDateQuery.before),
+    };
+  }
+
+  if (sorting) {
+    const customSorting = SearchStore.get().sorting.find(
+      (i) => i.value === sorting
+    );
+    variables.sorting = customSorting.gqlOrderBy;
+  }
+
+  return variables;
+};
+
+const authorsExcluded = [
+  'videos',
+  'events',
+  'crowdfundings',
+  'opportunities',
+  'different',
+];

@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 
 import apolloClient from '~/lib/ApolloClient';
-import { setCategories, setIsChanged } from '~/stores/News';
+import { setCategories } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
   props = {},
-  type = '',
+  type,
   initialNumber = 10,
   onLoadNumber = 3,
-  isChanged
+  isChanged,
+  setIsChanged = () => {}
 ) => {
   const [state, setState] = useState({
     data: props,
@@ -42,12 +43,32 @@ const useLoadMoreHook = (
           });
           break;
         case 'news':
-          setCategories(response.data.categories);
+          if (!isChanged) {
+            setCategories(response.data.categories);
+          }
           setState({
             data: response.data.posts,
             endCursor: response.data.posts.pageInfo
               ? response.data.posts.pageInfo.endCursor
               : null,
+            isLoading: false,
+          });
+          break;
+        case 'search': {
+          const currentType = Object.keys(response.data)[0];
+          setState({
+            data: response.data[currentType],
+            endCursor: response.data[currentType].pageInfo
+              ? response.data[currentType].pageInfo.endCursor
+              : null,
+            isLoading: false,
+          });
+          break;
+        }
+        case 'opportunities':
+          setState({
+            data: response.data.opportunities,
+            endCursor: response.data.opportunities.pageInfo.endCursor,
             isLoading: false,
           });
           break;
@@ -58,6 +79,8 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
+        default:
+          console.log('no such type', type);
       }
     }
 
@@ -115,7 +138,6 @@ const useLoadMoreHook = (
         });
         break;
       case 'news':
-        console.log(responseData);
         setState({
           data: {
             ...state.data,
@@ -123,6 +145,38 @@ const useLoadMoreHook = (
           },
           endCursor: responseData.data.posts.pageInfo
             ? responseData.data.posts.pageInfo.endCursor
+            : false,
+          isLoading: false,
+        });
+        break;
+      case 'search': {
+        const currentType = Object.keys(responseData.data)[0];
+        setState({
+          data: {
+            ...state.data,
+            nodes: [
+              ...state.data.nodes,
+              ...responseData.data[currentType].nodes,
+            ],
+          },
+          endCursor: responseData.data[currentType].pageInfo
+            ? responseData.data[currentType].pageInfo.endCursor
+            : null,
+          isLoading: false,
+        });
+        break;
+      }
+      case 'opportunities':
+        setState({
+          data: {
+            ...state.data,
+            nodes: [
+              ...state.data.nodes,
+              ...responseData.data.opportunities.nodes,
+            ],
+          },
+          endCursor: responseData.data.opportunities.pageInfo
+            ? responseData.data.opportunities.pageInfo.endCursor
             : false,
           isLoading: false,
         });
@@ -139,6 +193,8 @@ const useLoadMoreHook = (
             : false,
         });
         break;
+      default:
+        console.log('no such type');
     }
   };
   return {

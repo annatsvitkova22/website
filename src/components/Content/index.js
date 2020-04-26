@@ -231,6 +231,7 @@ const Content = ({ content, className = '' }) => {
 
 Content.propTypes = {
   content: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default Content;

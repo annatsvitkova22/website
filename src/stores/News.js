@@ -44,7 +44,7 @@ export const setIsChanged = (st = false) => {
   const newState = NewsStore.get();
   newState.isChanged = st;
   NewsStore.merge(newState);
-}
+};
 
 export const CreateNewsStore = (
   loaded,
@@ -136,27 +136,5 @@ export const setCategory = (category) => {
     newValue.active = isCurrent ? false : newValue.value === category;
     return newValue;
   });
-  NewsStore.merge(newStore);
+  return NewsStore.merge(newStore);
 };
-
-// export const testStore = ({ sorting, date, category }) => {
-//   const initialState = cloneDeep(NewsStore);
-//   if (sorting) {
-//     initialState.sorting.map((i) => {
-//       const newValue = i;
-//       newValue.active = newValue.value === sorting;
-//       return newValue;
-//     });
-//   }
-//   if (date) {
-//     initialState.filters.date = moment(date).format('YYYY-MM-DD');
-//   }
-//   if (category) {
-//     initialState.filters.categories.map((i) => {
-//       const newValue = i;
-//       newValue.active = category;
-//       return newValue;
-//     });
-//   }
-//   return createStateLink(initialState)
-// };

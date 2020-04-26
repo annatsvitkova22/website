@@ -13,11 +13,15 @@
   line-height: 1.5;
   letter-spacing: 0.2px;
 
+  cursor: pointer;
   .svg-icon {
     margin-right: 19px;
 
     width: 15.97px;
     height: 15.97px;
+  }
+  .svg-icon:hover {
+    color: #000;
   }
 }
 .comments-button:hover {

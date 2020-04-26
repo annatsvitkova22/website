@@ -1,23 +1,33 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
+import Icons from '~/components/Icons';
 
 const ArticleComments = ({ comments, slug, className }) => {
   const postType = useContext(ArticleContext);
-  if (!comments.pageInfo || !comments.pageInfo.total) return null;
+  if (!comments || !comments.pageInfo || !comments.pageInfo.total) return null;
   return (
-    <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>
+    <Link
+      href={`/${postType}/[slug]`}
+      as={`/${postType}/${slug}?comments=true`}
+    >
       <a
         className={classnames('meta-comments', className)}
-        href={`/${postType}/${slug}`}
+        href={`/${postType}/${slug}?comments=true`}
       >
-        <span className="meta-comments__icon">icon</span>
+        <Icons icon={'comment-alt'} className="meta-comments__icon" />
         <span className="meta-comments__count">{comments.pageInfo.total}</span>
       </a>
     </Link>
   );
 };
 
+ArticleComments.propTypes = {
+  comment: PropTypes.any,
+  slug: PropTypes.string,
+  className: PropTypes.string,
+};
 export default ArticleComments;

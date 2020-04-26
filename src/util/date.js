@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-export const dateToGraphQLQuery = (d) => {
+const dateToGraphQLQuery = (d) => {
   if (!d) return {};
   const date = moment(d);
   return {
@@ -8,4 +8,6 @@ export const dateToGraphQLQuery = (d) => {
     month: date.month() + 1,
     year: date.year(),
   };
-}
+};
+
+export default dateToGraphQLQuery;

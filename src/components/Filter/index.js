@@ -1,8 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
 
-import './styles.scss';
-
 const Filter = ({
   currentOption = {},
   onChange = () => {},

@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useStateLink } from '@hookstate/core';
 
 import CommentsPopUp from '~/components/CommentsPopUp';
 import Icons from '~/components/Icons';
+import PostStore from '~/stores/Post';
 
 const CommentsButton = ({ className, comments }) => {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const state = useStateLink(PostStore);
 
   const changeVisibility = () => {
-    setIsVisible(() => {
-      return !isVisible;
+    state.set((visibility) => {
+      return {
+        ...visibility,
+        isVisible: true,
+      };
     });
-    !isVisible
+    state.get().isVisible
       ? document.querySelector('body').classList.add('isB-MenuOpen')
       : document.querySelector('body').classList.remove('isB-MenuOpen');
-  };
-
-  const handleClose = () => {
-    setIsVisible(false);
-    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   return (
@@ -28,7 +28,7 @@ const CommentsButton = ({ className, comments }) => {
         <span>Коментарі</span>
         {comments && <span>( {comments.pageInfo.total})</span>}
       </button>
-      <CommentsPopUp isVisible={isVisible} handleClose={handleClose} />
+      <CommentsPopUp />
     </>
   );
 };

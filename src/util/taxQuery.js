@@ -1,7 +1,22 @@
-//TODO: implement
-export const composeTaxQuery = (relation, ...taxonomies) => {
-  return `taxQuery: {taxArray: ${taxonomies.map(taxonomy => {
-    return `{field: ${taxonomy.field}, operator: ${taxonomy.operator},
-    taxonomy: ${taxonomy.taxonomy}', terms: ${taxonomy.terms.map(term => )}`;
-  })}, relation: ${relation}`;
+// TODO: implement
+const composeTaxQuery = (...taxonomies) => {
+  const realTaxes = taxonomies.filter((tax) => tax.terms);
+  if (!realTaxes.length) return ``;
+
+  const result = `taxArray: [
+              ${realTaxes.map(
+                ({ terms, type, field = 'slug', operator = 'in' }) => {
+                  return `{
+                terms: "${terms}"
+                taxonomy: ${type.toUpperCase()}
+                operator: ${operator.toUpperCase()}
+                field: ${field.toUpperCase()}
+              }`;
+                }
+              )}
+            ]`;
+
+  return result;
 };
+
+export default composeTaxQuery;
