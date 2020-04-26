@@ -9,6 +9,14 @@ import BlogsLoader from '~/components/Loaders/BlogsLoader';
 import BloggerRow from '~/components/Blogger/Row';
 import SimilarPosts from '~/components/SimilarPosts';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
+import useLoadMoreHook from '~/hooks/useLoadMoreHook';
+import { setIsChanged } from '~/stores/News';
+import ChronologicalSeparator from '~/components/ChronologicalSeparator';
+import Article from '~/components/Article';
+import NewsLoader from '~/components/Loaders/NewsLoader';
+import { ArticleProvider } from '~/components/Article/Context';
+import ArticleNews from '~/components/Article/News';
+import ArticleBlogsWide from '~/components/Article/Blogs/Wide';
 
 const BLOGGERS = gql`
   query Bloggers {
@@ -52,7 +60,7 @@ const BLOGGERS = gql`
 
 // TODO: implement popular, not last
 const POPULAR = gql`
-  query Bloggers {
+  query PopularBlogs {
     blogs(first: 6) {
       nodes {
         id
@@ -74,17 +82,70 @@ const POPULAR = gql`
   }
 `;
 
+const ALL_BLOGS = gql`
+  query AllBLogs($articles: Int = 3, $cursor: String) {
+    blogs(first: $articles, before: $cursor) {
+      nodes {
+        id
+        title
+        slug
+        featuredImage {
+          mediaItemUrl
+        }
+        categories {
+          nodes {
+            id
+            name
+            slug
+          }
+        }
+        author {
+          id
+          name
+          nicename
+          nickname
+          username
+        }
+        comments {
+          pageInfo {
+            total
+          }
+        }
+        date
+      }
+      pageInfo {
+        endCursor
+        total
+      }
+    }
+  }
+`;
+
 const BlogsArchive = ({ users }) => {
-  const [state, setState] = useState({ users });
+  const [mainState, setMainState] = useState({ users });
   const [popular, setPopular] = useState();
+
+  let variables = {
+    articles: 3,
+    onLoadNumber: 3,
+    cursor: null,
+  };
+
+  const { fetchingContent, state } = useLoadMoreHook(
+    ALL_BLOGS,
+    {},
+    'blogs',
+    variables.articles,
+    variables.onLoadNumber
+  );
 
   useEffect(() => {
     const loadBlogs = async () => {
       const users = await loadBloggersGQL();
-      setState({ users });
+      setMainState({ users });
     };
 
-    if (!state.users) {
+    if (!mainState.users) {
       loadBlogs();
     }
   }, []);
@@ -102,7 +163,7 @@ const BlogsArchive = ({ users }) => {
     }
   };
 
-  if (!state.users) {
+  if (!mainState.users) {
     return (
       <div className="container">
         <div className="blogs-page">
@@ -118,6 +179,8 @@ const BlogsArchive = ({ users }) => {
     );
   }
 
+  const { nodes, pageInfo } = state.data;
+
   return (
     <div className="container">
       <Head>
@@ -128,11 +191,12 @@ const BlogsArchive = ({ users }) => {
       <div className="blogs-page">
         <div className="row">
           <main className="blogs-page__content col-12">
-            {state.users.nodes.map((row, index) => {
+            {mainState.users.nodes.map((row, index) => {
               return (
                 <React.Fragment key={index}>
                   <BloggerRow {...row} />
-                  {Math.round(state.users.nodes.length / 2) - 1 === index && (
+                  {Math.round(mainState.users.nodes.length / 2) - 1 ===
+                    index && (
                     <>
                       <Waypoint onEnter={loadMostPopular} />
                       {popular && (
@@ -172,6 +236,30 @@ const BlogsArchive = ({ users }) => {
                 </React.Fragment>
               );
             })}
+            <hr />
+            <div className="blogs-page__archive">
+              {state.data.nodes &&
+                nodes.map((post, i) => (
+                  <React.Fragment key={i}>
+                    <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                    <ArticleProvider value="blogs">
+                      <ArticleNews post={post} className={'article'}>
+                        {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                          <Waypoint onEnter={fetchingContent} />
+                        )}
+                      </ArticleNews>
+                    </ArticleProvider>
+                  </React.Fragment>
+                ))}
+              {!state.data.nodes ||
+                (state.isLoading && (
+                  <>
+                    <NewsLoader />
+                    <NewsLoader />
+                    <NewsLoader />
+                  </>
+                ))}
+            </div>
           </main>
         </div>
       </div>

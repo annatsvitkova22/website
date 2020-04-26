@@ -18,4 +18,13 @@
       }
     }
   }
+
+  &__archive {
+    max-width: 896px;
+    margin: 48px auto;
+
+    .article:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
 }
