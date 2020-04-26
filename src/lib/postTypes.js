@@ -1,35 +1,35 @@
 const postTypes = [
   {
-    slug: 'Новини',
-    name: 'news',
+    name: 'Новини',
+    slug: 'news',
   },
   {
-    slug: 'Блоги',
-    name: 'blogs',
+    name: 'Блоги',
+    slug: 'blogs',
   },
   {
-    slug: 'Публікації',
-    name: 'publications',
+    name: 'Публікації',
+    slug: 'publications',
   },
   {
-    slug: 'Події',
-    name: 'events',
+    name: 'Події',
+    slug: 'events',
   },
   {
-    slug: 'Відео',
-    name: 'videos',
+    name: 'Відео',
+    slug: 'videos',
   },
   {
-    slug: 'Збір Коштів',
-    name: 'crowdfundings',
+    name: 'Збір Коштів',
+    slug: 'crowdfundings',
   },
   {
-    slug: 'Можливості',
-    name: 'opportunities',
+    name: 'Можливості',
+    slug: 'opportunities',
   },
   {
-    slug: 'Різне',
-    name: 'others',
+    name: 'Різне',
+    slug: 'others',
   },
 ];
 

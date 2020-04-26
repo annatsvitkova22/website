@@ -26,8 +26,9 @@ import NewsLoader from '~/components/Loaders/NewsLoader';
 import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
-import Article from '~/components/Article';
 import composeTaxQuery from '~/util/taxQuery';
+import { ArticleProvider } from '~/components/Article/Context';
+import ArticleSearch from '~/components/Article/Search';
 
 const sharedNodes = `id
           title
@@ -509,24 +510,32 @@ const Search = ({ posts, categories, types, query }) => {
             <div className="col-12">
               {nodes.map((post, i) => {
                 let typeName = `${post.__typename.toLowerCase()}s`;
-                if (typeName === 'posts') typeName = 'news';
+                if (typeName === 'posts') {
+                  typeName = 'news';
+                }
+                if (typeName === 'opportunitys') {
+                  typeName = 'opportunities';
+                }
                 const showAuthor = !!authorsExcluded.findIndex(
                   (availableType) => availableType !== typeName
                 );
                 return (
                   <React.Fragment key={i}>
                     <ChronologicalSeparator posts={nodes} currentIndex={i} />
-                    <Article
-                      highlightInTitle={filters.q}
-                      type={'news'}
-                      post={post}
-                      key={post.id}
-                      showAuthor={showAuthor}
-                    >
-                      {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                        <Waypoint onEnter={fetchingContent} />
-                      )}
-                    </Article>
+                    <ArticleProvider value={typeName}>
+                      <ArticleSearch
+                        className={classnames('article')}
+                        highlightInTitle={filters.q}
+                        post={post}
+                        key={post.id}
+                        showAuthor={showAuthor}
+                        displayType={true}
+                      >
+                        {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                          <Waypoint onEnter={fetchingContent} />
+                        )}
+                      </ArticleSearch>
+                    </ArticleProvider>
                   </React.Fragment>
                 );
               })}
