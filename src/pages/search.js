@@ -570,7 +570,8 @@ Search.getInitialProps = async ({ query }) => {
     variables: {},
   });
 
-  const { posts } = data;
+  const currentType = Object.keys(data)[0];
+  const posts = data[currentType];
 
   return {
     posts,
