@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import DropdownIndicator from './DropdownIndicator';
 import ClearIndicator from './ClearIndicator';
 
+import ChevronDown from '~/static/images/chevron-down';
+
 const SiteSelect = (props) => {
   const colorStyles = {
     valueContainer: (styles) => ({
@@ -40,47 +42,65 @@ const SiteSelect = (props) => {
     }),
   };
 
-  const { name, placeholder, options, mobile, instanceId } = props;
+  const {
+    name,
+    placeholder,
+    options,
+    isMobile,
+    instanceId,
+    onChangeHtml,
+  } = props;
 
-  if (!mobile) {
+  const v = options.find((i) => i.active);
+
+  if (!isMobile) {
     return (
       <Select
+        {...props}
+        value={v}
         classNamePrefix="react-select"
         // defaultMenuIsOpen={props.instanceId === 0}
         isClearable
         isSearchable={false}
         styles={colorStyles}
         components={{ ClearIndicator, DropdownIndicator }}
-        {...props}
       />
     );
   }
 
   return (
-    <select
-      name={name}
-      id={`mobile-filter-${instanceId}`}
-      className="mobile-select tx-family-titles tx-small"
-      defaultValue="placeholder"
-    >
-      <option value="placeholder" disabled>
-        {placeholder}
-      </option>
-      {options.map(({ value, label, mobileLabel }, k) => {
-        const test = mobileLabel || label;
-        return (
-          <option key={k} value={value}>
-            {test}
-          </option>
-        );
-      })}
-    </select>
+    <div className="pos-relative">
+      <select
+        name={name}
+        id={`mobile-filter-${instanceId}`}
+        className="mobile-select tx-family-titles w-100"
+        defaultValue="placeholder"
+        onChange={onChangeHtml}
+      >
+        <option value="placeholder" disabled>
+          {placeholder}
+        </option>
+        {options.map(({ value, label, mobileLabel }, k) => {
+          const optionTitle = mobileLabel || label;
+          return (
+            <option key={k} value={value}>
+              {optionTitle}
+            </option>
+          );
+        })}
+      </select>
+      <ChevronDown className="pos-absolute pos-center-right" />
+    </div>
   );
 };
 
 SiteSelect.propTypes = {
-  options: PropTypes.array,
+  name: PropTypes.string,
   placeholder: PropTypes.string,
+  options: PropTypes.array,
+  isMobile: PropTypes.bool,
+  instanceId: PropTypes.number,
+  onChangeHtml: PropTypes.func,
 };
 
 export default SiteSelect;

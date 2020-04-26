@@ -1,9 +1,11 @@
 import { createStateLink } from '@hookstate/core';
 
-export const PostStore = createStateLink({
+const PostStore = createStateLink({
   visibility: [
     {
       isVisible: false,
     },
   ],
 });
+
+export default PostStore;

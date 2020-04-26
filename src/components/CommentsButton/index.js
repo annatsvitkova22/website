@@ -4,7 +4,7 @@ import { useStateLink } from '@hookstate/core';
 
 import CommentsPopUp from '~/components/CommentsPopUp';
 import Icons from '~/components/Icons';
-import { PostStore } from '~/stores/Post';
+import PostStore from '~/stores/Post';
 
 const CommentsButton = ({ className, comments }) => {
   const state = useStateLink(PostStore);

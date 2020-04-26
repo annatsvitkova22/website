@@ -20,6 +20,7 @@ const List = ({ block, className }) => {
 
 List.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default List;

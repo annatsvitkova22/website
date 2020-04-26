@@ -24,6 +24,7 @@ const Paragraph = ({ block, className = '' }) => {
 
 Paragraph.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default Paragraph;

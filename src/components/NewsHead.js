@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-
 import Tags from '~/components/Tags';
-import ShareItems from '~/components/ShareItems';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
-import ArticleAuthor from '~/components/Article/Author';
 
 const NewsHead = (props) => {
   const { post } = props;
-
 
   const [isLoad, setIsLoad] = React.useState(false);
 

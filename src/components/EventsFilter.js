@@ -11,7 +11,7 @@ const EventsFilter = (props) => {
       <button onClick={eventFilter} name="finished">
         Завершені
       </button>
-      <input type="date" onChange={eventFilter} name="forDate" />
+       <input type="date" onChange={eventFilter} name="forDate" />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { useStateLink } from '@hookstate/core';
 import ShareItems from '~/components/ShareItems';
 import CommentsItem from '~/components/CommentsPopUp/CommentsItem';
 import Icons from '~/components/Icons';
-import { PostStore } from '~/stores/Post';
+import PostStore from '~/stores/Post';
 
 const CommentsPopUp = () => {
   const [form, setForm] = useState({
@@ -33,7 +33,7 @@ const CommentsPopUp = () => {
   };
 
   const handleSubmitComment = () => {
-    console.log(submit);
+    console.log('submit');
   };
 
   return (

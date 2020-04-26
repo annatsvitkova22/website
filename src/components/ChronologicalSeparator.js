@@ -1,7 +1,8 @@
 import React from 'react';
+import * as classnames from 'classnames';
 import * as moment from 'moment';
 
-const ChronologicalSeparator = ({ posts, currentIndex }) => {
+const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
   const currentDate = moment(posts[currentIndex].date);
   let text = '';
   if (currentIndex === 0 && !currentDate.isSame(moment(), 'day')) {
@@ -17,8 +18,8 @@ const ChronologicalSeparator = ({ posts, currentIndex }) => {
   }
   const { date } = posts[currentIndex];
   return (
-    <h4>
-      <time className={'article__separator'} dateTime={date}>
+    <h4 className={classnames('date-separator', className)}>
+      <time className="date-separator__time" dateTime={date}>
         {text}
       </time>
     </h4>

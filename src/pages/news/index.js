@@ -4,6 +4,8 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 import { useStateLink } from '@hookstate/core';
+import { Router } from 'next/router';
+import StickyBox from 'react-sticky-box';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -12,10 +14,9 @@ import Article from '~/components/Article';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
-import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import { NewsStore, CreateNewsStore, setIsChanged } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
-import { dateToGraphQLQuery } from '~/util/date';
+import dateToGraphQLQuery from '~/util/date';
 
 const composeQuery = ({
   cursor,
@@ -30,9 +31,9 @@ const composeQuery = ({
     query NewsArchive(
       $cursor: String = ${cursor}
       $articles: Int = ${articles}
-      $day: Int = ${day ? day : null}
-      $month: Int = ${month ? month : null}
-      $year: Int = ${year ? year : null}
+      $day: Int = ${day || null}
+      $month: Int = ${month || null}
+      $year: Int = ${year || null}
       ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
       categories(where: { hideEmpty: true }) {
@@ -84,11 +85,10 @@ const composeQuery = ({
             }
           }
           author {
+            id
             name
             nicename
             nickname
-            slug
-            userId
             username
           }
           comments {
@@ -150,17 +150,19 @@ const News = ({ posts, categories, query }) => {
     'news',
     variables.articles,
     variables.onLoadNumber,
-    isChanged
+    isChanged,
+    (changed) => setIsChanged(changed)
   );
 
   useEffect(() => {
     setLoaded(true);
+
+    Router.events.on('routeChangeComplete', () => {
+      setIsChanged(true);
+    });
   }, []);
 
   useRouterSubscription(
-    () => {
-      setIsChanged(true);
-    },
     {
       name: 'sorting',
       current: currentSorting.value,
@@ -191,9 +193,7 @@ const News = ({ posts, categories, query }) => {
             <NewsLoader />
           </main>
           <aside className="news-archive__sidebar col-md-4">
-            <SidebarLoader />
-            <SidebarLoader />
-            <ActionbarLoader />
+            <SidebarLoader type={'archive'} />
           </aside>
         </div>
       </div>
@@ -227,13 +227,19 @@ const News = ({ posts, categories, query }) => {
             </main>
           </div>
           <div className="col-md-4">
-            <SidebarNews
-              className="news-archive__sidebar"
-              sorting={sorting}
-              filters={filters}
-              currentCategory={currentCategory}
-              currentSorting={currentSorting}
-            />
+            <StickyBox
+              offsetTop={80}
+              offsetBottom={20}
+              className={'news-archive__sidebar-wrapper col-md-4'}
+            >
+              <SidebarNews
+                className="news-archive__sidebar"
+                sorting={sorting}
+                filters={filters}
+                currentCategory={currentCategory}
+                currentSorting={currentSorting}
+              />
+            </StickyBox>
           </div>
         </div>
       </div>
@@ -282,6 +288,11 @@ News.getInitialProps = async ({ query }) => {
   const { posts, categories } = data;
 
   return { posts, categories, query };
+};
+
+News.propTypes = {
+  className: PropTypes.string,
+  query: PropTypes.any,
 };
 
 export default News;

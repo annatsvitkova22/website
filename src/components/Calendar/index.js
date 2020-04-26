@@ -17,7 +17,7 @@ const Calendar = ({
       onChange={onChange}
       value={currentValue ? new Date(currentValue) : ''}
       tileDisabled={({ activeStartDate, date, view }) => {
-        if (view !== 'month') return;
+        if (view !== 'month') return false;
         const now = moment(activeStartDate);
         return !moment(date).isSame(now, 'month');
       }}

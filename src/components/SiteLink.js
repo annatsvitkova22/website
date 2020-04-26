@@ -11,12 +11,20 @@ const NavLink = ({ children, href, ...otherProps }) => {
     (e) => e.env === process.env.ENV
   );
 
-  if (href.startsWith(apiUrl) || href.startsWith(frontUrl)) {
+  if (
+    href.startsWith(apiUrl) ||
+    href.startsWith(frontUrl) ||
+    href.startsWith('/')
+  ) {
     let tempHref = href.split(apiUrl)[1];
     if (href.startsWith(frontUrl)) {
       /* eslint-disable prefer-destructuring */
       tempHref = href.split(frontUrl)[1];
       /* eslint-enable prefer-destructuring */
+    }
+
+    if (href.startsWith('/')) {
+      tempHref = href;
     }
 
     const isStrictRoute =
@@ -25,8 +33,16 @@ const NavLink = ({ children, href, ...otherProps }) => {
 
     if (!isStrictRoute && tempHref.startsWith('/tag')) {
       return (
+        <Link href={`/search?q=${cleanUrl(tempHref.split('/tag/')[1])}&by=tag`}>
+          <a {...otherProps}>{children}</a>
+        </Link>
+      );
+    }
+
+    if (!isStrictRoute && tempHref.startsWith('/category')) {
+      return (
         <Link
-          href={`/search?query=${cleanUrl(tempHref.split('/tag/')[1])}&by=tag`}
+          href={`/search?category=${cleanUrl(tempHref.split('/category/')[1])}`}
         >
           <a {...otherProps}>{children}</a>
         </Link>

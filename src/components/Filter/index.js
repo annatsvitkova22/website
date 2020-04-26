@@ -1,7 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
 
-
 const Filter = ({
   currentOption = {},
   onChange = () => {},

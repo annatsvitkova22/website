@@ -1,8 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
 
-
-
 const Sorting = ({
   currentOption,
   onChange = () => {},

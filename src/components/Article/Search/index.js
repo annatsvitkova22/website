@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as classnames from 'classnames';
 
 import ArticleAuthor from '~/components/Article/Author';
@@ -7,16 +7,16 @@ import ArticleTitle from '~/components/Article/Title';
 import ArticleTaxonomies from '~/components/Article/Taxonomies';
 import ArticleDate from '~/components/Article/Date';
 import ArticleFeatured from '~/components/Article/Featured';
+import ArticleType from '~/components/Article/Type';
+import ArticleContext from '~/components/Article/Context';
 
-<<<<<<< HEAD
-const ArticleNews = ({ post, children, className }) => {
-=======
-const ArticleNews = ({
+const ArticleSearch = ({
   post,
   children,
   className,
   showAuthor = true,
   highlightInTitle,
+  displayType,
 }) => {
   const {
     date,
@@ -27,38 +27,23 @@ const ArticleNews = ({
     author,
     featuredImage,
   } = post;
+  const postType = useContext(ArticleContext);
   const showMeta =
     showAuthor || !!(comments && comments.pageInfo && comments.pageInfo.total);
->>>>>>> development
   return (
-    <article className={classnames('article--news', className)}>
+    <article className={classnames(`article--${postType}`, className)}>
       <div className="article__wrapper">
         <div className="article__chronology">
           <ArticleDate className="article__time" date={date} />
         </div>
         <div className="article__main">
-<<<<<<< HEAD
-          <div className="article__top">
-            <ArticleDate className="article__time" date={post.date} />
-            <ArticleTaxonomies
-              categories={post.categories}
-              className="category-label"
-            />
-          </div>
-          <ArticleTitle post={post} className="article__title" />
-          <div className="article__meta">
-            <ArticleAuthor className="article__author" author={post.author} />
-            <ArticleComments
-              className="article__comments"
-              comments={post.comments}
-              slug={post.slug}
-            />
-          </div>
-=======
           <ArticleTaxonomies
             categories={categories}
             className="article__category"
           />
+          {displayType && (
+            <ArticleType className="article__type" type={displayType} />
+          )}
           <ArticleTitle
             highlightInTitle={highlightInTitle}
             post={post}
@@ -76,7 +61,6 @@ const ArticleNews = ({
               />
             </div>
           )}
->>>>>>> development
         </div>
         <ArticleFeatured
           className="article__image"
@@ -90,4 +74,4 @@ const ArticleNews = ({
   );
 };
 
-export default ArticleNews;
+export default ArticleSearch;

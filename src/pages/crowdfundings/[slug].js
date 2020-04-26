@@ -51,7 +51,7 @@ const Crowdfunding = (props) => {
             </div>
             <div className="cfsigle__descr">
               <div dangerouslySetInnerHTML={{ __html: crowdfunding.content }} />
-              {/* <Content blocks={crowdfunding.content} /> */}
+              { /* <Content blocks={crowdfunding.content} /> */ }
             </div>
             <div className="cfitem__timeout" />
           </section>

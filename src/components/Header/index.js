@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Navigation from '~/components/Navigation';
 import Logo from '~/components/Logo';
@@ -46,6 +47,8 @@ const HEADER_QUERY = gql`
 
 const Header = () => {
   const { loading, data } = useQuery(HEADER_QUERY);
+
+  const router = useRouter();
 
   const [isPinned, setIsPinned] = useState(false);
   const [isUnPinned, setIsUnpinned] = useState(false);
@@ -96,6 +99,11 @@ const Header = () => {
   };
   if (loading) return null;
 
+  const handleSearch = () => {
+    if (router.pathname === '/search') return false;
+    return setIsSearchOpen(!isSearchOpen)
+  }
+
   return (
     <header className={`${headerCls}`}>
       <div className={'header__wrapper'}>
@@ -118,7 +126,7 @@ const Header = () => {
           </a>
         </div>
         <SearchIcon
-          onClick={() => setIsSearchOpen(!isSearchOpen)}
+          onClick={handleSearch}
           color={'white'}
           className={'header__search'}
         />

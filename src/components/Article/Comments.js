@@ -1,24 +1,22 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
 import Icons from '~/components/Icons';
 
 const ArticleComments = ({ comments, slug, className }) => {
   const postType = useContext(ArticleContext);
+  if (!comments || !comments.pageInfo || !comments.pageInfo.total) return null;
   return (
-    <a href={'#'} className='meta-comments'>
-      <Icons icon={'comment-alt'} className="meta-comments__icon" />
-      <span className="meta-comments__count">123</span>
-    </a>
-  );
-  if (!comments.pageInfo || !comments.pageInfo.total) return null;
-  return (
-    <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>
+    <Link
+      href={`/${postType}/[slug]`}
+      as={`/${postType}/${slug}?comments=true`}
+    >
       <a
         className={classnames('meta-comments', className)}
-        href={`/${postType}/${slug}`}
+        href={`/${postType}/${slug}?comments=true`}
       >
         <Icons icon={'comment-alt'} className="meta-comments__icon" />
         <span className="meta-comments__count">{comments.pageInfo.total}</span>
@@ -27,4 +25,9 @@ const ArticleComments = ({ comments, slug, className }) => {
   );
 };
 
+ArticleComments.propTypes = {
+  comment: PropTypes.any,
+  slug: PropTypes.string,
+  className: PropTypes.string,
+};
 export default ArticleComments;
