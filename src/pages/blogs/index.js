@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
@@ -21,6 +21,7 @@ const BLOGGERS = gql`
         name
         blogs(first: 3) {
           nodes {
+            id
             title
             slug
             featuredImage {
@@ -51,6 +52,18 @@ const BLOGGERS = gql`
 const BlogsArchive = ({ users }) => {
   const [state, setState] = useState({ users });
 
+  useEffect(() => {
+    const loadBlogs = async () => {
+      const users = await loadBloggersGQL();
+      setState({ users });
+    };
+
+    if (!state.users) {
+      console.log('fired?');
+      loadBlogs();
+    }
+  }, []);
+
   if (!state.users) {
     return (
       <div className="container">
@@ -79,12 +92,12 @@ const BlogsArchive = ({ users }) => {
           <main className="blogs-page__content col-12">
             {state.users.nodes.map((row, index) => {
               return (
-                <>
-                  <BloggerRow key={index} {...row} />
+                <React.Fragment key={index}>
+                  <BloggerRow {...row} />
                   {state.users.nodes.length / 2 - 1 === index && (
                     <div>most popular block</div>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
           </main>
@@ -109,6 +122,14 @@ BlogsArchive.getInitialProps = async () => {
   if (process.browser) {
     return {};
   }
+  const users = await loadBloggersGQL();
+
+  return { users };
+};
+
+export default BlogsArchive;
+
+const loadBloggersGQL = async () => {
   const {
     data: { users },
   } = await apolloClient.query({
@@ -119,7 +140,5 @@ BlogsArchive.getInitialProps = async () => {
     return blogger.blogs.nodes.length > 0;
   });
 
-  return { users };
+  return users;
 };
-
-export default BlogsArchive;
