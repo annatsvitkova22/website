@@ -1,6 +1,12 @@
 .news-archive {
   padding: 50px 0 30px;
-}
-.news-archive__sidebar-wrapper {
-  max-height: 600px;
+
+  &__sidebar-wrapper {
+    max-height: 600px;
+  }
+
+  &__sidebar {
+    max-width: 390px;
+    margin-left: auto;
+  }
 }
