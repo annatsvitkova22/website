@@ -1,10 +1,7 @@
 .react-calendar {
   margin-bottom: 28px;
 
-  button {
-    background-color: transparent;
-    border: none;
-  }
+
 
   &__tile {
     &--active {
@@ -24,15 +21,28 @@
   }
   &__navigation {
     margin-bottom: 26px;
+
+    line-height: 1;
+
     &__label {
       font-family: $font-family-titles;
 
       font-weight: 600;
       font-size: 14px;
-      line-height: 21px;
+      line-height: 18px;
       text-align: center;
       letter-spacing: 0.1px;
       text-transform: capitalize;
+    }
+
+    &__arrow {
+      width: 24px;
+      height: 24px;
+    }
+
+    &__next2-button,
+    &__prev2-button {
+      display: none;
     }
   }
 }
