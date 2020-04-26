@@ -135,14 +135,24 @@ const BlogsArchive = ({ users, query }) => {
   return (
     <div className="container">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Change this!'}</title>
+        {/* TODO: change it */}
+        <title>{`ЗМІСТ | Блоги - `}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="blogger-page">
         <div className="row">
           <main className="blogger-page__content col-12">
-
+            {state.data.users.nodes.map((row, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <BloggerRow
+                    waypoint={<Waypoint onEnter={fetchingContent} />}
+                    inRow={2}
+                    {...row}
+                  />
+                </React.Fragment>
+              );
+            })}
           </main>
         </div>
       </div>

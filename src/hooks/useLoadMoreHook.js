@@ -97,7 +97,7 @@ const useLoadMoreHook = (
     }
 
     if ((!!state.data.nodes || !!state.data.users) && !isChanged) {
-      return
+      return;
     }
 
     if (!state.data.nodes || isChanged) {
@@ -139,17 +139,31 @@ const useLoadMoreHook = (
         });
         break;
       case 'blogger':
-        setState({
-          user: state.user,
+        // TODO: make load real new posts
+        // it's loading posts from start
+        console.log({
           data: {
             ...state.data,
-            users: [...state.data.nodes, ...responseData.data.users],
+            users: {
+              nodes: [
+                {
+                  ...state.data.users.nodes[0],
+                  blogs: {
+                    nodes: [
+                      ...state.data.users.nodes[0].blogs.nodes,
+                      ...responseData.data.users.nodes[0].blogs.nodes,
+                    ],
+                  },
+                },
+              ],
+            },
           },
           endCursor: responseData.data.users.nodes[0].blogs.pageInfo
             ? responseData.data.users.nodes[0].blogs.pageInfo.endCursor
             : false,
           isLoading: false,
         });
+        // setState();
         break;
       case 'publications':
         setState({
