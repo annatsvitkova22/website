@@ -10,13 +10,10 @@ import BloggerRow from '~/components/Blogger/Row';
 import SimilarPosts from '~/components/SimilarPosts';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
-import { setIsChanged } from '~/stores/News';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
-import Article from '~/components/Article';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleNews from '~/components/Article/News';
-import ArticleBlogsWide from '~/components/Article/Blogs/Wide';
 
 const BLOGGERS = gql`
   query Bloggers {

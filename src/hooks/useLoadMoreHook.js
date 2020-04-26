@@ -10,7 +10,8 @@ const useLoadMoreHook = (
   initialNumber = 10,
   onLoadNumber = 3,
   isChanged,
-  setIsChanged = () => {}
+  setIsChanged = () => {},
+  slug
 ) => {
   const [state, setState] = useState({
     data: props,
@@ -20,18 +21,29 @@ const useLoadMoreHook = (
 
   useEffect(() => {
     async function loadData() {
+      const variables = {
+        articles: initialNumber,
+        cursor: null,
+      };
+      if (slug) {
+        variables.slug = slug;
+      }
       const response = await apolloClient.query({
         query,
-        variables: {
-          articles: initialNumber,
-          cursor: null,
-        },
+        variables,
       });
       switch (type) {
         case 'blogs':
           setState({
             data: response.data.blogs,
             endCursor: response.data.blogs.pageInfo.endCursor,
+            isLoading: false,
+          });
+          break;
+        case 'blogger':
+          setState({
+            data: response.data,
+            endCursor: response.data.users.nodes[0].blogs.pageInfo.endCursor,
             isLoading: false,
           });
           break;
@@ -84,6 +96,10 @@ const useLoadMoreHook = (
       }
     }
 
+    if ((!!state.data.nodes || !!state.data.users) && !isChanged) {
+      return
+    }
+
     if (!state.data.nodes || isChanged) {
       loadData();
       if (!state.isLoading) {
@@ -118,6 +134,19 @@ const useLoadMoreHook = (
           },
           endCursor: responseData.data.blogs.pageInfo
             ? responseData.data.blogs.pageInfo.endCursor
+            : false,
+          isLoading: false,
+        });
+        break;
+      case 'blogger':
+        setState({
+          user: state.user,
+          data: {
+            ...state.data,
+            users: [...state.data.nodes, ...responseData.data.users],
+          },
+          endCursor: responseData.data.users.nodes[0].blogs.pageInfo
+            ? responseData.data.users.nodes[0].blogs.pageInfo.endCursor
             : false,
           isLoading: false,
         });
