@@ -16,7 +16,13 @@ const ChronologicalSeparator = ({ posts, currentIndex }) => {
     }
   }
   const { date } = posts[currentIndex];
-  return <time className={'article__date'} dateTime={date}>{text}</time>;
+  return (
+    <h4>
+      <time className={'article__separator'} dateTime={date}>
+        {text}
+      </time>
+    </h4>
+  );
 };
 
 export default ChronologicalSeparator;

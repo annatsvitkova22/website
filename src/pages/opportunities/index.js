@@ -49,7 +49,7 @@ const OpportunitiesArchive = (props) => {
 
   if (!state.data.nodes)
     return (
-      <div style={{ margin: '0 auto' }}>
+      <div className="container articles-container articles-container--sm">
         <NewsLoader />
         <NewsLoader />
       </div>
@@ -66,7 +66,7 @@ const OpportunitiesArchive = (props) => {
       </Head>
 
       <main>
-        <div className="container articles-container-sm">
+        <div className="container articles-container articles-container--sm">
           {nodes.map((post, i) => (
             <>
               <Article type="opportunities" post={post} key={post.id}>

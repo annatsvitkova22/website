@@ -181,7 +181,7 @@ const News = ({ posts, categories, query }) => {
 
   if (!state.data.nodes) {
     return (
-      <div className="container">
+      <div className="container articles-container">
         <div className="news-archive row">
           <main className="news-archive__content col-md-8">
             <NewsLoader />
@@ -209,28 +209,32 @@ const News = ({ posts, categories, query }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="container">
-        <div className="news-archive row">
-          <main className="news-archive__content col-md-8">
-            {nodes.map((post, i) => (
-              <React.Fragment key={i}>
-                <ChronologicalSeparator posts={nodes} currentIndex={i} />
-                <Article type="news" post={post} key={post.id}>
-                  {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                    <Waypoint onEnter={fetchingContent} />
-                  )}
-                </Article>
-              </React.Fragment>
-            ))}
-            {state.isLoading && <NewsLoader />}
-          </main>
-          <SidebarNews
-            className="news-archive__sidebar col-md-4"
-            sorting={sorting}
-            filters={filters}
-            currentCategory={currentCategory}
-            currentSorting={currentSorting}
-          />
+      <div className="container articles-container">
+        <div className="row">
+          <div className="col-md-8">
+            <main className="news-archive__content ">
+              {nodes.map((post, i) => (
+                <React.Fragment key={i}>
+                  <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                  <Article type="news" post={post} key={post.id}>
+                    {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                      <Waypoint onEnter={fetchingContent} />
+                    )}
+                  </Article>
+                </React.Fragment>
+              ))}
+              {state.isLoading && <NewsLoader />}
+            </main>
+          </div>
+          <div className="col-md-4">
+            <SidebarNews
+              className="news-archive__sidebar"
+              sorting={sorting}
+              filters={filters}
+              currentCategory={currentCategory}
+              currentSorting={currentSorting}
+            />
+          </div>
         </div>
       </div>
     </div>

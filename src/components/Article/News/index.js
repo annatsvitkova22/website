@@ -16,10 +16,13 @@ const ArticleNews = ({ post, children, className }) => {
           <ArticleDate className="article__time" date={post.date} />
         </div>
         <div className="article__main">
-          <ArticleTaxonomies
-            categories={post.categories}
-            className="article__category"
-          />
+          <div className="article__top">
+            <ArticleDate className="article__time" date={post.date} />
+            <ArticleTaxonomies
+              categories={post.categories}
+              className="category-label"
+            />
+          </div>
           <ArticleTitle post={post} className="article__title" />
           <div className="article__meta">
             <ArticleAuthor className="article__author" author={post.author} />

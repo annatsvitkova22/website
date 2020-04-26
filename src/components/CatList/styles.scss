@@ -4,24 +4,8 @@
   margin-right: -5px;
 
   &__button {
-    padding: 5px 10px 4px;
+    @include make-category;
 
-    background-color: $green;
-
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-
-    transition:
-      color 0.3s ease-in-out,
-      background-color 0.3s ease-in-out;
-
-    &::before {
-      content: '!';
-    }
-
-    &:focus,
-    &:hover,
     &--active {
       background-color: $white;
 
@@ -34,4 +18,8 @@
 
     line-height: 1;
   }
+}
+
+.category-label {
+  @include make-category;
 }
