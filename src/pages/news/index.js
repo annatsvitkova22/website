@@ -85,11 +85,10 @@ const composeQuery = ({
             }
           }
           author {
+            id
             name
             nicename
             nickname
-            slug
-            userId
             username
           }
           comments {

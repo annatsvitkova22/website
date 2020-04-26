@@ -71,8 +71,11 @@ const SIMILAR = gql`
     posts(first: 6, where: { categoryName: $category }) {
       nodes {
         author {
-          firstName
+          nicename
           lastName
+          firstName
+          nickname
+          username
           name
         }
         id
