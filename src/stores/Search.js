@@ -58,7 +58,7 @@ export const initialState = {
         value: 'week',
         gqlDateQuery: {
           after: moment().subtract(1, 'week').format('YYYY-MM-DD'),
-          before: moment().add('days', 1).format('YYYY-MM-DD'),
+          before: moment().add(1, 'days').format('YYYY-MM-DD'),
         },
       },
       {
@@ -66,7 +66,7 @@ export const initialState = {
         value: 'month',
         gqlDateQuery: {
           after: moment().subtract(1, 'month').format('YYYY-MM-DD'),
-          before: moment().add('days', 1).format('YYYY-MM-DD'),
+          before: moment().add(1, 'days').format('YYYY-MM-DD'),
         },
       },
       {
@@ -74,7 +74,7 @@ export const initialState = {
         value: '3-month',
         gqlDateQuery: {
           after: moment().subtract(3, 'month').format('YYYY-MM-DD'),
-          before: moment().add('days', 1).format('YYYY-MM-DD'),
+          before: moment().add(1, 'days').format('YYYY-MM-DD'),
         },
       },
       {
@@ -82,7 +82,7 @@ export const initialState = {
         value: '6-month',
         gqlDateQuery: {
           after: moment().subtract(6, 'month').format('YYYY-MM-DD'),
-          before: moment().add('days', 1).format('YYYY-MM-DD'),
+          before: moment().add(1, 'days').format('YYYY-MM-DD'),
         },
       },
       {
@@ -90,7 +90,7 @@ export const initialState = {
         value: 'year',
         gqlDateQuery: {
           after: moment().subtract(1, 'year').format('YYYY-MM-DD'),
-          before: moment().add('days', 1).format('YYYY-MM-DD'),
+          before: moment().add(1, 'days').format('YYYY-MM-DD'),
         },
       },
     ],
