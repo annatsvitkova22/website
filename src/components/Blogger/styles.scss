@@ -1,0 +1,5 @@
+.blogger-row {
+  &:not(:last-child) {
+    margin-bottom: 80px;
+  }
+}

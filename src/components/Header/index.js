@@ -101,8 +101,8 @@ const Header = () => {
 
   const handleSearch = () => {
     if (router.pathname === '/search') return false;
-    return setIsSearchOpen(!isSearchOpen)
-  }
+    return setIsSearchOpen(!isSearchOpen);
+  };
 
   return (
     <header className={`${headerCls}`}>

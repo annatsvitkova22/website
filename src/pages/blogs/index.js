@@ -1,73 +1,180 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
-import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
 import BlogsLoader from '~/components/Loaders/BlogsLoader';
+import BloggerRow from '~/components/Blogger/Row';
+import SimilarPosts from '~/components/SimilarPosts';
+import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
-const BLOGS_ARCHIVE = gql`
-  query BlogsArchive($cursor: String, $articles: Int) {
-    blogs(first: $articles, before: $cursor) {
-      nodes {
-        excerpt
-        title
-        slug
-        id
+const BLOGGERS = gql`
+  query Bloggers {
+    users(
+      where: {
+        orderby: { field: REGISTERED, order: ASC }
+        hasPublishedPosts: BLOG
       }
-      pageInfo {
-        endCursor
-        total
+    ) {
+      nodes {
+        name
+        blogs(first: 3) {
+          nodes {
+            id
+            title
+            slug
+            featuredImage {
+              mediaItemUrl
+            }
+            categories {
+              nodes {
+                id
+                name
+                slug
+              }
+            }
+            author {
+              name
+              nicename
+              nickname
+              slug
+              userId
+              username
+            }
+          }
+        }
       }
     }
   }
 `;
 
-const BlogsArchive = (props) => {
-  const { fetchingContent, state } = useLoadMoreHook(
-    BLOGS_ARCHIVE,
-    props,
-    'blogs'
-  );
-  if (!state.data.nodes)
+// TODO: implement popular, not last
+const POPULAR = gql`
+  query Bloggers {
+    blogs(first: 6) {
+      nodes {
+        id
+        title
+        slug
+        featuredImage {
+          mediaItemUrl
+        }
+        author {
+          name
+          nicename
+          nickname
+          slug
+          userId
+          username
+        }
+      }
+    }
+  }
+`;
+
+const BlogsArchive = ({ users }) => {
+  const [state, setState] = useState({ users });
+  const [popular, setPopular] = useState();
+
+  useEffect(() => {
+    const loadBlogs = async () => {
+      const users = await loadBloggersGQL();
+      setState({ users });
+    };
+
+    if (!state.users) {
+      loadBlogs();
+    }
+  }, []);
+
+  const loadMostPopular = async () => {
+    if (!popular) {
+      const {
+        data: { blogs },
+      } = await apolloClient.query({
+        query: POPULAR,
+      });
+      if (blogs.nodes.length > 0) {
+        setPopular(blogs.nodes);
+      }
+    }
+  };
+
+  if (!state.users) {
     return (
-      <div style={{ margin: '0 auto' }}>
-        <BlogsLoader />
-        <BlogsLoader />
+      <div className="container">
+        <div className="blogs-page">
+          <div className="row">
+            <main className="blogs-page__content col-12">
+              <BlogsLoader />
+              <BlogsLoader />
+              <BlogsLoader />
+            </main>
+          </div>
+        </div>
       </div>
     );
-
-  const { nodes, pageInfo } = state.data;
+  }
 
   return (
-    <div className="news-page">
+    <div className="container">
       <Head>
         {/* TODO: change title */}
         <title>{'Change this!'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
-        <div>
-          {nodes.map((blog, i) => (
-            <article key={i} style={{ height: '300px' }}>
-              <Link href="/blogs/[slug]" as={`/blogs/${blog.slug}`}>
-                <a>
-                  <h3>{blog.title}</h3>
-                </a>
-              </Link>
-              <div>{blog.excerpt}</div>
-              {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                <Waypoint onEnter={fetchingContent} />
-              )}
-            </article>
-          ))}
+      <div className="blogs-page">
+        <div className="row">
+          <main className="blogs-page__content col-12">
+            {state.users.nodes.map((row, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <BloggerRow {...row} />
+                  {Math.round(state.users.nodes.length / 2) - 1 === index && (
+                    <>
+                      <Waypoint onEnter={loadMostPopular} />
+                      {popular && (
+                        <SimilarPosts
+                          similarPosts={popular}
+                          title={'Популярні'}
+                          link={{
+                            label: 'Дивитися всі',
+                            value: '/search?type=blogs',
+                          }}
+                        />
+                      )}
+                      {!popular && (
+                        <div className="blogs-page__popular blogs-page__popular--loading">
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                          <div>
+                            <PostCardLoader type={'small'} />
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </main>
         </div>
-        {state.isLoading && <BlogsLoader />}
-      </main>
+      </div>
     </div>
   );
 };
@@ -87,17 +194,23 @@ BlogsArchive.getInitialProps = async () => {
   if (process.browser) {
     return {};
   }
-  const { data } = await apolloClient.query({
-    query: BLOGS_ARCHIVE,
-    variables: {
-      articles: 10,
-      cursor: null,
-    },
-  });
+  const users = await loadBloggersGQL();
 
-  const { blogs } = data;
-
-  return blogs;
+  return { users };
 };
 
 export default BlogsArchive;
+
+const loadBloggersGQL = async () => {
+  const {
+    data: { users },
+  } = await apolloClient.query({
+    query: BLOGGERS,
+  });
+
+  users.nodes = users.nodes.filter((blogger) => {
+    return blogger.blogs.nodes.length > 0;
+  });
+
+  return users;
+};
