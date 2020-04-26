@@ -17,4 +17,5 @@ export default Audio;
 
 Audio.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };

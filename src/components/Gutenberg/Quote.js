@@ -19,6 +19,7 @@ const Quote = ({ block, className = '' }) => {
 
 Quote.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default Quote;
