@@ -8,9 +8,6 @@ import ArticleTaxonomies from '~/components/Article/Taxonomies';
 import ArticleDate from '~/components/Article/Date';
 import ArticleFeatured from '~/components/Article/Featured';
 
-<<<<<<< HEAD
-const ArticleNews = ({ post, children, className }) => {
-=======
 const ArticleNews = ({
   post,
   children,
@@ -29,7 +26,6 @@ const ArticleNews = ({
   } = post;
   const showMeta =
     showAuthor || !!(comments && comments.pageInfo && comments.pageInfo.total);
->>>>>>> development
   return (
     <article className={classnames('article--news', className)}>
       <div className="article__wrapper">
@@ -37,28 +33,13 @@ const ArticleNews = ({
           <ArticleDate className="article__time" date={date} />
         </div>
         <div className="article__main">
-<<<<<<< HEAD
           <div className="article__top">
             <ArticleDate className="article__time" date={post.date} />
             <ArticleTaxonomies
-              categories={post.categories}
+              categories={categories}
               className="category-label"
             />
           </div>
-          <ArticleTitle post={post} className="article__title" />
-          <div className="article__meta">
-            <ArticleAuthor className="article__author" author={post.author} />
-            <ArticleComments
-              className="article__comments"
-              comments={post.comments}
-              slug={post.slug}
-            />
-          </div>
-=======
-          <ArticleTaxonomies
-            categories={categories}
-            className="article__category"
-          />
           <ArticleTitle
             highlightInTitle={highlightInTitle}
             post={post}
@@ -76,7 +57,6 @@ const ArticleNews = ({
               />
             </div>
           )}
->>>>>>> development
         </div>
         <ArticleFeatured
           className="article__image"
