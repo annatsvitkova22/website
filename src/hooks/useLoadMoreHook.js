@@ -194,7 +194,7 @@ const useLoadMoreHook = (
         });
         break;
       default:
-        console.log('no such type');
+        console.log('no such type', type);
     }
   };
   return {

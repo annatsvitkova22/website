@@ -5,11 +5,11 @@ import NavLink from '~/components/SiteLink';
 import Icons from '~/components/Icons';
 
 const ArticleList = ({ post, className }) => {
-  const { streetAddress, latitude, longitude } = post.zmAfishaACF.eventAddress;
+  const { streetName, latitude, longitude } = post.zmAfishaACF.eventAddress;
   const mapLink = `https://www.google.com/maps/@${latitude},${longitude}z`;
   return (
     <ul className={classnames('article-list', className)}>
-      {streetAddress && (
+      {streetName && (
         <li className="article-list__item">
           <Icons
             icon={'location'}
@@ -20,7 +20,7 @@ const ArticleList = ({ post, className }) => {
             target="_blank"
             className="article-list__item-link"
           >
-            {streetAddress}
+            {streetName}
           </NavLink>
         </li>
       )}

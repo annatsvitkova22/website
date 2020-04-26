@@ -18,11 +18,11 @@ const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
   }
   const { date } = posts[currentIndex];
   return (
-    <div className={classnames('date-separator', className)}>
+    <h4 className={classnames('date-separator', className)}>
       <time className="date-separator__time" dateTime={date}>
         {text}
       </time>
-    </div>
+    </h4>
   );
 };
 

@@ -1,0 +1,28 @@
+@mixin make-category {
+  padding: 5px 10px 4px;
+  
+  background-color: $green;
+  
+  color: $white;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  font-family: $font-family-alt;
+  
+  cursor: pointer;
+  transition:
+    color 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+
+  &::before {
+    content: '!';
+  }
+
+  &:focus,
+  &:hover {
+    background-color: $white;
+
+    color: $black;
+  }
+}

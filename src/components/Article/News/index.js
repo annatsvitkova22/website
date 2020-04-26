@@ -33,10 +33,13 @@ const ArticleNews = ({
           <ArticleDate className="article__time" date={date} />
         </div>
         <div className="article__main">
-          <ArticleTaxonomies
-            categories={categories}
-            className="article__category"
-          />
+          <div className="article__top">
+            <ArticleDate className="article__time" date={post.date} />
+            <ArticleTaxonomies
+              categories={categories}
+              className="category-label"
+            />
+          </div>
           <ArticleTitle
             highlightInTitle={highlightInTitle}
             post={post}
