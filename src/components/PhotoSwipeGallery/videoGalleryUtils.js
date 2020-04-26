@@ -52,7 +52,7 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                     </time>
                   </div>
                   <div class="col-6">
-                    <ul class="share-list list-unstyled d-flex justify-content-end">
+                    <ul class="share-list list-reset d-flex justify-content-end">
                       <li class="share-list__item">
                         <a href="https://google.com/" target="_blank">${share}</a>
                       </li>

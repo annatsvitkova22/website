@@ -1,31 +1,15 @@
 .sorting {
-  margin: 0 0 44px 0;
+  margin-bottom: 40px;
   padding: 0;
 
-  list-style-type: none;
+  font-size: 0;
 
   &__button {
-    display: flex;
-
-    padding: 0;
-
-    border: 0;
-    box-shadow: none;
-    border-radius: 0;
-    background-color: transparent;
-
+    font-family: $font-family-titles;
     font-weight: 500;
     font-size: 13px;
     line-height: 18px;
     letter-spacing: 0.02em;
-
-    cursor: pointer;
-    &:active {
-      outline: none;
-    }
-    &:focus {
-      outline: none;
-    }
   }
 
   &__item {
