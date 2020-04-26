@@ -154,17 +154,31 @@ const icons = [
   {
     type: 'footer-chevron',
     tag: `<svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="svg-icon">
-<path fill="currentColor" clip-rule="evenodd" d="M13.8594 1.0813L13.6375 0.859424C13.4906 0.712549 13.2531 0.712549 13.1062 0.859424L7 6.9688L0.890625 0.859424C0.74375 0.712549 0.50625 0.712549 0.359375 0.859424L0.1375 1.0813C-0.00937499 1.22817 -0.00937499 1.46567 0.1375 1.61255L6.73125 8.20943C6.87812 8.3563 7.11562 8.3563 7.2625 8.20943L13.8562 1.61255C14.0062 1.46567 14.0062 1.22817 13.8594 1.0813Z"/>
-</svg>
-`,
+      <path fill="currentColor" clip-rule="evenodd" d="M13.8594 1.0813L13.6375 0.859424C13.4906 0.712549 13.2531 0.712549 13.1062 0.859424L7 6.9688L0.890625 0.859424C0.74375 0.712549 0.50625 0.712549 0.359375 0.859424L0.1375 1.0813C-0.00937499 1.22817 -0.00937499 1.46567 0.1375 1.61255L6.73125 8.20943C6.87812 8.3563 7.11562 8.3563 7.2625 8.20943L13.8562 1.61255C14.0062 1.46567 14.0062 1.22817 13.8594 1.0813Z"/>
+      </svg>
+    `,
+  },
+  {
+    type: 'chevron-left',
+    tag: `<svg className={className} width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.41 10.59L2.83 6L7.41 1.41L6 0L0 6L6 12L7.41 10.59Z" fill="#242424" />
+      </svg>
+    `,
+  },
+  {
+    type: 'chevron-right',
+    tag: `<svg className={className} width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.589844 10.59L5.16984 6L0.589844 1.41L1.99984 0L7.99984 6L1.99984 12L0.589844 10.59Z" fill="#242424" />
+      </svg>
+    `,
   },
   {
     type: 'likes',
     tag: `<svg width="5" height="24" viewBox="0 0 5 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M4.41669 18.3124H0L0.0622069 -6.10352e-05H4.61886L4.41669 18.3124Z" fill="#242424"/>
-<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M0 23.9999H4.41669V20.0873H0V23.9999Z" fill="#242424"/>
-</svg>
-`,
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M4.41669 18.3124H0L0.0622069 -6.10352e-05H4.61886L4.41669 18.3124Z" fill="#242424"/>
+      <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M0 23.9999H4.41669V20.0873H0V23.9999Z" fill="#242424"/>
+    </svg>
+    `,
   },
   {
     type: 'like-comment',

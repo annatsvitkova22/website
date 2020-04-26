@@ -457,7 +457,7 @@ const Search = ({ posts, categories, types, query }) => {
                   </button>
                 </div>
                 <div className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap">
-                  <ul className="search-form__row tx-small list-unstyled">
+                  <ul className="search-form__row tx-small list-reset">
                     {filters.by.map((i) => {
                       return (
                         <li
