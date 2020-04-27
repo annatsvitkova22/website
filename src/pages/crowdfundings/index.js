@@ -14,7 +14,6 @@ import useFilterHook from '~/hooks/useCfFilterHook';
 import CfsPost from '~/components/CfsPost';
 import CfsFilter from '~/components/CfsFilter';
 import EventsPost from '~/components/EventsPost';
-import CfsLoader from '~/components/Loaders/CfsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import { Waypoint } from 'react-waypoint';
 
@@ -54,7 +53,7 @@ const CrowdfundingsArchive = (props) => {
   if (!state.data.nodes) {
     return (
       <div>
-        <CfsLoader/>
+        loader
       </div>
     );
   }
@@ -139,7 +138,7 @@ const CrowdfundingsArchive = (props) => {
                 )}
               </>
             ))}
-            {state.isLoading && <CfsLoader/>}
+            {state.isLoading && 'loader'}
           </React.Fragment>
         </section>
       </main>
