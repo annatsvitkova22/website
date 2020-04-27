@@ -147,6 +147,8 @@ const BlogsArchive = ({ users, query }) => {
                 <React.Fragment key={index}>
                   <BloggerRow
                     waypoint={<Waypoint onEnter={fetchingContent} />}
+                    isLoading={state.isLoading}
+                    loader={<PostCardLoader type={'small'} />}
                     inRow={2}
                     {...row}
                   />
