@@ -132,8 +132,6 @@ const BlogsArchive = ({ users, query }) => {
     );
   }
 
-  console.log(popular);
-
   return (
     <div className="container">
       <Head>
@@ -173,7 +171,7 @@ const BlogsArchive = ({ users, query }) => {
             />
           )}
           {!popular && (
-            <div className="blogs-similar blogs-similar--loading">
+            <div className="posts-similar posts-similar--loading posts-similar--blogs">
               <div>
                 <PostCardLoader type={'small'} />
               </div>

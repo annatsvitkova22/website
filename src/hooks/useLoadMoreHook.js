@@ -5,7 +5,7 @@ import { setCategories } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
-  props,
+  props = {},
   type,
   initialNumber = 10,
   onLoadNumber = 3,
@@ -13,11 +13,12 @@ const useLoadMoreHook = (
   setIsChanged = () => {},
   slug
 ) => {
+  console.log(props);
   const [state, setState] = useState({
     data: { ...props },
     endCursor:
       type === 'blogger'
-        ? props && props.users.nodes[0].blogs.pageInfo
+        ? props.users && props.users.nodes[0].blogs.pageInfo
           ? props.users.nodes[0].blogs.pageInfo.endCursor
           : null
         : props.pageInfo
