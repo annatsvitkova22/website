@@ -2,6 +2,7 @@ import React from 'react';
 import * as moment from 'moment';
 
 import Icons from '~/components/Icons';
+import CommentAction from '~/components/Comment/Action';
 
 const Comment = ({ comment }) => {
   const {
@@ -23,27 +24,36 @@ const Comment = ({ comment }) => {
         dangerouslySetInnerHTML={{ __html: content }}
       />
       <div className={'comments-pp__actions'}>
-        <div className={'comments-pp__actions-item'}>
-          <Icons
-            icon={'like-comment'}
-            className={'comments-pp__actions-icon'}
-          />
-          <span>Лайк</span>
-        </div>
-        <div className={'comments-pp__actions-item'}>
-          <Icons
-            icon={'answer-comment'}
-            className={'comments-pp__actions-icon'}
-          />
-          <span>Відповісти</span>
-        </div>
-        <div className={'comments-pp__actions-item'}>
-          <Icons
-            icon={'complain-comment'}
-            className={'comments-pp__actions-icon'}
-          />
-          <span>Поскаржитися</span>
-        </div>
+        <CommentAction
+          className={'comments-pp__actions-item'}
+          icon={
+            <Icons
+              icon={'like-comment'}
+              className={'comments-pp__actions-icon'}
+            />
+          }
+          label={'Лайк'}
+        />
+        <CommentAction
+          className={'comments-pp__actions-item'}
+          icon={
+            <Icons
+              icon={'answer-comment'}
+              className={'comments-pp__actions-icon'}
+            />
+          }
+          label={'Відповісти'}
+        />
+        <CommentAction
+          className={'comments-pp__actions-item'}
+          icon={
+            <Icons
+              icon={'complain-comment'}
+              className={'comments-pp__actions-icon'}
+            />
+          }
+          label={'Поскаржитися'}
+        />
       </div>
     </div>
   );
