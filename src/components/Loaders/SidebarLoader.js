@@ -2,10 +2,10 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 import PropTypes from 'prop-types';
 
-const SidebarLoader = ({ type }) => {
+const SidebarLoader = ({ type, className }) => {
   if (type === 'popular') {
     return (
-      <ContentLoader viewBox={'0 0 425 525'}>
+      <ContentLoader className={className} viewBox={'0 0 425 525'}>
         <rect x={'0'} y={`0`} width={'425'} height={`20`} />
         <rect x={'0'} y={`25`} width={'425'} height={`20`} />
         <rect x={'0'} y={`50`} width={'425'} height={`20`} />
