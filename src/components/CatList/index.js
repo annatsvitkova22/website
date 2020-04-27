@@ -3,7 +3,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const CatList = ({ categories, currCatId }) => (
-  <ul className="list-unstyled cat-list">
+  <ul className="list-reset cat-list">
     {categories.map((category) => {
       const { categoryId, slug, name, videos } = category;
       if (videos.nodes.length !== 0) {

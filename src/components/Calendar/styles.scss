@@ -1,79 +1,81 @@
 .react-calendar {
-  margin-bottom: 28px;
+  margin-bottom: 38px;
 
-  button {
-    background-color: transparent;
-    border: none;
+  font-family: $font-family-titles;
+
+  abbr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    text-decoration: none;
+
+    transition: all 0.3s;
+  }
+
+  &__month-view {
+    &__weekdays {
+      &__weekday {
+        margin-bottom: 14px;
+      }
+      abbr {
+        font-size: 12px;
+        line-height: 15px;
+    
+        cursor: default;
+      }
+    }
+
+    &__days {
+      font-size: 16px;
+      line-height: 24px;
+
+      &__day {
+        abbr {
+          margin: 2px auto;
+        
+          width: 48px;
+          height: 48px;
+          padding: 0;
+        
+          border-radius: 50%;
+        }
+      }
+    }
   }
 
   &__tile {
-    &--active {
-      background: rgba(29, 158, 116, 0.08);
-      border-radius: 50%;
+    &--active,
+    &:hover {
+      abbr {
+        background: rgba(29, 158, 116, 0.08);
 
-      outline: none;
-
-      color: $green;
-      &--active:focus {
-        outline: none;
-      }
-      &--active:active {
-        outline: none;
+        color: $green;
       }
     }
   }
   &__navigation {
     margin-bottom: 26px;
-    &__label {
-      font-family: $font-family-titles;
 
+    line-height: 1;
+
+    &__label {
       font-weight: 600;
       font-size: 14px;
-      line-height: 21px;
+      line-height: 18px;
       text-align: center;
       letter-spacing: 0.1px;
       text-transform: capitalize;
     }
-  }
-}
-.react-calendar__month-view__weekdays__weekday {
-  margin-bottom: 14px;
 
-  abbr {
-    display: flex;
-    justify-content: center;
+    &__arrow {
+      width: 24px;
+      height: 24px;
+    }
 
-    text-decoration: none;
-
-    font-family: $font-family-titles;
-
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 15px;
-  }
-}
-.react-calendar__month-view__days {
-  font-family: $font-family-titles;
-
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.react-calendar__month-view__days__day {
-  width: 60.56px;
-  height: 60.56px;
-  padding: 0;
-  &:hover {
-    background: rgba(29, 158, 116, 0.08);
-    border-radius: 50%;
-
-    color: $green;
-  }
-  &:focus {
-    outline: none;
-  }
-  &:active {
-    outline: none;
+    &__next2-button,
+    &__prev2-button {
+      display: none;
+    }
   }
 }

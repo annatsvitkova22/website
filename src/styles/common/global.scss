@@ -18,13 +18,29 @@ a {
   text-decoration: none;
 }
 
-.list-unstyled {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  padding-left: 0;
+button {
+  display: inline-block;
 
-  list-style-type: none;
+  padding: 0;
+  
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  background-color: transparent;
+
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+.list-reset {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .popup {
