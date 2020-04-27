@@ -3,6 +3,7 @@ import * as classnames from 'classnames';
 
 import ArticleNews from '~/components/Article/News';
 import ArticleOpportunities from '~/components/Article/Opportunities';
+import ArticleEvents from '~/components/Article/Events';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleBlogs from '~/components/Article/Blogs';
 
@@ -34,6 +35,16 @@ const Article = ({ type, className, ...props }) => {
       return (
         <ArticleProvider value={type}>
           <ArticleOpportunities
+            className={classnames('article', className)}
+            {...props}
+          />
+        </ArticleProvider>
+      );
+    }
+    case 'events': {
+      return (
+        <ArticleProvider value={type}>
+          <ArticleEvents
             className={classnames('article', className)}
             {...props}
           />
