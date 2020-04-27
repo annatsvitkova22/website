@@ -1,5 +1,23 @@
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 
+export const commentsQuery = `commentCount
+      comments {
+        nodes {
+          author {
+            ... on CommentAuthor {
+              id
+              name
+            }
+          }
+          content
+          commentId
+          date
+          commentACF {
+            likes
+          }
+        }
+      }`;
+
 const singleContentCommon = `${gutenbergBlocksQuery}
       title
       date
@@ -23,23 +41,7 @@ const singleContentCommon = `${gutenbergBlocksQuery}
         likes
         views
       }
-      commentCount
-      comments {
-        nodes {
-          author {
-            ... on CommentAuthor {
-              id
-              name
-            }
-          }
-          content
-          commentId
-          date
-          commentACF {
-            likes
-          }
-        }
-      }
+      ${commentsQuery}
       author {
         nicename
         lastName

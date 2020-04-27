@@ -2,6 +2,41 @@ import React, { useState } from 'react';
 import * as classnames from 'classnames';
 import gql from 'graphql-tag';
 import apolloClient from '~/lib/ApolloClient';
+import { updateComments } from '~/stores/SingleArticle';
+import { commentsQuery } from '~/lib/GraphQL/singleContentCommon';
+
+const UPDATED_POST = (id) => {
+  return gql`
+    query UpdatedPost {
+      contentNode(id: "${id}", idType: DATABASE_ID) {
+        ... on Post {
+          ${commentsQuery}
+        }
+        ... on Blog {
+          ${commentsQuery}
+        }
+        ... on Crowdfunding {
+          ${commentsQuery}
+        }
+        ... on Event {
+          ${commentsQuery}
+        }
+        ... on Opportunity {
+          ${commentsQuery}
+        }
+        ... on Other {
+          ${commentsQuery}
+        }
+        ... on Publication {
+          ${commentsQuery}
+        }
+        ... on Video {
+          ${commentsQuery}
+        }
+      }
+    }
+  `;
+};
 
 const ADD_COMMENT = gql`
   mutation($author: String, $commentOn: Int, $content: String) {
@@ -66,13 +101,20 @@ const CommentForm = ({
       query: ADD_COMMENT,
       variables,
     });
-    if (response.data.createComment.success) {
+    if (!response.errors && response.data.createComment.success) {
       setForm({
         name: '',
         message: '',
       });
       // TODO: make it
-      console.log('load newly added comments');
+      const updatedPost = await apolloClient.query({
+        query: UPDATED_POST(id),
+      });
+
+      updateComments(
+        updatedPost.data.contentNode.commentCount,
+        updatedPost.data.contentNode.comments
+      );
       onSent();
     }
   };
