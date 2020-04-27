@@ -1,6 +1,33 @@
 .gutenberg__paragraph {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  margin: 0;
   & a {
     color: #1d9e74;
+  }
+}
+.gutenberg__title {
+  margin: 0;
+  padding-bottom: 10px;
+  width: 100%;
+}
+.gutenberg__title:not(:first-child) {
+  padding-top: 30px;
+}
+.gutenberg__unordered-list {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 26.5px;
+
+  list-style: disc;
+
+  margin: 0;
+  & > li:not(:last-child) {
+    padding-bottom: 8px;
+  }
+  & > li:not(:first-child) {
+    padding-top: 8px;
   }
 }
 
@@ -56,9 +83,6 @@
   margin-bottom: 40px;
 }
 .gutenberg__youtube iframe {
-  width: 100%;
-}
-.gutenberg__title {
   width: 100%;
 }
 

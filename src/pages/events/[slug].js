@@ -70,10 +70,10 @@ const Event = (props) => {
       </Head>
 
       <main className="event container">
-        <div className="event__wrapper row">
+        <div className="event__wrapper row no-gutters">
           <div className="event__background">
-            <div className="event__content-wrapper col-xl-8">
-              <div className="event__content col-xl-10">
+            <div className="event__title-wrapper col-xl-8">
+              <div className="event__content ">
                 <div className="event__date">
                   <span className="event__day">24</span>
                   <span className="event__month">Березня</span>
@@ -94,8 +94,8 @@ const Event = (props) => {
             </div>
           </div>
           <div className="event__content-wrapper col-xl-8">
-            <div className="event__content col-xl-10">
-              <Content content={event.blocks} className="event__main-content" />
+            <div className="event__content">
+              <Content content={event.blocks} className="event__content-main" />
             </div>
           </div>
           <div className="event__information col-xl-3">

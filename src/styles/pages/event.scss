@@ -1,9 +1,9 @@
-body {
-  visibility: visible;
-}
 .event {
-  padding-top: 118px;
+  padding-top: 50px;
 
+  &__title-wrapper {
+    padding-top: 69px;
+  }
   &__background {
     height: 650px;
     max-width: 1320px;
@@ -13,8 +13,9 @@ body {
   }
   &__content {
     margin: 0 auto;
-    &-wrapper {
-      padding-top: 69px;
+    max-width: 648px;
+    &-main {
+      font-family: $font-family-titles;
     }
   }
   &__date {
@@ -26,7 +27,9 @@ body {
     font-family: $font-family-titles;
   }
   &__day {
-    margin-bottom: 6px;
+    display: inline-block;
+
+    padding-bottom: 6px;
 
     font-weight: 700;
     font-size: 31px;
@@ -58,6 +61,13 @@ body {
   }
   &__title {
     margin-bottom: 20px;
+
+    text-transform: capitalize;
+  }
+  &__excerpt {
+    max-width: 424px;
+
+    font-weight: 500;
   }
   &__excerpt > p {
     margin-bottom: 24px;
@@ -71,12 +81,28 @@ body {
   &__location {
     display: flex;
     align-items: center;
+
+    font-family: $font-family-titles;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    letter-spacing: 0.06em;
     .location {
-      padding-right: 13px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin-right: 13px;
+      height: 24px;
+      width: 24px;
     }
+  }
+  &__content-wrapper {
+    padding-top: 59px;
   }
   &__information {
     position: fixed;
     right: 0;
   }
+
 }
