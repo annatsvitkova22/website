@@ -33,6 +33,7 @@ const BLOG = gql`
         }
       }
       id
+      blogId
       comments {
         pageInfo {
           total

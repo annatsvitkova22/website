@@ -33,6 +33,7 @@ const POST = gql`
         }
       }
       id
+      postId
       comments {
         pageInfo {
           total

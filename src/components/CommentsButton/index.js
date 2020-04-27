@@ -6,7 +6,8 @@ import CommentsPopUp from '~/components/CommentsPopUp';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 
-const CommentsButton = ({ className, comments }) => {
+const CommentsButton = ({ post }) => {
+  const { comments } = post;
   const state = useStateLink(PostStore);
 
   const changeVisibility = () => {
@@ -26,16 +27,17 @@ const CommentsButton = ({ className, comments }) => {
       <button className={`comments-button`} onClick={changeVisibility}>
         <Icons icon={'comment'} />
         <span>Коментарі</span>
-        {comments && <span>( {comments.pageInfo.total})</span>}
+        {comments && comments.pageInfo && (
+          <span>( {comments.pageInfo.total})</span>
+        )}
       </button>
-      <CommentsPopUp />
+      <CommentsPopUp post={post} />
     </>
   );
 };
 
 CommentsButton.propTypes = {
   className: PropTypes.string,
-  comments: PropTypes.any,
 };
 
 export default CommentsButton;

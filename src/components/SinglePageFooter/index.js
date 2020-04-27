@@ -7,11 +7,12 @@ import CommentsButton from '~/components/CommentsButton';
 import Icons from '~/components/Icons';
 
 const NewsFooter = ({ post }) => {
+  const { tags } = post;
   return (
     <section className={'single-post__footer'}>
-      <Tags list={post.tags.nodes} className={'tag'} />
+      <Tags list={tags.nodes} className={'tag'} />
       <div className={'footer__comments'}>
-        <CommentsButton className={'col-3'} commetnts={post.comments} />
+        <CommentsButton className={'col-3'} post={post} />
         <div className={'footer__comments-share'}>
           <button className={'like'}>
             <Icons icon={'likes'} />
