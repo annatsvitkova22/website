@@ -1,22 +1,17 @@
 import React from 'react';
 
 import Icons from '~/components/Icons';
+import LikeButton from '~/components/LikeButton';
 
-const Share = () => {
+const Share = ({ post }) => {
   const changeVisibility = () => {
     console.log('share');
-  };
-  const handleLike = () => {
-    return console.log('like');
   };
 
   return (
     <aside className={'share'}>
       <div className={'share-wrapper'}>
-        <button onClick={handleLike} className={'like'}>
-          <Icons icon={'likes'} />
-        </button>
-        <span>123</span>
+        <LikeButton post={post} />
       </div>
       <div className={'share-wrapper'}>
         <button onClick={changeVisibility} className={'share-button'}>

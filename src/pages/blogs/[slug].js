@@ -4,58 +4,18 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Waypoint } from 'react-waypoint';
 
-import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import SimilarPosts from '~/components/SimilarPosts';
 import SideBarPost from '~/components/Sidebar/Post';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ArticleSingle from '~/components/Article/Single';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
+import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
 
 const BLOG = gql`
   query Blog($slug: String!) {
     blogBy(slug: $slug) {
-      ${gutenbergBlocksQuery}
-      title
-      date
-      categories {
-        nodes {
-          id
-          name
-          link
-        }
-      }
-      tags {
-        nodes {
-          id
-          name
-          link
-        }
-      }
-      id
-      comments {
-        pageInfo {
-          total
-        }
-      }
-      author {
-        nicename
-        lastName
-        firstName
-        nickname
-        username
-        name
-      }
-      featuredImage {
-        id
-        mediaItemUrl
-        caption
-        title
-        author {
-          name
-          description
-        }
-      }
+      ${singleContentCommon}
     }
   }
 `;

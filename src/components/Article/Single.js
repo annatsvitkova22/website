@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import moment from 'moment';
 import * as classnames from 'classnames';
+import { useStateLink } from '@hookstate/core';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -12,9 +13,23 @@ import ArticleAuthor from '~/components/Article/Author';
 import ShareItems from '~/components/ShareItems';
 import Content from '~/components/Content';
 import NewsFooter from '~/components/SinglePageFooter';
+import { CreateSingleArticleStore, SingleArticleStore } from '~/stores/SingleArticle';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
-  if (!post) {
+  const [loaded, setLoaded] = useState(false);
+
+  const stateLink = useStateLink(
+    loaded ? SingleArticleStore : CreateSingleArticleStore(post)
+  );
+
+  const state = stateLink.get();
+  const storedPost = state.post;
+
+  useEffect(() => {
+    setLoaded(true);
+  }, [loaded]);
+
+  if (!storedPost) {
     return (
       <div className={'container'}>
         <div className={'row'}>
@@ -35,19 +50,19 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   return (
     <>
       <Head>
-        <title>{post.title}</title>
+        <title>{storedPost.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main
         className={classnames('single-post container', `single-post--${type}`)}
       >
-        {post ? (
+        {storedPost ? (
           <>
             <div className={'single-post__title row'}>
               <div className={'single-post__wrapper col-xl-9 col-12'}>
-                <NewsHead post={post} />
-                <FeaturedImage data={post.featuredImage} />
+                <NewsHead post={storedPost} />
+                <FeaturedImage data={storedPost.featuredImage} />
                 <section className={'single-post__main col-12'}>
                   {hasShare && (
                     <StickyBox
@@ -55,7 +70,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       offsetBottom={20}
                       className={'side-bar__wrapper col-xl-1'}
                     >
-                      <Share />
+                      <Share post={storedPost} />
                     </StickyBox>
                   )}
                   <section className={'single-post__content'}>
@@ -64,11 +79,11 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                         <span className="title__socials-image" />
                         <div className={'title__socials-author'}>
                           <ArticleAuthor
-                            author={post.author}
+                            author={storedPost.author}
                             className={'title__socials-name'}
                           />
                           <span className={'title__socials-date'}>
-                            {moment(post.date).format('LLL')}
+                            {moment(storedPost.date).format('LLL')}
                           </span>
                         </div>
                       </div>
@@ -76,13 +91,13 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                     </div>
                     <article
                       className={'title__description'}
-                      dangerouslySetInnerHTML={{ __html: post.excerpt }}
+                      dangerouslySetInnerHTML={{ __html: storedPost.excerpt }}
                     />
                     <Content
-                      content={post.blocks}
+                      content={storedPost.blocks}
                       className={'content__posts'}
                     />
-                    <NewsFooter post={post} />
+                    <NewsFooter post={storedPost} />
                   </section>
                 </section>
               </div>

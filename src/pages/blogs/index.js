@@ -103,11 +103,23 @@ const ALL_BLOGS = gql`
           nickname
           username
         }
-        comments {
-          pageInfo {
-            total
+        commentCount
+      comments {
+        nodes {
+          author {
+            ... on CommentAuthor {
+              id
+              name
+            }
+          }
+          content
+          commentId
+          date
+          commentACF {
+            likes
           }
         }
+      }
         date
       }
       pageInfo {
