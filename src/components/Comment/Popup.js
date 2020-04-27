@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 
 import ShareItems from '~/components/ShareItems';
-import CommentsItem from '~/components/CommentsPopUp/CommentsItem';
+import Comment from '~/components/Comment/index';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
-import CommentForm from '~/components/CommentsPopUp/Form';
+import CommentForm from '~/components/Comment/Form';
 
 
-const CommentsPopUp = ({ post }) => {
+const CommentPopup = ({ post }) => {
   const { comments } = post;
   const state = useStateLink(PostStore);
 
@@ -43,7 +43,7 @@ const CommentsPopUp = ({ post }) => {
               </div>
               <CommentForm post={post} />
               {comments.nodes.map((comment) => (
-                <CommentsItem key={comment.commentId} comment={comment} />
+                <Comment key={comment.commentId} comment={comment} />
               ))}
             </div>
           </div>
@@ -53,8 +53,8 @@ const CommentsPopUp = ({ post }) => {
   );
 };
 
-CommentsPopUp.propTypes = {
+CommentPopup.propTypes = {
   isVisible: PropTypes.bool,
 };
 
-export default CommentsPopUp;
+export default CommentPopup;

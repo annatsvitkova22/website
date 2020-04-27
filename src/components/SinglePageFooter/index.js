@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Tags from '~/components/Tags';
 import ShareItems from '~/components/ShareItems';
-import CommentsButton from '~/components/CommentsButton';
+import CommentButton from '~/components/Comment/Button';
 import Icons from '~/components/Icons';
 
 const NewsFooter = ({ post }) => {
@@ -12,7 +12,7 @@ const NewsFooter = ({ post }) => {
     <section className={'single-post__footer'}>
       <Tags list={tags.nodes} className={'tag'} />
       <div className={'footer__comments'}>
-        <CommentsButton className={'col-3'} post={post} />
+        <CommentButton className={'col-3'} post={post} />
         <div className={'footer__comments-share'}>
           <button className={'like'}>
             <Icons icon={'likes'} />

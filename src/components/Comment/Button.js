@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 
-import CommentsPopUp from '~/components/CommentsPopUp';
+import CommentPopup from '~/components/Comment/Popup';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 
-const CommentsButton = ({ post }) => {
+const CommentButton = ({ post }) => {
   const { commentCount } = post;
   const state = useStateLink(PostStore);
 
@@ -28,13 +28,13 @@ const CommentsButton = ({ post }) => {
         <Icons icon={'comment'} />
         <span>Коментарі ({commentCount ? commentCount : '0'})</span>
       </button>
-      <CommentsPopUp post={post} />
+      <CommentPopup post={post} />
     </>
   );
 };
 
-CommentsButton.propTypes = {
+CommentButton.propTypes = {
   className: PropTypes.string,
 };
 
-export default CommentsButton;
+export default CommentButton;

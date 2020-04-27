@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 import Icons from '~/components/Icons';
 
-const CommentsItem = ({ comment }) => {
+const Comment = ({ comment }) => {
   const {
     author: { name },
     date,
@@ -49,4 +49,4 @@ const CommentsItem = ({ comment }) => {
   );
 };
 
-export default CommentsItem;
+export default Comment;

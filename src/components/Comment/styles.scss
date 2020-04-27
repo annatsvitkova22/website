@@ -205,3 +205,43 @@
     }
   }
 }
+
+.comments-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 30px;
+
+  background-color: transparent;
+  border: 1px solid #d6d6d6;
+
+  font-family: $font-family-titles;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+  .svg-icon {
+    margin-right: 19px;
+
+    width: 15.97px;
+    height: 15.97px;
+  }
+  .svg-icon:hover {
+    color: #000;
+  }
+}
+.comments-button:hover {
+  border: 1px solid $black;
+}
+.comments-button:disabled > * {
+  color: $disabled;
+}
+.comments-button:disabled {
+  border: 1px solid $disabled;
+  .svg-icon {
+    color: $disabled;
+  }
+}
+
