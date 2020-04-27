@@ -44,6 +44,8 @@ const BLOG = gql`
             }
           }
           content
+          commentId
+          date
         }
       }
       author {

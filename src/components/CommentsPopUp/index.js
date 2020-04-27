@@ -1,47 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
-import { useMutation } from '@apollo/react-hooks';
 
 import ShareItems from '~/components/ShareItems';
 import CommentsItem from '~/components/CommentsPopUp/CommentsItem';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
-import gql from 'graphql-tag';
-import apolloClient from '~/lib/ApolloClient';
+import CommentForm from '~/components/CommentsPopUp/Form';
 
-const ADD_COMMENT = gql`
-  mutation($author: String, $commentOn: Int, $content: String) {
-    createComment(
-      input: {
-        clientMutationId: "CreateComment"
-        commentOn: $commentOn
-        content: $content
-        author: $author
-      }
-    ) {
-      success
-    }
-  }
-`;
 
 const CommentsPopUp = ({ post }) => {
-  const type = post.__typename.toLowerCase();
-
-  const id = post[`${type}Id`];
-  const [form, setForm] = useState({
-    name: '',
-    message: '',
-  });
+  const { comments } = post;
   const state = useStateLink(PostStore);
-
-  const handleInputChange = ({ target }) => {
-    const { name, value } = target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
 
   const handleClose = () => {
     state.set((visibility) => {
@@ -51,29 +21,6 @@ const CommentsPopUp = ({ post }) => {
       };
     });
     document.querySelector('body').classList.remove('isB-MenuOpen');
-  };
-
-  const handleSubmitComment = async () => {
-    const { name, message } = form;
-    if (!name || !message) return;
-    const variables = {
-      author: name,
-      content: message,
-      commentOn: id,
-    };
-
-    const response = await apolloClient.query({
-      query: ADD_COMMENT,
-      variables,
-    });
-    if (response.data.createComment.success) {
-      setForm({
-        name: '',
-        message: '',
-      });
-      // TODO: make it
-      console.log('load newly added comments');
-    }
   };
 
   return (
@@ -94,33 +41,10 @@ const CommentsPopUp = ({ post }) => {
                 <span>Коментарі</span>
                 <ShareItems className={'comments-pp__socials-items'} />
               </div>
-              <div className={'comments-pp__post'}>
-                <input
-                  className={'comments-pp__input pp__input-name'}
-                  type={'text'}
-                  placeholder={`Ім'я`}
-                  onChange={handleInputChange}
-                  value={form.name}
-                  name={'name'}
-                  autofocus
-                  required
-                />
-                <textarea
-                  className={'comments-pp__input pp__input-message'}
-                  placeholder={'Ваш коментар'}
-                  onChange={handleInputChange}
-                  value={form.message}
-                  name={'message'}
-                  required
-                />
-                <button
-                  className={'comments-pp__btn'}
-                  onClick={handleSubmitComment}
-                >
-                  Повідомлення
-                </button>
-              </div>
-              <CommentsItem />
+              <CommentForm post={post} />
+              {comments.nodes.map((comment) => (
+                <CommentsItem key={comment.commentId} comment={comment} />
+              ))}
             </div>
           </div>
         </div>

@@ -101,6 +101,8 @@ const composeQuery = ({
             }
           }
           content
+          commentId
+          date
         }
       }
           date

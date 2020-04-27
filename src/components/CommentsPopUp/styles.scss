@@ -6,12 +6,19 @@
   background: #fff;
 
   overflow: scroll;
+
   button {
     cursor: pointer;
   }
 
   button:focus {
     outline: none;
+  }
+
+  &__comment {
+    & + & {
+      margin-top: 41px;
+    }
   }
 
   &__wrapper {

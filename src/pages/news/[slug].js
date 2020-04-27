@@ -44,6 +44,8 @@ const POST = gql`
             }
           }
           content
+          commentId
+          date
         }
       }
       author {

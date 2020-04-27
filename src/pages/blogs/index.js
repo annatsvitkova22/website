@@ -113,6 +113,8 @@ const ALL_BLOGS = gql`
             }
           }
           content
+          commentId
+          date
         }
       }
         date

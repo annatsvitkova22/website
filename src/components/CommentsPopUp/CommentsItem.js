@@ -1,24 +1,27 @@
 import React from 'react';
+import * as moment from 'moment';
 
 import Icons from '~/components/Icons';
 
-const CommentsItem = () => {
+const CommentsItem = ({ comment }) => {
+  const {
+    author: { name },
+    date,
+    content,
+  } = comment;
+
   return (
     <div className={'comments-pp__comment'}>
       <div className={'comments-pp__author'}>
         <div className={'comments-pp__name'}>
-          <span>Егор Рудь</span>
-          <span>12 Березня, 14:24</span>
+          <span>{name}</span>
+          <span>{moment(date).locale('uk').format('D MMMM YYYY, HH:mm')}</span>
         </div>
       </div>
-      <div className={'comments-pp__text'}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-        dignissimos dolor ea eaque enim et, ex hic illo illum impedit incidunt
-        ipsam iusto, laborum neque pariatur perspiciatis possimus quas quidem!
-        Adipisci alias amet assumenda dolorem eaque earum eum exercitationem
-        fugit incidunt labore magnam magni nemo nihil optio quisquam, tempore,
-        vel velit vero vitae voluptatem? Ab aperiam cum deleniti earum quidem.
-      </div>
+      <div
+        className={'comments-pp__text'}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
       <div className={'comments-pp__actions'}>
         <div className={'comments-pp__actions-item'}>
           <Icons
