@@ -13,7 +13,6 @@ const useLoadMoreHook = (
   setIsChanged = () => {},
   slug
 ) => {
-  console.log(props);
   const [state, setState] = useState({
     data: { ...props },
     endCursor:

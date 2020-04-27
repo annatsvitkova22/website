@@ -235,7 +235,7 @@ const BlogsArchive = ({ users }) => {
             })}
             <hr />
             <div className="blogs-page__archive">
-              {state.data.nodes &&
+              {nodes &&
                 nodes.map((post, i) => (
                   <React.Fragment key={i}>
                     <ChronologicalSeparator posts={nodes} currentIndex={i} />
@@ -248,7 +248,7 @@ const BlogsArchive = ({ users }) => {
                     </ArticleProvider>
                   </React.Fragment>
                 ))}
-              {!state.data.nodes ||
+              {!nodes ||
                 (state.isLoading && (
                   <>
                     <NewsLoader />
