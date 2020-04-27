@@ -19,6 +19,10 @@ const singleContentCommon = `${gutenbergBlocksQuery}
       }
       id
       postId
+      statisticsACF {
+        likes
+        views
+      }
       commentCount
       comments {
         nodes {

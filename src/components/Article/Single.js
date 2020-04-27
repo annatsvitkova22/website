@@ -55,7 +55,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       offsetBottom={20}
                       className={'side-bar__wrapper col-xl-1'}
                     >
-                      <Share />
+                      <Share post={post} />
                     </StickyBox>
                   )}
                   <section className={'single-post__content'}>
