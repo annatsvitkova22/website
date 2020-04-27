@@ -1,22 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 import Icons from '~/components/Icons';
 import CommentAction from '~/components/Comment/Action';
+import CommentForm from '~/components/Comment/Form';
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, post }) => {
+  const [replyOpen, setReplyOpen] = useState(false);
+  const commentDisplayed = cloneDeep(comment);
+  commentDisplayed.date = moment(commentDisplayed.date)
+    .locale('uk')
+    .format('D MMMM YYYY, HH:mm');
   const {
     author: { name },
     date,
     content,
-  } = comment;
+  } = commentDisplayed;
+
+  const onReply = () => {
+    setReplyOpen(!replyOpen);
+  };
 
   return (
     <div className={'comments-pp__comment'}>
       <div className={'comments-pp__author'}>
         <div className={'comments-pp__name'}>
           <span>{name}</span>
-          <span>{moment(date).locale('uk').format('D MMMM YYYY, HH:mm')}</span>
+          <span>{date}</span>
         </div>
       </div>
       <div
@@ -43,6 +54,7 @@ const Comment = ({ comment }) => {
             />
           }
           label={'Відповісти'}
+          action={onReply}
         />
         <CommentAction
           className={'comments-pp__actions-item'}
@@ -55,6 +67,15 @@ const Comment = ({ comment }) => {
           label={'Поскаржитися'}
         />
       </div>
+      {replyOpen && (
+        <CommentForm
+          post={post}
+          comment={comment}
+          className="comments-pp__post--reply"
+          label={'Відповісти'}
+          onSent={() => setReplyOpen(!replyOpen)}
+        />
+      )}
     </div>
   );
 };

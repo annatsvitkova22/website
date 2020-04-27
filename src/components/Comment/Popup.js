@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 
@@ -7,7 +7,6 @@ import Comment from '~/components/Comment/index';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 import CommentForm from '~/components/Comment/Form';
-
 
 const CommentPopup = ({ post }) => {
   const { comments } = post;
@@ -43,7 +42,11 @@ const CommentPopup = ({ post }) => {
               </div>
               <CommentForm post={post} />
               {comments.nodes.map((comment) => (
-                <Comment key={comment.commentId} comment={comment} />
+                <Comment
+                  key={comment.commentId}
+                  post={post}
+                  comment={comment}
+                />
               ))}
             </div>
           </div>
