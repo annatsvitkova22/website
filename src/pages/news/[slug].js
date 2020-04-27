@@ -46,6 +46,9 @@ const POST = gql`
           content
           commentId
           date
+          commentACF {
+            likes
+          }
         }
       }
       author {

@@ -103,6 +103,9 @@ const composeQuery = ({
           content
           commentId
           date
+          commentACF {
+            likes
+          }
         }
       }
           date
