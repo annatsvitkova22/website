@@ -15,6 +15,7 @@ import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
 const POST = gql`
   query Post($slug: String!) {
     postBy(slug: $slug) {
+      postId
       ${singleContentCommon}
     }
   }

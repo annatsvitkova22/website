@@ -15,6 +15,7 @@ import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
 const BLOG = gql`
   query Blog($slug: String!) {
     blogBy(slug: $slug) {
+      blogId
       ${singleContentCommon}
     }
   }

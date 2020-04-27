@@ -36,7 +36,6 @@ const singleContentCommon = `${gutenbergBlocksQuery}
         }
       }
       id
-      postId
       statisticsACF {
         likes
         views
