@@ -5,7 +5,7 @@ import { setCategories } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
-  props = {},
+  props,
   type,
   initialNumber = 10,
   onLoadNumber = 3,
@@ -14,8 +14,15 @@ const useLoadMoreHook = (
   slug
 ) => {
   const [state, setState] = useState({
-    data: props,
-    endCursor: props.pageInfo ? props.pageInfo.endCursor : null,
+    data: { ...props },
+    endCursor:
+      type === 'blogger'
+        ? props && props.users.nodes[0].blogs.pageInfo
+          ? props.users.nodes[0].blogs.pageInfo.endCursor
+          : null
+        : props.pageInfo
+        ? props.pageInfo.endCursor
+        : null,
     isLoading: false,
   });
 
@@ -146,9 +153,7 @@ const useLoadMoreHook = (
         });
         break;
       case 'blogger':
-        // TODO: make load real new posts
-        // it's loading posts from start
-        console.log({
+        setState({
           data: {
             ...state.data,
             users: {
@@ -160,6 +165,13 @@ const useLoadMoreHook = (
                       ...state.data.users.nodes[0].blogs.nodes,
                       ...responseData.data.users.nodes[0].blogs.nodes,
                     ],
+                    pageInfo: {
+                      total: state.data.users.nodes[0].blogs.pageInfo.total,
+                      endCursor: responseData.data.users.nodes[0].blogs.pageInfo
+                        ? responseData.data.users.nodes[0].blogs.pageInfo
+                          .endCursor
+                        : false,
+                    },
                   },
                 },
               ],
@@ -170,7 +182,6 @@ const useLoadMoreHook = (
             : false,
           isLoading: false,
         });
-        // setState();
         break;
       case 'publications':
         setState({

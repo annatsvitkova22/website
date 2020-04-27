@@ -2,10 +2,12 @@ import React from 'react';
 import Blogger from '~/components/Blogger/index';
 import Article from '~/components/Article';
 import * as classnames from 'classnames';
+import { times } from 'lodash';
 
 const BloggerRow = ({
   waypoint,
   loader,
+  isLoading = false,
   inRow = 3,
   blogs: { nodes, pageInfo },
   ...profile
@@ -32,9 +34,21 @@ const BloggerRow = ({
                 i === nodes.length - 1 &&
                 i < pageInfo.total - 1 &&
                 waypoint}
-              {loader && loader}
             </React.Fragment>
           ))}
+          {loader &&
+            isLoading &&
+            times(inRow, (i) => (
+              <div
+                key={i}
+                className={classnames({
+                  'col-md-4': inRow === 3,
+                  'col-md-6': inRow === 2,
+                })}
+              >
+                {loader}
+              </div>
+            ))}
         </div>
       </div>
     </div>

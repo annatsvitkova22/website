@@ -207,7 +207,7 @@ const BlogsArchive = ({ users }) => {
                         />
                       )}
                       {!popular && (
-                        <div className="blogs-page__popular blogs-page__popular--loading">
+                        <div className="blogs-similar blogs-similar--loading">
                           <div>
                             <PostCardLoader type={'small'} />
                           </div>
