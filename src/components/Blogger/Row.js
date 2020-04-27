@@ -10,7 +10,9 @@ const BloggerRow = ({
   blogs: { nodes, pageInfo },
   ...profile
 }) => {
-  console.log(pageInfo);
+  // console.log({ nodes, pageInfo });
+  const hasLoadMore = pageInfo && waypoint;
+
   return (
     <div className="blogger-row row">
       <Blogger className="col-md-3" {...profile} />
@@ -26,9 +28,9 @@ const BloggerRow = ({
                 type="blogs"
                 post={blog}
               />
-              {i === nodes.length - 1 &&
+              {hasLoadMore &&
+                i === nodes.length - 1 &&
                 i < pageInfo.total - 1 &&
-                waypoint &&
                 waypoint}
               {loader && loader}
             </React.Fragment>
