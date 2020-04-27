@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const List = ({ block, className }) => {
+const List = ({ block, className = '' }) => {
   if (block.attributes.ordered) {
     return (
       <ol
