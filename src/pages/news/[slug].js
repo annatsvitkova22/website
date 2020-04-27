@@ -34,9 +34,16 @@ const POST = gql`
       }
       id
       postId
+      commentCount
       comments {
-        pageInfo {
-          total
+        nodes {
+          author {
+            ... on CommentAuthor {
+              id
+              name
+            }
+          }
+          content
         }
       }
       author {

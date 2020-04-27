@@ -7,7 +7,7 @@ import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 
 const CommentsButton = ({ post }) => {
-  const { comments } = post;
+  const { commentCount } = post;
   const state = useStateLink(PostStore);
 
   const changeVisibility = () => {
@@ -26,10 +26,7 @@ const CommentsButton = ({ post }) => {
     <>
       <button className={`comments-button`} onClick={changeVisibility}>
         <Icons icon={'comment'} />
-        <span>Коментарі</span>
-        {comments && comments.pageInfo && (
-          <span>( {comments.pageInfo.total})</span>
-        )}
+        <span>Коментарі ({commentCount ? commentCount : '0'})</span>
       </button>
       <CommentsPopUp post={post} />
     </>

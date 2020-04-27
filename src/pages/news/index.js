@@ -91,11 +91,18 @@ const composeQuery = ({
             nickname
             username
           }
-          comments {
-            pageInfo {
-              total
+          commentCount
+      comments {
+        nodes {
+          author {
+            ... on CommentAuthor {
+              id
+              name
             }
           }
+          content
+        }
+      }
           date
         }
         pageInfo {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 import { useMutation } from '@apollo/react-hooks';
@@ -8,13 +8,10 @@ import CommentsItem from '~/components/CommentsPopUp/CommentsItem';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 import gql from 'graphql-tag';
+import apolloClient from '~/lib/ApolloClient';
 
 const ADD_COMMENT = gql`
-  mutation(
-    $author: String
-    $commentOn: Int
-    $content: String
-  ) {
+  mutation($author: String, $commentOn: Int, $content: String) {
     createComment(
       input: {
         clientMutationId: "CreateComment"
@@ -29,7 +26,6 @@ const ADD_COMMENT = gql`
 `;
 
 const CommentsPopUp = ({ post }) => {
-  const [addComment, { data }] = useMutation(ADD_COMMENT);
   const type = post.__typename.toLowerCase();
 
   const id = post[`${type}Id`];
@@ -57,7 +53,7 @@ const CommentsPopUp = ({ post }) => {
     document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
-  const handleSubmitComment = () => {
+  const handleSubmitComment = async () => {
     const { name, message } = form;
     if (!name || !message) return;
     const variables = {
@@ -66,8 +62,18 @@ const CommentsPopUp = ({ post }) => {
       commentOn: id,
     };
 
-    // return console.log(variables);
-    addComment({ variables });
+    const response = await apolloClient.query({
+      query: ADD_COMMENT,
+      variables,
+    });
+    if (response.data.createComment.success) {
+      setForm({
+        name: '',
+        message: '',
+      });
+      // TODO: make it
+      console.log('load newly added comments');
+    }
   };
 
   return (

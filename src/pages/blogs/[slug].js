@@ -34,9 +34,16 @@ const BLOG = gql`
       }
       id
       blogId
+      commentCount
       comments {
-        pageInfo {
-          total
+        nodes {
+          author {
+            ... on CommentAuthor {
+              id
+              name
+            }
+          }
+          content
         }
       }
       author {
