@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import classNames from 'classnames';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import StickyBox from 'react-sticky-box';
 
-import formatQueriesKeys from '../../util/formatQueriesKeys';
-
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
-import Socials from '~/components/Footer/Socials';
-import Contacts from '~/components/Footer/Contacts';
 import Content from '~/components/Content';
-import Icons from '~/components/Icons';
+import EventsLikeSidebar from '~/components/Sidebar/Events';
+import EventHeader from '~/components/EventHeader';
 
 const EVENT = gql`
   query Event($slug: String!) {
@@ -19,6 +17,10 @@ const EVENT = gql`
       title
       ${gutenbergBlocksQuery}
       excerpt
+      featuredImage {
+        mediaItemUrl
+        title
+      }
       zmAfishaACF {
         eventCost
         eventTime
@@ -45,22 +47,37 @@ const EVENT = gql`
 
 const Event = (props) => {
   const { event } = props;
-  console.log(event);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
 
-  const newSocialData = event.zmAfishaACF.eventSocials
-    ? event.zmAfishaACF.eventSocials.map((item) => {
-        return formatQueriesKeys(item, { socialUrl: 'url', icon: 'name' });
-      })
-    : null;
-  const newContactData = event.zmAfishaACF.contactInfo
-    ? event.zmAfishaACF.contactInfo.map((item) => {
-        return formatQueriesKeys(item, { person: 'name' });
-      })
-    : null;
-  const location = event.zmAfishaACF.eventAddress.streetAddress
-    .split(',')
-    .slice(0, 1)
-    .join();
+  const sideBarCls = classNames({
+    'sidebar-active': sideBarOpen,
+  });
+
+  const handleScroll = () => {
+    if (window.scrollY > 800) {
+      setSideBarOpen(true);
+    }
+    if (window.scrollY < 800) {
+      setSideBarOpen(false);
+    }
+  };
+
+  const [useStyles, setUseStyles] = useState({});
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    if (event.featuredImage) {
+      const styles = {
+        backgroundImage: `url(${event.featuredImage.mediaItemUrl})`,
+        backgroundRepeat: 'none',
+        backgroundPosition: 'center center',
+        color: 'white',
+      };
+      setUseStyles(styles);
+    }
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div className="single__event">
@@ -68,62 +85,43 @@ const Event = (props) => {
         <title>{event.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className="event container">
         <div className="event__wrapper row no-gutters">
-          <div className="event__background">
-            <div className="event__title-wrapper col-xl-8">
-              <div className="event__content ">
-                <div className="event__date">
-                  <span className="event__day">24</span>
-                  <span className="event__month">Березня</span>
-                </div>
-                <span className="event__time">
-                  {event.zmAfishaACF.eventTime}
-                </span>
-                <h1 className="event__title">{event.title}</h1>
-                <div
-                  className="event__excerpt"
-                  dangerouslySetInnerHTML={{ __html: event.excerpt }}
-                />
-                <div className="event__location">
-                  <Icons icon="location" />
-                  {location}
+          <div className="event__background" style={useStyles}>
+            {event.featuredImage ? (
+              <div className="event__overlay">
+                <EventHeader event={event} />
+                <div className="event__info-card">
+                  <EventsLikeSidebar data={event.zmAfishaACF} />
                 </div>
               </div>
-            </div>
+            ) : (
+              <>
+                <EventHeader event={event} />
+                <div className="event__info-card">
+                  <EventsLikeSidebar data={event.zmAfishaACF} />
+                </div>
+              </>
+            )}
           </div>
+        </div>
+        <div className="event__wrapper row no-gutters">
           <div className="event__content-wrapper col-xl-8">
             <div className="event__content">
               <Content content={event.blocks} className="event__content-main" />
             </div>
           </div>
-          <div className="event__information col-xl-3">
-            <StickyBox offsetTop={70} offsetBottom={20}>
-              <div className="information__map">MAP</div>
-              <div className="information__dates">
-                {event.zmAfishaACF.eventAddress && (
-                  <span>{`м. ${event.zmAfishaACF.eventAddress.city} ${event.zmAfishaACF.eventAddress.streetName} ${event.zmAfishaACF.eventAddress.streetNumber}`}</span>
-                )}
-                {event.zmAfishaACF.eventDate && (
-                  <span>{event.zmAfishaACF.eventDate}</span>
-                )}
-                {event.zmAfishaACF.eventCost && (
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: event.zmAfishaACF.eventCost,
-                    }}
-                  />
-                )}
-              </div>
-              <div className="information__about">
-                {newContactData && <Contacts contactsData={newContactData} />}
-                {newSocialData && (
-                  <Socials socialsData={newSocialData} color={'black'} />
-                )}
-              </div>
-            </StickyBox>
-          </div>
+          <StickyBox
+            offsetTop={20}
+            offsetBottom={20}
+            style={{ height: 'fit-content', width: '100%', maxWidth: '344px' }}
+          >
+            <div
+              className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
+            >
+              <EventsLikeSidebar data={event.zmAfishaACF} />
+            </div>
+          </StickyBox>
         </div>
       </main>
     </div>

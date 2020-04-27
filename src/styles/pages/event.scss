@@ -5,12 +5,15 @@
     padding-top: 69px;
   }
   &__background {
+    display: flex;
+
     height: 650px;
     max-width: 1320px;
     width: 100%;
 
     background-color: rgba(29, 158, 116, 0.2);
   }
+
   &__content {
     margin: 0 auto;
     max-width: 648px;
@@ -19,15 +22,31 @@
     }
   }
   &__date {
-    display: flex;
-    flex-direction: column;
-
-    margin-bottom: 12px;
+    width: max-content;
+    margin-right: auto;
+    margin-bottom: 36px;
 
     font-family: $font-family-titles;
   }
+  &__overlay {
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+    .location > svg > path {
+      fill: white;
+    }
+    .event__date {
+      padding: 5px;
+
+      background-color: $white;
+
+      color: $black;
+    }
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54));
+  }
   &__day {
-    display: inline-block;
+    display: block;
 
     padding-bottom: 6px;
 
@@ -37,17 +56,17 @@
     text-transform: uppercase;
   }
   &__month {
+    display: block;
+
+    padding-bottom: 12px;
+
     font-weight: 700;
     font-size: 18px;
     line-height: 20px;
     text-transform: uppercase;
   }
   &__time {
-    display: inline-flex;
-    align-items: center;
-
     padding: 0 8px;
-    margin-bottom: 41px;
 
     background-color: $black;
 
@@ -98,11 +117,101 @@
     }
   }
   &__content-wrapper {
-    padding-top: 59px;
+    padding-top: 50px;
   }
-  &__information {
-    position: fixed;
-    right: 0;
+  &__info-card {
+    max-width: 344px;
+    width: 100%;
+    height: fit-content;
+
+    padding-top: 64px;
   }
 
+  .info-card__date {
+    display: none;
+  }
+  &__sticky-sidebar {
+    opacity: 0;
+    transition: all 0.3s;
+    .info-card__date {
+      display: block;
+    }
+  }
+  .sidebar-active {
+    opacity: 1;
+  }
+}
+
+//=================Copy to single component==================//
+
+.info-card {
+  &__wrapper {
+    padding: 16px;
+
+    background-color: #ffffff;
+    .instagram,
+    .facebook {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 16px;
+      height: 16px;
+    }
+    .instagram .svg-icon {
+      height: 14px;
+      width: 14px;
+    }
+    .facebook .svg-icon {
+      height: 16px;
+    }
+  }
+  &__map {
+    width: 312px;
+    width: 100%;
+    height: 196px;
+    margin-bottom: 12px;
+
+    background-color: black;
+  }
+  &__contact {
+    display: flex;
+    flex-direction: column;
+
+    padding: 12px 0;
+
+    font-family: $font-family-titles;
+  }
+
+  &__description {
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+
+    color: #606664;
+  }
+  &__item {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.06em;
+    text-transform: capitalize;
+
+    color: $black;
+  }
+  &__email ~ .info-card__item {
+    text-transform: lowercase;
+  }
+
+  &__social {
+    display: flex;
+
+    padding-top: 32px;
+    padding-bottom: 23px;
+    & > a:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
 }
