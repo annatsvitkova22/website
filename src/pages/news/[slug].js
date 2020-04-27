@@ -18,6 +18,7 @@ import ArticleAuthor from '~/components/Article/Author';
 import ShareItems from '~/components/ShareItems';
 import SideBarPost from '~/components/Sidebar/Post';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
+import SimilarPostsLoader from '~/components/Loaders/SimilarPostsLoader';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -250,13 +251,23 @@ const Post = (props) => {
                 offsetBottom={20}
                 className={'sidebar__wrapper col-xl-3'}
               >
-                <SideBarPost news={news} blogs={blogs} />
+                {!state.news || !state.blogs ? (
+                  <aside className="col-md-12">
+                    <SidebarLoader type={'popular'} />
+                  </aside>
+                ) : (
+                  <SideBarPost news={news} blogs={blogs} />
+                )}
               </StickyBox>
             </div>
-            <SimilarPosts
-              similarPosts={similarPosts.nodes}
-              title={'Схожі новини'}
-            />
+            {!state.similarPosts ? (
+              <SimilarPostsLoader />
+            ) : (
+              <SimilarPosts
+                similarPosts={similarPosts.nodes}
+                title={'Схожі новини'}
+              />
+            )}
           </>
         ) : (
           <PostHeaderLoader />
