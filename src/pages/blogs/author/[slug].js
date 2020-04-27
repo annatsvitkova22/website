@@ -132,6 +132,8 @@ const BlogsArchive = ({ users, query }) => {
     );
   }
 
+  console.log(popular);
+
   return (
     <div className="container">
       <Head>
@@ -156,6 +158,42 @@ const BlogsArchive = ({ users, query }) => {
               );
             })}
           </main>
+          {state.data.users.nodes[0].blogs.pageInfo.total ===
+            state.data.users.nodes[0].blogs.nodes.length && (
+            <Waypoint onEnter={loadMostPopular} />
+          )}
+          {popular && (
+            <SimilarPosts
+              similarPosts={popular}
+              title={'Популярні'}
+              link={{
+                label: 'Дивитися всі',
+                value: '/search?type=blogs',
+              }}
+            />
+          )}
+          {!popular && (
+            <div className="blogs-similar blogs-similar--loading">
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
