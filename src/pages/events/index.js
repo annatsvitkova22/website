@@ -64,19 +64,30 @@ const EventsArchive = (props) => {
       <main>
         <div className="container articles-container">
           <div className="row">
-            {nodes.map((post, i) => (
-              <div className="col-3">
-                {i === 3 ? (
-                  <h1>Запропонуй подію</h1>
-                ) : (
+            {nodes.map((post, i) =>
+              i === 3 ? (
+                <>
+                  <div className="col-3">
+                    <h1>Запропонуй подію</h1>
+                  </div>
+                  <div className="col-3">
+                    <Article type="events" post={post} key={post.id}>
+                      {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                        <Waypoint onEnter={fetchingContent} />
+                      )}
+                    </Article>
+                  </div>
+                </>
+              ) : (
+                <div className="col-3">
                   <Article type="events" post={post} key={post.id}>
                     {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                       <Waypoint onEnter={fetchingContent} />
                     )}
                   </Article>
-                )}
-              </div>
-            ))}
+                </div>
+              )
+            )}
             {state.isLoading && <NewsLoader />}
           </div>
         </div>
