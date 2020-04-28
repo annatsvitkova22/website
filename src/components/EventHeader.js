@@ -10,13 +10,13 @@ const EventHeader = ({ event }) => {
   const date = event.zmAfishaACF.eventDate
     ? event.zmAfishaACF.eventDate.split(' ')
     : null;
-
+  console.log(event);
   return (
     <div className="event__title-wrapper col-xl-8">
       <div className="event__content ">
         <div className="event__date">
-          <span className="event__day">{date && date[0]}</span>
-          <span className="event__month">{date && date[1]}</span>
+          {date && <span className="event__day">{date[0]}</span>}
+          {date && <span className="event__month"> {date[1]}</span>}
           <span className="event__time">{event.zmAfishaACF.eventTime}</span>
         </div>
         <h1 className="event__title">{event.title}</h1>

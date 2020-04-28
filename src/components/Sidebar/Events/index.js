@@ -11,8 +11,10 @@ const EventsLikeSidebar = ({ data }) => {
   return (
     <div className="info-card__wrapper">
       <div className={`event__date info-card__date `}>
-        <span className="event__day info-card__day">{date && date[0]}</span>
-        <span className="event__month info-card__month">{date && date[1]}</span>
+        {date && <span className="event__day info-card__day">{date[0]}</span>}
+        {date && (
+          <span className="event__month info-card__month">{date[1]}</span>
+        )}
         <span className="event__time info-card__time">{data.eventTime}</span>
       </div>
       <div className="info-card__map">
