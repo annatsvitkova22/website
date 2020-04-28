@@ -78,4 +78,10 @@ input {
   &__icon--date {
     transform: translateY(-60%);
   }
+
+  &__submit {
+    width: 100%;
+
+    color: $green;
+  }
 }
