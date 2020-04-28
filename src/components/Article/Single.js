@@ -24,7 +24,6 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
 
   const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
 
-
   const state = stateLink.get();
   const storedPost = state.post;
 

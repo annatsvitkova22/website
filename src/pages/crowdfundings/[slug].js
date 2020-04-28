@@ -3,6 +3,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
+import { useStateLink } from '@hookstate/core';
 
 import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
@@ -20,6 +21,7 @@ import ArticleAuthor from '~/components/Article/Author';
 import ArticleDate from '~/components/Article/Date';
 import Content from '~/components/Content';
 import useViewsCounter from '~/hooks/useViewsCounter';
+import { CreateSingleArticleStore } from '~/stores/SingleArticle';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -59,11 +61,19 @@ const CROWDFUNDING = gql`
 `;
 
 const Crowdfunding = (props) => {
+  const [loaded, setLoaded] = useState(false);
   const [state, setState] = useState({
     post: props.post,
   });
 
   const { post, isLoading } = state;
+
+  useEffect(() => {
+    setLoaded(true);
+  }, [state.post]);
+
+  // const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
+  // console.log(stateLink.get());
 
   useEffect(() => {
     async function loadData() {
@@ -97,6 +107,8 @@ const Crowdfunding = (props) => {
     }
   }, []);
 
+  useViewsCounter(post);
+
   if (!post) {
     return (
       <div className="container">
@@ -117,8 +129,6 @@ const Crowdfunding = (props) => {
       </div>
     );
   }
-
-  useViewsCounter(post);
 
   const status = getCFStatus(post);
 
