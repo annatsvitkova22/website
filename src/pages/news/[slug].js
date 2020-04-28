@@ -8,8 +8,6 @@ import apolloClient from '~/lib/ApolloClient';
 import SimilarPosts from '~/components/SimilarPosts';
 import SideBarPost from '~/components/Sidebar/Post';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
-
-import SimilarPostsLoader from '~/components/Loaders/SimilarPostsLoader';
 import ArticleSingle from '~/components/Article/Single';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
@@ -177,81 +175,6 @@ const Post = (props) => {
 
   return (
     <>
-      <Head>
-        <title>{post.title}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="single-post container">
-        {post ? (
-          <>
-            <div className={'single-post__title row'}>
-              <div className={'single-post__wrapper col-xl-9 col-12'}>
-                <NewsHead post={post} />
-                <FeaturedImage data={post.featuredImage} />
-                <section className={'single-post__main col-12'}>
-                  <StickyBox
-                    offsetTop={70}
-                    offsetBottom={20}
-                    className={'side-bar__wrapper col-xl-1'}
-                  >
-                    <Share />
-                  </StickyBox>
-                  <section className={'single-post__content'}>
-                    <div className={'title__socials'}>
-                      <div className={'title__socials-about'}>
-                        <span className="title__socials-image" />
-                        <div className={'title__socials-author'}>
-                          <ArticleAuthor
-                            author={post.author}
-                            className={'title__socials-name'}
-                          />
-                          <span className={'title__socials-date'}>
-                            {moment(post.date).format('LLL')}
-                          </span>
-                        </div>
-                      </div>
-                      <ShareItems className={'title__socials-items'} />
-                    </div>
-                    <article
-                      className={'title__description'}
-                      dangerouslySetInnerHTML={{ __html: post.excerpt }}
-                    />
-                    <Content
-                      content={post.blocks}
-                      className={'content__posts'}
-                    />
-                    <NewsFooter post={post} />
-                  </section>
-                </section>
-              </div>
-              <StickyBox
-                offsetTop={118}
-                offsetBottom={20}
-                className={'sidebar__wrapper col-xl-3'}
-              >
-                {!state.news || !state.blogs ? (
-                  <aside className="col-md-12">
-                    <SidebarLoader type={'popular'} />
-                  </aside>
-                ) : (
-                  <SideBarPost news={news} blogs={blogs} />
-                )}
-              </StickyBox>
-            </div>
-            {!state.similarPosts ? (
-              <SimilarPostsLoader />
-            ) : (
-              <SimilarPosts
-                similarPosts={similarPosts.nodes}
-                title={'Схожі новини'}
-              />
-            )}
-          </>
-        ) : (
-          <PostHeaderLoader />
-        )}
-      </main>
       <ArticleSingle
         post={post}
         type={'news'}
