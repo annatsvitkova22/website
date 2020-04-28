@@ -21,10 +21,9 @@ const EVENTS_ARCHIVE = gql`
         id
         zmAfishaACF {
           eventAddress {
-            streetAddress
+            city
             streetName
-            latitude
-            longitude
+            streetNumber
           }
           eventTime
         }

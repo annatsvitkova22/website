@@ -45,7 +45,6 @@
     margin-bottom: 10px;
 
     @include media-breakpoint-up(sm) {
-      max-width: 200px;
       margin-bottom: 0;
     }
   }
@@ -62,6 +61,17 @@
     @include media-breakpoint-up(sm) {
       margin-bottom: 10px;
     }
+  }
+
+  &__address {
+    font-family: $font-family-titles;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+  }
+
+  &__address-city {
+    display: block;
   }
 
   &__meta {
