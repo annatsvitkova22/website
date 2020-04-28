@@ -11,12 +11,15 @@
 
       &__main {
         max-width: 551px;
-        
+
         padding-right: 12px;
         margin-right: auto;
 
         @include media-breakpoint-up(sm) {
           padding-right: 24px;
+        }
+        @include media-breakpoint-down(md) {
+          padding: 0;
         }
       }
 

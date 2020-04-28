@@ -38,32 +38,34 @@ const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
         avatar={avatar}
         alt={name}
       />
-      <div className="blogger__about">
-        <h4 className="blogger__name">{name}</h4>
-        {info && <div className="blogger__info">{info}</div>}
-      </div>
-      <ul className="blogger__stats">
-        {pageInfo && pageInfo.total && (
-          <li className="blogger__stats-item">
-            <Icons icon={'articles-small'} className="blogger__stats-icon" />
-            <span>{pageInfo.total}</span>
-          </li>
-        )}
-        <li className="blogger__stats-item">
-          <Icons icon={'comment-small'} className="blogger__stats-icon" />
-          <span>{commentsCount}</span>
-        </li>
-        <li className="blogger__stats-item">
-          <Icons icon={'eye-small'} className="blogger__stats-icon" />
-          <span>{viewsCount}</span>
-        </li>
-      </ul>
-      {socials && (
-        <div className="blogger__socials">
-          <MapIcons className={'blogger__socials-links'} data={socials} />
+      <div className="blogger__wrapper">
+        <div className="blogger__about">
+          <h4 className="blogger__name">{name}</h4>
+          {info && <div className="blogger__info">{info}</div>}
         </div>
-      )}
-      {showBio && description && <BloggerBio bio={description} />}
+        <ul className="blogger__stats">
+          {pageInfo && pageInfo.total && (
+            <li className="blogger__stats-item">
+              <Icons icon={'articles-small'} className="blogger__stats-icon" />
+              <span>{pageInfo.total}</span>
+            </li>
+          )}
+          <li className="blogger__stats-item">
+            <Icons icon={'comment-small'} className="blogger__stats-icon" />
+            <span>{commentsCount}</span>
+          </li>
+          <li className="blogger__stats-item">
+            <Icons icon={'eye-small'} className="blogger__stats-icon" />
+            <span>{viewsCount}</span>
+          </li>
+        </ul>
+        {socials && (
+          <div className="blogger__socials">
+            <MapIcons className={'blogger__socials-links'} data={socials} />
+          </div>
+        )}
+        {showBio && description && <BloggerBio bio={description} />}
+      </div>
     </div>
   );
 };
