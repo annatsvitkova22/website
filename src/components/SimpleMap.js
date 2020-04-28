@@ -9,16 +9,16 @@ const mapContainter = (props) => {
     height: '100%',
   };
   return (
-    <Map
+    <Mapgit
       google={google}
-      zoom={Number(data.zoom)}
+      zoom={Number(data.zoom) - 3}
       style={mapStyles}
       initialCenter={{ lat: `${data.latitude}`, lng: `${data.longitude}` }}
     >
       <Marker
         position={{ lat: `${data.latitude}`, lng: `${data.longitude}` }}
       />
-    </Map>
+    </Mapgit>
   );
 };
 
