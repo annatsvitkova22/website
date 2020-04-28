@@ -21,7 +21,7 @@ import ArticleAuthor from '~/components/Article/Author';
 import ArticleDate from '~/components/Article/Date';
 import Content from '~/components/Content';
 import useViewsCounter from '~/hooks/useViewsCounter';
-import { CreateSingleArticleStore } from '~/stores/SingleArticle';
+import { CreateSingleArticleStore, SingleArticleStore } from '~/stores/SingleArticle';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -72,8 +72,8 @@ const Crowdfunding = (props) => {
     setLoaded(true);
   }, [state.post]);
 
-  // const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
-  // console.log(stateLink.get());
+  const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
+  const storedPost = stateLink.get().post;
 
   useEffect(() => {
     async function loadData() {
@@ -90,6 +90,8 @@ const Crowdfunding = (props) => {
           slug: props.slug,
         },
       });
+
+      SingleArticleStore.set({ post: postResponse.data.crowdfundingBy });
 
       setState({
         ...state,
@@ -109,7 +111,7 @@ const Crowdfunding = (props) => {
 
   useViewsCounter(post);
 
-  if (!post) {
+  if (!storedPost) {
     return (
       <div className="container">
         <div className="crowdfunding-single">
@@ -130,18 +132,18 @@ const Crowdfunding = (props) => {
     );
   }
 
-  const status = getCFStatus(post);
+  const status = getCFStatus(storedPost);
 
   const {
     cfACF: { collected },
-  } = post;
+  } = storedPost;
   const collectedNumber = collected ? collected : 0;
 
   return (
     <div className="container">
       <Head>
         {/* TODO: change it */}
-        <title>{post.title}</title>
+        <title>{storedPost.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -154,26 +156,26 @@ const Crowdfunding = (props) => {
                 className="crowdfunding-single__status"
               />
             )}
-            <h1 className="crowdfunding-single__title">{post.title}</h1>
+            <h1 className="crowdfunding-single__title">{storedPost.title}</h1>
           </div>
           <main className="col-md-8 crowdfunding-single__main">
             <FeaturedImage
               className="crowdfunding-single__featured"
-              data={post.featuredImage}
+              data={storedPost.featuredImage}
             />
             <div className={'title__socials'}>
               <div className={'title__socials-about'}>
                 <span className="title__socials-image" />
                 <div className={'title__socials-author'}>
                   <ArticleAuthor
-                    author={post.author}
+                    author={storedPost.author}
                     className={'title__socials-name'}
                   />
-                  <ArticleDate format={'DD MMMM, HH:mm'} date={post.date} />
+                  <ArticleDate format={'DD MMMM, HH:mm'} date={storedPost.date} />
                 </div>
               </div>
             </div>
-            <Content content={post.blocks} />
+            <Content content={storedPost.blocks} />
           </main>
           <aside className="col-md-4 crowdfunding-single__sidebar">
             <div className="crowdfunding-single__goal">
@@ -186,20 +188,20 @@ const Crowdfunding = (props) => {
             </div>
             <CrowdfundingProgress
               className="crowdfunding-single__progress"
-              post={post}
+              post={storedPost}
             />
             <CrowdfundingStats
-              post={post}
+              post={storedPost}
               className="crowdfunding-single__stats"
             />
             {(status.value === 'active' || status.value === 'finished') && (
               <CrowdfundingActions
-                post={post}
+                post={storedPost}
                 className="crowdfunding-single__actions"
               />
             )}
             <CrowdfundingSupported
-              post={post}
+              post={storedPost}
               className="crowdfunding-single__actions"
             />
           </aside>
