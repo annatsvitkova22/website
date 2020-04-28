@@ -17,7 +17,6 @@ import CrowdfundingActions from '~/components/Crowdfunding/Actions';
 import CrowdfundingSupported from '~/components/Crowdfunding/Supported';
 import FeaturedImage from '~/components/FeaturedImage';
 import ArticleAuthor from '~/components/Article/Author';
-import ShareItems from '~/components/ShareItems';
 import ArticleDate from '~/components/Article/Date';
 import Content from '~/components/Content';
 
@@ -161,9 +160,7 @@ const Crowdfunding = (props) => {
                 </div>
               </div>
             </div>
-            <Content
-              content={post.blocks}
-            />
+            <Content content={post.blocks} />
           </main>
           <aside className="col-md-4 crowdfunding-single__sidebar">
             <div className="crowdfunding-single__goal">
