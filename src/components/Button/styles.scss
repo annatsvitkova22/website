@@ -1,0 +1,25 @@
+.zm-button {
+  padding: 9px 30px;
+
+  border: 2px solid $black;
+  background: $white;
+  box-shadow: 4px 4px 0px $black;
+
+  font-weight: 700;
+  font-size: 16px;
+
+  transition: all .3s;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0px 0px 0px $black;
+  }
+
+  &:disabled {
+    border: 2px solid $disabled;
+    background: $disabled-2;
+    box-shadow: 4px 4px 0px $disabled-3;
+
+    color: $grey-200;
+  }
+}
