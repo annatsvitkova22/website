@@ -154,13 +154,14 @@ const Event = (props) => {
             )}
           </div>
         </div>
-        <div className="event__wrapper row no-gutters">
+        <div className="event__main-wrapper  row no-gutters">
           <div className="event__content-wrapper col-xl-8">
             <div className="event__content">
               <Content content={event.blocks} className="event__content-main" />
             </div>
           </div>
           <StickyBox
+            className={'event__sticky-wrapper'}
             offsetTop={20}
             offsetBottom={20}
             style={{ height: 'fit-content', width: '100%', maxWidth: '344px' }}
