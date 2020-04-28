@@ -4,8 +4,6 @@ import Head from 'next/head';
 import moment from 'moment';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
-import axios from 'axios';
-import getConfig from 'next/config';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -19,17 +17,13 @@ import {
   CreateSingleArticleStore,
   SingleArticleStore,
 } from '~/stores/SingleArticle';
-import { AuthStore } from '~/stores/Auth';
-
-const { publicRuntimeConfig } = getConfig();
-
-const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+import useViewsCounter from '~/hooks/useViewsCounter';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
 
   const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
-  const authStateLink = useStateLink(AuthStore);
+
 
   const state = stateLink.get();
   const storedPost = state.post;
@@ -41,44 +35,10 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   useEffect(() => {
     if (post) {
       SingleArticleStore.set({ post });
-
-      let type = `${post.__typename.toLowerCase()}`;
-      const id = post[`${type}Id`];
-      type = `${type}s`;
-      if (type === 'opportunitys') {
-        type = 'opportunities';
-      }
-
-      const updateViews = async () => {
-        const { token } = authStateLink.get();
-
-        const { apiUrl } = config;
-        const conf = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const currentViews = await axios.get(
-          `${apiUrl}/wp-json/acf/v3/${type}/${id}/views`,
-          conf
-        );
-        await axios.post(
-          `${apiUrl}/wp-json/acf/v3/${type}/${id}/views`,
-          {
-            fields: {
-              views: currentViews.data.views
-                ? parseInt(currentViews.data.views) + 1
-                : 1,
-            },
-          },
-          conf
-        );
-      };
-
-      setTimeout(updateViews, 10000);
     }
   }, [post]);
+
+  useViewsCounter(post);
 
   if (!storedPost) {
     return (
