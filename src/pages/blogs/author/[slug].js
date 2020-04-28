@@ -25,6 +25,28 @@ const composeQuery = ({ cursor, articles, slug }) => {
       users(where: { search: "${slug}", searchColumns: "slug" }) {
         nodes {
           name
+          description
+          stats: blogs(first: 9999) {
+            pageInfo {
+              total
+            }
+            nodes {
+              commentCount
+              statisticsACF {
+                views
+              }
+            }
+          }
+          bloggerInfoACF {
+            avatar {
+              mediaItemUrl
+            }
+            info
+            socials {
+              name
+              url
+            }
+          }
           blogs(first: $articles, before: $cursor) {
             nodes {
               id
@@ -149,6 +171,7 @@ const BlogsArchive = ({ users, query }) => {
                     waypoint={<Waypoint onEnter={fetchingContent} />}
                     isLoading={state.isLoading}
                     loader={<PostCardLoader type={'small'} />}
+                    showBio={true}
                     inRow={2}
                     {...row}
                   />
