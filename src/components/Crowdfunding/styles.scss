@@ -1,0 +1,40 @@
+.crowdfunding-progress {
+  &__info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__bar {
+    height: 10px;
+
+    position: relative;
+
+    background: transparentize(green, 0.8);
+
+    span {
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      background-color: green;
+    }
+  }
+}
+
+.crowdfunding-stats {
+  &__item {
+    & + & {
+      margin-top: 20px;
+    }
+  }
+}
+
+.crowdfunding-actions {
+  &__item {
+    & + & {
+      margin-top: 20px;
+    }
+  }
+}
