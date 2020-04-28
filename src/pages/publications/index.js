@@ -11,7 +11,6 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import PublicationMainLoader from '~/components/Loaders/PublicationMainLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
-import ArticleAuthor from '~/components/Article/Author';
 
 const PUBLICATIONS_ARCHIVE = gql`
   query PublicationsArchive($cursor: String, $articles: Int) {
@@ -82,7 +81,7 @@ const PUBLICATIONS_ARCHIVE = gql`
         }
         publications {
           nodes {
-            uri
+            slug
             title
             author {
               slug
@@ -103,7 +102,8 @@ const Publications = (props) => {
   const { fetchingContent, state } = useLoadMoreHook(
     PUBLICATIONS_ARCHIVE,
     publications,
-    'publications'
+    'publications',
+    11
   );
 
   const filteredCategories = categories.nodes.filter(
@@ -154,7 +154,7 @@ const Publications = (props) => {
                       ))}
                     </ul>
                     <h1 className="text-center text-capitalize">{title}</h1>
-                    <p className="text-center">
+                    <p className="text-center tx-family-titles tx-tiny font-weight-bold">
                       {author.firstName} {author.lastName}
                     </p>
                   </div>
@@ -165,7 +165,10 @@ const Publications = (props) => {
         </div>
         <div className="container">
           <div className="row">
-            {nodes.map((post) => (
+            <div className="col-12">
+              <h6 className="publ-page__title text-uppercase">Останні</h6>
+            </div>
+            {nodes.slice(0, 11).map((post) => (
               <Article type="publications" post={post} key={post.id}>
                 {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                   <Waypoint onEnter={fetchingContent} />
@@ -176,40 +179,27 @@ const Publications = (props) => {
         </div>
         <div className="container">
           <div className="row">
-            {filteredCategories.map(
-              ({ publications: { nodes }, name, link }) => (
+            {filteredCategories
+              .slice(0, 4)
+              .map(({ publications: { nodes }, name }) => (
                 <div className="col-3">
-                  <p>{name}</p>
-                  {nodes.map(
-                    ({
-                      title,
-                      uri,
-                      author,
-                      featuredImage: { mediaItemUrl },
-                    }) => (
-                      <div>
-                        <feature>
-                          <img src={mediaItemUrl} alt={title} />
-                        </feature>
-                        <h3>{title}</h3>
-                        <div className="article__meta">
-                          <ArticleAuthor
-                            className="article__author"
-                            author={author}
-                          />
-                        </div>
-                      </div>
-                    )
-                  )}
+                  <h6 className="publ-page__title text-uppercase">{name}</h6>
+                  {nodes.map((post) => (
+                    <Article
+                      type="publications-cats"
+                      post={post}
+                      key={post.id}
+                    />
+                  ))}
                 </div>
-              )
-            )}
+              ))}
           </div>
         </div>
         <div className="container publ-archive">
           <div className="row">
             <div className="col-12">
-              <div className="news-archive__content ">
+              <h6 className="publ-page__title text-uppercase">Архів</h6>
+              <div className="publ-archive__content">
                 {nodes.map((post, i) => (
                   <React.Fragment key={i}>
                     <ChronologicalSeparator posts={nodes} currentIndex={i} />
@@ -237,7 +227,7 @@ Publications.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: PUBLICATIONS_ARCHIVE,
     variables: {
-      first: 10,
+      first: 11,
       cursor: null,
     },
   });

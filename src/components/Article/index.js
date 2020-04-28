@@ -6,6 +6,7 @@ import ArticleOpportunities from '~/components/Article/Opportunities';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleBlogs from '~/components/Article/Blogs';
 import ArticlePublications from '~/components/Article/Publications';
+import PublicationsCats from '~/components/Article/PublicationsCats';
 
 const Article = ({ type, className, ...props }) => {
   switch (type) {
@@ -45,9 +46,16 @@ const Article = ({ type, className, ...props }) => {
       return (
         <ArticleProvider value={type}>
           <ArticlePublications
-            className={classnames('article', className)}
+            className={classnames('', className)}
             {...props}
           />
+        </ArticleProvider>
+      );
+    }
+    case 'publications-cats': {
+      return (
+        <ArticleProvider value={type}>
+          <PublicationsCats className={classnames('', className)} {...props} />
         </ArticleProvider>
       );
     }
