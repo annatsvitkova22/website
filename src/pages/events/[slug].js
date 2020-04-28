@@ -72,8 +72,9 @@ const Event = (props) => {
     if (event.featuredImage) {
       const styles = {
         backgroundImage: `url(${event.featuredImage.mediaItemUrl})`,
-        backgroundRepeat: 'none',
+        backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
+        backgroundSize: 'cover',
         color: 'white',
       };
       setUseStyles(styles);
