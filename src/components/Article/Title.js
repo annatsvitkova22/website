@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import _ from 'lodash';
+import he from 'he';
 import * as classnames from 'classnames';
 
 import ArticleContext from '~/components/Article/Context';
@@ -12,10 +13,10 @@ const ArticleTitle = ({
 }) => {
   const [width, setWidth] = useState();
   const breakpoint = 768;
-  let displayTitle = title;
+  let displayTitle = he.decode(title);
 
   if (width < breakpoint) {
-    displayTitle = _.truncate(title, {
+    displayTitle = _.truncate(displayTitle, {
       length: 50,
       separator: '...',
     });
