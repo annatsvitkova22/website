@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
-import BlogsLoader from '~/components/Loaders/BlogsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import PublicationMainLoader from '~/components/Loaders/PublicationMainLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
+import NewsLoader from '~/components/Loaders/NewsLoader';
 
 const PUBLICATIONS_ARCHIVE = gql`
   query PublicationsArchive($cursor: String, $articles: Int) {
@@ -241,6 +241,7 @@ const Publications = (props) => {
                     </Article>
                   </React.Fragment>
                 ))}
+                {state.isLoading && <NewsLoader />}
               </div>
             </div>
           </div>
