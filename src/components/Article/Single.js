@@ -13,14 +13,15 @@ import ArticleAuthor from '~/components/Article/Author';
 import ShareItems from '~/components/ShareItems';
 import Content from '~/components/Content';
 import NewsFooter from '~/components/SinglePageFooter';
-import { CreateSingleArticleStore, SingleArticleStore } from '~/stores/SingleArticle';
+import {
+  CreateSingleArticleStore,
+  SingleArticleStore,
+} from '~/stores/SingleArticle';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
 
-  const stateLink = useStateLink(
-    loaded ? SingleArticleStore : CreateSingleArticleStore(post)
-  );
+  const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
 
   const state = stateLink.get();
   const storedPost = state.post;
@@ -28,6 +29,12 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   useEffect(() => {
     setLoaded(true);
   }, [loaded]);
+
+  useEffect(() => {
+    if (post) {
+      SingleArticleStore.set({ post });
+    }
+  }, [post]);
 
   if (!storedPost) {
     return (
