@@ -53,6 +53,17 @@ const PostHeaderLoader = ({ type }) => {
       </div>
     );
   }
+  if (type === 'crowdfunding') {
+    return (
+      <ContentLoader viewBox={'0 0 1044 1000'}>
+        <rect x={'0'} y={'0'} width={'1044'} height={'535'} />
+        <rect x={'0'} y={'550'} width={'60'} height={'15'} />
+        <rect x={'0'} y={'570'} width={'875'} height={'15'} />
+        <rect x={'0'} y={'590'} width={'750'} height={'15'} />
+        <rect x={'0'} y={'630'} width={'1044'} height={'535'} />
+      </ContentLoader>
+    );
+  }
   return null;
 };
 

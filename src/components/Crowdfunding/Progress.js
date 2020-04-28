@@ -30,7 +30,7 @@ const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
         <div className="crowdfunding-progress__percentage">{percentage}</div>
       </div>
       <div className="crowdfunding-progress__bar">
-        <span style={{width: percentage}} />
+        <span style={{ width: percentage }} />
       </div>
     </div>
   );

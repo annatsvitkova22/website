@@ -7,7 +7,6 @@ import apolloClient from '~/lib/ApolloClient';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import Article from '~/components/Article';
-import NewsLoader from '~/components/Loaders/NewsLoader';
 
 const CROWDFUNDINGS_ARCHIVE = gql`
   query CrowdfundingsArchive($articles: Int, $cursor: String) {

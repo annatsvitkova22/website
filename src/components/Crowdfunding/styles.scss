@@ -22,3 +22,19 @@
     }
   }
 }
+
+.crowdfunding-stats {
+  &__item {
+    & + & {
+      margin-top: 20px;
+    }
+  }
+}
+
+.crowdfunding-actions {
+  &__item {
+    & + & {
+      margin-top: 20px;
+    }
+  }
+}

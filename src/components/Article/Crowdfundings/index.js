@@ -7,7 +7,7 @@ import ArticleExcerpt from '~/components/Article/Excerpt';
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleDate from '~/components/Article/Date';
 import getCFStatus from '~/lib/getCFStatus';
-import CrowdfundingProgress from '~/components/CrowdfundingProgress';
+import CrowdfundingProgress from '~/components/Crowdfunding/Progress';
 
 const ArticleCrowdfundings = ({ post, children, className }) => {
   const { featuredImage, title, slug, excerpt, author, date } = post;

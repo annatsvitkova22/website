@@ -1,103 +1,177 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
-import ProgressBar from 'react-bootstrap/ProgressBar';
 
-import '../../styles/pages/crowdfundings.scss';
 import apolloClient from '~/lib/ApolloClient';
+import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
+import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
+import SidebarLoader from '~/components/Loaders/SidebarLoader';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import getCFStatus from '~/lib/getCFStatus';
+import ArticleStatus from '~/components/Article/Status';
+import CrowdfundingProgress from '~/components/Crowdfunding/Progress';
+import CrowdfundingStats from '~/components/Crowdfunding/Stats';
+import CrowdfundingActions from '~/components/Crowdfunding/Actions';
+import CrowdfundingSupported from '~/components/Crowdfunding/Supported';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
     crowdfundingBy(slug: $slug) {
+      ${gutenbergBlocksQuery}
       id
-      excerpt
-      content
-      uri
+      crowdfundingId
       title
       slug
+      date
+      statisticsACF {
+        views
+      }
+      author {
+        id
+        name
+        nicename
+        nickname
+        username
+      }
       featuredImage {
-        guid
+        mediaItemUrl
       }
       cfACF {
-        crowdfundingRequiredAmountToCollect
-        crowdfundingExpirationDate
-        crowdfundingAboutProjectTabs
+        tocollect
+        expiration
+        collected
+        shared
+        supported {
+          name
+          sum
+          date
+        }
       }
     }
   }
 `;
 
 const Crowdfunding = (props) => {
-  const { crowdfunding } = props;
+  const [state, setState] = useState({
+    post: props.post,
+  });
+
+  const { post, isLoading } = state;
+
+  useEffect(() => {
+    async function loadData() {
+      if (!isLoading) {
+        setState({
+          ...state,
+          isLoading: true,
+        });
+      }
+
+      const postResponse = await apolloClient.query({
+        query: CROWDFUNDING,
+        variables: {
+          slug: props.slug,
+        },
+      });
+
+      setState({
+        ...state,
+        post: postResponse.data.crowdfundingBy,
+        isLoading: false,
+      });
+    }
+
+    if (props.slug && !post) {
+      setState({
+        ...state,
+        isLoading: true,
+      });
+      loadData();
+    }
+  }, []);
+
+  if (!post) {
+    return (
+      <div className="container">
+        <div className="crowdfunding-single">
+          <div className="row">
+            <div className="col-12 crowdfunding-single__top">
+              <ActionbarLoader />
+              <ActionbarLoader />
+            </div>
+            <main className="col-md-8 crowdfunding-single__main">
+              <PostHeaderLoader type="crowdfunding" />
+            </main>
+            <aside className="col-md-4 crowdfunding-single__sidebar">
+              <SidebarLoader className="full-width" type="popular" />
+            </aside>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const status = getCFStatus(post);
+
+  const {
+    cfACF: { collected },
+  } = post;
+  const collectedNumber = collected ? collected : 0;
 
   return (
-    <div className="crowdfunding-single-page">
+    <div className="container">
       <Head>
-        <title>{crowdfunding.title}</title>
+        {/* TODO: change it */}
+        <title>{post.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <section className="cf-crowdfunding">
-          <section className="cf-content">
-            <div className="cfsingle__title">{crowdfunding.title}</div>
-            <div className="cfsingle__thumb">
-              <img
-                src={crowdfunding.featuredImage.guid}
-                alt={`${crowdfunding.title}thumbnail`}
+      <div className="crowdfunding-single">
+        <div className="row">
+          <div className="col-12 crowdfunding-single__top">
+            {status && (
+              <ArticleStatus
+                {...status}
+                className="crowdfunding-single__status"
+              />
+            )}
+            <h1 className="crowdfunding-single__title">{post.title}</h1>
+          </div>
+          <main className="col-md-8 crowdfunding-single__main">
+            <PostHeaderLoader type="crowdfunding" />
+          </main>
+          <aside className="col-md-4 crowdfunding-single__sidebar">
+            <div className="crowdfunding-single__goal">
+              <NumberFormat
+                value={collectedNumber}
+                displayType={'text'}
+                thousandSeparator={' '}
+                suffix="ГРН"
               />
             </div>
-            <div className="cfsigle__descr">
-              <div dangerouslySetInnerHTML={{ __html: crowdfunding.content }} />
-              { /* <Content blocks={crowdfunding.content} /> */ }
-            </div>
-            <div className="cfitem__timeout" />
-          </section>
-          <section className="cf-sidebar">
-            <div className="cfsingle__collected">
-              <div className="cfsingle__collected__amount">
-                <NumberFormat
-                  value={10000}
-                  displayType={'text'}
-                  format="## ### ### ₴"
-                />
-                Зібрано з{' '}
-                <NumberFormat
-                  value={crowdfunding.cfACF.crowdfundingRequiredAmountToCollect}
-                  displayType={'text'}
-                  format="## ### ### ₴"
-                />
-                <ProgressBar now={60} />
-              </div>
-            </div>
-            <div className="cf-sidebar__info">
-              <div>
-                14
-                <br />
-                Підтримали
-              </div>
-              <div>
-                {crowdfunding.cfACF.crowdfundingExpirationDate}
-                <br />
-                Запушено
-              </div>
-              <div>
-                25 днів
-                <br />
-                Залишилося
-              </div>
-            </div>
-            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">
-              Підтримати проєкт
-            </a>
-            <a href="#" title="Підтримати проєкт" className="cf-sidebar__btn">
-              Поділитися
-            </a>
-          </section>
-        </section>
-      </main>
+            <CrowdfundingProgress
+              className="crowdfunding-single__progress"
+              post={post}
+            />
+            <CrowdfundingStats
+              post={post}
+              className="crowdfunding-single__stats"
+            />
+            {(status.value === 'active' || status.value === 'finished') && (
+              <CrowdfundingActions
+                post={post}
+                className="crowdfunding-single__actions"
+              />
+            )}
+            <CrowdfundingSupported
+              post={post}
+              className="crowdfunding-single__actions"
+            />
+          </aside>
+        </div>
+      </div>
     </div>
   );
 };
@@ -107,13 +181,17 @@ Crowdfunding.propTypes = {
 };
 
 Crowdfunding.getInitialProps = async ({ query: { slug } }) => {
+  if (process.browser) {
+    return { slug };
+  }
+
   const { data } = await apolloClient.query({
     query: CROWDFUNDING,
     variables: { slug },
   });
 
   return {
-    crowdfunding: data.crowdfundingBy,
+    post: data.crowdfundingBy,
   };
 };
 
