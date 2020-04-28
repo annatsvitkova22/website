@@ -40,7 +40,7 @@ const ArticlePublications = ({
   return (
     <article
       className={classnames(
-        `article--publication art-publ--${style} ${
+        `article--publication art-publ--${style}-${size} ${
           size === 'big' ? 'd-flex' : ''
         }`,
         className,
@@ -49,22 +49,32 @@ const ArticlePublications = ({
     >
       <ArticleFeatured
         modif="publ"
-        className={`article__image article__image--publ ${
-          size === 'big' ? 'flex-fill' : ''
+        className={`article__image--publ ${
+          size === 'big' ? 'flex-grow-1 w-50' : ''
         }`}
         image={featuredImage}
         alt={title}
         slug={slug}
       />
-      <div className={`${size === 'big' ? 'flex-fill' : ''}`}>
+      <div
+        className={`art-publ__wrapper art-publ__wrapper--${style} art-publ__wrapper--${style}-${size}  ${
+          size === 'big' ? 'flex-grow-1 w-50' : ''
+        }
+      ${
+        style === 'on' && (size === 'medium' || size === 'small')
+          ? 'pos-absolute b-0 l-0 r-0 tx-white'
+          : ''
+      }
+      `}
+      >
         <ArticleTaxonomies
           categories={categories}
-          className="article__category"
+          className={`article__category art-publ__category--${style}-${size}`}
         />
         <ArticleTitle
           highlightInTitle={highlightInTitle}
           post={post}
-          className="article__title"
+          className={`text-capitalize art-publ__title art-publ__title--${style}-${size}`}
         />
         <div className="article__meta">
           <ArticleAuthor className="article__author" author={author} />

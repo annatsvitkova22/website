@@ -6,12 +6,11 @@ import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
-import BlogsLoader from '~/components/Loaders/BlogsLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import PublicationMainLoader from '~/components/Loaders/PublicationMainLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
-import ArticleAuthor from '~/components/Article/Author';
+import NewsLoader from '~/components/Loaders/NewsLoader';
 
 const PUBLICATIONS_ARCHIVE = gql`
   query PublicationsArchive($cursor: String, $articles: Int) {
@@ -28,7 +27,7 @@ const PUBLICATIONS_ARCHIVE = gql`
             categories {
               nodes {
                 name
-                uri
+                slug
               }
             }
             featuredImage {
@@ -74,7 +73,7 @@ const PUBLICATIONS_ARCHIVE = gql`
     categories {
       nodes {
         name
-        link
+        slug
         zmCategoryACF {
           order
           showOnPublications
@@ -82,7 +81,7 @@ const PUBLICATIONS_ARCHIVE = gql`
         }
         publications {
           nodes {
-            uri
+            slug
             title
             author {
               slug
@@ -103,7 +102,8 @@ const Publications = (props) => {
   const { fetchingContent, state } = useLoadMoreHook(
     PUBLICATIONS_ARCHIVE,
     publications,
-    'publications'
+    'publications',
+    11
   );
 
   const filteredCategories = categories.nodes.filter(
@@ -118,6 +118,11 @@ const Publications = (props) => {
     categories: mainCats,
   } = info.generalInfoACF.mainPublication;
 
+  const sortedCategories = filteredCategories.sort(
+    (categoryA, categoryB) =>
+      categoryA.zmCategoryACF.order - categoryB.zmCategoryACF.order
+  );
+
   if (!state.data.nodes) return <PublicationMainLoader />;
   const { nodes, pageInfo } = state.data;
 
@@ -129,43 +134,41 @@ const Publications = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="publ-main">
+      <main>
         <div className="main-publ">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <div
-                  className="main-publ__image pos-relative bg-cover"
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2B2B2B 100%), url(${featuredImage.mediaItemUrl})`,
-                  }}
-                >
-                  <div className="main-publ__caption tx-white">
-                    <ul className="cat-list list-reset text-center">
-                      {mainCats.nodes.map(({ name, uri }, i) => (
-                        <li key={i} className="cat-list__item">
-                          <Link
-                            href="/publications/category/[slug]"
-                            as={` /publications/${uri}`}
-                          >
-                            <a className="cat-list__button">{name}</a>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                    <h1 className="text-center text-capitalize">{title}</h1>
-                    <p className="text-center">
-                      {author.firstName} {author.lastName}
-                    </p>
-                  </div>
-                </div>
+          <div
+            className="main-publ__image pos-relative bg-cover"
+            style={{
+              backgroundImage: `linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2B2B2B 100%), url(${featuredImage.mediaItemUrl})`,
+            }}
+          >
+            <div className="main-publ">
+              <div className="main-publ__caption tx-white">
+                <ul className="list-reset text-center">
+                  {mainCats.nodes.map(({ name, slug }, i) => (
+                    <li key={i} className="cat-list__item">
+                      <Link href={`/search?category=${slug}`}>
+                        <a className="cat-list__button">{name}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <h1 className="main-publ__title text-center text-capitalize">
+                  {title}
+                </h1>
+                <p className="text-center tx-family-titles tx-tiny font-weight-bold">
+                  {author.firstName} {author.lastName}
+                </p>
               </div>
             </div>
           </div>
         </div>
         <div className="container">
           <div className="row">
-            {nodes.map((post) => (
+            <div className="col-12">
+              <h6 className="publ-page__title text-uppercase">Останні</h6>
+            </div>
+            {nodes.slice(0, 11).map((post) => (
               <Article type="publications" post={post} key={post.id}>
                 {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                   <Waypoint onEnter={fetchingContent} />
@@ -176,40 +179,56 @@ const Publications = (props) => {
         </div>
         <div className="container">
           <div className="row">
-            {filteredCategories.map(
-              ({ publications: { nodes }, name, link }) => (
-                <div className="col-3">
-                  <p>{name}</p>
-                  {nodes.map(
-                    ({
-                      title,
-                      uri,
-                      author,
-                      featuredImage: { mediaItemUrl },
-                    }) => (
-                      <div>
-                        <feature>
-                          <img src={mediaItemUrl} alt={title} />
-                        </feature>
-                        <h3>{title}</h3>
-                        <div className="article__meta">
-                          <ArticleAuthor
-                            className="article__author"
-                            author={author}
-                          />
-                        </div>
-                      </div>
-                    )
-                  )}
-                </div>
-              )
-            )}
+            {sortedCategories
+              .slice(0, 4)
+              .map(
+                ({
+                  publications: { nodes },
+                  name,
+                  slug,
+                  zmCategoryACF: { order, size },
+                }) => {
+                  let colSize = '';
+                  switch (size) {
+                    case 'medium':
+                      colSize = 'col-md-3';
+                      break;
+                    case 'big':
+                      colSize = 'col-md-4';
+                      break;
+                    case 'small':
+                      colSize = 'col-md-2';
+                      break;
+
+                    default:
+                      break;
+                  }
+
+                  return (
+                    <div className={`publ-cat__col--${size} ${colSize}`}>
+                      <h6 className="publ-page__title text-uppercase">
+                        <Link href={`/search?category=${slug}`}>
+                          <a>{name}</a>
+                        </Link>
+                      </h6>
+                      {nodes.map((post) => (
+                        <Article
+                          type="publications-cats"
+                          post={post}
+                          key={post.id}
+                        />
+                      ))}
+                    </div>
+                  );
+                }
+              )}
           </div>
         </div>
         <div className="container publ-archive">
           <div className="row">
             <div className="col-12">
-              <div className="news-archive__content ">
+              <h6 className="publ-page__title text-uppercase">Архів</h6>
+              <div className="publ-archive__content">
                 {nodes.map((post, i) => (
                   <React.Fragment key={i}>
                     <ChronologicalSeparator posts={nodes} currentIndex={i} />
@@ -220,6 +239,7 @@ const Publications = (props) => {
                     </Article>
                   </React.Fragment>
                 ))}
+                {state.isLoading && <NewsLoader />}
               </div>
             </div>
           </div>
@@ -237,7 +257,7 @@ Publications.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: PUBLICATIONS_ARCHIVE,
     variables: {
-      first: 10,
+      first: 11,
       cursor: null,
     },
   });

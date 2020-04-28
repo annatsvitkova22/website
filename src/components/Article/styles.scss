@@ -90,14 +90,6 @@
     @include media-breakpoint-up(sm) {
       margin-bottom: 0;
     }
-
-    &--publ {
-      @include media-breakpoint-up(sm) {
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 0;
-      }
-    }
   }
 
   &__category {
@@ -308,37 +300,8 @@
 }
 
 .article-featured {
-
-  &__link {
-    &--publ {
-      width: 100%;
-    }
-  }
-
-
   &__image {
     margin-bottom: 0;
-
-    &--publ {
-      padding-bottom: 57.7%;
-
-      position: relative;
-
-      overflow: hidden;
-
-      img {
-        object-fit: cover;
-
-        width: 100%;
-        height: 100%;
-
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-      }
-    }
   }
 }
 

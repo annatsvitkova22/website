@@ -1,18 +1,61 @@
 .main-publ {
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+
   &__image {
     padding-bottom: 53.3%;
+    margin-bottom: 50px;
   }
 
   &__caption {
     position: absolute;
-    bottom: 0;
+    bottom: 47px;
     left: $grid-gutter-width/2;
     right: $grid-gutter-width/2;
 
     z-index: 10;
   }
+
+  &__title {
+    max-width: 921px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+  }
+}
+
+.publ-page {
+  &__title {
+    padding-top: 16px;
+    padding-bottom: 17px;
+
+    border-top: 1px solid $black;
+
+    font-family: $font-family-alt;
+
+    a {
+      font-family: inherit;
+
+      &::before {
+        content: '!';
+      }
+    }
+  }
 }
 
 .publ-archive {
-  max-width: 896px;
+  margin-top: 50px;
+
+  &__content {
+    max-width: 896px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
