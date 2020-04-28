@@ -25,6 +25,28 @@ const composeQuery = ({ cursor, articles, slug }) => {
       users(where: { search: "${slug}", searchColumns: "slug" }) {
         nodes {
           name
+          description
+          stats: blogs(first: 9999) {
+            pageInfo {
+              total
+            }
+            nodes {
+              commentCount
+              statisticsACF {
+                views
+              }
+            }
+          }
+          bloggerInfoACF {
+            avatar {
+              mediaItemUrl
+            }
+            info
+            socials {
+              name
+              url
+            }
+          }
           blogs(first: $articles, before: $cursor) {
             nodes {
               id
@@ -147,6 +169,9 @@ const BlogsArchive = ({ users, query }) => {
                 <React.Fragment key={index}>
                   <BloggerRow
                     waypoint={<Waypoint onEnter={fetchingContent} />}
+                    isLoading={state.isLoading}
+                    loader={<PostCardLoader type={'small'} />}
+                    showBio={true}
                     inRow={2}
                     {...row}
                   />
@@ -154,6 +179,42 @@ const BlogsArchive = ({ users, query }) => {
               );
             })}
           </main>
+          {state.data.users.nodes[0].blogs.pageInfo.total ===
+            state.data.users.nodes[0].blogs.nodes.length && (
+            <Waypoint onEnter={loadMostPopular} />
+          )}
+          {popular && (
+            <SimilarPosts
+              similarPosts={popular}
+              title={'Популярні'}
+              link={{
+                label: 'Дивитися всі',
+                value: '/search?type=blogs',
+              }}
+            />
+          )}
+          {!popular && (
+            <div className="posts-similar posts-similar--loading posts-similar--blogs">
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

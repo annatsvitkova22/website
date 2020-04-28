@@ -5,6 +5,7 @@ import ArticleNews from '~/components/Article/News';
 import ArticleOpportunities from '~/components/Article/Opportunities';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleBlogs from '~/components/Article/Blogs';
+import ArticlePublications from '~/components/Article/Publications';
 
 const Article = ({ type, className, ...props }) => {
   switch (type) {
@@ -34,6 +35,16 @@ const Article = ({ type, className, ...props }) => {
       return (
         <ArticleProvider value={type}>
           <ArticleOpportunities
+            className={classnames('article', className)}
+            {...props}
+          />
+        </ArticleProvider>
+      );
+    }
+    case 'publications': {
+      return (
+        <ArticleProvider value={type}>
+          <ArticlePublications
             className={classnames('article', className)}
             {...props}
           />

@@ -1,145 +1,234 @@
-import React, { useRef, useState } from 'react';
-import Head from 'next/head';
+import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import StickyBox from 'react-sticky-box';
+import moment from 'moment';
+import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
-import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
-import Share from '~/components/ShareSideBar';
-import Content from '~/components/Content';
-import SideBarNews from '~/components/Sidebar/Post/SideBarNews';
+import SimilarPosts from '~/components/SimilarPosts';
+import SideBarPost from '~/components/Sidebar/Post';
+import SidebarLoader from '~/components/Loaders/SidebarLoader';
+import ArticleSingle from '~/components/Article/Single';
+import PostCardLoader from '~/components/Loaders/PostCardLoader';
+import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
 
 const BLOG = gql`
   query Blog($slug: String!) {
     blogBy(slug: $slug) {
-      ${gutenbergBlocksQuery}
-      content
-      title
+      blogId
+      ${singleContentCommon}
     }
   }
 `;
-const BLOGS = gql`
-  query Blogs($cursor: String) {
-    blogs(first: 5, before: $cursor) {
+const SIMILAR = gql`
+  query SimilarBlogs($category: String) {
+    blogs(first: 6, where: { categoryName: $category }) {
+      nodes {
+        author {
+          nicename
+          lastName
+          firstName
+          nickname
+          username
+          name
+        }
+        id
+        title
+        featuredImage {
+          link
+          mediaItemUrl
+        }
+      }
+    }
+  }
+`;
+const NEWS = gql`
+  query News($cursor: String, $articles: Int) {
+    posts(first: $articles, before: $cursor) {
+      nodes {
+        title
+        link
+        date
+      }
       pageInfo {
         endCursor
         total
       }
+    }
+  }
+`;
+const BLOGS = gql`
+  query Blogs {
+    blogs(first: 4) {
       nodes {
         link
         title
         author {
-          lastName
-          firstName
+          name
         }
       }
     }
   }
 `;
 
-const Blog = ({ blog, allBlogs }) => {
-  const ref = useRef();
-
+const Blog = (props) => {
   const [state, setState] = useState({
-    updBlogs: allBlogs,
+    post: props.post,
     isLoading: false,
-    endCursor: allBlogs.pageInfo.endCursor ? allBlogs.pageInfo.endCursor : null,
+    isSimilarLoading: false,
   });
 
-  const fetchingContent = async () => {
-    if (!state.isLoading) {
+  const [additionalInfo, setAdditionalInfo] = useState({});
+  const [similar, setSimilar] = useState({
+    posts: undefined,
+    loading: false,
+  });
+
+  const { post, isLoading } = state;
+  const { news, blogs } = additionalInfo;
+
+  moment.locale('uk');
+
+  useEffect(() => {
+    async function loadData() {
+      if (!isLoading) {
+        setState({
+          ...state,
+          isLoading: true,
+        });
+      }
+
+      const postResponse = await apolloClient.query({
+        query: BLOG,
+        variables: {
+          slug: props.slug,
+        },
+      });
+
+      setState({
+        ...state,
+        post: postResponse.data.blogBy,
+        isLoading: false,
+      });
+    }
+
+    if (props.slug && !post) {
       setState({
         ...state,
         isLoading: true,
       });
+      loadData();
     }
 
-    const blogsData = await apolloClient.query({
-      query: BLOGS,
+    const loadAdditionalInfo = async () => {
+      const newsResponse = await apolloClient.query({
+        query: NEWS,
+        variables: {
+          articles: 10,
+          cursor: null,
+        },
+      });
+      const blogsResponse = await apolloClient.query({
+        query: BLOGS,
+      });
+
+      setAdditionalInfo({
+        news: newsResponse.data.posts,
+        blogs: blogsResponse.data.blogs,
+      });
+    };
+
+    if (!news && !blogs) {
+      loadAdditionalInfo();
+    }
+  }, []);
+
+  const loadSimilarPosts = async () => {
+    if (similar.posts) return;
+
+    setSimilar({
+      ...similar,
+      loading: true,
+    });
+
+    const similarResponse = await apolloClient.query({
+      query: SIMILAR,
       variables: {
-        cursor: state.endCursor,
+        category: null,
       },
     });
 
-    setState({
-      isLoading: false,
-      endCursor: blogsData.data.blogs.pageInfo
-        ? blogsData.data.blogs.pageInfo.endCursor
-        : false,
-      updBlogs: {
-        pageInfo: blogsData.data.blogs.pageInfo,
-        nodes: [...state.updBlogs.nodes, ...blogsData.data.blogs.nodes],
-      },
+    setSimilar({
+      posts: similarResponse.data.blogs,
+      loading: false,
     });
   };
 
-  if (!blog) return <div>lodaing...</div>;
+  const sidebar =
+    news && blogs ? (
+      <SideBarPost news={news} blogs={blogs} />
+    ) : (
+      <SidebarLoader className={'full-width'} type={'popular'} />
+    );
+  const similarPosts = similar.posts ? (
+    <SimilarPosts similarPosts={similar.posts.nodes} title={'Схожі'} />
+  ) : null;
 
   return (
-    <div className="single-news">
-      <Head>
-        <title>{blog.title}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className="title">{blog.title}</h1>
-        <section
-          className={'main row no-gutters justify-content-between'}
-          style={{ display: 'flex', alignItems: 'flex-start' }}
-        >
-          <StickyBox
-            offsetTop={20}
-            offsetBottom={20}
-            className={'side-bar__wrapper col-1'}
-          >
-            <Share />
-          </StickyBox>
-          <section className={'description col-7'}>
-            <Content content={blog.blocks} />
-          </section>
-          <StickyBox
-            offsetTop={20}
-            offsetBottom={20}
-            className={'side-bar__wrapper col-3'}
-          >
-            <section className={'latest'}>
-              <SideBarNews
-                news={state.updBlogs}
-                ref={ref}
-                fetchingContent={fetchingContent}
-                isLoading={state.isLoading}
-              />
-            </section>
-          </StickyBox>
-        </section>
-        <div className="description">{blog.content}</div>
-      </main>
-    </div>
+    <>
+      <ArticleSingle
+        post={post}
+        type={'blog'}
+        hasShare={true}
+        sidebar={sidebar}
+        similarPosts={similarPosts}
+      />
+      {!similar.posts && (
+        <>
+          <Waypoint onEnter={loadSimilarPosts} />
+          <div className="posts-similar posts-similar--loading posts-similar--news">
+            <div>
+              <PostCardLoader type={'small'} />
+            </div>
+            <div>
+              <PostCardLoader type={'small'} />
+            </div>
+            <div>
+              <PostCardLoader type={'small'} />
+            </div>
+            <div>
+              <PostCardLoader type={'small'} />
+            </div>
+            <div>
+              <PostCardLoader type={'small'} />
+            </div>
+            <div>
+              <PostCardLoader type={'small'} />
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 
 Blog.propTypes = {
-  blog: PropTypes.object,
-  allBlogs: PropTypes.object,
+  post: PropTypes.object,
+  news: PropTypes.object,
+  similarPosts: PropTypes.object,
 };
 
 Blog.getInitialProps = async ({ query: { slug } }) => {
-  const { data } = await apolloClient.query({
+  if (process.browser) {
+    return { slug };
+  }
+
+  const post = await apolloClient.query({
     query: BLOG,
     variables: { slug },
   });
-
-  const blogs = await apolloClient.query({
-    query: BLOGS,
-    variables: {
-      cursor: null,
-    },
-  });
   return {
-    blog: data.blogBy,
-    allBlogs: blogs.data.blogs,
+    post: post.data.blogBy,
   };
 };
 

@@ -2,18 +2,23 @@ import React from 'react';
 import Blogger from '~/components/Blogger/index';
 import Article from '~/components/Article';
 import * as classnames from 'classnames';
+import { times } from 'lodash';
 
 const BloggerRow = ({
+  showBio,
   waypoint,
   loader,
+  isLoading = false,
   inRow = 3,
   blogs: { nodes, pageInfo },
   ...profile
 }) => {
-  console.log(pageInfo);
+  const hasLoadMore = pageInfo && waypoint;
+
   return (
     <div className="blogger-row row">
-      <Blogger className="col-md-3" {...profile} />
+      {/* TODO: should we make it sticky on single blogger page? */}
+      <Blogger showBio={showBio} className="col-md-3" {...profile} />
       <div className="col-md-9">
         <div className="row">
           {nodes.map((blog, i) => (
@@ -26,13 +31,25 @@ const BloggerRow = ({
                 type="blogs"
                 post={blog}
               />
-              {i === nodes.length - 1 &&
+              {hasLoadMore &&
+                i === nodes.length - 1 &&
                 i < pageInfo.total - 1 &&
-                waypoint &&
                 waypoint}
-              {loader && loader}
             </React.Fragment>
           ))}
+          {loader &&
+            isLoading &&
+            times(inRow, (i) => (
+              <div
+                key={i}
+                className={classnames({
+                  'col-md-4': inRow === 3,
+                  'col-md-6': inRow === 2,
+                })}
+              >
+                {loader}
+              </div>
+            ))}
         </div>
       </div>
     </div>

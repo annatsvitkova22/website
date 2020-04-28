@@ -25,6 +25,28 @@ const BLOGGERS = gql`
     ) {
       nodes {
         name
+        description
+        stats: blogs(first: 9999) {
+          pageInfo {
+            total
+          }
+          nodes {
+            commentCount
+            statisticsACF {
+              views
+            }
+          }
+        }
+        bloggerInfoACF {
+          avatar {
+            mediaItemUrl
+          }
+          info
+          socials {
+            name
+            url
+          }
+        }
         blogs(first: 3) {
           nodes {
             id
@@ -103,9 +125,21 @@ const ALL_BLOGS = gql`
           nickname
           username
         }
+        commentCount
         comments {
-          pageInfo {
-            total
+          nodes {
+            author {
+              ... on CommentAuthor {
+                id
+                name
+              }
+            }
+            content
+            commentId
+            date
+            commentACF {
+              likes
+            }
           }
         }
         date
@@ -207,7 +241,7 @@ const BlogsArchive = ({ users }) => {
                         />
                       )}
                       {!popular && (
-                        <div className="blogs-page__popular blogs-page__popular--loading">
+                        <div className="blogs-similar blogs-similar--loading">
                           <div>
                             <PostCardLoader type={'small'} />
                           </div>
@@ -235,7 +269,7 @@ const BlogsArchive = ({ users }) => {
             })}
             <hr />
             <div className="blogs-page__archive">
-              {state.data.nodes &&
+              {nodes &&
                 nodes.map((post, i) => (
                   <React.Fragment key={i}>
                     <ChronologicalSeparator posts={nodes} currentIndex={i} />
@@ -248,7 +282,7 @@ const BlogsArchive = ({ users }) => {
                     </ArticleProvider>
                   </React.Fragment>
                 ))}
-              {!state.data.nodes ||
+              {!nodes ||
                 (state.isLoading && (
                   <>
                     <NewsLoader />
