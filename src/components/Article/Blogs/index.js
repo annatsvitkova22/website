@@ -10,26 +10,24 @@ const ArticleBlogs = ({ post, children, className, highlightInTitle }) => {
   const { categories, title, slug, author, featuredImage } = post;
   return (
     <article className={classnames('article--blog', className)}>
-      <div className="article__wrapper">
-        <ArticleFeatured
-          className="article__image"
-          image={featuredImage}
-          alt={title}
-          slug={slug}
+      <ArticleFeatured
+        className="article__image"
+        image={featuredImage}
+        alt={title}
+        slug={slug}
+      />
+      <div className="article__main">
+        <ArticleTaxonomies
+          categories={categories}
+          className="article__category"
         />
-        <div className="article__main">
-          <ArticleTaxonomies
-            categories={categories}
-            className="article__category"
-          />
-          <ArticleTitle
-            highlightInTitle={highlightInTitle}
-            post={post}
-            className="article__title"
-          />
-          <div className="article__meta">
-            <ArticleAuthor className="article__author" author={author} />
-          </div>
+        <ArticleTitle
+          highlightInTitle={highlightInTitle}
+          post={post}
+          className="article__title"
+        />
+        <div className="article__meta">
+          <ArticleAuthor className="article__author" author={author} />
         </div>
       </div>
       {children}
