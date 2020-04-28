@@ -91,6 +91,13 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
+        case 'events':
+          setState({
+            data: response.data.events,
+            endCursor: response.data.events.pageInfo.endCursor,
+            isLoading: false,
+          });
+          break;
         case 'others':
           setState({
             data: response.data.others,
@@ -231,6 +238,18 @@ const useLoadMoreHook = (
           },
           endCursor: responseData.data.opportunities.pageInfo
             ? responseData.data.opportunities.pageInfo.endCursor
+            : false,
+          isLoading: false,
+        });
+        break;
+      case 'events':
+        setState({
+          data: {
+            ...state.data,
+            nodes: [...state.data.nodes, ...responseData.data.events.nodes],
+          },
+          endCursor: responseData.data.events.pageInfo
+            ? responseData.data.events.pageInfo.endCursor
             : false,
           isLoading: false,
         });

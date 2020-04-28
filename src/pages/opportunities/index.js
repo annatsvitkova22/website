@@ -61,7 +61,7 @@ const OpportunitiesArchive = (props) => {
     <div className="opportunities-page">
       <Head>
         {/* TODO: change title */}
-        <title>{'Change this!'}</title>
+        <title>{'Можливості'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

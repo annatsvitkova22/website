@@ -1,45 +1,91 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+import { Waypoint } from 'react-waypoint';
 
+import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
-import EventsFilter from '~/components/EventsFilter';
-import EventsPost from '~/components/EventsPost';
+import Article from '~/components/Article';
+import NewsLoader from '~/components/Loaders/NewsLoader';
 
-const EVENTS_QUERY = gql`
-  query EventsQuery {
-    events {
+const EVENTS_ARCHIVE = gql`
+  query EventsArchive($cursor: String) {
+    events(first: 7, before: $cursor) {
       nodes {
-        id
-        link
+        featuredImage {
+          mediaItemUrl
+        }
         title
-        content
-        date
+        slug
+        id
+        zmAfishaACF {
+          eventAddress {
+            city
+            streetName
+            streetNumber
+          }
+          eventTime
+        }
+      }
+      pageInfo {
+        endCursor
+        total
       }
     }
   }
 `;
 
-const Events = ({ events }) => {
-  const [filter, setFilter] = useState(null);
-  const [date, setDate] = useState(new Date().getDate());
+const EventsArchive = (props) => {
+  const { fetchingContent, state } = useLoadMoreHook(
+    EVENTS_ARCHIVE,
+    props,
+    'events'
+  );
 
-  const eventFilter = (event) => {
-    const eventTarget = event.currentTarget.name;
+  if (!state.data.nodes)
+    return (
+      <div className="container articles-container">
+        <NewsLoader />
+        <NewsLoader />
+      </div>
+    );
 
-    setFilter(eventTarget);
-    setDate(new Date(event.currentTarget.value));
-  };
+  const { nodes, pageInfo } = state.data;
 
   return (
-    <main className="wrapper">
-      <EventsFilter eventFilter={eventFilter} />
-      <EventsPost eventsData={events} filter={filter} date={date} />
-    </main>
+    <div className="events-page">
+      <Head>
+        {/* TODO: change title */}
+        <title>{'Афіша'}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main>
+        <div className="container articles-container">
+          <div className="row">
+            {nodes.map((post, i) => (
+              <div className="col-3">
+                {i === 3 ? (
+                  <h1>Запропонуй подію</h1>
+                ) : (
+                  <Article type="events" post={post} key={post.id}>
+                    {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                      <Waypoint onEnter={fetchingContent} />
+                    )}
+                  </Article>
+                )}
+              </div>
+            ))}
+            {state.isLoading && <NewsLoader />}
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 
-Events.propTypes = {
+EventsArchive.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -49,14 +95,17 @@ Events.propTypes = {
   ),
 };
 
-Events.getInitialProps = async () => {
+EventsArchive.getInitialProps = async () => {
   const { data } = await apolloClient.query({
-    query: EVENTS_QUERY,
+    query: EVENTS_ARCHIVE,
+    variables: {
+      cursor: null,
+    },
   });
 
-  return {
-    events: data.events.nodes,
-  };
+  const { events } = data;
+
+  return events;
 };
 
-export default Events;
+export default EventsArchive;
