@@ -181,8 +181,20 @@
 }
 @include media-breakpoint-down(md) {
   .blogs-page__content {
-    .similar-posts{
+    .similar-posts {
       display: none;
+    }
+  }
+  .blogger-page {
+    .similar-posts__wrapper {
+      width: 100%;
+    }
+    .similar-posts__items {
+      @include make-row(1);
+    }
+    .similar-posts__item {
+      justify-content: space-around;
+      @include make-col(12);
     }
   }
 }

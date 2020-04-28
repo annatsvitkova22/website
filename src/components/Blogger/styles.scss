@@ -121,42 +121,21 @@
 
 .blogger-page__content {
   .blogger {
-    flex: 0 0 auto;
+    @include make-col(4);
+    @include media-breakpoint-down(md) {
+      @include make-col(12);
+    }
+  }
+  .blogger-row > div:last-child {
+    @include make-col(8);
+    @include media-breakpoint-down(md) {
+      @include make-col(12);
+    }
+  }
 
-    max-width: 406px;
-    width: 100%;
-    &-row {
-      flex-wrap: nowrap;
-      justify-content: space-between;
-    }
-    &-row > div:last-child {
-      max-width: 872px;
-    }
-  }
-  @include media-breakpoint-down(lg) {
-    .blogger {
-      &-row {
-        justify-content: space-between;
-      }
-      &-row > div:last-child {
-        max-width: 100%;
-      }
-    }
-  }
-  @include media-breakpoint-down(md) {
-    .avatar {
+  .avatar {
+    @include media-breakpoint-down(md) {
       margin-right: 20px;
-    }
-    .blogger {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-      max-width: 100%;
-
-      &-bio__text {
-        width: 100%;
-      }
     }
   }
 

@@ -71,23 +71,31 @@
 }
 
 .blogger-page {
+  .blogger-row__wrapper {
+    flex-direction: row;
+  }
+  .article {
+    &--blog {
+      flex-wrap: wrap;
+      flex-direction: column;
+
+      flex-grow: 2;
+      @include make-col(6);
+      @include media-breakpoint-down(md) {
+        @include make-col(6);
+      }
+      @include media-breakpoint-down(sm) {
+        @include make-col(12);
+      }
+    }
+  }
   @include media-breakpoint-down(lg) {
     &__content {
       .meta-taxonomy {
         display: flex;
       }
     }
-    .blogger-row__wrapper {
-      flex-direction: row;
-    }
     .article {
-      &--blog {
-        flex-direction: column;
-        flex-wrap: wrap;
-
-        flex-grow: 2;
-      }
-
       &__image {
         order: 1;
 
