@@ -27,7 +27,6 @@
     @include media-breakpoint-down(md) {
       display: flex;
       flex-direction: column;
-
     }
   }
   &__about {
@@ -101,6 +100,70 @@
       .instagram > svg {
         width: 14px;
       }
+    }
+  }
+  &-bio {
+    font-family: $font-family-titles;
+
+    font-size: 15px;
+    line-height: 25px;
+    letter-spacing: 0.03em;
+    &__text {
+      padding-top: 30px;
+    }
+    &__button {
+      text-decoration: underline;
+
+      color: cornflowerblue;
+    }
+  }
+}
+
+.blogger-page__content {
+  .blogger {
+    flex: 0 0 auto;
+
+    max-width: 406px;
+    width: 100%;
+    &-row {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+    &-row > div:last-child {
+      max-width: 872px;
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    .blogger {
+      &-row {
+        justify-content: space-between;
+      }
+      &-row > div:last-child {
+        max-width: 100%;
+      }
+    }
+  }
+  @include media-breakpoint-down(md) {
+    .avatar {
+      margin-right: 20px;
+    }
+    .blogger {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      max-width: 100%;
+
+      &-bio__text {
+        width: 100%;
+      }
+    }
+  }
+
+  .blogger__socials {
+    display: flex;
+    @include media-breakpoint-down(md) {
+      display: flex;
     }
   }
 }
