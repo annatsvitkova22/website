@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const List = ({ block, className }) => {
+const List = ({ block, className = '' }) => {
   if (block.attributes.ordered) {
     return (
       <ol
-        className={`${block.attributes.className} ordered-list ${className}`}
+        className={`${block.attributes.className} gutenberg__ordered-list ${className}`}
         dangerouslySetInnerHTML={{ __html: block.attributes.values }}
       />
     );
   }
   return (
     <ul
-      className={`${block.attributes.className} unordered-list ${className}`}
+      className={`${block.attributes.className} gutenberg__unordered-list ${className}`}
       dangerouslySetInnerHTML={{ __html: block.attributes.values }}
     />
   );

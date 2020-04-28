@@ -5,6 +5,7 @@ $pswp__assets-path: '../../node_modules/photoswipe/src/css/default-skin/';
 @import '~photoswipe/src/css/default-skin/default-skin';
 @import 'site-variables';
 @import 'site-grid';
+@import 'forms';
 @import '_typography.scss';
 @import 'common/global';
 
@@ -16,8 +17,9 @@ $pswp__assets-path: '../../node_modules/photoswipe/src/css/default-skin/';
 @import 'pages/news';
 @import 'pages/opportunities';
 @import 'pages/blogs';
+@import 'pages/events';
+@import 'pages/event';
 @import 'pages/publications';
 
 //Import all styles.scss files from /components folder
-// @import '../components/**/styles.scss';
 @import '../components/**/**/styles.scss';

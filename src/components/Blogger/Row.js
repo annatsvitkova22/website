@@ -5,6 +5,7 @@ import * as classnames from 'classnames';
 import { times } from 'lodash';
 
 const BloggerRow = ({
+  showBio,
   waypoint,
   loader,
   isLoading = false,
@@ -12,14 +13,14 @@ const BloggerRow = ({
   blogs: { nodes, pageInfo },
   ...profile
 }) => {
-  // console.log({ nodes, pageInfo });
   const hasLoadMore = pageInfo && waypoint;
 
   return (
     <div className="blogger-row row">
-      <Blogger className="col-md-3" {...profile} />
-      <div className="col-md-9">
-        <div className="row">
+      {/* TODO: should we make it sticky on single blogger page? */}
+      <Blogger showBio={showBio} className="col-md-3" {...profile} />
+      <div className="col-md-12 col-lg-9 col-xl-9">
+        <div className="blogger-row__wrapper row">
           {nodes.map((blog, i) => (
             <React.Fragment key={blog.id}>
               <Article

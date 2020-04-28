@@ -5,7 +5,7 @@ import { setCategories } from '~/stores/News';
 
 const useLoadMoreHook = (
   query,
-  props,
+  props = {},
   type,
   initialNumber = 10,
   onLoadNumber = 3,
@@ -17,7 +17,7 @@ const useLoadMoreHook = (
     data: { ...props },
     endCursor:
       type === 'blogger'
-        ? props && props.users.nodes[0].blogs.pageInfo
+        ? props.users && props.users.nodes[0].blogs.pageInfo
           ? props.users.nodes[0].blogs.pageInfo.endCursor
           : null
         : props.pageInfo
@@ -88,6 +88,13 @@ const useLoadMoreHook = (
           setState({
             data: response.data.opportunities,
             endCursor: response.data.opportunities.pageInfo.endCursor,
+            isLoading: false,
+          });
+          break;
+        case 'events':
+          setState({
+            data: response.data.events,
+            endCursor: response.data.events.pageInfo.endCursor,
             isLoading: false,
           });
           break;
@@ -231,6 +238,18 @@ const useLoadMoreHook = (
           },
           endCursor: responseData.data.opportunities.pageInfo
             ? responseData.data.opportunities.pageInfo.endCursor
+            : false,
+          isLoading: false,
+        });
+        break;
+      case 'events':
+        setState({
+          data: {
+            ...state.data,
+            nodes: [...state.data.nodes, ...responseData.data.events.nodes],
+          },
+          endCursor: responseData.data.events.pageInfo
+            ? responseData.data.events.pageInfo.endCursor
             : false,
           isLoading: false,
         });
