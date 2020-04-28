@@ -8,6 +8,7 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
 import Article from '~/components/Article';
 import NewsLoader from '~/components/Loaders/NewsLoader';
+import EventsForm from '~/components/EventsForm';
 
 const EVENTS_ARCHIVE = gql`
   query EventsArchive($cursor: String) {
@@ -68,7 +69,14 @@ const EventsArchive = (props) => {
               i === 3 ? (
                 <>
                   <div className="col-3">
-                    <h1>Запропонуй подію</h1>
+                    <EventsForm
+                      personText="Контактна особа"
+                      phoneText="Телефон"
+                      nameText="Назва"
+                      dateText="Дата"
+                      descText="Опис Події"
+                      submitText="Запропонувати"
+                    />
                   </div>
                   <div className="col-3">
                     <Article type="events" post={post} key={post.id}>

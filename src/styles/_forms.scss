@@ -1,0 +1,12 @@
+input {
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+}
+
+.zm-form {
+  &__input {
+    border-bottom: 1px solid $grey-200;
+  }
+}
