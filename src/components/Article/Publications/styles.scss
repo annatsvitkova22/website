@@ -7,8 +7,6 @@
 
   &__image {
     &--publ {
-      padding-bottom: 57.7%;
-
       position: relative;
 
       overflow: hidden;
@@ -46,6 +44,12 @@
 }
 
 .art-publ {
+  &__title {
+    &--on-medium {
+      margin-bottom: 15px;
+    }
+  }
+
   &__category {
     &--on {
       &-small,
@@ -57,7 +61,7 @@
 
     &--under {
       &-medium {
-        margin-bottom: 21px;
+        margin-bottom: 18px;
       }
 
       &-small,
@@ -96,7 +100,7 @@
     }
 
     &--on-medium {
-      padding-bottom: 36px;
+      padding-bottom: 31px;
     }
 
     &--on-small {
@@ -148,6 +152,16 @@
     &-medium {
       .article-title__link {
         font-size: 26px;
+      }
+
+      figure {
+        padding-bottom: 57.7%;
+      }
+    }
+
+    &-small {
+      figure {
+        padding-bottom: 59.1%;
       }
     }
   }

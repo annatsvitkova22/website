@@ -134,33 +134,31 @@ const Publications = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="publ-main">
+      <main>
         <div className="main-publ">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <div
-                  className="main-publ__image pos-relative bg-cover"
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2B2B2B 100%), url(${featuredImage.mediaItemUrl})`,
-                  }}
-                >
-                  <div className="main-publ__caption tx-white">
-                    <ul className="cat-list list-reset text-center">
-                      {mainCats.nodes.map(({ name, slug }, i) => (
-                        <li key={i} className="cat-list__item">
-                          <Link href={`/search?category=${slug}`}>
-                            <a className="cat-list__button">{name}</a>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                    <h1 className="text-center text-capitalize">{title}</h1>
-                    <p className="text-center tx-family-titles tx-tiny font-weight-bold">
-                      {author.firstName} {author.lastName}
-                    </p>
-                  </div>
-                </div>
+          <div
+            className="main-publ__image pos-relative bg-cover"
+            style={{
+              backgroundImage: `linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2B2B2B 100%), url(${featuredImage.mediaItemUrl})`,
+            }}
+          >
+            <div className="main-publ">
+              <div className="main-publ__caption tx-white">
+                <ul className="list-reset text-center">
+                  {mainCats.nodes.map(({ name, slug }, i) => (
+                    <li key={i} className="cat-list__item">
+                      <Link href={`/search?category=${slug}`}>
+                        <a className="cat-list__button">{name}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <h1 className="main-publ__title text-center text-capitalize">
+                  {title}
+                </h1>
+                <p className="text-center tx-family-titles tx-tiny font-weight-bold">
+                  {author.firstName} {author.lastName}
+                </p>
               </div>
             </div>
           </div>
