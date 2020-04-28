@@ -2,10 +2,23 @@
   &:not(:last-child) {
     margin-bottom: 80px;
   }
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
+  &__wrapper {
+    @include media-breakpoint-down(md) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 
 .blogger {
-  @include media-breakpoint-down(md){
+  @include media-breakpoint-down(md) {
+    display: flex;
+    flex-direction: column;
+  }
+  @include media-breakpoint-down(md) {
     display: flex;
 
     margin-bottom: 20px;
@@ -14,6 +27,7 @@
     @include media-breakpoint-down(md) {
       display: flex;
       flex-direction: column;
+
     }
   }
   &__about {
@@ -90,4 +104,3 @@
     }
   }
 }
-
