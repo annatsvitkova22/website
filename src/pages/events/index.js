@@ -76,6 +76,7 @@ const EventsArchive = (props) => {
                       dateText="Дата"
                       descText="Опис Події"
                       submitText="Запропонувати"
+                      className="zm-form--event"
                     />
                   </div>
                   <div className="col-3">

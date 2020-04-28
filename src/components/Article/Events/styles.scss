@@ -1,8 +1,10 @@
 .article {
   &--events {
+    margin-bottom: 80px;
+
     .article {
       &__title {
-        margin-bottom: 24px;
+        margin-bottom: 18px;
 
         text-transform: capitalize;
       }

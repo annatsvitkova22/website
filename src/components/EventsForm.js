@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import * as classnames from 'classnames';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 
 import apolloClient from '~/lib/ApolloClient';
+import Icon from '~/components/Icons';
 
 const ADD_EVENT = gql`
   mutation($author: String, $commentOn: Int, $content: String) {
@@ -26,6 +28,7 @@ const EventsForm = ({
   dateText,
   descText,
   submitText,
+  className,
   onSent = () => {},
 }) => {
   const [form, setForm] = useState({
@@ -73,8 +76,8 @@ const EventsForm = ({
     }
   };
   return (
-    <from className="zm-form">
-      <h1 class="zm-form__title">Запропонуй подію</h1>
+    <from className={classnames('zm-form', className)}>
+      <h1 class="zm-form__title">Запропонуй Подію</h1>
       <input
         className={'zm-form__input'}
         type={'text'}
@@ -102,17 +105,23 @@ const EventsForm = ({
         placeholder={nameText}
         required
       />
-      <input
-        className="zm-form__input zm-form__input--date"
-        type={'date'}
-        name={'date'}
-        value={form.date}
-        placeholder={dateText}
-        onChange={handleInputChange}
-        required
-      />
+      <div className="zm-form__input-wrap">
+        <input
+          className="zm-form__input"
+          type={'text'}
+          name={'date'}
+          value={form.date}
+          placeholder={dateText}
+          onChange={handleInputChange}
+          required
+        />
+        <Icon
+          icon="calendar-alt"
+          className="zm-form__icon zm-form__icon--date"
+        />
+      </div>
       <textarea
-        className={'zm-form__input'}
+        className={'zm-form__textarea'}
         placeholder={descText}
         name={'message'}
         value={form.description}
@@ -120,7 +129,10 @@ const EventsForm = ({
         required
       />
 
-      <button className="zm-form__submit" onClick={handleSubmitComment}>
+      <button
+        className="zm-form__submit zm-button"
+        onClick={handleSubmitComment}
+      >
         {submitText}
       </button>
     </from>
@@ -134,6 +146,7 @@ EventsForm.propTypes = {
   dateText: PropTypes.string,
   descText: PropTypes.string,
   submitText: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default EventsForm;

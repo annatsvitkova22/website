@@ -1,12 +1,81 @@
+form, .zm-form {
+  display: block;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea,
 input {
+  display: block;
+  
+  width: 100%;
+
+  border: 0;
+  box-shadow: none;
+
   &:hover,
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 32px;
+  }
 }
 
 .zm-form {
+  &--event {
+    max-width: 264px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    margin-bottom: 31px;
+
+    color: $green;
+
+    font-size: 33px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  &__icon {
+    top: 50%;
+    right: 6px;
+    position: absolute;
+
+    transform: translateY(-50%);
+  }
+
+  &__input-wrap {
+    position: relative;
+  }
+
+  &__textarea {  
+    height: 72px;
+  }
+
+  &__textarea,
   &__input {
+    padding: 2px 0 3px;
+    margin-bottom: 30px;
+
     border-bottom: 1px solid $grey-200;
+
+    color: $black;
+    line-height: 29px;
+
+    &:hover,
+    &:focus {
+      border-color: $grey-400;
+    }
+  }
+
+  &__icon--date {
+    transform: translateY(-60%);
   }
 }
