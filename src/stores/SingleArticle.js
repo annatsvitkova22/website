@@ -2,8 +2,10 @@ import { createStateLink } from '@hookstate/core';
 
 export const SingleArticleStore = createStateLink({ post: {} });
 
-export const CreateSingleArticleStore = (post) => {
-  SingleArticleStore.set({ post });
+export const CreateSingleArticleStore = (post, loaded) => {
+  if (!loaded) {
+    SingleArticleStore.set({ post });
+  }
   return SingleArticleStore;
 };
 
