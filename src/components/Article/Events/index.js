@@ -3,11 +3,18 @@ import * as classnames from 'classnames';
 
 import ArticleTitle from '~/components/Article/Title';
 import ArticleFeatured from '~/components/Article/Featured';
+import EventTime from '~/components/Article/Date';
 
 const ArticleEvents = ({ post, children, className }) => {
-  const { streetName, streetNumber, city } = post.zmAfishaACF.eventAddress;
+  const { streetName, streetNumber, city, eventTime } = post.zmAfishaACF.eventAddress;
+  console.log(post);
   return (
     <article className={classnames('article--events', className)} key={post.id}>
+      <div className="meta-date-group">
+        <p className="meta-date-group__day">24</p>
+        <p className="meta-date-group__month">Березня</p>
+        <EventTime date={eventTime} className="meta-date--colored" />
+      </div>
       <ArticleFeatured
         className="article__image"
         image={post.featuredImage}

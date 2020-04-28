@@ -18,21 +18,3 @@
     margin-bottom: 50px;
   }
 }
-
-.blogs-similar {
-  margin-bottom: 80px;
-
-  &--loading {
-    display: flex;
-
-    width: 100%;
-
-    & > div {
-      width: 16.6666667%;
-
-      & + div {
-        margin-left: 10px;
-      }
-    }
-  }
-}

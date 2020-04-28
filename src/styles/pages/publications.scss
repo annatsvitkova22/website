@@ -1,0 +1,18 @@
+.main-publ {
+  &__image {
+    padding-bottom: 53.3%;
+  }
+
+  &__caption {
+    position: absolute;
+    bottom: 0;
+    left: $grid-gutter-width/2;
+    right: $grid-gutter-width/2;
+
+    z-index: 10;
+  }
+}
+
+.publ-archive {
+  max-width: 896px;
+}

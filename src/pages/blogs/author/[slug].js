@@ -25,6 +25,28 @@ const composeQuery = ({ cursor, articles, slug }) => {
       users(where: { search: "${slug}", searchColumns: "slug" }) {
         nodes {
           name
+          description
+          stats: blogs(first: 9999) {
+            pageInfo {
+              total
+            }
+            nodes {
+              commentCount
+              statisticsACF {
+                views
+              }
+            }
+          }
+          bloggerInfoACF {
+            avatar {
+              mediaItemUrl
+            }
+            info
+            socials {
+              name
+              url
+            }
+          }
           blogs(first: $articles, before: $cursor) {
             nodes {
               id
@@ -132,8 +154,6 @@ const BlogsArchive = ({ users, query }) => {
     );
   }
 
-  console.log(popular);
-
   return (
     <div className="container">
       <Head>
@@ -151,6 +171,7 @@ const BlogsArchive = ({ users, query }) => {
                     waypoint={<Waypoint onEnter={fetchingContent} />}
                     isLoading={state.isLoading}
                     loader={<PostCardLoader type={'small'} />}
+                    showBio={true}
                     inRow={2}
                     {...row}
                   />
@@ -173,7 +194,7 @@ const BlogsArchive = ({ users, query }) => {
             />
           )}
           {!popular && (
-            <div className="blogs-similar blogs-similar--loading">
+            <div className="posts-similar posts-similar--loading posts-similar--blogs">
               <div>
                 <PostCardLoader type={'small'} />
               </div>

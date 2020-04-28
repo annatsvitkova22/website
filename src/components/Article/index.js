@@ -6,6 +6,7 @@ import ArticleOpportunities from '~/components/Article/Opportunities';
 import ArticleEvents from '~/components/Article/Events';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleBlogs from '~/components/Article/Blogs';
+import ArticlePublications from '~/components/Article/Publications';
 
 const Article = ({ type, className, ...props }) => {
   switch (type) {
@@ -40,11 +41,23 @@ const Article = ({ type, className, ...props }) => {
           />
         </ArticleProvider>
       );
+      break;
     }
     case 'events': {
       return (
         <ArticleProvider value={type}>
           <ArticleEvents
+            className={classnames('article', className)}
+            {...props}
+          />
+        </ArticleProvider>
+      );
+      break;
+    }
+    case 'publications': {
+      return (
+        <ArticleProvider value={type}>
+          <ArticlePublications
             className={classnames('article', className)}
             {...props}
           />

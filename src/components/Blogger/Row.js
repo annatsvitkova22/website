@@ -5,6 +5,7 @@ import * as classnames from 'classnames';
 import { times } from 'lodash';
 
 const BloggerRow = ({
+  showBio,
   waypoint,
   loader,
   isLoading = false,
@@ -12,12 +13,12 @@ const BloggerRow = ({
   blogs: { nodes, pageInfo },
   ...profile
 }) => {
-  // console.log({ nodes, pageInfo });
   const hasLoadMore = pageInfo && waypoint;
 
   return (
     <div className="blogger-row row">
-      <Blogger className="col-md-3" {...profile} />
+      {/* TODO: should we make it sticky on single blogger page? */}
+      <Blogger showBio={showBio} className="col-md-3" {...profile} />
       <div className="col-md-9">
         <div className="row">
           {nodes.map((blog, i) => (

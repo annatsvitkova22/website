@@ -1,0 +1,12 @@
+.avatar {
+  padding: 7px;
+
+  border-radius: 50%;
+  border: 1px solid #000;
+
+  &__image {
+    display: block;
+
+    border-radius: 50%;
+  }
+}
