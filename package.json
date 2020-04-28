@@ -25,6 +25,7 @@
     "bootstrap": "^4.4.1",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
+    "google-maps-react": "^2.0.6",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "imagemin-mozjpeg": "^8.0.0",

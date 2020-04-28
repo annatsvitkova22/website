@@ -4,6 +4,7 @@ import {
   MapComponent,
   MapIcons,
 } from '~/components/Sidebar/Events/MapComponent';
+import SimpleMap from '~/components/SimpleMap';
 
 const EventsLikeSidebar = ({ data }) => {
   return (
@@ -13,7 +14,9 @@ const EventsLikeSidebar = ({ data }) => {
         <span className="event__month info-card__month">Березня</span>
         <span className="event__time info-card__time">11:00</span>
       </div>
-      <div className="info-card__map" />
+      <div className="info-card__map">
+        <SimpleMap data={data.eventAddress} />
+      </div>
       <div className="info-card__contact">
         <span className="info-card__description info-card__person">
           Контактна особа

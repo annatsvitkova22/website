@@ -172,7 +172,12 @@
     height: 196px;
     margin-bottom: 12px;
 
-    background-color: black;
+    //   background-color: black;
+  }
+  &__map > * {
+    height: 100%;
+
+    position: relative;
   }
   &__contact {
     display: flex;

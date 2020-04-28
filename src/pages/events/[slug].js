@@ -34,6 +34,9 @@ const EVENT = gql`
           streetAddress
           streetNumber
           streetName
+          longitude
+          latitude
+          zoom
         }
         contactInfo {
           email
@@ -49,6 +52,7 @@ const Event = (props) => {
   const { event } = props;
   const [sideBarOpen, setSideBarOpen] = useState(false);
 
+  console.log(event);
   const sideBarCls = classNames({
     'sidebar-active': sideBarOpen,
   });
