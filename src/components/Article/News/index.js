@@ -29,34 +29,36 @@ const ArticleNews = ({
   return (
     <article className={classnames('article--news', className)}>
       <div className="article__wrapper">
-        <div className="article__chronology">
-          <ArticleDate className="article__time" date={date} />
-        </div>
-        <div className="article__main">
-          <div className="article__top">
-            <ArticleDate className="article__time" date={post.date} />
-            <ArticleTaxonomies
-              categories={categories}
-              className="category-label"
-            />
+        <div className="article__content">
+          <div className="article__chronology">
+            <ArticleDate className="article__time" date={date} />
           </div>
-          <ArticleTitle
-            highlightInTitle={highlightInTitle}
-            post={post}
-            className="article__title"
-          />
-          {showMeta && (
-            <div className="article__meta">
-              {showAuthor && (
-                <ArticleAuthor className="article__author" author={author} />
-              )}
-              <ArticleComments
-                className="article__comments"
-                comments={comments}
-                slug={slug}
+          <div className="article__main">
+            <div className="article__top">
+              <ArticleDate className="article__time" date={post.date} />
+              <ArticleTaxonomies
+                categories={categories}
+                className="category-label"
               />
             </div>
-          )}
+            <ArticleTitle
+              highlightInTitle={highlightInTitle}
+              post={post}
+              className="article__title"
+            />
+            {showMeta && (
+              <div className="article__meta">
+                {showAuthor && (
+                  <ArticleAuthor className="article__author" author={author} />
+                )}
+                <ArticleComments
+                  className="article__comments"
+                  comments={comments}
+                  slug={slug}
+                />
+              </div>
+            )}
+          </div>
         </div>
         <ArticleFeatured
           className="article__image"

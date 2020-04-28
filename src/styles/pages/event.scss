@@ -142,79 +142,77 @@
   }
 }
 
-//=================Copy to single component==================//
-
-.info-card {
-  &__wrapper {
-    padding: 16px;
-
-    background-color: #ffffff;
-    .instagram,
-    .facebook {
+@media screen and (max-width: 1200px) {
+  .event {
+    &__main-wrapper {
       display: flex;
-      justify-content: center;
-      align-items: center;
-
-      width: 16px;
-      height: 16px;
+      flex-direction: column;
     }
-    .instagram .svg-icon {
-      height: 14px;
-      width: 14px;
+    &__content-wrapper {
+      display: flex;
+      order: 2;
     }
-    .facebook .svg-icon {
-      height: 16px;
+    &__sticky-wrapper {
+      display: flex;
+      order: 1;
+
+      max-width: 100% !important;
+
+      top: 0 !important;
+      position: relative !important;
+    }
+    .event__sticky-sidebar {
+      display: flex;
+
+      opacity: 1;
+    }
+    &__info-card {
+      max-width: 100%;
+    }
+    &__info-card:not(:first-child) {
+      display: none;
     }
   }
-  &__map {
-    width: 312px;
-    width: 100%;
-    height: 196px;
-    margin-bottom: 12px;
+
+  .event__sticky-sidebar .info-card__date {
+    display: none;
   }
-  &__map > * {
-    height: 100%;
+}
 
-    position: relative;
-  }
-  &__contact {
-    display: flex;
-    flex-direction: column;
-
-    padding: 12px 0;
-
-    font-family: $font-family-titles;
-  }
-
-  &__description {
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 16px;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-
-    color: #606664;
-  }
-  &__item {
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 18px;
-    letter-spacing: 0.06em;
-    text-transform: capitalize;
-
-    color: $black;
-  }
-  &__email ~ .info-card__item {
-    text-transform: lowercase;
-  }
-
-  &__social {
-    display: flex;
-
-    padding-top: 32px;
-    padding-bottom: 23px;
-    & > a:not(:last-child) {
-      margin-right: 16px;
+@media screen and (max-width: 720px) {
+  .event {
+    &__info-card {
+      padding-top: 20px;
     }
+  }
+}
+@media screen and (max-width: 500px) {
+  .event {
+    padding-top: 0;
+    &__wrapper {
+      margin-right: -20px;
+      margin-left: -20px;
+    }
+    &__background {
+      height: fit-content;
+    }
+    &__title-wrapper {
+      padding: 30px 20px;
+    }
+    &__title {
+      font-size: 24px;
+      line-height: 31px;
+      letter-spacing: -0.01em;
+    }
+    &__excerpt {
+      font-size: 16px;
+      line-height: 26px;
+      letter-spacing: 0.03em;
+    }
+
+    &__content-wrapper {
+      padding-top: 24px;
+    }
+
   }
 }

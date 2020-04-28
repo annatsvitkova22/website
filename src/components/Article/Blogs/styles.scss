@@ -1,16 +1,34 @@
 .article {
   &--blog {
+    @include media-breakpoint-down(md) {
+      display: flex;
+      justify-content: space-between;
+
+      max-width: 100%;
+    }
     .article__image {
       margin-bottom: 21px;
+      @include media-breakpoint-down(md) {
+        order: 3;
+
+        max-width: 192px;
+        margin-bottom: 0;
+      }
     }
 
     .article__main {
       width: 100%;
       padding-left: 0;
+      @include media-breakpoint-down(md) {
+        order: 1;
+      }
     }
 
     .meta-taxonomy {
       margin-bottom: 14px;
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
     }
 
     .article-title {
@@ -22,6 +40,10 @@
     }
 
     .article-featured {
+      @include media-breakpoint-down(xs) {
+        width: 88px;
+        height: 88px;
+      }
       img {
         width: 100%;
         height: 100%;
@@ -32,6 +54,13 @@
       &__image {
         width: 100%;
         height: 192px;
+        @include media-breakpoint-down(md) {
+          max-width: 300px;
+        }
+        @include media-breakpoint-down(xs) {
+          width: 88px;
+          height: 88px;
+        }
       }
 
       &__link {

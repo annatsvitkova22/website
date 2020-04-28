@@ -10,6 +10,7 @@ import apolloClient from '~/lib/ApolloClient';
 import Content from '~/components/Content';
 import EventsLikeSidebar from '~/components/Sidebar/Events';
 import EventHeader from '~/components/EventHeader';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const EVENT = gql`
   query Event($slug: String!) {
@@ -49,10 +50,16 @@ const EVENT = gql`
 `;
 
 const Event = (props) => {
-  const { event } = props;
   const [sideBarOpen, setSideBarOpen] = useState(false);
+  const [state, setState] = useState({
+    event: props.event,
+    isLoading: false,
+    isSimilarLoading: false,
+  });
 
-  console.log(event);
+  const { event, isLoading } = state;
+
+  console.log(state);
   const sideBarCls = classNames({
     'sidebar-active': sideBarOpen,
   });
@@ -68,8 +75,44 @@ const Event = (props) => {
 
   const [useStyles, setUseStyles] = useState({});
   useEffect(() => {
+    async function loadData() {
+      if (!isLoading) {
+        setState({
+          ...state,
+          isLoading: true,
+        });
+      }
+
+      const eventResponse = await apolloClient.query({
+        query: EVENT,
+        variables: {
+          slug: props.slug,
+        },
+      });
+
+      setState({
+        ...state,
+        event: eventResponse.data.eventBy,
+        isLoading: false,
+      });
+    }
+    if (props.slug && !event) {
+      setState({
+        ...state,
+        isLoading: true,
+      });
+      loadData();
+    }
+
     window.addEventListener('scroll', handleScroll);
-    if (event.featuredImage) {
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (state.event && state.event.featuredImage) {
       const styles = {
         backgroundImage: `url(${event.featuredImage.mediaItemUrl})`,
         backgroundRepeat: 'no-repeat',
@@ -79,10 +122,11 @@ const Event = (props) => {
       };
       setUseStyles(styles);
     }
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  }, [state.event]);
+
+  if (!state.event) {
+    return <PostHeaderLoader type={'publication'} />;
+  }
 
   return (
     <div className="single__event">
@@ -110,13 +154,14 @@ const Event = (props) => {
             )}
           </div>
         </div>
-        <div className="event__wrapper row no-gutters">
+        <div className="event__main-wrapper  row no-gutters">
           <div className="event__content-wrapper col-xl-8">
             <div className="event__content">
               <Content content={event.blocks} className="event__content-main" />
             </div>
           </div>
           <StickyBox
+            className={'event__sticky-wrapper'}
             offsetTop={20}
             offsetBottom={20}
             style={{ height: 'fit-content', width: '100%', maxWidth: '344px' }}
@@ -138,13 +183,16 @@ Event.propTypes = {
 };
 
 Event.getInitialProps = async ({ query: { slug } }) => {
-  const { data } = await apolloClient.query({
+  if (process.browser) {
+    return { slug };
+  }
+  const event = await apolloClient.query({
     query: EVENT,
     variables: { slug },
   });
 
   return {
-    event: data.eventBy,
+    event: event.data.eventBy,
   };
 };
 

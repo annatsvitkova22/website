@@ -1,8 +1,11 @@
 import React from 'react';
 import * as classnames from 'classnames';
+
 import Avatar from '~/components/Avatar';
 import Socials from '~/components/Footer/Socials';
 import BloggerBio from '~/components/Blogger/Bio';
+import Icons from '~/components/Icons';
+import { MapIcons } from '~/components/Sidebar/Events/MapComponent';
 
 const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
   const {
@@ -11,6 +14,7 @@ const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
     bloggerInfoACF: { avatar, info, socials },
     stats,
   } = blogger;
+
   const { pageInfo, nodes } = stats;
   const { commentsCount, viewsCount } = nodes.reduce(
     (acc, current) => {
@@ -34,29 +38,34 @@ const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
         avatar={avatar}
         alt={name}
       />
-      <h4 className="blogger__name">{name}</h4>
-      {info && <div className="blogger__info">{info}</div>}
-      <ul className="blogger__stats">
-        {pageInfo && pageInfo.total && (
-          <li>
-            <span>icon</span>
-            <span>{pageInfo.total}</span>
+      <div className="blogger__wrapper">
+        <div className="blogger__about">
+          <h4 className="blogger__name">{name}</h4>
+          {info && <div className="blogger__info">{info}</div>}
+        </div>
+        <ul className="blogger__stats">
+          {pageInfo && pageInfo.total && (
+            <li className="blogger__stats-item">
+              <Icons icon={'articles-small'} className="blogger__stats-icon" />
+              <span>{pageInfo.total}</span>
+            </li>
+          )}
+          <li className="blogger__stats-item">
+            <Icons icon={'comment-small'} className="blogger__stats-icon" />
+            <span>{commentsCount}</span>
           </li>
+          <li className="blogger__stats-item">
+            <Icons icon={'eye-small'} className="blogger__stats-icon" />
+            <span>{viewsCount}</span>
+          </li>
+        </ul>
+        {socials && (
+          <div className="blogger__socials">
+            <MapIcons className={'blogger__socials-links'} data={socials} />
+          </div>
         )}
-        <li>
-          <span>icon</span>
-          <span>{commentsCount}</span>
-        </li>
-        <li>
-          <span>icon</span>
-          <span>{viewsCount}</span>
-        </li>
-      </ul>
-      {socials && 'SOCIALS ARE HERE, THEY ARE WHITE BELOW THIS TEXT'}
-      {socials && (
-        <Socials className={'blogger__socials'} socialsData={socials} />
-      )}
-      {showBio && description && <BloggerBio bio={description} />}
+        {showBio && description && <BloggerBio bio={description} />}
+      </div>
     </div>
   );
 };

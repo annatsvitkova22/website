@@ -210,6 +210,8 @@ const BlogsArchive = ({ users }) => {
     );
   }
 
+  console.log(mainState, state);
+
   const { nodes, pageInfo } = state.data;
 
   return (

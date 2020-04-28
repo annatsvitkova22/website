@@ -34,13 +34,31 @@ export const MapComponent = ({ data, type }) => {
   );
 };
 
-export const MapIcons = ({ data }) => {
+export const MapIcons = ({ data, className = '' }) => {
+  console.log('incomung', data);
   return (
     <>
       {data &&
         data.map((item, index) => {
+          if (item.url) {
+            return (
+              <a
+                href={item.url}
+                target={'__blank'}
+                key={index}
+                className={className}
+              >
+                <Icons icon={item.name} />
+              </a>
+            );
+          }
           return (
-            <a href={item.socialUrl} target={'__blank'}>
+            <a
+              href={item.socialUrl}
+              target={'__blank'}
+              key={index}
+              className={className}
+            >
               <Icons icon={item.icon} />
             </a>
           );
