@@ -13,13 +13,15 @@ const PublicationsCats = ({
 }) => (
   <div className="publ-cat">
     <ArticleFeatured image={featuredImage} alt={title} slug={slug} />
-    <ArticleTitle
-      highlightInTitle={highlightInTitle}
-      post={post}
-      className="text-capitalize publ-cat__title font-weight-semibold"
-    />
-    <div className="article__meta">
-      <ArticleAuthor className="article__author" author={author} />
+    <div className="publ-cat__wrapper">
+      <ArticleTitle
+        highlightInTitle={highlightInTitle}
+        post={post}
+        className="text-capitalize publ-cat__title font-weight-semibold"
+      />
+      <div className="article__meta">
+        <ArticleAuthor className="article__author" author={author} />
+      </div>
     </div>
   </div>
 );

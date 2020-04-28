@@ -144,7 +144,7 @@ const Publications = (props) => {
           >
             <div className="main-publ">
               <div className="main-publ__caption tx-white">
-                <ul className="list-reset text-center">
+                <ul className="list-reset text-left text-sm-center">
                   {mainCats.nodes.map(({ name, slug }, i) => (
                     <li key={i} className="cat-list__item">
                       <Link href={`/search?category=${slug}`}>
@@ -153,10 +153,10 @@ const Publications = (props) => {
                     </li>
                   ))}
                 </ul>
-                <h1 className="main-publ__title text-center text-capitalize">
+                <h1 className="main-publ__title text-left text-sm-center text-capitalize">
                   {title}
                 </h1>
-                <p className="text-center tx-family-titles tx-tiny font-weight-bold">
+                <p className="text-left text-sm-center tx-family-titles tx-tiny font-weight-bold">
                   {author.firstName} {author.lastName}
                 </p>
               </div>
@@ -191,13 +191,13 @@ const Publications = (props) => {
                   let colSize = '';
                   switch (size) {
                     case 'medium':
-                      colSize = 'col-md-3';
+                      colSize = 'col-xl-3';
                       break;
                     case 'big':
-                      colSize = 'col-md-4';
+                      colSize = 'col-xl-4';
                       break;
                     case 'small':
-                      colSize = 'col-md-2';
+                      colSize = 'col-xl-2';
                       break;
 
                     default:

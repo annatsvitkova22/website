@@ -24,13 +24,13 @@ const ArticlePublications = ({
 
   switch (size) {
     case 'medium':
-      sizeCol = 'col-md-6';
+      sizeCol = 'col-lg-6';
       break;
     case 'big':
       sizeCol = 'col-12';
       break;
     case 'small':
-      sizeCol = 'col-md-4';
+      sizeCol = 'col-lg-4';
       break;
 
     default:
@@ -41,7 +41,7 @@ const ArticlePublications = ({
     <article
       className={classnames(
         `article--publication art-publ--${style}-${size} ${
-          size === 'big' ? 'd-flex' : ''
+          size === 'big' ? 'd-flex flex-column flex-lg-row' : ''
         }`,
         className,
         sizeCol
@@ -50,7 +50,7 @@ const ArticlePublications = ({
       <ArticleFeatured
         modif="publ"
         className={`article__image--publ ${
-          size === 'big' ? 'flex-grow-1 w-50' : ''
+          size === 'big' ? 'flex-lg-grow-1 w-lg-50' : ''
         }`}
         image={featuredImage}
         alt={title}
@@ -58,7 +58,7 @@ const ArticlePublications = ({
       />
       <div
         className={`art-publ__wrapper art-publ__wrapper--${style} art-publ__wrapper--${style}-${size}  ${
-          size === 'big' ? 'flex-grow-1 w-50' : ''
+          size === 'big' ? 'flex-lg-grow-1 w-lg-50' : ''
         }
       ${
         style === 'on' && (size === 'medium' || size === 'small')
