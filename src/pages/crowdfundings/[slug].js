@@ -19,6 +19,7 @@ import FeaturedImage from '~/components/FeaturedImage';
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleDate from '~/components/Article/Date';
 import Content from '~/components/Content';
+import useViewsCounter from '~/hooks/useViewsCounter';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -116,6 +117,8 @@ const Crowdfunding = (props) => {
       </div>
     );
   }
+
+  useViewsCounter(post);
 
   const status = getCFStatus(post);
 
