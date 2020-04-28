@@ -7,6 +7,7 @@ import apolloClient from '~/lib/ApolloClient';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import Article from '~/components/Article';
+import NewsLoader from '~/components/Loaders/NewsLoader';
 
 const CROWDFUNDINGS_ARCHIVE = gql`
   query CrowdfundingsArchive($articles: Int, $cursor: String) {
@@ -17,6 +18,7 @@ const CROWDFUNDINGS_ARCHIVE = gql`
         content
         uri
         title
+        slug
         date
         author {
           id
@@ -42,7 +44,7 @@ const CROWDFUNDINGS_ARCHIVE = gql`
   }
 `;
 
-const CrowdfundingsArchive = (props) => {
+const CrowdfundingsArchive = ({ crowdfundings }) => {
   const variables = {
     articles: 9,
     onLoadNumber: 3,
@@ -51,7 +53,7 @@ const CrowdfundingsArchive = (props) => {
 
   const { fetchingContent, state } = useLoadMoreHook(
     CROWDFUNDINGS_ARCHIVE,
-    props,
+    crowdfundings,
     'crowdfundings',
     variables.articles,
     variables.onLoadNumber
@@ -59,6 +61,7 @@ const CrowdfundingsArchive = (props) => {
 
   const {
     data: { nodes, pageInfo },
+    isLoading,
   } = state;
 
   if (!nodes) {
@@ -120,6 +123,21 @@ const CrowdfundingsArchive = (props) => {
                 </div>
               );
             })}
+            {isLoading && (
+              <div className="col-12">
+                <div className="row">
+                  <div className="col-md-4">
+                    <PostCardLoader type="small" />
+                  </div>
+                  <div className="col-md-4">
+                    <PostCardLoader type="small" />
+                  </div>
+                  <div className="col-md-4">
+                    <PostCardLoader type="small" />
+                  </div>
+                </div>
+              </div>
+            )}
           </main>
         </div>
       </div>
