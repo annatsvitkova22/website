@@ -32,16 +32,3 @@
     margin-right: auto;
   }
 }
-
-.publ-cat {
-  &:not(:last-child) {
-    margin-bottom: 24px;
-  }
-
-  &__title {
-    margin-top: 21px;
-    margin-bottom: 16px;
-
-    font-size: 20px;
-  }
-}

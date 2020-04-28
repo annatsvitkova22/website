@@ -27,7 +27,7 @@ const PUBLICATIONS_ARCHIVE = gql`
             categories {
               nodes {
                 name
-                uri
+                slug
               }
             }
             featuredImage {
@@ -73,7 +73,7 @@ const PUBLICATIONS_ARCHIVE = gql`
     categories {
       nodes {
         name
-        link
+        slug
         zmCategoryACF {
           order
           showOnPublications
@@ -118,6 +118,11 @@ const Publications = (props) => {
     categories: mainCats,
   } = info.generalInfoACF.mainPublication;
 
+  const sortedCategories = filteredCategories.sort(
+    (categoryA, categoryB) =>
+      categoryA.zmCategoryACF.order - categoryB.zmCategoryACF.order
+  );
+
   if (!state.data.nodes) return <PublicationMainLoader />;
   const { nodes, pageInfo } = state.data;
 
@@ -142,12 +147,9 @@ const Publications = (props) => {
                 >
                   <div className="main-publ__caption tx-white">
                     <ul className="cat-list list-reset text-center">
-                      {mainCats.nodes.map(({ name, uri }, i) => (
+                      {mainCats.nodes.map(({ name, slug }, i) => (
                         <li key={i} className="cat-list__item">
-                          <Link
-                            href="/publications/category/[slug]"
-                            as={` /publications/${uri}`}
-                          >
+                          <Link href={`/search?category=${slug}`}>
                             <a className="cat-list__button">{name}</a>
                           </Link>
                         </li>
@@ -179,20 +181,49 @@ const Publications = (props) => {
         </div>
         <div className="container">
           <div className="row">
-            {filteredCategories
+            {sortedCategories
               .slice(0, 4)
-              .map(({ publications: { nodes }, name }) => (
-                <div className="col-3">
-                  <h6 className="publ-page__title text-uppercase">{name}</h6>
-                  {nodes.map((post) => (
-                    <Article
-                      type="publications-cats"
-                      post={post}
-                      key={post.id}
-                    />
-                  ))}
-                </div>
-              ))}
+              .map(
+                ({
+                  publications: { nodes },
+                  name,
+                  slug,
+                  zmCategoryACF: { order, size },
+                }) => {
+                  let colSize = '';
+                  switch (size) {
+                    case 'medium':
+                      colSize = 'col-md-3';
+                      break;
+                    case 'big':
+                      colSize = 'col-md-4';
+                      break;
+                    case 'small':
+                      colSize = 'col-md-2';
+                      break;
+
+                    default:
+                      break;
+                  }
+
+                  return (
+                    <div className={`publ-cat__col--${size} ${colSize}`}>
+                      <h6 className="publ-page__title text-uppercase">
+                        <Link href={`/search?category=${slug}`}>
+                          <a>{name}</a>
+                        </Link>
+                      </h6>
+                      {nodes.map((post) => (
+                        <Article
+                          type="publications-cats"
+                          post={post}
+                          key={post.id}
+                        />
+                      ))}
+                    </div>
+                  );
+                }
+              )}
           </div>
         </div>
         <div className="container publ-archive">

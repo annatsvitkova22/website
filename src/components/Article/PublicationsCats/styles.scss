@@ -1,0 +1,28 @@
+.publ-cat {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    margin-top: 21px;
+    margin-bottom: 16px;
+  }
+
+  &__col--big &__title {
+    a {
+      font-size: 20px;
+    }
+  }
+
+  &__col--medium &__title {
+    a {
+      font-size: 18px;
+    }
+  }
+
+  &__col--small &__title {
+    a {
+      font-size: 14px;
+    }
+  }
+}
