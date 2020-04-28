@@ -1,0 +1,11 @@
+.article {
+  &--opportunities {
+    .article {
+      &__image {
+        @include media-breakpoint-up(sm) {
+          max-width: 200px;
+        }
+      }
+    }
+  }
+}
