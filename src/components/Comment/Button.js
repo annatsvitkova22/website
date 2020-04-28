@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 
-import CommentsPopUp from '~/components/CommentsPopUp';
+import CommentPopup from '~/components/Comment/Popup';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 
-const CommentsButton = ({ className, comments }) => {
+const CommentButton = ({ post }) => {
+  const { commentCount } = post;
   const state = useStateLink(PostStore);
 
   const changeVisibility = () => {
@@ -25,17 +26,15 @@ const CommentsButton = ({ className, comments }) => {
     <>
       <button className={`comments-button`} onClick={changeVisibility}>
         <Icons icon={'comment'} />
-        <span>Коментарі</span>
-        {comments && <span>( {comments.pageInfo.total})</span>}
+        <span>Коментарі ({commentCount ? commentCount : '0'})</span>
       </button>
-      <CommentsPopUp />
+      <CommentPopup post={post} />
     </>
   );
 };
 
-CommentsButton.propTypes = {
+CommentButton.propTypes = {
   className: PropTypes.string,
-  comments: PropTypes.any,
 };
 
-export default CommentsButton;
+export default CommentButton;
