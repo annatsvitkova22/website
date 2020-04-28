@@ -5,6 +5,7 @@ import { useStateLink } from '@hookstate/core';
 import { AuthStore } from '~/stores/Auth';
 import axios from 'axios';
 import getConfig from 'next/config';
+
 import { updateLikes } from '~/stores/SingleArticle';
 const { publicRuntimeConfig } = getConfig();
 
@@ -32,13 +33,16 @@ const LikeButton = ({ post, className }) => {
       },
     };
     const currentLikes = await axios.get(
-      `${apiUrl}/wp-json/acf/v3/${type}/${id}/likes`, conf
+      `${apiUrl}/wp-json/acf/v3/${type}/${id}/likes`,
+      conf
     );
     const { data } = await axios.post(
       `${apiUrl}/wp-json/acf/v3/${type}/${id}/likes`,
       {
         fields: {
-          likes: parseInt(currentLikes.data.likes) + 1,
+          likes: currentLikes.data.likes
+            ? parseInt(currentLikes.data.likes) + 1
+            : 1,
         },
       },
       conf
