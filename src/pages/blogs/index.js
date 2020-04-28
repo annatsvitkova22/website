@@ -25,6 +25,28 @@ const BLOGGERS = gql`
     ) {
       nodes {
         name
+        description
+        stats: blogs(first: 9999) {
+          pageInfo {
+            total
+          }
+          nodes {
+            commentCount
+            statisticsACF {
+              views
+            }
+          }
+        }
+        bloggerInfoACF {
+          avatar {
+            mediaItemUrl
+          }
+          info
+          socials {
+            name
+            url
+          }
+        }
         blogs(first: 3) {
           nodes {
             id

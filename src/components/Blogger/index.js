@@ -14,7 +14,10 @@ const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
   const { pageInfo, nodes } = stats;
   const { commentsCount, viewsCount } = nodes.reduce(
     (acc, current) => {
-      const { commentCount, statisticsACF: { views } } = current;
+      const {
+        commentCount,
+        statisticsACF: { views },
+      } = current;
       if (commentCount) acc.commentsCount += commentCount;
       if (views) acc.viewsCount += views;
       return acc;
@@ -49,11 +52,10 @@ const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
           <span>{viewsCount}</span>
         </li>
       </ul>
-      SOCIALS ARE HERE, THEY ARE WHITE BELOW THIS TEXT
-      <Socials
-        className={'blogger__socials'}
-        socialsData={socials}
-      />
+      {socials && 'SOCIALS ARE HERE, THEY ARE WHITE BELOW THIS TEXT'}
+      {socials && (
+        <Socials className={'blogger__socials'} socialsData={socials} />
+      )}
       {showBio && description && <BloggerBio bio={description} />}
     </div>
   );
