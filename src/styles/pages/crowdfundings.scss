@@ -16,4 +16,13 @@
   &__actions {
     margin-top: 20px;
   }
+
+  &__featured {
+    flex: 1;
+
+    max-width: none;
+
+    margin: 0;
+    padding: 0;
+  }
 }

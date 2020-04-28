@@ -15,6 +15,11 @@ import CrowdfundingProgress from '~/components/Crowdfunding/Progress';
 import CrowdfundingStats from '~/components/Crowdfunding/Stats';
 import CrowdfundingActions from '~/components/Crowdfunding/Actions';
 import CrowdfundingSupported from '~/components/Crowdfunding/Supported';
+import FeaturedImage from '~/components/FeaturedImage';
+import ArticleAuthor from '~/components/Article/Author';
+import ShareItems from '~/components/ShareItems';
+import ArticleDate from '~/components/Article/Date';
+import Content from '~/components/Content';
 
 const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -140,7 +145,25 @@ const Crowdfunding = (props) => {
             <h1 className="crowdfunding-single__title">{post.title}</h1>
           </div>
           <main className="col-md-8 crowdfunding-single__main">
-            <PostHeaderLoader type="crowdfunding" />
+            <FeaturedImage
+              className="crowdfunding-single__featured"
+              data={post.featuredImage}
+            />
+            <div className={'title__socials'}>
+              <div className={'title__socials-about'}>
+                <span className="title__socials-image" />
+                <div className={'title__socials-author'}>
+                  <ArticleAuthor
+                    author={post.author}
+                    className={'title__socials-name'}
+                  />
+                  <ArticleDate format={'DD MMMM, HH:mm'} date={post.date} />
+                </div>
+              </div>
+            </div>
+            <Content
+              content={post.blocks}
+            />
           </main>
           <aside className="col-md-4 crowdfunding-single__sidebar">
             <div className="crowdfunding-single__goal">
