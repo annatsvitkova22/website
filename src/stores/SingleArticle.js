@@ -15,3 +15,9 @@ export const updateComments = (commentCount, comments) => {
   singleArticleStore.post.comments = comments;
   SingleArticleStore.set(singleArticleStore);
 }
+
+export const updateLikes = (likes) => {
+  const singleArticleStore = SingleArticleStore.get();
+  singleArticleStore.post.statisticsACF.likes = likes;
+  SingleArticleStore.set(singleArticleStore);
+}
