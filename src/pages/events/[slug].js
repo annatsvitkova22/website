@@ -25,6 +25,7 @@ const EVENT = gql`
       zmAfishaACF {
         eventCost
         eventTime
+        eventDate
         eventSocials {
           socialUrl
           icon
@@ -59,7 +60,6 @@ const Event = (props) => {
 
   const { event, isLoading } = state;
 
-  console.log(state);
   const sideBarCls = classNames({
     'sidebar-active': sideBarOpen,
   });

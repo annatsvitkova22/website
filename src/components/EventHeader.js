@@ -7,7 +7,7 @@ const EventHeader = ({ event }) => {
     .split(',')
     .slice(0, 1)
     .join();
-
+  console.log(event)
   return (
     <div className="event__title-wrapper col-xl-8">
       <div className="event__content ">
