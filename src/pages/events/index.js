@@ -68,7 +68,7 @@ const EventsArchive = (props) => {
             {nodes.map((post, i) =>
               i === 3 ? (
                 <>
-                  <div className="col-3">
+                  <div className="col-lg-3 col-sm-6 col-12">
                     <EventsForm
                       personText="Контактна особа"
                       phoneText="Телефон"
@@ -79,7 +79,7 @@ const EventsArchive = (props) => {
                       className="zm-form--event"
                     />
                   </div>
-                  <div className="col-3">
+                  <div className="col-lg-3 col-sm-6 col-12">
                     <Article type="events" post={post} key={post.id}>
                       {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                         <Waypoint onEnter={fetchingContent} />
@@ -88,7 +88,7 @@ const EventsArchive = (props) => {
                   </div>
                 </>
               ) : (
-                <div className="col-3">
+                <div className="col-lg-3 col-sm-6 col-12">
                   <Article type="events" post={post} key={post.id}>
                     {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                       <Waypoint onEnter={fetchingContent} />

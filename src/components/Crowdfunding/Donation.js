@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import Icons from '~/components/Icons';
 import getConfig from 'next/config';
-import { AuthStore } from '~/stores/Auth';
 import { useStateLink } from '@hookstate/core';
 import * as axios from 'axios';
 import * as moment from 'moment';
-import { SingleArticleStore } from '~/stores/SingleArticle';
+import md5 from 'blueimp-md5';
+
+import Icons from '~/components/Icons';
+import { AuthStore } from '~/stores/Auth';
+import { SingleArticleStore, updatePost } from '~/stores/SingleArticle';
+import { CROWDFUNDING } from '~/pages/crowdfundings/[slug]';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -14,6 +17,8 @@ const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
   const authStateLink = useStateLink(AuthStore);
   const postStateLink = useStateLink(SingleArticleStore);
+
+  const storedPost = postStateLink.get();
 
   const { crowdfundingId, title } = post;
 
@@ -48,64 +53,116 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
     const orderId = `${crowdfundingId}-${Math.random()
       .toString(36)
       .substr(2, 9)}`;
-    // const p = {
-    //   merchantAccount: merchantLogin,
-    //   merchantDomainName: 'http://zmist.tech',
-    //   authorizationType: 'SimpleSignature',
-    //   merchantSignature: merchantSecretKey,
-    //   orderReference: orderId,
-    //   orderDate: `${moment().unix()}`,
-    //   amount: `${sum}`,
-    //   currency: 'UAH',
-    //   productName: title,
-    //   productPrice: `${sum}`,
-    //   productCount: '1',
-    //   clientFirstName: name,
-    //   clientLastName: name,
-    //   clientEmail: 'vlad@outright.digital',
-    //   clientPhone: '480954581310',
-    //   language: 'UA',
-    //   straightWidget: true,
-    //   returnUrl: window.location.href,
-    // };
-    // console.log(p);
-    // wayforpay.run(
-    //   p,
-    //   function (response) {
-    //     console.log('approved', response);
-    //   },
-    //   function (response) {
-    //     console.log('declined', response);
-    //   },
-    //   function (response) {
-    //     console.log('pending or in processing', response);
-    //   }
-    // );
-    handlePostDonate({ orderId, name, sum, photo });
+
+    const p = {
+      merchantAccount: merchantLogin,
+      merchantDomainName: 'http://zmist.tech',
+      authorizationType: 'SimpleSignature',
+      merchantTransactionSecureType: 'AUTO',
+      merchantSignature: merchantSecretKey,
+      orderReference: orderId,
+      orderDate: `${moment().unix()}`,
+      amount: `${sum}`,
+      currency: 'UAH',
+      productName: [title],
+      productPrice: [sum],
+      productCount: [1],
+      language: 'UA',
+      straightWidget: true,
+      returnUrl: window.location.href,
+    };
+
+    const hashString = `${p.merchantAccount};${p.merchantDomainName};${p.orderReference};${p.orderDate};${p.amount};${p.currency};${p.productName};${p.productCount};${p.productPrice}`;
+    p.merchantSignature = md5(hashString, merchantSecretKey);
+
+    wayforpay.run(
+      p,
+      function (response) {
+        handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
+      },
+      function (response) {
+        // TODO: handle this
+        // console.log('declined', response);
+      },
+      function (response) {
+        handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
+      }
+    );
   };
 
   const handlePostDonate = async (data) => {
     const { apiUrl } = config;
     const { token } = authStateLink.get();
 
-    const { photo } = data;
-
-    const conf = {
+    const { photo, name, sum, orderId, date } = data;
+    const configs = {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': `${photo.type}`,
-        'Content-Disposition': `attachment; filename=${photo.name}`,
       },
     };
 
+    let avatar = null;
 
-    const uploadPhoto = await axios.post(
-      `${apiUrl}/wp-json/wp/v2/media`,
-      photo,
-      conf
+    if (photo) {
+      const uploadPhoto = await axios.post(
+        `${apiUrl}/wp-json/wp/v2/media`,
+        photo,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': `${photo.type}`,
+            'Content-Disposition': `attachment; filename=${photo.name}`,
+          },
+        }
+      );
+      avatar = uploadPhoto.data.id;
+    }
+
+    const getCurrentDonaters = await axios.get(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/supported`,
+      configs
     );
 
-    console.log(data, conf, uploadPhoto);
+    const {
+      data: { supported },
+    } = getCurrentDonaters;
+
+    supported.push({
+      name: name || 'Анонімно',
+      photo: avatar,
+      sum,
+      date,
+      orderId,
+    });
+
+    await axios.post(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/supported`,
+      {
+        fields: {
+          supported,
+        },
+      },
+      configs
+    );
+
+    const getCurrentAmout = await axios.get(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/collected`,
+      configs
+    );
+
+    await axios.post(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/collected`,
+      {
+        fields: {
+          collected: getCurrentAmout.data.collected
+            ? parseInt(getCurrentAmout.data.collected) + parseInt(sum)
+            : sum,
+        },
+      },
+      configs
+    );
+
+    updatePost(CROWDFUNDING, post.slug);
   };
 
   return (

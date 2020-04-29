@@ -23,7 +23,7 @@ import Content from '~/components/Content';
 import useViewsCounter from '~/hooks/useViewsCounter';
 import { CreateSingleArticleStore, SingleArticleStore } from '~/stores/SingleArticle';
 
-const CROWDFUNDING = gql`
+export const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
     crowdfundingBy(slug: $slug) {
       ${gutenbergBlocksQuery}
@@ -54,6 +54,9 @@ const CROWDFUNDING = gql`
           name
           sum
           date
+          photo {
+            mediaItemUrl
+          }
         }
       }
     }
