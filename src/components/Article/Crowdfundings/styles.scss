@@ -1,5 +1,4 @@
 .crowdfundings-page {
-
   .crowdfundings-archive__articles > div {
     padding-bottom: 24px;
 
@@ -23,7 +22,7 @@
     &-status {
       position: absolute;
       top: 20px;
-      left: 22px;
+      left: 32px;
 
       @include media-breakpoint-down(xs) {
         display: none;
@@ -33,6 +32,8 @@
     &__main {
       padding: 17px 20px 20px 20px;
 
+      border: 1px solid #eff0f4;
+      border-top: none;
       @include media-breakpoint-down(md) {
         padding-left: 0;
         padding-right: 0;
@@ -46,6 +47,8 @@
         max-width: 235px;
         padding-bottom: 0;
         padding-top: 0;
+
+        border: none;
       }
     }
 
@@ -113,8 +116,6 @@
     &-excerpt {
       margin-bottom: 20px;
 
-      font-family: $font-family-titles;
-
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 0.05em;
@@ -125,6 +126,8 @@
 
       p {
         margin-bottom: 0;
+
+        font-family: $font-family-titles;
       }
     }
 
@@ -145,8 +148,12 @@
       margin-top: 0;
 
       font-weight: 700;
+      font-size: 12px;
       letter-spacing: 0.07em;
+      line-height: 16px;
       text-transform: capitalize;
+
+      color: #b0b0b0;
     }
 
     &__author:after {
@@ -165,16 +172,22 @@
       order: 3;
     }
 
+    &__info {
+      margin-bottom: 4px;
+    }
     &__amount {
       font-weight: 700;
       font-size: 14px;
+      line-height: 14px;
       letter-spacing: 0.04em;
 
       color: $green;
 
-      @include media-breakpoint-down(xs) {
-        margin-bottom: 4px;
+      span {
+        display: inline-flex;
+      }
 
+      @include media-breakpoint-down(xs) {
         font-weight: 600;
         font-size: 12px;
         line-height: 12px;

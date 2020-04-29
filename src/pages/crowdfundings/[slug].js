@@ -21,7 +21,10 @@ import ArticleAuthor from '~/components/Article/Author';
 import ArticleDate from '~/components/Article/Date';
 import Content from '~/components/Content';
 import useViewsCounter from '~/hooks/useViewsCounter';
-import { CreateSingleArticleStore, SingleArticleStore } from '~/stores/SingleArticle';
+import {
+  CreateSingleArticleStore,
+  SingleArticleStore,
+} from '~/stores/SingleArticle';
 
 export const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -166,19 +169,25 @@ const Crowdfunding = (props) => {
               className="crowdfunding-single__featured"
               data={storedPost.featuredImage}
             />
-            <div className={'title__socials'}>
-              <div className={'title__socials-about'}>
-                <span className="title__socials-image" />
-                <div className={'title__socials-author'}>
+            <div className="crowdfunding-single__content">
+              <div className="crowdfunding-single__about title__socials-about">
+                <span className="crowdfunding-single__author-image title__socials-image" />
+                <div className="crowdfunding-single__author-about title__socials-author">
                   <ArticleAuthor
                     author={storedPost.author}
-                    className={'title__socials-name'}
+                    className="crowdfunding-single__author-name title__socials-name"
                   />
-                  <ArticleDate format={'DD MMMM, HH:mm'} date={storedPost.date} />
+                  <ArticleDate
+                    format={'DD MMMM, HH:mm'}
+                    date={storedPost.date}
+                  />
                 </div>
               </div>
+              <Content
+                content={storedPost.blocks}
+                className="crowdfunding-single__block"
+              />
             </div>
-            <Content content={storedPost.blocks} />
           </main>
           <aside className="col-md-4 crowdfunding-single__sidebar">
             <div className="crowdfunding-single__goal">

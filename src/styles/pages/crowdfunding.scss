@@ -1,0 +1,26 @@
+.crowdfunding-single {
+  &__status {
+    margin-bottom: 10px;
+  }
+  &__title {
+    margin-bottom: 0;
+  }
+  &__featured {
+    justify-content: center;
+
+    max-width: 802px;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0 auto;
+  }
+  &__about {
+    align-self: start;
+  }
+  &__block {
+    max-width: 648px;
+  }
+}
