@@ -134,14 +134,16 @@ const Event = (props) => {
         <title>{event.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="event container">
-        <div className="event__wrapper row no-gutters">
-          <div className="event__background" style={useStyles}>
+      <main className="event">
+        <div className="container">
+          <section className="event__hero" style={useStyles}>
             {event.featuredImage ? (
-              <div className="event__overlay">
-                <EventHeader event={event} />
-                <div className="event__info-card">
-                  <EventsLikeSidebar data={event.zmAfishaACF} />
+              <div className="event__hero-overlay">
+                <div className="event__hero-inner container">
+                  <EventHeader event={event} />
+                  <div className="event__info-card">
+                    <EventsLikeSidebar data={event.zmAfishaACF} />
+                  </div>
                 </div>
               </div>
             ) : (
@@ -152,10 +154,9 @@ const Event = (props) => {
                 </div>
               </>
             )}
-          </div>
-        </div>
-        <div className="event__main-wrapper  row no-gutters">
-          <div className="event__content-wrapper col-xl-8">
+          </section>
+
+          <div className="event__content-wrapper">
             <div className="event__content">
               <Content content={event.blocks} className="event__content-main" />
             </div>

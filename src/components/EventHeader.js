@@ -1,24 +1,19 @@
 import React from 'react';
 
 import Icons from '~/components/Icons';
+import ArticleDateTime from '~/components/Article/DateTime';
 
 const EventHeader = ({ event }) => {
   const location = event.zmAfishaACF.eventAddress.streetAddress
     .split(',')
     .slice(0, 1)
     .join();
-  const date = event.zmAfishaACF.eventDate
-    ? event.zmAfishaACF.eventDate.split(' ')
-    : null;
-  console.log(event);
+  const date = event.zmAfishaACF.eventDate;
+
   return (
-    <div className="event__title-wrapper col-xl-8">
-      <div className="event__content ">
-        <div className="event__date">
-          {date && <span className="event__day">{date[0]}</span>}
-          {date && <span className="event__month"> {date[1]}</span>}
-          <span className="event__time">{event.zmAfishaACF.eventTime}</span>
-        </div>
+    <div className="event__title-wrapper">
+      <div className="event__content">
+        <ArticleDateTime time={event.zmAfishaACF.eventTime} date={date} />
         <h1 className="event__title">{event.title}</h1>
         <div
           className="event__excerpt"
