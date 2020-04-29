@@ -142,7 +142,7 @@ const Crowdfunding = (props) => {
   const status = getCFStatus(storedPost);
 
   const {
-    cfACF: { collected },
+    cfACF: { collected, tocollect },
   } = storedPost;
   const collectedNumber = collected ? collected : 0;
 
@@ -196,7 +196,7 @@ const Crowdfunding = (props) => {
               <div className="crowdfunding-single__goal">
                 <span>ціль</span>{' '}
                 <NumberFormat
-                  value={collectedNumber}
+                  value={tocollect}
                   displayType={'text'}
                   thousandSeparator={' '}
                   suffix="ГРН"
