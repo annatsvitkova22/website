@@ -1,38 +1,143 @@
 .crowdfundings-page {
+
   .crowdfundings-archive__articles > div {
     padding-bottom: 24px;
+
+    @include media-breakpoint-down(lg) {
+      @include make-col(6);
+    }
+
+    @include media-breakpoint-down(xs) {
+      @include make-col(12);
+
+      flex-direction: row;
+    }
   }
+
   .article {
+    @include media-breakpoint-down(xs) {
+      display: flex;
+      justify-content: space-between;
+    }
+
     &-status {
       position: absolute;
       top: 20px;
       left: 22px;
+
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
     }
+
     &__main {
       padding: 17px 20px 20px 20px;
+
+      @include media-breakpoint-down(md) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      @include media-breakpoint-down(xs) {
+        display: flex;
+        flex-direction: column;
+        order: 1;
+
+        max-width: 235px;
+        padding-bottom: 0;
+        padding-top: 0;
+      }
+    }
+
+    &-featured {
+      @include media-breakpoint-down(xs) {
+        order: 2;
+
+        height: 88px;
+        width: 88px;
+      }
+
+      &__link {
+        @include media-breakpoint-down(lg) {
+          width: 100%;
+        }
+        @include media-breakpoint-down(xs) {
+          height: 100%;
+        }
+      }
+
+      &__image {
+        @include media-breakpoint-down(lg) {
+          width: 100%;
+        }
+
+        @include media-breakpoint-down(xs) {
+          height: 100%;
+        }
+
+        img {
+          @include media-breakpoint-down(lg) {
+            width: 100%;
+          }
+
+          @include media-breakpoint-down(xs) {
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
     }
     &-title {
+      order: 1;
+
       margin-bottom: 12px;
 
-      text-transform: capitalize;
+      @include media-breakpoint-down(xs) {
+        margin-bottom: 8px;
+      }
+
+      &__link {
+        text-transform: capitalize;
+
+        @include media-breakpoint-down(lg) {
+          display: flex;
+        }
+
+        @include media-breakpoint-down(xs) {
+          font-size: 14px;
+          line-height: 18px;
+          letter-spacing: 0.02em;
+        }
+      }
     }
     &-excerpt {
+      margin-bottom: 20px;
+
       font-family: $font-family-titles;
 
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 0.05em;
 
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+
       p {
         margin-bottom: 0;
       }
     }
+
     &__meta {
       display: flex;
-      align-content: center;
 
-      padding: 12px 20px 20px 20px;
+      @include media-breakpoint-down(xs) {
+        order: 2;
+
+        margin-bottom: 8px;
+      }
     }
+
     &__time,
     &__author {
       display: flex;
@@ -43,6 +148,7 @@
       letter-spacing: 0.07em;
       text-transform: capitalize;
     }
+
     &__author:after {
       content: '-';
 
@@ -51,17 +157,30 @@
     }
   }
   .crowdfunding-progress {
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-bottom: 12px;
 
     font-family: $font-family-titles;
+
+    @include media-breakpoint-down(xs) {
+      order: 3;
+    }
+
     &__amount {
       font-weight: 700;
       font-size: 14px;
       letter-spacing: 0.04em;
 
       color: $green;
+
+      @include media-breakpoint-down(xs) {
+        margin-bottom: 4px;
+
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 12px;
+      }
     }
+
     &__percentage {
       font-size: 12px;
       line-height: 16px;
@@ -69,6 +188,16 @@
       text-transform: uppercase;
 
       color: $grey-400;
+
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+    }
+
+    &__bar {
+      @include media-breakpoint-down(xs) {
+        height: 6px;
+      }
     }
   }
 }
