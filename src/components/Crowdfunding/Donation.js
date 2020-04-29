@@ -31,72 +31,81 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
     });
   };
 
+  const handleFileInput = ({ target: { files } }) => {
+    setForm({
+      ...form,
+      photo: files[0],
+    });
+  };
+
   const handleDonate = () => {
-    const { name, sum } = form;
+    const { name, sum, photo } = form;
     if (!sum) return;
     const {
       wayForPay: { merchantLogin, merchantSecretKey },
     } = config;
     const wayforpay = new window.Wayforpay();
-    console.log({
-      merchantAccount: merchantLogin,
-      merchantDomainName: 'http://zmist.tech',
-      authorizationType: 'SimpleSignature',
-      merchantSignature: merchantSecretKey,
-      orderReference: `${crowdfundingId}-${Math.random()
-        .toString(36)
-        .substr(2, 9)}`,
-      orderDate: moment().format(),
-      amount: `${sum}`,
-      currency: 'UAH',
-      productName: title,
-      productPrice: `${sum}`,
-      productCount: '1',
-      clientFirstName: name,
-      clientLastName: name,
-      clientEmail: 'vlad@outright.digital',
-      clientPhone: '480954581310',
-      language: 'UA',
-      straightWidget: true,
-      returnUrl: window.location.href,
-    });
-    wayforpay.run(
-      {
-        merchantAccount: merchantLogin,
-        merchantDomainName: 'http://zmist.tech',
-        authorizationType: 'SimpleSignature',
-        merchantSignature: merchantSecretKey,
-        orderReference: `${crowdfundingId}-${Math.random()
-          .toString(36)
-          .substr(2, 9)}`,
-        orderDate: moment().format(),
-        amount: `${sum}`,
-        currency: 'UAH',
-        productName: title,
-        productPrice: `${sum}`,
-        productCount: '1',
-        clientFirstName: name,
-        clientLastName: name,
-        clientEmail: 'vlad@outright.digital',
-        clientPhone: '480954581310',
-        language: 'UA',
-        straightWidget: true,
-        returnUrl: window.location.href,
-      },
-      function (response) {
-        console.log('approved', response);
-      },
-      function (response) {
-        console.log('declined', response);
-      },
-      function (response) {
-        console.log('pending or in processing', response);
-      }
-    );
+    const orderId = `${crowdfundingId}-${Math.random()
+      .toString(36)
+      .substr(2, 9)}`;
+    // const p = {
+    //   merchantAccount: merchantLogin,
+    //   merchantDomainName: 'http://zmist.tech',
+    //   authorizationType: 'SimpleSignature',
+    //   merchantSignature: merchantSecretKey,
+    //   orderReference: orderId,
+    //   orderDate: `${moment().unix()}`,
+    //   amount: `${sum}`,
+    //   currency: 'UAH',
+    //   productName: title,
+    //   productPrice: `${sum}`,
+    //   productCount: '1',
+    //   clientFirstName: name,
+    //   clientLastName: name,
+    //   clientEmail: 'vlad@outright.digital',
+    //   clientPhone: '480954581310',
+    //   language: 'UA',
+    //   straightWidget: true,
+    //   returnUrl: window.location.href,
+    // };
+    // console.log(p);
+    // wayforpay.run(
+    //   p,
+    //   function (response) {
+    //     console.log('approved', response);
+    //   },
+    //   function (response) {
+    //     console.log('declined', response);
+    //   },
+    //   function (response) {
+    //     console.log('pending or in processing', response);
+    //   }
+    // );
+    handlePostDonate({ orderId, name, sum, photo });
   };
 
-  const handlePostDonate = (data) => {
-    console.log(data);
+  const handlePostDonate = async (data) => {
+    const { apiUrl } = config;
+    const { token } = authStateLink.get();
+
+    const { photo } = data;
+
+    const conf = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': `${photo.type}`,
+        'Content-Disposition': `attachment; filename=${photo.name}`,
+      },
+    };
+
+
+    const uploadPhoto = await axios.post(
+      `${apiUrl}/wp-json/wp/v2/media`,
+      photo,
+      conf
+    );
+
+    console.log(data, conf, uploadPhoto);
   };
 
   return (
@@ -123,11 +132,15 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
               onChange={handleInputChange}
               value={form.name}
               name={'name'}
-              autoFocus
             />
           </div>
           <div>
-            <input type="file" placeholder="фото" />
+            <input
+              type="file"
+              placeholder="фото"
+              onChange={handleFileInput}
+              name={'photo'}
+            />
           </div>
           <button disabled={!form.sum} onClick={handleDonate}>
             donate
