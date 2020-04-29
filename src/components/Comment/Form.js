@@ -106,7 +106,7 @@ const CommentForm = ({
         name: '',
         message: '',
       });
-      // TODO: make it
+
       const updatedPost = await apolloClient.query({
         query: UPDATED_POST(id),
       });
