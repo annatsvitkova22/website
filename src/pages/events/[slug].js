@@ -44,6 +44,7 @@ const EVENT = gql`
           email
           person
           phoneNumber
+          phoneNumberDisplay
         }
       }
     }
@@ -127,6 +128,8 @@ const Event = (props) => {
   if (!state.event) {
     return <PostHeaderLoader type={'publication'} />;
   }
+
+  console.log(event.zmAfishaACF);
 
   return (
     <div className="single__event">

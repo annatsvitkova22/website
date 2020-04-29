@@ -6,6 +6,9 @@
 
     .meta-date-group {
       padding: 5px;
+      @include media-breakpoint-up(lg) {
+        margin-bottom: 38px;
+      }
     }
   }
 
@@ -27,7 +30,13 @@
     max-width: 1124px;
   }
 
-  &__content {
+  &__hero-title-wrapper {
+    @include media-breakpoint-up(lg) {
+      padding-right: 24px;
+    }
+  }
+
+  &__hero-content {
     margin: 0 auto;
     max-width: 648px;
   }
@@ -36,17 +45,17 @@
     font-family: $font-family-titles;
   }
 
-  &__title {
+  &__hero-title {
     margin-bottom: 20px;
 
     text-transform: capitalize;
   }
-  &__excerpt {
+  &__hero-excerpt {
     max-width: 424px;
 
     font-weight: 500;
   }
-  &__excerpt > p {
+  &__hero-excerpt > p {
     margin-bottom: 24px;
 
     font-family: $font-family-titles;
@@ -55,7 +64,7 @@
     line-height: 26px;
     letter-spacing: 0.03em;
   }
-  &__location {
+  &__hero-location {
     display: flex;
     align-items: center;
 
@@ -63,16 +72,16 @@
     font-size: 15px;
     line-height: 22px;
     letter-spacing: 0.06em;
+  }
 
-    .social-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  &__hero-location-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      margin-right: 13px;
-      height: 24px;
-      width: 24px;
-    }
+    margin-right: 8px;
+    height: 24px;
+    width: 24px;
 
     svg {
       path {
@@ -80,6 +89,7 @@
       }
     }
   }
+
   &__content-wrapper {
     padding-top: 50px;
   }

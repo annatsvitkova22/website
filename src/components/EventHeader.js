@@ -11,16 +11,16 @@ const EventHeader = ({ event }) => {
   const date = event.zmAfishaACF.eventDate;
 
   return (
-    <div className="event__title-wrapper">
-      <div className="event__content">
+    <div className="event__hero-title-wrapper">
+      <div className="event__hero-content">
         <ArticleDateTime time={event.zmAfishaACF.eventTime} date={date} />
-        <h1 className="event__title">{event.title}</h1>
+        <h1 className="event__hero-title">{event.title}</h1>
         <div
-          className="event__excerpt"
+          className="event__hero-excerpt"
           dangerouslySetInnerHTML={{ __html: event.excerpt }}
         />
-        <div className="event__location">
-          <Icons icon="location" />
+        <div className="event__hero-location">
+          <Icons icon="location" className="event__hero-location-icon" />
           {location}
         </div>
       </div>
