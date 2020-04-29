@@ -1,0 +1,116 @@
+.crowdfunding-single {
+  padding-bottom: 70px;
+
+  &__top {
+    padding-left: 47px;
+  }
+
+  &__status.article-status {
+    display: flex;
+
+    width: fit-content;
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__featured {
+    justify-content: center;
+
+    margin: 0 auto;
+    max-width: 802px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0 auto;
+    padding-top: 41px;
+  }
+
+  &__about {
+    align-self: start;
+
+    margin-left: 113px;
+  }
+
+  &__author-name.meta-author {
+    font-family: $font-family-titles;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #242424;
+  }
+
+  &__block {
+    max-width: 648px;
+
+    &.gutenberg__image {
+      padding-top: 40px;
+      max-width: 760px;
+    }
+    &.gutenberg__paragraph {
+      font-family: $font-family-titles;
+
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 30px;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  &__goal {
+    font-family: $font-family-titles;
+
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #606664;
+  }
+
+  .crowdfunding-progress {
+    &__info {
+      margin-bottom: 8px;
+    }
+
+    &__amount {
+      font-family: $font-family-titles;
+
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 36px;
+      letter-spacing: 0.02em;
+      color: $green;
+
+      span:last-child {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+      }
+    }
+
+    &__percentage {
+      display: flex;
+      align-self: flex-end;
+
+      font-family: $font-family-titles;
+
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #606664;
+    }
+  }
+}

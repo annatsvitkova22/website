@@ -21,6 +21,6 @@ $pswp__assets-path: '../../node_modules/photoswipe/src/css/default-skin/';
 @import 'pages/event';
 @import 'pages/publications';
 @import 'pages/crowdfundings';
-
-//Import all styles.scss files from /components folder
-@import '../components/**/**/styles.scss';
+@import 'pages/crowdfunding';
+  //Import all styles.scss files from /components folder
+  @import '../components/**/**/styles.scss';
