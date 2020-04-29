@@ -66,10 +66,10 @@ const Event = (props) => {
   });
 
   const handleScroll = () => {
-    if (window.scrollY > 800) {
+    if (window.scrollY > 700) {
       setSideBarOpen(true);
     }
-    if (window.scrollY < 800) {
+    if (window.scrollY < 700) {
       setSideBarOpen(false);
     }
   };
@@ -158,24 +158,32 @@ const Event = (props) => {
               </>
             )}
           </section>
-
-          <div className="event__content-wrapper">
-            <div className="event__content">
-              <Content content={event.blocks} className="event__content-main" />
+          <section className="event__main container">
+            <div className="event__content-wrapper">
+              <div className="event__content">
+                <Content
+                  content={event.blocks}
+                  className="event__content-main"
+                />
+              </div>
             </div>
-          </div>
-          <StickyBox
-            className={'event__sticky-wrapper'}
-            offsetTop={20}
-            offsetBottom={20}
-            style={{ height: 'fit-content', width: '100%', maxWidth: '344px' }}
-          >
-            <div
-              className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
+            <StickyBox
+              className={'event__sticky-wrapper'}
+              offsetTop={20}
+              offsetBottom={20}
+              style={{
+                height: 'fit-content',
+                width: '100%',
+                maxWidth: '344px',
+              }}
             >
-              <EventsLikeSidebar data={event.zmAfishaACF} />
-            </div>
-          </StickyBox>
+              <div
+                className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
+              >
+                <EventsLikeSidebar data={event.zmAfishaACF} />
+              </div>
+            </StickyBox>
+          </section>
         </div>
       </main>
     </div>
