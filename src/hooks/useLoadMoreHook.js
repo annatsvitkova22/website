@@ -73,6 +73,15 @@ const useLoadMoreHook = (
             isLoading: false,
           });
           break;
+        case 'crowdfundings':
+          setState({
+            data: response.data.crowdfundings,
+            endCursor: response.data.crowdfundings.pageInfo
+              ? response.data.crowdfundings.pageInfo.endCursor
+              : null,
+            isLoading: false,
+          });
+          break;
         case 'search': {
           const currentType = Object.keys(response.data)[0];
           setState({
@@ -169,7 +178,7 @@ const useLoadMoreHook = (
                       total: state.data.users.nodes[0].blogs.pageInfo.total,
                       endCursor: responseData.data.users.nodes[0].blogs.pageInfo
                         ? responseData.data.users.nodes[0].blogs.pageInfo
-                          .endCursor
+                            .endCursor
                         : false,
                     },
                   },
@@ -206,6 +215,21 @@ const useLoadMoreHook = (
           },
           endCursor: responseData.data.posts.pageInfo
             ? responseData.data.posts.pageInfo.endCursor
+            : false,
+          isLoading: false,
+        });
+        break;
+      case 'crowdfundings':
+        setState({
+          data: {
+            ...state.data,
+            nodes: [
+              ...state.data.nodes,
+              ...responseData.data.crowdfundings.nodes,
+            ],
+          },
+          endCursor: responseData.data.crowdfundings.pageInfo
+            ? responseData.data.crowdfundings.pageInfo.endCursor
             : false,
           isLoading: false,
         });

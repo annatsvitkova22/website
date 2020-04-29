@@ -1,6 +1,52 @@
 .publ-cat {
-  &:not(:last-child) {
-    margin-bottom: 24px;
+  @include media-breakpoint-up(xl) {
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    margin-bottom: 20px;
+  }
+
+  @include media-breakpoint-down(lg) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    .article-featured {
+      flex-shrink: 0;
+
+      max-width: 200px;
+      width: auto;
+
+      &__image {
+        width: 150px;
+        height: 138px;
+
+        img {
+          height: 100%;
+          width: 100%;
+          
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+@include media-breakpoint-down(xs) {
+  .article-featured {
+    &__image {
+      width: 88px;
+      height: 88px;
+    }
+  }
+}
+
+  &__wrapper {
+    @include media-breakpoint-down(lg) {
+      max-width: 551px;
+    }
   }
 
   &__title {

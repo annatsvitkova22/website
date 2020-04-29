@@ -17,6 +17,7 @@ import {
   CreateSingleArticleStore,
   SingleArticleStore,
 } from '~/stores/SingleArticle';
+import useViewsCounter from '~/hooks/useViewsCounter';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
@@ -35,6 +36,8 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
       SingleArticleStore.set({ post });
     }
   }, [post]);
+
+  useViewsCounter(post);
 
   if (!storedPost) {
     return (
