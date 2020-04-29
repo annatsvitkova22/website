@@ -143,13 +143,17 @@ const Publications = (props) => {
             <div className="col-12">
               <h6 className="publ-page__title text-uppercase">Останні</h6>
             </div>
-            {nodes.slice(0, 11).map((post) => (
-              <Article type="publications" post={post} key={post.id}>
-                {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+          </div>
+          <div className="last-publs">
+            <div className="row">
+              {nodes.slice(0, 11).map((post) => (
+                <Article type="publications" post={post} key={post.id}>
+                  {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                   <Waypoint onEnter={fetchingContent} />
                 )} */}
-              </Article>
-            ))}
+                </Article>
+              ))}
+            </div>
           </div>
         </div>
         <div className="container">
@@ -186,16 +190,18 @@ const Publications = (props) => {
                           <a>{name}</a>
                         </Link>
                       </h6>
-                      <div className="row">
-                        {nodes.map((post, i) => (
-                          <Article
-                            index={i}
-                            size={size}
-                            type="publications-cats"
-                            post={post}
-                            key={post.id}
-                          />
-                        ))}
+                      <div className="publ-cats__container">
+                        <div className="row">
+                          {nodes.map((post, i) => (
+                            <Article
+                              index={i}
+                              size={size}
+                              type="publications-cats"
+                              post={post}
+                              key={post.id}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
                   );

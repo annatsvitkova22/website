@@ -21,9 +21,9 @@ const MainPublication = ({
       </a>
     </Link>
     <div className="main-publ__caption tx-white">
-      <ul className="list-reset text-left text-sm-center">
+      <ul className="main-publ__list list-reset text-left text-sm-center">
         {mainCats.nodes.map(({ name, slug }, i) => (
-          <li key={i} className="cat-list__item">
+          <li key={i} className="cat-list__item d-inline-block">
             <Link href={`/search?category=${slug}`}>
               <a className="cat-list__button">{name}</a>
             </Link>

@@ -15,7 +15,7 @@ const PublicationsCats = ({
   let titleModificator = '';
   switch (size) {
     case 'big':
-      colSize = index === 0 ? 'col-12' : 'col-md-6';
+      colSize = index === 0 ? 'col-12' : 'col-xl-6';
       titleModificator = index === 0 ? 'big-long' : 'big-short';
       break;
 

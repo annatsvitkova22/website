@@ -45,8 +45,17 @@
 
 .art-publ {
   &__title {
+    a {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
     &--on-medium {
       margin-bottom: 15px;
+
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 10px;
+      }
     }
   }
 
@@ -78,6 +87,10 @@
 
     &--under {
       padding-top: 21px;
+
+      @include media-breakpoint-down(md) {
+        padding-top: 17px;
+      }
     }
 
     &--on {
@@ -85,6 +98,11 @@
       &-small {
         padding-left: 36px;
         padding-right: 36px;
+
+        @include media-breakpoint-down(sm) {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
       }
 
       &-big {
@@ -96,11 +114,19 @@
         padding-right: 48px;
 
         background-color: rgba($black, 0.06);
+
+        @include media-breakpoint-down(lg) {
+          padding: 25px 20px;
+        }
       }
     }
 
     &--on-medium {
       padding-bottom: 31px;
+
+      @include media-breakpoint-down(sm) {
+        padding-bottom: 22px;
+      }
     }
 
     &--on-small {
@@ -114,8 +140,16 @@
       font-size: 32px;
       letter-spacing: -0.02em;
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-up(lg) {
+        font-weight: 800;
+      }
+
+      @include media-breakpoint-only(lg) {
         font-size: 25px;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 20px;
         font-weight: 700;
       }
     }
@@ -164,7 +198,9 @@
 
     &-medium {
       .article-title__link {
-        font-size: 26px;
+        @include media-breakpoint-up(lg) {
+          font-size: 26px;
+        }
       }
 
       figure {
@@ -175,12 +211,25 @@
     &-small {
       figure {
         padding-bottom: 59.1%;
+
+        @include media-breakpoint-down(md) {
+          padding-bottom: 62.99%;
+        }
       }
     }
   }
 
   &--on {
     &-big {
+      @include media-breakpoint-down(md) {
+        flex-basis: calc(100% + 16px);
+        
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: -8px;
+        margin-right: -8px;
+        max-width: calc(100% + 16px);
+      }
 
       .meta-author {
         color: $black;
@@ -197,8 +246,10 @@
 
     &-medium {
       .article-title__link {
-        font-size: 25px;
-        letter-spacing: 0.03em;
+        @include media-breakpoint-up(lg) {
+          font-size: 25px;
+          letter-spacing: 0.03em;
+        }
       }
       
       .article-featured {
@@ -206,12 +257,16 @@
         &__link {
           height: 100%;
         }
-        
+
         &__image {
           &--publ {
             padding-bottom: 66.35%;
 
             background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+
+            @include media-breakpoint-down(lg) {
+              padding-bottom: 105.4%;
+            }
           }
         }
       }

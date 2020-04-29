@@ -21,7 +21,12 @@
       width: auto;
 
       &__image {
-        width: 150px;
+          width: 200px;
+
+          @include media-breakpoint-down(md) {
+            width: 150px;
+          }
+
         height: 138px;
 
         img {
