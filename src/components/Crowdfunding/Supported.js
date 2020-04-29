@@ -7,8 +7,6 @@ const CrowdfundingSupported = ({ className, post }) => {
   } = post;
   if (!supported) return null;
 
-  console.log(supported);
-
   return (
     <ul className={classnames('crowdfunding-supported', className)}>
       {supported.map(({ name, photo, date }) => {

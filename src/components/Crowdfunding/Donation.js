@@ -67,10 +67,6 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       productName: [title],
       productPrice: [sum],
       productCount: [1],
-      clientFirstName: name,
-      clientLastName: name,
-      clientEmail: 'vlad@outright.digital',
-      clientPhone: '480954581310',
       language: 'UA',
       straightWidget: true,
       returnUrl: window.location.href,
@@ -79,19 +75,19 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
     const hashString = `${p.merchantAccount};${p.merchantDomainName};${p.orderReference};${p.orderDate};${p.amount};${p.currency};${p.productName};${p.productCount};${p.productPrice}`;
     p.merchantSignature = md5(hashString, merchantSecretKey);
 
-    // wayforpay.run(
-    //   p,
-    //   function (response) {
-    //     console.log('approved', response);
-    //   },
-    //   function (response) {
-    //     console.log('declined', response);
-    //   },
-    //   function (response) {
-    //     console.log('pending or in processing', response);
-    //   }
-    // );
-    handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
+    wayforpay.run(
+      p,
+      function (response) {
+        handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
+      },
+      function (response) {
+        // TODO: handle this
+        // console.log('declined', response);
+      },
+      function (response) {
+        handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
+      }
+    );
   };
 
   const handlePostDonate = async (data) => {

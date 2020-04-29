@@ -3,7 +3,7 @@ import * as classnames from 'classnames';
 import CrowdfundingDonation from '~/components/Crowdfunding/Donation';
 
 const CrowdfundingActions = ({ className, post }) => {
-  const [donationOpen, setDonationOpen] = useState(true);
+  const [donationOpen, setDonationOpen] = useState(false);
 
   return (
     <>
