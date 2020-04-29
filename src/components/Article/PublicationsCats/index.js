@@ -12,9 +12,11 @@ const PublicationsCats = ({
   highlightInTitle,
 }) => {
   let colSize = '';
+  let titleModificator = '';
   switch (size) {
     case 'big':
       colSize = index === 0 ? 'col-12' : 'col-md-6';
+      titleModificator = index === 0 ? 'big-long' : 'big-short';
       break;
 
     case 'medium':
@@ -34,7 +36,7 @@ const PublicationsCats = ({
           <ArticleTitle
             highlightInTitle={highlightInTitle}
             post={post}
-            className="text-capitalize publ-cat__title font-weight-semibold"
+            className={`text-capitalize publ-cat__title publ-cat__title--${titleModificator} font-weight-semibold`}
           />
           <div className="article__meta">
             <ArticleAuthor className="article__author" author={author} />

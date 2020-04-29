@@ -34,14 +34,14 @@
     }
   }
 
-@include media-breakpoint-down(xs) {
-  .article-featured {
-    &__image {
-      width: 88px;
-      height: 88px;
+  @include media-breakpoint-down(xs) {
+    .article-featured {
+      &__image {
+        width: 88px;
+        height: 88px;
+      }
     }
   }
-}
 
   &__wrapper {
     @include media-breakpoint-down(lg) {
@@ -55,8 +55,16 @@
   }
 
   &__col--big &__title {
-    a {
-      font-size: 20px;
+    &--big-long {
+      a {
+        font-size: 20px;
+      }
+    }
+    
+    &--big-short {
+      a {
+        font-size: 14px;
+      }
     }
   }
 
