@@ -9,4 +9,16 @@
     max-width: 390px;
     margin-left: auto;
   }
+
+  &__content {
+    .date-separator {
+      @include media-breakpoint-up(md) {
+        padding-left: 64px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        padding-left: 112px;
+      }
+    }
+  }
 }
