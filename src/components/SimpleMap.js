@@ -3,11 +3,12 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const mapContainter = (props) => {
   const { google, data } = props;
-  console.log(data);
+
   const mapStyles = {
     width: '100%',
     height: '100%',
   };
+
   return (
     <Map
       google={google}

@@ -25,6 +25,7 @@ const EVENT = gql`
       zmAfishaACF {
         eventCost
         eventTime
+        eventDate
         eventSocials {
           socialUrl
           icon
@@ -43,6 +44,7 @@ const EVENT = gql`
           email
           person
           phoneNumber
+          phoneNumberDisplay
         }
       }
     }
@@ -59,16 +61,15 @@ const Event = (props) => {
 
   const { event, isLoading } = state;
 
-  console.log(state);
   const sideBarCls = classNames({
     'sidebar-active': sideBarOpen,
   });
 
   const handleScroll = () => {
-    if (window.scrollY > 800) {
+    if (window.scrollY > 700) {
       setSideBarOpen(true);
     }
-    if (window.scrollY < 800) {
+    if (window.scrollY < 700) {
       setSideBarOpen(false);
     }
   };
@@ -128,20 +129,24 @@ const Event = (props) => {
     return <PostHeaderLoader type={'publication'} />;
   }
 
+  console.log(event.zmAfishaACF);
+
   return (
     <div className="single__event">
       <Head>
         <title>{event.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="event container">
-        <div className="event__wrapper row no-gutters">
-          <div className="event__background" style={useStyles}>
+      <main className="event">
+        <div className="container">
+          <section className="event__hero" style={useStyles}>
             {event.featuredImage ? (
-              <div className="event__overlay">
-                <EventHeader event={event} />
-                <div className="event__info-card">
-                  <EventsLikeSidebar data={event.zmAfishaACF} />
+              <div className="event__hero-overlay">
+                <div className="event__hero-inner container">
+                  <EventHeader event={event} />
+                  <div className="event__info-card">
+                    <EventsLikeSidebar data={event.zmAfishaACF} />
+                  </div>
                 </div>
               </div>
             ) : (
@@ -152,26 +157,33 @@ const Event = (props) => {
                 </div>
               </>
             )}
-          </div>
-        </div>
-        <div className="event__main-wrapper  row no-gutters">
-          <div className="event__content-wrapper col-xl-8">
-            <div className="event__content">
-              <Content content={event.blocks} className="event__content-main" />
+          </section>
+          <section className="event__main container">
+            <div className="event__content-wrapper">
+              <div className="event__content">
+                <Content
+                  content={event.blocks}
+                  className="event__content-main"
+                />
+              </div>
             </div>
-          </div>
-          <StickyBox
-            className={'event__sticky-wrapper'}
-            offsetTop={20}
-            offsetBottom={20}
-            style={{ height: 'fit-content', width: '100%', maxWidth: '344px' }}
-          >
-            <div
-              className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
+            <StickyBox
+              className={'event__sticky-wrapper'}
+              offsetTop={20}
+              offsetBottom={20}
+              style={{
+                height: 'fit-content',
+                width: '100%',
+                maxWidth: '344px',
+              }}
             >
-              <EventsLikeSidebar data={event.zmAfishaACF} />
-            </div>
-          </StickyBox>
+              <div
+                className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
+              >
+                <EventsLikeSidebar data={event.zmAfishaACF} />
+              </div>
+            </StickyBox>
+          </section>
         </div>
       </main>
     </div>

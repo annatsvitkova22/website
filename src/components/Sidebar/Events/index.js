@@ -5,15 +5,13 @@ import {
   MapIcons,
 } from '~/components/Sidebar/Events/MapComponent';
 import SimpleMap from '~/components/SimpleMap';
+import ArticleDateTime from '~/components/Article/DateTime';
 
 const EventsLikeSidebar = ({ data }) => {
+  const date = data.eventDate;
   return (
     <div className="info-card__wrapper">
-      <div className={`event__date info-card__date `}>
-        <span className="event__day info-card__day">24</span>
-        <span className="event__month info-card__month">Березня</span>
-        <span className="event__time info-card__time">11:00</span>
-      </div>
+      <ArticleDateTime time={data.eventTime} date={date} />
       <div className="info-card__map">
         <SimpleMap data={data.eventAddress} />
       </div>

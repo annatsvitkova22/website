@@ -6,4 +6,4 @@ export const updateToken = (token) => {
   const authStore = AuthStore.get();
   authStore.token = token;
   AuthStore.set(authStore);
-}
+};

@@ -8,8 +8,9 @@ import { ArticleProvider } from '~/components/Article/Context';
 import ArticleBlogs from '~/components/Article/Blogs';
 import ArticlePublications from '~/components/Article/Publications';
 import PublicationsCats from '~/components/Article/PublicationsCats';
+import ArticleCrowdfundings from '~/components/Article/Crowdfundings';
 
-const Article = ({ type, className, ...props }) => {
+const Article = ({ type, display, className, ...props }) => {
   switch (type) {
     case 'news': {
       return (
@@ -60,6 +61,16 @@ const Article = ({ type, className, ...props }) => {
         <ArticleProvider value={type}>
           <ArticlePublications
             className={classnames('', className)}
+            {...props}
+          />
+        </ArticleProvider>
+      );
+    }
+    case 'crowdfundings': {
+      return (
+        <ArticleProvider value={type} display={display}>
+          <ArticleCrowdfundings
+            className={classnames('article', className)}
             {...props}
           />
         </ArticleProvider>

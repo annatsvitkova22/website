@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as classnames from 'classnames';
 
-const FeaturedImage = ({ data }) => {
+const FeaturedImage = ({ data, className }) => {
   return (
     <>
       {data && (
-        <figure className={'feature__image col-lg-11'}>
+        <figure className={classnames('feature__image col-lg-11', className)}>
           <img src={data.mediaItemUrl} alt={data.title} />
           <caption className={'feature__image-caption'}>
             <span className={'feature__image-author'}>{data.title}</span>
@@ -22,6 +23,7 @@ const FeaturedImage = ({ data }) => {
 
 FeaturedImage.propTypes = {
   data: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default FeaturedImage;
