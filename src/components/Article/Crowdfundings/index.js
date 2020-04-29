@@ -25,17 +25,17 @@ const ArticleCrowdfundings = ({ post, children, className }) => {
       <div className="article__main">
         <ArticleTitle post={post} className="article__title" />
         <ArticleExcerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
+        <CrowdfundingProgress post={post} />
+        <div className="article__meta">
+          <ArticleAuthor className="article__author" author={author} />
+          <ArticleDate
+            className="article__time"
+            date={date}
+            format={'DD MMMM YYYY'}
+          />
+        </div>
+        {children}
       </div>
-      <CrowdfundingProgress post={post} />
-      <div className="article__meta">
-        <ArticleAuthor className="article__author" author={author} />
-        <ArticleDate
-          className="article__time"
-          date={date}
-          format={'DD MMMM YYYY'}
-        />
-      </div>
-      {children}
     </article>
   );
 };
