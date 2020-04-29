@@ -63,7 +63,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
     wayforpay.run(
       {
         merchantAccount: merchantLogin,
-        merchantDomainName: 'http://zmist.test:3000',
+        merchantDomainName: 'http://zmist.tech',
         authorizationType: 'SimpleSignature',
         merchantSignature: merchantSecretKey,
         orderReference: `${crowdfundingId}-${Math.random()
