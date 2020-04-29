@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+
 import ArticleTitle from '~/components/Article/Title';
 import ArticleFeatured from '~/components/Article/Featured';
 import ArticleStatus from '~/components/Article/Status';
@@ -27,7 +28,7 @@ const ArticleCrowdfundings = ({ post, children, className }) => {
       </div>
       <CrowdfundingProgress post={post} />
       <div className="article__meta">
-        <ArticleAuthor className="article__author" author={author} /> -{' '}
+        <ArticleAuthor className="article__author" author={author} />
         <ArticleDate
           className="article__time"
           date={date}

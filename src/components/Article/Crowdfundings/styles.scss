@@ -1,0 +1,74 @@
+.crowdfundings-page {
+  .crowdfundings-archive__articles > div {
+    padding-bottom: 24px;
+  }
+  .article {
+    &-status {
+      position: absolute;
+      top: 20px;
+      left: 22px;
+    }
+    &__main {
+      padding: 17px 20px 20px 20px;
+    }
+    &-title {
+      margin-bottom: 12px;
+
+      text-transform: capitalize;
+    }
+    &-excerpt {
+      font-family: $font-family-titles;
+
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0.05em;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+    &__meta {
+      display: flex;
+      align-content: center;
+
+      padding: 12px 20px 20px 20px;
+    }
+    &__time,
+    &__author {
+      display: flex;
+
+      margin-top: 0;
+
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: capitalize;
+    }
+    &__author:after {
+      content: '-';
+
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  .crowdfunding-progress {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    font-family: $font-family-titles;
+    &__amount {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+
+      color: $green;
+    }
+    &__percentage {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+
+      color: $grey-400;
+    }
+  }
+}
