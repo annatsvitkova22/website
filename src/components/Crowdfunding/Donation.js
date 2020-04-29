@@ -7,7 +7,8 @@ import md5 from 'blueimp-md5';
 
 import Icons from '~/components/Icons';
 import { AuthStore } from '~/stores/Auth';
-import { SingleArticleStore } from '~/stores/SingleArticle';
+import { SingleArticleStore, updatePost } from '~/stores/SingleArticle';
+import { CROWDFUNDING } from '~/pages/crowdfundings/[slug]';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -16,6 +17,8 @@ const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
   const authStateLink = useStateLink(AuthStore);
   const postStateLink = useStateLink(SingleArticleStore);
+
+  const storedPost = postStateLink.get();
 
   const { crowdfundingId, title } = post;
 
@@ -88,30 +91,82 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
     //     console.log('pending or in processing', response);
     //   }
     // );
-    handlePostDonate({ orderId, name, sum, photo });
+    handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
   };
 
   const handlePostDonate = async (data) => {
     const { apiUrl } = config;
     const { token } = authStateLink.get();
 
-    const { photo } = data;
-
-    const conf = {
+    const { photo, name, sum, orderId, date } = data;
+    const configs = {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': `${photo.type}`,
-        'Content-Disposition': `attachment; filename=${photo.name}`,
       },
     };
 
-    const uploadPhoto = await axios.post(
-      `${apiUrl}/wp-json/wp/v2/media`,
-      photo,
-      conf
+    let avatar = null;
+
+    if (photo) {
+      const uploadPhoto = await axios.post(
+        `${apiUrl}/wp-json/wp/v2/media`,
+        photo,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': `${photo.type}`,
+            'Content-Disposition': `attachment; filename=${photo.name}`,
+          },
+        }
+      );
+      avatar = uploadPhoto.data.id;
+    }
+
+    const getCurrentDonaters = await axios.get(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/supported`,
+      configs
     );
 
-    console.log(data, conf, uploadPhoto);
+    const {
+      data: { supported },
+    } = getCurrentDonaters;
+
+    supported.push({
+      name: name || 'Анонімно',
+      photo: avatar,
+      sum,
+      date,
+      orderId,
+    });
+
+    await axios.post(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/supported`,
+      {
+        fields: {
+          supported,
+        },
+      },
+      configs
+    );
+
+    const getCurrentAmout = await axios.get(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/collected`,
+      configs
+    );
+
+    await axios.post(
+      `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/collected`,
+      {
+        fields: {
+          collected: getCurrentAmout.data.collected
+            ? parseInt(getCurrentAmout.data.collected) + parseInt(sum)
+            : sum,
+        },
+      },
+      configs
+    );
+
+    updatePost(CROWDFUNDING, post.slug);
   };
 
   return (
