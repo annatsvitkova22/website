@@ -186,13 +186,17 @@ const Publications = (props) => {
                           <a>{name}</a>
                         </Link>
                       </h6>
-                      {nodes.map((post) => (
-                        <Article
-                          type="publications-cats"
-                          post={post}
-                          key={post.id}
-                        />
-                      ))}
+                      <div className="row">
+                        {nodes.map((post, i) => (
+                          <Article
+                            index={i}
+                            size={size}
+                            type="publications-cats"
+                            post={post}
+                            key={post.id}
+                          />
+                        ))}
+                      </div>
                     </div>
                   );
                 }
