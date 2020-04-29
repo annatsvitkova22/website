@@ -1,4 +1,5 @@
 .crowdfundings-page {
+
   .crowdfundings-archive__articles > div {
     padding-bottom: 24px;
 
@@ -12,6 +13,7 @@
       flex-direction: row;
     }
   }
+
   .article {
     @include media-breakpoint-down(xs) {
       display: flex;
@@ -54,6 +56,7 @@
         height: 88px;
         width: 88px;
       }
+
       &__link {
         @include media-breakpoint-down(lg) {
           width: 100%;
@@ -190,6 +193,7 @@
         display: none;
       }
     }
+
     &__bar {
       @include media-breakpoint-down(xs) {
         height: 6px;
