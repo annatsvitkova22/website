@@ -17,15 +17,13 @@ const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
             'crowdfunding-progress__amount--big': size === 'big',
           })}
         >
-          <span>
-            <NumberFormat
-              value={collectedNumber}
-              displayType={'text'}
-              thousandSeparator={' '}
-              suffix=" ₴"
-            />
-          </span>{' '}
-          зібрано
+          <NumberFormat
+            value={collectedNumber}
+            displayType={'text'}
+            thousandSeparator={' '}
+            suffix="грн"
+          />{' '}
+          <span>зібрано</span>
         </div>
         <div className="crowdfunding-progress__percentage">{percentage}</div>
       </div>

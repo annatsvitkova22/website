@@ -8,13 +8,15 @@ const FeaturedImage = ({ data, className }) => {
       {data && (
         <figure className={classnames('feature__image col-lg-11', className)}>
           <img src={data.mediaItemUrl} alt={data.title} />
-          <caption className={'feature__image-caption'}>
-            <span className={'feature__image-author'}>{data.title}</span>
-            <span
-              className={'feature__image-description'}
-              dangerouslySetInnerHTML={{ __html: data.caption }}
-            />
-          </caption>
+          {data.caption && (
+            <caption className={'feature__image-caption'}>
+              <span className={'feature__image-author'}>{data.title}</span>
+              <span
+                className={'feature__image-description'}
+                dangerouslySetInnerHTML={{ __html: data.caption }}
+              />
+            </caption>
+          )}
         </figure>
       )}
     </>

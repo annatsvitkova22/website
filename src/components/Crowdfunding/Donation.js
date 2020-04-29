@@ -24,7 +24,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
 
   const [form, setForm] = useState({
     name: '',
-    sum: 0,
+    sum: null,
     photo: null,
   });
 
@@ -168,21 +168,24 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
   return (
     <div className="crowdfunding-donation">
       <div className="crowdfunding-donation__wrapper">
-        <button className="crowdfunding-donation__close" onClick={onClose}>
-          <Icons icon={'close-comment'} />
-        </button>
+        <div className="crowdfunding-donation__title">
+          <span>підтримати</span>
+          <button className="crowdfunding-donation__close" onClick={onClose}>
+            <Icons icon={'close-comment'} />
+          </button>
+        </div>
         <div className="crowdfunding-donation__form">
-          <div>
+          <div className="crowdfunding-donation__input donation__sum">
             <input
               type={'number'}
-              placeholder={`сума`}
+              placeholder={`Сума`}
               onChange={handleInputChange}
               value={form.sum}
               name={'sum'}
               required
             />
           </div>
-          <div>
+          <div className="crowdfunding-donation__input donation__name">
             <input
               type={'text'}
               placeholder={`Ім'я`}
@@ -190,17 +193,23 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
               value={form.name}
               name={'name'}
             />
+            <label htmlFor="name">необов'язково</label>
           </div>
-          <div>
+          <div className="crowdfunding-donation__photo">
             <input
               type="file"
               placeholder="фото"
               onChange={handleFileInput}
               name={'photo'}
             />
+            <label htmlFor="photo">необов'язково</label>
           </div>
-          <button disabled={!form.sum} onClick={handleDonate}>
-            donate
+          <button
+            className="crowdfunding-donation__donate"
+            disabled={!form.sum}
+            onClick={handleDonate}
+          >
+            підтримати
           </button>
         </div>
       </div>
