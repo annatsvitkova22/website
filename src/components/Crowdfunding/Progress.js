@@ -21,7 +21,7 @@ const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
             value={collectedNumber}
             displayType={'text'}
             thousandSeparator={''}
-            suffix=" ₴"
+            suffix="грн"
           />{' '}
           <span>зібрано</span>
         </div>

@@ -24,17 +24,84 @@
 }
 
 .crowdfunding-stats {
-  &__item {
-    & + & {
-      margin-top: 20px;
-    }
+  padding-left: 0;
+  margin-top: 30px;
+  margin-bottom: 35px;
+
+  &__item:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    margin-bottom: 2px;
+
+    font-family: $font-family-titles;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #606664;
+  }
+  &__value {
+    font-family: $font-family-titles;
+
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: 0.04em;
   }
 }
 
 .crowdfunding-actions {
+  padding-left: 0;
+
   &__item {
-    & + & {
-      margin-top: 20px;
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    transition: all 0.2s;
+    button {
+      width: 100%;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      font-family: $font-family-titles;
+
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 28px;
+      letter-spacing: 0.02em;
+      text-transform: capitalize;
+    }
+  }
+
+  &__support {
+    background: $green;
+    border: 1px solid transparent;
+
+    color: $white;
+
+    &:hover {
+      border: 1px solid $green;
+
+      background-color: $white;
+
+      color: $green;
+    }
+  }
+
+  &__share {
+    border: 1px solid $green;
+
+    color: $green;
+
+    &:hover {
+      background-color: $green;
+      border: 1px solid transparent;
+
+      color: $white;
     }
   }
 }
@@ -63,5 +130,67 @@
 
     transform: translateX(-50%);
     overflow: auto;
+  }
+}
+
+.crowdfunding-supported {
+  padding-left: 0;
+  padding-top: 50px;
+  height: 470px;
+
+  overflow: scroll;
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 20px;
+  }
+
+  &__photo {
+    margin-right: 16px;
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+
+    border-radius: 50%;
+  }
+
+  &__img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 16px;
+    width: 44px;
+    height: 44px;
+
+    background: linear-gradient(
+      0deg,
+      rgba(29, 158, 116, 0.08),
+      rgba(29, 158, 116, 0.08)
+    );
+    border-radius: 50%;
+  }
+
+  &__name {
+    font-family: $font-family-titles;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+  }
+
+  &__date {
+    font-family: $font-family-titles;
+
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.07em;
+    text-transform: capitalize;
+    color: #8a9994;
   }
 }

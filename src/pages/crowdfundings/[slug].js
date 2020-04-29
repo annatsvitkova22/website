@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
 import { useStateLink } from '@hookstate/core';
+import StickyBox from 'react-sticky-box';
 
 import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
@@ -189,33 +190,37 @@ const Crowdfunding = (props) => {
               />
             </div>
           </main>
+
           <aside className="col-md-4 crowdfunding-single__sidebar">
-            <div className="crowdfunding-single__goal">
-              <NumberFormat
-                value={collectedNumber}
-                displayType={'text'}
-                thousandSeparator={' '}
-                suffix="ГРН"
+            <StickyBox offsetTop={70} offsetBottom={20}>
+              <div className="crowdfunding-single__goal">
+                <span>ціль</span>{' '}
+                <NumberFormat
+                  value={collectedNumber}
+                  displayType={'text'}
+                  thousandSeparator={' '}
+                  suffix="ГРН"
+                />
+              </div>
+              <CrowdfundingProgress
+                className="crowdfunding-single__progress"
+                post={storedPost}
               />
-            </div>
-            <CrowdfundingProgress
-              className="crowdfunding-single__progress"
-              post={storedPost}
-            />
-            <CrowdfundingStats
-              post={storedPost}
-              className="crowdfunding-single__stats"
-            />
-            {(status.value === 'active' || status.value === 'finished') && (
-              <CrowdfundingActions
+              <CrowdfundingStats
+                post={storedPost}
+                className="crowdfunding-single__stats"
+              />
+              {(status.value === 'active' || status.value === 'finished') && (
+                <CrowdfundingActions
+                  post={storedPost}
+                  className="crowdfunding-single__actions"
+                />
+              )}
+              <CrowdfundingSupported
                 post={storedPost}
                 className="crowdfunding-single__actions"
               />
-            )}
-            <CrowdfundingSupported
-              post={storedPost}
-              className="crowdfunding-single__actions"
-            />
+            </StickyBox>
           </aside>
         </div>
       </div>

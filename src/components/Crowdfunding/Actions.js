@@ -9,10 +9,15 @@ const CrowdfundingActions = ({ className, post }) => {
     <>
       <ul className={classnames('crowdfunding-actions', className)}>
         <li className="crowdfunding-actions__item">
-          <button onClick={() => setDonationOpen(true)}>підтримати</button>
+          <button
+            onClick={() => setDonationOpen(true)}
+            className="crowdfunding-actions__support"
+          >
+            підтримати
+          </button>
         </li>
         <li className="crowdfunding-actions__item">
-          <button>поширити</button>
+          <button className="crowdfunding-actions__share">поширити</button>
         </li>
       </ul>
       {donationOpen && (
