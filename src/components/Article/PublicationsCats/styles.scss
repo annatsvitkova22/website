@@ -1,14 +1,4 @@
 .publ-cat {
-  @include media-breakpoint-up(xl) {
-    &:not(:last-child) {
-      margin-bottom: 24px;
-    }
-  }
-
-  @include media-breakpoint-down(lg) {
-    margin-bottom: 24px;
-  }
-
   @include media-breakpoint-down(lg) {
     display: flex;
     flex-direction: row-reverse;
@@ -36,6 +26,18 @@
           object-fit: cover;
         }
       }
+    }
+  }
+
+  &__col {
+    @include media-breakpoint-up(xl) {
+      &:not(:last-child) {
+        margin-bottom: 24px;
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 24px;
     }
   }
 

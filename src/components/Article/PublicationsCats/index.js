@@ -29,7 +29,7 @@ const PublicationsCats = ({
   }
 
   return (
-    <div className={colSize}>
+    <div className={`${colSize} publ-cat__col`}>
       <div className="publ-cat">
         <ArticleFeatured image={featuredImage} alt={title} slug={slug} />
         <div className="publ-cat__wrapper">

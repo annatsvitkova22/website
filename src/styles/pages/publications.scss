@@ -81,6 +81,12 @@
 }
 
 .publ-page {
+  margin-bottom: 80px;
+
+  @include media-breakpoint-down(lg) {
+    margin-bottom: 30px;
+  }
+
   &__title {
     padding-top: 16px;
     padding-bottom: 17px;
