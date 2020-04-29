@@ -3,8 +3,8 @@ import * as classnames from 'classnames';
 
 const ArticleDateTime = ({ date, time, className }) => {
   const articleDate = date ? date.split(' ') : null;
-  const day = day ? articleDate[0] : null;
-  const month = day ? articleDate[1] : null;
+  const day = articleDate ? articleDate[0] : null;
+  const month = articleDate ? articleDate[1] : null;
   return (
     <div className={classnames('meta-date-group', className)}>
       {day && <p className="meta-date-group__day">{day}</p>}

@@ -34,7 +34,7 @@ input {
     margin-bottom: 35px;
      
     @include media-breakpoint-up(sm) {
-      margin-bottom: 0;
+      margin-bottom: 65px;
 
       max-width: 264px;
     }
