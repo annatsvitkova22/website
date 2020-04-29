@@ -20,7 +20,7 @@ const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
           <NumberFormat
             value={collectedNumber}
             displayType={'text'}
-            thousandSeparator={''}
+            thousandSeparator={' '}
             suffix="грн"
           />{' '}
           <span>зібрано</span>

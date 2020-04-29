@@ -118,7 +118,8 @@
   z-index: 1000;
 
   &__wrapper {
-    width: 80%;
+    max-width: 504px;
+    width: 100%;
 
     padding: 40px;
 
@@ -130,6 +131,113 @@
 
     transform: translateX(-50%);
     overflow: auto;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 32px;
+
+    span {
+      font-family: $font-family-titles;
+
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 16px;
+      letter-spacing: 0.2px;
+      color: #000000;
+      text-transform: capitalize;
+    }
+  }
+
+  .donation__sum {
+    margin-bottom: 32px;
+  }
+
+  &__input {
+    input {
+      max-width: 280px;
+
+      border-bottom: 1px solid #b0b0b0;
+
+      font-family: $font-family-titles;
+
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+
+      &::placeholder {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 32px;
+        color: #b0b0b0;
+      }
+    }
+  }
+
+  &__photo {
+    margin-bottom: 54px;
+
+
+
+    input[type='file']::-webkit-file-upload-button {
+      border: 1px solid #aaaaaa;
+      border-radius: 4px;
+
+      background-color: transparent;
+
+      cursor: pointer;
+    }
+
+    label {
+      font-family: $font-family-titles;
+      font-style: italic;
+
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+      color: #b0b0b0;
+
+      text-transform: capitalize;
+    }
+  }
+
+  .donation__name {
+    margin-bottom: 32px;
+
+    label {
+      font-family: $font-family-titles;
+      font-style: italic;
+
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+      color: #b0b0b0;
+
+      text-transform: capitalize;
+    }
+  }
+
+  &__donate {
+    padding: 10px 26px;
+
+    background-color: $green;
+
+    font-family: $font-family-titles;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #ffffff;
+    &:disabled {
+      background: #f1f1f1;
+
+      color: #b0b0b0;
+    }
   }
 }
 
