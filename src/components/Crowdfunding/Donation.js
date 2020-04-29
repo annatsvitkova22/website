@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import Icons from '~/components/Icons';
 import getConfig from 'next/config';
-import { AuthStore } from '~/stores/Auth';
 import { useStateLink } from '@hookstate/core';
 import * as axios from 'axios';
 import * as moment from 'moment';
+import md5 from 'blueimp-md5';
+
+import Icons from '~/components/Icons';
+import { AuthStore } from '~/stores/Auth';
 import { SingleArticleStore } from '~/stores/SingleArticle';
 
 const { publicRuntimeConfig } = getConfig();
@@ -48,27 +50,32 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
     const orderId = `${crowdfundingId}-${Math.random()
       .toString(36)
       .substr(2, 9)}`;
-    // const p = {
-    //   merchantAccount: merchantLogin,
-    //   merchantDomainName: 'http://zmist.tech',
-    //   authorizationType: 'SimpleSignature',
-    //   merchantSignature: merchantSecretKey,
-    //   orderReference: orderId,
-    //   orderDate: `${moment().unix()}`,
-    //   amount: `${sum}`,
-    //   currency: 'UAH',
-    //   productName: title,
-    //   productPrice: `${sum}`,
-    //   productCount: '1',
-    //   clientFirstName: name,
-    //   clientLastName: name,
-    //   clientEmail: 'vlad@outright.digital',
-    //   clientPhone: '480954581310',
-    //   language: 'UA',
-    //   straightWidget: true,
-    //   returnUrl: window.location.href,
-    // };
-    // console.log(p);
+
+    const p = {
+      merchantAccount: merchantLogin,
+      merchantDomainName: 'http://zmist.tech',
+      authorizationType: 'SimpleSignature',
+      merchantTransactionSecureType: 'AUTO',
+      merchantSignature: merchantSecretKey,
+      orderReference: orderId,
+      orderDate: `${moment().unix()}`,
+      amount: `${sum}`,
+      currency: 'UAH',
+      productName: [title],
+      productPrice: [sum],
+      productCount: [1],
+      clientFirstName: name,
+      clientLastName: name,
+      clientEmail: 'vlad@outright.digital',
+      clientPhone: '480954581310',
+      language: 'UA',
+      straightWidget: true,
+      returnUrl: window.location.href,
+    };
+
+    const hashString = `${p.merchantAccount};${p.merchantDomainName};${p.orderReference};${p.orderDate};${p.amount};${p.currency};${p.productName};${p.productCount};${p.productPrice}`;
+    p.merchantSignature = md5(hashString, merchantSecretKey);
+
     // wayforpay.run(
     //   p,
     //   function (response) {
@@ -97,7 +104,6 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
         'Content-Disposition': `attachment; filename=${photo.name}`,
       },
     };
-
 
     const uploadPhoto = await axios.post(
       `${apiUrl}/wp-json/wp/v2/media`,
