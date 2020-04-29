@@ -81,7 +81,7 @@
       width: 120px;
 
       @include media-breakpoint-up(md) {
-        &:first-child() {
+        &:first-child {
           width: 105px;
 
           .react-select {
@@ -154,8 +154,23 @@
 }
 
 .search-results {
-  max-width: 896px;
+  max-width: 872px;
   margin: 48px auto;
+
+  .article {
+    &__wrapper {
+      @include make-row()
+    }
+    &__chronology {
+      @include make-col(1)
+    }
+    &__main {
+      @include make-col(8);
+    }
+    &__image {
+      @include make-col(3);
+    }
+  }
 
   .article:not(:last-child) {
     margin-bottom: 24px;

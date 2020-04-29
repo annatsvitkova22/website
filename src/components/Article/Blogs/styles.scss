@@ -78,14 +78,20 @@
     &--blog {
       flex-wrap: wrap;
       flex-direction: column;
-
       flex-grow: 2;
+
       @include make-col(6);
+
       @include media-breakpoint-down(md) {
+
         @include make-col(6);
+
       }
+
       @include media-breakpoint-down(sm) {
+
         @include make-col(12);
+
       }
     }
   }

@@ -46,73 +46,77 @@
     letter-spacing: 0.02em;
   }
 }
-.pswp__bg {
-  background-color: white;
-}
-.pswp__scroll-wrap {
-  display: flex;
-}
-.pswp__zoom-wrap {
-  transform: none !important;
-}
-.pswp__container {
-  flex: 0 0 75%;
 
-  max-width: 1100px;
-
-  position: relative;
-}
-.pswp__ui {
-  width: 100%;
-
-  position: relative;
-}
-.pswp__img {
-  max-width: 1100px !important;
-  height: auto !important;
-  width: 100% !important;
-
-  top: 50%;
-
-  transform: translate(0, -50%);
-}
-.pswp__top-bar {
-  background-color: transparent !important;
-
-  color: black;
-}
-.pswp__button {
-  &--fs {
-    display: none !important;
+.gutenberg__image-pswp {
+  .pswp__bg {
+    background-color: white;
   }
-  &--share {
-    display: none !important;
+  .pswp__scroll-wrap {
+    display: flex;
   }
-  &--zoom {
-    display: none !important;
+  .pswp__zoom-wrap {
+    transform: none !important;
+  }
+  .pswp__container {
+    flex: 0 0 75%;
+
+    max-width: 1100px;
+
+    position: relative;
+  }
+  .pswp__ui {
+    width: 100%;
+
+    position: relative;
+  }
+  .pswp__img {
+    max-width: 1100px !important;
+    height: auto !important;
+    width: 100% !important;
+
+    top: 50%;
+
+    transform: translate(0, -50%);
+  }
+  .pswp__top-bar {
+    background-color: transparent !important;
+
+    color: black;
+  }
+  .pswp__button {
+    &--fs {
+      display: none !important;
+    }
+    &--share {
+      display: none !important;
+    }
+    &--zoom {
+      display: none !important;
+    }
+  }
+  .pswp__caption {
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    left: 0;
+    top: 50vh;
+    right: 0;
+
+    background: transparent !important;
+
+    transform: translate(0, -50%);
+
+    .pswp__caption__center {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      letter-spacing: 0.03em;
+      color: #242424;
+    }
   }
 }
-.pswp__caption {
-  display: flex;
-  align-items: center;
 
-  position: absolute;
-  left: 0;
-  top: 50vh;
-  right: 0;
-
-  background: transparent !important;
-
-  transform: translate(0, -50%);
-
-  .pswp__caption__center {
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 26px;
-    letter-spacing: 0.03em;
-    color: #242424;
-  }
-}
 .gutenberg__image:hover > .expand-image {
   visibility: visible;
 }
