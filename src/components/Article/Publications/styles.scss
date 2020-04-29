@@ -30,6 +30,10 @@
 .article {
   &--publication {
     margin-bottom: 50px;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 24px;
+    }
   }
 
   &__image {
@@ -50,16 +54,19 @@
       font-size: 18px;
     }
 
-    &--on-medium {
-      margin-bottom: 15px;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 10px;
+    }
 
-      @include media-breakpoint-down(sm) {
-        margin-bottom: 10px;
+    &--on-medium {
+      @include media-breakpoint-up(md) {
+        margin-bottom: 15px;
       }
     }
   }
 
   &__category {
+    &--grey,
     &--on {
       &-small,
       &-medium,
@@ -71,6 +78,10 @@
     &--under {
       &-medium {
         margin-bottom: 18px;
+
+        @include media-breakpoint-down(md) {
+          margin-bottom: 10px;
+        }
       }
 
       &-small,
@@ -116,7 +127,7 @@
         background-color: rgba($black, 0.06);
 
         @include media-breakpoint-down(lg) {
-          padding: 25px 20px;
+          padding: 34px 20px 37px;
         }
       }
     }
@@ -131,6 +142,10 @@
 
     &--on-small {
       padding-bottom: 24px;
+      
+      @include media-breakpoint-down(md) {
+        padding-bottom: 21px;
+      }
     }
   }
 
@@ -205,6 +220,10 @@
 
       figure {
         padding-bottom: 57.7%;
+
+        @include media-breakpoint-down(md) {
+          padding-bottom: 62.99%;
+        }
       }
     }
 
@@ -289,6 +308,10 @@
             height: 100%;
 
             background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+
+            @include media-breakpoint-down(md) {
+              padding-bottom: 105.4%;
+            }
           }
         }
       }

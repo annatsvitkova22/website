@@ -292,6 +292,7 @@
 .article-title {
   font-size: 16px;
   letter-spacing: 0.02em;
+  font-weight: 600;
 
   @include media-breakpoint-up(sm) {
     font-size: 20px;
