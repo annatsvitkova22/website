@@ -38,7 +38,12 @@ const Image = ({ block, className = '' }) => {
         <figcaption
           dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
         />
-        <PhotoSwipeWrapper items={img} isOpen={isOpen} onClose={handleClose} />
+        <PhotoSwipeWrapper
+          items={img}
+          isOpen={isOpen}
+          onClose={handleClose}
+          className="gutenberg__image-pswp"
+        />
         <button className={'expand-image'} onClick={handleOpen}>
           <Icons icon={'expand'} />
         </button>

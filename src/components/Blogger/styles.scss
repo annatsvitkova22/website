@@ -27,7 +27,6 @@
     @include media-breakpoint-down(md) {
       display: flex;
       flex-direction: column;
-
     }
   }
   &__about {
@@ -101,6 +100,49 @@
       .instagram > svg {
         width: 14px;
       }
+    }
+  }
+  &-bio {
+    font-family: $font-family-titles;
+
+    font-size: 15px;
+    line-height: 25px;
+    letter-spacing: 0.03em;
+    &__text {
+      padding-top: 30px;
+    }
+    &__button {
+      text-decoration: underline;
+
+      color: cornflowerblue;
+    }
+  }
+}
+
+.blogger-page__content {
+  .blogger {
+    @include make-col(4);
+    @include media-breakpoint-down(md) {
+      @include make-col(12);
+    }
+  }
+  .blogger-row > div:last-child {
+    @include make-col(8);
+    @include media-breakpoint-down(md) {
+      @include make-col(12);
+    }
+  }
+
+  .avatar {
+    @include media-breakpoint-down(md) {
+      margin-right: 20px;
+    }
+  }
+
+  .blogger__socials {
+    display: flex;
+    @include media-breakpoint-down(md) {
+      display: flex;
     }
   }
 }

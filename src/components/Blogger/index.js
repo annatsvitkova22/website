@@ -64,8 +64,8 @@ const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
             <MapIcons className={'blogger__socials-links'} data={socials} />
           </div>
         )}
-        {showBio && description && <BloggerBio bio={description} />}
       </div>
+      {showBio && description && <BloggerBio bio={description} />}
     </div>
   );
 };

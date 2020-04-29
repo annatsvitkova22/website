@@ -35,7 +35,6 @@ export const MapComponent = ({ data, type }) => {
 };
 
 export const MapIcons = ({ data, className = '' }) => {
-  console.log('incomung', data);
   return (
     <>
       {data &&

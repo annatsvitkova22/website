@@ -7,12 +7,15 @@ import {
 import SimpleMap from '~/components/SimpleMap';
 
 const EventsLikeSidebar = ({ data }) => {
+  const date = data.eventDate ? data.eventDate.split(' ') : null;
   return (
     <div className="info-card__wrapper">
       <div className={`event__date info-card__date `}>
-        <span className="event__day info-card__day">24</span>
-        <span className="event__month info-card__month">Березня</span>
-        <span className="event__time info-card__time">11:00</span>
+        {date && <span className="event__day info-card__day">{date[0]}</span>}
+        {date && (
+          <span className="event__month info-card__month">{date[1]}</span>
+        )}
+        <span className="event__time info-card__time">{data.eventTime}</span>
       </div>
       <div className="info-card__map">
         <SimpleMap data={data.eventAddress} />
