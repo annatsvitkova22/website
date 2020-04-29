@@ -122,3 +122,28 @@
     margin-right: auto;
   }
 }
+
+.main-cat {
+  &__row {
+    @include media-breakpoint-up(xl) {
+      &:not(:last-child) {
+        margin-bottom: 24px;
+      }
+      &--sub {
+        display: block;
+        column-count: 2;
+        
+        margin-left: 0;
+        margin-right: 0;
+        
+        .publ-cat {
+          &__col {
+            max-width: none;
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

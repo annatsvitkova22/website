@@ -146,7 +146,7 @@ const Publications = (props) => {
           </div>
           <div className="last-publs">
             <div className="row">
-              {nodes.slice(0, 11).map((post) => (
+              {nodes.slice(0, 10).map((post) => (
                 <Article type="publications" post={post} key={post.id}>
                   {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                   <Waypoint onEnter={fetchingContent} />
@@ -191,17 +191,46 @@ const Publications = (props) => {
                         </Link>
                       </h6>
                       <div className="publ-cats__container">
-                        <div className="row">
-                          {nodes.map((post, i) => (
-                            <Article
-                              index={i}
-                              size={size}
-                              type="publications-cats"
-                              post={post}
-                              key={post.id}
-                            />
-                          ))}
-                        </div>
+                        {size === 'big' && nodes.length && (
+                          <>
+                            <div className="row main-cat__row main-cat__row--primary">
+                              {nodes.slice(0, 1).map((post, i) => (
+                                <Article
+                                  isFirst={true}
+                                  size={size}
+                                  type="publications-cats"
+                                  post={post}
+                                  key={post.id}
+                                />
+                              ))}
+                            </div>
+                            <div className="row main-cat__row main-cat__row--sub">
+                              {nodes.slice(1, nodes.length).map((post, i) => (
+                                <Article
+                                  isFirst={false}
+                                  index={i}
+                                  size={size}
+                                  type="publications-cats"
+                                  post={post}
+                                  key={post.id}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+                        {!(size === 'big') && nodes.length !== 1 && (
+                          <div className="row">
+                            {nodes.map((post, i) => (
+                              <Article
+                                index={i}
+                                size={size}
+                                type="publications-cats"
+                                post={post}
+                                key={post.id}
+                              />
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
@@ -242,7 +271,6 @@ Publications.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: PUBLICATIONS_ARCHIVE,
     variables: {
-      // first: 11,
       cursor: null,
     },
   });

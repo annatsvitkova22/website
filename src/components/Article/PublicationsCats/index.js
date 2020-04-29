@@ -6,7 +6,7 @@ import ArticleTitle from '~/components/Article/Title';
 
 const PublicationsCats = ({
   size,
-  index,
+  isFirst,
   post,
   post: { title, slug, author, featuredImage },
   highlightInTitle,
@@ -15,8 +15,8 @@ const PublicationsCats = ({
   let titleModificator = '';
   switch (size) {
     case 'big':
-      colSize = index === 0 ? 'col-12' : 'col-xl-6';
-      titleModificator = index === 0 ? 'big-long' : 'big-short';
+      colSize = isFirst ? 'col-12' : 'col-xl-6';
+      titleModificator = isFirst ? 'big-long' : 'big-short';
       break;
 
     case 'medium':
