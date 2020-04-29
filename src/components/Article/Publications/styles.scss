@@ -144,6 +144,15 @@
         color: $black;
       }
     }
+
+    &-small,
+    &-medium {
+      .article-featured {
+        &__image {
+          padding-bottom: 67.69%;
+        }
+      }
+    }
   }
 
   &--under {
@@ -193,6 +202,11 @@
       }
       
       .article-featured {
+        &,
+        &__link {
+          height: 100%;
+        }
+        
         &__image {
           &--publ {
             padding-bottom: 66.35%;
@@ -209,9 +223,15 @@
       }
 
       .article-featured {
+        &,
+        &__link {
+          height: 100%;
+        }
+
         &__image {
           &--publ {
             padding-bottom: 123.3%;
+            height: 100%;
 
             background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
           }
