@@ -8,8 +8,6 @@ const ArticleAuthor = ({ author: { slug, name }, className }) => {
   // how can we fix it?
   const postType = useContext(ArticleContext);
 
-  console.log(slug, name);
-
   let href = '/search';
   let as = '/search';
 
