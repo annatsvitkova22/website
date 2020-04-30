@@ -148,7 +148,7 @@ const Crowdfunding = (props) => {
   const {
     cfACF: { collected, tocollect },
   } = storedPost;
-  const collectedNumber = collected ? collected : 0;
+  const collectedNumber = collected || 0;
 
   return (
     <div className="crowdfunding-single__container container">

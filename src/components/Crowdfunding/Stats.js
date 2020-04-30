@@ -1,6 +1,7 @@
 import React from 'react';
 import * as classnames from 'classnames';
 import * as moment from 'moment';
+
 import getCFStatus from '~/lib/getCFStatus';
 
 const CrowdfundingStats = ({ className, post }) => {
@@ -40,7 +41,7 @@ const CrowdfundingStats = ({ className, post }) => {
       </li>
       <li className="crowdfunding-stats__item">
         <div className="crowdfunding-stats__title">Поширили</div>
-        <div className="crowdfunding-stats__value">{shared ? shared : 0}</div>
+        <div className="crowdfunding-stats__value">{shared || 0}</div>
       </li>
       {(status.value === 'active' || status.value === 'finished') && (
         <li className="crowdfunding-stats__item">
