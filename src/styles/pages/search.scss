@@ -163,6 +163,11 @@
     @include media-breakpoint-down(lg) {
       padding-left: 0;
     }
+    @include media-breakpoint-down(sm) {
+      time {
+        font-size: 14px;
+      }
+    }
   }
 
   &__wrapper {

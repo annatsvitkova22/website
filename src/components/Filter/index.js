@@ -9,6 +9,7 @@ const Filter = ({
 }) => {
   if (!options.length) return null;
 
+  console.log(options);
   return (
     <ul className={classnames('filter', className)}>
       {options.map((option) => (
