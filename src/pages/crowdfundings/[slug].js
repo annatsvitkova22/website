@@ -26,6 +26,7 @@ import {
   CreateSingleArticleStore,
   SingleArticleStore,
 } from '~/stores/SingleArticle';
+import Avatar from '~/components/Avatar';
 
 export const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
@@ -45,6 +46,9 @@ export const CROWDFUNDING = gql`
         nicename
         nickname
         username
+        avatar {
+          url
+        }
       }
       featuredImage {
         mediaItemUrl
@@ -147,7 +151,7 @@ const Crowdfunding = (props) => {
   const collectedNumber = collected ? collected : 0;
 
   return (
-    <div className="container">
+    <div className="crowdfunding-single__container container">
       <Head>
         {/* TODO: change it */}
         <title>{storedPost.title}</title>
@@ -171,18 +175,64 @@ const Crowdfunding = (props) => {
               data={storedPost.featuredImage}
             />
             <div className="crowdfunding-single__content">
-              <div className="crowdfunding-single__about title__socials-about">
-                <span className="crowdfunding-single__author-image title__socials-image" />
-                <div className="crowdfunding-single__author-about title__socials-author">
-                  <ArticleAuthor
-                    author={storedPost.author}
-                    className="crowdfunding-single__author-name title__socials-name"
+              <div className="crowdfunding-single__title-mobile">
+                {status && (
+                  <ArticleStatus
+                    {...status}
+                    className="crowdfunding-single__status"
                   />
-                  <ArticleDate
-                    format={'DD MMMM, HH:mm'}
-                    date={storedPost.date}
+                )}
+                <h1 className="crowdfunding-single__title">
+                  {storedPost.title}
+                </h1>
+              </div>
+              <div className="crowdfunding-single__about-wrapper title__socials-about">
+                <div className="crowdfunding-single__about title__socials-about">
+                  <Avatar
+                    avatar={storedPost.author.avatar}
+                    className="crowdfunding-single__author-avatar"
+                  />
+
+                  <div className="crowdfunding-single__author-about title__socials-author">
+                    <ArticleAuthor
+                      author={storedPost.author}
+                      className="crowdfunding-single__author-name title__socials-name"
+                    />
+                    <ArticleDate
+                      format={'DD MMMM, HH:mm'}
+                      date={storedPost.date}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="crowdfunding-single__sidebar-mobile">
+                <div className="crowdfunding-single__goal">
+                  <span>ціль</span>{' '}
+                  <NumberFormat
+                    value={tocollect}
+                    displayType={'text'}
+                    thousandSeparator={' '}
+                    suffix="ГРН"
                   />
                 </div>
+                <CrowdfundingProgress
+                  className="crowdfunding-single__progress"
+                  post={storedPost}
+                />
+                <CrowdfundingStats
+                  post={storedPost}
+                  className="crowdfunding-single__stats"
+                />
+                {(status.value === 'active' || status.value === 'finished') && (
+                  <CrowdfundingActions
+                    post={storedPost}
+                    className="crowdfunding-single__actions"
+                  />
+                )}
+                <CrowdfundingSupported
+                  post={storedPost}
+                  className="crowdfunding-single__actions"
+                />
               </div>
               <Content
                 content={storedPost.blocks}
@@ -193,33 +243,35 @@ const Crowdfunding = (props) => {
 
           <aside className="col-md-4 crowdfunding-single__sidebar">
             <StickyBox offsetTop={70} offsetBottom={20}>
-              <div className="crowdfunding-single__goal">
-                <span>ціль</span>{' '}
-                <NumberFormat
-                  value={tocollect}
-                  displayType={'text'}
-                  thousandSeparator={' '}
-                  suffix="ГРН"
+              <div className="crowdfunding-single__sidebar-wrapper">
+                <div className="crowdfunding-single__goal">
+                  <span>ціль</span>{' '}
+                  <NumberFormat
+                    value={tocollect}
+                    displayType={'text'}
+                    thousandSeparator={' '}
+                    suffix="ГРН"
+                  />
+                </div>
+                <CrowdfundingProgress
+                  className="crowdfunding-single__progress"
+                  post={storedPost}
                 />
-              </div>
-              <CrowdfundingProgress
-                className="crowdfunding-single__progress"
-                post={storedPost}
-              />
-              <CrowdfundingStats
-                post={storedPost}
-                className="crowdfunding-single__stats"
-              />
-              {(status.value === 'active' || status.value === 'finished') && (
-                <CrowdfundingActions
+                <CrowdfundingStats
+                  post={storedPost}
+                  className="crowdfunding-single__stats"
+                />
+                {(status.value === 'active' || status.value === 'finished') && (
+                  <CrowdfundingActions
+                    post={storedPost}
+                    className="crowdfunding-single__actions"
+                  />
+                )}
+                <CrowdfundingSupported
                   post={storedPost}
                   className="crowdfunding-single__actions"
                 />
-              )}
-              <CrowdfundingSupported
-                post={storedPost}
-                className="crowdfunding-single__actions"
-              />
+              </div>
             </StickyBox>
           </aside>
         </div>

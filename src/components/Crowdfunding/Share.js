@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Icons from '~/components/Icons';
 
 const CrowdfundingShare = ({ post, onClose = () => {} }) => {
+  const handleCopy = (event) => {
+    const input = document.querySelector('.crowdfunding-share__link');
+    input.select();
+    document.execCommand('copy');
+  };
   return (
     <div className="crowdfunding-share">
       <div className="crowdfunding-share__wrapper">
@@ -38,7 +43,9 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
             value={'https://zmist.pl.ua/fsadsadk'}
             disabled
           />
-          <button className="crowdfunding-share__copy">Копіювати</button>
+          <button className="crowdfunding-share__copy" onClick={handleCopy}>
+            Копіювати
+          </button>
         </form>
       </div>
     </div>

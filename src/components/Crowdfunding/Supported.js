@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import moment from 'moment';
 
 const CrowdfundingSupported = ({ className, post }) => {
   const {
@@ -49,7 +50,9 @@ const CrowdfundingSupported = ({ className, post }) => {
             )}
             <div className="crowdfunding-supported__info">
               <div className="crowdfunding-supported__name">{name}</div>
-              <div className="crowdfunding-supported__date">{date}</div>
+              <div className="crowdfunding-supported__date">
+                {moment.unix(date).locale('uk').format('DD MMMM, HH:mm')}
+              </div>
             </div>
           </li>
         );

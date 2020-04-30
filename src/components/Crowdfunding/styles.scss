@@ -9,7 +9,7 @@
 
     position: relative;
 
-    background: transparentize(green, 0.8);
+    background: transparentize($green, 0.8);
 
     span {
       height: 100%;
@@ -18,7 +18,7 @@
       top: 0;
       left: 0;
 
-      background-color: green;
+      background-color: $green;
     }
   }
 }
@@ -28,8 +28,20 @@
   margin-top: 30px;
   margin-bottom: 35px;
 
+  @include media-breakpoint-down(sm) {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
   &__item:not(:last-child) {
     margin-bottom: 24px;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 0;
+    }
   }
 
   &__title {
@@ -50,18 +62,31 @@
     font-size: 30px;
     line-height: 36px;
     letter-spacing: 0.04em;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 18px;
+      line-height: 22px;
+    }
   }
 }
 
 .crowdfunding-actions {
   padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 
   &__item {
-    margin-bottom: 10px;
-
     text-align: center;
 
     transition: all 0.2s;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 8px;
+      }
+    }
+
     button {
       width: 100%;
       padding-top: 10px;
@@ -148,6 +173,12 @@
       letter-spacing: 0.2px;
       color: #000000;
       text-transform: capitalize;
+    }
+  }
+
+  &__close:hover {
+    path {
+      fill: $green;
     }
   }
 
@@ -242,15 +273,53 @@
 .crowdfunding-supported {
   padding-left: 0;
   padding-top: 50px;
-  height: 470px;
+  margin-top: 0;
 
-  overflow: scroll;
+  @include media-breakpoint-down(md) {
+    display: flex;
+    justify-content: center;
+
+    max-height: 220px;
+    margin-bottom: 0;
+
+    text-align: center;
+
+    overflow: hidden;
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+
+    padding-top: 23px;
+    height: 350px;
+
+    text-align: start;
+
+    overflow: scroll;
+  }
 
   &__item {
     display: flex;
     align-items: center;
 
-    margin-bottom: 20px;
+    &:not(:last-child) {
+      margin-bottom: 20px;
+
+      @include media-breakpoint-down(md) {
+        margin-right: 20px;
+      }
+      @include media-breakpoint-down(sm) {
+        margin-right: 0;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: row;
+    }
   }
 
   &__photo {
@@ -260,6 +329,16 @@
     object-fit: cover;
 
     border-radius: 50%;
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: 10px;
+      margin-right: 0;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 0;
+      margin-right: 16px;
+    }
   }
 
   &__img {
@@ -277,6 +356,13 @@
       rgba(29, 158, 116, 0.08)
     );
     border-radius: 50%;
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: 10px;
+    }
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 0;
+    }
   }
 
   &__name {
@@ -287,6 +373,10 @@
     line-height: 20px;
     letter-spacing: 0.05em;
     text-transform: capitalize;
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 5px;
+    }
   }
 
   &__date {
@@ -346,6 +436,12 @@
     }
   }
 
+  &__close:hover {
+    path {
+      fill: $green;
+    }
+  }
+
   &__socials {
     display: flex;
   }
@@ -376,11 +472,19 @@
       width: 24px;
       height: 24px;
     }
+
+    &:hover .svg-icon {
+      color: $green;
+    }
+    &:hover {
+      color: $green;
+    }
   }
 
   &__share {
     display: flex;
   }
+
   &__link {
     max-width: 280px;
     margin-right: 24px;
@@ -394,6 +498,7 @@
     line-height: 32px;
     color: #b0b0b0;
   }
+
   &__copy {
     padding: 10px 24px;
 
