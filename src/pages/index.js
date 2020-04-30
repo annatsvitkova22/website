@@ -106,6 +106,7 @@ Home.getInitialProps = async () => {
 
   return {
     page: result.data.pages.nodes[0],
+    // TODO: Put bellow function on frontend
     videos: await addVideoDurations(result.data.videos.nodes),
   };
 };

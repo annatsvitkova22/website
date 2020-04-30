@@ -235,6 +235,7 @@ Category.getInitialProps = async ({ query: { slug } }) => {
     categories: categories.data.categories.nodes,
     categoryName: name,
     currCatId: categoryId,
+    // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videosData.data.videos.nodes),
   };
 };
