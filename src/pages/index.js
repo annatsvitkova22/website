@@ -13,6 +13,7 @@ import OpportunitiesScene from '~/scenes/OpportunitiesScene';
 import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
+import SectionHeading from '~/components/SectionHeading';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -193,11 +194,30 @@ const Home = (props) => {
       <main>
         <h1 className="title">{page.title}</h1>
         <Content content={page.blocks} />
+
+        <SectionHeading title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings }} />
+
+        <SectionHeading title="Відео" href="/videos" />
         <VideosScene {...{ videos }} />
+
+        <SectionHeading
+          title="Можлівості"
+          href="/opportunities"
+          classMode="opport"
+        />
         <OpportunitiesScene {...{ opportunities }} />
+
+        <SectionHeading title="Афіша" href="/events" classMode="events" />
         <EventsScene {...{ events }} />
+
+        <SectionHeading
+          title="Публікації"
+          href="/publications"
+          classMode="publ"
+        />
         <PublicationsScene {...{ publications }} />
+
         <PublicationCategoriesScene {...{ categories }} />
       </main>
     </div>

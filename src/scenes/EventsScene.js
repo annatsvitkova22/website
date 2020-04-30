@@ -4,11 +4,8 @@ import Article from '~/components/Article';
 import EventsForm from '~/components/EventsForm';
 
 const EventsScene = ({ events }) => (
-  <div className="container articles-container">
+  <div className="container">
     <div className="row">
-      <div className="col-12">
-        <h6 className="text-uppercase tx-family-alt">Афіша</h6>
-      </div>
       {events.nodes.map((post, i) =>
         i === 3 ? (
           <>

@@ -1,0 +1,48 @@
+.sec-heading {
+  margin-top: 80px;
+  padding-top: 16px;
+  padding-bottom: 17px;
+
+  position: relative;
+
+  &::before {
+    content: '';
+
+    display: block;
+
+    position: absolute;
+    top: 0;
+    left: $grid-gutter-width/2;
+    right: $grid-gutter-width/2;
+
+    border-top: 1px solid $black;
+    
+  }
+
+  &--opport {
+    margin-top: 54px;
+  }
+
+  &--events {
+    margin-top: 40px;
+  }
+
+  &--publ {
+    margin-top: 0;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__watch-all {
+    font-size: 13px;
+
+    transition: color 0.3s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: lighten($green, 10%);
+    }
+  }
+}
