@@ -7,11 +7,11 @@ import client from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
 import addVideoDurations from '~/util/addVideoDurations';
+import CrowdfundingsScene from '~/scenes/CrowdfundingsScene';
 import VideosScene from '~/scenes/VideosScene';
+import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
-import EventsScene from '~/scenes/EventsScene';
-import Article from '~/components/Article';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -26,6 +26,36 @@ const HOME_PAGE = gql`
       nodes {
         title
         ${gutenbergBlocksQuery}
+      }
+    }
+    crowdfundings(first: 9) {
+      nodes {
+        id
+        excerpt
+        content
+        uri
+        title
+        slug
+        date
+        author {
+          id
+          name
+          nicename
+          nickname
+          username
+        }
+        featuredImage {
+          mediaItemUrl
+        }
+        cfACF {
+          tocollect
+          expiration
+          collected
+        }
+      }
+      pageInfo {
+        endCursor
+        total
       }
     }
     videos(first: 8) {
@@ -120,7 +150,14 @@ const HOME_PAGE = gql`
 `;
 
 const Home = (props) => {
-  const { page, videos, publications, categories, events } = props;
+  const {
+    page,
+    crowdfundings,
+    videos,
+    events,
+    publications,
+    categories,
+  } = props;
 
   return (
     <div className="home-page">
@@ -132,6 +169,8 @@ const Home = (props) => {
       <main>
         <h1 className="title">{page.title}</h1>
         <Content content={page.blocks} />
+
+        <CrowdfundingsScene {...{ crowdfundings }} />
 
         <VideosScene {...{ videos }} />
 
@@ -158,15 +197,23 @@ Home.getInitialProps = async () => {
   });
   console.log(data);
 
-  const { pages, videos, publications, categories, events } = data;
+  const {
+    pages,
+    crowdfundings,
+    videos,
+    events,
+    publications,
+    categories,
+  } = data;
 
   return {
     page: pages.nodes[0],
+    crowdfundings,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),
+    events,
     publications,
     categories,
-    events,
   };
 };
 
