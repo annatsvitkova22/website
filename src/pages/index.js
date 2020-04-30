@@ -83,6 +83,7 @@ const Home = (props) => {
               items={prepareGalleryItems(props.videos)}
               options={options()}
               thumbnailContent={getThumbnailVideo}
+              playClass="tx-white"
             />
           </div>
         </div>
