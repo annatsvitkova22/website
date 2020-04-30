@@ -10,6 +10,8 @@ import addVideoDurations from '~/util/addVideoDurations';
 import VideosScene from '~/scenes/VideosScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
+import EventsScene from '~/scenes/EventsScene';
+import Article from '~/components/Article';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -36,6 +38,24 @@ const HOME_PAGE = gql`
             mediaItemUrl
           }
           videoUrl
+        }
+      }
+    }
+    events(first: 7) {
+      nodes {
+        featuredImage {
+          mediaItemUrl
+        }
+        title
+        slug
+        id
+        zmAfishaACF {
+          eventAddress {
+            city
+            streetName
+            streetNumber
+          }
+          eventTime
         }
       }
     }
@@ -100,7 +120,7 @@ const HOME_PAGE = gql`
 `;
 
 const Home = (props) => {
-  const { page, videos, publications, categories } = props;
+  const { page, videos, publications, categories, events } = props;
 
   return (
     <div className="home-page">
@@ -114,6 +134,8 @@ const Home = (props) => {
         <Content content={page.blocks} />
 
         <VideosScene {...{ videos }} />
+
+        <EventsScene {...{ events }} />
 
         <PublicationsScene {...{ publications }} />
 
@@ -134,8 +156,9 @@ Home.getInitialProps = async () => {
   const { data } = await client.query({
     query: HOME_PAGE,
   });
+  console.log(data);
 
-  const { pages, videos, publications, categories } = data;
+  const { pages, videos, publications, categories, events } = data;
 
   return {
     page: pages.nodes[0],
@@ -143,6 +166,7 @@ Home.getInitialProps = async () => {
     videos: await addVideoDurations(videos.nodes),
     publications,
     categories,
+    events,
   };
 };
 
