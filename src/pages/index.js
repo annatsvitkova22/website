@@ -2,11 +2,18 @@ import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import client from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
-import '../styles/pages/home.scss';
+import PhotoSwipeGallery from '~/components/PhotoSwipeGallery';
+import {
+  getThumbnailVideo,
+  prepareGalleryItems,
+  options,
+} from '~/components/PhotoSwipeGallery/videoGalleryUtils';
+import addVideoDurations from '~/util/addVideoDurations';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -23,6 +30,19 @@ const HOME_PAGE = gql`
         ${gutenbergBlocksQuery}
       }
     }
+    videos(first: 8) {
+      nodes {
+        title
+        excerpt
+        date
+        zmVideoACF {
+          videoCover {
+            mediaItemUrl
+          }
+          videoUrl
+        }
+      }
+    }
   }
 `;
 
@@ -37,8 +57,35 @@ const Home = (props) => {
 
       <main>
         <h1 className="title">{page.title}</h1>
-
         <Content content={page.blocks} />
+
+        <div className="container">
+          <div className="row line-height-1 video-category__top-row">
+            <div className="col-6">
+              <h6 className="video-category__title text-uppercase tx-family-alt">
+                Відео
+              </h6>
+            </div>
+            <div className="col-6 text-right tx-green">
+              <Link
+                href={`/videos`}
+                // as={`/videos/category/${category.slug}`}
+              >
+                <a className="video-category__watch-all tx-family-titles font-weight-semibold">
+                  Дивись Усі
+                </a>
+              </Link>
+            </div>
+          </div>
+          <div className="row">
+            <PhotoSwipeGallery
+              className="col-12 video-cat-gall"
+              items={prepareGalleryItems(props.videos)}
+              options={options()}
+              thumbnailContent={getThumbnailVideo}
+            />
+          </div>
+        </div>
       </main>
     </div>
   );
@@ -58,6 +105,7 @@ Home.getInitialProps = async () => {
 
   return {
     page: result.data.pages.nodes[0],
+    videos: await addVideoDurations(result.data.videos.nodes),
   };
 };
 
