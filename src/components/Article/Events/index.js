@@ -7,15 +7,16 @@ import ArticleDateTime from '~/components/Article/DateTime';
 
 const ArticleEvents = ({ post, children, className }) => {
   const { streetName, streetNumber, city } = post.zmAfishaACF.eventAddress;
-  const { eventTime } = post.zmAfishaACF;
+  const { eventTime, eventDate } = post.zmAfishaACF;
+  console.log(post.zmAfishaACF);
   const withImage = post.featuredImage ? '' : 'article--no-image';
-  console.log(post);
+
   return (
     <article
       className={classnames('article--events', withImage, className)}
       key={post.id}
     >
-      <ArticleDateTime time={eventTime} />
+      <ArticleDateTime time={eventTime} date={eventDate} />
       <ArticleFeatured
         className="article__image"
         image={post.featuredImage}

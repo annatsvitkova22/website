@@ -30,6 +30,10 @@
 .article {
   &--publication {
     margin-bottom: 50px;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 24px;
+    }
   }
 
   &__image {
@@ -45,12 +49,24 @@
 
 .art-publ {
   &__title {
+    a {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 10px;
+    }
+
     &--on-medium {
-      margin-bottom: 15px;
+      @include media-breakpoint-up(md) {
+        margin-bottom: 15px;
+      }
     }
   }
 
   &__category {
+    &--grey,
     &--on {
       &-small,
       &-medium,
@@ -62,6 +78,10 @@
     &--under {
       &-medium {
         margin-bottom: 18px;
+
+        @include media-breakpoint-down(md) {
+          margin-bottom: 10px;
+        }
       }
 
       &-small,
@@ -78,6 +98,10 @@
 
     &--under {
       padding-top: 21px;
+
+      @include media-breakpoint-down(md) {
+        padding-top: 17px;
+      }
     }
 
     &--on {
@@ -85,6 +109,11 @@
       &-small {
         padding-left: 36px;
         padding-right: 36px;
+
+        @include media-breakpoint-down(sm) {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
       }
 
       &-big {
@@ -96,15 +125,27 @@
         padding-right: 48px;
 
         background-color: rgba($black, 0.06);
+
+        @include media-breakpoint-down(lg) {
+          padding: 34px 20px 37px;
+        }
       }
     }
 
     &--on-medium {
       padding-bottom: 31px;
+
+      @include media-breakpoint-down(sm) {
+        padding-bottom: 22px;
+      }
     }
 
     &--on-small {
       padding-bottom: 24px;
+      
+      @include media-breakpoint-down(md) {
+        padding-bottom: 21px;
+      }
     }
   }
 
@@ -114,8 +155,16 @@
       font-size: 32px;
       letter-spacing: -0.02em;
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-up(lg) {
+        font-weight: 800;
+      }
+
+      @include media-breakpoint-only(lg) {
         font-size: 25px;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: 20px;
         font-weight: 700;
       }
     }
@@ -144,6 +193,15 @@
         color: $black;
       }
     }
+
+    &-small,
+    &-medium {
+      .article-featured {
+        &__image {
+          padding-bottom: 67.69%;
+        }
+      }
+    }
   }
 
   &--under {
@@ -155,23 +213,42 @@
 
     &-medium {
       .article-title__link {
-        font-size: 26px;
+        @include media-breakpoint-up(lg) {
+          font-size: 26px;
+        }
       }
 
       figure {
         padding-bottom: 57.7%;
+
+        @include media-breakpoint-down(md) {
+          padding-bottom: 62.99%;
+        }
       }
     }
 
     &-small {
       figure {
         padding-bottom: 59.1%;
+
+        @include media-breakpoint-down(md) {
+          padding-bottom: 62.99%;
+        }
       }
     }
   }
 
   &--on {
     &-big {
+      @include media-breakpoint-down(md) {
+        flex-basis: calc(100% + 16px);
+        
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: -8px;
+        margin-right: -8px;
+        max-width: calc(100% + 16px);
+      }
 
       .meta-author {
         color: $black;
@@ -188,16 +265,27 @@
 
     &-medium {
       .article-title__link {
-        font-size: 25px;
-        letter-spacing: 0.03em;
+        @include media-breakpoint-up(lg) {
+          font-size: 25px;
+          letter-spacing: 0.03em;
+        }
       }
       
       .article-featured {
+        &,
+        &__link {
+          height: 100%;
+        }
+
         &__image {
           &--publ {
             padding-bottom: 66.35%;
 
             background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+
+            @include media-breakpoint-down(lg) {
+              padding-bottom: 105.4%;
+            }
           }
         }
       }
@@ -209,11 +297,21 @@
       }
 
       .article-featured {
+        &,
+        &__link {
+          height: 100%;
+        }
+
         &__image {
           &--publ {
             padding-bottom: 123.3%;
+            height: 100%;
 
             background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+
+            @include media-breakpoint-down(md) {
+              padding-bottom: 105.4%;
+            }
           }
         }
       }

@@ -26,8 +26,11 @@
   flex-direction: column;
   align-items: flex-start;
 
+  min-width: 101px;
+
   background-color: $white;
 
+  color: $black;
   font-weight: 700;
   font-size: 0;
 
@@ -317,6 +320,7 @@
 .article-title {
   font-size: 16px;
   letter-spacing: 0.02em;
+  font-weight: 600;
 
   @include media-breakpoint-up(sm) {
     font-size: 20px;

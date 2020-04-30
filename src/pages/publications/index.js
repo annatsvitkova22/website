@@ -11,6 +11,7 @@ import PublicationMainLoader from '~/components/Loaders/PublicationMainLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
 import NewsLoader from '~/components/Loaders/NewsLoader';
+import MainPublication from '~/components/MainPublication';
 
 const PUBLICATIONS_ARCHIVE = gql`
   query PublicationsArchive($cursor: String, $articles: Int) {
@@ -20,9 +21,14 @@ const PUBLICATIONS_ARCHIVE = gql`
           ... on Publication {
             title
             uri
+            slug
             author {
-              firstName
-              lastName
+              name
+              nicename
+              nickname
+              slug
+              userId
+              username
             }
             categories {
               nodes {
@@ -97,26 +103,22 @@ const PUBLICATIONS_ARCHIVE = gql`
   }
 `;
 
+const variables = {
+  articles: 11,
+};
+
 const Publications = (props) => {
   const { info, publications, categories } = props;
   const { fetchingContent, state } = useLoadMoreHook(
     PUBLICATIONS_ARCHIVE,
     publications,
     'publications',
-    11
+    variables.articles
   );
 
   const filteredCategories = categories.nodes.filter(
     ({ zmCategoryACF: { showOnPublications } }) => showOnPublications === true
   );
-
-  const {
-    title,
-    uri,
-    featuredImage,
-    author,
-    categories: mainCats,
-  } = info.generalInfoACF.mainPublication;
 
   const sortedCategories = filteredCategories.sort(
     (categoryA, categoryB) =>
@@ -130,51 +132,28 @@ const Publications = (props) => {
     <div className="publ-page">
       <Head>
         {/* TODO: change title */}
-        <title>{'Change this!'}</title>
+        <title>{'Публікації'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
-        <div className="main-publ">
-          <div
-            className="main-publ__image pos-relative bg-cover"
-            style={{
-              backgroundImage: `linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2B2B2B 100%), url(${featuredImage.mediaItemUrl})`,
-            }}
-          >
-            <div className="main-publ">
-              <div className="main-publ__caption tx-white">
-                <ul className="list-reset text-left text-sm-center">
-                  {mainCats.nodes.map(({ name, slug }, i) => (
-                    <li key={i} className="cat-list__item">
-                      <Link href={`/search?category=${slug}`}>
-                        <a className="cat-list__button">{name}</a>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <h1 className="main-publ__title text-left text-sm-center text-capitalize">
-                  {title}
-                </h1>
-                <p className="text-left text-sm-center tx-family-titles tx-tiny font-weight-bold">
-                  {author.firstName} {author.lastName}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* MainPubl */}
+        <MainPublication {...{ ...info.generalInfoACF.mainPublication }} />
         <div className="container">
           <div className="row">
             <div className="col-12">
               <h6 className="publ-page__title text-uppercase">Останні</h6>
             </div>
-            {nodes.slice(0, 11).map((post) => (
-              <Article type="publications" post={post} key={post.id}>
-                {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+          </div>
+          <div className="last-publs">
+            <div className="row">
+              {nodes.slice(0, 10).map((post) => (
+                <Article type="publications" post={post} key={post.id}>
+                  {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                   <Waypoint onEnter={fetchingContent} />
                 )} */}
-              </Article>
-            ))}
+                </Article>
+              ))}
+            </div>
           </div>
         </div>
         <div className="container">
@@ -211,13 +190,48 @@ const Publications = (props) => {
                           <a>{name}</a>
                         </Link>
                       </h6>
-                      {nodes.map((post) => (
-                        <Article
-                          type="publications-cats"
-                          post={post}
-                          key={post.id}
-                        />
-                      ))}
+                      <div className="publ-cats__container">
+                        {size === 'big' && nodes.length && (
+                          <>
+                            <div className="row main-cat__row main-cat__row--primary">
+                              {nodes.slice(0, 1).map((post, i) => (
+                                <Article
+                                  isFirst={true}
+                                  size={size}
+                                  type="publications-cats"
+                                  post={post}
+                                  key={post.id}
+                                />
+                              ))}
+                            </div>
+                            <div className="row main-cat__row main-cat__row--sub">
+                              {nodes.slice(1, nodes.length).map((post, i) => (
+                                <Article
+                                  isFirst={false}
+                                  index={i}
+                                  size={size}
+                                  type="publications-cats"
+                                  post={post}
+                                  key={post.id}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+                        {!(size === 'big') && nodes.length !== 1 && (
+                          <div className="row">
+                            {nodes.map((post, i) => (
+                              <Article
+                                index={i}
+                                size={size}
+                                type="publications-cats"
+                                post={post}
+                                key={post.id}
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   );
                 }
@@ -257,7 +271,6 @@ Publications.getInitialProps = async () => {
   const { data } = await apolloClient.query({
     query: PUBLICATIONS_ARCHIVE,
     variables: {
-      first: 11,
       cursor: null,
     },
   });

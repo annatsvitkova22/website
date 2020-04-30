@@ -10,7 +10,9 @@ export const MapComponent = ({ data, type }) => {
           if (type === 'phone') {
             return (
               <span className="info-card__item" key={index}>
-                {item.phoneNumber}
+                <a href={`tel:${item.phoneNumber}`}>
+                  {item.phoneNumberDisplay}
+                </a>
               </span>
             );
           }
@@ -24,7 +26,7 @@ export const MapComponent = ({ data, type }) => {
           if (type === 'email') {
             return (
               <span className="info-card__item" key={index}>
-                {item.email}
+                <a href={`mailto:${item.email}`}> {item.email} </a>
               </span>
             );
           }

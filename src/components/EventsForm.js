@@ -76,7 +76,7 @@ const EventsForm = ({
     }
   };
   return (
-    <from className={classnames('zm-form', className)}>
+    <form className={classnames('zm-form', className)}>
       <h1 class="zm-form__title">Запропонуй Подію</h1>
       <input
         className={'zm-form__input'}
@@ -135,7 +135,7 @@ const EventsForm = ({
       >
         {submitText}
       </button>
-    </from>
+    </form>
   );
 };
 
