@@ -5,13 +5,13 @@ const PartnersLogo = (props) => {
   const { partnersData, className = '' } = props;
 
   return (
-    <ul className={`footer__sitemap-list ${className}`}>
-      <li className={'footer__sitemap-title'}>Наші партнери</li>
+    <div className={`footer__sitemap-list ${className}`}>
+      <span className={'footer__sitemap-title'}>Наші партнери</span>
       <ul className={'footer__sitemap-navigation'}>
         {partnersData &&
           partnersData.map((item, i) => {
             return (
-              <li className={'footer__sitemap-link'} key={i}>
+              <li className={'footer__sitemap-partner'} key={i}>
                 <a
                   href={item.url}
                   title={item.name}
@@ -24,7 +24,7 @@ const PartnersLogo = (props) => {
             );
           })}
       </ul>
-    </ul>
+    </div>
   );
 };
 PartnersLogo.propTypes = {
