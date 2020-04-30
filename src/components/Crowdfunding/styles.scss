@@ -138,9 +138,9 @@
   right: 0;
   left: 0;
 
-  background-color: transparentize(#000, 0.4);
+  background-color: $black;
 
-  z-index: 1000;
+  z-index: 2000;
 
   &__wrapper {
     max-width: 504px;
@@ -398,9 +398,9 @@
   right: 0;
   left: 0;
 
-  background-color: transparentize(#000, 0.4);
+  background-color: $black;
 
-  z-index: 1000;
+  z-index: 2000;
 
   &__wrapper {
     max-width: 504px;
