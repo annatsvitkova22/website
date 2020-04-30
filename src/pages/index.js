@@ -9,6 +9,7 @@ import Content from '~/components/Content';
 import addVideoDurations from '~/util/addVideoDurations';
 import CrowdfundingsScene from '~/scenes/CrowdfundingsScene';
 import VideosScene from '~/scenes/VideosScene';
+import OpportunitiesScene from '~/scenes/OpportunitiesScene';
 import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
@@ -68,6 +69,28 @@ const HOME_PAGE = gql`
             mediaItemUrl
           }
           videoUrl
+        }
+      }
+    }
+    opportunities(first: 4) {
+      nodes {
+        featuredImage {
+          sourceUrl(size: THUMBNAIL)
+        }
+        title
+        slug
+        id
+        zmAfishaACF {
+          eventAddress {
+            streetAddress
+            streetName
+            latitude
+            longitude
+          }
+          eventTime
+          eventDays {
+            day
+          }
         }
       }
     }
@@ -154,6 +177,7 @@ const Home = (props) => {
     page,
     crowdfundings,
     videos,
+    opportunities,
     events,
     publications,
     categories,
@@ -169,15 +193,11 @@ const Home = (props) => {
       <main>
         <h1 className="title">{page.title}</h1>
         <Content content={page.blocks} />
-
         <CrowdfundingsScene {...{ crowdfundings }} />
-
         <VideosScene {...{ videos }} />
-
+        <OpportunitiesScene {...{ opportunities }} />
         <EventsScene {...{ events }} />
-
         <PublicationsScene {...{ publications }} />
-
         <PublicationCategoriesScene {...{ categories }} />
       </main>
     </div>
@@ -195,12 +215,12 @@ Home.getInitialProps = async () => {
   const { data } = await client.query({
     query: HOME_PAGE,
   });
-  console.log(data);
 
   const {
     pages,
     crowdfundings,
     videos,
+    opportunities,
     events,
     publications,
     categories,
@@ -211,6 +231,7 @@ Home.getInitialProps = async () => {
     crowdfundings,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),
+    opportunities,
     events,
     publications,
     categories,
