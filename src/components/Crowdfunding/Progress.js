@@ -6,7 +6,7 @@ const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
   const {
     cfACF: { tocollect, collected },
   } = post;
-  const collectedNumber = collected ? collected : 0;
+  const collectedNumber = collected || 0;
   const percent = (collectedNumber * 100) / tocollect;
   const percentage = `${percent > 100 ? '100' : percent}%`;
   return (

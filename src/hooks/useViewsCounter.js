@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import getConfig from 'next/config';
-import { AuthStore } from '~/stores/Auth';
 import { useStateLink } from '@hookstate/core';
 import * as axios from 'axios';
+
+import { AuthStore } from '~/stores/Auth';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -50,6 +51,6 @@ const useViewsCounter = (post) => {
       setTimeout(updateViews, 10000);
     }
   }, [post]);
-}
+};
 
 export default useViewsCounter;

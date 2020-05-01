@@ -1,4 +1,5 @@
 import { createStateLink } from '@hookstate/core';
+
 import apolloClient from '~/lib/ApolloClient';
 
 export const SingleArticleStore = createStateLink({ post: {} });
@@ -15,13 +16,13 @@ export const updateComments = (commentCount, comments) => {
   singleArticleStore.post.commentCount = commentCount;
   singleArticleStore.post.comments = comments;
   SingleArticleStore.set(singleArticleStore);
-}
+};
 
 export const updateLikes = (likes) => {
   const singleArticleStore = SingleArticleStore.get();
   singleArticleStore.post.statisticsACF.likes = likes;
   SingleArticleStore.set(singleArticleStore);
-}
+};
 
 export const updatePost = async (query, slug) => {
   const singleArticleStore = SingleArticleStore.get();
@@ -31,4 +32,4 @@ export const updatePost = async (query, slug) => {
   });
   singleArticleStore.post = data.crowdfundingBy;
   SingleArticleStore.set(singleArticleStore);
-}
+};

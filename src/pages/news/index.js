@@ -14,9 +14,20 @@ import Article from '~/components/Article';
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import SidebarNews from '~/components/Sidebar/News';
-import { NewsStore, CreateNewsStore, setIsChanged } from '~/stores/News';
+import {
+  NewsStore,
+  CreateNewsStore,
+  setIsChanged,
+  setCategory,
+  setDate,
+  setSorting,
+} from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import dateToGraphQLQuery from '~/util/date';
+import Filter from '~/static/images/filter';
+import Icons from '~/components/Icons';
+import Calendar from '~/components/Calendar';
+import Sorting from '~/components/Sorting';
 
 const composeQuery = ({
   cursor,
@@ -121,6 +132,9 @@ const composeQuery = ({
 
 const News = ({ posts, categories, query }) => {
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const stateLink = useStateLink(
     loaded ? NewsStore : CreateNewsStore(loaded, { categories, ...query })
@@ -166,6 +180,10 @@ const News = ({ posts, categories, query }) => {
     (changed) => setIsChanged(changed)
   );
 
+  const updateMobile = () => {
+    window.outerWidth < 768 ? setIsMobile(true) : setIsMobile(false);
+  };
+
   useEffect(() => {
     setLoaded(true);
 
@@ -173,6 +191,24 @@ const News = ({ posts, categories, query }) => {
       setIsChanged(true);
     });
   }, []);
+
+  const handleCalendarOpen = () => {
+    setIsCalendarOpen(!isCalendarOpen);
+  };
+
+  const handleSortingOpen = () => {
+    setIsSortingOpen(!isSortingOpen);
+  };
+
+  useEffect(() => {
+    updateMobile();
+
+    window.addEventListener('resize', updateMobile);
+
+    return () => {
+      window.removeEventListener('resize', updateMobile);
+    };
+  }, [isMobile]);
 
   useRouterSubscription(
     {
@@ -213,6 +249,8 @@ const News = ({ posts, categories, query }) => {
   }
   const { nodes, pageInfo } = state.data;
 
+  console.log(filters.categories);
+
   return (
     <div className="news-page">
       <Head>
@@ -223,6 +261,51 @@ const News = ({ posts, categories, query }) => {
 
       <div className="container articles-container">
         <div className="row">
+          {isMobile && (
+            <div className="news-archive__mobile col-md-8">
+              <button
+                className="news-archive__sorting"
+                onClick={handleSortingOpen}
+              >
+                <Filter />
+              </button>
+              <button
+                className="news-archive__calendar"
+                onClick={handleCalendarOpen}
+              >
+                <Icons icon={'calendar'} />
+              </button>
+              <div className="news-archive__filter">
+                <select onChange={(event) => setCategory(event.target.value)}>
+                  <option disabled hidden selected>
+                    Категорії
+                  </option>
+                  {filters.categories.map((item) => {
+                    return <option value={item.value}>{item.label}</option>;
+                  })}
+                </select>
+                <Icons
+                  className={'footer__sitemap-chevron'}
+                  icon={'footer-chevron'}
+                />
+              </div>
+              {isSortingOpen && (
+                <Sorting
+                  currentOption={currentSorting}
+                  options={sorting}
+                  className="sorting--news"
+                  onChange={setSorting}
+                />
+              )}
+              {isCalendarOpen && (
+                <Calendar
+                  onChange={setDate}
+                  currentValue={filters.date}
+                  classNames={'news-archive__calendar-mobile'}
+                />
+              )}
+            </div>
+          )}
           <div className="col-md-8">
             <main className="news-archive__content ">
               {nodes.map((post, i) => (

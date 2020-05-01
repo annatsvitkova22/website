@@ -7,7 +7,7 @@ const getCFStatus = (post) => {
   } = post;
   const started = moment(date);
   const expiry = moment(expiration);
-  const c = collected ? collected : 0;
+  const c = collected || 0;
   let status = null;
   if (expiry.isAfter(started)) {
     if (tocollect <= c) {

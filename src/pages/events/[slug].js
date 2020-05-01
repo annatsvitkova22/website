@@ -10,7 +10,7 @@ import apolloClient from '~/lib/ApolloClient';
 import Content from '~/components/Content';
 import EventsLikeSidebar from '~/components/Sidebar/Events';
 import EventHeader from '~/components/EventHeader';
-import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import EventMainLoader from '~/components/Loaders/EventMainLoader';
 
 const EVENT = gql`
   query Event($slug: String!) {
@@ -125,11 +125,13 @@ const Event = (props) => {
     }
   }, [state.event]);
 
-  if (!state.event) {
-    return <PostHeaderLoader type={'publication'} />;
+  if (!event) {
+    return <div className="single__event">
+      <div className="container">
+        <EventMainLoader />
+      </div>
+    </div>;
   }
-
-  console.log(event.zmAfishaACF);
 
   return (
     <div className="single__event">
@@ -140,23 +142,20 @@ const Event = (props) => {
       <main className="event">
         <div className="container">
           <section className="event__hero" style={useStyles}>
-            {event.featuredImage ? (
-              <div className="event__hero-overlay">
-                <div className="event__hero-inner container">
-                  <EventHeader event={event} />
-                  <div className="event__info-card">
-                    <EventsLikeSidebar data={event.zmAfishaACF} />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
+            <div
+              className={
+                event.featuredImage
+                  ? 'event__hero-overlay'
+                  : 'event__hero-noimage'
+              }
+            >
+              <div className="event__hero-inner container">
                 <EventHeader event={event} />
                 <div className="event__info-card">
                   <EventsLikeSidebar data={event.zmAfishaACF} />
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </section>
           <section className="event__main container">
             <div className="event__content-wrapper">

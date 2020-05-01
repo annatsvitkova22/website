@@ -26,7 +26,7 @@ const CommentButton = ({ post }) => {
     <>
       <button className={`comments-button`} onClick={changeVisibility}>
         <Icons icon={'comment'} />
-        <span>Коментарі ({commentCount ? commentCount : '0'})</span>
+        <span>Коментарі ({commentCount || '0'})</span>
       </button>
       <CommentPopup post={post} />
     </>

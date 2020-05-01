@@ -8,6 +8,7 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
 import Article from '~/components/Article';
 import NewsLoader from '~/components/Loaders/NewsLoader';
+import OpportunitiesLoader from '~/components/Loaders/OpportunitiesLoader';
 
 const OPPORTUNITIES_ARCHIVE = gql`
   query OpportunitiesArchive($cursor: String) {
@@ -50,8 +51,11 @@ const OpportunitiesArchive = (props) => {
   if (!state.data.nodes)
     return (
       <div className="container articles-container articles-container--sm">
-        <NewsLoader />
-        <NewsLoader />
+        <OpportunitiesLoader />
+        <OpportunitiesLoader />
+        <OpportunitiesLoader />
+        <OpportunitiesLoader />
+        <OpportunitiesLoader />
       </div>
     );
 
@@ -76,7 +80,7 @@ const OpportunitiesArchive = (props) => {
               </Article>
             </>
           ))}
-          {state.isLoading && <NewsLoader />}
+          {state.isLoading && <OpportunitiesLoader />}
         </div>
       </main>
     </div>

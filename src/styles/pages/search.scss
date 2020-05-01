@@ -157,18 +157,131 @@
   max-width: 872px;
   margin: 48px auto;
 
+  .date-separator {
+    padding-left: 110px;
+
+    @include media-breakpoint-down(lg) {
+      padding-left: 0;
+    }
+    @include media-breakpoint-down(sm) {
+      time {
+        font-size: 14px;
+      }
+    }
+  }
+
+  &__wrapper {
+    width: 100%;
+    @include media-breakpoint-down(md) {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
   .article {
     &__wrapper {
-      @include make-row()
+      @include media-breakpoint-down(sm) {
+        flex-direction: row;
+      }
     }
+
     &__chronology {
-      @include make-col(1)
+      display: flex;
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+
+      time {
+        display: inline-flex;
+
+        margin-top: 0;
+      }
     }
-    &__main {
+
+    .article__main {
+      margin-right: 0;
+      padding-right: 0;
+
+      max-width: 100%;
       @include make-col(8);
+
+      @include media-breakpoint-down(sm) {
+        padding-left: 0;
+        max-width: 300px;
+      }
     }
+
+    &__title {
+      font-size: 18px;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 16px;
+        line-height: 19px;
+      }
+
+      @include media-breakpoint-down(xs) {
+        margin-bottom: 8px;
+      }
+
+      .article-title__link {
+        font-size: 18px;
+        line-height: 23px;
+        letter-spacing: 0.02em;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 16px;
+          line-height: 19px;
+        }
+      }
+    }
+
     &__image {
-      @include make-col(3);
+      margin-left: auto;
+      height: 138px;
+      width: 200px;
+
+      overflow: hidden;
+
+      @include media-breakpoint-down(sm) {
+        max-width: 200px;
+        width: 100%;
+      }
+
+      @include media-breakpoint-down(xs) {
+        width: 88px;
+        height: 88px;
+
+        margin-bottom: 0;
+      }
+
+      .article-featured__image {
+        height: 100%;
+      }
+      .article-featured__link {
+        height: 100%;
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+
+        object-fit: cover;
+      }
+    }
+
+    &__type {
+      @include media-breakpoint-down(xs) {
+        margin-bottom: 5px;
+
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 10px;
+        letter-spacing: 0.06em;
+        color: $grey-400;
+
+        text-transform: capitalize;
+      }
     }
   }
 

@@ -156,7 +156,7 @@ const BlogsArchive = ({ users }) => {
   const [mainState, setMainState] = useState({ users });
   const [popular, setPopular] = useState();
 
-  let variables = {
+  const variables = {
     articles: 3,
     onLoadNumber: 3,
     cursor: null,

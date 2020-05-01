@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const PublicationMainLoader = () => {
+const EventMainLoader = () => {
   return (
     <div className={'container'}>
       <ContentLoader
@@ -10,13 +10,12 @@ const PublicationMainLoader = () => {
       >
         <rect x={'0'} y={'50'} width={'1320'} height={`700`} />
 
-        <rect x={'0'} y={'790'} width={'1320'} height={`20`} />
+        <rect x={'0'} y={'790'} width={'620'} height={`20`} />
 
-        <rect x={'0'} y={'820'} width={'650'} height={`600`} />
-        <rect x={'670'} y={'820'} width={'650'} height={`600`} />
+        <rect x={'0'} y={'820'} width={'750'} height={`600`} />
       </ContentLoader>
     </div>
   );
 };
 
-export default PublicationMainLoader;
+export default EventMainLoader;
