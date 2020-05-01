@@ -20,26 +20,32 @@ const PAGE = gql`
 const Page = (props) => {
   const [state, setState] = useState({ page: props.page });
 
-  const { page } = state;
+  const { page, isLoading } = state;
+
+  const loadPage = async () => {
+    setState({ ...state, isLoading: true });
+
+    const { data } = await apolloClient.query({
+      query: PAGE,
+      variables: { uri: props.query.uri },
+    });
+
+    setState({ ...state, page: data.pageBy, isLoading: false });
+  };
 
   useEffect(() => {
-    const loadPage = async () => {
-      const { data } = await apolloClient.query({
-        query: PAGE,
-        variables: { uri: props.query.uri },
-      });
-
-      setState({ page: data.pageBy });
-    };
-
     if (!page) {
       loadPage();
     }
   }, []);
 
-  // TODO: fix navigation between text pages
+  useEffect(() => {
+    if (page && !props.page) {
+      loadPage();
+    }
+  }, [props.query.uri]);
 
-  if (!page) {
+  if (!page || isLoading) {
     return (
       <div className="page">
         <div className="container">
