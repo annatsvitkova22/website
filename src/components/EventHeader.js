@@ -3,8 +3,9 @@ import he from 'he';
 
 import Icons from '~/components/Icons';
 import ArticleDateTime from '~/components/Article/DateTime';
+import ArticleList from '~/components/Article/List';
 
-const EventHeader = ({ event }) => {
+const EventHeader = ({ event, withTime, withList }) => {
   const location = event.zmAfishaACF.eventAddress.streetAddress
     .split(',')
     .slice(0, 1)
@@ -15,7 +16,10 @@ const EventHeader = ({ event }) => {
   return (
     <div className="event__hero-title-wrapper">
       <div className="event__hero-content">
-        <ArticleDateTime time={event.zmAfishaACF.eventTime} date={date} />
+        {withTime && (
+          <ArticleDateTime time={event.zmAfishaACF.eventTime} date={date} />
+        )}
+
         <h1 className="event__hero-title">{title}</h1>
         {event.excerpt && (
           <div
@@ -23,10 +27,15 @@ const EventHeader = ({ event }) => {
             dangerouslySetInnerHTML={{ __html: event.excerpt }}
           />
         )}
-        <div className="event__hero-location">
-          <Icons icon="location" className="event__hero-location-icon" />
-          {location}
-        </div>
+
+        {withList ? (
+          <ArticleList info={event.zmAfishaACF} />
+        ) : (
+          <div className="event__hero-location">
+            <Icons icon="location" className="event__hero-location-icon" />
+            {location}
+          </div>
+        )}
       </div>
     </div>
   );

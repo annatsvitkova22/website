@@ -52,7 +52,8 @@ const EVENT = gql`
   }
 `;
 
-const OTHER_EVENTS = gql`
+// TO DO: 4 latest events by category
+const SIMILAR_EVENTS = gql`
   query EventsQuery {
     events(first: 4) {
       nodes {
@@ -100,7 +101,6 @@ const Event = (props) => {
     }
   };
 
-  const [useStyles, setUseStyles] = useState({});
   useEffect(() => {
     async function loadData() {
       if (!isLoading) {
@@ -117,9 +117,14 @@ const Event = (props) => {
         },
       });
 
+      const eventsResponse = await apolloClient.query({
+        query: SIMILAR_EVENTS,
+      });
+
       setState({
         ...state,
         event: eventResponse.data.eventBy,
+        events: eventsResponse.data.events,
         isLoading: false,
       });
     }
@@ -138,25 +143,14 @@ const Event = (props) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (state.event && state.event.featuredImage) {
-      const styles = {
-        backgroundImage: `url(${event.featuredImage.mediaItemUrl})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        backgroundSize: 'cover',
-        color: 'white',
-      };
-      setUseStyles(styles);
-    }
-  }, [state.event]);
-
   if (!event) {
-    return <div className="single__event">
-      <div className="container">
-        <EventMainLoader />
+    return (
+      <div className="single__event">
+        <div className="container">
+          <EventMainLoader />
+        </div>
       </div>
-    </div>;
+    );
   }
 
   return (
@@ -167,18 +161,25 @@ const Event = (props) => {
       </Head>
       <main className="event">
         <div className="container">
-          <section className="event__hero" style={useStyles}>
+          <section
+            className="event__hero"
+            style={{
+              backgroundImage: `url(${
+                event.featuredImage ? event.featuredImage.mediaItemUrl : ''
+              })`,
+            }}
+          >
             <div
               className={
                 event.featuredImage
-                  ? 'event__hero-overlay'
+                  ? 'event__hero-overlay bg-cover'
                   : 'event__hero-noimage'
               }
             >
               <div className="event__hero-inner container">
                 <EventHeader event={event} />
                 <div className="event__info-card">
-                  <EventsLikeSidebar data={event.zmAfishaACF} />
+                  <EventsLikeSidebar data={event.zmAfishaACF} withTime={true} />
                 </div>
               </div>
             </div>
@@ -205,7 +206,7 @@ const Event = (props) => {
               <div
                 className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
               >
-                <EventsLikeSidebar data={event.zmAfishaACF} />
+                <EventsLikeSidebar data={event.zmAfishaACF} withTime={true} />
               </div>
             </StickyBox>
           </section>
@@ -232,7 +233,7 @@ Event.getInitialProps = async ({ query: { slug } }) => {
   });
 
   const events = await apolloClient.query({
-    query: OTHER_EVENTS,
+    query: SIMILAR_EVENTS,
   });
 
   return {

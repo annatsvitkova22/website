@@ -20,7 +20,7 @@ const ArticleOpportunities = ({ post, children, className }) => {
         />
         <div className="article__main">
           <ArticleTitle post={post} className="article__title" />
-          <ArticleList post={post} className="article__list list-reset" />
+          <ArticleList info={post.zmAfishaACF} />
         </div>
       </div>
       {children}

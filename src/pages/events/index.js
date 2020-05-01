@@ -147,7 +147,7 @@ EventsArchive.propTypes = {
 
 EventsArchive.getInitialProps = async () => {
   if (process.browser) {
-    return { };
+    return {};
   }
 
   const { data } = await apolloClient.query({
