@@ -1,13 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 
-const SectionHeading = ({ title, href, classMode }) => (
-  <div
-    className={`container sec-heading${
-      classMode ? ` sec-heading--${classMode}` : ''
-    }`}
-  >
-    <div className="row line-height-1">
+const SectionHeading = ({ title, href, classMode, isRow = false }) => {
+  const getRow = () => (
+    <div
+      className={`row line-height-1 sec-heading${
+        classMode ? ` sec-heading--${classMode}` : ''
+      }
+    `}
+    >
       <div className="col-6">
         <h6 className="text-uppercase tx-family-alt">{title}</h6>
       </div>
@@ -21,7 +22,13 @@ const SectionHeading = ({ title, href, classMode }) => (
         )}
       </div>
     </div>
-  </div>
-);
+  );
+
+  if (isRow) {
+    return getRow();
+  }
+
+  return <div className={`container `}>{getRow()}</div>;
+};
 
 export default SectionHeading;

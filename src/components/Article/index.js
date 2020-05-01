@@ -21,7 +21,6 @@ const Article = ({ type, display, className, ...props }) => {
           />
         </ArticleProvider>
       );
-      break;
     }
     case 'blogs': {
       return (
@@ -32,7 +31,6 @@ const Article = ({ type, display, className, ...props }) => {
           />
         </ArticleProvider>
       );
-      break;
     }
     case 'opportunities': {
       return (
@@ -43,7 +41,6 @@ const Article = ({ type, display, className, ...props }) => {
           />
         </ArticleProvider>
       );
-      break;
     }
     case 'events': {
       return (
@@ -54,7 +51,6 @@ const Article = ({ type, display, className, ...props }) => {
           />
         </ArticleProvider>
       );
-      break;
     }
     case 'publications': {
       return (

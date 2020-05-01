@@ -19,6 +19,10 @@
     
   }
 
+  @include media-breakpoint-down(md) {
+    margin-top: 30px;
+  }
+
   &--opport {
     margin-top: 54px;
   }

@@ -51,7 +51,7 @@ const NavLink = ({ children, href, ...otherProps }) => {
 
     if (!isStrictRoute) {
       return (
-        <Link href="[uri]" as={tempHref}>
+        <Link href="/[uri]" as={tempHref}>
           <a {...otherProps}>{children}</a>
         </Link>
       );

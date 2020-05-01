@@ -1,0 +1,41 @@
+.primary-publ {
+  overflow-x: auto;
+
+  & + & {
+    margin-top: 20px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+
+    font-size: 96px;
+    color: $white;
+    white-space: nowrap;
+    
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+
+    @include stroke(2, $green);
+
+    @include media-breakpoint-down(md) {
+      font-size: 48px;
+
+      @include stroke(1, $green);
+    }
+
+    &:hover,
+    &:focus {
+      color: $green;
+      @include stroke(2, $white);
+
+
+    @include media-breakpoint-down(md) {
+      @include stroke(1, $white);
+    }
+    }
+
+    a {
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+  }
+}
