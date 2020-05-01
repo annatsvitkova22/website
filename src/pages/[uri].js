@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
+import GutenbergLoader from '~/components/Loaders/GutenbergLoader';
 
 const PAGE = gql`
   query Page($uri: String!) {
@@ -36,13 +37,15 @@ const Page = (props) => {
     }
   }, []);
 
+  // TODO: fix navigation between text pages
+
   if (!page) {
     return (
       <div className="page">
         <div className="container">
           <div className="row">
             <main className="col-12">
-              loading
+              <GutenbergLoader />
             </main>
           </div>
         </div>
