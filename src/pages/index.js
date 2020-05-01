@@ -149,6 +149,7 @@ const HOME_PAGE = gql`
     }
     categories {
       nodes {
+        id
         name
         slug
         zmCategoryACF {
@@ -210,7 +211,7 @@ const Home = (props) => {
         <OpportunitiesScene {...{ opportunities }} />
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events }} />
+        <EventsScene {...{ events }} form={true} />
 
         <SectionHeading
           title="Публікації"
