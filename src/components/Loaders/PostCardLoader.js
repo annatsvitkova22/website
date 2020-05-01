@@ -15,6 +15,16 @@ const PostCardLoader = ({ type }) => {
       </ContentLoader>
     );
   }
+  if (type === 'event') {
+    return (
+      <ContentLoader viewBox={'0 0 425 610'}>
+        <rect x={'0'} y={'0'} width={'80'} height={`30`} />
+        <rect x={'0'} y={'70'} width={'425'} height={`270`} />
+        <rect x={'0'} y={'380'} width={'425'} height={`60`} />
+        <rect x={'0'} y={'480'} width={'200'} height={`40`} />
+      </ContentLoader>
+    );
+  }
   if (type === 'big') {
     return (
       <ContentLoader
