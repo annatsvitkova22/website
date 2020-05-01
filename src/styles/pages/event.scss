@@ -38,6 +38,34 @@
     }
   }
 
+  &__hero-location-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 8px;
+    height: 24px;
+    width: 24px;
+
+    svg {
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  &__hero-noimage {
+    .meta-date-group {
+      background-color: transparent;
+    }
+
+    .event__hero-location-icon {
+      svg path {
+        fill: $black;
+      }
+    }
+  }
+
   &__hero {
     margin-left: -20px;
     margin-right: -20px;
@@ -176,22 +204,6 @@
     font-size: 15px;
     line-height: 22px;
     letter-spacing: 0.06em;
-  }
-
-  &__hero-location-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin-right: 8px;
-    height: 24px;
-    width: 24px;
-
-    svg {
-      path {
-        fill: white;
-      }
-    }
   }
 
   &__content-wrapper {

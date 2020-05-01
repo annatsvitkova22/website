@@ -27,6 +27,7 @@ const EVENTS_ARCHIVE = gql`
             streetNumber
           }
           eventTime
+          eventDate
         }
       }
       pageInfo {

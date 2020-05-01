@@ -129,8 +129,6 @@ const Event = (props) => {
     return <PostHeaderLoader type={'publication'} />;
   }
 
-  console.log(event.zmAfishaACF);
-
   return (
     <div className="single__event">
       <Head>
@@ -140,23 +138,20 @@ const Event = (props) => {
       <main className="event">
         <div className="container">
           <section className="event__hero" style={useStyles}>
-            {event.featuredImage ? (
-              <div className="event__hero-overlay">
-                <div className="event__hero-inner container">
-                  <EventHeader event={event} />
-                  <div className="event__info-card">
-                    <EventsLikeSidebar data={event.zmAfishaACF} />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
+            <div
+              className={
+                event.featuredImage
+                  ? 'event__hero-overlay'
+                  : 'event__hero-noimage'
+              }
+            >
+              <div className="event__hero-inner container">
                 <EventHeader event={event} />
                 <div className="event__info-card">
                   <EventsLikeSidebar data={event.zmAfishaACF} />
                 </div>
-              </>
-            )}
+              </div>
+            </div>
           </section>
           <section className="event__main container">
             <div className="event__content-wrapper">
