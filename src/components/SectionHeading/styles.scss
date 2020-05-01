@@ -1,22 +1,24 @@
 .sec-heading {
-  margin-top: 80px;
-  padding-top: 16px;
-  padding-bottom: 17px;
+  &.row {
+    margin-top: 80px;
+    padding-top: 16px;
+    padding-bottom: 17px;
 
-  position: relative;
+    position: relative;
 
-  &::before {
-    content: '';
+    &::before {
+      content: '';
 
-    display: block;
+      display: block;
 
-    position: absolute;
-    top: 0;
-    left: $grid-gutter-width/2;
-    right: $grid-gutter-width/2;
+      position: absolute;
+      top: 0;
+      left: $grid-gutter-width/2;
+      right: $grid-gutter-width/2;
 
-    border-top: 1px solid $black;
-    
+      border-top: 1px solid $black;
+      
+    }
   }
 
   &--opport {

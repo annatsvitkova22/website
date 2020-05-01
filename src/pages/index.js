@@ -277,7 +277,6 @@ const Home = (props) => {
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings }} />
 
-        <SectionHeading title="!коронавирус" href="/videos" />
         <TagsScene {...{ tags }} />
 
         <SectionHeading title="Відео" href="/videos" />

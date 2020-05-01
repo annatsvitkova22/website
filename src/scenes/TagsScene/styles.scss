@@ -1,4 +1,35 @@
 .tag-sec {
+  &__container {
+    @include media-breakpoint-down(lg) {
+      max-width: 551px;
+      padding-right: 12px;
+      width: 100%;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .article-featured {
+      flex-shrink: 0;
+
+      max-width: 200px;
+      width: auto;
+
+      &__image {
+          width: 200px;
+          height: 138px;
+
+          @include media-breakpoint-down(md) {
+            width: 150px;
+          }
+
+          @include media-breakpoint-down(xs) {
+            width: 88px;
+            height: 88px;
+          }
+      }
+    }
+  }
+
   &__title {
     margin-bottom: 16px;
 
@@ -7,7 +38,7 @@
       line-height: 1.26;
     }
 
-    &--small {
+    &--small a {
       @include media-breakpoint-up(xl) {
         font-size: 14px;
       }
@@ -15,8 +46,12 @@
   }
 
   &__image {
+    // max-width: ;
     img {
       width: 100%;
+      height: 100%;
+
+      object-fit: cover;
     }
   }
 
