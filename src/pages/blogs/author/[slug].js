@@ -109,7 +109,7 @@ const POPULAR = gql`
 const BlogsArchive = ({ users, query }) => {
   const [popular, setPopular] = useState();
 
-  let variables = {
+  const variables = {
     articles: 8,
     onLoadNumber: 2,
     cursor: null,

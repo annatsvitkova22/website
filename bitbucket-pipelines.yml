@@ -1,12 +1,16 @@
 image: atlassian/default-image:latest
 
+
 pipelines:
   branches:
     development:
       - step:
-          caches:
-            - node
-          deployment: staging
-          script:
-            - cat ./deploy.sh | ssh -p 19022 -tt zmist@zmist.tech
-            - echo "Deploy step finished"
+        caches:
+          - node
+        deployment: staging
+        script:
+          - cat ./deploy.sh | ssh -p 19022 -tt zmist@zmist.tech
+          - echo "Deploy step finished"
+
+
+

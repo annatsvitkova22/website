@@ -8,14 +8,14 @@ import share from '~/static/images/share';
 import facebook from '~/static/images/facebook-f';
 import telegram from '~/static/images/telegram-plane';
 
-const getThumbnailVideo = (item) => {
+const getThumbnailVideo = (item, playClass) => {
   return (
     <>
       <div
         className="video-category__thumbnail bg-cover pos-relative"
         style={{ backgroundImage: `url(${item.thumbnail})` }}
       >
-        <Play />
+        <Play className={playClass} />
       </div>
       <h6 className="video-category__duration tx-tiny font-weight-medium">
         {item.duration}

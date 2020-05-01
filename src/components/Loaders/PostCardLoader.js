@@ -2,8 +2,6 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 import PropTypes from 'prop-types';
 
-import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
-
 const PostCardLoader = ({ type }) => {
   if (type === 'small') {
     return (
@@ -48,7 +46,7 @@ const PostCardLoader = ({ type }) => {
   return <div>Loading...</div>;
 };
 
-ActionbarLoader.propTypes = {
+PostCardLoader.propTypes = {
   type: PropTypes.string,
 };
 

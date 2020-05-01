@@ -8,16 +8,16 @@ const Navigation = (props) => {
   const { navigationData, className = '', handleClick } = props;
 
   return (
-    <ul className={`footer__sitemap-list ${className}`}>
+    <div className={`footer__sitemap-list ${className}`}>
       {navigationData.id === 'TWVudTo0' && (
         <>
-          <li className={'footer__sitemap-title'} onClick={handleClick}>
+          <div className={'footer__sitemap-title'} onClick={handleClick}>
             Сторінки
             <Icons
               className={'footer__sitemap-chevron'}
               icon={'footer-chevron'}
             />
-          </li>
+          </div>
           <ul className={`footer__sitemap-navigation`}>
             {navigationData &&
               navigationData.menuItems &&
@@ -36,13 +36,13 @@ const Navigation = (props) => {
       )}
       {navigationData.id === 'TWVudTo1' && (
         <>
-          <li className={'footer__sitemap-title'} onClick={handleClick}>
+          <div className={'footer__sitemap-title'} onClick={handleClick}>
             Інформація
             <Icons
               className={'footer__sitemap-chevron'}
               icon={'footer-chevron'}
             />
-          </li>
+          </div>
           <ul className={`footer__sitemap-navigation`}>
             {navigationData &&
               navigationData.menuItems &&
@@ -59,7 +59,7 @@ const Navigation = (props) => {
           </ul>
         </>
       )}
-    </ul>
+    </div>
   );
 };
 

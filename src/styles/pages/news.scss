@@ -8,6 +8,10 @@
   &__sidebar {
     max-width: 390px;
     margin-left: auto;
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
   }
 
   &__content {
@@ -19,6 +23,45 @@
       @include media-breakpoint-up(lg) {
         padding-left: 112px;
       }
+    }
+  }
+
+  &__mobile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    width: 100%;
+    @include make-col(12);
+    .sorting--news {
+      margin-bottom: 0;
+    }
+  }
+  &__sorting {
+    margin-right: 40px;
+
+    width: 32px;
+    height: 32px;
+  }
+  &__calendar {
+    width: 32px;
+    height: 32px;
+
+    &-mobile {
+      width: 375px;
+
+      max-height: 400px;
+    }
+  }
+
+  &__filter {
+    display: flex;
+
+    margin-left: auto;
+    .svg-icon {
+      color: $black;
     }
   }
 }

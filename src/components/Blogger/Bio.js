@@ -10,7 +10,7 @@ const BloggerBio = ({ bio, className }) => {
   const shouldTrancate = bio.length > length;
   if (shouldTrancate && !expanded) {
     text = truncate(bio, {
-      length: length,
+      length,
       separator: '...',
     });
   }

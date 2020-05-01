@@ -147,11 +147,7 @@ const Publications = (props) => {
           <div className="last-publs">
             <div className="row">
               {nodes.slice(0, 10).map((post) => (
-                <Article type="publications" post={post} key={post.id}>
-                  {/* {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                  <Waypoint onEnter={fetchingContent} />
-                )} */}
-                </Article>
+                <Article type="publications" post={post} key={post.id} />
               ))}
             </div>
           </div>

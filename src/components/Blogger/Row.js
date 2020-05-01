@@ -1,8 +1,9 @@
 import React from 'react';
-import Blogger from '~/components/Blogger/index';
-import Article from '~/components/Article';
 import * as classnames from 'classnames';
 import { times } from 'lodash';
+
+import Blogger from '~/components/Blogger/index';
+import Article from '~/components/Article';
 
 const BloggerRow = ({
   showBio,

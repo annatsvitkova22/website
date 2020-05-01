@@ -4,3 +4,11 @@
     display: block;
   }
 }
+
+.opp-section {
+  .article {
+    &__main {
+      max-width: calc(100% - 200px);
+    }
+  }
+}
