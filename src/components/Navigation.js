@@ -6,8 +6,9 @@ import NavLink from './SiteLink';
 
 const Navigation = (props) => {
   const { navigationData, className = '' } = props;
+
   return (
-    <nav className={`${className} navigation`}>
+    <nav className={`${className}`}>
       <ul className="navigation__list">
         {navigationData.nodes.length &&
           navigationData.nodes[0].menuItems &&
