@@ -146,15 +146,14 @@ const Crowdfunding = (props) => {
   const status = getCFStatus(storedPost);
 
   const {
-    cfACF: { collected, tocollect },
+    cfACF: { tocollect },
   } = storedPost;
-  const collectedNumber = collected || 0;
 
   return (
     <div className="crowdfunding-single__container container">
       <Head>
         {/* TODO: change it */}
-        <title>{storedPost.title}</title>
+        <title>ЗМІСТ | {storedPost.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
