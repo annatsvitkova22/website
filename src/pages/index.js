@@ -13,6 +13,7 @@ import OpportunitiesScene from '~/scenes/OpportunitiesScene';
 import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
+import BlogsScene from '~/scenes/BlogsScene';
 import SectionHeading from '~/components/SectionHeading';
 
 // TODO: restore, create custom GraphQL resolver
@@ -28,6 +29,40 @@ const HOME_PAGE = gql`
       nodes {
         title
         ${gutenbergBlocksQuery}
+      }
+    }
+    users(
+      first: 4
+      where: {
+        orderby: { field: REGISTERED, order: ASC }
+        hasPublishedPosts: BLOG
+      }
+    ) {
+      nodes {
+        name
+        slug
+        description
+        bloggerInfoACF {
+          info
+          avatar {
+            mediaItemUrl
+          }
+          info
+          socials {
+            name
+            url
+          }
+        }
+        blogs(first: 3) {
+          nodes {
+            id
+            title
+            slug
+            featuredImage {
+              mediaItemUrl
+            }
+          }
+        }
       }
     }
     crowdfundings(first: 9) {
@@ -176,6 +211,7 @@ const HOME_PAGE = gql`
 const Home = (props) => {
   const {
     page,
+    users,
     crowdfundings,
     videos,
     opportunities,
@@ -192,8 +228,11 @@ const Home = (props) => {
       </Head>
 
       <main>
-        <h1 className="title">{page.title}</h1>
-        <Content content={page.blocks} />
+        <h1 className="title d-none">{page.title}</h1>
+        {/* <Content content={page.blocks} /> */}
+
+        <SectionHeading title="Блоги" href="/blogs" />
+        <BlogsScene {...{ users }} />
 
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings }} />
@@ -238,6 +277,7 @@ Home.getInitialProps = async () => {
 
   const {
     pages,
+    users,
     crowdfundings,
     videos,
     opportunities,
@@ -248,6 +288,7 @@ Home.getInitialProps = async () => {
 
   return {
     page: pages.nodes[0],
+    users,
     crowdfundings,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),

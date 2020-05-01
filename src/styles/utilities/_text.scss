@@ -26,6 +26,7 @@
 .font-weight-medium { font-weight: $font-weight-medium !important; }
 .font-weight-semibold { font-weight: $font-weight-semibold !important; }
 .font-weight-bold { font-weight: $font-weight-bold !important; }
+.font-weight-extrabold { font-weight: $font-weight-extrabold !important; }
 //.font-weight-bolder { font-weight: $font-weight-bolder !important; }
 .font-italic { font-style: italic !important; }
 
@@ -89,6 +90,7 @@ $tx-sizes: (
 // Line heights 
 $line-heights: (
   '1': 1,
+  '12': 1.2,
 );
 @each $number, $value in $line-heights {
   .line-height {
