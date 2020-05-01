@@ -32,7 +32,7 @@ body.isB-MenuOpen {
   }
 
   &__logo {
-    margin-right: 36px;
+    margin-right: 16px;
   }
 
   &__logo-img {
@@ -66,6 +66,7 @@ body.isB-MenuOpen {
         line-height: 17px;
         color: $white;
         text-transform: uppercase;
+        letter-spacing: 0.07em;
       }
       .footer-chevron {
         display: flex;
@@ -82,7 +83,7 @@ body.isB-MenuOpen {
     justify-content: center;
     align-items: center;
 
-    margin-left: 25px;
+    margin-left: 27px;
 
     width: 32px;
     height: 32px;
@@ -95,6 +96,10 @@ body.isB-MenuOpen {
     background: none;
 
     cursor: pointer;
+    span {
+      width: 32px;
+      height: 32px;
+    }
   }
   &__overlay {
     display: none;
@@ -108,13 +113,11 @@ body.isB-MenuOpen {
 
     position: absolute;
     top: 68px;
-    right: 50px;
+    right: 0;
 
     background: $black;
 
     &-link {
-      margin-left: 26px;
-
       font-family: $font-family-titles;
       font-weight: 700;
       font-size: 14px;
@@ -187,13 +190,16 @@ body.isB-MenuOpen {
       font-weight: bold;
       font-size: 10px;
       line-height: 1.2;
-      letter-spacing: 0.1em;
+
       text-transform: uppercase;
 
       .navigation__link {
         padding: 5px 10px;
 
         background-color: $green;
+
+        font-family: $font-family-alt;
+        letter-spacing: 0.1em;
       }
     }
   }
@@ -422,6 +428,10 @@ body.isB-MenuOpen {
   }
   .header__search {
     margin-left: 15px;
+  }
+  .header__icons-dd {
+    padding-right: 10px;
+    padding-left: 10px;
   }
   .navigation {
     &__link {
