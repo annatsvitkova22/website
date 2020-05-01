@@ -9,7 +9,7 @@ textarea {
 textarea,
 input {
   display: block;
-  
+
   width: 100%;
 
   border: 0;
@@ -32,7 +32,7 @@ input {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 35px;
-     
+
     @include media-breakpoint-up(sm) {
       margin-bottom: 65px;
 
@@ -59,16 +59,38 @@ input {
     position: absolute;
 
     transform: translateY(-50%);
+
+    cursor: pointer;
+
+    &--date {
+      transform: translateY(-60%);
+    }
   }
 
   &__input-wrap {
+    display: block;
+
     position: relative;
   }
 
-  &__textarea {  
+  &__textarea {
     height: 91px;
     @include media-breakpoint-up(sm) {
       height: 72px;
+    }
+  }
+
+  .react-datepicker {
+    &-wrapper {
+      display: block;
+
+      width: 100%;
+    }
+
+    &__input-container {
+      height: 29px;
+
+      line-height: 29px;
     }
   }
 
@@ -88,13 +110,13 @@ input {
     }
   }
 
-  &__icon--date {
-    transform: translateY(-60%);
-  }
-
   &__submit {
     width: 100%;
 
     color: $green;
+
+    &--sent {
+      color: $green !important;
+    }
   }
 }
