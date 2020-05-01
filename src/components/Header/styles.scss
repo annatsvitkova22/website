@@ -2,6 +2,10 @@ body.isB-MenuOpen {
   overflow: hidden;
 }
 .header {
+  .isSearchMenuOpen {
+    display: none;
+  }
+
   padding-right: 20px;
   padding-left: 30px;
 
@@ -39,6 +43,44 @@ body.isB-MenuOpen {
     max-width: 96px;
   }
 
+  &__dd {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+    width: max-content;
+
+    position: absolute;
+    top: 68px;
+    right: 0;
+
+    background: $black;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    &-icon {
+      display: inline-block;
+
+      margin-right: 16px;
+    }
+    &-link {
+      font-family: $font-family-titles;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+      text-transform: uppercase;
+
+      &:hover {
+        color: $green;
+      }
+    }
+
+    &-link:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
   &__icons {
     display: flex;
     align-items: center;
@@ -56,6 +98,22 @@ body.isB-MenuOpen {
       padding-left: 16px;
       height: 100%;
 
+      position: relative;
+
+      cursor: pointer;
+
+      .footer-chevron {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 22px;
+        height: 22px;
+        .svg-icon {
+          transition: all 0.3s;
+        }
+      }
+
       button {
         margin-right: 4px;
 
@@ -68,13 +126,22 @@ body.isB-MenuOpen {
         text-transform: uppercase;
         letter-spacing: 0.07em;
       }
-      .footer-chevron {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      &:hover > button {
+        color: $green;
 
-        width: 22px;
-        height: 22px;
+        transition: all 0.3s;
+      }
+      &:hover > span > .svg-icon {
+        color: $green;
+
+        transform: rotate(180deg);
+        transition: all 0.3s;
+      }
+      &:hover > .header__dd {
+        opacity: 1;
+        visibility: visible;
+
+        transition: all 0.3s;
       }
     }
   }
@@ -103,31 +170,6 @@ body.isB-MenuOpen {
   }
   &__overlay {
     display: none;
-  }
-
-  &__dd {
-    display: flex;
-    flex-direction: column;
-
-    padding: 20px;
-
-    position: absolute;
-    top: 68px;
-    right: 0;
-
-    background: $black;
-
-    &-link {
-      font-family: $font-family-titles;
-      font-weight: 700;
-      font-size: 14px;
-      line-height: 17px;
-      text-transform: uppercase;
-    }
-
-    &-link:not(:last-child) {
-      margin-bottom: 16px;
-    }
   }
 }
 .header ~ div {
@@ -192,6 +234,9 @@ body.isB-MenuOpen {
       line-height: 1.2;
 
       text-transform: uppercase;
+      & > a:hover {
+        background-color: darken($green, 8);
+      }
 
       .navigation__link {
         padding: 5px 10px;
@@ -200,6 +245,11 @@ body.isB-MenuOpen {
 
         font-family: $font-family-alt;
         letter-spacing: 0.1em;
+      }
+    }
+    &:not(:first-child) {
+      .navigation__link:hover {
+        color: $green;
       }
     }
   }

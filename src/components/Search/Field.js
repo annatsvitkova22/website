@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
 
-import './styles.scss';
+import Icons from '~/components/Icons';
 
 const SearchField = ({ className = '', onSearch = () => {} }) => {
   const [query, setQuery] = useState('');
@@ -38,9 +38,10 @@ const SearchField = ({ className = '', onSearch = () => {} }) => {
         }}
         className={'search-field__input'}
         type="text"
+        placeholder={'Пошук'}
       />
-      <button onClick={search} className={'search-field__button'}>
-        ->
+      <button onClick={onSearch} className={'search-field__button'}>
+        <Icons icon={'close-comment'} />
       </button>
     </div>
   );
