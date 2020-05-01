@@ -243,6 +243,7 @@ const VideosArchive = (props) => {
     selectedVideo,
     categories,
     selectedIndex,
+    hasNextPage,
   } = state;
 
   return (
@@ -312,7 +313,8 @@ const VideosArchive = (props) => {
           {categories && <VideoCategories categories={categories} />}
           {isLoading && <VideoLoader />}
         </div>
-        <Waypoint onEnter={onLoadMore} />
+        {/* TODO: remove extra loader if there is no more content available */}
+        {hasNextPage && <Waypoint onEnter={onLoadMore} />}
       </main>
     </div>
   );
