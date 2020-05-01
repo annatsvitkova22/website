@@ -12,6 +12,7 @@ import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
 import SearchIcon from '~/components/Search/Icon';
 import SearchField from '~/components/Search/Field';
+import Dropdown from '~/components/Header/Dropdown';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -54,6 +55,7 @@ const Header = () => {
   const [isUnPinned, setIsUnpinned] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const headerCls = classNames({
     header: true,
@@ -104,27 +106,28 @@ const Header = () => {
     return setIsSearchOpen(!isSearchOpen);
   };
 
+  console.log(data);
   return (
     <header className={`${headerCls}`}>
       <div className={'header__wrapper'}>
         <Burger handleOpenClick={handleOpenClick} />
         <Link href="/">
-          <a>
+          <a className={'header__logo'}>
             <Logo
               logoData={data.info.generalInfoACF.logo}
-              className={'header__logo'}
+              className={'header__logo-img'}
             />
           </a>
         </Link>
-        <Navigation navigationData={data.menus} />
-        <div className={'header__icons'}>
-          <a href={'#'} className={'header__icons-item'}>
-            <Icons icon={'crest'} />
-          </a>
-          <a href={'#'} className={'header__icons-item'}>
-            <Icons icon={'crest-location'} />
-          </a>
+        <Navigation navigationData={data.menus} className={'navigation'} />
+        <div
+          className={'header__icons-dd'}
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        >
+          <button>Полтава</button>
+          <Icons icon={'footer-chevron'} color={'white'} />
         </div>
+
         <SearchIcon
           onClick={handleSearch}
           color={'white'}
@@ -137,6 +140,7 @@ const Header = () => {
       <div className={`header__overlay`} onClick={handleCloseClick}>
         <HeaderMenu data={data} />
       </div>
+      {isDropdownOpen && <Dropdown data={data.menus} className={'header__dd'} />}
     </header>
   );
 };

@@ -13,7 +13,6 @@
 
 // Transformation
 
-//.text-lowercase { text-transform: lowercase }
 .text-uppercase { text-transform: uppercase }
 .text-capitalize { text-transform: capitalize }
 
@@ -25,6 +24,7 @@
 .font-weight-medium { font-weight: $font-weight-medium }
 .font-weight-semibold { font-weight: $font-weight-semibold }
 .font-weight-bold { font-weight: $font-weight-bold }
+.font-weight-extrabold { font-weight: $font-weight-extrabold }
 .font-italic { font-style: italic }
 
 $tx-ffamilies: (
@@ -87,6 +87,7 @@ $tx-sizes: (
 // Line heights 
 $line-heights: (
   '1': 1,
+  '12': 1.2,
 );
 @each $number, $value in $line-heights {
   .line-height {

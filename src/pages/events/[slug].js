@@ -11,7 +11,7 @@ import Content from '~/components/Content';
 import EventsScene from '~/scenes/EventsScene';
 import EventsLikeSidebar from '~/components/Sidebar/Events';
 import EventHeader from '~/components/EventHeader';
-import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import EventMainLoader from '~/components/Loaders/EventMainLoader';
 
 const EVENT = gql`
   query Event($slug: String!) {
@@ -151,8 +151,12 @@ const Event = (props) => {
     }
   }, [state.event]);
 
-  if (!state.event) {
-    return <PostHeaderLoader type={'publication'} />;
+  if (!event) {
+    return <div className="single__event">
+      <div className="container">
+        <EventMainLoader />
+      </div>
+    </div>;
   }
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Link from 'next/link';
@@ -108,13 +108,41 @@ const variables = {
 };
 
 const Publications = (props) => {
-  const { info, publications, categories } = props;
+  const [data, setData] = useState(props);
+  const { info, publications, categories } = data;
+
   const { fetchingContent, state } = useLoadMoreHook(
     PUBLICATIONS_ARCHIVE,
     publications,
     'publications',
     variables.articles
   );
+
+  useEffect(() => {
+    const loadContent = async () => {
+      const content = await apolloClient.query({
+        query: PUBLICATIONS_ARCHIVE,
+        variables: {
+          cursor: null,
+        },
+      });
+
+      setData(content.data);
+    };
+    if (!info && !publications && !categories) {
+      loadContent();
+    }
+  }, []);
+
+  if (!info && !publications && !categories) {
+    return (
+      <div className="publ-page">
+        <main>
+          <PublicationMainLoader />
+        </main>
+      </div>
+    );
+  }
 
   const filteredCategories = categories.nodes.filter(
     ({ zmCategoryACF: { showOnPublications } }) => showOnPublications === true
@@ -125,7 +153,6 @@ const Publications = (props) => {
       categoryA.zmCategoryACF.order - categoryB.zmCategoryACF.order
   );
 
-  if (!state.data.nodes) return <PublicationMainLoader />;
   const { nodes, pageInfo } = state.data;
 
   return (
@@ -136,7 +163,6 @@ const Publications = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {/* MainPubl */}
         <MainPublication {...{ ...info.generalInfoACF.mainPublication }} />
         <div className="container">
           <div className="row">
@@ -144,13 +170,15 @@ const Publications = (props) => {
               <h6 className="publ-page__title text-uppercase">Останні</h6>
             </div>
           </div>
-          <div className="last-publs">
-            <div className="row">
-              {nodes.slice(0, 10).map((post) => (
-                <Article type="publications" post={post} key={post.id} />
-              ))}
+          {nodes && (
+            <div className="last-publs">
+              <div className="row">
+                {nodes.slice(0, 10).map((post) => (
+                  <Article type="publications" post={post} key={post.id} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className="container">
           <div className="row">
@@ -234,26 +262,28 @@ const Publications = (props) => {
               )}
           </div>
         </div>
-        <div className="container publ-archive">
-          <div className="row">
-            <div className="col-12">
-              <h6 className="publ-page__title text-uppercase">Архів</h6>
-              <div className="publ-archive__content">
-                {nodes.map((post, i) => (
-                  <React.Fragment key={i}>
-                    <ChronologicalSeparator posts={nodes} currentIndex={i} />
-                    <Article type="news" post={post} key={post.id}>
-                      {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                        <Waypoint onEnter={fetchingContent} />
-                      )}
-                    </Article>
-                  </React.Fragment>
-                ))}
-                {state.isLoading && <NewsLoader />}
+        {nodes && (
+          <div className="container publ-archive">
+            <div className="row">
+              <div className="col-12">
+                <h6 className="publ-page__title text-uppercase">Архів</h6>
+                <div className="publ-archive__content">
+                  {nodes.map((post, i) => (
+                    <React.Fragment key={i}>
+                      <ChronologicalSeparator posts={nodes} currentIndex={i} />
+                      <Article type="news" post={post} key={post.id}>
+                        {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                          <Waypoint onEnter={fetchingContent} />
+                        )}
+                      </Article>
+                    </React.Fragment>
+                  ))}
+                  {state.isLoading && <NewsLoader />}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );
@@ -264,6 +294,10 @@ Publications.propTypes = {
 };
 
 Publications.getInitialProps = async () => {
+  if (process.browser) {
+    return {};
+  }
+
   const { data } = await apolloClient.query({
     query: PUBLICATIONS_ARCHIVE,
     variables: {
