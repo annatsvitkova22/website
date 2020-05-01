@@ -13,7 +13,10 @@ import OpportunitiesScene from '~/scenes/OpportunitiesScene';
 import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
+import BlogsScene from '~/scenes/BlogsScene';
+import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
+import MainPublications from '~/components/MainPublications';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -30,6 +33,42 @@ const HOME_PAGE = gql`
         ${gutenbergBlocksQuery}
       }
     }
+
+    users(
+      first: 4
+      where: {
+        orderby: { field: REGISTERED, order: ASC }
+        hasPublishedPosts: BLOG
+      }
+    ) {
+      nodes {
+        name
+        slug
+        description
+        bloggerInfoACF {
+          info
+          avatar {
+            mediaItemUrl
+          }
+          info
+          socials {
+            name
+            url
+          }
+        }
+        blogs(first: 3) {
+          nodes {
+            id
+            title
+            slug
+            featuredImage {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+
     crowdfundings(first: 9) {
       nodes {
         id
@@ -60,6 +99,36 @@ const HOME_PAGE = gql`
         total
       }
     }
+
+    tags {
+      nodes {
+        id
+        name
+        slug
+        zmTagsACF {
+          showOnHome
+        }
+        publications(first: 5) {
+          nodes {
+            title
+            featuredImage {
+              mediaItemUrl
+            }
+            author {
+              slug
+              name
+            }
+            categories {
+              nodes {
+                slug
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+
     videos(first: 8) {
       nodes {
         title
@@ -73,6 +142,7 @@ const HOME_PAGE = gql`
         }
       }
     }
+
     opportunities(first: 4) {
       nodes {
         featuredImage {
@@ -95,6 +165,7 @@ const HOME_PAGE = gql`
         }
       }
     }
+
     events(first: 7) {
       nodes {
         featuredImage {
@@ -110,9 +181,11 @@ const HOME_PAGE = gql`
             streetNumber
           }
           eventTime
+          eventDate
         }
       }
     }
+
     publications(first: 6) {
       nodes {
         excerpt
@@ -146,8 +219,10 @@ const HOME_PAGE = gql`
         total
       }
     }
+
     categories {
       nodes {
+        id
         name
         slug
         zmCategoryACF {
@@ -176,7 +251,9 @@ const HOME_PAGE = gql`
 const Home = (props) => {
   const {
     page,
+    users,
     crowdfundings,
+    tags,
     videos,
     opportunities,
     events,
@@ -192,11 +269,18 @@ const Home = (props) => {
       </Head>
 
       <main>
-        <h1 className="title">{page.title}</h1>
-        <Content content={page.blocks} />
+        <h1 className="title d-none">{page.title}</h1>
+        {/* <Content content={page.blocks} /> */}
+
+        <SectionHeading title="Блоги" href="/blogs" />
+        <BlogsScene {...{ users }} />
 
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings }} />
+
+        <MainPublications {...{ publications }} />
+
+        <TagsScene {...{ tags }} />
 
         <SectionHeading title="Відео" href="/videos" />
         <VideosScene {...{ videos }} />
@@ -209,7 +293,7 @@ const Home = (props) => {
         <OpportunitiesScene {...{ opportunities }} />
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events }} />
+        <EventsScene {...{ events }} form={true} />
 
         <SectionHeading
           title="Публікації"
@@ -238,7 +322,9 @@ Home.getInitialProps = async () => {
 
   const {
     pages,
+    users,
     crowdfundings,
+    tags,
     videos,
     opportunities,
     events,
@@ -248,7 +334,9 @@ Home.getInitialProps = async () => {
 
   return {
     page: pages.nodes[0],
+    users,
     crowdfundings,
+    tags,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),
     opportunities,

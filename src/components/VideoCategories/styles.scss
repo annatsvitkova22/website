@@ -21,6 +21,8 @@
   }
 
   .pswp-thumbnail {
+    cursor: pointer;
+
     @include media-breakpoint-down(md) {
       margin-bottom: 24px;
     }

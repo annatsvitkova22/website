@@ -32,7 +32,7 @@
   }
 }
 
-$positions: (0, 36);
+$positions: (0, 24, 36, 52);
 
 @each $value in $positions {
   .t {

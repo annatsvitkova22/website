@@ -9,6 +9,7 @@ import apolloClient from '~/lib/ApolloClient';
 import Article from '~/components/Article';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import EventsForm from '~/components/EventsForm';
+import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
 const EVENTS_ARCHIVE = gql`
   query EventsArchive($cursor: String) {
@@ -47,9 +48,37 @@ const EventsArchive = (props) => {
 
   if (!state.data.nodes)
     return (
-      <div className="container articles-container">
-        <NewsLoader />
-        <NewsLoader />
+      <div className="events-page">
+        <main>
+          <div className="container articles-container">
+            <div className="row">
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+              <div className="col-lg-3 col-sm-6 col-12">
+                <PostCardLoader type="event" />
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     );
 
@@ -117,6 +146,10 @@ EventsArchive.propTypes = {
 };
 
 EventsArchive.getInitialProps = async () => {
+  if (process.browser) {
+    return { };
+  }
+
   const { data } = await apolloClient.query({
     query: EVENTS_ARCHIVE,
     variables: {

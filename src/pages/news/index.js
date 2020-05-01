@@ -249,8 +249,6 @@ const News = ({ posts, categories, query }) => {
   }
   const { nodes, pageInfo } = state.data;
 
-  console.log(filters.categories);
-
   return (
     <div className="news-page">
       <Head>
