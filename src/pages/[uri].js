@@ -7,6 +7,7 @@ import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
 import GutenbergLoader from '~/components/Loaders/GutenbergLoader';
+import Form from '~/components/Form';
 
 const PAGE = gql`
   query Page($uri: String!) {
@@ -71,6 +72,7 @@ const Page = (props) => {
           <div className="row">
             <main className="col-12">
               <h1 className="title">{page.title}</h1>
+              <Form id={1} />
               <Content content={page.blocks} />
             </main>
           </div>

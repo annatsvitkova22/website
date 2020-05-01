@@ -1,4 +1,5 @@
-form, .zm-form {
+form,
+.zm-form {
   display: block;
 }
 
@@ -9,7 +10,7 @@ textarea {
 textarea,
 input {
   display: block;
-  
+
   width: 100%;
 
   border: 0;
@@ -32,7 +33,7 @@ input {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 35px;
-     
+
     @include media-breakpoint-up(sm) {
       margin-bottom: 65px;
 
@@ -59,42 +60,109 @@ input {
     position: absolute;
 
     transform: translateY(-50%);
+
+    cursor: pointer;
+
+    &--date {
+      transform: translateY(-60%);
+    }
   }
 
-  &__input-wrap {
+  &-field {
+    display: block;
+
+    margin-bottom: 30px;
+
     position: relative;
+
+    &__placeholder {
+      position: absolute;
+      top: 4px;
+      left: 0;
+
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #b0b0b0;
+
+      transition: 0.3s all;
+    }
+
+    &__required {
+      position: absolute;
+      top: 0;
+      right: -14px;
+
+      color: red;
+    }
+
+    &--invalid {
+      letter-spacing: 0.05em;
+      color: #eb5757;
+
+      .zm-form__input,
+      .zm-form__textarea {
+        border-bottom: 2px solid #eb5757;
+      }
+    }
+
+    &--focused,
+    &--filled {
+      .zm-form-field__placeholder {
+        top: -12px;
+
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.05em;
+        color: #b0b0b0;
+      }
+
+      .zm-form__input,
+      .zm-form__textarea {
+        border-bottom: 1px solid $grey-400;
+      }
+    }
   }
 
-  &__textarea {  
+  &__textarea {
     height: 91px;
     @include media-breakpoint-up(sm) {
       height: 72px;
     }
   }
 
+  .react-datepicker {
+    &-wrapper {
+      display: block;
+
+      width: 100%;
+    }
+
+    &__input-container {
+      height: 29px;
+
+      line-height: 29px;
+    }
+  }
+
   &__textarea,
   &__input {
     padding: 2px 0 3px;
-    margin-bottom: 30px;
 
     border-bottom: 1px solid $grey-200;
 
     color: $black;
-    line-height: 29px;
-
-    &:hover,
-    &:focus {
-      border-color: $grey-400;
-    }
-  }
-
-  &__icon--date {
-    transform: translateY(-60%);
+    font-size: 16px;
+    line-height: 32px;
   }
 
   &__submit {
     width: 100%;
 
     color: $green;
+
+    &--sent {
+      color: $green !important;
+    }
   }
 }
