@@ -8,6 +8,7 @@ import StickyBox from 'react-sticky-box';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import apolloClient from '~/lib/ApolloClient';
 import Content from '~/components/Content';
+import EventsScene from '~/scenes/EventsScene';
 import EventsLikeSidebar from '~/components/Sidebar/Events';
 import EventHeader from '~/components/EventHeader';
 import EventMainLoader from '~/components/Loaders/EventMainLoader';
@@ -51,15 +52,40 @@ const EVENT = gql`
   }
 `;
 
+const OTHER_EVENTS = gql`
+  query EventsQuery {
+    events(first: 4) {
+      nodes {
+        id
+        slug
+        title
+        zmAfishaACF {
+          eventAddress {
+            city
+            streetName
+            streetNumber
+          }
+          eventTime
+          eventDate
+        }
+        featuredImage {
+          mediaItemUrl
+        }
+      }
+    }
+  }
+`;
+
 const Event = (props) => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [state, setState] = useState({
     event: props.event,
+    events: props.events,
     isLoading: false,
     isSimilarLoading: false,
   });
 
-  const { event, isLoading } = state;
+  const { event, events, isLoading } = state;
 
   const sideBarCls = classNames({
     'sidebar-active': sideBarOpen,
@@ -184,6 +210,7 @@ const Event = (props) => {
             </StickyBox>
           </section>
         </div>
+        <EventsScene events={events} form={false} />
       </main>
     </div>
   );
@@ -191,18 +218,25 @@ const Event = (props) => {
 
 Event.propTypes = {
   event: PropTypes.object,
+  events: PropTypes.object,
 };
 
 Event.getInitialProps = async ({ query: { slug } }) => {
   if (process.browser) {
     return { slug };
   }
+
   const event = await apolloClient.query({
     query: EVENT,
     variables: { slug },
   });
 
+  const events = await apolloClient.query({
+    query: OTHER_EVENTS,
+  });
+
   return {
+    events: events.data.events,
     event: event.data.eventBy,
   };
 };
