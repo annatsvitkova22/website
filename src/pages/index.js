@@ -110,6 +110,7 @@ const HOME_PAGE = gql`
             streetNumber
           }
           eventTime
+          eventDate
         }
       }
     }
