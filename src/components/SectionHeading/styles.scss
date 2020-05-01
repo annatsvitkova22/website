@@ -1,27 +1,26 @@
 .sec-heading {
-  &.row {
-    padding-top: 16px;
-    padding-bottom: 17px;
+  margin-top: 80px;
+  padding-top: 16px;
+  padding-bottom: 17px;
 
-    position: relative;
+  position: relative;
 
-    &::before {
-      content: '';
+  &::before {
+    content: '';
 
-      display: block;
+    display: block;
 
-      position: absolute;
-      top: 0;
-      left: $grid-gutter-width/2;
-      right: $grid-gutter-width/2;
+    position: absolute;
+    top: 0;
+    left: $grid-gutter-width/2;
+    right: $grid-gutter-width/2;
 
-      border-top: 1px solid $black;
-      
-    }
+    border-top: 1px solid $black;
+    
+  }
 
-    @include media-breakpoint-down(md) {
-      margin-top: 30px;
-    }
+  @include media-breakpoint-down(md) {
+    margin-top: 30px;
   }
 
   &--opport {
