@@ -13,11 +13,13 @@ const SectionHeading = ({ title, href, classMode, isRow = false }) => {
         <h6 className="text-uppercase tx-family-alt">{title}</h6>
       </div>
       <div className="col-6 text-right tx-green">
-        <Link href={href}>
-          <a className="video-category__watch-all tx-family-titles font-weight-semibold">
-            Дивись Усі
-          </a>
-        </Link>
+        {href && (
+          <Link href={href}>
+            <a className="video-category__watch-all tx-family-titles font-weight-semibold">
+              Дивись Усі
+            </a>
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -4,11 +4,11 @@ import * as classnames from 'classnames';
 import NavLink from '~/components/SiteLink';
 import Icons from '~/components/Icons';
 
-const ArticleList = ({ post, className }) => {
-  const { streetName, latitude, longitude } = post.zmAfishaACF.eventAddress;
+const ArticleList = ({ info, className }) => {
+  const { streetName, latitude, longitude } = info.eventAddress;
   const mapLink = `https://www.google.com/maps/@${latitude},${longitude}z`;
   return (
-    <ul className={classnames('article-list', className)}>
+    <ul className={classnames('article-list list-reset', className)}>
       {streetName && (
         <li className="article-list__item">
           <Icons
@@ -25,29 +25,29 @@ const ArticleList = ({ post, className }) => {
         </li>
       )}
 
-      {post.zmAfishaACF.eventDays && (
+      {info.eventDays && (
         <li className="article-list__item">
           <Icons
             icon={'calendar'}
             target="_blank"
             className="article-list__item-icon article-list__item-icon--callendar"
           />
-          {post.zmAfishaACF.eventDays.map((day, i) => (
+          {info.eventDays.map((day, i) => (
             <span key={i} className="article-list__item-days">
               {day.day}
-              {post.zmAfishaACF.eventDays.length !== i + 1 && ','}
+              {info.eventDays.length !== i + 1 && ','}
             </span>
           ))}
         </li>
       )}
 
-      {post.zmAfishaACF.eventTime && (
+      {info.eventTime && (
         <li className="article-list__item">
           <Icons
             icon={'clock'}
             className="article-list__item-icon article-list__item-icon--clock"
           />
-          {post.zmAfishaACF.eventTime}
+          {info.eventTime}
         </li>
       )}
     </ul>

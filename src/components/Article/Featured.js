@@ -7,11 +7,9 @@ import ArticleContext from '~/components/Article/Context';
 const ArticleFeatured = ({ image, alt = '', slug, className, modif }) => {
   const postType = useContext(ArticleContext);
   let imageUrl = image;
-  if (postType === 'opportunities') {
-    if (!image || !image.sourceUrl) return null;
+  if (postType === 'opportunities' && image) {
     imageUrl = image.sourceUrl;
-  } else {
-    if (!image || !image.mediaItemUrl) return null;
+  } else if (image) {
     imageUrl = image.mediaItemUrl;
   }
   return (
@@ -24,11 +22,12 @@ const ArticleFeatured = ({ image, alt = '', slug, className, modif }) => {
           href={`/${postType}/${slug}`}
         >
           <figure
-            className={`article-featured__image ${
-              modif ? `article-featured__image--${modif}` : ''
-            }`}
+            className={`article-featured__image
+              ${modif ? `article-featured__image--${modif}` : ''}
+              ${!imageUrl ? `article-featured__image--empty` : ''}
+            `}
           >
-            <img src={imageUrl} alt={alt} />
+            {imageUrl && <img src={imageUrl} alt={alt} />}
           </figure>
         </a>
       </Link>

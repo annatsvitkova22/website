@@ -99,6 +99,12 @@
       }
     }
 
+    .social-icon {
+      svg path {
+        fill: #ffffff;
+      }
+    }
+
     .event__info-card {
       display: none;
 
@@ -117,6 +123,8 @@
     height: 100%;
 
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54));
+    
+    color: $white !important;
   }
 
   &__hero-inner {

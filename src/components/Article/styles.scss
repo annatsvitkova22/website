@@ -1,6 +1,10 @@
 .articles-container {
   padding-top: 50px;
-  padding-bottom: 80px;
+  padding-bottom: 40px;
+
+  @include media-breakpoint-up(sm) {
+    padding-bottom: 80px;
+  }
 }
 
 .articles-container--sm {
@@ -331,6 +335,14 @@
 .article-featured {
   &__image {
     margin-bottom: 0;
+    
+    background-color: rgba($green, 0.2);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   &__link {
