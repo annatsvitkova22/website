@@ -10,7 +10,7 @@ const CfsPost = (props) => {
 
   return (
     <>
-        {data &&
+      {data &&
         data.map((item, index) => {
           return <CfPostItem key={index} item={item} />;
         })}

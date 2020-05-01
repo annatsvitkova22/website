@@ -1,12 +1,13 @@
 import React from 'react';
-import Icons from '~/components/Icons';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
-import { AuthStore } from '~/stores/Auth';
 import axios from 'axios';
 import getConfig from 'next/config';
 
+import { AuthStore } from '~/stores/Auth';
+import Icons from '~/components/Icons';
 import { updateLikes } from '~/stores/SingleArticle';
+
 const { publicRuntimeConfig } = getConfig();
 
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -55,7 +56,7 @@ const LikeButton = ({ post, className }) => {
       <button onClick={handleLike} className={classnames('like', className)}>
         <Icons icon={'likes'} />
       </button>
-      <span>{likes ? likes : '0'}</span>
+      <span>{likes || '0'}</span>
     </>
   );
 };

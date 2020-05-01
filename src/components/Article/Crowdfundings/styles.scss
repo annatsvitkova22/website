@@ -35,8 +35,8 @@
       border: 1px solid #eff0f4;
       border-top: none;
       @include media-breakpoint-down(md) {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 10px;
+        padding-right: 10px
       }
 
       @include media-breakpoint-down(xs) {

@@ -38,16 +38,16 @@ const Comment = ({ comment, post }) => {
       />
       <div className={'comments-pp__actions'}>
         {likes && <span className="comments-pp__likes-count">{likes}</span>}
-        {/*<CommentAction*/}
-        {/*  className={'comments-pp__actions-item'}*/}
-        {/*  icon={*/}
-        {/*    <Icons*/}
-        {/*      icon={'like-comment'}*/}
-        {/*      className={'comments-pp__actions-icon'}*/}
-        {/*    />*/}
-        {/*  }*/}
-        {/*  label={'Лайк'}*/}
-        {/*/>*/}
+        {/* <CommentAction */}
+        {/*  className={'comments-pp__actions-item'} */}
+        {/*  icon={ */}
+        {/*    <Icons */}
+        {/*      icon={'like-comment'} */}
+        {/*      className={'comments-pp__actions-icon'} */}
+        {/*    /> */}
+        {/*  } */}
+        {/*  label={'Лайк'} */}
+        {/* /> */}
         <CommentAction
           className={'comments-pp__actions-item'}
           icon={
@@ -59,16 +59,16 @@ const Comment = ({ comment, post }) => {
           label={'Відповісти'}
           action={onReply}
         />
-        {/*<CommentAction*/}
-        {/*  className={'comments-pp__actions-item'}*/}
-        {/*  icon={*/}
-        {/*    <Icons*/}
-        {/*      icon={'complain-comment'}*/}
-        {/*      className={'comments-pp__actions-icon'}*/}
-        {/*    />*/}
-        {/*  }*/}
-        {/*  label={'Поскаржитися'}*/}
-        {/*/>*/}
+        {/* <CommentAction */}
+        {/*  className={'comments-pp__actions-item'} */}
+        {/*  icon={ */}
+        {/*    <Icons */}
+        {/*      icon={'complain-comment'} */}
+        {/*      className={'comments-pp__actions-icon'} */}
+        {/*    /> */}
+        {/*  } */}
+        {/*  label={'Поскаржитися'} */}
+        {/* /> */}
       </div>
       {replyOpen && (
         <CommentForm

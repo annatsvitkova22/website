@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as classnames from 'classnames';
 import gql from 'graphql-tag';
+
 import apolloClient from '~/lib/ApolloClient';
 import { updateComments } from '~/stores/SingleArticle';
 import { commentsQuery } from '~/lib/GraphQL/singleContentCommon';

@@ -60,7 +60,11 @@
 
     margin-right: 8px;
 
-    background-color: black;
+    background: linear-gradient(
+      0deg,
+      rgba(29, 158, 116, 0.08),
+      rgba(29, 158, 116, 0.08)
+    );
 
     border-radius: 40px;
   }

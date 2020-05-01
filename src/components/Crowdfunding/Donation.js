@@ -44,6 +44,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
   };
 
   const handleDonate = () => {
+    onClose();
     const { name, sum, photo } = form;
     if (!sum) return;
     const {

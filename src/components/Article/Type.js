@@ -1,16 +1,13 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import * as classnames from 'classnames';
 import Link from 'next/link';
 
 import ArticleContext from '~/components/Article/Context';
 import postTypes from '~/lib/postTypes';
 
-const ArticleType = ({
-  className,
-}) => {
+const ArticleType = ({ className }) => {
   const postType = useContext(ArticleContext);
-  const postTypeObject = postTypes.find(i => i.slug === postType);
+  const postTypeObject = postTypes.find((i) => i.slug === postType);
   if (!postTypeObject) return null;
   return (
     <div

@@ -513,7 +513,7 @@ const Search = ({ posts, categories, types, query }) => {
       <main className="search-results">
         <div className="container">
           <div className="row">
-            <div className="col-12">
+            <div className="search-results__wrapper">
               {nodes.map((post, i) => {
                 let typeName = `${post.__typename.toLowerCase()}s`;
                 if (typeName === 'posts') {
