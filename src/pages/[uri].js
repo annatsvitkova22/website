@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
+import GutenbergLoader from '~/components/Loaders/GutenbergLoader';
 
 const PAGE = gql`
   query Page($uri: String!) {
@@ -19,30 +20,38 @@ const PAGE = gql`
 const Page = (props) => {
   const [state, setState] = useState({ page: props.page });
 
-  const { page } = state;
+  const { page, isLoading } = state;
+
+  const loadPage = async () => {
+    setState({ ...state, isLoading: true });
+
+    const { data } = await apolloClient.query({
+      query: PAGE,
+      variables: { uri: props.query.uri },
+    });
+
+    setState({ ...state, page: data.pageBy, isLoading: false });
+  };
 
   useEffect(() => {
-    const loadPage = async () => {
-      const { data } = await apolloClient.query({
-        query: PAGE,
-        variables: { uri: props.query.uri },
-      });
-
-      setState({ page: data.pageBy });
-    };
-
     if (!page) {
       loadPage();
     }
   }, []);
 
-  if (!page) {
+  useEffect(() => {
+    if (page && !props.page) {
+      loadPage();
+    }
+  }, [props.query.uri]);
+
+  if (!page || isLoading) {
     return (
       <div className="page">
         <div className="container">
           <div className="row">
             <main className="col-12">
-              loading
+              <GutenbergLoader />
             </main>
           </div>
         </div>
