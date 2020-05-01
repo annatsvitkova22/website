@@ -14,6 +14,7 @@ import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
 import BlogsScene from '~/scenes/BlogsScene';
+import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 
 // TODO: restore, create custom GraphQL resolver
@@ -31,6 +32,7 @@ const HOME_PAGE = gql`
         ${gutenbergBlocksQuery}
       }
     }
+
     users(
       first: 4
       where: {
@@ -65,6 +67,7 @@ const HOME_PAGE = gql`
         }
       }
     }
+
     crowdfundings(first: 9) {
       nodes {
         id
@@ -95,6 +98,36 @@ const HOME_PAGE = gql`
         total
       }
     }
+
+    tags {
+      nodes {
+        id
+        name
+        slug
+        zmTagsACF {
+          showOnHome
+        }
+        publications(first: 5) {
+          nodes {
+            title
+            featuredImage {
+              mediaItemUrl
+            }
+            author {
+              slug
+              name
+            }
+            categories {
+              nodes {
+                slug
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+
     videos(first: 8) {
       nodes {
         title
@@ -108,6 +141,7 @@ const HOME_PAGE = gql`
         }
       }
     }
+
     opportunities(first: 4) {
       nodes {
         featuredImage {
@@ -130,6 +164,7 @@ const HOME_PAGE = gql`
         }
       }
     }
+
     events(first: 7) {
       nodes {
         featuredImage {
@@ -148,6 +183,7 @@ const HOME_PAGE = gql`
         }
       }
     }
+
     publications(first: 6) {
       nodes {
         excerpt
@@ -181,6 +217,7 @@ const HOME_PAGE = gql`
         total
       }
     }
+
     categories {
       nodes {
         name
@@ -213,6 +250,7 @@ const Home = (props) => {
     page,
     users,
     crowdfundings,
+    tags,
     videos,
     opportunities,
     events,
@@ -236,6 +274,9 @@ const Home = (props) => {
 
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings }} />
+
+        <SectionHeading title="!коронавирус" href="/videos" />
+        <TagsScene {...{ tags }} />
 
         <SectionHeading title="Відео" href="/videos" />
         <VideosScene {...{ videos }} />
@@ -279,6 +320,7 @@ Home.getInitialProps = async () => {
     pages,
     users,
     crowdfundings,
+    tags,
     videos,
     opportunities,
     events,
@@ -290,6 +332,7 @@ Home.getInitialProps = async () => {
     page: pages.nodes[0],
     users,
     crowdfundings,
+    tags,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),
     opportunities,
