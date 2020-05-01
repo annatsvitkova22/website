@@ -7,12 +7,11 @@ import { Waypoint } from 'react-waypoint';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
 import Article from '~/components/Article';
-import NewsLoader from '~/components/Loaders/NewsLoader';
 import OpportunitiesLoader from '~/components/Loaders/OpportunitiesLoader';
 
 const OPPORTUNITIES_ARCHIVE = gql`
   query OpportunitiesArchive($cursor: String) {
-    opportunities(first: 3, before: $cursor) {
+    opportunities(first: 5, before: $cursor) {
       nodes {
         featuredImage {
           sourceUrl(size: THUMBNAIL)
@@ -48,16 +47,19 @@ const OpportunitiesArchive = (props) => {
     'opportunities'
   );
 
-  if (!state.data.nodes)
+  if (!state.data.nodes) {
     return (
-      <div className="container articles-container articles-container--sm">
-        <OpportunitiesLoader />
-        <OpportunitiesLoader />
-        <OpportunitiesLoader />
-        <OpportunitiesLoader />
-        <OpportunitiesLoader />
+      <div className="opportunities-page">
+        <div className="container articles-container articles-container--sm">
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+        </div>
       </div>
     );
+  }
 
   const { nodes, pageInfo } = state.data;
 
@@ -98,6 +100,10 @@ OpportunitiesArchive.propTypes = {
 };
 
 OpportunitiesArchive.getInitialProps = async () => {
+  if (process.browser) {
+    return {};
+  }
+
   const { data } = await apolloClient.query({
     query: OPPORTUNITIES_ARCHIVE,
     variables: {

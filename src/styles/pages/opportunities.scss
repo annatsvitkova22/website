@@ -1,5 +1,9 @@
 .opportunities-page {
   .container {
-    // max-width: 896px;
+    > svg {
+      & + svg {
+        margin-top: 20px;
+      }
+    }
   }
 }
