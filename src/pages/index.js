@@ -16,6 +16,7 @@ import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
 import BlogsScene from '~/scenes/BlogsScene';
 import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
+import MainPublications from '~/components/MainPublications';
 
 // TODO: restore, create custom GraphQL resolver
 // homepage {
@@ -276,6 +277,8 @@ const Home = (props) => {
 
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings }} />
+
+        <MainPublications {...{ publications }} />
 
         <TagsScene {...{ tags }} />
 

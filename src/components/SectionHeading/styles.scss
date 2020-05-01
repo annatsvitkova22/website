@@ -1,6 +1,5 @@
 .sec-heading {
   &.row {
-    margin-top: 80px;
     padding-top: 16px;
     padding-bottom: 17px;
 
@@ -18,6 +17,10 @@
 
       border-top: 1px solid $black;
       
+    }
+
+    @include media-breakpoint-down(md) {
+      margin-top: 30px;
     }
   }
 
