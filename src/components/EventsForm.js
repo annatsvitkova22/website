@@ -75,6 +75,7 @@ const EventsForm = ({
       onSent();
     }
   };
+
   return (
     <form className={classnames('zm-form', className)}>
       <h1 className="zm-form__title">Запропонуй Подію</h1>

@@ -8,8 +8,8 @@ import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import apolloClient from '~/lib/ApolloClient';
 import Article from '~/components/Article';
 import NewsLoader from '~/components/Loaders/NewsLoader';
-import EventsForm from '~/components/EventsForm';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
+import Form from '~/components/Form';
 
 const EVENTS_ARCHIVE = gql`
   query EventsArchive($cursor: String) {
@@ -99,13 +99,8 @@ const EventsArchive = (props) => {
               i === 3 ? (
                 <>
                   <div className="col-lg-3 col-sm-6 col-12">
-                    <EventsForm
-                      personText="Контактна особа"
-                      phoneText="Телефон"
-                      nameText="Назва"
-                      dateText="Дата"
-                      descText="Опис Події"
-                      submitText="Запропонувати"
+                    <Form
+                      id={1}
                       className="zm-form--event"
                     />
                   </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Article from '~/components/Article';
-import EventsForm from '~/components/EventsForm';
+import Form from '~/components/Form';
 
 const EventsScene = ({ events, form }) => (
   <div className="container">
@@ -11,13 +11,8 @@ const EventsScene = ({ events, form }) => (
           <React.Fragment key={post.id}>
             {form && (
               <div className="col-lg-3 col-sm-6 col-12">
-                <EventsForm
-                  personText="Контактна особа"
-                  phoneText="Телефон"
-                  nameText="Назва"
-                  dateText="Дата"
-                  descText="Опис Події"
-                  submitText="Запропонувати"
+                <Form
+                  id={1}
                   className="zm-form--event"
                 />
               </div>
