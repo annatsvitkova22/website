@@ -119,7 +119,7 @@
 
   &__title {
     margin-bottom: 10px;
-    
+
     line-height: 1;
 
     @include media-breakpoint-up(sm) {
@@ -391,6 +391,25 @@
   letter-spacing: 0.07em;
   text-transform: capitalize;
   color: $grey-200;
+
+  &:hover {
+    color: $green;
+  }
+}
+.meta-author--black {
+  color: $black;
+  &:hover {
+    color: $green;
+  }
+}
+.meta-author--grey {
+  color: $grey-400;
+  &:hover {
+    color: $green;
+  }
+}
+.meta-author--img {
+  color: $black;
 }
 
 .meta-type {

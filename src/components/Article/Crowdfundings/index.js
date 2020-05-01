@@ -27,7 +27,10 @@ const ArticleCrowdfundings = ({ post, children, className }) => {
         <ArticleExcerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
         <CrowdfundingProgress post={post} />
         <div className="article__meta">
-          <ArticleAuthor className="article__author" author={author} />
+          <ArticleAuthor
+            className="article__author meta-author--grey"
+            author={author}
+          />
           <ArticleDate
             className="article__time"
             date={date}

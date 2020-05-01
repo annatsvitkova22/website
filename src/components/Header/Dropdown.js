@@ -4,9 +4,9 @@ import Icons from '~/components/Icons';
 
 const Dropdown = ({ data, className = '' }) => {
   const dropdownData = data.nodes.filter((item) => {
-    return item.id === 'TWVudTo2';
+    return item.name === 'Ресурси';
   });
-  console.log(dropdownData[0].menuItems.nodes);
+
   return (
     <div className={className}>
       {dropdownData[0].menuItems.nodes &&

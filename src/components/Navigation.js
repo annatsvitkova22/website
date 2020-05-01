@@ -7,12 +7,16 @@ import NavLink from './SiteLink';
 const Navigation = (props) => {
   const { navigationData, className = '' } = props;
 
+  const naviData = navigationData.nodes.filter((item) => {
+    return item.name === 'Головне';
+  });
+
   return (
     <nav className={`${className}`}>
       <ul className="navigation__list">
-        {navigationData.nodes.length &&
-          navigationData.nodes[0].menuItems &&
-          navigationData.nodes[0].menuItems.nodes.map((item) => {
+        {naviData &&
+          naviData[0].menuItems.nodes &&
+          naviData[0].menuItems.nodes.map((item) => {
             return (
               <li
                 key={item.id}

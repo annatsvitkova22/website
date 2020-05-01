@@ -31,6 +31,7 @@ const HEADER_QUERY = gql`
     menus {
       nodes {
         id
+        name
         menuItems {
           nodes {
             id
