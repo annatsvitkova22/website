@@ -77,7 +77,7 @@ const EventsForm = ({
   };
   return (
     <form className={classnames('zm-form', className)}>
-      <h1 class="zm-form__title">Запропонуй Подію</h1>
+      <h1 className="zm-form__title">Запропонуй Подію</h1>
       <input
         className={'zm-form__input'}
         type={'text'}
@@ -103,6 +103,7 @@ const EventsForm = ({
         name={'name'}
         value={form.name}
         placeholder={nameText}
+        onChange={handleInputChange}
         required
       />
       <div className="zm-form__input-wrap">

@@ -84,7 +84,7 @@ const PublicationCategoriesScene = ({ categories }) => {
                             size={size}
                             type="publications-cats"
                             post={post}
-                            key={post.id}
+                            key={post.id + i}
                           />
                         ))}
                       </div>

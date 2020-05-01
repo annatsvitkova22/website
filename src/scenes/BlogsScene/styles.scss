@@ -1,0 +1,37 @@
+.blogs-user {
+  &__avatar {
+    padding-bottom: 100%;
+  }
+
+  &__col {
+    @include media-breakpoint-between(sm, lg) {
+      @include last-grid-row(2) {
+        margin-top: 24px;
+      }
+    }
+  }
+
+  &__col + &__col {
+    @include media-breakpoint-down(xs) {
+      margin-top: 24px;
+    }
+  }
+}
+
+.user-pubs {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: -35px;
+}
+
+.user-pub {
+  & + & {
+    border-top: 1px solid $grey-100;
+  }
+
+  &__title {
+    padding: 15px 10px;
+  }
+}
+
+
