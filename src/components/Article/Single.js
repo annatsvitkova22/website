@@ -8,9 +8,9 @@ import { useStateLink } from '@hookstate/core';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
 import FeaturedImage from '~/components/FeaturedImage';
-import Share from '~/components/ShareSideBar';
+import ActionsSidebar from '~/components/ActionsSidebar';
 import ArticleAuthor from '~/components/Article/Author';
-import ShareItems from '~/components/ShareItems';
+import Share from '~/components/Share';
 import Content from '~/components/Content';
 import NewsFooter from '~/components/SinglePageFooter';
 import {
@@ -80,7 +80,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       offsetBottom={20}
                       className={'side-bar__wrapper col-xl-1'}
                     >
-                      <Share post={storedPost} />
+                      <ActionsSidebar post={storedPost} />
                     </StickyBox>
                   )}
                   <section className={'single-post__content'}>
@@ -97,7 +97,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           </span>
                         </div>
                       </div>
-                      <ShareItems className={'title__socials-items'} />
+                      <Share className={'title__socials-items'} />
                     </div>
                     <article
                       className={'title__description'}

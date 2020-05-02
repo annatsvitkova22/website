@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tags from '~/components/Tags';
-import ShareItems from '~/components/ShareItems';
+import ShareItems from '~/components/Share';
 import CommentButton from '~/components/Comment/Button';
 import Icons from '~/components/Icons';
 

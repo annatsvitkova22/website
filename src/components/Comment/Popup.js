@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
 
-import ShareItems from '~/components/ShareItems';
+import ShareItems from '~/components/Share';
 import Comment from '~/components/Comment/index';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
