@@ -72,7 +72,6 @@ const Page = (props) => {
           <div className="row">
             <main className="col-12">
               <h1 className="title">{page.title}</h1>
-              <Form id={1} />
               <Content content={page.blocks} />
             </main>
           </div>
