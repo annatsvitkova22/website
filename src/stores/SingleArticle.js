@@ -24,6 +24,12 @@ export const updateLikes = (likes) => {
   SingleArticleStore.set(singleArticleStore);
 };
 
+export const updateShares = (shares) => {
+  const singleArticleStore = SingleArticleStore.get();
+  singleArticleStore.post.cfACF.shared = shares;
+  SingleArticleStore.set(singleArticleStore);
+};
+
 export const updatePost = async (query, slug) => {
   const singleArticleStore = SingleArticleStore.get();
   const { data } = await apolloClient.query({

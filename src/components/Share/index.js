@@ -18,17 +18,23 @@ const { publicRuntimeConfig } = getConfig();
 
 const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const Share = ({ className = '', type }) => {
+const Share = ({ className = '', type, onShared = () => {} }) => {
   const { asPath } = useRouter();
 
   const [opened, setOpened] = useState(false);
 
   const mainItems = (
     <>
-      <FacebookShareButton url={`${frontUrl}${asPath}`}>
+      <FacebookShareButton
+        url={`${frontUrl}${asPath}`}
+        onShareWindowClose={onShared}
+      >
         <Icons icon={'facebook'} />
       </FacebookShareButton>
-      <TelegramShareButton url={`${frontUrl}${asPath}`}>
+      <TelegramShareButton
+        url={`${frontUrl}${asPath}`}
+        onShareWindowClose={onShared}
+      >
         <Icons icon={'telegram'} />
       </TelegramShareButton>
     </>
@@ -36,13 +42,22 @@ const Share = ({ className = '', type }) => {
 
   const additionalItems = (
     <>
-      <EmailShareButton url={`${frontUrl}${asPath}`}>
+      <EmailShareButton
+        url={`${frontUrl}${asPath}`}
+        onShareWindowClose={onShared}
+      >
         <Icons icon={'email'} />
       </EmailShareButton>
-      <TwitterShareButton url={`${frontUrl}${asPath}`}>
+      <TwitterShareButton
+        url={`${frontUrl}${asPath}`}
+        onShareWindowClose={onShared}
+      >
         <Icons icon={'twitter'} />
       </TwitterShareButton>
-      <ViberShareButton url={`${frontUrl}${asPath}`}>
+      <ViberShareButton
+        url={`${frontUrl}${asPath}`}
+        onShareWindowClose={onShared}
+      >
         <Icons icon={'viber'} />
       </ViberShareButton>
     </>
