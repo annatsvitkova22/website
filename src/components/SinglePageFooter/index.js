@@ -15,7 +15,7 @@ const NewsFooter = ({ post }) => {
         <CommentButton className={'col-3'} post={post} />
         <div className={'footer__comments-share'}>
           <LikeButton showNumber={false} post={post} />
-          <Share className={'title__socials-items'} />
+          <Share type={'main-first'} className={'title__socials-items'} />
         </div>
       </div>
     </section>
