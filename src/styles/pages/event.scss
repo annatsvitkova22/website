@@ -81,7 +81,7 @@
       margin-bottom: 24px;
 
       @include media-breakpoint-up(lg) {
-        margin-bottom: 38px;
+        margin-bottom: 36px;
       }
 
       @include media-breakpoint-down(sm) {
@@ -172,6 +172,10 @@
     max-width: 648px;
   }
 
+  &__content-main.gutenberg__title {
+    letter-spacing: 0.03em;
+  }
+
   &__content-main {
     font-family: $font-family-titles;
   }
@@ -223,21 +227,20 @@
     }
   }
 
-  
   @include media-breakpoint-down(sm) {
     &__sticky-wrapper {
       display: flex;
       order: 1;
-  
+
       max-width: 100% !important;
-  
+
       top: 0 !important;
       position: relative !important;
     }
 
     &__sticky-sidebar {
       display: flex;
-  
+
       opacity: 1;
     }
   }

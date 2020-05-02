@@ -9,7 +9,8 @@
 
   &__image {
     min-height: 373px;
-    padding-bottom: 53.3%;
+    height: calc(100vh - 168px);
+    // padding-bottom: 53.3%;
     margin-bottom: 50px;
 
     @include media-breakpoint-down(md) {
@@ -132,10 +133,10 @@
       &--sub {
         display: block;
         column-count: 2;
-        
+
         margin-left: 0;
         margin-right: 0;
-        
+
         .publ-cat {
           &__col {
             max-width: none;

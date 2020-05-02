@@ -1,19 +1,17 @@
 @mixin make-category {
   padding: 5px 10px 4px;
-  
+
   background-color: $green;
-  
+
   color: $white;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 0.1em;
   font-family: $font-family-alt;
-  
+
   cursor: pointer;
-  transition:
-    color 0.3s ease-in-out,
-    background-color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 
   &::before {
     content: '!';
@@ -21,12 +19,9 @@
 
   &:focus,
   &:hover {
-    background-color: $white;
-
-    color: $black;
+    background-color: darken($green, 8);
   }
 }
-
 // Apply styles to the last row of grid elements depends on columns number
 @mixin last-grid-row($columns) {
   &:nth-child(#{$columns}n+1):nth-last-child(-n+#{$columns}),

@@ -68,9 +68,11 @@
   }
 
   &__description {
+    margin-bottom: 2px;
+
     font-weight: 600;
     font-size: 10px;
-    line-height: 18px;
+    line-height: 16px;
     letter-spacing: 0.09em;
     text-transform: uppercase;
 
@@ -87,8 +89,9 @@
     color: $black;
   }
 
-  &__email ~ .info-card__item {
+  &__email ~ .info-card__item > a {
     text-transform: lowercase;
+    line-height: 18px;
   }
 
   &__social {

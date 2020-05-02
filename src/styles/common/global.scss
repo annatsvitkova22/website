@@ -10,12 +10,13 @@ body {
   box-sizing: border-box;
 }
 
-
 a {
   display: inline-block;
 
   color: inherit;
   text-decoration: none;
+
+  transition: all 0.3s;
 }
 
 button {

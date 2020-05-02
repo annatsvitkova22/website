@@ -6,6 +6,7 @@ import ArticleFeatured from '~/components/Article/Featured';
 import ArticleAuthor from '~/components/Article/Author';
 
 const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
+
   return (
     <div className={'similar-posts'}>
       <div className="similar-posts__wrapper">
@@ -32,7 +33,7 @@ const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
                     <div className={'similar-posts__title'}>{item.title}</div>
                     <ArticleAuthor
                       author={item.author}
-                      className={'similar-posts__author'}
+                      className={'similar-posts__author meta-author--black'}
                     />
                   </div>
                 </div>

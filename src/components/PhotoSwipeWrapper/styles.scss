@@ -3,14 +3,17 @@
     background-color: transparent;
   }
 
-  &__button {
+  &__counter {
+    display: none;
+  }
 
+  &__button {
     &--close {
       width: 64px;
       height: 64px;
       margin-right: 12px;
       margin-top: 12px;
-      
+
       background-color: rgba($black, 0.8);
       border-radius: 50%;
       background-position: 10px -34px;
@@ -47,6 +50,7 @@
 
     &--arrow--left,
     &--arrow--right {
+      display: none;
       @include media-breakpoint-down(sm) {
         visibility: hidden;
       }

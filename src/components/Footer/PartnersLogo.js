@@ -6,7 +6,7 @@ const PartnersLogo = (props) => {
 
   return (
     <div className={`footer__sitemap-list ${className}`}>
-      <span className={'footer__sitemap-title'}>Наші партнери</span>
+      <div className={'footer__sitemap-title partners-img'}>Наші партнери</div>
       <ul className={'footer__sitemap-navigation'}>
         {partnersData &&
           partnersData.map((item, i) => {

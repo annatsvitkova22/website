@@ -47,7 +47,7 @@
 
     &:hover,
     &:focus {
-      color: lighten($green, 10%);
+      color: darken($green, 12);
     }
   }
 }

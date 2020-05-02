@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Navigation from '../Navigation';
-import Icons from '../Icons';
 import Social from '../Social';
+
 import Dropdown from '~/components/Header/Dropdown';
 
 const HeaderMenu = ({ data }) => {

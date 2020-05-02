@@ -11,7 +11,7 @@
 
   &__duration {
     margin-bottom: 5px;
-    
+
     line-height: 1.3;
     letter-spacing: 0.06em;
   }
@@ -65,7 +65,7 @@
 
   &__image {
     padding-bottom: 64.1%;
-    
+
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -85,7 +85,7 @@
   }
 }
 
-.video-popup { 
+.video-popup {
   &__title {
     margin-bottom: 11px;
   }
@@ -100,7 +100,10 @@
 .share-list {
   margin-right: 10px;
 
-  &__item + &__item{
+  &__item + &__item {
     margin-left: 21px;
+  }
+  &__item:hover > a > svg > path {
+    fill: $green;
   }
 }
