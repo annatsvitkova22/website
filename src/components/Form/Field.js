@@ -79,6 +79,7 @@ const FormField = ({
       );
       break;
     // TODO: handle other field types
+    // TODO: add email validation
     default:
       inner = (
         <input
