@@ -152,11 +152,13 @@ const Event = (props) => {
   }, [state.event]);
 
   if (!event) {
-    return <div className="single__event">
-      <div className="container">
-        <EventMainLoader />
+    return (
+      <div className="single__event">
+        <div className="container">
+          <EventMainLoader />
+        </div>
       </div>
-    </div>;
+    );
   }
 
   return (

@@ -151,6 +151,11 @@
     .meta-date {
       margin-top: 0;
 
+      font-weight: 600;
+      letter-spacing: 0.07em;
+
+      color: #8a9994;
+
       @include media-breakpoint-down(sm) {
         font-weight: 600;
         font-size: 12px;
@@ -166,7 +171,7 @@
     width: 44px;
     height: 44px;
     padding: 0;
-    margin-right: 5px;
+    margin-right: 8px;
 
     border: 0;
   }
