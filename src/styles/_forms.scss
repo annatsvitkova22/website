@@ -183,3 +183,17 @@ input {
     }
   }
 }
+
+.zm-datepicker__popper {
+  min-width: 360px;
+
+  &[data-placement="bottom-start"],
+  &[data-placement="top-start"] {
+    left: -30px !important;
+  }
+
+  &[data-placement="bottom-end"],
+  &[data-placement="top-end"] {
+    left: calc(100% + 30px) !important;
+  }
+}

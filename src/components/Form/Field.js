@@ -57,6 +57,7 @@ const FormField = ({
     case 'date':
       inner = (
         <DatePicker
+          popperClassName={'zm-datepicker__popper'}
           className={'zm-form__input zm-form__input--datepicker'}
           selected={value}
           onChange={(date) => onChange({ value: date, name: id })}

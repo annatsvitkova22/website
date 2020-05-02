@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 import { AuthStore } from '~/stores/Auth';
 import FormField from '~/components/Form/Field';
+import FormLoader from '~/components/Loaders/FormLoader';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -66,8 +67,7 @@ const Form = ({ id, className }) => {
   }, [values]);
 
   if (!form) {
-    // TODO: add loader
-    return 'loading form';
+    return <FormLoader />;
   }
 
   const { fields, title, button } = form;
