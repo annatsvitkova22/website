@@ -5,7 +5,7 @@ import CrowdfundingDonation from '~/components/Crowdfunding/Donation';
 import Share from '~/components/Crowdfunding/Share';
 
 const CrowdfundingActions = ({ className, post }) => {
-  const [donationOpen, setDonationOpen] = useState(true);
+  const [donationOpen, setDonationOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
 
   const handleDonationOpen = () => {

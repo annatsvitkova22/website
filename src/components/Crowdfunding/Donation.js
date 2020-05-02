@@ -235,7 +235,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
               onChange={handleFileInput}
               name={'photo'}
             />
-            <label htmlFor="photo">необов'язково</label>
+            <label htmlFor="photo">Ваше фото, (необов'язково)</label>
           </div>
           <FormSubmit
             text={'Підтримати'}

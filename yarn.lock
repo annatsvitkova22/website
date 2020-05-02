@@ -918,6 +918,64 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@blaze-react/button-select@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blaze-react/button-select/-/button-select-0.5.0.tgz#fc03c42b053e784815dc1b9489b758e480899d11"
+  integrity sha512-Q6JVjMm6fKMRP858KdvC4MAkXQ4xp14uV7tPQR3yiCSfcZMfW0TrRlBp6KJ4coOZbd0Wci1iwz7pFIks6jQKYw==
+  dependencies:
+    "@blaze-react/button" "^0.5.0"
+    "@types/uuid" "^3.4.4"
+
+"@blaze-react/button@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blaze-react/button/-/button-0.5.0.tgz#aa219c6e45b61555b9d4aec15ad36bec31d9cba1"
+  integrity sha512-KlbB8UJexo4HjiZA7Kp/zJCM1IW1XiDsn2TB688UCU4x8e2QtgX0r8d5SYjczi/AFVqp7FHk9OwnJy22uhUDrQ==
+  dependencies:
+    "@blaze-react/utils" "^0.5.0"
+
+"@blaze-react/file-upload@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blaze-react/file-upload/-/file-upload-0.5.0.tgz#4513960576b7f28d10fd18ebda3fe850a26d0c3d"
+  integrity sha512-PzhOVLBnITcrZciSPOnjZXyf4g9s0V6OnFmeRhXCbJ/Uup9om+skViQBKm2EWSKgmQKgJT5blECp3inhgrT4+Q==
+  dependencies:
+    "@blaze-react/button" "^0.5.0"
+    "@blaze-react/button-select" "^0.5.0"
+    "@blaze-react/input" "^0.5.0"
+    "@blaze-react/modal" "^0.5.0"
+    "@blaze-react/select" "^0.5.0"
+    uuid "^3.3.3"
+
+"@blaze-react/input@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blaze-react/input/-/input-0.5.0.tgz#8339efd8c8938df3cef0b5e8559cd12dcb59e5fe"
+  integrity sha512-wWeNVg6YcrHum30LVkKFWX39i1A9Z5rjJMSH7Qklzu07bwJ5jz6/RbZ1KPN995CDC7IqDFsOYj5GL3UB/uIisA==
+  dependencies:
+    "@blaze-react/utils" "^0.5.0"
+
+"@blaze-react/modal@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blaze-react/modal/-/modal-0.5.0.tgz#f8c6db7606837f6ef683430845e608a2d653b32f"
+  integrity sha512-g+eR5/+ZbX8g2HbwnAEMmIHGM1ptkCaMGh9eWgfeXFSD7y4RoVxt/d3NMe6UQc2ZcG7CFMiz5w/tnFCdhTaTHQ==
+  dependencies:
+    "@blaze-react/button" "^0.5.0"
+    "@blaze-react/utils" "^0.5.0"
+
+"@blaze-react/select@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blaze-react/select/-/select-0.5.0.tgz#c9ec277d9726e0a3caa7a697d1129d39e7fd6e46"
+  integrity sha512-QGHkHNIu8bSpKPxxR6JcaROMydCOZIV9e4i44GkdpZdmKYgoxEbQUtC6/epRMAWK5LQHF5CwZNmiE4l2XmhaWQ==
+  dependencies:
+    "@blaze-react/utils" "^0.5.0"
+
+"@blaze-react/utils@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blaze-react/utils/-/utils-0.5.0.tgz#5e4c39b448f44699ec55100b21732685f11aedf7"
+  integrity sha512-joG1DX7oGDGdka8X8bXeOsn4jEViWKAQnn5ORFYXM3N/w7AWF/YA6nj/CqryVoOnGOVh41+dCR/wz1dFtNjTLQ==
+  dependencies:
+    classnames "^2.2.6"
+    hoist-non-react-statics "^3.3.0"
+    intersection-observer "^0.7.0"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -1108,6 +1166,11 @@
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
+
+"@types/uuid@^3.4.4":
+  version "3.4.9"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.9.tgz#fcf01997bbc9f7c09ae5f91383af076d466594e1"
+  integrity sha512-XDwyIlt/47l2kWLTzw/mtrpLdB+GPSskR2n/PIcPn+VYhVO77rGhRncIR5GPU0KRzXuqkDO+J5qqrG0Y8P6jzQ==
 
 "@types/vfile-message@*":
   version "2.0.0"
@@ -4912,6 +4975,11 @@ internal-slot@^1.0.2:
     es-abstract "^1.17.0-next.1"
     has "^1.0.3"
     side-channel "^1.0.2"
+
+intersection-observer@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.7.0.tgz#ee16bee978db53516ead2f0a8154b09b400bbdc9"
+  integrity sha512-Id0Fij0HsB/vKWGeBe9PxeY45ttRiBmhFyyt/geBdDHBYNctMRTE3dC1U3ujzz3lap+hVXlEcVaB56kZP/eEUg==
 
 into-stream@^3.1.0:
   version "3.1.0"
@@ -9405,7 +9473,7 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-uuid@^3.0.1, uuid@^3.3.2:
+uuid@^3.0.1, uuid@^3.3.2, uuid@^3.3.3:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
 
