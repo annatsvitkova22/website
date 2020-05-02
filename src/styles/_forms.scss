@@ -104,6 +104,11 @@ input {
       .zm-form__textarea {
         border-bottom: 2px solid #eb5757;
       }
+
+      .zm-form-field__placeholder {
+        letter-spacing: 0.05em;
+        color: #eb5757;
+      }
     }
 
     &--focused,
@@ -149,6 +154,7 @@ input {
   &__input {
     padding: 2px 0 3px;
 
+    // TODO: move border to :before/:after
     border-bottom: 1px solid $grey-200;
 
     color: $black;
