@@ -110,7 +110,7 @@ input {
       color: red;
     }
 
-    &--invalid {
+    &--invalid.zm-form-field--touched {
       letter-spacing: 0.05em;
       color: #eb5757;
 

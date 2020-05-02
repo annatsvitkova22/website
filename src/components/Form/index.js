@@ -3,17 +3,12 @@ import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
 import axios from 'axios';
 import getConfig from 'next/config';
-import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
-import uk from 'date-fns/locale/uk';
 import * as _ from 'lodash';
 
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 import { AuthStore } from '~/stores/Auth';
 import FormField from '~/components/Form/Field';
-
-registerLocale('uk', uk);
-setDefaultLocale('uk');
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -32,10 +27,9 @@ const Form = ({ id, className }) => {
     sent: false,
   });
   const [valid, setValid] = useState(false);
+  const [cleared, setCleared] = useState(false);
   const [values, setValues] = useState({});
   const { form, isSending, sent } = state;
-  const [focusField, setFocusField] = useState(null);
-  const [touched, setTouched] = useState([]);
 
   const loadForm = async () => {
     const conf = {
@@ -78,13 +72,6 @@ const Form = ({ id, className }) => {
 
   const { fields, title, button } = form;
 
-  const handleChange = ({ target: { value, name } }) => {
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -124,26 +111,15 @@ const Form = ({ id, className }) => {
         clearedValues[field.key] = '';
       });
       setValues(clearedValues);
-      setTouched([]);
+      setCleared(true);
     }, 10000);
   };
 
-  const handleDateChange = ({ value, name }) => {
+  const handleChange = ({ value, name } ) => {
     setValues({
       ...values,
       [name]: value,
     });
-  };
-
-  const handleFocusChange = ({ target: { name } }) => {
-    let tchd = touched;
-    tchd.push(name);
-    tchd = _.uniq(tchd);
-    setTouched(tchd);
-    if (name === focusField) {
-      return setFocusField(null);
-    }
-    return setFocusField(name);
   };
 
   return (
@@ -151,111 +127,22 @@ const Form = ({ id, className }) => {
       <h2 className="zm-form__title">{title}</h2>
       {fields.map(
         ({ id, type, placeholder, cssClass, adminLabel, isRequired }) => {
-          if (type === 'date') {
-            return (
-              <FormField
-                key={id}
-                id={adminLabel}
-                placeholder={placeholder}
-                required={isRequired}
-                cssClass={cssClass}
-                className={classnames({
-                  'zm-form-field--focused': adminLabel === focusField,
-                  'zm-form-field--filled': !!values[adminLabel],
-                  'zm-form-field--touched': !!touched.find(
-                    (i) => i === adminLabel
-                  ),
-                  'zm-form-field--invalid':
-                    !!touched.find((i) => i === adminLabel) &&
-                    !values[adminLabel] &&
-                    adminLabel != focusField &&
-                    isRequired,
-                })}
-              >
-                <DatePicker
-                  className={'zm-form__input zm-form__input--datepicker'}
-                  id={adminLabel}
-                  name={adminLabel}
-                  selected={values[adminLabel]}
-                  onChange={(date) =>
-                    handleDateChange({ value: date, name: adminLabel })
-                  }
-                  showTimeSelect={true}
-                  required={isRequired}
-                  onFocus={handleFocusChange}
-                  onBlur={handleFocusChange}
-                />
-              </FormField>
-            );
-          }
-          if (type === 'textarea') {
-            return (
-              <FormField
-                key={id}
-                id={adminLabel}
-                required={isRequired}
-                cssClass={cssClass}
-                placeholder={placeholder}
-                className={classnames('zm-form-field--textarea', {
-                  'zm-form-field--focused': adminLabel === focusField,
-                  'zm-form-field--filled': !!values[adminLabel],
-                  'zm-form-field--touched': !!touched.find(
-                    (i) => i === adminLabel
-                  ),
-                  'zm-form-field--invalid':
-                    !!touched.find((i) => i === adminLabel) &&
-                    !values[adminLabel] &&
-                    adminLabel != focusField &&
-                    isRequired,
-                })}
-              >
-                <textarea
-                  className={'zm-form__textarea'}
-                  name={adminLabel}
-                  required={isRequired}
-                  value={values[adminLabel]}
-                  onChange={handleChange}
-                  id={adminLabel}
-                  onFocus={handleFocusChange}
-                  onBlur={handleFocusChange}
-                />
-              </FormField>
-            );
-          }
           return (
             <FormField
+              cleared={cleared}
+              type={type}
+              value={values[adminLabel]}
               key={id}
               id={adminLabel}
               placeholder={placeholder}
               required={isRequired}
               cssClass={cssClass}
               className={classnames({
-                'zm-form-field--focused': adminLabel === focusField,
-                'zm-form-field--filled': !!values[adminLabel],
-                'zm-form-field--touched': !!touched.find(
-                  (i) => i === adminLabel
-                ),
-                'zm-form-field--invalid':
-                  !!touched.find((i) => i === adminLabel) &&
-                  !values[adminLabel] &&
-                  adminLabel != focusField &&
-                  isRequired,
+                'zm-form-field--invalid': !values[adminLabel] && isRequired,
               })}
-            >
-              <input
-                type={type}
-                className={'zm-form__input'}
-                name={adminLabel}
-                required={isRequired}
-                value={values[adminLabel]}
-                onChange={handleChange}
-                id={adminLabel}
-                onFocus={handleFocusChange}
-                onBlur={handleFocusChange}
-              />
-            </FormField>
+              onChange={handleChange}
+            />
           );
-          // TODO: handle other field types
         }
       )}
       <button
