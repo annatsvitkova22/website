@@ -62,7 +62,8 @@ const Form = ({ id, className }) => {
         vld = !!values[adminLabel];
       }
     });
-    setValid(vld);
+    const rf = form.fields.filter(({ isRequired }) => isRequired);
+    setValid(rf.length ? vld : true);
   }, [values]);
 
   if (!form) {

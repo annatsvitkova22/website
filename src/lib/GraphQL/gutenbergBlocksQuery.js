@@ -1,6 +1,4 @@
-const gutenbergBlocksQuery = `blocks {
-          __typename
-          ... on CoreHeadingBlock {
+const content = `... on CoreHeadingBlock {
             attributes {
               __typename
               ... on CoreHeadingBlockAttributes {
@@ -12,6 +10,14 @@ const gutenbergBlocksQuery = `blocks {
                 level
                 placeholder
                 textColor
+              }
+            }
+          }
+          ... on GravityformsFormBlock {
+            attributes {
+              __typename
+              ... on GravityformsFormBlockAttributes {
+                formId
               }
             }
           }
@@ -195,32 +201,6 @@ const gutenbergBlocksQuery = `blocks {
       ... on CoreButtonsBlock {
           saveContent
         }
-      ... on CoreColumnsBlock {
-            attributes {
-              align
-              className
-              verticalAlignment
-            }
-            saveContent
-            parentId
-            originalContent
-          }
-          ... on CoreMediaTextBlock {
-            saveContent
-            attributes {
-              backgroundColor
-              className
-              focalPoint
-              imageFill
-              isStackedOnMobile
-              mediaAlt
-              mediaId
-              mediaType
-              mediaUrl
-              mediaWidth
-              verticalAlignment
-          }
-      }
       ... on CorePullquoteBlock {
             parentId
             originalContent
@@ -281,7 +261,30 @@ const gutenbergBlocksQuery = `blocks {
           }
           ... on CoreNextpageBlock {
             saveContent
+          }`;
+
+const gutenbergBlocksQuery = `blocks {
+          __typename
+          ${content}
+          ... on CoreColumnsBlock {
+            attributes {
+              ... on CoreColumnsBlockAttributes {
+                textColor
+              }
+              backgroundColor
+            }
+            innerBlocks {
+              ... on CoreColumnBlock {
+                attributes {
+                  columnWidth: width
+                }
+                innerBlocks {
+                  __typename
+                  ${content}
+                }
+              }
+            }
           }
-  }`;
+      }`;
 
 export default gutenbergBlocksQuery;
