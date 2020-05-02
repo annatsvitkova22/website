@@ -103,6 +103,8 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       }
     );
 
+    handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
+
     window.addEventListener(
       'message',
       (event) => {
@@ -150,11 +152,13 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       configs
     );
 
-    const {
+    let {
       data: { supported },
     } = getCurrentDonaters;
 
-    supported.push({
+    let sups = supported ? supported : [];
+
+    sups.push({
       name: name || 'Анонімно',
       photo: avatar,
       sum,
@@ -166,13 +170,13 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/supported`,
       {
         fields: {
-          supported,
+          supported: sups,
         },
       },
       configs
     );
 
-    const getCurrentAmout = await axios.get(
+    const getCurrentAmount = await axios.get(
       `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/collected`,
       configs
     );
@@ -181,8 +185,8 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       `${apiUrl}/wp-json/acf/v3/crowdfundings/${crowdfundingId}/collected`,
       {
         fields: {
-          collected: getCurrentAmout.data.collected
-            ? parseInt(getCurrentAmout.data.collected) + parseInt(sum)
+          collected: getCurrentAmount.data.collected
+            ? parseInt(getCurrentAmount.data.collected) + parseInt(sum)
             : sum,
         },
       },
