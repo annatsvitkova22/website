@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import getConfig from 'next/config';
 import { useStateLink } from '@hookstate/core';
 import * as axios from 'axios';
@@ -7,8 +7,10 @@ import md5 from 'blueimp-md5';
 
 import Icons from '~/components/Icons';
 import { AuthStore } from '~/stores/Auth';
-import { SingleArticleStore, updatePost } from '~/stores/SingleArticle';
+import { updatePost } from '~/stores/SingleArticle';
 import { CROWDFUNDING } from '~/pages/crowdfundings/[slug]';
+import FormField from '~/components/Form/Field';
+import FormSubmit from '~/components/Form/Submit';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -16,11 +18,21 @@ const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
   const authStateLink = useStateLink(AuthStore);
-  const postStateLink = useStateLink(SingleArticleStore);
 
-  const storedPost = postStateLink.get();
+  const [wayforpay, setWayForPay] = useState();
+
+  useEffect(() => {
+    setWayForPay(new window.Wayforpay());
+  }, []);
 
   const { crowdfundingId, title } = post;
+
+  const [state, setState] = useState({
+    isSending: false,
+    sent: false,
+  });
+
+  const { isSending, sent } = state;
 
   const [form, setForm] = useState({
     name: '',
@@ -28,8 +40,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
     photo: null,
   });
 
-  const handleInputChange = ({ target }) => {
-    const { name, value } = target;
+  const handleInputChange = ({ value, name }) => {
     setForm({
       ...form,
       [name]: value,
@@ -44,13 +55,15 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
   };
 
   const handleDonate = () => {
-    onClose();
+    setState({
+      ...state,
+      isSending: true,
+    });
     const { name, sum, photo } = form;
     if (!sum) return;
     const {
       wayForPay: { merchantLogin, merchantSecretKey },
     } = config;
-    const wayforpay = new window.Wayforpay();
     const orderId = `${crowdfundingId}-${Math.random()
       .toString(36)
       .substr(2, 9)}`;
@@ -88,6 +101,19 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       function (response) {
         handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
       }
+    );
+
+    window.addEventListener(
+      'message',
+      (event) => {
+        if (event.data === 'WfpWidgetEventClose') {
+          setState({
+            ...state,
+            isSending: false,
+          });
+        }
+      },
+      false
     );
   };
 
@@ -163,7 +189,15 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       configs
     );
 
-    updatePost(CROWDFUNDING, post.slug);
+    await updatePost(CROWDFUNDING, post.slug);
+
+    setState({
+      ...state,
+      isSending: false,
+      sent: true,
+    });
+    wayforpay.closeit();
+    onClose();
   };
 
   return (
@@ -176,26 +210,24 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
           </button>
         </div>
         <div className="crowdfunding-donation__form">
-          <div className="crowdfunding-donation__input donation__sum">
-            <input
-              type={'number'}
-              placeholder={`Сума`}
-              onChange={handleInputChange}
-              value={form.sum}
-              name={'sum'}
-              required
-            />
-          </div>
-          <div className="crowdfunding-donation__input donation__name">
-            <input
-              type={'text'}
-              placeholder={`Ім'я`}
-              onChange={handleInputChange}
-              value={form.name}
-              name={'name'}
-            />
-            <label htmlFor="name">необов'язково</label>
-          </div>
+          <FormField
+            className="crowdfunding-donation__input donation__sum"
+            type={'number'}
+            placeholder={`Сума`}
+            onChange={handleInputChange}
+            value={form.sum}
+            id={'sum'}
+            required
+            invalid={!form.sum}
+          />
+          <FormField
+            className="crowdfunding-donation__input donation__name"
+            type={'text'}
+            placeholder={`Ім'я`}
+            onChange={handleInputChange}
+            value={form.name}
+            id={'name'}
+          />
           <div className="crowdfunding-donation__photo">
             <input
               type="file"
@@ -205,13 +237,13 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
             />
             <label htmlFor="photo">необов'язково</label>
           </div>
-          <button
-            className="crowdfunding-donation__donate"
-            disabled={!form.sum}
-            onClick={handleDonate}
-          >
-            підтримати
-          </button>
+          <FormSubmit
+            text={'Підтримати'}
+            handleSubmit={handleDonate}
+            isSending={isSending}
+            sent={sent}
+            formValid={!!form.sum}
+          />
         </div>
       </div>
     </div>

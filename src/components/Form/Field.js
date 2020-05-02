@@ -13,11 +13,12 @@ const FormField = ({
   className,
   id,
   placeholder,
-  cssClass = [],
+  cssClass,
   children,
   required,
   value = '',
   type = 'text',
+  invalid,
   onChange = () => {},
 }) => {
   const [touched, setTouched] = useState(false);
@@ -95,6 +96,7 @@ const FormField = ({
         'zm-form-field--focused': focus,
         'zm-form-field--touched': touched,
         'zm-form-field--filled': !!value,
+        'zm-form-field--invalid': invalid,
       })}
       htmlFor={id}
     >
