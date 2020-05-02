@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import getConfig from 'next/config';
+import { useRouter } from 'next/router';
 
 import Icons from '~/components/Icons';
+import Share from '~/components/Share';
 
-const CrowdfundingShare = ({ post, onClose = () => {} }) => {
-  const handleCopy = (event) => {
+const { publicRuntimeConfig } = getConfig();
+
+const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+
+const CrowdfundingShare = ({ onClose = () => {} }) => {
+  const { asPath } = useRouter();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
     const input = document.querySelector('.crowdfunding-share__link');
     input.select();
     document.execCommand('copy');
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
   };
+
   return (
     <div className="crowdfunding-share">
       <div className="crowdfunding-share__wrapper">
@@ -17,36 +34,18 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
             <Icons icon={'close-comment'} />
           </button>
         </div>
-        <div className="crowdfunding-share__socials">
-          <div className="crowdfunding-share__item crowdfunding-share__facebook">
-            <a href="https://facebook.com">
-              <Icons icon={'facebook'} />
-              <span>Facebook</span>
-            </a>
-          </div>
-          <div className="crowdfunding-share__item crowdfunding-share__instagram">
-            <a href="https://telegram.com">
-              <Icons icon={'telegram'} />
-              <span>Telegram</span>
-            </a>
-          </div>
-          <div className="crowdfunding-share__item crowdfunding-share__mail">
-            <a href="#">
-              <Icons icon={'email'} />
-              <span>Пошта</span>
-            </a>
-          </div>
-        </div>
-        <form className="crowdfunding-share__share">
+        <Share className="crowdfunding-share__socials" />
+        <div className="crowdfunding-share__share">
           <input
             className="crowdfunding-share__link"
-            value={'https://zmist.pl.ua/fsadsadk'}
+            value={`${frontUrl}${asPath}`}
             disabled
           />
-          <button className="crowdfunding-share__copy" onClick={handleCopy}>
-            Копіювати
+          <button disabled={copied} className="zm-button" onClick={handleCopy}>
+            {!copied && 'Копіювати'}
+            {copied && 'Скопійовано!'}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

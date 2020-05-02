@@ -18,7 +18,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const Share = ({ className = '', type = 'main-first' }) => {
+const Share = ({ className = '', type }) => {
   const { asPath } = useRouter();
 
   const [opened, setOpened] = useState(false);

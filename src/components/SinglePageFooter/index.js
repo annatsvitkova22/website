@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tags from '~/components/Tags';
-import ShareItems from '~/components/Share';
+import Share from '~/components/Share';
 import CommentButton from '~/components/Comment/Button';
-import Icons from '~/components/Icons';
+import LikeButton from '~/components/LikeButton';
 
 const NewsFooter = ({ post }) => {
   const { tags } = post;
@@ -14,10 +14,8 @@ const NewsFooter = ({ post }) => {
       <div className={'footer__comments'}>
         <CommentButton className={'col-3'} post={post} />
         <div className={'footer__comments-share'}>
-          <button className={'like'}>
-            <Icons icon={'likes'} />
-          </button>
-          <ShareItems className={'title__socials-items'} />
+          <LikeButton showNumber={false} post={post} />
+          <Share className={'title__socials-items'} />
         </div>
       </div>
     </section>
