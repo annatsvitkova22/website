@@ -41,12 +41,12 @@ const Content = ({ content, className = '' }) => {
   return (
     <>
       {content &&
-        content.map((block, index) => getContentType({ block, index }))}
+        content.map((block, index) => getContentType({ block, index, className }))}
     </>
   );
 };
 
-export const getContentType = ({ block, index }) => {
+export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreParagraphBlock') {
     return (
       <Paragraph

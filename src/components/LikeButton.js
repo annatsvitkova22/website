@@ -12,7 +12,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const LikeButton = ({ post, className }) => {
+const LikeButton = ({ post, className, showNumber = true }) => {
   let type = `${post.__typename.toLowerCase()}`;
   const id = post[`${type}Id`];
   type = `${type}s`;
@@ -56,7 +56,7 @@ const LikeButton = ({ post, className }) => {
       <button onClick={handleLike} className={classnames('like', className)}>
         <Icons icon={'likes'} />
       </button>
-      <span>{likes || '0'}</span>
+      {showNumber && <span>{likes || '0'}</span>}
     </>
   );
 };

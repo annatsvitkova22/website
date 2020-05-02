@@ -1,13 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
+import getConfig from 'next/config';
+import { useRouter } from 'next/router';
+import { useStateLink } from '@hookstate/core';
+import * as axios from 'axios';
 
 import Icons from '~/components/Icons';
+import Share from '~/components/Share';
+import { AuthStore } from '~/stores/Auth';
+import { updateShares } from '~/stores/SingleArticle';
+
+const { publicRuntimeConfig } = getConfig();
+
+const { frontUrl, apiUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const CrowdfundingShare = ({ post, onClose = () => {} }) => {
-  const handleCopy = (event) => {
+  const authStateLink = useStateLink(AuthStore);
+
+  let type = `${post.__typename.toLowerCase()}`;
+  const id = post[`${type}Id`];
+  type = `${type}s`;
+  if (type === 'opportunitys') {
+    type = 'opportunities';
+  }
+
+  const { asPath } = useRouter();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
     const input = document.querySelector('.crowdfunding-share__link');
     input.select();
     document.execCommand('copy');
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
+
+    await updateShared();
   };
+
+  const updateShared = async () => {
+    const { token } = authStateLink.get();
+
+    const conf = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const currentShares = await axios.get(
+      `${apiUrl}/wp-json/acf/v3/${type}/${id}/shared`,
+      conf
+    );
+    const updatedShares = await axios.post(
+      `${apiUrl}/wp-json/acf/v3/${type}/${id}/shared`,
+      {
+        fields: {
+          shared: currentShares.data.shared
+            ? parseInt(currentShares.data.shared) + 1
+            : 1,
+        },
+      },
+      conf
+    );
+    updateShares(updatedShares.data.shared);
+  }
+
   return (
     <div className="crowdfunding-share">
       <div className="crowdfunding-share__wrapper">
@@ -17,36 +76,18 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
             <Icons icon={'close-comment'} />
           </button>
         </div>
-        <div className="crowdfunding-share__socials">
-          <div className="crowdfunding-share__item crowdfunding-share__facebook">
-            <a href="https://facebook.com">
-              <Icons icon={'facebook'} />
-              <span>Facebook</span>
-            </a>
-          </div>
-          <div className="crowdfunding-share__item crowdfunding-share__instagram">
-            <a href="https://telegram.com">
-              <Icons icon={'telegram'} />
-              <span>Telegram</span>
-            </a>
-          </div>
-          <div className="crowdfunding-share__item crowdfunding-share__mail">
-            <a href="#">
-              <Icons icon={'email'} />
-              <span>Пошта</span>
-            </a>
-          </div>
-        </div>
-        <form className="crowdfunding-share__share">
+        <Share onShared={updateShared} className="crowdfunding-share__socials" />
+        <div className="crowdfunding-share__share">
           <input
             className="crowdfunding-share__link"
-            value={'https://zmist.pl.ua/fsadsadk'}
+            value={`${frontUrl}${asPath}`}
             disabled
           />
-          <button className="crowdfunding-share__copy" onClick={handleCopy}>
-            Копіювати
+          <button disabled={copied} className="zm-button" onClick={handleCopy}>
+            {!copied && 'Копіювати'}
+            {copied && 'Скопійовано!'}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
