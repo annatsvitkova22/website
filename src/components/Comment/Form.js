@@ -5,6 +5,8 @@ import gql from 'graphql-tag';
 import apolloClient from '~/lib/ApolloClient';
 import { updateComments } from '~/stores/SingleArticle';
 import { commentsQuery } from '~/lib/GraphQL/singleContentCommon';
+import FormField from '~/components/Form/Field';
+import FormSubmit from '~/components/Form/Submit';
 
 const UPDATED_POST = (id) => {
   return gql`
@@ -61,23 +63,33 @@ const CommentForm = ({
   label = 'Повідомлення',
   onSent = () => {},
 }) => {
-  const type = post.__typename.toLowerCase();
-
-  const id = post[`${type}Id`];
+  const [state, setState] = useState({
+    isSending: false,
+    sent: false,
+  });
   const [form, setForm] = useState({
     name: '',
     message: '',
   });
 
-  const handleInputChange = ({ target }) => {
-    const { name, value } = target;
+  const type = post.__typename.toLowerCase();
+
+  const id = post[`${type}Id`];
+
+  const { isSending, sent } = state;
+
+  const handleInputChange = ({ name, value }) => {
     setForm({
       ...form,
-      [name]: value,
+      [name.split('-')[0]]: value,
     });
   };
 
   const handleSubmitComment = async () => {
+    setState({
+      ...state,
+      isSending: true,
+    });
     const { name, message } = form;
     if (!name || !message) return;
     const content = comment
@@ -116,33 +128,49 @@ const CommentForm = ({
         updatedPost.data.contentNode.commentCount,
         updatedPost.data.contentNode.comments
       );
+      setState({
+        ...state,
+        isSending: false,
+        sent: true,
+      });
       onSent();
     }
   };
 
   return (
     <div className={classnames('comments-pp__post', className)}>
-      <input
+      <FormField
         className={'comments-pp__input pp__input-name'}
         type={'text'}
         placeholder={`Ім'я`}
         onChange={handleInputChange}
         value={form.name}
-        name={'name'}
-        autoFocus
+        id={`name-${Math.random()
+          .toString(36)
+          .substr(2, 9)}`}
         required
+        invalid={!form.name}
       />
-      <textarea
+      <FormField
         className={'comments-pp__input pp__input-message'}
+        type={'placeholder'}
         placeholder={'Ваш коментар'}
         onChange={handleInputChange}
         value={form.message}
-        name={'message'}
+        id={`message-${Math.random()
+          .toString(36)
+          .substr(2, 9)}`}
         required
+        invalid={!form.message}
       />
-      <button className={'comments-pp__btn'} onClick={handleSubmitComment}>
-        {label}
-      </button>
+      <FormSubmit
+        text={label}
+        handleSubmit={handleSubmitComment}
+        isSending={isSending}
+        sent={sent}
+        formValid={!!form.name && !!form.message}
+        className={'comments-pp__btn'}
+      />
     </div>
   );
 };

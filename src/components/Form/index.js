@@ -5,8 +5,6 @@ import axios from 'axios';
 import getConfig from 'next/config';
 import * as _ from 'lodash';
 
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
 import { AuthStore } from '~/stores/Auth';
 import FormField from '~/components/Form/Field';
 import FormLoader from '~/components/Loaders/FormLoader';
@@ -145,7 +143,7 @@ const Form = ({ id, className }) => {
         }
       )}
       <FormSubmit
-        text={'Надіслати'}
+        text={button.text}
         handleSubmit={handleSubmit}
         isSending={isSending}
         sent={sent}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as classnames from 'classnames';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import uk from 'date-fns/locale/uk';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 import Icon from '~/components/Icons';
 
