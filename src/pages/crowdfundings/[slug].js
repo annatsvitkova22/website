@@ -230,7 +230,7 @@ const Crowdfunding = (props) => {
                 )}
                 <CrowdfundingSupported
                   post={storedPost}
-                  className="crowdfunding-single__actions"
+                  className="crowdfunding-single__supported"
                 />
               </div>
               <Content
@@ -268,7 +268,7 @@ const Crowdfunding = (props) => {
                 )}
                 <CrowdfundingSupported
                   post={storedPost}
-                  className="crowdfunding-single__actions"
+                  className="crowdfunding-single__supported"
                 />
               </div>
             </StickyBox>

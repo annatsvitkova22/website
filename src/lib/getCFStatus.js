@@ -2,14 +2,13 @@ import * as moment from 'moment';
 
 const getCFStatus = (post) => {
   const {
-    date,
     cfACF: { expiration, tocollect, collected },
   } = post;
-  const started = moment(date);
+  const now = moment();
   const expiry = moment(expiration);
   const c = collected || 0;
   let status = null;
-  if (expiry.isAfter(started)) {
+  if (expiry.isAfter(now)) {
     if (tocollect <= c) {
       status = 'finished';
     }
