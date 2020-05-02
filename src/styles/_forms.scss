@@ -75,6 +75,19 @@ input {
 
     position: relative;
 
+    &:after {
+      content: '';
+
+      height: 1px;
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      background-color: $grey-200;
+    }
+
     &__placeholder {
       position: absolute;
       top: 4px;
@@ -86,6 +99,7 @@ input {
       color: #b0b0b0;
 
       transition: 0.3s all;
+      pointer-events: none;
     }
 
     &__required {
@@ -100,9 +114,10 @@ input {
       letter-spacing: 0.05em;
       color: #eb5757;
 
-      .zm-form__input,
-      .zm-form__textarea {
-        border-bottom: 2px solid #eb5757;
+      &:after {
+        height: 2px;
+
+        background-color: #eb5757;
       }
 
       .zm-form-field__placeholder {
@@ -122,9 +137,8 @@ input {
         color: #b0b0b0;
       }
 
-      .zm-form__input,
-      .zm-form__textarea {
-        border-bottom: 1px solid $grey-400;
+      &:after {
+        background-color: $grey-400;
       }
     }
   }
@@ -144,18 +158,15 @@ input {
     }
 
     &__input-container {
-      height: 29px;
+      height: 37px;
 
-      line-height: 29px;
+      line-height: 37px;
     }
   }
 
   &__textarea,
   &__input {
     padding: 2px 0 3px;
-
-    // TODO: move border to :before/:after
-    border-bottom: 1px solid $grey-200;
 
     color: $black;
     font-size: 16px;
