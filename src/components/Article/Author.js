@@ -9,8 +9,8 @@ const ArticleAuthor = ({ author: { slug, name }, className }) => {
   // how can we fix it?
   const postType = useContext(ArticleContext);
 
-  let href = '/search';
-  let as = '/search';
+  let href = `/search?by=author&q=${name}`;
+  let as = `/search?by=author&q=${name}`;
 
   if (postType === 'blogs' || postType === 'publications') {
     href = `/blogs/author/${slug}`;

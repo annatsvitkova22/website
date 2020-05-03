@@ -20,7 +20,7 @@ import {
   setFilter,
   setSearchQuery,
   setSorting,
-  setIsChanged,
+  setIsChanged, updateQuery,
 } from '~/stores/Search';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -239,6 +239,12 @@ const Search = ({ posts, categories, types, query, users }) => {
       setIsChanged(true);
     });
   }, []);
+
+  useEffect(() => {
+    if (loaded) {
+      updateQuery(query);
+    }
+  }, [query]);
 
   const { sorting, filters, isChanged } = stateLink.get();
 

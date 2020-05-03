@@ -112,7 +112,6 @@ export const CreateSearchStore = (
 ) => {
   const state = cloneDeep(initialState);
   if (users) {
-    console.log({users});
     state.users = users;
   }
   if (types) {
@@ -242,3 +241,52 @@ export const setSorting = (option) => {
   }
   SearchStore.set(newStore);
 };
+
+export const updateQuery = ({ q, by, type, category, period, sorting }) => {
+  const state = SearchStore.get();
+
+  if (q) {
+    state.filters.q = q;
+  }
+
+  if (by) {
+    state.filters.by.map((i) => {
+      const newValue = i;
+      newValue.active = newValue.value === by;
+      return newValue;
+    });
+  }
+
+  if (type) {
+    state.filters.types.map((i) => {
+      const newValue = i;
+      newValue.active = type === newValue.value;
+      return newValue;
+    });
+  }
+
+  if (category) {
+    state.filters.categories.map((i) => {
+      const newValue = i;
+      newValue.active = category === newValue.value;
+      return newValue;
+    });
+  }
+
+  if (period) {
+    state.filters.period.map((i) => {
+      const newValue = i;
+      newValue.active = period === newValue.value;
+      return newValue;
+    });
+  }
+
+  if (sorting) {
+    state.sorting.map((i) => {
+      const newValue = i;
+      newValue.active = newValue.value === sorting;
+      return newValue;
+    });
+  }
+  SearchStore.set(state);
+}
