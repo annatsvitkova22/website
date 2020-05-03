@@ -51,6 +51,7 @@ const NEWS = gql`
         title
         link
         date
+        slug
       }
       pageInfo {
         endCursor

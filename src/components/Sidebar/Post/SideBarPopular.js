@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
 
@@ -12,12 +13,14 @@ const SideBarPopular = ({ news }) => {
       {news.nodes.slice(5).map((item, i) => {
         return (
           <li key={i} className={'sidebar-popular__item'}>
-            <a href={item.link}>
-              <div className={'sidebar-popular__wrapper'}>
-                <span className={'sidebar-popular__text'}>{item.title}</span>
-                <span className="sidebar-popular__image" />
-              </div>
-            </a>
+            <Link href={`/news/[slug]`} as={`/news/${item.slug}`}>
+              <a href={`/news/${item.slug}`}>
+                <div className={'sidebar-popular__wrapper'}>
+                  <span className={'sidebar-popular__text'}>{item.title}</span>
+                  <span className="sidebar-popular__image" />
+                </div>
+              </a>
+            </Link>
           </li>
         );
       })}
