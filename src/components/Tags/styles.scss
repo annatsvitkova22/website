@@ -22,6 +22,21 @@
   color: $green;
 }
 
+.tag-item {
+  padding: 5px 10px;
+  margin-bottom: 10px;
+
+  background-color: rgba(29, 158, 116, 0.08);
+
+  font-family: $font-family-alt;
+  color: $green;
+  font-size: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+
+  list-style: none;
+}
+
 .category > li {
   background-color: $green;
 

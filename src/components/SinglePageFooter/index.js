@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tags from '~/components/Tags';
 import Share from '~/components/Share';
 import CommentButton from '~/components/Comment/Button';
 import LikeButton from '~/components/LikeButton';
+import ArticleTaxonomies from '~/components/Article/Taxonomies';
 
 const NewsFooter = ({ post }) => {
   const { tags } = post;
   return (
     <section className={'single-post__footer'}>
-      <Tags list={tags.nodes} className={'tag'} />
+      <ArticleTaxonomies tags={tags} className={'tag-item'} />
       <div className={'footer__comments'}>
         <CommentButton className={'col-3'} post={post} />
         <div className={'footer__comments-share'}>

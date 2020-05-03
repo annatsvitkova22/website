@@ -14,8 +14,8 @@ const ArticleTaxonomies = ({
   return (
     <ul
       className={classnames('meta-taxonomy', {
-        'meta-taxonomy--categories': categories.length !== 0,
-        'meta-taxonomy--tags': tags.length !== 0,
+        'meta-taxonomy--categories': categories.nodes.length !== 0,
+        'meta-taxonomy--tags': tags.nodes.length !== 0,
       })}
     >
       {taxonomies.map((taxonomy) => {
@@ -24,7 +24,11 @@ const ArticleTaxonomies = ({
           <li className="meta-taxonomy__item" key={taxonomy.slug}>
             <NavLink
               className={classnames('meta-taxonomy__link', className)}
-              href={`/${type}/${taxonomy.slug.toLowerCase()}`}
+              href={`/${type}/${
+                type === 'category'
+                  ? taxonomy.slug.toLowerCase()
+                  : taxonomy.name
+              }`}
             >
               {taxonomy.name}
             </NavLink>
