@@ -96,6 +96,7 @@ export const initialState = {
     ],
   },
   isChanged: false,
+  users: [],
 };
 export const SearchStore = createStateLink(initialState);
 
@@ -107,9 +108,13 @@ export const setIsChanged = (st = false) => {
 
 export const CreateSearchStore = (
   loaded,
-  { types, categories, q, by, type, category, period, sorting } = {}
+  { types, categories, q, by, type, category, period, sorting, users } = {}
 ) => {
   const state = cloneDeep(initialState);
+  if (users) {
+    console.log({users});
+    state.users = users;
+  }
   if (types) {
     const typeLabels = {
       news: 'Новини',

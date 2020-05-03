@@ -6,6 +6,7 @@ import { useStateLink } from '@hookstate/core';
 import * as classnames from 'classnames';
 import { Waypoint } from 'react-waypoint';
 import { Router } from 'next/router';
+import stringSimilarity from 'string-similarity';
 
 import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
@@ -86,10 +87,17 @@ const allPostTypes = `nodes {
     }`;
 
 const innerQuery = ({ type, category, q, period, sorting, tag, author }) => {
+  let authorId;
+  if (author) {
+    const { users } = SearchStore.get();
+    const userNames = users.map((u) => u.name);
+    const bestMatch = stringSimilarity.findBestMatch(q, userNames);
+    authorId = users[bestMatch.bestMatchIndex].userId;
+  }
   return `${type === 'news' ? `posts` : type}(
         where: {
           ${q && !tag && !author ? `search: "${q}"` : ``}
-          ${author ? `authorName: "${q}"` : ``}
+          ${author ? `author: ${authorId}` : ``}
           ${
             category || tag
               ? `taxQuery: {
@@ -201,13 +209,28 @@ const QUANTITIES = gql`
   }
 `;
 
-const Search = ({ posts, categories, types, query }) => {
+const USERS = gql`
+  query Users {
+    users {
+      nodes {
+        name
+        id
+        firstName
+        userId
+        nickname
+        nicename
+      }
+    }
+  }
+`;
+
+const Search = ({ posts, categories, types, query, users }) => {
   const [loaded, setLoaded] = useState(false);
   const [searchString, setSearchString] = useState(query.q);
   const stateLink = useStateLink(
     loaded
       ? SearchStore
-      : CreateSearchStore(loaded, { types, categories, ...query })
+      : CreateSearchStore(loaded, { types, categories, users, ...query })
   );
   useEffect(() => {
     setLoaded(true);
@@ -573,9 +596,18 @@ Search.getInitialProps = async ({ query }) => {
     query: QUANTITIES,
   });
 
+  const allUsers = await apolloClient.query({
+    query: USERS,
+  });
+
+  const searchStore = SearchStore.get();
+  searchStore.users = allUsers.data.users.nodes;
+  SearchStore.set(searchStore);
+
   if (process.browser) {
     return {
       query,
+      users: allUsers.data.users.nodes,
       types: responseQuant.data,
       categories: responseQuant.data.categories.nodes,
     };
@@ -594,6 +626,7 @@ Search.getInitialProps = async ({ query }) => {
   return {
     posts,
     query,
+    users: allUsers.data.users.nodes,
     types: responseQuant.data,
     categories: responseQuant.data.categories.nodes,
   };
