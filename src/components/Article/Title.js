@@ -50,6 +50,18 @@ const ArticleTitle = ({
     };
   }, []);
 
+  if (postType === 'pages') {
+    return (
+      <h2 className={classnames('article-title', className)}>
+        <Link href={`/[uri]`} as={`/${slug}`}>
+          <a className="article-title__link" href={`/${slug}`}>
+            {displayTitle}
+          </a>
+        </Link>
+      </h2>
+    );
+  }
+
   return (
     <h2 className={classnames('article-title', className)}>
       <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>

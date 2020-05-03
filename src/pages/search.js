@@ -76,11 +76,14 @@ const allPostTypes = `nodes {
       ... on Video {
         ${sharedNodes}
       }
-        }
-        pageInfo {
-          endCursor
-          total
-        }`;
+      ... on Page {
+        ${sharedNodes}
+      }
+    }
+    pageInfo {
+      endCursor
+      total
+    }`;
 
 const innerQuery = ({ type, category, q, period, sorting, tag, author }) => {
   return `${type === 'news' ? `posts` : type}(
