@@ -88,40 +88,43 @@ const Blog = (props) => {
     posts: undefined,
     loading: false,
   });
+  const [loaded, setLoaded] = useState(false);
+
+  // TODO: add loader when navigate between blogs
 
   const { post, isLoading } = state;
   const { news, blogs } = additionalInfo;
 
+  const loadData = async () => {
+    setState({
+      ...state,
+      isLoading: true,
+    });
+
+    const postResponse = await apolloClient.query({
+      query: BLOG,
+      variables: {
+        slug: props.slug,
+      },
+    });
+
+    setState({
+      ...state,
+      post: postResponse.data.blogBy,
+      isLoading: false,
+    });
+  }
+
+  useEffect(() => {
+    if (loaded && post && props.slug) {
+      loadData();
+    }
+  }, [props.slug]),
+
   moment.locale('uk');
 
   useEffect(() => {
-    async function loadData() {
-      if (!isLoading) {
-        setState({
-          ...state,
-          isLoading: true,
-        });
-      }
-
-      const postResponse = await apolloClient.query({
-        query: BLOG,
-        variables: {
-          slug: props.slug,
-        },
-      });
-
-      setState({
-        ...state,
-        post: postResponse.data.blogBy,
-        isLoading: false,
-      });
-    }
-
     if (props.slug && !post) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
       loadData();
     }
 
@@ -146,6 +149,7 @@ const Blog = (props) => {
     if (!news && !blogs) {
       loadAdditionalInfo();
     }
+    setLoaded(true);
   }, []);
 
   const loadSimilarPosts = async () => {
@@ -233,6 +237,7 @@ Blog.getInitialProps = async ({ query: { slug } }) => {
     variables: { slug },
   });
   return {
+    slug,
     post: post.data.blogBy,
   };
 };
