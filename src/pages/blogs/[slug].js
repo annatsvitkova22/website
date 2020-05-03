@@ -31,9 +31,11 @@ const SIMILAR = gql`
           nickname
           username
           name
+          slug
         }
         id
         title
+        slug
         featuredImage {
           link
           mediaItemUrl
@@ -63,8 +65,10 @@ const BLOGS = gql`
       nodes {
         link
         title
+        slug
         author {
           name
+          slug
         }
       }
     }
