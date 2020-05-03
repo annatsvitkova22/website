@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SiteLink from '~/components/SiteLink';
 
 const Button = ({ block }) => {
   const style = {
@@ -9,13 +10,13 @@ const Button = ({ block }) => {
     borderRadius: block.attributes.borderRadius,
   };
   return (
-    <a
+    <SiteLink
       href={block.attributes.url}
       style={style}
-      className={block.attributes.className}
+      className={`zm-button ${block.attributes.className}`}
     >
       {block.attributes.text}
-    </a>
+    </SiteLink>
   );
 };
 

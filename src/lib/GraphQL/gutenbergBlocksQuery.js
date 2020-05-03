@@ -200,6 +200,30 @@ const content = `... on CoreHeadingBlock {
         }
       ... on CoreButtonsBlock {
           saveContent
+          innerBlocks {
+            name
+            ... on CoreButtonBlock {
+              parentId
+              attributes {
+                align
+                backgroundColor
+                borderRadius
+                className
+                color
+                customBackgroundColor
+                customTextColor
+                customGradient
+                gradient
+                linkTarget
+                placeholder
+                rel
+                text
+                textColor
+                title
+                url
+              }
+            }
+          }
         }
       ... on CorePullquoteBlock {
             parentId

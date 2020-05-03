@@ -57,6 +57,8 @@ const NavLink = ({ children, href, ...otherProps }) => {
       );
     }
 
+    // TODO: make sure we're not refreshing page on single post navigation
+
     return (
       <Link href={tempHref}>
         <a {...otherProps}>{children}</a>
