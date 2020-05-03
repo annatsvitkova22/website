@@ -5,14 +5,12 @@ import * as classnames from 'classnames';
 import ArticleContext from '~/components/Article/Context';
 
 const ArticleAuthor = ({ author: { slug, name }, className }) => {
-  // TODO: nicename is required it not available in poblic query
-  // how can we fix it?
   const postType = useContext(ArticleContext);
 
   let href = `/search?by=author&q=${name}`;
   let as = `/search?by=author&q=${name}`;
 
-  if (postType === 'blogs' || postType === 'publications') {
+  if (postType === 'blogs') {
     href = `/blogs/author/${slug}`;
     as = '/blogs/author/[slug]';
   }

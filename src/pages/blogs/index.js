@@ -25,6 +25,7 @@ const BLOGGERS = gql`
     ) {
       nodes {
         name
+        slug
         description
         stats: blogs(first: 9999) {
           pageInfo {
@@ -124,6 +125,7 @@ const ALL_BLOGS = gql`
           nicename
           nickname
           username
+          slug
         }
         commentCount
         comments {
@@ -225,7 +227,7 @@ const BlogsArchive = ({ users }) => {
             {mainState.users.nodes.map((row, index) => {
               return (
                 <React.Fragment key={index}>
-                  <BloggerRow inRow={3} {...row} />
+                  <BloggerRow withLinks inRow={3} {...row} />
                   {Math.round(mainState.users.nodes.length / 2) - 1 ===
                     index && (
                     <>
