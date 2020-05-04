@@ -21,6 +21,7 @@ export const commentsQuery = `commentCount
 const singleContentCommon = `${gutenbergBlocksQuery}
       title
       date
+      excerpt
       categories {
         nodes {
           id

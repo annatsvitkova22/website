@@ -58,6 +58,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     );
   }
 
+  console.log(storedPost);
   return (
     <>
       <Head>
@@ -71,15 +72,17 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
         {storedPost ? (
           <>
             <div className={'single-post__title row'}>
-              <div className={'single-post__wrapper col-xl-9 col-12'}>
+              <div
+                className={'single-post__wrapper col-xl-9 col-12 no-gutters'}
+              >
                 <NewsHead post={storedPost} />
                 <FeaturedImage data={storedPost.featuredImage} />
                 <section className={'single-post__main col-12'}>
                   {hasShare && (
                     <StickyBox
-                      offsetTop={70}
+                      offsetTop={272}
                       offsetBottom={20}
-                      className={'side-bar__wrapper col-xl-1'}
+                      className={'side-bar__wrapper'}
                     >
                       <ActionsSidebar post={storedPost} />
                     </StickyBox>

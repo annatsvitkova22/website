@@ -1,26 +1,56 @@
+.side-bar__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+
+  height: 200px;
+}
+
 .single-post {
   padding-top: 118px;
   &__title {
     display: flex;
     &-wrapper {
       margin-left: auto;
+      margin-bottom: 40px;
+      max-width: 872px;
 
       .meta-taxonomy {
         margin-bottom: 8px;
       }
     }
-    &-title {
-      display: flex;
-      flex-direction: column;
+    h1 {
+      margin-bottom: 0;
+
+      font-size: 36px;
+      line-height: 46px;
+
+      text-transform: capitalize;
     }
   }
   &__main {
     display: flex;
   }
+
+  .title__description {
+    max-width: 648px;
+    margin-bottom: 30px;
+
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 29px;
+    letter-spacing: 0.03em;
+    & > p {
+      margin-bottom: 0;
+    }
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    max-width: 648px;
 
     margin: 0 auto;
   }
@@ -39,24 +69,57 @@
       margin-bottom: 22px;
     }
   }
-}
-.title__description {
-  max-width: 648px;
 
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 29px;
-  letter-spacing: 0.03em;
-  & > p {
-    margin-bottom: 37px;
+  aside.share {
+    margin-right: 20px;
+  }
+
+  .feature__image {
+    max-width: 872px;
+
+    margin-bottom: 40px;
+    &-caption {
+      padding-bottom: 0;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .side-bar__wrapper {
+    max-width: 112px;
+    width: 100%;
+  }
+  .react-share__ShareButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .social-icon {
+    display: flex;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+  }
+  .facebook svg {
+    max-width: 12px;
+    height: 100%;
+  }
+  .telegram svg {
+    height: auto;
+    max-width: 17.5px;
+  }
+  .share.social-icon svg {
+    max-width: 20.5px;
   }
 }
+
 .title__socials {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding-bottom: 48px;
+  padding-bottom: 40px;
   max-width: 648px;
   width: 100%;
   &-about {
@@ -70,7 +133,6 @@
     padding: 0;
 
     border: none;
-
   }
   &-author {
     display: flex;
@@ -133,6 +195,7 @@
   &-author {
     padding-right: 2px;
 
+    font-family: $font-family-paragraph;
     font-size: 11px;
     line-height: 16px;
     letter-spacing: 0.02em;
@@ -151,12 +214,6 @@
 
 .svg-icon:hover {
   color: #1d9e74;
-}
-.side-bar__wrapper {
-  display: flex;
-  justify-content: center;
-
-  height: 200px;
 }
 
 @media screen and (max-width: 1200px) {

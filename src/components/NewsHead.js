@@ -15,7 +15,7 @@ const NewsHead = (props) => {
   }, []);
 
   return (
-    <section className={'single-post__title-wrapper col-xl-11'}>
+    <section className={'single-post__title-wrapper'}>
       {!isLoad ? (
         <PostHeaderLoader />
       ) : (
