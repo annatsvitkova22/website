@@ -43,21 +43,28 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
 
   if (!storedPost) {
     return (
-      <div className="single-post container">
-        <div className={'single-post__title row'}>
-          <div
-            className={classnames('single-post__wrapper', {
-              'col-xl-9': sidebar,
-              'col-12': !sidebar,
-            })}
-          >
-            <div className="single-post__title-wrapper col-xl-11">
-              <PostHeaderLoader type={type} />
+      <>
+        {type === 'publications' && <PublicationSingleLoader />}
+        {type !== 'publications' && (
+          <div className="single-post container">
+            <div className={'single-post__title row'}>
+              <>
+                <div
+                  className={classnames('single-post__wrapper', {
+                    'col-xl-9': sidebar,
+                    'col-12': !sidebar,
+                  })}
+                >
+                  <div className="single-post__title-wrapper col-xl-11">
+                    <PostHeaderLoader type={type} />
+                  </div>
+                </div>
+                {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
+              </>
             </div>
           </div>
-          {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
-        </div>
-      </div>
+        )}
+      </>
     );
   }
 
