@@ -4,19 +4,20 @@ import ContentLoader from 'react-content-loader';
 const PostHeaderLoader = ({ type }) => {
   if (type === 'news') {
     return (
-      <div className={'container'}>
-        <ContentLoader viewBox={'0 0 1044 700'}>
-          <rect x={'0'} y={'0'} width={'60'} height={'15'} />
-          <rect x={'0'} y={'20'} width={'875'} height={'15'} />
-          <rect x={'0'} y={'40'} width={'830'} height={'15'} />
-          <rect x={'0'} y={'60'} width={'750'} height={'15'} />
-          <rect x={'0'} y={'100'} width={'820'} height={'10'} />
-          <rect x={'0'} y={'115'} width={'875'} height={'10'} />
-          <rect x={'0'} y={'130'} width={'800'} height={'10'} />
-          <rect x={'0'} y={'145'} width={'875'} height={'20'} />
-          <rect x={'0'} y={'190'} width={'1044'} height={'535'} />
-        </ContentLoader>
-      </div>
+      <ContentLoader viewBox={'0 0 872 1300'}>
+        <rect x={'0'} y={'0'} width={'85'} height={'22'} />
+
+        <rect x={'0'} y={'40'} width={'750'} height={'34'} />
+        <rect x={'0'} y={'83'} width={'850'} height={'34'} />
+        <rect x={'0'} y={'126'} width={'650'} height={'34'} />
+
+        <rect x={'0'} y={'200'} width={'872'} height={'510'} />
+
+        <rect x={'112'} y={'750'} width={'648'} height={'44'} />
+
+        <rect x={'112'} y={'834'} width={'648'} height={'116'} />
+        <rect x={'112'} y={'950'} width={'648'} height={'270'} />
+      </ContentLoader>
     );
   }
 
@@ -38,19 +39,20 @@ const PostHeaderLoader = ({ type }) => {
   }
   if (type === 'blog') {
     return (
-      <div className={'container'}>
-        <ContentLoader viewBox={'0 0 1044 700'}>
-          <rect x={'0'} y={'0'} width={'60'} height={'15'} />
-          <rect x={'0'} y={'20'} width={'875'} height={'15'} />
-          <rect x={'0'} y={'40'} width={'750'} height={'15'} />
-          <rect x={'0'} y={'60'} width={'830'} height={'15'} />
-          <rect x={'0'} y={'100'} width={'830'} height={'10'} />
-          <rect x={'0'} y={'115'} width={'875'} height={'10'} />
-          <rect x={'0'} y={'130'} width={'750'} height={'10'} />
-          <rect x={'0'} y={'160'} width={'875'} height={'20'} />
-          <rect x={'0'} y={'200'} width={'1044'} height={'535'} />
-        </ContentLoader>
-      </div>
+      <ContentLoader viewBox={'0 0 872 1300'}>
+        <rect x={'0'} y={'0'} width={'85'} height={'22'} />
+
+        <rect x={'0'} y={'40'} width={'750'} height={'34'} />
+        <rect x={'0'} y={'83'} width={'850'} height={'34'} />
+        <rect x={'0'} y={'126'} width={'650'} height={'34'} />
+
+        <rect x={'0'} y={'200'} width={'872'} height={'510'} />
+
+        <rect x={'112'} y={'750'} width={'648'} height={'44'} />
+
+        <rect x={'112'} y={'834'} width={'648'} height={'116'} />
+        <rect x={'112'} y={'950'} width={'648'} height={'270'} />
+      </ContentLoader>
     );
   }
   if (type === 'crowdfunding') {
