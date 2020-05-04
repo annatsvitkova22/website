@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
-import { useRouter } from 'next/router';
 
 import NavLink from './SiteLink';
 
 const Navigation = (props) => {
   const { navigationData, className = '' } = props;
-
-  const router = useRouter();
-  console.log(router);
 
   const naviData = navigationData.nodes.filter((item) => {
     return item.name === 'Головне';
