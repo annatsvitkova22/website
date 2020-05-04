@@ -21,8 +21,6 @@ const Navigation = (props) => {
     return item.name === 'Головне';
   });
 
-  console.log(naviData[0].menuItems.nodes);
-
   return (
     <nav className={`${className}`}>
       <ul className="navigation__list">
