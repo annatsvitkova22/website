@@ -9,28 +9,16 @@ import Header from '~/components/Header';
 import Footer from '~/components/Footer';
 import apolloClient from '~/lib/ApolloClient';
 import '../styles/app.scss';
-import { updateToken } from '~/stores/Auth';
+import { AuthStore, updateToken } from '~/stores/Auth';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const ZmistApp = ({ Component, pageProps }) => {
+const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
   useEffect(() => {
-    const { apiUrl, apiUser, apiPass } = config;
-    axios
-      .post(`${apiUrl}/wp-json/jwt-auth/v1/token`, {
-        username: apiUser,
-        password: apiPass,
-      })
-      .then((res) => {
-        const { data } = res;
-        if (data && data.token) {
-          updateToken(data.token);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (zmistAdditional && zmistAdditional.token) {
+      updateToken(zmistAdditional.token);
+    }
   }, []);
 
   return (
@@ -53,10 +41,22 @@ ZmistApp.propTypes = {
 // perform automatic static optimization, causing every page in your app to
 // be server-side rendered.
 ZmistApp.getInitialProps = async (appContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
+  const authStore = AuthStore.get();
+  const zmistAdditional = {};
+  if (!authStore || !authStore.token) {
+    const { apiUrl, apiUser, apiPass } = config;
+    const { data } = await axios.post(`${apiUrl}/wp-json/jwt-auth/v1/token`, {
+      username: apiUser,
+      password: apiPass,
+    });
+    if (data && data.token) {
+      zmistAdditional.token = data.token;
+    }
+  }
+
   const appProps = await App.getInitialProps(appContext);
 
-  return { ...appProps };
+  return { ...appProps, zmistAdditional };
 };
 
 export default ZmistApp;

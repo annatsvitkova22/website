@@ -20,6 +20,7 @@
     "@zeit/next-sass": "^1.0.1",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
+    "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.16",
     "axios": "^0.19.2",
     "blueimp-md5": "^2.13.0",
@@ -56,6 +57,7 @@
     "react-sticky-box": "^0.9.3",
     "react-tiny-popover": "^4.0.0",
     "react-waypoint": "^9.0.2",
+    "string-similarity": "^4.0.1",
     "stylelint-webpack-plugin": "^1.2.3"
   },
   "devDependencies": {

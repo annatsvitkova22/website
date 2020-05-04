@@ -31,9 +31,11 @@ const SIMILAR = gql`
           nickname
           username
           name
+          slug
         }
         id
         title
+        slug
         featuredImage {
           link
           mediaItemUrl
@@ -49,6 +51,7 @@ const NEWS = gql`
         title
         link
         date
+        slug
       }
       pageInfo {
         endCursor
@@ -63,6 +66,7 @@ const BLOGS = gql`
       nodes {
         link
         title
+        slug
         author {
           name
         }
@@ -82,40 +86,43 @@ const Post = (props) => {
     posts: undefined,
     loading: false,
   });
+  const [loaded, setLoaded] = useState(false);
+
+  // TODO: add loader when navigate between news
 
   const { post, isLoading } = state;
   const { news, blogs } = additionalInfo;
 
   moment.locale('uk');
 
+  const loadData = async () => {
+    setState({
+      ...state,
+      isLoading: true,
+    });
+
+    const postResponse = await apolloClient.query({
+      query: POST,
+      variables: {
+        slug: props.slug,
+      },
+    });
+
+    setState({
+      ...state,
+      post: postResponse.data.postBy,
+      isLoading: false,
+    });
+  }
+
   useEffect(() => {
-    async function loadData() {
-      if (!isLoading) {
-        setState({
-          ...state,
-          isLoading: true,
-        });
-      }
-
-      const postResponse = await apolloClient.query({
-        query: POST,
-        variables: {
-          slug: props.slug,
-        },
-      });
-
-      setState({
-        ...state,
-        post: postResponse.data.postBy,
-        isLoading: false,
-      });
+    if (loaded && post && props.slug) {
+      loadData();
     }
+  }, [props.slug]),
 
+  useEffect(() => {
     if (props.slug && !post) {
-      setState({
-        ...state,
-        isLoading: true,
-      });
       loadData();
     }
 
@@ -140,6 +147,8 @@ const Post = (props) => {
     if (!news && !blogs) {
       loadAdditionalInfo();
     }
+
+    setLoaded(true);
   }, []);
 
   const loadSimilarPosts = async () => {
@@ -228,6 +237,7 @@ Post.getInitialProps = async ({ query: { slug } }) => {
   });
 
   return {
+    slug,
     post: post.data.postBy,
   };
 };

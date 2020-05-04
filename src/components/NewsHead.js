@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Tags from '~/components/Tags';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
+import ArticleTaxonomies from '~/components/Article/Taxonomies';
 
 const NewsHead = (props) => {
   const { post } = props;
@@ -19,7 +20,10 @@ const NewsHead = (props) => {
         <PostHeaderLoader />
       ) : (
         <>
-          <Tags list={post.categories.nodes} className={'category'} />
+          <ArticleTaxonomies
+            categories={post.categories}
+            className={'category-label'}
+          />
           <h1 className={'title__title'}>{post.title}</h1>
         </>
       )}

@@ -26,6 +26,7 @@ const singleContentCommon = `${gutenbergBlocksQuery}
           id
           name
           link
+          slug
         }
       }
       tags {

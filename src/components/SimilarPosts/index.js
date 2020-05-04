@@ -4,9 +4,10 @@ import Link from 'next/link';
 
 import ArticleFeatured from '~/components/Article/Featured';
 import ArticleAuthor from '~/components/Article/Author';
+import { ArticleProvider } from '~/components/Article/Context';
+import ArticleTitle from '~/components/Article/Title';
 
 const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
-
   return (
     <div className={'similar-posts'}>
       <div className="similar-posts__wrapper">
@@ -23,20 +24,33 @@ const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
         <div className={'similar-posts__items'}>
           {similarPosts &&
             similarPosts.map((item) => {
+              let typeName = `${item.__typename.toLowerCase()}s`;
+              if (typeName === 'posts') {
+                typeName = 'news';
+              }
+              if (typeName === 'opportunitys') {
+                typeName = 'opportunities';
+              }
               return (
-                <div key={item.id} className={'similar-posts__item'}>
-                  <ArticleFeatured
-                    image={item.featuredImage}
-                    className={'similar-posts__image'}
-                  />
-                  <div className={'similar-posts__about'}>
-                    <div className={'similar-posts__title'}>{item.title}</div>
-                    <ArticleAuthor
-                      author={item.author}
-                      className={'similar-posts__author meta-author--black'}
+                <ArticleProvider key={item.id} value={typeName}>
+                  <div className={'similar-posts__item'}>
+                    <ArticleFeatured
+                      slug={item.slug}
+                      image={item.featuredImage}
+                      className={'similar-posts__image'}
                     />
+                    <div className={'similar-posts__about'}>
+                      <ArticleTitle
+                        className={'similar-posts__title'}
+                        post={item}
+                      />
+                      <ArticleAuthor
+                        author={item.author}
+                        className={'similar-posts__author meta-author--black'}
+                      />
+                    </div>
                   </div>
-                </div>
+                </ArticleProvider>
               );
             })}
         </div>

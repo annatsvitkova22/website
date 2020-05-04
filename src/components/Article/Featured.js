@@ -12,6 +12,31 @@ const ArticleFeatured = ({ image, alt = '', slug, className, modif }) => {
   } else if (image) {
     imageUrl = image.mediaItemUrl;
   }
+
+  if (postType === 'pages') {
+    return (
+      <div className={classnames('article-featured', className)}>
+        <Link href={`/[uri]`} as={`/${slug}`}>
+          <a
+            className={`article-featured__link ${
+              modif ? `article-featured__link--${modif}` : ''
+            }`}
+            href={`/${slug}`}
+          >
+            <figure
+              className={`article-featured__image
+              ${modif ? `article-featured__image--${modif}` : ''}
+              ${!imageUrl ? `article-featured__image--empty` : ''}
+            `}
+            >
+              {imageUrl && <img src={imageUrl} alt={alt} />}
+            </figure>
+          </a>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className={classnames('article-featured', className)}>
       <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>

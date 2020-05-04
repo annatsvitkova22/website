@@ -1,15 +1,22 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import Link from 'next/link';
 
 import Avatar from '~/components/Avatar';
-import Socials from '~/components/Footer/Socials';
 import BloggerBio from '~/components/Blogger/Bio';
 import Icons from '~/components/Icons';
 import { MapIcons } from '~/components/Sidebar/Events/MapComponent';
 
-const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
+const Blogger = ({
+  className,
+  avatarSize = 'small',
+  withLinks,
+  showBio,
+  ...blogger
+}) => {
   const {
     name,
+    slug,
     description,
     bloggerInfoACF: { avatar, info, socials },
     stats,
@@ -30,17 +37,40 @@ const Blogger = ({ className, avatarSize = 'small', showBio, ...blogger }) => {
   );
   return (
     <div className={classnames('blogger', className)}>
-      <Avatar
-        className={classnames(
-          'blogger__avatar',
-          `blogger__avatar--${avatarSize}`
-        )}
-        avatar={avatar}
-        alt={name}
-      />
+      {withLinks && (
+        <Link href={`/blogs/author/[slug]`} as={`/blogs/author/${slug}`}>
+          <a rel="author" href={`/blogs/author/${slug}`}>
+            <Avatar
+              className={classnames(
+                'blogger__avatar',
+                `blogger__avatar--${avatarSize}`
+              )}
+              avatar={avatar}
+              alt={name}
+            />
+          </a>
+        </Link>
+      )}
+      {!withLinks && (
+        <Avatar
+          className={classnames(
+            'blogger__avatar',
+            `blogger__avatar--${avatarSize}`
+          )}
+          avatar={avatar}
+          alt={name}
+        />
+      )}
       <div className="blogger__wrapper">
         <div className="blogger__about">
-          <h4 className="blogger__name">{name}</h4>
+          {withLinks && (
+            <Link href={`/blogs/author/[slug]`} as={`/blogs/author/${slug}`}>
+              <a rel="author" href={`/blogs/author/${slug}`}>
+                <h4 className="blogger__name">{name}</h4>
+              </a>
+            </Link>
+          )}
+          {!withLinks && <h4 className="blogger__name">{name}</h4>}
           {info && <div className="blogger__info">{info}</div>}
         </div>
         <ul className="blogger__stats">

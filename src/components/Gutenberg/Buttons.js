@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '~/components/Gutenberg/Button';
 
 const Buttons = ({ block, className = '' }) => {
   return (
-    <div
-      className={`${className} gutenberg__button`}
-      dangerouslySetInnerHTML={{ __html: block.saveContent }}
-    />
+    <div className={`${className} gutenberg__buttons`}>
+      {block.innerBlocks.map((button) => (
+        <Button block={button} />
+      ))}
+    </div>
   );
 };
 
