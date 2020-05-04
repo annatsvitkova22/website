@@ -5,25 +5,26 @@ import Taxonomies from '~/components/Article/Taxonomies';
 import Author from '~/components/Article/Author';
 import Featured from '~/components/Article/Featured';
 
-const HeroScene = ({ publications }) => {
+const HeroScene = ({ posts, publications }) => {
   const heroPubRef = useRef(null);
   const heroListRef = useRef(null);
 
   const onScroll = () => {
-    const height = heroPubRef.current.clientHeight;
-    heroListRef.current.style.height = `${height}px`;
+    const listHeight = heroListRef.current.clientHeight;
 
-    const heroPubPart =
-      -(heroPubRef.current.getBoundingClientRect().top / height) * 100;
-    if (heroPubPart > 0 && heroPubPart < 100) {
-      heroListRef.current.scrollTop =
-        (heroPubPart * heroListRef.current.clientHeight) / 100;
+    const heroListPart =
+      -((heroListRef.current.getBoundingClientRect().top - 100) / listHeight) *
+      100;
+    console.log(heroListPart);
+    if (heroListPart > 0 && heroListPart < 100) {
+      heroPubRef.current.scrollTop =
+        (heroListPart * heroPubRef.current.clientHeight) / 100;
     }
-    if (heroPubPart < 0) {
-      heroListRef.current.scrollTop = 0;
+    if (heroListPart === 0) {
+      heroPubRef.current.scrollTop = 0;
     }
-    if (heroPubPart > 100) {
-      heroListRef.current.scrollTop = heroListRef.current.clientHeight;
+    if (heroListPart > 100) {
+      heroPubRef.current.scrollTop = heroListRef.current.clientHeight;
     }
   };
 
@@ -88,10 +89,12 @@ const HeroScene = ({ publications }) => {
                         />
                         <h6>
                           <Link href={`publications/${slug}`}>
-                            <a className="hero-pub__title">{title}</a>
+                            <a className="hero-pub__title font-weight-semibold">
+                              {title}
+                            </a>
                           </Link>
                         </h6>
-                        <div className="article__meta">
+                        <div className="article__meta tx-grey">
                           <Author className="article__author" author={author} />
                         </div>
                       </div>
@@ -101,14 +104,14 @@ const HeroScene = ({ publications }) => {
             </div>
             <div className="col-7">
               <ul ref={heroListRef} className="hero-list list-reset">
-                {publications.nodes
-                  .concat(publications.nodes)
-                  .concat(publications.nodes)
-                  .concat(publications.nodes)
+                {posts.nodes
+                  .concat(posts.nodes)
+                  .concat(posts.nodes)
+                  .concat(posts.nodes)
                   .map(({ title, slug }, i) => (
                     <li key={i} className="hero-list__item">
                       <h6 className="tx-tiny font-weight-medium">
-                        <Link href={`publications/${title}`}>
+                        <Link href={`post/${title}`}>
                           <a>{title}</a>
                         </Link>
                       </h6>

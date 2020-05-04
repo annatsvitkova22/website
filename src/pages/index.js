@@ -25,6 +25,13 @@ const HOME_PAGE = gql`
       }
     }
 
+    posts {
+      nodes {
+        title
+        slug
+      }
+    }
+
     users(
       first: 4
       where: {
@@ -244,6 +251,7 @@ const HOME_PAGE = gql`
 const Home = (props) => {
   const {
     page,
+    posts,
     users,
     crowdfundings,
     tags,
@@ -264,7 +272,7 @@ const Home = (props) => {
       <main>
         <h1 className="title d-none">{page.title}</h1>
 
-        <HeroScene {...{ publications }} />
+        <HeroScene {...{ posts, publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
@@ -316,6 +324,7 @@ Home.getInitialProps = async () => {
 
   const {
     pages,
+    posts,
     users,
     crowdfundings,
     tags,
@@ -328,6 +337,7 @@ Home.getInitialProps = async () => {
 
   return {
     page: pages.nodes[0],
+    posts,
     users,
     crowdfundings,
     tags,

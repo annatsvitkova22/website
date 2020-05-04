@@ -6,7 +6,9 @@
     max-height: calc(100vh - 130px);
 
     position: sticky;
-    top: 20px;
+    top: 100px;
+
+    mix-blend-mode: color;
   }
 
   &__caption {
@@ -29,6 +31,16 @@
 }
 
 .hero-pub {
+  &__scroll {
+    // height: 730px;
+    max-height: 100vh;
+
+    position: sticky;
+    top: 100px;
+
+    overflow: hidden;
+  }
+
   & + & {
     margin-top: 24px;
   }
