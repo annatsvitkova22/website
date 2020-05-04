@@ -58,6 +58,36 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
           </div>
         </>
       )}
+      {bannerstyle !== 'image' && (
+        <div className="container">
+          <div className="col-md-8 publication-banner__content">
+            <NewsHead post={post} />
+            <div
+              className="publication-banner__excerpt"
+              dangerouslySetInnerHTML={{ __html: post.excerpt }}
+            />
+            <div className={'title__socials'}>
+              <div className={'title__socials-about'}>
+                <span
+                  className="title__socials-image avatar"
+                  style={userAvatarStyles}
+                />
+                <div className={'title__socials-author'}>
+                  <ArticleAuthor
+                    author={post.author}
+                    className={'title__socials-name'}
+                  />
+                  <span className={'title__socials-date'}>
+                    {moment(post.date).format('DD MMMM, HH:MM')}
+                  </span>
+                </div>
+              </div>
+              <Share type={'main-first'} className={'title__socials-items'} />
+            </div>
+          </div>
+          <FeaturedImage size={'full'} data={post.featuredImage} />
+        </div>
+      )}
     </div>
   );
 };

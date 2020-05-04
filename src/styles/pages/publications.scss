@@ -153,8 +153,16 @@
   position: relative;
 
   &__content {
+    margin-top: 50px;
+
     @include media-breakpoint-up(md) {
       margin-left: 16.66667%;
+    }
+  }
+
+  .title {
+    &__socials {
+      max-width: 100%;
     }
   }
 
@@ -176,8 +184,6 @@
       }
 
       &__socials {
-        max-width: 100%;
-
         padding-bottom: 81px;
 
         &-date {
