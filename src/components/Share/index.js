@@ -13,6 +13,7 @@ import * as classnames from 'classnames';
 import Popover from 'react-tiny-popover';
 
 import Icons from '~/components/Icons';
+import ShareModal from '~/components/Share/Modal';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -69,46 +70,43 @@ const Share = ({ className = '', type, onShared = () => {} }) => {
     case 'main-first':
       content = (
         <>
+          {opened && <ShareModal onClose={() => {
+            setOpened(false);
+            document.querySelector('body').classList.remove('isB-MenuOpen');
+          }} />}
           <div className="share-actions__main">{mainItems}</div>
-          <Popover
-            isOpen={opened}
-            content={
-              <div className="share-actions__popover">{additionalItems}</div>
-            }
+          <button
+            className={classnames('share-actions__open', {
+              'share-actions__open--active': opened,
+            })}
+            onClick={() => {
+              document.querySelector('body').classList.add('isB-MenuOpen');
+              setOpened(true);
+            }}
           >
-            <button
-              className={classnames('share-actions__open', {
-                'share-actions__open--active': opened,
-              })}
-              onClick={() => setOpened(!opened)}
-            >
-              <Icons icon={'share'} />
-            </button>
-          </Popover>
+            <Icons icon={'share'} />
+          </button>
         </>
       );
       break;
     case 'compact':
       content = (
         <>
-          <Popover
-            isOpen={opened}
-            content={
-              <div className="share-actions__popover">
-                {mainItems}
-                {additionalItems}
-              </div>
-            }
+          {opened && <ShareModal onClose={() => {
+            setOpened(false);
+            document.querySelector('body').classList.remove('isB-MenuOpen');
+          }} />}
+          <button
+            className={classnames('share-actions__open', {
+              'share-actions__open--active': opened,
+            })}
+            onClick={() => {
+              document.querySelector('body').classList.add('isB-MenuOpen');
+              setOpened(true);
+            }}
           >
-            <button
-              className={classnames('share-actions__open', {
-                'share-actions__open--active': opened,
-              })}
-              onClick={() => setOpened(!opened)}
-            >
-              <Icons icon={'share'} />
-            </button>
-          </Popover>
+            <Icons icon={'share'} />
+          </button>
         </>
       );
       break;
