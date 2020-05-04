@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
 import { useRouter } from 'next/router';
@@ -7,13 +7,21 @@ import NavLink from './SiteLink';
 
 const Navigation = (props) => {
   const { navigationData, className = '' } = props;
+  const [route, setRoute] = useState(null);
 
   const router = useRouter();
-  console.log(router);
+
+  useEffect(() => {
+    const routes = router.asPath.substring(router.asPath.indexOf('/'), 5);
+
+    setRoute(routes);
+  }, [router]);
 
   const naviData = navigationData.nodes.filter((item) => {
     return item.name === 'Головне';
   });
+
+  console.log(naviData[0].menuItems.nodes);
 
   return (
     <nav className={`${className}`}>
@@ -27,6 +35,7 @@ const Navigation = (props) => {
                 className={classnames('navigation__item', {
                   'navigation__item--highlighted':
                     item.menuItemACF.ishighlighted,
+                  'navigation__item--active': item.url.match(route),
                 })}
               >
                 <NavLink
