@@ -33,7 +33,8 @@ const Navigation = (props) => {
                 className={classnames('navigation__item', {
                   'navigation__item--highlighted':
                     item.menuItemACF.ishighlighted,
-                  'navigation__item--active': item.url.match(route),
+                  // TODO: restore working version
+                  // 'navigation__item--active': item.url.match(route),
                 })}
               >
                 <NavLink
