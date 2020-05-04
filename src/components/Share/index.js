@@ -10,7 +10,6 @@ import {
 import { useRouter } from 'next/router';
 import getConfig from 'next/config';
 import * as classnames from 'classnames';
-import Popover from 'react-tiny-popover';
 
 import Icons from '~/components/Icons';
 import ShareModal from '~/components/Share/Modal';
@@ -19,7 +18,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const Share = ({ className = '', type, onShared = () => {} }) => {
+const Share = ({ className = '', type, onShared = () => {}, color = 'black' }) => {
   const { asPath } = useRouter();
 
   const [opened, setOpened] = useState(false);
@@ -30,13 +29,13 @@ const Share = ({ className = '', type, onShared = () => {} }) => {
         url={`${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
-        <Icons icon={'facebook'} />
+        <Icons color={color} icon={'facebook'} />
       </FacebookShareButton>
       <TelegramShareButton
         url={`${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
-        <Icons icon={'telegram'} />
+        <Icons color={color} icon={'telegram'} />
       </TelegramShareButton>
     </>
   );
@@ -47,19 +46,19 @@ const Share = ({ className = '', type, onShared = () => {} }) => {
         url={`${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
-        <Icons icon={'email'} />
+        <Icons color={color} icon={'email'} />
       </EmailShareButton>
       <TwitterShareButton
         url={`${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
-        <Icons icon={'twitter'} />
+        <Icons color={color} icon={'twitter'} />
       </TwitterShareButton>
       <ViberShareButton
         url={`${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
-        <Icons icon={'viber'} />
+        <Icons color={color} icon={'viber'} />
       </ViberShareButton>
     </>
   );
@@ -84,7 +83,7 @@ const Share = ({ className = '', type, onShared = () => {} }) => {
               setOpened(true);
             }}
           >
-            <Icons icon={'share'} />
+            <Icons color={color} icon={'share'} />
           </button>
         </>
       );
@@ -105,7 +104,7 @@ const Share = ({ className = '', type, onShared = () => {} }) => {
               setOpened(true);
             }}
           >
-            <Icons icon={'share'} />
+            <Icons color={color} icon={'share'} />
           </button>
         </>
       );

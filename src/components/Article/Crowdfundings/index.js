@@ -9,6 +9,7 @@ import ArticleAuthor from '~/components/Article/Author';
 import ArticleDate from '~/components/Article/Date';
 import getCFStatus from '~/lib/getCFStatus';
 import CrowdfundingProgress from '~/components/Crowdfunding/Progress';
+import { ArticleProvider } from '~/components/Article/Context';
 
 const ArticleCrowdfundings = ({ post, children, className }) => {
   const { featuredImage, title, slug, excerpt, author, date } = post;
@@ -31,6 +32,7 @@ const ArticleCrowdfundings = ({ post, children, className }) => {
             className="article__author meta-author--grey"
             author={author}
           />
+          {' - '}
           <ArticleDate
             className="article__time"
             date={date}

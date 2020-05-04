@@ -75,6 +75,22 @@ const BLOGS = gql`
   }
 `;
 
+const PUBLICATIONS = gql`
+  query Publications {
+    publications(first: 4) {
+      nodes {
+        title
+        link
+        slug
+        featuredImage {
+          mediaItemUrl
+          title
+        }
+      }
+    }
+  }
+`;
+
 const Post = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -91,7 +107,7 @@ const Post = (props) => {
   // TODO: add loader when navigate between news
 
   const { post, isLoading } = state;
-  const { news, blogs } = additionalInfo;
+  const { news, blogs, publications } = additionalInfo;
 
   moment.locale('uk');
 
@@ -113,13 +129,13 @@ const Post = (props) => {
       post: postResponse.data.postBy,
       isLoading: false,
     });
-  }
+  };
 
   useEffect(() => {
     if (loaded && post && props.slug) {
       loadData();
     }
-  }, [props.slug]),
+  }, [props.slug]);
 
   useEffect(() => {
     if (props.slug && !post) {
@@ -137,14 +153,18 @@ const Post = (props) => {
       const blogsResponse = await apolloClient.query({
         query: BLOGS,
       });
+      const publicationsResponse = await apolloClient.query({
+        query: PUBLICATIONS,
+      });
 
       setAdditionalInfo({
         news: newsResponse.data.posts,
         blogs: blogsResponse.data.blogs,
+        publications: publicationsResponse.data.publications,
       });
     };
 
-    if (!news && !blogs) {
+    if (!news && !blogs && !publications) {
       loadAdditionalInfo();
     }
 
@@ -174,7 +194,7 @@ const Post = (props) => {
 
   const sidebar =
     news && blogs ? (
-      <SideBarPost news={news} blogs={blogs} />
+      <SideBarPost news={news} blogs={blogs} publications={publications} />
     ) : (
       <SidebarLoader className={'full-width'} type={'popular'} />
     );

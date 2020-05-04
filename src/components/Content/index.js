@@ -41,7 +41,9 @@ const Content = ({ content, className = '' }) => {
   return (
     <>
       {content &&
-        content.map((block, index) => getContentType({ block, index, className }))}
+        content.map((block, index) =>
+          getContentType({ block, index, className })
+        )}
     </>
   );
 };
@@ -120,7 +122,13 @@ export const getContentType = ({ block, index, className }) => {
     );
   }
   if (block.__typename === 'CoreCoverBlock') {
-    return <Cover block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Cover
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
   }
   if (block.__typename === 'CoreFileBlock') {
     return <File block={block} key={`${block.__typename}-${index}`} />;
@@ -189,7 +197,7 @@ export const getContentType = ({ block, index, className }) => {
     );
   }
   if (block.__typename === 'GravityformsFormBlock') {
-    return <Form id={block.attributes.formId} />
+    return <Form id={block.attributes.formId} />;
   }
   return null;
 };

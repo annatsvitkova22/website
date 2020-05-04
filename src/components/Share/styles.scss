@@ -43,4 +43,129 @@
       }
     }
   }
+
+  .crowdfunding-share {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    background-color: $black;
+
+    z-index: 2000;
+
+    &__wrapper {
+      max-width: 504px;
+      width: 100%;
+
+      padding: 40px;
+
+      position: absolute;
+      top: 20%;
+      left: 50%;
+
+      background-color: #fff;
+
+      transform: translateX(-50%);
+      overflow: auto;
+    }
+
+    &__title {
+      display: flex;
+      justify-content: space-between;
+
+      margin-bottom: 32px;
+
+      span {
+        font-family: $font-family-titles;
+
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 16px;
+        letter-spacing: 0.2px;
+        color: #000000;
+        text-transform: capitalize;
+      }
+    }
+
+    &__close:hover {
+      path {
+        fill: $green;
+      }
+    }
+
+    &__socials {
+      margin-bottom: 30px;
+    }
+
+    &__item:not(:last-child) {
+      margin-right: 40px;
+      margin-bottom: 37px;
+    }
+
+    &__item > a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+
+      span:last-child {
+        margin-top: 11px;
+      }
+
+      .social-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 24px;
+        height: 24px;
+      }
+
+      &:hover .svg-icon {
+        color: $green;
+      }
+      &:hover {
+        color: $green;
+      }
+    }
+
+    &__share {
+      display: flex;
+    }
+
+    &__link {
+      max-width: 280px;
+      margin-right: 24px;
+
+      border-bottom: 1px solid #eff0f4;
+
+      font-family: $font-family-titles;
+
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #b0b0b0;
+    }
+
+    &__copy {
+      padding: 10px 24px;
+
+      background-color: $green;
+
+      font-family: $font-family-titles;
+
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: $white;
+
+      cursor: pointer;
+    }
+  }
 }

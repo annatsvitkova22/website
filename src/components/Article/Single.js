@@ -18,6 +18,8 @@ import {
   SingleArticleStore,
 } from '~/stores/SingleArticle';
 import useViewsCounter from '~/hooks/useViewsCounter';
+import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
+import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
@@ -41,21 +43,28 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
 
   if (!storedPost) {
     return (
-      <div className="single-post container">
-        <div className={'single-post__title row'}>
-          <div
-            className={classnames('single-post__wrapper', {
-              'col-md-9': sidebar,
-              'col-12': !sidebar,
-            })}
-          >
-            <div className="single-post__title-wrapper col-xl-11">
-              <PostHeaderLoader type={type} />
+      <>
+        {type === 'publications' && <PublicationSingleLoader />}
+        {type !== 'publications' && (
+          <div className="single-post container">
+            <div className={'single-post__title row'}>
+              <>
+                <div
+                  className={classnames('single-post__wrapper', {
+                    'col-xl-9': sidebar,
+                    'col-12': !sidebar,
+                  })}
+                >
+                  <div className="single-post__title-wrapper col-xl-11">
+                    <PostHeaderLoader type={type} />
+                  </div>
+                </div>
+                {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
+              </>
             </div>
           </div>
-          {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
-        </div>
-      </div>
+        )}
+      </>
     );
   }
 
@@ -74,72 +83,128 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
       </Head>
 
       <main
-        className={classnames('single-post container', `single-post--${type}`)}
+        className={classnames('single-post', `single-post--${type}`, {
+          container: type !== 'publications',
+        })}
       >
-        {storedPost ? (
+        {type === 'publications' ? (
           <>
-            <div className={'single-post__title row'}>
-              <div className={'single-post__wrapper col-xl-9 col-12'}>
-                <NewsHead post={storedPost} />
-                <FeaturedImage data={storedPost.featuredImage} />
-                <section className={'single-post__main col-12'}>
-                  {hasShare && (
-                    <StickyBox
-                      offsetTop={70}
-                      offsetBottom={20}
-                      className={'side-bar__wrapper col-xl-1'}
-                    >
-                      <ActionsSidebar post={storedPost} />
-                    </StickyBox>
-                  )}
-                  <section className={'single-post__content'}>
-                    <div className={'title__socials'}>
-                      <div className={'title__socials-about'}>
-                        <span
-                          className="title__socials-image"
-                          style={userAvatarStyles}
-                        />
-                        <div className={'title__socials-author'}>
-                          <ArticleAuthor
-                            author={storedPost.author}
-                            className={'title__socials-name meta-author--black'}
-                          />
-                          <span className={'title__socials-date'}>
-                            {moment(storedPost.date).format('LLL')}
-                          </span>
-                        </div>
-                      </div>
-                      <Share
-                        type={'main-first'}
-                        className={'title__socials-items'}
+            {storedPost ? (
+              <>
+                <ArticlePublicationBanner
+                  className="single-post__banner"
+                  post={storedPost}
+                  userAvatarStyles={userAvatarStyles}
+                />
+                <section className={'single-post__main container'}>
+                  <div className="row">
+                    {hasShare && (
+                      <StickyBox
+                        offsetTop={272}
+                        offsetBottom={20}
+                        className={'side-bar__wrapper col-md-1'}
+                      >
+                        <ActionsSidebar post={storedPost} />
+                      </StickyBox>
+                    )}
+                    <div className="single-post__content col-lg-6 col-md-8">
+                      <Content
+                        content={storedPost.blocks}
+                        className={'content__posts'}
                       />
+                      <NewsFooter post={storedPost} />
                     </div>
-                    <article
-                      className={'title__description'}
-                      dangerouslySetInnerHTML={{ __html: storedPost.excerpt }}
-                    />
-                    <Content
-                      content={storedPost.blocks}
-                      className={'content__posts'}
-                    />
-                    <NewsFooter post={storedPost} />
-                  </section>
+                  </div>
                 </section>
-              </div>
-              {sidebar && (
-                <StickyBox
-                  offsetTop={118}
-                  offsetBottom={20}
-                  className={'sidebar__wrapper col-xl-3'}
-                >
-                  {sidebar}
-                </StickyBox>
-              )}
-            </div>
-            {similarPosts && similarPosts}
+                {similarPosts && (
+                  <div className="container">{similarPosts}</div>
+                )}
+              </>
+            ) : (
+              <PublicationSingleLoader />
+            )}
           </>
         ) : (
-          <PostHeaderLoader />
+          <>
+            {storedPost ? (
+              <>
+                <div className={'single-post__title row'}>
+                  <div
+                    className={classnames(
+                      'single-post__wrapper col-12 no-gutters',
+                      {
+                        'col-xl-9': sidebar,
+                      }
+                    )}
+                  >
+                    <NewsHead post={storedPost} />
+                    <FeaturedImage data={storedPost.featuredImage} />
+                    <section className={'single-post__main col-12'}>
+                      {hasShare && (
+                        <StickyBox
+                          offsetTop={272}
+                          offsetBottom={20}
+                          className={'side-bar__wrapper'}
+                        >
+                          <ActionsSidebar post={storedPost} />
+                        </StickyBox>
+                      )}
+                      <section className={'single-post__content'}>
+                        <div className={'title__socials'}>
+                          <div className={'title__socials-about'}>
+                            <span
+                              className="title__socials-image"
+                              style={userAvatarStyles}
+                            />
+                            <div className={'title__socials-author'}>
+                              <ArticleAuthor
+                                author={storedPost.author}
+                                className={
+                                  'title__socials-name meta-author--black'
+                                }
+                              />
+                              <span className={'title__socials-date'}>
+                                {moment(storedPost.date).format(
+                                  'DD MMMM, HH:MM'
+                                )}
+                              </span>
+                            </div>
+                          </div>
+                          <Share
+                            type={'main-first'}
+                            className={'title__socials-items'}
+                          />
+                        </div>
+                        <article
+                          className={'title__description'}
+                          dangerouslySetInnerHTML={{
+                            __html: storedPost.excerpt,
+                          }}
+                        />
+                        <Content
+                          content={storedPost.blocks}
+                          className={'content__posts'}
+                        />
+                        <NewsFooter post={storedPost} />
+                      </section>
+                    </section>
+                  </div>
+                  {sidebar && (
+                    <StickyBox
+                      offsetTop={118}
+                      offsetBottom={20}
+                      className={'sidebar__wrapper col-xl-3'}
+                    >
+                      {sidebar}
+                    </StickyBox>
+                  )}
+                </div>
+                {similarPosts && similarPosts}
+              </>
+            ) : (
+              <PostHeaderLoader />
+            )}
+          </>
         )}
       </main>
     </>

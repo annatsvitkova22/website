@@ -335,7 +335,7 @@
 .article-featured {
   &__image {
     margin-bottom: 0;
-    
+
     background-color: rgba($green, 0.2);
 
     img {
@@ -406,19 +406,27 @@
   &:hover {
     color: $green;
   }
-}
-.meta-author--black {
-  color: $black;
-  &:hover {
-    color: $green;
+
+  &--black {
+    color: $black;
+    &:hover {
+      color: $green;
+    }
+  }
+  &--grey {
+    color: $grey-400;
+    &:hover {
+      color: $green;
+    }
+  }
+  &--white {
+    color: #fff;
+    &:hover {
+      color: $grey-400;
+    }
   }
 }
-.meta-author--grey {
-  color: $grey-400;
-  &:hover {
-    color: $green;
-  }
-}
+
 .meta-author--img {
   color: $black;
 }

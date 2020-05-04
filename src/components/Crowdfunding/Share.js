@@ -11,12 +11,15 @@ import { updateShares } from '~/stores/SingleArticle';
 
 const { publicRuntimeConfig } = getConfig();
 
-const { frontUrl, apiUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+const { frontUrl, apiUrl } = publicRuntimeConfig.find(
+  (e) => e.env === process.env.ENV
+);
 
 // TODO: refactor to be universal
 // combine with components/Share/Modal
-const CrowdfundingShare = ({ post, onClose = () => {} }) => {
+const CrowdfundingShare = ({ post, onClose = () => {}, color = 'black' }) => {
   const authStateLink = useStateLink(AuthStore);
+
 
   let type = `${post.__typename.toLowerCase()}`;
   const id = post[`${type}Id`];
@@ -67,7 +70,7 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
       conf
     );
     updateShares(updatedShares.data.shared);
-  }
+  };
 
   return (
     <div className="crowdfunding-share">
@@ -75,10 +78,14 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
         <div className="crowdfunding-share__title">
           <span>поширити</span>
           <button className="crowdfunding-share__close" onClick={onClose}>
-            <Icons icon={'close-comment'} />
+            <Icons color={color} icon={'close-comment'} />
           </button>
         </div>
-        <Share onShared={updateShared} className="crowdfunding-share__socials" />
+        <Share
+          onShared={updateShared}
+          className="crowdfunding-share__socials"
+          color={color}
+        />
         <div className="crowdfunding-share__share">
           <input
             className="crowdfunding-share__link"

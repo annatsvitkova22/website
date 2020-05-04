@@ -7,11 +7,11 @@ const Resources = (props) => {
   const { navigationData, className = '', handleClick } = props;
 
   return (
-    <ul className={`footer__sitemap-list ${className}`}>
-      <li className={'footer__sitemap-title'} onClick={handleClick}>
+    <div className={`footer__sitemap-list ${className}`}>
+      <div className={'footer__sitemap-title'} onClick={handleClick}>
         Ресурси
         <Icons className={'footer__sitemap-chevron'} icon={'footer-chevron'} />
-      </li>
+      </div>
       <ul className={`footer__sitemap-navigation`}>
         {navigationData &&
           navigationData.menuItems &&
@@ -26,7 +26,7 @@ const Resources = (props) => {
             );
           })}
       </ul>
-    </ul>
+    </div>
   );
 };
 

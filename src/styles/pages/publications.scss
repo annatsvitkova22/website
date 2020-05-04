@@ -148,3 +148,52 @@
     }
   }
 }
+
+.publication-banner {
+  position: relative;
+
+  &__content {
+    margin-top: 50px;
+
+    @include media-breakpoint-up(md) {
+      margin-left: 16.66667%;
+    }
+  }
+
+  .title {
+    &__socials {
+      max-width: 100%;
+    }
+  }
+
+  &--image {
+    .publication-banner__inner {
+      width: 100%;
+
+      margin-left: auto;
+      margin-right: auto;
+
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+
+    .title {
+      &__title {
+        color: #fff;
+      }
+
+      &__socials {
+        padding-bottom: 81px;
+
+        &-date {
+          color: #fff;
+        }
+      }
+    }
+
+    .single-post__title-wrapper {
+      margin-left: 0;
+    }
+  }
+}
