@@ -18,6 +18,7 @@ import {
   SingleArticleStore,
 } from '~/stores/SingleArticle';
 import useViewsCounter from '~/hooks/useViewsCounter';
+import Avatar from '~/components/Avatar';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
@@ -86,7 +87,10 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                   <section className={'single-post__content'}>
                     <div className={'title__socials'}>
                       <div className={'title__socials-about'}>
-                        <span className="title__socials-image" />
+                        <Avatar
+                          avatar={post.author.avatar}
+                          className="title__socials-image"
+                        />
                         <div className={'title__socials-author'}>
                           <ArticleAuthor
                             author={storedPost.author}

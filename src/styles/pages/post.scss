@@ -62,19 +62,15 @@
   &-about {
     display: flex;
   }
-  &-image {
-    width: 40px;
-    height: 40px;
+  &-image.avatar {
+    width: 44px;
+    height: 44px;
 
     margin-right: 8px;
+    padding: 0;
 
-    background: linear-gradient(
-      0deg,
-      rgba(29, 158, 116, 0.08),
-      rgba(29, 158, 116, 0.08)
-    );
+    border: none;
 
-    border-radius: 40px;
   }
   &-author {
     display: flex;

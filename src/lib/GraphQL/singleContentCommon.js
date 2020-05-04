@@ -49,6 +49,9 @@ const singleContentCommon = `${gutenbergBlocksQuery}
         nickname
         username
         name
+        avatar {
+          url
+        }
       }
       featuredImage {
         id
