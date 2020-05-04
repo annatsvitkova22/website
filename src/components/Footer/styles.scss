@@ -121,8 +121,10 @@
       & > a {
         line-height: 16px;
       }
-
-      &:hover > * {
+      &.project__owner:hover {
+        color: $white;
+      }
+      &:hover > a {
         color: $green;
       }
       &:hover {

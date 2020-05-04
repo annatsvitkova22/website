@@ -20,7 +20,7 @@ const Contacts = (props) => {
           {contactsData.map((item, i) => {
             return (
               <React.Fragment key={i}>
-                <li className={'footer__sitemap-link'}>
+                <li className={'footer__sitemap-link project__owner'}>
                   {item.role && <span>{item.role}:</span>}
                   <span>{item.name}</span>
                 </li>
