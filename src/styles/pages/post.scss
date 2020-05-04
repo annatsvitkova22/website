@@ -1,6 +1,28 @@
 .single-post {
   padding-top: 118px !important;
 
+  &--publications {
+    padding-top: 68px !important;
+
+    .single-post__main {
+      > .row {
+        width: 100%;
+      }
+    }
+
+    .single-post__content {
+      margin: 0;
+
+      @include media-breakpoint-up(md) {
+        margin-left: 8.33333%;
+      }
+
+      @include media-breakpoint-up(lg) {
+        margin-left: 16.66667%;
+      }
+    }
+  }
+
   @include media-breakpoint-down(sm) {
     padding-top: 88px;
     padding-left: 20px;
@@ -68,8 +90,14 @@
       margin-bottom: 24px;
     }
 
+    &--full {
+      max-width: 100%;
+    }
+
     &-caption {
       padding-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
 
       @include media-breakpoint-down(xs) {
         padding-left: 20px;
@@ -197,6 +225,7 @@
     padding: 0;
 
     border: none;
+    background-color: transparentize($green, 0.5);
   }
   &-author {
     display: flex;
@@ -243,6 +272,9 @@
     }
     & > a:not(:last-child) {
       margin-right: 15px;
+    }
+    &--white {
+
     }
   }
 }

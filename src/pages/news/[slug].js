@@ -135,40 +135,41 @@ const Post = (props) => {
     if (loaded && post && props.slug) {
       loadData();
     }
-  }, [props.slug]),
-    useEffect(() => {
-      if (props.slug && !post) {
-        loadData();
-      }
+  }, [props.slug]);
 
-      const loadAdditionalInfo = async () => {
-        const newsResponse = await apolloClient.query({
-          query: NEWS,
-          variables: {
-            articles: 10,
-            cursor: null,
-          },
-        });
-        const blogsResponse = await apolloClient.query({
-          query: BLOGS,
-        });
-        const publicationsResponse = await apolloClient.query({
-          query: PUBLICATIONS,
-        });
+  useEffect(() => {
+    if (props.slug && !post) {
+      loadData();
+    }
 
-        setAdditionalInfo({
-          news: newsResponse.data.posts,
-          blogs: blogsResponse.data.blogs,
-          publications: publicationsResponse.data.publications,
-        });
-      };
+    const loadAdditionalInfo = async () => {
+      const newsResponse = await apolloClient.query({
+        query: NEWS,
+        variables: {
+          articles: 10,
+          cursor: null,
+        },
+      });
+      const blogsResponse = await apolloClient.query({
+        query: BLOGS,
+      });
+      const publicationsResponse = await apolloClient.query({
+        query: PUBLICATIONS,
+      });
 
-      if (!news && !blogs && !publications) {
-        loadAdditionalInfo();
-      }
+      setAdditionalInfo({
+        news: newsResponse.data.posts,
+        blogs: blogsResponse.data.blogs,
+        publications: publicationsResponse.data.publications,
+      });
+    };
 
-      setLoaded(true);
-    }, []);
+    if (!news && !blogs && !publications) {
+      loadAdditionalInfo();
+    }
+
+    setLoaded(true);
+  }, []);
 
   const loadSimilarPosts = async () => {
     if (similar.posts) return;
