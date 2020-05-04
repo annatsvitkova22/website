@@ -4,5 +4,17 @@
   &__image {
     height: 730px;
     max-height: calc(100vh - 130px);
+
+    position: sticky;
+    top: 20px;
+  }
+}
+
+.hero-pub {
+  &__item + &__item {
+    margin-top: 8px;
+    padding-top: 8px;
+
+    border-top: 1px solid $grey-100;
   }
 }

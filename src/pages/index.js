@@ -103,6 +103,7 @@ const HOME_PAGE = gql`
         publications(first: 5) {
           nodes {
             title
+            slug
             featuredImage {
               mediaItemUrl
             }
@@ -178,7 +179,7 @@ const HOME_PAGE = gql`
       }
     }
 
-    publications(first: 6) {
+    publications(first: 20) {
       nodes {
         excerpt
         title
