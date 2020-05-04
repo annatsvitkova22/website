@@ -18,6 +18,7 @@ const { frontUrl, apiUrl } = publicRuntimeConfig.find(
 const CrowdfundingShare = ({ post, onClose = () => {} }) => {
   const authStateLink = useStateLink(AuthStore);
 
+
   let type = `${post.__typename.toLowerCase()}`;
   const id = post[`${type}Id`];
   type = `${type}s`;

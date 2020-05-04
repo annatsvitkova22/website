@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as classnames from 'classnames';
 
+
 import CrowdfundingDonation from '~/components/Crowdfunding/Donation';
 import CrowdfundingShare from '~/components/Crowdfunding/Share';
 
@@ -35,7 +36,12 @@ const CrowdfundingActions = ({ className, post }) => {
       {donationOpen && (
         <CrowdfundingDonation post={post} onClose={handleClose} />
       )}
-      {shareOpen && <CrowdfundingShare post={post} onClose={handleClose} />}
+      {shareOpen && (
+        <CrowdfundingShare
+          post={post}
+          onClose={handleClose}
+        />
+      )}
     </>
   );
 };
