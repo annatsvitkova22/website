@@ -7,7 +7,6 @@ import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
 import GutenbergLoader from '~/components/Loaders/GutenbergLoader';
-import Form from '~/components/Form';
 
 const PAGE = gql`
   query Page($uri: String!) {
