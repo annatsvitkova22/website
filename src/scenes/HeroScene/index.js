@@ -13,14 +13,12 @@ const HeroScene = ({ posts, publications }) => {
     const listHeight = heroListRef.current.clientHeight;
 
     const heroListPart =
-      -((heroListRef.current.getBoundingClientRect().top - 100) / listHeight) *
-      100;
-    console.log(heroListPart);
+      -(heroListRef.current.getBoundingClientRect().top / listHeight) * 100;
     if (heroListPart > 0 && heroListPart < 100) {
       heroPubRef.current.scrollTop =
         (heroListPart * heroPubRef.current.clientHeight) / 100;
     }
-    if (heroListPart === 0) {
+    if (heroListPart < 0) {
       heroPubRef.current.scrollTop = 0;
     }
     if (heroListPart > 100) {

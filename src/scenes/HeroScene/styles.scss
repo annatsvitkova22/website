@@ -7,8 +7,6 @@
 
     position: sticky;
     top: 100px;
-
-    mix-blend-mode: color;
   }
 
   &__caption {
@@ -32,11 +30,10 @@
 
 .hero-pub {
   &__scroll {
-    // height: 730px;
     max-height: 100vh;
 
     position: sticky;
-    top: 100px;
+    top: 0;
 
     overflow: hidden;
   }
