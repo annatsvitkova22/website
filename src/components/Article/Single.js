@@ -57,6 +57,13 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     );
   }
 
+  const userAvatarStyles = {
+    backgroundImage: storedPost.author.userAdditionalACF.avatar
+      ? `url(${storedPost.author.userAdditionalACF.avatar.mediaItemUrl})`
+      : '',
+    backgroundSize: 'cover',
+  };
+
   return (
     <>
       <Head>
@@ -86,7 +93,10 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                   <section className={'single-post__content'}>
                     <div className={'title__socials'}>
                       <div className={'title__socials-about'}>
-                        <span className="title__socials-image" />
+                        <span
+                          className="title__socials-image"
+                          style={userAvatarStyles}
+                        />
                         <div className={'title__socials-author'}>
                           <ArticleAuthor
                             author={storedPost.author}
@@ -97,7 +107,10 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           </span>
                         </div>
                       </div>
-                      <Share type={'main-first'} className={'title__socials-items'} />
+                      <Share
+                        type={'main-first'}
+                        className={'title__socials-items'}
+                      />
                     </div>
                     <article
                       className={'title__description'}

@@ -11,19 +11,11 @@ import { updateShares } from '~/stores/SingleArticle';
 
 const { publicRuntimeConfig } = getConfig();
 
-const { frontUrl, apiUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 // TODO: refactor to be universal
-// combine with components/Share/Modal
-const CrowdfundingShare = ({ post, onClose = () => {} }) => {
-  const authStateLink = useStateLink(AuthStore);
-
-  let type = `${post.__typename.toLowerCase()}`;
-  const id = post[`${type}Id`];
-  type = `${type}s`;
-  if (type === 'opportunitys') {
-    type = 'opportunities';
-  }
+// combine with components/Crowdfunding/Share
+const ShareModal = ({ onClose = () => {} }) => {
 
   const { asPath } = useRouter();
   const [copied, setCopied] = useState(false);
@@ -38,36 +30,7 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
     setTimeout(() => {
       setCopied(false);
     }, 3000);
-
-    await updateShared();
   };
-
-  const updateShared = async () => {
-    const { token } = authStateLink.get();
-
-    const conf = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    const currentShares = await axios.get(
-      `${apiUrl}/wp-json/acf/v3/${type}/${id}/shared`,
-      conf
-    );
-    const updatedShares = await axios.post(
-      `${apiUrl}/wp-json/acf/v3/${type}/${id}/shared`,
-      {
-        fields: {
-          shared: currentShares.data.shared
-            ? parseInt(currentShares.data.shared) + 1
-            : 1,
-        },
-      },
-      conf
-    );
-    updateShares(updatedShares.data.shared);
-  }
 
   return (
     <div className="crowdfunding-share">
@@ -78,7 +41,7 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
             <Icons icon={'close-comment'} />
           </button>
         </div>
-        <Share onShared={updateShared} className="crowdfunding-share__socials" />
+        <Share className="crowdfunding-share__socials" />
         <div className="crowdfunding-share__share">
           <input
             className="crowdfunding-share__link"
@@ -95,4 +58,4 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
   );
 };
 
-export default CrowdfundingShare;
+export default ShareModal;

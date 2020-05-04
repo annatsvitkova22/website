@@ -9,7 +9,8 @@ const BlogsScene = ({ users: { nodes: users } }) => (
           {
             name,
             slug,
-            bloggerInfoACF: { info, avatar },
+            bloggerInfoACF: { info },
+            userAdditionalACF: { avatar },
             blogs: { nodes: blogs },
           },
           i

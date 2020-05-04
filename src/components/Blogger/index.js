@@ -18,7 +18,8 @@ const Blogger = ({
     name,
     slug,
     description,
-    bloggerInfoACF: { avatar, info, socials },
+    bloggerInfoACF: { info, socials },
+    userAdditionalACF: { avatar },
     stats,
   } = blogger;
 

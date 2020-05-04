@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import apolloClient from '~/lib/ApolloClient';
-import BlogsLoader from '~/components/Loaders/BlogsLoader';
 import BloggerRow from '~/components/Blogger/Row';
 import SimilarPosts from '~/components/SimilarPosts';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
-import { setIsChanged } from '~/stores/News';
-import ChronologicalSeparator from '~/components/ChronologicalSeparator';
-import Article from '~/components/Article';
-import NewsLoader from '~/components/Loaders/NewsLoader';
-import { ArticleProvider } from '~/components/Article/Context';
-import ArticleNews from '~/components/Article/News';
-import ArticleBlogsWide from '~/components/Article/Blogs/Wide';
 import BloggerLoader from '~/components/Loaders/Blogger';
 
 const composeQuery = ({ cursor, articles, slug }) => {
@@ -37,10 +28,12 @@ const composeQuery = ({ cursor, articles, slug }) => {
               }
             }
           }
-          bloggerInfoACF {
+          userAdditionalACF {
             avatar {
               mediaItemUrl
             }
+          }
+          bloggerInfoACF {
             info
             socials {
               name
