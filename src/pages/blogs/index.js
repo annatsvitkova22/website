@@ -38,10 +38,12 @@ const BLOGGERS = gql`
             }
           }
         }
-        bloggerInfoACF {
+        userAdditionalACF {
           avatar {
             mediaItemUrl
           }
+        }
+        bloggerInfoACF {
           info
           socials {
             name

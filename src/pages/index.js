@@ -4,8 +4,6 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
 import client from '~/lib/ApolloClient';
-import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
-import Content from '~/components/Content';
 import addVideoDurations from '~/util/addVideoDurations';
 import CrowdfundingsScene from '~/scenes/CrowdfundingsScene';
 import VideosScene from '~/scenes/VideosScene';
@@ -18,19 +16,11 @@ import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 import MainPublications from '~/components/MainPublications';
 
-// TODO: restore, create custom GraphQL resolver
-// homepage {
-//   id
-//   title
-//   content
-// }
-
 const HOME_PAGE = gql`
   query PageQuery {
     pages(where: { title: "Головна" }) {
       nodes {
         title
-        ${gutenbergBlocksQuery}
       }
     }
 
@@ -45,11 +35,12 @@ const HOME_PAGE = gql`
         name
         slug
         description
-        bloggerInfoACF {
-          info
+        userAdditionalACF {
           avatar {
             mediaItemUrl
           }
+        }
+        bloggerInfoACF {
           info
           socials {
             name
@@ -270,7 +261,6 @@ const Home = (props) => {
 
       <main>
         <h1 className="title d-none">{page.title}</h1>
-        {/* <Content content={page.blocks} /> */}
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
@@ -316,9 +306,11 @@ Home.propTypes = {
 };
 
 Home.getInitialProps = async () => {
-  const { data } = await client.query({
+  const { data, errors } = await client.query({
     query: HOME_PAGE,
   });
+
+  console.log(errors);
 
   const {
     pages,
