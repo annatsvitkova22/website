@@ -113,43 +113,42 @@ const Post = (props) => {
       post: postResponse.data.postBy,
       isLoading: false,
     });
-  }
+  };
 
   useEffect(() => {
     if (loaded && post && props.slug) {
       loadData();
     }
   }, [props.slug]),
+    useEffect(() => {
+      if (props.slug && !post) {
+        loadData();
+      }
 
-  useEffect(() => {
-    if (props.slug && !post) {
-      loadData();
-    }
+      const loadAdditionalInfo = async () => {
+        const newsResponse = await apolloClient.query({
+          query: NEWS,
+          variables: {
+            articles: 10,
+            cursor: null,
+          },
+        });
+        const blogsResponse = await apolloClient.query({
+          query: BLOGS,
+        });
 
-    const loadAdditionalInfo = async () => {
-      const newsResponse = await apolloClient.query({
-        query: NEWS,
-        variables: {
-          articles: 10,
-          cursor: null,
-        },
-      });
-      const blogsResponse = await apolloClient.query({
-        query: BLOGS,
-      });
+        setAdditionalInfo({
+          news: newsResponse.data.posts,
+          blogs: blogsResponse.data.blogs,
+        });
+      };
 
-      setAdditionalInfo({
-        news: newsResponse.data.posts,
-        blogs: blogsResponse.data.blogs,
-      });
-    };
+      if (!news && !blogs) {
+        loadAdditionalInfo();
+      }
 
-    if (!news && !blogs) {
-      loadAdditionalInfo();
-    }
-
-    setLoaded(true);
-  }, []);
+      setLoaded(true);
+    }, []);
 
   const loadSimilarPosts = async () => {
     if (similar.posts) return;

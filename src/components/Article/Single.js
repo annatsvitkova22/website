@@ -97,7 +97,10 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           </span>
                         </div>
                       </div>
-                      <Share type={'main-first'} className={'title__socials-items'} />
+                      <Share
+                        type={'main-first'}
+                        className={'title__socials-items'}
+                      />
                     </div>
                     <article
                       className={'title__description'}

@@ -11,7 +11,9 @@ import { updateShares } from '~/stores/SingleArticle';
 
 const { publicRuntimeConfig } = getConfig();
 
-const { frontUrl, apiUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+const { frontUrl, apiUrl } = publicRuntimeConfig.find(
+  (e) => e.env === process.env.ENV
+);
 
 const CrowdfundingShare = ({ post, onClose = () => {} }) => {
   const authStateLink = useStateLink(AuthStore);
@@ -65,7 +67,7 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
       conf
     );
     updateShares(updatedShares.data.shared);
-  }
+  };
 
   return (
     <div className="crowdfunding-share">
@@ -76,7 +78,10 @@ const CrowdfundingShare = ({ post, onClose = () => {} }) => {
             <Icons icon={'close-comment'} />
           </button>
         </div>
-        <Share onShared={updateShared} className="crowdfunding-share__socials" />
+        <Share
+          onShared={updateShared}
+          className="crowdfunding-share__socials"
+        />
         <div className="crowdfunding-share__share">
           <input
             className="crowdfunding-share__link"
