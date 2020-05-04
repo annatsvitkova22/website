@@ -59,6 +59,8 @@
       @include media-breakpoint-down(xs) {
         padding-left: 20px;
         padding-right: 20px;
+        margin-left: 0;
+        margin-right: 0;
       }
 
       .meta-taxonomy {
@@ -406,34 +408,6 @@
   height: 200px;
 
   z-index: 2000;
-}
-
-@media screen and (max-width: 1200px) {
-  .feature__image {
-    margin: 0 auto;
-    padding: 0;
-  }
-  .single-post__title {
-    margin-left: -12px;
-    &-wrapper {
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0;
-    }
-  }
-  .single-post__wrapper {
-    flex: 0 0 100%;
-
-    max-width: 100%;
-  }
-
-  .single-post__main {
-    justify-content: center;
-    flex: 0 0 100%;
-
-    max-width: 100%;
-  }
 }
 @media screen and (max-width: 768px) {
   .category-tag__list {

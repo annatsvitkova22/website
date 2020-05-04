@@ -67,6 +67,11 @@ const Header = () => {
   const searchCls = classNames({
     isSearchMenuOpen: isSearchOpen,
   });
+
+  const openSearch = classNames({
+    'header__search-field': true,
+    'header__search-field--active': isSearchOpen,
+  });
   React.useEffect(() => {
     window.addEventListener('scroll', fixedHeader);
     return () => {
@@ -132,15 +137,19 @@ const Header = () => {
           <Icons icon={'footer-chevron'} color={'white'} />
           <Dropdown data={data.menus} className={'header__dd'} />
         </div>
-
         <SearchIcon
           onClick={handleSearch}
           color={'white'}
-          className={'header__search'}
+          className={`header__search ${searchCls}`}
         />
-        {isSearchOpen && (
+        <div className={`${openSearch} header__search-wrapper`}>
+          <SearchIcon
+            onClick={handleSearch}
+            color={'white'}
+            className={'header__search'}
+          />
           <SearchField onSearch={() => setIsSearchOpen(false)} />
-        )}
+        </div>
       </div>
       <div className={`header__overlay`} onClick={handleCloseClick}>
         <HeaderMenu data={data} />
