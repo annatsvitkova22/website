@@ -7,6 +7,7 @@ import client from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
 import addVideoDurations from '~/util/addVideoDurations';
+import HeroScene from '~/scenes/HeroScene';
 import CrowdfundingsScene from '~/scenes/CrowdfundingsScene';
 import VideosScene from '~/scenes/VideosScene';
 import OpportunitiesScene from '~/scenes/OpportunitiesScene';
@@ -271,6 +272,8 @@ const Home = (props) => {
       <main>
         <h1 className="title d-none">{page.title}</h1>
         {/* <Content content={page.blocks} /> */}
+
+        <HeroScene {...{ publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
