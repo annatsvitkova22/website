@@ -34,14 +34,11 @@ const SidebarLoader = ({ type, className }) => {
   }
   if (type === 'archive') {
     return (
-      <ContentLoader viewBox={'0 0 425 550'}>
-        <rect x={'0'} y={`0`} width={'425'} height={`20`} />
-        <rect x={'0'} y={`25`} width={'425'} height={`20`} />
-        <rect x={'0'} y={`50`} width={'425'} height={`20`} />
-        <rect x={'0'} y={`75`} width={'425'} height={`425`} />
-        <rect x={'0'} y={`500`} width={'425'} height={`20`} />
-        <rect x={'0'} y={`525`} width={'380'} height={`20`} />
-        <rect x={'0'} y={`550`} width={'380'} height={`20`} />
+      <ContentLoader viewBox={'0 0 390 550'}>
+        <rect x={'0'} y={`0`} width={'55'} height={`18`} />
+        <rect x={'0'} y={`30`} width={'103'} height={`18`} />
+        <rect x={'0'} y={`88`} width={'390'} height={`336`} />
+        <rect x={'0'} y={`464`} width={'360'} height={`86`} />
       </ContentLoader>
     );
   }
