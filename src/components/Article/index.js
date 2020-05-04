@@ -42,6 +42,16 @@ const Article = ({ type, display, className, ...props }) => {
         </ArticleProvider>
       );
     }
+    case 'others': {
+      return (
+        <ArticleProvider value={type}>
+          <ArticleOpportunities
+            className={classnames('article', className)}
+            {...props}
+          />
+        </ArticleProvider>
+      );
+    }
     case 'events': {
       return (
         <ArticleProvider value={type}>

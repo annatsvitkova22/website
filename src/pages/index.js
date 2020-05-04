@@ -306,11 +306,9 @@ Home.propTypes = {
 };
 
 Home.getInitialProps = async () => {
-  const { data, errors } = await client.query({
+  const { data } = await client.query({
     query: HOME_PAGE,
   });
-
-  console.log(errors);
 
   const {
     pages,
