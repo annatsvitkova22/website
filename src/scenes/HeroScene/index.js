@@ -41,23 +41,44 @@ const HeroScene = ({ posts, publications }) => {
             .slice(0, 1)
             .map(
               (
-                { categories, title, author, featuredImage: { mediaItemUrl } },
+                {
+                  categories,
+                  title,
+                  slug,
+                  author,
+                  featuredImage: { mediaItemUrl },
+                },
                 i
               ) => {
                 return (
-                  <div
-                    className="hero__image bg-cover pos-relative"
-                    key={i}
-                    style={{
-                      backgroundImage: `linear-gradient(0deg, rgba(29, 158, 116, 0.44), rgba(29, 158, 116, 0.44)), url(${mediaItemUrl})`,
-                    }}
-                  >
+                  <div className="hero__container pos-relative" key={i}>
+                    <Link
+                      href={`/publications/[slug]`}
+                      as={`/publications/${slug}`}
+                    >
+                      <a
+                        href={`/publications/${slug}`}
+                        className="hero__image bg-cover d-block"
+                        style={{
+                          backgroundImage: `linear-gradient(0deg, rgba(29, 158, 116, 0.44), rgba(29, 158, 116, 0.44)), url(${mediaItemUrl})`,
+                        }}
+                      >
+                        <span />
+                      </a>
+                    </Link>
                     <div className="hero__caption tx-white">
                       <Taxonomies
                         categories={categories}
                         className={`article__category`}
                       />
-                      <h1 className="heading__big">{title}</h1>
+                      <h1 className="heading__big">
+                        <Link
+                          href={`/publications/[slug]`}
+                          as={`/publications/${slug}`}
+                        >
+                          <a href={`/publications/${slug}`}>{title}</a>
+                        </Link>
+                      </h1>
                       <div className="article__meta">
                         <Author className="article__author" author={author} />
                       </div>
@@ -86,8 +107,14 @@ const HeroScene = ({ posts, publications }) => {
                           className={`article__category`}
                         />
                         <h6>
-                          <Link href={`publications/${slug}`}>
-                            <a className="hero-pub__title font-weight-semibold">
+                          <Link
+                            href={`/publications/[slug]`}
+                            as={`/publications/${slug}`}
+                          >
+                            <a
+                              href={`/publications/${slug}`}
+                              className="hero-pub__title font-weight-semibold"
+                            >
                               {title}
                             </a>
                           </Link>

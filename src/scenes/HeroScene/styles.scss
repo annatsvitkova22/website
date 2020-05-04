@@ -1,12 +1,16 @@
 .hero {
   margin-top: 32px;
 
-  &__image {
+  &__container {
     height: 730px;
     max-height: calc(100vh - 130px);
 
     position: sticky;
     top: 100px;
+  }
+
+  &__image {
+    height: 100%;
   }
 
   &__caption {
