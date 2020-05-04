@@ -37,6 +37,8 @@ Publication.propTypes = {
 };
 
 Publication.getInitialProps = async ({ query: { slug } }) => {
+
+
   const { data } = await apolloClient.query({
     query: PUBLICATION,
     variables: { slug },
