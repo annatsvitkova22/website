@@ -6,8 +6,8 @@ const MainPublications = ({ publications: { nodes: publications } }) => (
     {publications.slice(0, 3).map(({ title, slug }) => (
       <div className="primary-publ">
         <h3 className="primary-publ__title">
-          <Link href={`/publications/${slug}`}>
-            <a>{title}</a>
+          <Link href="/publications/[slug]" as={`/publications/${slug}`}>
+            <a href={`/publications/${slug}`}>{title}</a>
           </Link>
         </h3>
       </div>

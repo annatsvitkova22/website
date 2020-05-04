@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Taxonomies from '~/components/Article/Taxonomies';
 import Author from '~/components/Article/Author';
 import Featured from '~/components/Article/Featured';
+import { ArticleProvider } from '~/components/Article/Context';
 
 const HeroScene = ({ posts, publications }) => {
   const heroPubRef = useRef(null);
@@ -97,31 +98,36 @@ const HeroScene = ({ posts, publications }) => {
                   .map(
                     ({ categories, title, slug, author, featuredImage }, i) => (
                       <div key={i} className="hero-pub">
-                        <Featured
-                          image={featuredImage}
-                          alt={title}
-                          slug={slug}
-                        />
-                        <Taxonomies
-                          categories={categories}
-                          className={`article__category`}
-                        />
-                        <h6>
-                          <Link
-                            href={`/publications/[slug]`}
-                            as={`/publications/${slug}`}
-                          >
-                            <a
-                              href={`/publications/${slug}`}
-                              className="hero-pub__title font-weight-semibold"
+                        <ArticleProvider value="publications">
+                          <Featured
+                            image={featuredImage}
+                            alt={title}
+                            slug={slug}
+                          />
+                          <Taxonomies
+                            categories={categories}
+                            className={`article__category`}
+                          />
+                          <h6>
+                            <Link
+                              href={`/publications/[slug]`}
+                              as={`/publications/${slug}`}
                             >
-                              {title}
-                            </a>
-                          </Link>
-                        </h6>
-                        <div className="article__meta tx-grey">
-                          <Author className="article__author" author={author} />
-                        </div>
+                              <a
+                                href={`/publications/${slug}`}
+                                className="hero-pub__title font-weight-semibold"
+                              >
+                                {title}
+                              </a>
+                            </Link>
+                          </h6>
+                          <div className="article__meta tx-grey">
+                            <Author
+                              className="article__author"
+                              author={author}
+                            />
+                          </div>
+                        </ArticleProvider>
                       </div>
                     )
                   )}
@@ -136,8 +142,8 @@ const HeroScene = ({ posts, publications }) => {
                   .map(({ title, slug }, i) => (
                     <li key={i} className="hero-list__item">
                       <h6 className="tx-tiny font-weight-medium">
-                        <Link href={`post/${title}`}>
-                          <a>{title}</a>
+                        <Link href={`/news/[slug]`} as={`/news/${slug}`}>
+                          <a href={`/news/${slug}`}>{title}</a>
                         </Link>
                       </h6>
                     </li>
