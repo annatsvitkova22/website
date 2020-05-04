@@ -15,14 +15,20 @@
       margin-bottom: 80px;
     }
 
+    .article-title {
+      &__link {
+        font-weight: 800;
+      }
+    }
+
     .article {
       &__title {
-        margin-bottom: 11px;
+        margin-bottom: 13px;
 
         text-transform: capitalize;
 
         @include media-breakpoint-up(sm) {
-          margin-bottom: 18px;
+          margin-bottom: 20px;
         }
       }
     }

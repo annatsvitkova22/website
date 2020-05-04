@@ -240,8 +240,10 @@ const News = ({ posts, categories, query }) => {
             <NewsLoader />
             <NewsLoader />
           </main>
-          <aside className="news-archive__sidebar col-md-4">
-            <SidebarLoader type={'archive'} />
+          <aside className="news-archive__sidebar-wrapper col-md-4">
+            <div className="news-archive__sidebar">
+              <SidebarLoader type={'archive'} />
+            </div>
           </aside>
         </div>
       </div>

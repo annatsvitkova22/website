@@ -18,7 +18,6 @@ import {
   SingleArticleStore,
 } from '~/stores/SingleArticle';
 import useViewsCounter from '~/hooks/useViewsCounter';
-import Avatar from '~/components/Avatar';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
@@ -42,15 +41,17 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
 
   if (!storedPost) {
     return (
-      <div className={'container'}>
-        <div className={'row'}>
+      <div className="single-post container">
+        <div className={'single-post__title row'}>
           <div
-            className={classnames({
+            className={classnames('single-post__wrapper', {
               'col-md-9': sidebar,
               'col-12': !sidebar,
             })}
           >
-            <PostHeaderLoader type={type} />
+            <div className="single-post__title-wrapper col-xl-11">
+              <PostHeaderLoader type={type} />
+            </div>
           </div>
           {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
         </div>
@@ -58,7 +59,13 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     );
   }
 
-  console.log(storedPost);
+  const userAvatarStyles = {
+    backgroundImage: storedPost.author.userAdditionalACF.avatar
+      ? `url(${storedPost.author.userAdditionalACF.avatar.mediaItemUrl})`
+      : '',
+    backgroundSize: 'cover',
+  };
+
   return (
     <>
       <Head>
@@ -90,9 +97,9 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                   <section className={'single-post__content'}>
                     <div className={'title__socials'}>
                       <div className={'title__socials-about'}>
-                        <Avatar
-                          avatar={post.author.avatar}
+                        <span
                           className="title__socials-image"
+                          style={userAvatarStyles}
                         />
                         <div className={'title__socials-author'}>
                           <ArticleAuthor

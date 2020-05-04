@@ -110,7 +110,7 @@ const useLoadMoreHook = (
         case 'others':
           setState({
             data: response.data.others,
-            endCursor: response.data.posts.pageInfo.endCursor,
+            endCursor: response.data.others.pageInfo.endCursor,
             isLoading: false,
           });
           break;

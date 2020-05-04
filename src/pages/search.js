@@ -24,12 +24,12 @@ import {
 } from '~/stores/Search';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import NewsLoader from '~/components/Loaders/NewsLoader';
-import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import composeTaxQuery from '~/util/taxQuery';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleSearch from '~/components/Article/Search';
+import SearchbarLoader from '~/components/Loaders/SearchbarLoader';
 
 const sharedNodes = `id
           title
@@ -434,21 +434,20 @@ const Search = ({ posts, categories, types, query, users }) => {
     return (
       <div className="search-page">
         <div className="search-main">
-          <ActionbarLoader />
-          <ActionbarLoader />
-        </div>
-        <main className="search-results">
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <NewsLoader />
-                <NewsLoader />
-                <NewsLoader />
-                <NewsLoader />
-                <NewsLoader />
+                <SearchbarLoader />
               </div>
             </div>
           </div>
+        </div>
+        <main className="search-results">
+          <NewsLoader />
+          <NewsLoader />
+          <NewsLoader />
+          <NewsLoader />
+          <NewsLoader />
         </main>
       </div>
     );

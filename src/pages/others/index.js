@@ -1,22 +1,36 @@
 import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
-import apolloClient from '~/lib/ApolloClient';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
-import NewsLoader from '~/components/Loaders/NewsLoader';
-import BlogsLoader from '~/components/Loaders/BlogsLoader';
+import apolloClient from '~/lib/ApolloClient';
+import Article from '~/components/Article';
+import OpportunitiesLoader from '~/components/Loaders/OpportunitiesLoader';
 
 const OTHERS_ARCHIVE = gql`
-  query OthersArchive {
-    others {
+  query OthersArchive($cursor: String) {
+    others(first: 5, before: $cursor) {
       nodes {
-        excerpt
+        featuredImage {
+          sourceUrl(size: THUMBNAIL)
+        }
         title
         slug
+        id
+        zmAfishaACF {
+          eventAddress {
+            streetAddress
+            streetName
+            latitude
+            longitude
+          }
+          eventTime
+          eventDays {
+            day
+          }
+        }
       }
       pageInfo {
         endCursor
@@ -30,43 +44,46 @@ const OthersArchive = (props) => {
   const { fetchingContent, state } = useLoadMoreHook(
     OTHERS_ARCHIVE,
     props,
-    'other'
+    'others'
   );
 
-  if (!state.data.nodes)
+  if (!state.data.nodes) {
     return (
-      <div>
-        <NewsLoader />
-        <NewsLoader />
+      <div className="opportunities-page">
+        <div className="container articles-container articles-container--sm">
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+          <OpportunitiesLoader />
+        </div>
       </div>
     );
+  }
 
   const { nodes, pageInfo } = state.data;
+
   return (
-    <div className="others-page">
+    <div className="opportunities-page">
       <Head>
         {/* TODO: change title */}
-        <title>{'Change this!'}</title>
+        <title>{'Інше'}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <div>
-          {nodes.map((other, i) => (
-            <article key={i}>
-              <Link href="/others/[slug]" as={`/others/${other.slug}`}>
-                <a>
-                  <h3>{other.title}</h3>
-                </a>
-              </Link>
-              <div>{other.excerpt}</div>
-              {i === nodes.length - 1 && i < pageInfo.total && (
-                <Waypoint onEnter={fetchingContent} />
-              )}
-            </article>
+        <div className="container articles-container articles-container--sm">
+          {nodes.map((post, i) => (
+            <>
+              <Article type="others" post={post} key={post.id}>
+                {i === nodes.length - 1 && i < pageInfo.total - 1 && (
+                  <Waypoint onEnter={fetchingContent} />
+                )}
+              </Article>
+            </>
           ))}
+          {state.isLoading && <OpportunitiesLoader />}
         </div>
-        {state.isLoading && <BlogsLoader />}
       </main>
     </div>
   );
@@ -76,8 +93,8 @@ OthersArchive.propTypes = {
   others: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      excerpt: PropTypes.string,
       slug: PropTypes.string,
+      cursor: PropTypes.string,
     })
   ),
 };
@@ -86,6 +103,7 @@ OthersArchive.getInitialProps = async () => {
   if (process.browser) {
     return {};
   }
+
   const { data } = await apolloClient.query({
     query: OTHERS_ARCHIVE,
     variables: {
@@ -94,6 +112,7 @@ OthersArchive.getInitialProps = async () => {
   });
 
   const { others } = data;
+
   return others;
 };
 

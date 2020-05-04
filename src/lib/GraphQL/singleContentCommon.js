@@ -50,8 +50,10 @@ const singleContentCommon = `${gutenbergBlocksQuery}
         nickname
         username
         name
-        avatar {
-          url
+        userAdditionalACF {
+          avatar {
+            mediaItemUrl
+          }
         }
       }
       featuredImage {

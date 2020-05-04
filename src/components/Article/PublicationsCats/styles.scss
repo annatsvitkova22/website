@@ -29,6 +29,10 @@
     }
   }
 
+  .meta-author {
+    color: $grey-200;
+  }
+
   &__col {
     @include media-breakpoint-up(xl) {
       &:not(:last-child) {
