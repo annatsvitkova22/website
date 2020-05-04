@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as classnames from 'classnames';
 
+
 import CrowdfundingDonation from '~/components/Crowdfunding/Donation';
 import CrowdfundingShare from '~/components/Crowdfunding/Share';
 
@@ -25,27 +26,22 @@ const CrowdfundingActions = ({ className, post }) => {
   return (
     <>
       <ul className={classnames('crowdfunding-actions', className)}>
-        <li className="crowdfunding-actions__item">
-          <button
-            onClick={handleDonationOpen}
-            className="crowdfunding-actions__support"
-          >
-            підтримати
-          </button>
+        <li className="crowdfunding-actions__item" onClick={handleDonationOpen}>
+          <button className="crowdfunding-actions__support">підтримати</button>
         </li>
-        <li className="crowdfunding-actions__item">
-          <button
-            className="crowdfunding-actions__share"
-            onClick={handleShareOpen}
-          >
-            поширити
-          </button>
+        <li className="crowdfunding-actions__item" onClick={handleShareOpen}>
+          <button className="crowdfunding-actions__share">поширити</button>
         </li>
       </ul>
       {donationOpen && (
         <CrowdfundingDonation post={post} onClose={handleClose} />
       )}
-      {shareOpen && <CrowdfundingShare post={post} onClose={handleClose} />}
+      {shareOpen && (
+        <CrowdfundingShare
+          post={post}
+          onClose={handleClose}
+        />
+      )}
     </>
   );
 };

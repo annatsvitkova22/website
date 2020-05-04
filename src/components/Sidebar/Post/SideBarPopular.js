@@ -3,21 +3,30 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
+import ArticleFeatured from '~/components/Article/Featured';
 
-const SideBarPopular = ({ news }) => {
-  if (!news) return <SidebarLoader />;
+const SideBarPopular = ({ publications }) => {
+  console.log(publications);
+  if (!publications) return <SidebarLoader />;
 
   return (
     <ul className={'sidebar-popular'}>
       <li className={'sidebar-popular__title'}>популярне</li>
-      {news.nodes.slice(5).map((item, i) => {
+      {publications.nodes.map((item, i) => {
         return (
           <li key={i} className={'sidebar-popular__item'}>
-            <Link href={`/news/[slug]`} as={`/news/${item.slug}`}>
-              <a href={`/news/${item.slug}`}>
+            <Link
+              href={`/publications/[slug]`}
+              as={`/publications/${item.slug}`}
+            >
+              <a href={`/publications/${item.slug}`}>
                 <div className={'sidebar-popular__wrapper'}>
                   <span className={'sidebar-popular__text'}>{item.title}</span>
-                  <span className="sidebar-popular__image" />
+                  <img
+                    src={item.featuredImage.mediaItemUrl}
+                    className={'sidebar-popular__image'}
+                    alt={item.featuredImage.title}
+                  />
                 </div>
               </a>
             </Link>

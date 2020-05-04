@@ -116,9 +116,15 @@
       padding-bottom: 6px;
 
       font-size: 12px;
-      line-height: 1.33;
+      line-height: 16px;
 
-      &:hover > * {
+      & > a {
+        line-height: 16px;
+      }
+      &.project__owner:hover {
+        color: $white;
+      }
+      &:hover > a {
         color: $green;
       }
       &:hover {

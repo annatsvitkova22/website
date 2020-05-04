@@ -6,7 +6,7 @@ const Quote = ({ block, className = '' }) => {
     textAlign: block.attributes.align,
   };
   return (
-    <div className={`gutenberg__quote`}>
+    <div className={`gutenberg__quote ${className}`}>
       <blockquote
         style={style}
         className={`${block.attributes.className} ${className}`}

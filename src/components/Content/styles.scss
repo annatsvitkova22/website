@@ -1,6 +1,5 @@
 .gutenberg__paragraph {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 
   margin: 0;
   strong {
@@ -17,7 +16,7 @@
 }
 
 .gutenberg__title:not(:first-child) {
-  padding-top: 30px;
+  padding-top: 10px;
 
   @include media-breakpoint-down(sm) {
     padding-top: 24px;
@@ -25,9 +24,21 @@
   }
 }
 
+.gutenberg__ordered-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 0;
+
+  & > li:not(:last-child) {
+    padding-bottom: 8px;
+  }
+  & > li:not(:first-child) {
+    padding-top: 8px;
+  }
+}
 .gutenberg__unordered-list {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   padding-left: 26.5px;
 
   list-style: disc;
@@ -46,6 +57,8 @@
   margin-bottom: 40px;
 
   border-left: 2px solid #666666;
+
+
   & > blockquote {
     line-height: 1.55;
     letter-spacing: 0.02em;
@@ -73,8 +86,8 @@
 }
 
 .gutenberg__audio {
-  padding-top: 37px;
-  padding-bottom: 37px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin-bottom: 40px;
 
   width: 100%;
@@ -90,7 +103,8 @@
 .gutenberg__youtube {
   width: 696px;
 
-  margin-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 .gutenberg__youtube iframe {
   width: 100%;
@@ -101,6 +115,10 @@
 
   width: 100%;
   margin-bottom: 40px;
+}
+.gutenberg__buttons {
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 .wp-block-button {
   padding: 12px 30px;

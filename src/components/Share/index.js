@@ -10,7 +10,6 @@ import {
 import { useRouter } from 'next/router';
 import getConfig from 'next/config';
 import * as classnames from 'classnames';
-import Popover from 'react-tiny-popover';
 
 import Icons from '~/components/Icons';
 import ShareModal from '~/components/Share/Modal';

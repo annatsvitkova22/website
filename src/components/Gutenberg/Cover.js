@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Content from '~/components/Content';
 
-const Cover = ({ block }) => {
+const Cover = ({ block, className = '' }) => {
   const backgroundStyles = {
     backgroundImage: `url(${block.attributes.url})`,
     width: '500px',
@@ -17,7 +17,7 @@ const Cover = ({ block }) => {
   };
 
   return (
-    <div style={backgroundStyles}>
+    <div style={backgroundStyles} className={`gutenberg__cover ${className}`}>
       <div style={coverContainer}>
         <Content content={block.innerBlocks} />
       </div>

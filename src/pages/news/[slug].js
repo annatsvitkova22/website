@@ -75,6 +75,22 @@ const BLOGS = gql`
   }
 `;
 
+const PUBLICATIONS = gql`
+  query Publications {
+    publications(first: 4) {
+      nodes {
+        title
+        link
+        slug
+        featuredImage {
+          mediaItemUrl
+          title
+        }
+      }
+    }
+  }
+`;
+
 const Post = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -91,7 +107,7 @@ const Post = (props) => {
   // TODO: add loader when navigate between news
 
   const { post, isLoading } = state;
-  const { news, blogs } = additionalInfo;
+  const { news, blogs, publications } = additionalInfo;
 
   moment.locale('uk');
 
@@ -113,43 +129,46 @@ const Post = (props) => {
       post: postResponse.data.postBy,
       isLoading: false,
     });
-  }
+  };
 
   useEffect(() => {
     if (loaded && post && props.slug) {
       loadData();
     }
   }, [props.slug]),
+    useEffect(() => {
+      if (props.slug && !post) {
+        loadData();
+      }
 
-  useEffect(() => {
-    if (props.slug && !post) {
-      loadData();
-    }
+      const loadAdditionalInfo = async () => {
+        const newsResponse = await apolloClient.query({
+          query: NEWS,
+          variables: {
+            articles: 10,
+            cursor: null,
+          },
+        });
+        const blogsResponse = await apolloClient.query({
+          query: BLOGS,
+        });
+        const publicationsResponse = await apolloClient.query({
+          query: PUBLICATIONS,
+        });
 
-    const loadAdditionalInfo = async () => {
-      const newsResponse = await apolloClient.query({
-        query: NEWS,
-        variables: {
-          articles: 10,
-          cursor: null,
-        },
-      });
-      const blogsResponse = await apolloClient.query({
-        query: BLOGS,
-      });
+        setAdditionalInfo({
+          news: newsResponse.data.posts,
+          blogs: blogsResponse.data.blogs,
+          publications: publicationsResponse.data.publications,
+        });
+      };
 
-      setAdditionalInfo({
-        news: newsResponse.data.posts,
-        blogs: blogsResponse.data.blogs,
-      });
-    };
+      if (!news && !blogs && !publications) {
+        loadAdditionalInfo();
+      }
 
-    if (!news && !blogs) {
-      loadAdditionalInfo();
-    }
-
-    setLoaded(true);
-  }, []);
+      setLoaded(true);
+    }, []);
 
   const loadSimilarPosts = async () => {
     if (similar.posts) return;
@@ -174,7 +193,7 @@ const Post = (props) => {
 
   const sidebar =
     news && blogs ? (
-      <SideBarPost news={news} blogs={blogs} />
+      <SideBarPost news={news} blogs={blogs} publications={publications} />
     ) : (
       <SidebarLoader className={'full-width'} type={'popular'} />
     );
