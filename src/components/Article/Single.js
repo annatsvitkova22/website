@@ -97,7 +97,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                             className={'title__socials-name meta-author--black'}
                           />
                           <span className={'title__socials-date'}>
-                            {moment(storedPost.date).format('LLL')}
+                            {moment(storedPost.date).format('DD MMMM, HH:MM')}
                           </span>
                         </div>
                       </div>
