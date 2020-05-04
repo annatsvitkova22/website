@@ -18,6 +18,8 @@
 }
 
 .hero-list {
+  overflow: hidden;
+
   &__item + &__item {
     margin-top: 8px;
     padding-top: 8px;
