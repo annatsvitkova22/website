@@ -271,6 +271,9 @@ body.isB-MenuOpen {
         letter-spacing: 0.1em;
       }
     }
+    &--active {
+      color: $green;
+    }
     &:not(:first-child) {
       .navigation__link:hover {
         color: $green;
