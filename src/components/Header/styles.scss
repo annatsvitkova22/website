@@ -2,8 +2,30 @@ body.isB-MenuOpen {
   overflow: hidden;
 }
 .header {
+  &__search-wrapper {
+    display: flex;
+
+    width: 100%;
+
+    position: absolute;
+  }
   .isSearchMenuOpen {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  .header__search-field {
+    display: flex;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+  }
+  .header__search-field--active {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.2s;
   }
 
   padding-right: 20px;
@@ -29,6 +51,8 @@ body.isB-MenuOpen {
     align-items: center;
 
     height: 100%;
+
+    position: relative;
   }
 
   &__menu {
@@ -574,7 +598,6 @@ body.isB-MenuOpen {
     display: none;
   }
 }
-
 @media screen and (max-width: 1199px) {
   .header {
     &__social {
