@@ -8,13 +8,39 @@
     position: sticky;
     top: 20px;
   }
+
+  &__caption {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    right: 48px;
+  }
 }
 
-.hero-pub {
+.hero-list {
   &__item + &__item {
     margin-top: 8px;
     padding-top: 8px;
 
     border-top: 1px solid $grey-100;
+  }
+}
+
+.hero-pub {
+  & + & {
+    margin-top: 24px;
+  }
+
+  &__title {
+    letter-spacing: 0.02em;
+  }
+
+  .meta-taxonomy {
+    margin-top: 16px;
+    margin-bottom: 10px;
+  }
+
+  .meta-author {
+    margin-top: 14px;
   }
 }

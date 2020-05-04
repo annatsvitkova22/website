@@ -18,21 +18,21 @@ const HeroScene = ({ publications }) => (
             ) => {
               return (
                 <div
-                  className="hero__image bg-cover"
+                  className="hero__image bg-cover pos-relative"
                   key={i}
                   style={{
                     backgroundImage: `linear-gradient(0deg, rgba(29, 158, 116, 0.44), rgba(29, 158, 116, 0.44)), url(${mediaItemUrl})`,
                   }}
                 >
-                  <Taxonomies
-                    categories={categories}
-                    className={`article__category`}
-                  />
                   <div className="hero__caption tx-white">
+                    <Taxonomies
+                      categories={categories}
+                      className={`article__category`}
+                    />
                     <h1 className="heading__big">{title}</h1>
-                  </div>
-                  <div className="article__meta">
-                    <Author className="article__author" author={author} />
+                    <div className="article__meta">
+                      <Author className="article__author" author={author} />
+                    </div>
                   </div>
                 </div>
               );
@@ -45,12 +45,17 @@ const HeroScene = ({ publications }) => (
             {publications.nodes
               .slice(1, 6)
               .map(({ categories, title, slug, author, featuredImage }, i) => (
-                <div key={i}>
+                <div key={i} className="hero-pub">
                   <Featured image={featuredImage} alt={title} slug={slug} />
                   <Taxonomies
                     categories={categories}
                     className={`article__category`}
                   />
+                  <h6>
+                    <Link href={`publications/${slug}`}>
+                      <a className="hero-pub__title">{title}</a>
+                    </Link>
+                  </h6>
                   <div className="article__meta">
                     <Author className="article__author" author={author} />
                   </div>
@@ -58,16 +63,19 @@ const HeroScene = ({ publications }) => (
               ))}
           </div>
           <div className="col-7">
-            <ul className="hero-pub list-reset">
-              {publications.nodes.map(({ title, slug }, i) => (
-                <li key={i} className="hero-pub__item">
-                  <h6 className="tx-tiny font-weight-medium">
-                    <Link href={`publications/${title}`}>
-                      <a>{title}</a>
-                    </Link>
-                  </h6>
-                </li>
-              ))}
+            <ul className="hero-list list-reset">
+              {publications.nodes
+                .concat(publications.nodes)
+                .concat(publications.nodes)
+                .map(({ title, slug }, i) => (
+                  <li key={i} className="hero-list__item">
+                    <h6 className="tx-tiny font-weight-medium">
+                      <Link href={`publications/${title}`}>
+                        <a>{title}</a>
+                      </Link>
+                    </h6>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
