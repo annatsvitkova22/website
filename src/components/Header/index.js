@@ -150,7 +150,10 @@ const Header = () => {
             color={'white'}
             className={'header__search'}
           />
-          <SearchField onSearch={() => setIsSearchOpen(false)} />
+          <SearchField
+            isOpen={isSearchOpen}
+            onSearch={() => setIsSearchOpen(false)}
+          />
         </div>
       </div>
       <div className={`header__overlay`} onClick={handleCloseClick}>

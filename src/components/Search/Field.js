@@ -5,14 +5,18 @@ import { useRouter } from 'next/router';
 
 import Icons from '~/components/Icons';
 
-const SearchField = ({ className = '', onSearch = () => {} }) => {
+const SearchField = ({ className = '', onSearch = () => {}, isOpen }) => {
   const [query, setQuery] = useState('');
   const router = useRouter();
   const inputElement = useRef(null);
 
   useEffect(() => {
-    inputElement.current.focus();
-  }, []);
+    if (isOpen) {
+      setTimeout(() => {
+        inputElement.current.focus();
+      }, 100);
+    }
+  }, [isOpen]);
 
   const search = async () => {
     if (!query) {
@@ -39,8 +43,15 @@ const SearchField = ({ className = '', onSearch = () => {} }) => {
         className={'search-field__input'}
         type="text"
         placeholder={'Пошук'}
+        value={query}
       />
-      <button onClick={onSearch} className={'search-field__button'}>
+      <button
+        onClick={() => {
+          setQuery('');
+          onSearch();
+        }}
+        className={'search-field__button'}
+      >
         <Icons icon={'close-comment'} />
       </button>
     </div>
