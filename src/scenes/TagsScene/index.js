@@ -55,23 +55,11 @@ const TagsScene = ({ tags: { nodes: tags } }) => {
                           </Link>
                         </h3>
                         <div className="article__meta">
-                          <Author className="article__author" author={author} />
+                          <Author
+                            className="article__author meta-author--grey"
+                            author={author}
+                          />
                         </div>
-                      </div>
-                      <h3
-                        className={`article-title tag-sec__title font-weight-semibold tag-sec__title--${
-                          i === 2 ? 'big' : 'small'
-                        }`}
-                      >
-                        <Link href={`/`}>
-                          <a>{title}</a>
-                        </Link>
-                      </h3>
-                      <div className="article__meta">
-                        <Author
-                          className="article__author meta-author--grey"
-                          author={author}
-                        />
                       </div>
                     </ArticleProvider>
                   </div>
