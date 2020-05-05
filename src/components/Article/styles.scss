@@ -406,19 +406,27 @@
   &:hover {
     color: $green;
   }
-}
-.meta-author--black {
-  color: $black;
-  &:hover {
-    color: $green;
+
+  &--black {
+    color: $black;
+    &:hover {
+      color: $green;
+    }
+  }
+  &--grey {
+    color: $grey-200;
+    &:hover {
+      color: $green;
+    }
+  }
+  &--white {
+    color: #fff;
+    &:hover {
+      color: $grey-400;
+    }
   }
 }
-.meta-author--grey {
-  color: $grey-200;
-  &:hover {
-    color: $green;
-  }
-}
+
 .meta-author--img {
   color: $black;
 }

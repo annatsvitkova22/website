@@ -45,6 +45,7 @@ $tx-colors: (
   'green': $green,
   'white': $white,
   'black': $black,
+  'grey': $grey-200,
 );
 
 @each $name, $color in $tx-colors {

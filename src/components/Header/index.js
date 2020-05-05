@@ -82,14 +82,16 @@ const Header = () => {
   let scrollPos = 0;
 
   const fixedHeader = () => {
-    if (window.scrollY < 100) {
+    const isHome = router.route === '/';
+    // TODO: replace 2000 with real feed height?
+    if (window.scrollY < (isHome ? 2000 : 100)) {
       setIsUnpinned(false);
     }
     const st = window.scrollY;
-    if (window.scrollY > 100 && st > scrollPos) {
+    if (window.scrollY > (isHome ? 2000 : 100) && st > scrollPos) {
       setIsPinned(false);
       setIsUnpinned(true);
-    } else if (window.scrollY > 100 && st < scrollPos) {
+    } else if (window.scrollY > (isHome ? 2000 : 100) && st < scrollPos) {
       setIsPinned(true);
       setIsUnpinned(false);
     }
@@ -148,7 +150,10 @@ const Header = () => {
             color={'white'}
             className={'header__search'}
           />
-          <SearchField onSearch={() => setIsSearchOpen(false)} />
+          <SearchField
+            isOpen={isSearchOpen}
+            onSearch={() => setIsSearchOpen(false)}
+          />
         </div>
       </div>
       <div className={`header__overlay`} onClick={handleCloseClick}>

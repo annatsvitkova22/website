@@ -4,21 +4,20 @@ import ArticleAuthor from '~/components/Article/Author';
 
 const MainPublication = ({
   title,
-  uri,
   featuredImage,
   author,
   categories: mainCats,
   slug,
 }) => {
-
   return (
     <div className="main-publ pos-relative">
-      <Link href={`/publications/${slug}`}>
+      <Link href="/publications/[slug]" as={`/publications/${slug}`}>
         <a
           className="main-publ__image d-block bg-cover"
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2B2B2B 100%), url(${featuredImage.mediaItemUrl})`,
           }}
+          href={`/publications/${slug}`}
         >
           <span />
         </a>

@@ -1,0 +1,61 @@
+.hero {
+  margin-top: 32px;
+
+  &__container {
+    height: 90vh;
+    max-height: calc(100vh - 130px);
+
+    position: sticky;
+    top: 100px;
+  }
+
+  &__image {
+    height: 100%;
+  }
+
+  &__caption {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    right: 48px;
+  }
+}
+
+.hero-list {
+  overflow: hidden;
+
+  &__item + &__item {
+    margin-top: 8px;
+    padding-top: 8px;
+
+    border-top: 1px solid $grey-100;
+  }
+}
+
+.hero-pub {
+  &__scroll {
+    max-height: 100vh;
+
+    position: sticky;
+    top: 0;
+
+    overflow: hidden;
+  }
+
+  & + & {
+    margin-top: 24px;
+  }
+
+  &__title {
+    letter-spacing: 0.02em;
+  }
+
+  .meta-taxonomy {
+    margin-top: 16px;
+    margin-bottom: 10px;
+  }
+
+  .meta-author {
+    margin-top: 14px;
+  }
+}

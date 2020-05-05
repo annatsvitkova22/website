@@ -1,8 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 
-import ArticleFeatured from '~/components/FeaturedImage';
-
 const BlogsScene = ({ users: { nodes: users } }) => (
   <div className="container">
     <div className="row">

@@ -21,8 +21,6 @@ const Navigation = (props) => {
     return item.name === 'Головне';
   });
 
-  console.log(naviData[0].menuItems.nodes);
-
   return (
     <nav className={`${className}`}>
       <ul className="navigation__list">
@@ -35,7 +33,8 @@ const Navigation = (props) => {
                 className={classnames('navigation__item', {
                   'navigation__item--highlighted':
                     item.menuItemACF.ishighlighted,
-                  'navigation__item--active': item.url.match(route),
+                  // TODO: restore working version
+                  // 'navigation__item--active': item.url.match(route),
                 })}
               >
                 <NavLink

@@ -84,7 +84,7 @@ const Article = ({ type, display, className, ...props }) => {
     }
     case 'publications-cats': {
       return (
-        <ArticleProvider value={type}>
+        <ArticleProvider value={'publications'}>
           <PublicationsCats className={classnames('', className)} {...props} />
         </ArticleProvider>
       );

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import client from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
+import HeroScene from '~/scenes/HeroScene';
 import CrowdfundingsScene from '~/scenes/CrowdfundingsScene';
 import VideosScene from '~/scenes/VideosScene';
 import OpportunitiesScene from '~/scenes/OpportunitiesScene';
@@ -21,6 +22,13 @@ const HOME_PAGE = gql`
     pages(where: { title: "Головна" }) {
       nodes {
         title
+      }
+    }
+
+    posts {
+      nodes {
+        title
+        slug
       }
     }
 
@@ -102,6 +110,7 @@ const HOME_PAGE = gql`
         publications(first: 5) {
           nodes {
             title
+            slug
             featuredImage {
               mediaItemUrl
             }
@@ -177,7 +186,7 @@ const HOME_PAGE = gql`
       }
     }
 
-    publications(first: 6) {
+    publications(first: 20) {
       nodes {
         excerpt
         title
@@ -242,6 +251,7 @@ const HOME_PAGE = gql`
 const Home = (props) => {
   const {
     page,
+    posts,
     users,
     crowdfundings,
     tags,
@@ -261,6 +271,8 @@ const Home = (props) => {
 
       <main>
         <h1 className="title d-none">{page.title}</h1>
+
+        <HeroScene {...{ posts, publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
@@ -312,6 +324,7 @@ Home.getInitialProps = async () => {
 
   const {
     pages,
+    posts,
     users,
     crowdfundings,
     tags,
@@ -324,6 +337,7 @@ Home.getInitialProps = async () => {
 
   return {
     page: pages.nodes[0],
+    posts,
     users,
     crowdfundings,
     tags,
