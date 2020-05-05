@@ -1,12 +1,19 @@
 .search-form {
   .react-select {
+
+    &__value-container {
+      &--has-value {
+        font-weight: 600;
+      }
+    }
+
     &__dropdown-indicator {
       padding-right: 5px;
       padding-left: 5px;
     }
 
     &__menu {
-      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+      box-shadow: 0px -6px 6px $white, 0px 0px 6px rgba($black, 0.25);
     }
 
     &__single-value .react-select__quantity {
@@ -16,6 +23,8 @@
     &__placeholder {
       margin-left: 0;
       margin-right: 0;
+
+      font-weight: 500;
     }
 
     &__control {
@@ -25,6 +34,8 @@
       box-shadow: none;
 
       letter-spacing: 0.08em;
+
+      cursor: pointer; 
 
       @include media-breakpoint-down(sm) {
         padding-left: 0;
