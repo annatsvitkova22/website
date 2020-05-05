@@ -29,7 +29,7 @@ const VideoCategories = ({ categories }) => (
                 >
                   <a
                     href={`video/category/${category.slug}`}
-                    className="tx-family-titles font-weight-semibold"
+                    className="tx-family-titles font-weight-semibold video-category__watch-all"
                   >
                     Дивись Усі
                   </a>
