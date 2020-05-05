@@ -177,6 +177,10 @@
       padding-left: 12px;
       padding-right: 12px;
     }
+
+    .meta-type__link {
+      pointer-events: none;
+    }
   }
 
   .article {
