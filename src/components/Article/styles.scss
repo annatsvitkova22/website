@@ -441,6 +441,9 @@
   text-transform: uppercase;
   color: $green;
 }
+.publication-banner--image {
+  height: 704px;
+}
 .feature__image--full {
   height: 704px;
 
@@ -455,5 +458,10 @@
     left: 0;
 
     background: linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2b2b2b 100%);
+  }
+
+  img {
+    height: 100%;
+    object-fit: cover;
   }
 }

@@ -19,6 +19,7 @@
 
     .single-post__content {
       margin: 0;
+      padding-top: 62px;
 
       @include media-breakpoint-up(md) {
         margin-left: 8.33333%;
