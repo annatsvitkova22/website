@@ -46,7 +46,7 @@ const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
                       />
                       <ArticleAuthor
                         author={item.author}
-                        className={'similar-posts__author meta-author--black'}
+                        className={'similar-posts__author meta-author--grey'}
                       />
                     </div>
                   </div>

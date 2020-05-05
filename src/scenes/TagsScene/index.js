@@ -55,7 +55,10 @@ const TagsScene = ({ tags: { nodes: tags } }) => {
                           </Link>
                         </h3>
                         <div className="article__meta">
-                          <Author className="article__author" author={author} />
+                          <Author
+                            className="article__author meta-author--grey"
+                            author={author}
+                          />
                         </div>
                       </div>
                     </ArticleProvider>
