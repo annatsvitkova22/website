@@ -29,6 +29,7 @@ const HOME_PAGE = gql`
       nodes {
         title
         slug
+        date
       }
     }
 

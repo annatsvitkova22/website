@@ -5,6 +5,7 @@ import Taxonomies from '~/components/Article/Taxonomies';
 import Author from '~/components/Article/Author';
 import Featured from '~/components/Article/Featured';
 import { ArticleProvider } from '~/components/Article/Context';
+import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 
 const HeroScene = ({ posts, publications }) => {
   const heroPubRef = useRef(null);
@@ -135,24 +136,24 @@ const HeroScene = ({ posts, publications }) => {
             </div>
             <div className="col-xl-7">
               <ul ref={heroListRef} className="hero-list list-reset">
-                {posts.nodes
-                  .concat(posts.nodes)
-                  .concat(posts.nodes)
-                  .concat(posts.nodes)
-                  .map(({ title, slug }, i) => (
-                    <li key={i} className="hero-list__item">
-                      <h6 className="tx-tiny font-weight-medium">
-                        <Link href={`/news/[slug]`} as={`/news/${slug}`}>
-                          <a
-                            className="hero-list__link d-block"
-                            href={`/news/${slug}`}
-                          >
-                            {title}
-                          </a>
-                        </Link>
-                      </h6>
-                    </li>
-                  ))}
+                {posts.nodes.map(({ title, slug }, i) => (
+                  <li key={i} className="hero-list__item">
+                    <ChronologicalSeparator
+                      posts={posts.nodes}
+                      currentIndex={i}
+                    />
+                    <h6 className="tx-tiny font-weight-medium">
+                      <Link href={`/news/[slug]`} as={`/news/${slug}`}>
+                        <a
+                          className="hero-list__link d-block"
+                          href={`/news/${slug}`}
+                        >
+                          {title}
+                        </a>
+                      </Link>
+                    </h6>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
