@@ -143,6 +143,14 @@ const Event = (props) => {
     };
   }, []);
 
+  const [isTimeExist, setIsTimeExist] = useState(false);
+
+  useEffect(() => {
+    if (state.event && state.event.zmAfishaACF.eventDate) {
+      setIsTimeExist(true);
+    }
+  }, [state.event]);
+
   if (!event) {
     return (
       <div className="single__event">
@@ -167,6 +175,7 @@ const Event = (props) => {
               backgroundImage: `url(${
                 event.featuredImage ? event.featuredImage.mediaItemUrl : ''
               })`,
+              backgroundSize: 'cover',
             }}
           >
             <div
@@ -177,9 +186,12 @@ const Event = (props) => {
               }
             >
               <div className="event__hero-inner container">
-                <EventHeader event={event} />
+                <EventHeader event={event} withTime={isTimeExist} />
                 <div className="event__info-card">
-                  <EventsLikeSidebar data={event.zmAfishaACF} withTime={true} />
+                  <EventsLikeSidebar
+                    data={event.zmAfishaACF}
+                    withTime={isTimeExist}
+                  />
                 </div>
               </div>
             </div>

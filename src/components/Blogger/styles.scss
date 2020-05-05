@@ -125,6 +125,16 @@
     @include media-breakpoint-down(md) {
       @include make-col(12);
     }
+    &__avatar {
+      width: 200px;
+      height: 200px;
+    }
+    &__about {
+      padding-top: 24px;
+    }
+    &__name {
+      line-height: 18px;
+    }
   }
   .blogger-row > div:last-child {
     @include make-col(8);

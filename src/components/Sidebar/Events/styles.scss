@@ -43,6 +43,9 @@
         height: 16px;
       }
     }
+    .article-list {
+      padding-bottom: 25px;
+    }
   }
 
   &__map {
@@ -99,11 +102,26 @@
 
     padding-top: 32px;
     padding-bottom: 23px;
+
+    .social-icon .svg-icon > path {
+      fill: $black;
+    }
+
     & > a:not(:last-child) {
       margin-right: 30px;
 
       @include media-breakpoint-up(md) {
         margin-right: 16px;
+      }
+    }
+  }
+}
+
+.event__hero-noimage {
+  .event__hero-location {
+    .social-icon {
+      path {
+        fill: $black;
       }
     }
   }
