@@ -37,8 +37,8 @@ const SiteSelect = (props) => {
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
-      backgroundColor: isSelected || isFocused ? '#85e9c8' : '',
-      color: isSelected || isFocused ? '#242424' : '',
+      backgroundColor: isSelected || isFocused ? '#EFF0F4' : '',
+      // color: isSelected || isFocused ? '#242424' : '',
     }),
   };
 
