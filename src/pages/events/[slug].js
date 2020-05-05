@@ -167,6 +167,7 @@ const Event = (props) => {
               backgroundImage: `url(${
                 event.featuredImage ? event.featuredImage.mediaItemUrl : ''
               })`,
+              backgroundSize: 'cover',
             }}
           >
             <div
