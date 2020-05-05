@@ -62,7 +62,7 @@ const HeroScene = ({ posts, publications }) => {
                         href={`/publications/${slug}`}
                         className="hero__image bg-cover d-block"
                         style={{
-                          backgroundImage: `linear-gradient(0deg, rgba(29, 158, 116, 0.44), rgba(29, 158, 116, 0.44)), url(${mediaItemUrl})`,
+                          backgroundImage: `url(${mediaItemUrl})`,
                         }}
                       >
                         <span />
@@ -136,7 +136,7 @@ const HeroScene = ({ posts, publications }) => {
             </div>
             <div className="col-xl-7">
               <ul ref={heroListRef} className="hero-list list-reset">
-                {posts.nodes.map(({ title, slug }, i) => (
+                {posts.nodes.slice(0, 20).map(({ title, slug }, i) => (
                   <li key={i} className="hero-list__item">
                     <ChronologicalSeparator
                       posts={posts.nodes}
