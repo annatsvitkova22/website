@@ -34,6 +34,8 @@
     flex-direction: column;
 
     max-width: 200px;
+
+    cursor: pointer;
   }
   &__image {
     padding-bottom: 16px;
@@ -50,11 +52,12 @@
   }
   &__title {
     padding-bottom: 14px;
-
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    letter-spacing: 0.02em;
+    a {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.02em;
+    }
   }
   &__author {
     font-weight: 700;
@@ -74,6 +77,9 @@
 
     color: #1d9e74;
   }
+}
+
+.blogs-page__content {
 }
 
 @media screen and (max-width: 1250px) {
