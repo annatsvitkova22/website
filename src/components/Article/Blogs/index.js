@@ -27,7 +27,10 @@ const ArticleBlogs = ({ post, children, className, highlightInTitle }) => {
           className="article__title"
         />
         <div className="article__meta">
-          <ArticleAuthor className="article__author" author={author} />
+          <ArticleAuthor
+            className="article__author meta-author--grey"
+            author={author}
+          />
         </div>
       </div>
       {children}
