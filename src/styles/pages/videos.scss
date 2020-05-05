@@ -92,3 +92,9 @@
     padding-top: 80px;
   }
 }
+
+.videos-cat {
+  @include media-breakpoint-up(lg) {
+    padding-top: 52px;
+  }
+}

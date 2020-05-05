@@ -229,7 +229,7 @@ const Category = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="videos-main">
+      <main className="videos-cat">
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -262,7 +262,7 @@ const Category = (props) => {
                 thumbnailContent={getThumbnailVideo}
               />
             )}
-            {(isUpdating) && (
+            {isUpdating && (
               <>
                 <VideoCategoryLoader />
                 <VideoCategoryLoader />
