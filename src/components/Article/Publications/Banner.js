@@ -14,6 +14,8 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
 
   moment.locale('uk');
 
+  console.log(userAvatarStyles);
+
   return (
     <div
       className={classnames(

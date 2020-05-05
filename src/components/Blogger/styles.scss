@@ -14,6 +14,13 @@
 }
 
 .blogger {
+
+  &-page {
+    @include media-breakpoint-down(xs) {
+      padding-top: 20px;
+    }
+  }
+
   @include media-breakpoint-down(md) {
     display: flex;
     flex-direction: column;
@@ -124,16 +131,40 @@
     @include make-col(4);
     @include media-breakpoint-down(md) {
       @include make-col(12);
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+    @include media-breakpoint-down(sm) {
+      justify-content: space-between;
+    }
+    @include media-breakpoint-down(xs) {
+      justify-content: start;
     }
     &__avatar {
       width: 200px;
       height: 200px;
+      @include media-breakpoint-down(sm) {
+        width: 150px;
+        height: 150px;
+      }
+      @include media-breakpoint-down(xs) {
+        width: 90px;
+        height: 90px;
+      }
     }
     &__about {
       padding-top: 24px;
     }
     &__name {
       line-height: 18px;
+    }
+    &__stats {
+      @include media-breakpoint-down(xs) {
+        padding-top: 0;
+        padding-bottom: 16px;
+      }
     }
   }
   .blogger-row > div:last-child {

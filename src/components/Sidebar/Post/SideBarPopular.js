@@ -6,7 +6,6 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ArticleFeatured from '~/components/Article/Featured';
 
 const SideBarPopular = ({ publications }) => {
-  console.log(publications);
   if (!publications) return <SidebarLoader />;
 
   return (

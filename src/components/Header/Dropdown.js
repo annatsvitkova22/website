@@ -14,7 +14,7 @@ const Dropdown = ({ data, className = '' }) => {
           return (
             <a href={item.url} className={'header__dd-link'} key={index}>
               <Icons icon={item.label} className={'header__dd-icon'} />
-              {item.label}
+              <span className={'header__dd-text'}>{item.label}</span>
             </a>
           );
         })}
