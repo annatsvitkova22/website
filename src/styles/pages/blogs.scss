@@ -3,6 +3,9 @@
   @include media-breakpoint-down(sm) {
     padding: 20px;
   }
+  .similar-posts__author {
+    letter-spacing: 0.07em;
+  }
 
   &__archive {
     max-width: 896px;
