@@ -19,6 +19,7 @@
 
     .single-post__content {
       margin: 0;
+      padding-top: 62px;
 
       @include media-breakpoint-up(md) {
         margin-left: 8.33333%;
@@ -418,7 +419,7 @@
 
   height: 200px;
 
-  z-index: 2000;
+  z-index: 500;
 }
 @media screen and (max-width: 768px) {
   .category-tag__list {
