@@ -252,6 +252,14 @@
   }
 
   &--on {
+    &-small,
+    &-medium,
+    &-big {
+      img {
+        z-index: -1;
+      }
+    }
+
     &-big {
       @include media-breakpoint-down(md) {
         flex-basis: calc(100% + 8px);
