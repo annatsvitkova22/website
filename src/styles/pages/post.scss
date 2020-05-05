@@ -72,6 +72,9 @@
 
       .meta-taxonomy {
         margin-bottom: 8px;
+        &__link {
+          line-height: 12px;
+        }
       }
     }
     h1 {
