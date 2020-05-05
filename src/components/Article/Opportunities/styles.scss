@@ -7,6 +7,10 @@
         }
       }
     }
+    .article-title__link,
+    .article-title {
+      font-weight: 800;
+    }
     .article-featured {
       &__image {
         height: 181px;
