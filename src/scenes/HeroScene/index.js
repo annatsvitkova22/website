@@ -72,7 +72,7 @@ const HeroScene = ({ posts, publications }) => {
                         categories={categories}
                         className={`article__category`}
                       />
-                      <h1 className="heading__big">
+                      <h1 className="hero__title heading__big">
                         <Link
                           href={`/publications/[slug]`}
                           as={`/publications/${slug}`}
@@ -143,7 +143,12 @@ const HeroScene = ({ posts, publications }) => {
                     <li key={i} className="hero-list__item">
                       <h6 className="tx-tiny font-weight-medium">
                         <Link href={`/news/[slug]`} as={`/news/${slug}`}>
-                          <a href={`/news/${slug}`}>{title}</a>
+                          <a
+                            className="hero-list__link d-block"
+                            href={`/news/${slug}`}
+                          >
+                            {title}
+                          </a>
                         </Link>
                       </h6>
                     </li>
