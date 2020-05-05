@@ -335,7 +335,7 @@
 .article-featured {
   &__image {
     margin-bottom: 0;
-    
+
     background-color: rgba($green, 0.2);
 
     img {
@@ -414,7 +414,7 @@
   }
 }
 .meta-author--grey {
-  color: $grey-400;
+  color: $grey-200;
   &:hover {
     color: $green;
   }
