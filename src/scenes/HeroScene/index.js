@@ -136,7 +136,7 @@ const HeroScene = ({ posts, publications }) => {
             </div>
             <div className="col-xl-7">
               <ul ref={heroListRef} className="hero-list list-reset">
-                {posts.nodes.map(({ title, slug }, i) => (
+                {posts.nodes.slice(0, 20).map(({ title, slug }, i) => (
                   <li key={i} className="hero-list__item">
                     <ChronologicalSeparator
                       posts={posts.nodes}
