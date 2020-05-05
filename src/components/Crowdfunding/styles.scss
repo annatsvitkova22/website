@@ -103,30 +103,48 @@
   }
 
   &__support {
-    background: $green;
-    border: 1px solid transparent;
+    position: relative;
 
     color: $white;
 
+    &:before {
+      content: '';
+
+      height: 100%;
+      width: 100%;
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      background-color: $green;
+
+      z-index: -1;
+
+      transition: all 0.4s cubic-bezier(0.54, 1.51, 0.71, 0.75);
+    }
+
     &:hover {
-      border: 1px solid $green;
-
-      background-color: $white;
-
       color: $green;
+    }
+
+    &:hover:before {
+      height: 5px;
     }
   }
 
   &__share {
-    border: 1px solid $green;
+    background-color: transparent;
+    border: 2px solid $green;
 
     color: $green;
 
+    transition: all 0.45s ease-in-out;
+
     &:hover {
       background-color: $green;
-      border: 1px solid transparent;
 
-      color: $white;
+      color: #fff;
     }
   }
 }
