@@ -88,6 +88,10 @@
 
     margin-bottom: 40px;
 
+    img {
+      max-height: 488px;
+    }
+
     @include media-breakpoint-down(xs) {
       margin-bottom: 24px;
     }
@@ -355,8 +359,6 @@
 
   img {
     width: 100%;
-
-    max-height: 488px;
   }
 
   &-caption {

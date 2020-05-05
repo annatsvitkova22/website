@@ -34,6 +34,8 @@
     flex-direction: column;
 
     max-width: 200px;
+
+    cursor: pointer;
   }
   &__image {
     padding-bottom: 16px;
@@ -78,7 +80,6 @@
 }
 
 .blogs-page__content {
-
 }
 
 @media screen and (max-width: 1250px) {
