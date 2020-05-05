@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
@@ -16,7 +16,9 @@ import BlogsScene from '~/scenes/BlogsScene';
 import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 import MainPublications from '~/components/MainPublications';
+import HomeHeroLoader from '~/components/Loaders/Home/Hero';
 
+// TODO: split to multiple requests
 const HOME_PAGE = gql`
   query PageQuery {
     pages(where: { title: "Головна" }) {
@@ -250,6 +252,7 @@ const HOME_PAGE = gql`
 `;
 
 const Home = (props) => {
+  const [state, setState] = useState(props);
   const {
     page,
     posts,
@@ -261,7 +264,42 @@ const Home = (props) => {
     events,
     publications,
     categories,
-  } = props;
+  } = state;
+
+  const loadMainData = async () => {
+    // TODO: split to different loader for every section
+    const { data } = await client.query({
+      query: HOME_PAGE,
+    });
+    const newState = {
+      page: data.pages.nodes[0],
+      posts: data.posts,
+      users: data.users,
+      crowdfundings: data.crowdfundings,
+      tags: data.tags,
+      // TODO: Put bellow function on frontend
+      videos: await addVideoDurations(data.videos.nodes),
+      opportunities: data.opportunities,
+      events: data.events,
+      publications: data.publications,
+      categories: data.categories,
+    }
+    setState(newState);
+  }
+
+  useEffect(() => {
+    if (!page) {
+      loadMainData();
+    }
+  }, []);
+
+  if (!page) {
+    return <div className="home-page">
+      <main className="container hero">
+        <HomeHeroLoader />
+      </main>
+    </div>
+  }
 
   return (
     <div className="home-page">
@@ -319,6 +357,10 @@ Home.propTypes = {
 };
 
 Home.getInitialProps = async () => {
+  if (process.browser) {
+    return { };
+  }
+
   const { data } = await client.query({
     query: HOME_PAGE,
   });
