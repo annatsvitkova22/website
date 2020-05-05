@@ -110,7 +110,7 @@ const Header = () => {
     setIsMenuOpen(false);
     document.querySelector('body').classList.remove('isB-MenuOpen');
   };
-  if (loading) return null;
+  if (loading) return <header className={`${headerCls}`} />;
 
   const handleSearch = () => {
     if (router.pathname === '/search') return false;
