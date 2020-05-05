@@ -58,6 +58,9 @@
     }
 
     &--on-medium {
+      .article-title__link {
+        line-height: 32px;
+      }
       @include media-breakpoint-up(md) {
         margin-bottom: 15px;
       }
