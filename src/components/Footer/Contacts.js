@@ -25,7 +25,7 @@ const Contacts = (props) => {
                   <span>{item.name}</span>
                 </li>
                 {item.contacts ? (
-                  item.contacts.map((contacts, k) => {
+                  item.contacts.reverse().map((contacts, k) => {
                     return (
                       <li key={k} className={'footer__sitemap-link d-flex'}>
                         <Icons
