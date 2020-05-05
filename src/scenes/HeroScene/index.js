@@ -62,7 +62,7 @@ const HeroScene = ({ posts, publications }) => {
                         href={`/publications/${slug}`}
                         className="hero__image bg-cover d-block"
                         style={{
-                          backgroundImage: `linear-gradient(0deg, rgba(29, 158, 116, 0.44), rgba(29, 158, 116, 0.44)), url(${mediaItemUrl})`,
+                          backgroundImage: `url(${mediaItemUrl})`,
                         }}
                       >
                         <span />

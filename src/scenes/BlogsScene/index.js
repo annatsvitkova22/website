@@ -23,7 +23,7 @@ const BlogsScene = ({ users: { nodes: users } }) => (
                   style={
                     avatar
                       ? {
-                          backgroundImage: `linear-gradient(0deg, rgba(29, 158, 116, 0.44), rgba(29, 158, 116, 0.44)), url(${avatar.mediaItemUrl})`,
+                          backgroundImage: `url(${avatar.mediaItemUrl})`,
                         }
                       : {
                           backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
