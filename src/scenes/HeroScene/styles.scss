@@ -1,12 +1,26 @@
 .hero {
-  margin-top: 32px;
+  @include media-breakpoint-up(xl) {
+    margin-top: 32px;
+  }
 
   &__title {
     margin-top: 16px;
 
+
+      @include media-breakpoint-down(md) { 
+        margin-bottom: 12px;
+      }
+
     a {
         letter-spacing: -0.02em;
         line-height: 1.2;
+        font-weight: 800;
+
+        @include media-breakpoint-down(md) {
+          line-height: 1.29;
+          font-size: 24px;
+          font-weight: 700;
+        }
     }
   }
 
@@ -14,8 +28,15 @@
     height: 90vh;
     max-height: calc(100vh - 130px);
 
+    min-height: 400px;
+
     position: sticky;
     top: 100px;
+
+    @include media-breakpoint-down(lg) {
+      margin-left: -12px;
+      margin-right: -12px;
+    }
   }
 
   &__image {
@@ -27,11 +48,21 @@
     bottom: 48px;
     left: 48px;
     right: 48px;
+
+    @include media-breakpoint-down(lg) {
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+    }
   }
 }
 
 .hero-list {
   overflow: hidden;
+
+  @include media-breakpoint-down(lg) {
+    margin-top: 20px;
+  }
 
   &__item + &__item {
     margin-top: 8px;

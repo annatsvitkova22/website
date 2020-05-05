@@ -37,7 +37,7 @@ const HeroScene = ({ posts, publications }) => {
   return (
     <div className="container hero">
       <div className="row">
-        <div className="col-7">
+        <div className="col-xl-7">
           {publications.nodes
             .slice(0, 1)
             .map(
@@ -89,9 +89,9 @@ const HeroScene = ({ posts, publications }) => {
               }
             )}
         </div>
-        <div className="col-5">
+        <div className="col-xl-5">
           <div className="row">
-            <div className="col-5">
+            <div className="col-5 d-none d-xl-block">
               <div ref={heroPubRef} className="hero-pub__scroll">
                 {publications.nodes
                   .slice(1, 6)
@@ -133,7 +133,7 @@ const HeroScene = ({ posts, publications }) => {
                   )}
               </div>
             </div>
-            <div className="col-7">
+            <div className="col-xl-7">
               <ul ref={heroListRef} className="hero-list list-reset">
                 {posts.nodes
                   .concat(posts.nodes)
