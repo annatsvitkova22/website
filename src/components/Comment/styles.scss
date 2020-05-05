@@ -232,9 +232,13 @@
   letter-spacing: 0.2px;
 
   cursor: pointer;
+  & > span:last-child {
+    padding-left: 15px;
+  }
+  .social-icon {
+    align-items: center;
+  }
   .svg-icon {
-    margin-right: 19px;
-
     width: 15.97px;
     height: 15.97px;
   }
@@ -254,4 +258,3 @@
     color: $disabled;
   }
 }
-
