@@ -27,7 +27,7 @@ const HOME_PAGE = gql`
       }
     }
 
-    posts {
+    posts(first: 30) {
       nodes {
         title
         slug
