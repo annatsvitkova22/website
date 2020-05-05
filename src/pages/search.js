@@ -20,7 +20,8 @@ import {
   setFilter,
   setSearchQuery,
   setSorting,
-  setIsChanged, updateQuery,
+  setIsChanged,
+  updateQuery,
 } from '~/stores/Search';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -529,8 +530,8 @@ const Search = ({ posts, categories, types, query, users }) => {
                             name,
                             options,
                             placeholder,
-                            // onChangeHtml,
                           }}
+                          isClearable={i !== 0}
                           onChange={onChangeSelect}
                         />
                       ))}
