@@ -45,6 +45,7 @@
     font-size: 32px;
     letter-spacing: 0.02em;
 
+    cursor: pointer;
     transition: border-bottom-color 0.3s ease-in-out;
 
     @include media-breakpoint-down(sm) {
