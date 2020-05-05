@@ -1,5 +1,8 @@
 .blogs-page {
   padding: 50px 0;
+  @include media-breakpoint-down(sm) {
+    padding: 20px;
+  }
 
   &__archive {
     max-width: 896px;
@@ -7,6 +10,24 @@
 
     .article:not(:last-child) {
       margin-bottom: 24px;
+    }
+  }
+  .blogger {
+    @include media-breakpoint-down(sm) {
+      display: flex;
+      flex-direction: row;
+    }
+    .author {
+      @include media-breakpoint-down(sm) {
+        width: 90px;
+        height: 90px;
+      }
+    }
+    &__stats {
+      @include media-breakpoint-down(xs) {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
     }
   }
 }
