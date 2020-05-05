@@ -71,12 +71,12 @@ body.isB-MenuOpen {
     display: flex;
     flex-direction: column;
 
-    padding: 20px;
+    padding: 20px 27px 20px 20px;
     width: max-content;
 
     position: absolute;
     top: 68px;
-    right: 0;
+    right: 10px;
 
     background: $black;
 
@@ -89,13 +89,15 @@ body.isB-MenuOpen {
 
       margin-right: 16px;
     }
-    &-link {
+    &-text {
       font-family: $font-family-titles;
       font-weight: 700;
       font-size: 14px;
       line-height: 17px;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-
+    }
+    &-link {
       &:hover {
         color: $green;
       }
