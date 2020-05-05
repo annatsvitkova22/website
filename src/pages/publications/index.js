@@ -173,8 +173,8 @@ const Publications = (props) => {
           {nodes && (
             <div className="last-publs">
               <div className="row">
-                {nodes.slice(0, 10).map((post) => (
-                  <Article type="publications" post={post} key={post.id} />
+                {nodes.slice(0, 10).map((post, i) => (
+                  <Article type="publications" post={post} key={i} />
                 ))}
               </div>
             </div>
@@ -185,12 +185,15 @@ const Publications = (props) => {
             {sortedCategories
               .slice(0, 4)
               .map(
-                ({
-                  publications: { nodes },
-                  name,
-                  slug,
-                  zmCategoryACF: { order, size },
-                }) => {
+                (
+                  {
+                    publications: { nodes },
+                    name,
+                    slug,
+                    zmCategoryACF: { order, size },
+                  },
+                  i
+                ) => {
                   let colSize = '';
                   switch (size) {
                     case 'medium':
@@ -208,7 +211,10 @@ const Publications = (props) => {
                   }
 
                   return (
-                    <div className={`publ-cat__col--${size} ${colSize}`}>
+                    <div
+                      key={i}
+                      className={`publ-cat__col--${size} ${colSize}`}
+                    >
                       <h6 className="publ-page__title text-uppercase">
                         <Link href={`/search?category=${slug}`}>
                           <a>{name}</a>
@@ -218,25 +224,25 @@ const Publications = (props) => {
                         {size === 'big' && nodes.length && (
                           <>
                             <div className="row main-cat__row main-cat__row--primary">
-                              {nodes.slice(0, 1).map((post, i) => (
+                              {nodes.slice(0, 1).map((post, k) => (
                                 <Article
                                   isFirst={true}
                                   size={size}
                                   type="publications-cats"
                                   post={post}
-                                  key={post.id}
+                                  key={k}
                                 />
                               ))}
                             </div>
                             <div className="row main-cat__row main-cat__row--sub">
-                              {nodes.slice(1, nodes.length).map((post, i) => (
+                              {nodes.slice(1, nodes.length).map((post, k) => (
                                 <Article
                                   isFirst={false}
-                                  index={i}
+                                  index={k}
                                   size={size}
                                   type="publications-cats"
                                   post={post}
-                                  key={post.id}
+                                  key={k}
                                 />
                               ))}
                             </div>
@@ -244,13 +250,13 @@ const Publications = (props) => {
                         )}
                         {!(size === 'big') && nodes.length !== 1 && (
                           <div className="row">
-                            {nodes.map((post, i) => (
+                            {nodes.map((post, k) => (
                               <Article
-                                index={i}
+                                index={k}
                                 size={size}
                                 type="publications-cats"
                                 post={post}
-                                key={post.id}
+                                key={k}
                               />
                             ))}
                           </div>
