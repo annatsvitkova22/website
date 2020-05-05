@@ -136,7 +136,7 @@
     &-wrapper {
       max-width: 648px;
       width: 100%;
-      margin: 0 auto;
+      margin: 0 auto 30px auto;
 
       @include media-breakpoint-down(md) {
         margin-bottom: 20px;
