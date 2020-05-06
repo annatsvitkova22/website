@@ -38,7 +38,7 @@ const SiteSelect = (props) => {
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
       backgroundColor: isSelected || isFocused ? '#EFF0F4' : '',
-      // color: isSelected || isFocused ? '#242424' : '',
+      color: isSelected || isFocused ? '#242424' : '',
     }),
   };
 
@@ -49,6 +49,7 @@ const SiteSelect = (props) => {
     isMobile,
     instanceId,
     onChangeHtml,
+    isClearable = true,
   } = props;
 
   const v = options.find((i) => i.active);
@@ -60,7 +61,7 @@ const SiteSelect = (props) => {
         value={v}
         classNamePrefix="react-select"
         // defaultMenuIsOpen={props.instanceId === 0}
-        isClearable
+        isClearable={isClearable}
         isSearchable={false}
         styles={colorStyles}
         components={{ ClearIndicator, DropdownIndicator }}
@@ -101,6 +102,7 @@ SiteSelect.propTypes = {
   isMobile: PropTypes.bool,
   instanceId: PropTypes.number,
   onChangeHtml: PropTypes.func,
+  isClearable: PropTypes.bool,
 };
 
 export default SiteSelect;

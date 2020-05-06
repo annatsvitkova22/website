@@ -283,9 +283,9 @@ const Home = (props) => {
       events: data.events,
       publications: data.publications,
       categories: data.categories,
-    }
+    };
     setState(newState);
-  }
+  };
 
   useEffect(() => {
     if (!page) {
@@ -294,11 +294,13 @@ const Home = (props) => {
   }, []);
 
   if (!page) {
-    return <div className="home-page">
-      <main className="container hero">
-        <HomeHeroLoader />
-      </main>
-    </div>
+    return (
+      <div className="home-page">
+        <main className="container hero">
+          <HomeHeroLoader />
+        </main>
+      </div>
+    );
   }
 
   return (
@@ -323,7 +325,7 @@ const Home = (props) => {
 
         <TagsScene {...{ tags }} />
 
-        <SectionHeading title="Відео" href="/videos" />
+        <SectionHeading title="Відео" href="/videos" classMode="videos" />
         <VideosScene {...{ videos }} />
 
         <SectionHeading
@@ -358,7 +360,7 @@ Home.propTypes = {
 
 Home.getInitialProps = async () => {
   if (process.browser) {
-    return { };
+    return {};
   }
 
   const { data } = await client.query({
