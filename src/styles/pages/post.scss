@@ -96,8 +96,9 @@
 
   .feature__image {
     max-width: 872px;
-
     margin-bottom: 40px;
+
+    position: relative;
 
     @include media-breakpoint-down(xs) {
       margin-bottom: 24px;
@@ -119,6 +120,30 @@
     }
     p {
       margin-bottom: 0;
+    }
+    .expand-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 0;
+      width: 64px;
+      height: 64px;
+
+      position: absolute;
+      bottom: 30px;
+      right: 20px;
+
+      border: none;
+      background: transparent;
+
+      visibility: hidden;
+    }
+    .expand-image:focus {
+      outline: none;
+    }
+    &:hover > .expand-image {
+      visibility: visible;
     }
   }
 

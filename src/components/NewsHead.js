@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Tags from '~/components/Tags';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import ArticleTaxonomies from '~/components/Article/Taxonomies';
 
