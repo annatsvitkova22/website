@@ -32,7 +32,7 @@ const ArticleCrowdfundings = ({ post, children, className }) => {
             className="article__author meta-author--grey"
             author={author}
           />
-          {' - '}
+          <span className="article__meta-divider">-</span>
           <ArticleDate
             className="article__time"
             date={date}
