@@ -7,7 +7,7 @@
     margin-top: 16px;
 
 
-      @include media-breakpoint-down(md) { 
+      @include media-breakpoint-down(md) {
         margin-bottom: 12px;
       }
 
@@ -98,7 +98,7 @@
 
   &__link {
     transform: translateX(0);
-    
+
     transition: transform 0.3s ease-in-out;
 
     &:hover {
@@ -132,9 +132,6 @@
 
     &__link {
       padding: 3px 5px;
-
-      font-size: 9px;
-      letter-spacing: 0.16em;
     }
   }
 

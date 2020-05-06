@@ -19,7 +19,7 @@ const ArticleBlogs = ({ post, children, className, highlightInTitle }) => {
       <div className="article__main">
         <ArticleTaxonomies
           categories={categories}
-          className="article__category"
+          className="article__category mt-l--small"
         />
         <ArticleTitle
           highlightInTitle={highlightInTitle}
