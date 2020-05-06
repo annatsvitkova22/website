@@ -8,6 +8,7 @@ const SideBarNews = ({ news }) => {
   if (!news) return <SidebarLoader />;
   return (
     <ul className={'sidebar-news'}>
+      <li className={'sidebar-news__title'}>останні новини</li>
       {news.nodes.map((item, i) => {
         return (
           <li key={i} className={'sidebar-news__item'}>
