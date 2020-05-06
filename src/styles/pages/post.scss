@@ -100,6 +100,7 @@
 
     position: relative;
 
+    cursor: pointer;
     @include media-breakpoint-down(xs) {
       margin-bottom: 24px;
     }
