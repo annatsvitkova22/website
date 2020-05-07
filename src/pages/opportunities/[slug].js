@@ -30,6 +30,9 @@ const OPPORTUNITY = gql`
           socialUrl
           icon
         }
+        eventDays {
+          day
+        }
         eventAddress {
           city
           country
