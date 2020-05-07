@@ -154,6 +154,31 @@
   }
 }
 
+@include media-breakpoint-up(lg) {
+  .search-select {
+    &--sorting {
+      .react-select {
+        &__control {
+          &::before {
+            content: 'Показати';
+            
+            position: absolute;
+            top: 50%;
+            right: calc(100% - 12px);
+            
+            transform: translateY(-50%);
+          }
+          &--menu-is-open {
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .search-results {
   max-width: 872px;
   margin: 48px auto;

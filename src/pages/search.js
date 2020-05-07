@@ -520,11 +520,11 @@ const Search = ({ posts, categories, types, query, users }) => {
                   >
                     {selects
                       .reverse()
-                      .map(({ name, placeholder, options, active }, i) => (
+                      .map(({ name, placeholder, options }, i) => (
                         <Select
                           key={i}
                           instanceId={i}
-                          className="tx-tiny tx-family-titles search-form__col--select"
+                          className={`search-select search-select--${name} tx-tiny tx-family-titles search-form__col--select`}
                           {...{
                             isMobile,
                             name,
