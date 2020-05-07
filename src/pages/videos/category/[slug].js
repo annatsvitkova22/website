@@ -76,7 +76,7 @@ const CATEGORIES = gql`
 
 const Category = (props) => {
   const videosRef = useRef();
-  const [state, setState] = useState(props);
+  const [state, setState] = useState({ ...props, mobile: false });
 
   useEffect(() => {
     const loadContent = async () => {
@@ -107,6 +107,20 @@ const Category = (props) => {
       });
     };
 
+    const updateMobile = () => {
+      if (window.outerWidth < 768) {
+        setState((prevState) =>
+          prevState.mobile !== true ? { ...prevState, mobile: true } : prevState
+        );
+      } else {
+        setState((prevState) =>
+          prevState.mobile !== false
+            ? { ...prevState, mobile: false }
+            : prevState
+        );
+      }
+    };
+
     if (!state.categories) {
       loadContent();
     }
@@ -118,13 +132,7 @@ const Category = (props) => {
     return () => {
       window.removeEventListener('resize', updateMobile);
     };
-  }, []);
-
-  const updateMobile = () => {
-    window.outerWidth < 768
-      ? setState({ ...state, mobile: true })
-      : setState({ ...state, mobile: false });
-  };
+  }, [props.query.slug, state]);
 
   const onLoadMore = async () => {
     const { videos, endCursor, isLoading, hasNextPage } = state;
