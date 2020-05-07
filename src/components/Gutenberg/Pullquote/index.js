@@ -5,7 +5,7 @@ const Pullquote = ({ block, className = '' }) => {
   return (
     <div
       dangerouslySetInnerHTML={{ __html: block.originalContent }}
-      className={className}
+      className={`gutenberg__pullquote ${className}`}
     />
   );
 };

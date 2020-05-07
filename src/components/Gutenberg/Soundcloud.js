@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 
 const Soundcloud = ({ block, className = '' }) => {
-  return <ReactPlayer url={block.attributes.url} className={className} />;
+  return (
+    <ReactPlayer
+      url={block.attributes.url}
+      className={`gutenberg__soundcloud ${className}`}
+    />
+  );
 };
 
 Soundcloud.propTypes = {
