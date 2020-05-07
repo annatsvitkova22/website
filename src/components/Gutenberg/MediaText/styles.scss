@@ -1,0 +1,34 @@
+.gutenberg__mtext {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  .mtext-img {
+    &--right {
+      order: 2;
+
+      margin-left: auto;
+    }
+    &--left {
+      order: 1;
+
+      margin-right: auto;
+    }
+  }
+  .mtext-text {
+    width: 100%;
+  }
+  .has-text-align-center {
+    text-align: center;
+  }
+  .has-text-align-right {
+    text-align: right;
+  }
+  .mtext__content {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+  }
+}

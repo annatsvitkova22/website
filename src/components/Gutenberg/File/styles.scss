@@ -1,0 +1,24 @@
+.gutenberg__download {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+
+  margin-bottom: 40px;
+  margin-right: auto;
+  @include media-breakpoint-down(md) {
+    margin-right: 0;
+  }
+  &:hover > .wp-block-button {
+    box-shadow: 0px 0px 0px #000000;
+  }
+
+  .wp-block-button {
+    margin-left: 20px;
+  }
+  &.button--inactive {
+    color: $green;
+  }
+  &.button--inactive:hover {
+    color: darken($green, 10);
+  }
+}

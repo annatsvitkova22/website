@@ -100,7 +100,7 @@ const Header = () => {
     }
     scrollPos = st;
   };
-  const fixedHeader = _.debounce(fixedHeaderFn, 50);
+  const fixedHeader = _.debounce(fixedHeaderFn, 20);
   const handleOpenClick = () => {
     setIsPinned(false);
     setIsUnpinned(false);

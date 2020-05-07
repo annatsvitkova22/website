@@ -290,6 +290,23 @@ const content = `... on CoreHeadingBlock {
 const gutenbergBlocksQuery = `blocks {
           __typename
           ${content}
+         ... on CoreMediaTextBlock {
+            attributes {
+              backgroundColor
+              className
+              customBackgroundColor
+              focalPoint
+              mediaId
+              mediaLink
+              mediaPosition
+              mediaUrl
+              mediaWidth
+              verticalAlignment
+            }
+            innerBlocks {
+              ${content}
+        }
+      }
           ... on CoreColumnsBlock {
             attributes {
               ... on CoreColumnsBlockAttributes {
