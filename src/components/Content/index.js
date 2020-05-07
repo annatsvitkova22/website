@@ -86,10 +86,22 @@ export const getContentType = ({ block, index, className }) => {
     );
   }
   if (block.__typename === 'CoreArchivesBlock') {
-    return <Archives block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Archives
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreEmbedSoundcloudBlock') {
-    return <Soundcloud block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Soundcloud
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreHeadingBlock') {
     return (
@@ -101,7 +113,13 @@ export const getContentType = ({ block, index, className }) => {
     );
   }
   if (block.__typename === 'CoreGalleryBlock') {
-    return <Gallery block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Gallery
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreListBlock') {
     return (
@@ -131,61 +149,175 @@ export const getContentType = ({ block, index, className }) => {
     );
   }
   if (block.__typename === 'CoreFileBlock') {
-    return <File block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <File
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreTableBlock') {
-    return <Table block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Table
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreButtonBlock') {
-    return <Button block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Button
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreColumnsBlock') {
-    return <Columns block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Columns
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreMediaTextBlock') {
-    return <MediaText block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <MediaText
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreMediaTextBlock') {
-    return <Pullquote block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Pullquote
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CorePullquoteBlock') {
-    return <Pullquote block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Pullquote
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreCalendarBlock') {
-    return <Calendar block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Calendar
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreTagCloudBlock') {
-    return <TagCloud block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <TagCloud
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreCategoriesBlock') {
-    return <Categories block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Categories
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreLatestCommentsBlock') {
-    return <LastComments block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <LastComments
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreLatestPostsBlock') {
-    return <LatestPosts block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <LatestPosts
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreSearchBlock') {
-    return <Search block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Search
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreCodeBlock') {
-    return <CodeBlock block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <CodeBlock
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreFreeformBlock') {
-    return <FreeForm block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <FreeForm
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreMoreBlock') {
-    return <More block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <More
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreSeparatorBlock') {
-    return <Separator block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Separator
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreSpacerBlock') {
-    return <Spacer block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <Spacer
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreNextpageBlock') {
-    return <NextPage block={block} key={`${block.__typename}-${index}`} />;
+    return (
+      <NextPage
+        block={block}
+        key={`${block.__typename}-${index}`}
+        className={className}
+      />
+    );
   }
   if (block.__typename === 'CoreButtonsBlock') {
     return (

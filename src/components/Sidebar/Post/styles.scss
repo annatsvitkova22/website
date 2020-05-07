@@ -20,9 +20,23 @@
     margin-bottom: 40px;
 
     list-style: none;
+    &__title {
+      padding-top: 16px;
+      padding-bottom: 14px;
+
+      border-top: 1px solid #c1c1c1;
+
+      font-family: $font-family-alt;
+
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
 
     &__item:not(:first-child) {
-      box-shadow: inset 0px 1px 0px #eff0f4;
+      border-bottom: 1px solid #eff0f4;
     }
     &__link {
       display: flex;
@@ -31,7 +45,7 @@
       padding-bottom: 8px;
 
       font-weight: 500;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 15px;
       letter-spacing: 0.06em;
     }

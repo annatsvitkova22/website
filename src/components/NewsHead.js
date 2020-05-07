@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Tags from '~/components/Tags';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import ArticleTaxonomies from '~/components/Article/Taxonomies';
 
@@ -14,6 +13,7 @@ const NewsHead = (props) => {
     post ? setIsLoad(!isLoad) : setIsLoad(false);
   }, []);
 
+  console.log(post);
   return (
     <section className={'single-post__title-wrapper'}>
       {!isLoad ? (
@@ -22,7 +22,9 @@ const NewsHead = (props) => {
         <>
           <ArticleTaxonomies
             categories={post.categories}
-            className={'category-label'}
+            className={`category-label ${
+              post.__typename === 'Publication' ? 'mt-l--small' : ''
+            }`}
           />
           <h1 className={'title__title'}>{post.title}</h1>
         </>

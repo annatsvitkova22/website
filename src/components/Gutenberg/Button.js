@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SiteLink from '~/components/SiteLink';
 
-const Button = ({ block }) => {
+const Button = ({ block, className = '' }) => {
   const style = {
     color: block.attributes.textColor,
     backgroundColor: block.attributes.backgroundColor,
@@ -13,7 +13,7 @@ const Button = ({ block }) => {
     <SiteLink
       href={block.attributes.url}
       style={style}
-      className={`zm-button ${block.attributes.className}`}
+      className={`zm-button ${block.attributes.className} ${className}`}
     >
       {block.attributes.text}
     </SiteLink>
@@ -22,6 +22,7 @@ const Button = ({ block }) => {
 
 Button.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default Button;

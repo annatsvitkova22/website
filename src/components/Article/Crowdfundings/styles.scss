@@ -1,4 +1,9 @@
 .crowdfundings-page {
+  .crowdfundings-archive {
+    @include media-breakpoint-down(sm) {
+      padding-top: 20px;
+    }
+  }
   .crowdfundings-archive__articles > div {
     padding-bottom: 24px;
 
@@ -6,7 +11,7 @@
       @include make-col(6);
     }
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       @include make-col(12);
 
       flex-direction: row;
@@ -14,9 +19,8 @@
   }
 
   .article {
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       display: flex;
-      justify-content: space-between;
     }
 
     &-status {
@@ -24,13 +28,17 @@
       top: 20px;
       left: 32px;
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         display: none;
       }
     }
 
     &__main {
+      display: flex;
+      flex-direction: column;
+
       padding: 17px 20px 20px 20px;
+      height: 245px;
 
       border: 1px solid #eff0f4;
       border-top: none;
@@ -38,24 +46,41 @@
         padding-left: 10px;
         padding-right: 10px;
       }
-
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         display: flex;
-        flex-direction: column;
         order: 1;
+        flex-direction: column;
 
-        max-width: 235px;
+        height: auto;
         padding-bottom: 0;
         padding-top: 0;
 
         border: none;
       }
+      @include media-breakpoint-down(xs) {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 400px) {
+        max-width: 235px;
+
+        padding-left: 0;
+        padding-right: 0;
+      }
     }
 
     &-featured {
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         order: 2;
 
+        height: 100%;
+      }
+      @include media-breakpoint-down(xs) {
+        max-width: 200px;
+        height: 100px;
+        margin-left: auto;
+      }
+      @media screen and (max-width: 400px) {
         height: 88px;
         width: 88px;
       }
@@ -74,7 +99,7 @@
           width: 100%;
         }
 
-        @include media-breakpoint-down(xs) {
+        @include media-breakpoint-down(sm) {
           height: 100%;
         }
 
@@ -83,7 +108,7 @@
             width: 100%;
           }
 
-          @include media-breakpoint-down(xs) {
+          @include media-breakpoint-down(sm) {
             height: 100%;
             object-fit: cover;
           }
@@ -91,11 +116,15 @@
       }
     }
     &-title {
-      order: 1;
-
       margin-bottom: 12px;
 
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 8px;
+      }
       @include media-breakpoint-down(xs) {
+        margin-bottom: 0;
+      }
+      @media screen and (max-width: 400px) {
         margin-bottom: 8px;
       }
 
@@ -106,7 +135,7 @@
           display: flex;
         }
 
-        @include media-breakpoint-down(xs) {
+        @include media-breakpoint-down(sm) {
           font-size: 14px;
           line-height: 18px;
           letter-spacing: 0.02em;
@@ -114,33 +143,51 @@
       }
     }
     &-excerpt {
-      margin-bottom: 20px;
-
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 0.05em;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 10px;
+        line-height: 18px;
+      }
 
       @include media-breakpoint-down(xs) {
         display: none;
       }
 
       p {
+        max-height: 66px;
         margin-bottom: 0;
 
         font-family: $font-family-titles;
+        text-overflow: clip;
+
+        overflow: hidden;
       }
     }
 
     &__meta {
-      display: flex;
+      display: inline-flex;
       align-items: center;
 
       color: #b0b0b0;
 
-      @include media-breakpoint-down(xs) {
+      &-divider {
+        display: inline-flex;
+
+        line-height: normal;
+        font-size: 14px;
+      }
+
+      @include media-breakpoint-down(sm) {
         order: 2;
 
+        margin-top: auto;
         margin-bottom: 8px;
+      }
+      @media screen and (max-width: 400px) {
+        margin-top: 0;
       }
 
       & > *:first-child {
@@ -168,12 +215,16 @@
     }
   }
   .crowdfunding-progress {
+    margin-top: auto;
     margin-bottom: 12px;
 
     font-family: $font-family-titles;
 
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       order: 3;
+
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
     &__info {
@@ -191,7 +242,7 @@
         display: inline-flex;
       }
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         font-weight: 600;
         font-size: 12px;
         line-height: 12px;
@@ -206,7 +257,7 @@
 
       color: $grey-400;
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         display: none;
       }
     }

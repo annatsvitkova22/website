@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import _ from 'lodash';
 
 import Navigation from '~/components/Navigation';
 import Logo from '~/components/Logo';
@@ -72,6 +73,7 @@ const Header = () => {
     'header__search-field': true,
     'header__search-field--active': isSearchOpen,
   });
+
   React.useEffect(() => {
     window.addEventListener('scroll', fixedHeader);
     return () => {
@@ -81,22 +83,24 @@ const Header = () => {
 
   let scrollPos = 0;
 
-  const fixedHeader = () => {
+  const fixedHeaderFn = () => {
     const isHome = router.route === '/';
     // TODO: replace 2000 with real feed height?
+
     if (window.scrollY < (isHome ? 2000 : 100)) {
       setIsUnpinned(false);
     }
     const st = window.scrollY;
-    if (window.scrollY > (isHome ? 2000 : 100) && st > scrollPos) {
+    if (window.scrollY > (isHome ? 1800 : 100) && st > scrollPos) {
       setIsPinned(false);
       setIsUnpinned(true);
-    } else if (window.scrollY > (isHome ? 2000 : 100) && st < scrollPos) {
+    } else if (window.scrollY > (isHome ? 1800 : 100) && st < scrollPos) {
       setIsPinned(true);
       setIsUnpinned(false);
     }
     scrollPos = st;
   };
+  const fixedHeader = _.debounce(fixedHeaderFn, 50);
   const handleOpenClick = () => {
     setIsPinned(false);
     setIsUnpinned(false);
