@@ -20,6 +20,12 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
       updateToken(zmistAdditional.token);
     }
   }, []);
+  useEffect(() => {
+    return () => {
+      document.querySelector('body').classList.remove('isB-MenuOpen');
+      document.querySelector('.header').classList.remove('isMenuOpen');
+    };
+  }, [pageProps]);
 
   return (
     <ApolloProvider client={apolloClient}>

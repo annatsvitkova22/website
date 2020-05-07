@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleComments from '~/components/Article/Comments';
@@ -70,6 +71,14 @@ const ArticleNews = ({
       {children}
     </article>
   );
+};
+
+ArticleNews.propTypes = {
+  post: PropTypes.any,
+  children: PropTypes.any,
+  className: PropTypes.any,
+  showAuthor: PropTypes.any,
+  highlightInTitle: PropTypes.any,
 };
 
 export default ArticleNews;
