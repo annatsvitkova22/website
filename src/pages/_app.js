@@ -22,8 +22,10 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
   }, []);
   useEffect(() => {
     return () => {
-      document.querySelector('body').classList.remove('isB-MenuOpen');
-      document.querySelector('.header').classList.remove('isMenuOpen');
+      if (document.querySelector('body') && document.querySelector('.header')) {
+        document.querySelector('body').classList.remove('isB-MenuOpen');
+        document.querySelector('.header').classList.remove('isMenuOpen');
+      }
     };
   }, [pageProps]);
 

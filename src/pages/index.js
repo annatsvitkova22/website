@@ -291,10 +291,6 @@ const Home = (props) => {
     if (!page) {
       loadMainData();
     }
-    return () => {
-      document.querySelector('body').classList.remove('isB-MenuOpen');
-      document.querySelector('.header').classList.remove('isMenuOpen');
-    };
   }, []);
 
   if (!page) {
