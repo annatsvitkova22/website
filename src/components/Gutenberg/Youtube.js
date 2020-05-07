@@ -6,6 +6,7 @@ const Youtube = ({ block, className = '' }) => {
     'https://www.youtube.com/watch?v=',
     'https://www.youtube.com/embed/'
   );
+  console.log(YoutubeUrl);
   return (
     <div className={`${className} gutenberg__youtube`}>
       <iframe

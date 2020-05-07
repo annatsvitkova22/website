@@ -58,12 +58,6 @@
   &__category {
     margin-top: 20px;
     margin-bottom: 14px;
-
-    .article__category {
-      font-size: 9px;
-      line-height: 11px;
-      letter-spacing: 0.16em;
-    }
   }
 
   @include media-breakpoint-between(sm, lg) {

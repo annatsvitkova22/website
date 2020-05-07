@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleTitle from '~/components/Article/Title';
@@ -82,6 +83,13 @@ const ArticlePublications = ({
       </div>
     </article>
   );
+};
+
+ArticlePublications.propTypes = {
+  post: PropTypes.any,
+  children: PropTypes.any,
+  className: PropTypes.any,
+  highlightInTitle: PropTypes.any,
 };
 
 export default ArticlePublications;

@@ -7,27 +7,42 @@ export const MapComponent = ({ data, type }) => {
     <>
       {data &&
         data.map((item, index) => {
-          if (type === 'phone') {
+          if (type === 'phone' && item.phoneNumber) {
             return (
-              <span className="info-card__item" key={index}>
-                <a href={`tel:${item.phoneNumber}`}>
-                  {item.phoneNumberDisplay}
-                </a>
-              </span>
+              <div className="info-card__contact">
+                <span className="info-card__description info-card__phone">
+                  Телефон
+                </span>
+                <span className="info-card__item" key={index}>
+                  <a href={`tel:${item.phoneNumber}`}>
+                    {item.phoneNumberDisplay}
+                  </a>
+                </span>
+              </div>
             );
           }
-          if (type === 'name') {
+          if (type === 'name' && item.person) {
             return (
-              <span className="info-card__item" key={index}>
-                {item.person}
-              </span>
+              <div className="info-card__contact">
+                <span className="info-card__description info-card__person">
+                  Контактна особа
+                </span>
+                <span className="info-card__item" key={index}>
+                  {item.person}
+                </span>
+              </div>
             );
           }
-          if (type === 'email') {
+          if (type === 'email' && item.email) {
             return (
-              <span className="info-card__item" key={index}>
-                <a href={`mailto:${item.email}`}> {item.email} </a>
-              </span>
+              <div className="info-card__contact">
+                <span className="info-card__description info-card__email">
+                  email
+                </span>
+                <span className="info-card__item" key={index}>
+                  <a href={`mailto:${item.email}`}> {item.email} </a>
+                </span>
+              </div>
             );
           }
           return null;

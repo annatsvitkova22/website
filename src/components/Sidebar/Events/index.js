@@ -20,24 +20,9 @@ const EventsLikeSidebar = ({ data, withTime, withList }) => {
       <div className="info-card__info-wrapper">
         {data.contactInfo && (
           <>
-            <div className="info-card__contact">
-              <span className="info-card__description info-card__person">
-                Контактна особа
-              </span>
-              <MapComponent data={data.contactInfo} type={'name'} />
-            </div>
-            <div className="info-card__contact">
-              <span className="info-card__description info-card__phone">
-                Телефон
-              </span>
-              <MapComponent data={data.contactInfo} type={'phone'} />
-            </div>
-            <div className="info-card__contact">
-              <span className="info-card__description info-card__email">
-                email
-              </span>
-              <MapComponent data={data.contactInfo} type={'email'} />
-            </div>
+            <MapComponent data={data.contactInfo} type={'name'} />
+            <MapComponent data={data.contactInfo} type={'phone'} />
+            <MapComponent data={data.contactInfo} type={'email'} />
           </>
         )}
         {data.eventSocials && (

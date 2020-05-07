@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import Sorting from '~/components/Sorting';
 import { setCategory, setDate, setSorting } from '~/stores/News';
@@ -30,6 +31,14 @@ const SidebarNews = ({
       />
     </aside>
   );
+};
+
+SidebarNews.propTypes = {
+  className: PropTypes.any,
+  currentSorting: PropTypes.any,
+  sorting: PropTypes.any,
+  filters: PropTypes.any,
+  currentCategory: PropTypes.any,
 };
 
 export default SidebarNews;

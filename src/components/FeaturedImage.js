@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
 
+import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
+import Icons from '~/components/Icons';
+
 const FeaturedImage = ({ data, className, size }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+  const img = [{ src: data.mediaItemUrl, title: data.caption, w: 800, h: 600 }];
   return (
     <>
       {data && (
@@ -13,6 +26,15 @@ const FeaturedImage = ({ data, className, size }) => {
           })}
         >
           <img src={data.mediaItemUrl} alt={data.title} />
+          <PhotoSwipeWrapper
+            items={img}
+            isOpen={isOpen}
+            onClose={handleClose}
+            className="gutenberg__image-pswp"
+          />
+          <button className={'expand-image'} onClick={handleOpen}>
+            <Icons icon={'expand'} />
+          </button>
           {data.caption && size === 'full' && (
             <div className="container">
               <caption

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LastComments = ({ block }) => {
+const LastComments = ({ block, className = '' }) => {
   return (
     <div
-      className={block.attributes.className}
+      className={`${className} ${block.attributes.className}`}
       dangerouslySetInnerHTML={{ __html: block.renderedContent }}
     />
   );
@@ -12,6 +12,7 @@ const LastComments = ({ block }) => {
 
 LastComments.propTypes = {
   block: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default LastComments;

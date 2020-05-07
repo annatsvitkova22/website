@@ -1,4 +1,7 @@
 .info-card {
+  &__info-wrapper > div:first-child {
+    padding-top: 12px;
+  }
   &__wrapper {
     width: 100%;
 
@@ -118,8 +121,8 @@
 }
 
 .event__hero-noimage {
-  .event__hero-location {
-    .social-icon {
+  .social-icon {
+    svg {
       path {
         fill: $black;
       }

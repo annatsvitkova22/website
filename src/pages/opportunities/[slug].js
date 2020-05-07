@@ -30,6 +30,9 @@ const OPPORTUNITY = gql`
           socialUrl
           icon
         }
+        eventDays {
+          day
+        }
         eventAddress {
           city
           country
@@ -138,6 +141,9 @@ const Opportunity = (props) => {
                   ? opportunity.featuredImage.mediaItemUrl
                   : ''
               })`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
             }}
           >
             <div
@@ -166,7 +172,7 @@ const Opportunity = (props) => {
             </div>
             <StickyBox
               className={'event__sticky-wrapper'}
-              offsetTop={20}
+              offsetTop={100}
               offsetBottom={20}
               style={{
                 height: 'fit-content',

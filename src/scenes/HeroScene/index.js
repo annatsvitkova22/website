@@ -107,7 +107,7 @@ const HeroScene = ({ posts, publications }) => {
                           />
                           <Taxonomies
                             categories={categories}
-                            className={`article__category`}
+                            className={`article__category mt-l--small`}
                           />
                           <h6>
                             <Link

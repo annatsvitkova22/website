@@ -11,10 +11,13 @@
       flex-direction: column;
     }
   }
+  .meta-taxonomy__link {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
 }
 
 .blogger {
-
   &-page {
     @include media-breakpoint-down(xs) {
       padding-top: 20px;

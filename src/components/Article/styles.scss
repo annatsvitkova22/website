@@ -363,6 +363,12 @@
   &__item:not(:last-child) {
     margin-right: 10px;
   }
+  .mt-l--small {
+    font-family: $font-family-titles;
+    font-size: 9px;
+    line-height: 11px;
+    letter-spacing: 0.15em;
+  }
 }
 
 .meta-comments {
@@ -441,9 +447,11 @@
   text-transform: uppercase;
   color: $green;
 }
+
 .publication-banner--image {
   height: 704px;
 }
+
 .feature__image--full {
   height: 704px;
 

@@ -51,13 +51,11 @@
     padding-top: 8px;
   }
 }
-
 .gutenberg__quote {
   padding-left: 36px;
   margin-bottom: 40px;
 
   border-left: 2px solid #666666;
-
 
   & > blockquote {
     line-height: 1.55;
@@ -76,7 +74,6 @@
     letter-spacing: 0.2px;
   }
 }
-
 .gutenberg__audio {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -112,6 +109,7 @@
   padding-top: 20px;
   padding-bottom: 40px;
 }
+
 .wp-block-button {
   padding: 12px 30px;
 
@@ -126,7 +124,6 @@
   letter-spacing: 0.03em;
   text-transform: capitalize;
 }
-
 .wp-block-button:hover {
   box-shadow: 0px 0px 0px #000000;
 }
@@ -136,6 +133,9 @@
   box-sizing: border-box;
   box-shadow: 4px 4px 0px #c7c7c7;
 }
+
+
+
 @media screen and (max-width: 500px) {
   .gutenberg__paragraph {
     font-size: 16px;
