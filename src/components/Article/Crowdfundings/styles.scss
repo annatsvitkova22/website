@@ -157,9 +157,13 @@
       }
 
       p {
+        max-height: 66px;
         margin-bottom: 0;
 
         font-family: $font-family-titles;
+        text-overflow: clip;
+
+        overflow: hidden;
       }
     }
 
