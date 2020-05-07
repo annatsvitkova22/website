@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+
 import ArticleAuthor from '~/components/Article/Author';
+import Taxonomies from '~/components/Article/Taxonomies';
 
 const MainPublication = ({
   title,
@@ -23,15 +25,9 @@ const MainPublication = ({
         </a>
       </Link>
       <div className="main-publ__caption tx-white">
-        <ul className="main-publ__list list-reset text-left text-sm-center">
-          {mainCats.nodes.map(({ name, slug }, i) => (
-            <li key={i} className="cat-list__item d-inline-block">
-              <Link href={`/search?category=${slug}`}>
-                <a className="cat-list__button">{name}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="d-flex justify-content-center">
+          <Taxonomies categories={mainCats} className="cat-list__button" />
+        </div>
         <h1 className="main-publ__title text-left text-sm-center text-capitalize">
           <Link href={`/publications/${slug}`}>
             <a>{title}</a>
