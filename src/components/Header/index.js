@@ -86,15 +86,15 @@ const Header = () => {
   const fixedHeaderFn = () => {
     const isHome = router.route === '/';
     // TODO: replace 2000 with real feed height?
-    console.log(window.scrollY);
+
     if (window.scrollY < (isHome ? 2000 : 100)) {
       setIsUnpinned(false);
     }
     const st = window.scrollY;
-    if (window.scrollY > (isHome ? 2000 : 100) && st > scrollPos) {
+    if (window.scrollY > (isHome ? 1800 : 100) && st > scrollPos) {
       setIsPinned(false);
       setIsUnpinned(true);
-    } else if (window.scrollY > (isHome ? 2000 : 100) && st < scrollPos) {
+    } else if (window.scrollY > (isHome ? 1800 : 100) && st < scrollPos) {
       setIsPinned(true);
       setIsUnpinned(false);
     }
