@@ -13,7 +13,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
     setIsModal(!isModal);
   }
 
-  if (typeof crowdfundings === 'undefined' && !loading) {
+  if (typeof children === 'object' && !loading) {
     return children;
   }
 
