@@ -97,74 +97,61 @@ const HeroScene = ({ posts, publications }) => {
               }
             )}
         </div>
-        <div className="col-xl-5">
-          <div className="row">
-            <div className="col-5 d-none d-xl-block">
-              <div ref={heroPubRef} className="hero-pub__scroll">
-                {publications.nodes
-                  .slice(1, 6)
-                  .map(
-                    ({ categories, title, slug, author, featuredImage }, i) => (
-                      <div key={i} className="hero-pub">
-                        <ArticleProvider value="publications">
-                          <Featured
-                            image={featuredImage}
-                            alt={title}
-                            slug={slug}
-                          />
-                          <Taxonomies
-                            categories={categories}
-                            className={`article__category mt-l--small`}
-                          />
-                          <h6>
-                            <Link
-                              href={`/publications/[slug]`}
-                              as={`/publications/${slug}`}
-                            >
-                              <a
-                                href={`/publications/${slug}`}
-                                className="hero-pub__title font-weight-semibold"
-                              >
-                                {title}
-                              </a>
-                            </Link>
-                          </h6>
-                          <div className="article__meta tx-grey">
-                            <Author
-                              className="article__author"
-                              author={author}
-                            />
-                          </div>
-                        </ArticleProvider>
-                      </div>
-                    )
-                  )}
-              </div>
-            </div>
-            <div className="col-xl-7">
-              <ul ref={heroListRef} className="hero-list list-reset">
-                {posts.nodes.slice(0, 40).map(({ title, slug }, i) => (
-                  <li key={i} className="hero-list__item line-height-1">
-                    <ChronologicalSeparator
-                      posts={posts.nodes}
-                      currentIndex={i}
+        <div className="col-xl-2 d-none d-xl-block">
+          <div ref={heroPubRef} className="hero-pub__scroll">
+            {publications.nodes
+              .slice(1, 6)
+              .map(({ categories, title, slug, author, featuredImage }, i) => (
+                <div key={i} className="hero-pub">
+                  <ArticleProvider value="publications">
+                    <Featured image={featuredImage} alt={title} slug={slug} />
+                    <Taxonomies
+                      categories={categories}
+                      className={`article__category mt-l--small`}
                     />
-                    <h6 className="tx-tiny font-weight-medium">
-                      <Link href={`/news/[slug]`} as={`/news/${slug}`}>
+                    <h6>
+                      <Link
+                        href={`/publications/[slug]`}
+                        as={`/publications/${slug}`}
+                      >
                         <a
-                          className="hero-list__link d-block"
-                          href={`/news/${slug}`}
+                          href={`/publications/${slug}`}
+                          className="hero-pub__title font-weight-semibold"
                         >
                           {title}
                         </a>
                       </Link>
                     </h6>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    <div className="article__meta tx-grey">
+                      <Author className="article__author" author={author} />
+                    </div>
+                  </ArticleProvider>
+                </div>
+              ))}
           </div>
         </div>
+        <div className="col-xl-3">
+          <ul ref={heroListRef} className="hero-list list-reset">
+            {posts.nodes.slice(0, 40).map(({ title, slug }, i) => (
+              <li key={i} className="hero-list__item line-height-1">
+                <ChronologicalSeparator posts={posts.nodes} currentIndex={i} />
+                <h6 className="tx-tiny font-weight-medium">
+                  <Link href={`/news/[slug]`} as={`/news/${slug}`}>
+                    <a
+                      className="hero-list__link d-block"
+                      href={`/news/${slug}`}
+                    >
+                      {title}
+                    </a>
+                  </Link>
+                </h6>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* <div className="row">
+          <div className="col-5"></div>
+        </div> */}
       </div>
     </div>
   );
