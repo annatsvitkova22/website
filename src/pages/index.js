@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+import { Waypoint } from 'react-waypoint';
 
 import client from '~/lib/ApolloClient';
 import addVideoDurations from '~/util/addVideoDurations';
@@ -251,8 +252,45 @@ const HOME_PAGE = gql`
   }
 `;
 
+const CROWDFUNDINGS = gql`
+  query Crowdfundings {
+    crowdfundings(first: 9) {
+      nodes {
+        id
+        excerpt
+        content
+        uri
+        title
+        slug
+        date
+        author {
+          id
+          name
+          nicename
+          nickname
+          username
+        }
+        featuredImage {
+          mediaItemUrl
+        }
+        cfACF {
+          tocollect
+          expiration
+          collected
+        }
+      }
+      pageInfo {
+        endCursor
+        total
+      }
+    }
+  }
+`;
+
 const Home = (props) => {
   const [state, setState] = useState(props);
+  const [loading, setLoading] = useState(false);
+
   const {
     page,
     posts,
@@ -287,6 +325,19 @@ const Home = (props) => {
     setState(newState);
   };
 
+  function loadData(query) {
+    return async () => {
+      setLoading(true);
+      const { data } = await client.query({ query });
+
+      setState((prevState) => ({
+        ...prevState,
+        ...data,
+      }));
+      setLoading(false);
+    };
+  }
+
   useEffect(() => {
     if (!page) {
       loadMainData();
@@ -319,7 +370,11 @@ const Home = (props) => {
         <BlogsScene {...{ users }} />
 
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
-        <CrowdfundingsScene {...{ crowdfundings }} />
+        <CrowdfundingsScene {...{ crowdfundings, loading }}>
+          {typeof crowdfundings === 'undefined' && (
+            <Waypoint onEnter={loadData(CROWDFUNDINGS)} />
+          )}
+        </CrowdfundingsScene>
 
         <MainPublications {...{ publications }} />
 
@@ -384,7 +439,7 @@ Home.getInitialProps = async () => {
     page: pages.nodes[0],
     posts,
     users,
-    crowdfundings,
+    // crowdfundings,
     tags,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),

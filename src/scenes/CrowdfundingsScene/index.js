@@ -4,16 +4,60 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Modal from './Modal';
 
 import Article from '~/components/Article';
+import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
-const CrowdfundingsScene = ({ crowdfundings }) => {
+const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
   const [isModal, setIsModal] = useState(false);
 
   function onClick() {
     setIsModal(!isModal);
   }
 
+  if (typeof crowdfundings === 'undefined' && !loading) {
+    return children;
+  }
+
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="crowdfundings-archive">
+          <main className="row crowdfundings-archive__articles">
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+            <div className="col-md-4">
+              <PostCardLoader type="small" />
+            </div>
+          </main>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container crowdfundings-page">
+      {/* {children} */}
       <main className="row crowdfundings-archive__articles">
         {crowdfundings.nodes.map((crowdfunding) => {
           return (
