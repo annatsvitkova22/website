@@ -149,33 +149,6 @@ const content = `... on CoreHeadingBlock {
               showDownloadButton
             }
           }
-          ... on CoreCoverBlock {
-            attributes {
-              align
-              backgroundType
-              className
-              overlayColor
-              title
-              url
-              minHeight
-              dimRatio
-            }
-            innerBlocks {
-              ... on CoreParagraphBlock {
-                attributes {
-                  ... on CoreParagraphBlockAttributesV3 {
-                    align
-                    backgroundColor
-                    content
-                    fontSize
-                    direction
-                    textColor
-                    width
-                  }
-                }
-              }
-            }
-          }
           ... on CoreArchivesBlock {
           renderedContent
           attributes {
@@ -304,6 +277,22 @@ const content = `... on CoreHeadingBlock {
 const gutenbergBlocksQuery = `blocks {
           __typename
           ${content}
+         ... on CoreCoverBlock {
+         originalContent
+            attributes {
+              align
+              backgroundType
+              className
+              overlayColor
+              title
+              url
+              minHeight
+              dimRatio
+            }
+            innerBlocks {
+              ${content}
+            }
+          }
          ... on CoreMediaTextBlock {
             attributes {
               backgroundColor
