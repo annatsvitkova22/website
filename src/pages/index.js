@@ -348,6 +348,30 @@ const OPPORTUNITIES = gql`
   }
 `;
 
+const EVENTS = gql`
+  query Events {
+    events(first: 7) {
+      nodes {
+        featuredImage {
+          mediaItemUrl
+        }
+        title
+        slug
+        id
+        zmAfishaACF {
+          eventAddress {
+            city
+            streetName
+            streetNumber
+          }
+          eventTime
+          eventDate
+        }
+      }
+    }
+  }
+`;
+
 const Home = (props) => {
   const [state, setState] = useState(props);
   const [loading, setLoading] = useState(false);
@@ -458,7 +482,11 @@ const Home = (props) => {
         </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events }} form={true} />
+        <EventsScene {...{ events, loading }} form={true}>
+          {typeof events === 'undefined' && (
+            <Waypoint onEnter={loadData(EVENTS)} />
+          )}
+        </EventsScene>
 
         <SectionHeading
           title="Публікації"
@@ -511,7 +539,7 @@ Home.getInitialProps = async () => {
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),
     // opportunities,
-    events,
+    // events,
     publications,
     categories,
   };
