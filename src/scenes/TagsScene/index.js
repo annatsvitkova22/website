@@ -7,10 +7,19 @@ import Taxonomies from '~/components/Article/Taxonomies';
 import SectionHeading from '~/components/SectionHeading';
 import { ArticleProvider } from '~/components/Article/Context';
 
-const TagsScene = ({ tags: { nodes: tags } }) => {
-  const filteredTags = tags.filter(
+const TagsScene = ({ tags, children, loading }) => {
+  if (typeof children === 'object' && !loading) {
+    return children;
+  }
+
+  if (loading) {
+    return <div className="text-center">loading...</div>;
+  }
+
+  const filteredTags = tags.nodes.filter(
     ({ zmTagsACF: { showOnHome } }) => showOnHome === true
   );
+
   return (
     <div className="container tag-sec">
       {filteredTags.map(

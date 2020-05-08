@@ -287,6 +287,40 @@ const CROWDFUNDINGS = gql`
   }
 `;
 
+const TAGS = gql`
+  query Tags {
+    tags {
+      nodes {
+        id
+        name
+        slug
+        zmTagsACF {
+          showOnHome
+        }
+        publications(first: 5) {
+          nodes {
+            title
+            slug
+            featuredImage {
+              mediaItemUrl
+            }
+            author {
+              slug
+              name
+            }
+            categories {
+              nodes {
+                slug
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 const Home = (props) => {
   const [state, setState] = useState(props);
   const [loading, setLoading] = useState(false);
@@ -378,7 +412,9 @@ const Home = (props) => {
 
         <MainPublications {...{ publications }} />
 
-        <TagsScene {...{ tags }} />
+        <TagsScene {...{ tags, loading }}>
+          {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
+        </TagsScene>
 
         <SectionHeading title="Відео" href="/videos" classMode="videos" />
         <VideosScene {...{ videos }} />
@@ -440,7 +476,7 @@ Home.getInitialProps = async () => {
     posts,
     users,
     // crowdfundings,
-    tags,
+    // tags,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),
     opportunities,
