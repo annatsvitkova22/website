@@ -1,6 +1,15 @@
 .search-form {
   .react-select {
+    &__quantity {
+      padding-left: 6px;
+    }
 
+    &__option {
+      padding: 4.4px 14px;
+
+      letter-spacing: 0.06em;
+    }
+    
     &__value-container {
       &--has-value {
         font-weight: 600;
@@ -8,11 +17,14 @@
     }
 
     &__dropdown-indicator {
-      padding-right: 5px;
-      padding-left: 5px;
+      padding-right: 3px;
+      padding-left: 3px;
     }
 
     &__menu {
+      margin-top: -3px;
+      padding-bottom: 11px;
+
       box-shadow: 0px -6px 6px $white, 0px 0px 6px rgba($black, 0.25);
 
       z-index: 100;
@@ -34,6 +46,7 @@
       flex-wrap: nowrap;
 
       box-shadow: none;
+      background-color: transparent;
 
       letter-spacing: 0.08em;
 
@@ -64,6 +77,8 @@
             position: static;
             top: auto;
 
+            letter-spacing: 0.02em;
+
             overflow: hidden;
 
             transform: none;
@@ -93,6 +108,8 @@
     }
 
     &__indicator {
+      margin-left: 7px;
+
       line-height: 1;
     }
   }

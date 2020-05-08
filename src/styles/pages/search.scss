@@ -13,6 +13,8 @@
   border-bottom: 1px solid $grey-100;
 
   &__button {
+    padding: 0 7px;
+
     background-color: transparent;
     border: none;
 
@@ -87,6 +89,8 @@
 
           .react-select {
             &__control {
+              justify-content: flex-end;
+
               padding-right: 0;
 
               position: relative;
@@ -129,6 +133,7 @@
 
   &__text {
     color: $grey-200;
+    letter-spacing: 0.04em;
 
     cursor: pointer;
 
@@ -140,7 +145,7 @@
 
   &__selects {
     @include media-breakpoint-up(md) {
-      max-width: 648px;
+      max-width: 621px;
     }
 
     @include media-breakpoint-down(sm) {
@@ -156,6 +161,14 @@
 
 @include media-breakpoint-up(lg) {
   .search-select {
+    &--period {
+      width: 193px;
+    }
+
+    &--categories {
+      width: 153px;
+    }
+
     &--sorting {
       .react-select {
         &__control {
@@ -164,7 +177,9 @@
             
             position: absolute;
             top: 50%;
-            right: calc(100% - 12px);
+            right: calc(100% - 17px);
+
+            letter-spacing: 0.02em;
             
             transform: translateY(-50%);
           }
