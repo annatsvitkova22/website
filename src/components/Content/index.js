@@ -33,6 +33,7 @@ import MediaText from '../Gutenberg/MediaText';
 
 import Buttons from '~/components/Gutenberg/Buttons';
 import Form from '~/components/Form';
+import Verse from '~/components/Gutenberg/Verse';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
@@ -52,6 +53,15 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreParagraphBlock') {
     return (
       <Paragraph
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreVerseBlock') {
+    return (
+      <Verse
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}

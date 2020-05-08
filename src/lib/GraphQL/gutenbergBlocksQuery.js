@@ -13,6 +13,13 @@ const content = `... on CoreHeadingBlock {
               }
             }
           }
+          ... on CoreVerseBlock {
+        attributes {
+          content
+          textAlign
+        }
+        saveContent
+      }
           ... on GravityformsFormBlock {
             attributes {
               __typename

@@ -134,8 +134,6 @@
   box-shadow: 4px 4px 0px #c7c7c7;
 }
 
-
-
 @media screen and (max-width: 500px) {
   .gutenberg__paragraph {
     font-size: 16px;
@@ -147,4 +145,48 @@
     line-height: 24px;
     letter-spacing: 0.03em;
   }
+}
+
+.has-vivid-red-color {
+  color: #f70d1a;
+}
+.has-pale-pink-color {
+  color: #ffc0cb;
+}
+.has-luminous-vivid-orange-color {
+  color: #ff8000;
+}
+.has-luminous-vivid-amber-color {
+  color: #ffbf00;
+}
+.has-light-green-cyan-color {
+  color: #70deb9;
+}
+.has-vivid-green-cyan-color {
+  color: #33cc80;
+}
+.has-pale-cyan-blue-color {
+  color: #b3e2fc;
+}
+.has-vivid-cyan-blue-color {
+  color: #488fe3;
+}
+.has-vivid-purple-color {
+  color: #9634d4;
+}
+.has-very-light-gray-color {
+  color: #cfcece;
+}
+.has-cyan-bluish-gray-color {
+  color: #a9b1be;
+}
+.has-very-dark-gray-color {
+  color: #2f2f2f;
+}
+
+.has-text-align-center {
+  text-align: center;
+}
+.has-text-align-right {
+  text-align: right;
 }
