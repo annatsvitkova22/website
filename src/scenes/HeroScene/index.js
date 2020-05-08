@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { throttle } from 'lodash';
 
 import Taxonomies from '~/components/Article/Taxonomies';
 import Author from '~/components/Article/Author';
