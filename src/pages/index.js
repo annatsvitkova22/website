@@ -321,6 +321,33 @@ const TAGS = gql`
   }
 `;
 
+const OPPORTUNITIES = gql`
+  query Opportunities {
+    opportunities(first: 4) {
+      nodes {
+        featuredImage {
+          sourceUrl(size: THUMBNAIL)
+        }
+        title
+        slug
+        id
+        zmAfishaACF {
+          eventAddress {
+            streetAddress
+            streetName
+            latitude
+            longitude
+          }
+          eventTime
+          eventDays {
+            day
+          }
+        }
+      }
+    }
+  }
+`;
+
 const Home = (props) => {
   const [state, setState] = useState(props);
   const [loading, setLoading] = useState(false);
@@ -424,7 +451,11 @@ const Home = (props) => {
           href="/opportunities"
           classMode="opport"
         />
-        <OpportunitiesScene {...{ opportunities }} />
+        <OpportunitiesScene {...{ opportunities, loading }}>
+          {typeof opportunities === 'undefined' && (
+            <Waypoint onEnter={loadData(OPPORTUNITIES)} />
+          )}
+        </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
         <EventsScene {...{ events }} form={true} />
@@ -479,7 +510,7 @@ Home.getInitialProps = async () => {
     // tags,
     // TODO: Put bellow function on frontend
     videos: await addVideoDurations(videos.nodes),
-    opportunities,
+    // opportunities,
     events,
     publications,
     categories,
