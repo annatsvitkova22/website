@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { isEmpty } from 'lodash';
 
 import Modal from './Modal';
 
@@ -17,7 +18,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
     return children;
   }
 
-  if (loading) {
+  if (isEmpty(crowdfundings) && loading) {
     return (
       <div className="container">
         <div className="crowdfundings-archive">

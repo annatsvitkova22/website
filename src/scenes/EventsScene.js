@@ -1,4 +1,5 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
 
 import Article from '~/components/Article';
 import Form from '~/components/Form';
@@ -9,7 +10,7 @@ const EventsScene = ({ events, form, children, loading }) => {
     return children;
   }
 
-  if (loading)
+  if (isEmpty(events) && loading)
     return (
       <div className="events-page">
         <main>

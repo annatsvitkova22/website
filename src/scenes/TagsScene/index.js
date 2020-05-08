@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { isEmpty } from 'lodash';
 
 import Featured from '~/components/Article/Featured';
 import Author from '~/components/Article/Author';
@@ -12,7 +13,7 @@ const TagsScene = ({ tags, children, loading }) => {
     return children;
   }
 
-  if (loading) {
+  if (isEmpty(tags) && loading) {
     return <div className="text-center">loading...</div>;
   }
 

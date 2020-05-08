@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { isEmpty } from 'lodash';
 
 import Article from '~/components/Article';
 
@@ -8,7 +9,7 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
     return children;
   }
 
-  if (children !== false && loading) {
+  if (isEmpty(categories) && loading) {
     return <div className="text-center">loading...</div>;
   }
 

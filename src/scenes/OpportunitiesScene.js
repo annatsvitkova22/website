@@ -1,4 +1,5 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
 
 import Article from '~/components/Article';
 import OpportunitiesLoader from '~/components/Loaders/OpportunitiesLoader';
@@ -8,7 +9,7 @@ const OpportunitiesScene = ({ opportunities, children, loading }) => {
     return children;
   }
 
-  if (loading) {
+  if (isEmpty(opportunities) && loading) {
     return (
       <div className="opportunities-page">
         <div className="container">
