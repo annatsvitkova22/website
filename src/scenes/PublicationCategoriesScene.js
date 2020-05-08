@@ -3,7 +3,15 @@ import Link from 'next/link';
 
 import Article from '~/components/Article';
 
-const PublicationCategoriesScene = ({ categories }) => {
+const PublicationCategoriesScene = ({ categories, children, loading }) => {
+  if (typeof children === 'object' && !loading) {
+    return children;
+  }
+
+  if (children !== false && loading) {
+    return <div className="text-center">loading...</div>;
+  }
+
   const filteredCategories = categories.nodes.filter(
     ({ zmCategoryACF: { showOnPublications } }) => showOnPublications === true
   );

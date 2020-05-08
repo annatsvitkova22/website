@@ -372,6 +372,36 @@ const EVENTS = gql`
   }
 `;
 
+const CATEGORIES = gql`
+  query Categories {
+    categories {
+      nodes {
+        id
+        name
+        slug
+        zmCategoryACF {
+          order
+          showOnPublications
+          size
+        }
+        publications {
+          nodes {
+            slug
+            title
+            author {
+              slug
+              name
+            }
+            featuredImage {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 const Home = (props) => {
   const [state, setState] = useState(props);
   const [loading, setLoading] = useState(false);
@@ -495,7 +525,11 @@ const Home = (props) => {
         />
         <PublicationsScene {...{ publications }} />
 
-        <PublicationCategoriesScene {...{ categories }} />
+        <PublicationCategoriesScene {...{ categories, loading }}>
+          {typeof categories === 'undefined' && (
+            <Waypoint onEnter={loadData(CATEGORIES)} />
+          )}
+        </PublicationCategoriesScene>
       </main>
     </div>
   );
@@ -541,7 +575,7 @@ Home.getInitialProps = async () => {
     // opportunities,
     // events,
     publications,
-    categories,
+    // categories,
   };
 };
 
