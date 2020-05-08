@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { throttle } from 'lodash';
 
 import Taxonomies from '~/components/Article/Taxonomies';
 import Author from '~/components/Article/Author';
@@ -13,16 +14,23 @@ const HeroScene = ({ posts, publications }) => {
 
   const onScroll = () => {
     const listHeight = heroListRef.current.clientHeight;
-
     const heroListPart =
-      -(heroListRef.current.getBoundingClientRect().top / listHeight) * 100;
+      -(
+        heroListRef.current.getBoundingClientRect().top /
+        (listHeight - window.innerHeight)
+      ) * 100;
+
     if (heroListPart > 0 && heroListPart < 100) {
       heroPubRef.current.scrollTop =
-        (heroListPart * heroPubRef.current.clientHeight) / 100;
+        (heroListPart *
+          (heroPubRef.current.scrollHeight - window.innerHeight)) /
+        100;
     }
+
     if (heroListPart < 0) {
       heroPubRef.current.scrollTop = 0;
     }
+
     if (heroListPart > 100) {
       heroPubRef.current.scrollTop = heroListRef.current.clientHeight;
     }
@@ -136,7 +144,7 @@ const HeroScene = ({ posts, publications }) => {
             </div>
             <div className="col-xl-7">
               <ul ref={heroListRef} className="hero-list list-reset">
-                {posts.nodes.slice(0, 30).map(({ title, slug }, i) => (
+                {posts.nodes.slice(0, 40).map(({ title, slug }, i) => (
                   <li key={i} className="hero-list__item line-height-1">
                     <ChronologicalSeparator
                       posts={posts.nodes}
