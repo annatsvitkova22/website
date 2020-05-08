@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Separator = ({ block, className = '' }) => {
+const Instagram = ({ block, className = '' }) => {
   return (
     <div
-      className={`${className}`}
+      className={className}
       dangerouslySetInnerHTML={{ __html: block.saveContent }}
     />
   );
 };
 
-Separator.propTypes = {
+Instagram.propTypes = {
   block: PropTypes.any,
   className: PropTypes.string,
 };
 
-export default Separator;
+export default Instagram;

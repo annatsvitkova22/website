@@ -4,14 +4,13 @@ import classNames from 'classnames';
 
 const File = ({ block, className = '' }) => {
   const linkStyle = classNames({
-    gutenberg__download: true,
     'button--inactive': !block.attributes.downloadButtonText,
   });
   const style = {
     justifyContent: block.attributes.align,
   };
   return (
-    <div className={className} style={{ width: '100%' }}>
+    <div className={`gutenberg__fd ${className}`} style={{ width: '100%' }}>
       <a
         href={block.attributes.href}
         download

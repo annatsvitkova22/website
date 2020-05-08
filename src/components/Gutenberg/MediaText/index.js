@@ -9,22 +9,22 @@ const MediaText = ({ block, className }) => {
     'mtext-img--right': block.attributes.mediaPosition === 'right',
     'mtext-img--left': block.attributes.mediaPosition === 'left',
   });
-
+  const difWidth = 100 - Number(block.attributes.mediaWidth);
   const imgStyles = {
     maxWidth: `${block.attributes.mediaWidth}%`,
-    height: '100%',
-    objectFit: 'cover',
+  };
+  const contentStyles = {
+    width: `${difWidth}%`,
+    backgroundColor: `$${block.attributes.backgroundColor}`,
   };
 
   return (
     <div className={`${className} gutenberg__mtext`}>
-      <img
-        src={block.attributes.mediaUrl}
-        alt=""
-        style={imgStyles}
-        className={imgCls}
-      />
-      <div className="mtext__content">
+      <div className={imgCls} style={imgStyles}>
+        <img src={block.attributes.mediaUrl} alt="media-text-image" />
+      </div>
+
+      <div className="mtext__content" style={contentStyles}>
         <Content content={block.innerBlocks} />
       </div>
     </div>

@@ -28,7 +28,14 @@ const content = `... on CoreHeadingBlock {
               }
             }
           }
+      ... on CoreEmbedInstagramBlock {
+                saveContent
+                attributes {
+                  url
+                }
+      }
           ... on CoreParagraphBlock {
+          saveContent
             attributes {
               __typename
               ... on CoreParagraphBlockAttributesV3 {
