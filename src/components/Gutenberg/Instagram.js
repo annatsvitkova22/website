@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MediaText = ({ block, className = '' }) => {
+const Instagram = ({ block, className = '' }) => {
   return (
     <div
-      dangerouslySetInnerHTML={{ __html: block.saveContent }}
       className={className}
+      dangerouslySetInnerHTML={{ __html: block.saveContent }}
     />
   );
 };
 
-MediaText.propTypes = {
+Instagram.propTypes = {
   block: PropTypes.any,
   className: PropTypes.string,
 };
 
-export default MediaText;
+export default Instagram;

@@ -1,0 +1,57 @@
+.gutenberg__table {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  thead {
+    border-bottom: 2px solid $black;
+
+    border-top: 1px solid $black;
+    border-right: 1px solid $black;
+    border-left: 1px solid $black;
+  }
+
+  tfoot {
+    border-top: 2px solid $black;
+  }
+
+  th {
+    padding: 10px 5px;
+  }
+
+  td {
+    padding: 10px 5px;
+
+    border: 1px solid $black;
+  }
+
+  figcaption {
+    text-align: center;
+  }
+}
+.wp-block-table {
+  &.alignright {
+    margin-left: auto;
+  }
+  &.aligncenter {
+    margin: 0 auto;
+  }
+  &.is-style-stripes tbody tr:nth-child(2n-1) {
+    background-color: $grey-100;
+  }
+  &.is-style-stripes {
+    td {
+      border: none;
+    }
+    tr {
+      border: none;
+    }
+    thead {
+      border-top: none;
+      border-right: none;
+      border-left: none;
+    }
+  }
+}

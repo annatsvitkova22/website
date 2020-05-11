@@ -1,0 +1,27 @@
+.gutenberg__cover {
+  min-height: 200px;
+  max-height: 700px;
+  width: 872px;
+
+  padding-bottom: 20px;
+  padding-top: 20px;
+
+  &-content {
+    display: flex;
+    align-items: center;
+
+    position: relative;
+  }
+  .content__inner {
+    width: 100%;
+  }
+
+  &-overlay {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

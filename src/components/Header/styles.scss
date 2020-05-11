@@ -276,7 +276,7 @@ body.isB-MenuOpen {
     &--active {
       color: $green;
     }
-    &:not(:first-child) {
+    &:hover {
       .navigation__link:hover {
         color: $green;
       }
