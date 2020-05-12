@@ -7,6 +7,8 @@ import Author from '~/components/Article/Author';
 import Taxonomies from '~/components/Article/Taxonomies';
 import SectionHeading from '~/components/SectionHeading';
 import { ArticleProvider } from '~/components/Article/Context';
+import TagsLoader from '~/components/Loaders/TagsLoader';
+import SectionHeadingLoader from '~/components/Loaders/SectionHeadingLoader';
 
 const TagsScene = ({ tags, children, loading }) => {
   if (typeof children === 'object' && !loading) {
@@ -14,7 +16,12 @@ const TagsScene = ({ tags, children, loading }) => {
   }
 
   if (isEmpty(tags) && loading) {
-    return <div className="text-center">loading...</div>;
+    return (
+      <>
+        <SectionHeadingLoader />
+        <TagsLoader />
+      </>
+    );
   }
 
   const filteredTags = tags.nodes.filter(
