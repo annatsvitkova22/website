@@ -459,33 +459,14 @@ Home.getInitialProps = async () => {
     query: HOME_PAGE,
   });
 
-  const {
-    pages,
-    info,
-    posts,
-    users,
-    crowdfundings,
-    tags,
-    videos,
-    opportunities,
-    events,
-    publications,
-    categories,
-  } = data;
+  const { pages, info, posts, users, publications } = data;
 
   return {
     page: pages.nodes[0],
     info,
     posts,
     users,
-    // crowdfundings,
-    // tags,
-    // TODO: Put bellow function on frontend
-    // videos,
-    // opportunities,
-    // events,
     publications,
-    // categories,
   };
 };
 
