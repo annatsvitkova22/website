@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { isEmpty } from 'lodash';
 
 import Article from '~/components/Article';
+import PublCatLoader from '~/components/Loaders/PublCatLoader';
 
 const PublicationCategoriesScene = ({ categories, children, loading }) => {
   if (typeof children === 'object' && !loading) {
@@ -10,7 +11,7 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
   }
 
   if (isEmpty(categories) && loading) {
-    return <div className="text-center">loading...</div>;
+    return <PublCatLoader />;
   }
 
   const filteredCategories = categories.nodes.filter(
