@@ -1,21 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FacebookProvider, EmbeddedPost } from 'react-facebook';
 
 const Facebook = ({ block, className = '' }) => {
   return (
-    <div className={`${className} gutenberg__facebook`}>
-      <figure className={block.attributes.className}>
-        <iframe
-          className="gutenberg__facebook-iframe"
-          src={block.attributes.url}
-          width={'648px'}
-          height={'400px'}
-          scrolling="no"
-          frameborder="0"
-          allowTransparency="true"
-          allow="encrypted-media"
-        />
-      </figure>
+    <div className={`gutenberg__facebook ${className}`}>
+      <FacebookProvider appId="595420217740360">
+        <EmbeddedPost href={block.attributes.url} />
+      </FacebookProvider>
     </div>
   );
 };

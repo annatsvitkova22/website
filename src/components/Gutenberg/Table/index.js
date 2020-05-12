@@ -7,7 +7,7 @@ const Table = ({ block, className = '' }) => {
   };
   return (
     <div
-      className={`${className} ${block.attributes.className} gutenberg__table`}
+      className={`gutenberg__table ${className} ${block.attributes.className}`}
       style={style}
       dangerouslySetInnerHTML={{ __html: block.saveContent }}
     />

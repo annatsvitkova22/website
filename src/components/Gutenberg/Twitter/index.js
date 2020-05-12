@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TwitterTweetEmbed } from 'react-twitter-embed';
 
 const Twitter = ({ block, className = '' }) => {
+  const twitterUrl = block.attributes.url
+    .replace(/[a-zA-Z]./gm, '')
+    .replace(/\//gm, '')
+    .replace(/\?\d*/gm, '');
+
   return (
-    <div className={`${className} gutenberg__facebook`}>
-      <blockquote className="twitter-tweet" data-lang="en">
-        <p lang="en" dir="ltr">
-          just setting up my twttr
-        </p>
-        &mdash; Jack (@jack){' '}
-        <a href="https://twitter.com/jack/status/20">March 21, 2006</a>
-      </blockquote>
-      >
+    <div className={`gutenberg__twitter ${className}`}>
+      <TwitterTweetEmbed tweetId={twitterUrl} />
     </div>
   );
 };

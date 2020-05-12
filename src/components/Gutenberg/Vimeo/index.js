@@ -7,7 +7,7 @@ const Vimeo = ({ block, className = '' }) => {
     'https://player.vimeo.com/video/'
   );
   return (
-    <div className={`${className} gutenberg__vimeo`}>
+    <div className={`gutenberg__vimeo ${className}`}>
       <figure className={block.attributes.className}>
         <iframe
           className="gutenberg__vimeo-iframe"

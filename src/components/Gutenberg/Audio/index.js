@@ -5,7 +5,7 @@ const Audio = ({ block, className = '' }) => {
   return (
     <>
       {block.attributes && (
-        <div className={`${className} gutenberg__audio`}>
+        <div className={`gutenberg__audio ${className}`}>
           <figure className="gutenberg__audio-player">
             <figcaption>{block.attributes.caption}</figcaption>
             <audio controls src={block.attributes.src} />

@@ -17,18 +17,11 @@ import Button from '../Gutenberg/Button';
 import Archives from '../Gutenberg/Archives';
 import Columns from '../Gutenberg/Columns';
 import Pullquote from '../Gutenberg/Pullquote';
-import Calendar from '../Gutenberg/Calendar';
 import TagCloud from '../Gutenberg/TagCloud';
 import Categories from '../Gutenberg/Categories';
-import LastComments from '../Gutenberg/LastComments';
-import LatestPosts from '../Gutenberg/LatestPosts';
-import Search from '../Gutenberg/Search';
 import Separator from '../Gutenberg/Separator';
 import FreeForm from '../Gutenberg/FreeForm';
-import CodeBlock from '../Gutenberg/CodeBlock';
-import More from '../Gutenberg/More';
 import Spacer from '../Gutenberg/Space';
-import NextPage from '../Gutenberg/NextPage';
 import MediaText from '../Gutenberg/MediaText';
 import Vimeo from '../Gutenberg/Vimeo';
 
@@ -243,15 +236,6 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-  if (block.__typename === 'CoreMediaTextBlock') {
-    return (
-      <Pullquote
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
   if (block.__typename === 'CorePullquoteBlock') {
     return (
       <Pullquote
@@ -261,15 +245,7 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-  if (block.__typename === 'CoreCalendarBlock') {
-    return (
-      <Calendar
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
+
   if (block.__typename === 'CoreTagCloudBlock') {
     return (
       <TagCloud
@@ -288,42 +264,7 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-  if (block.__typename === 'CoreLatestCommentsBlock') {
-    return (
-      <LastComments
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
-  if (block.__typename === 'CoreLatestPostsBlock') {
-    return (
-      <LatestPosts
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
-  if (block.__typename === 'CoreSearchBlock') {
-    return (
-      <Search
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
-  if (block.__typename === 'CoreCodeBlock') {
-    return (
-      <CodeBlock
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
+
   if (block.__typename === 'CoreFreeformBlock') {
     return (
       <FreeForm
@@ -333,15 +274,7 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-  if (block.__typename === 'CoreMoreBlock') {
-    return (
-      <More
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
+
   if (block.__typename === 'CoreSeparatorBlock') {
     return (
       <Separator
@@ -360,15 +293,7 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-  if (block.__typename === 'CoreNextpageBlock') {
-    return (
-      <NextPage
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
+
   if (block.__typename === 'CoreButtonsBlock') {
     return (
       <Buttons

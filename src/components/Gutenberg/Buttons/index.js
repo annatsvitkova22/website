@@ -5,7 +5,7 @@ import Button from '~/components/Gutenberg/Button';
 
 const Buttons = ({ block, className = '' }) => {
   return (
-    <div className={`${className} gutenberg__buttons`}>
+    <div className={`gutenberg__buttons ${className}`}>
       {block.innerBlocks.map((button) => (
         <Button block={button} />
       ))}

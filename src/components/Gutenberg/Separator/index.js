@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Separator = ({ block, className = '' }) => {
   return (
     <div
-      className={`${className} gutenberg__separator`}
+      className={`gutenberg__separator ${className}`}
       dangerouslySetInnerHTML={{ __html: block.saveContent }}
     />
   );

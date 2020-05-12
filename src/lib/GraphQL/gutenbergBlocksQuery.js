@@ -32,6 +32,7 @@ const content = `... on CoreHeadingBlock {
         }
       }
        ... on CoreEmbedTwitterBlock {
+       saveContent
         attributes {
           url
           type

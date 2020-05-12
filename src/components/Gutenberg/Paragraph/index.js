@@ -16,7 +16,7 @@ const Paragraph = ({ block, className = '' }) => {
   return (
     <div
       style={style}
-      className={`${attributes.className} gutenberg__paragraph ${className}`}
+      className={`gutenberg__paragraph ${attributes.className} ${className}`}
       dangerouslySetInnerHTML={{ __html: block.saveContent }}
     />
   );
