@@ -16,7 +16,6 @@ import Table from '../Gutenberg/Table';
 import Button from '../Gutenberg/Button';
 import Archives from '../Gutenberg/Archives';
 import Columns from '../Gutenberg/Columns';
-import MediaText from '../Gutenberg/MediaText';
 import Pullquote from '../Gutenberg/Pullquote';
 import Calendar from '../Gutenberg/Calendar';
 import TagCloud from '../Gutenberg/TagCloud';
@@ -30,9 +29,12 @@ import CodeBlock from '../Gutenberg/CodeBlock';
 import More from '../Gutenberg/More';
 import Spacer from '../Gutenberg/Space';
 import NextPage from '../Gutenberg/NextPage';
+import MediaText from '../Gutenberg/MediaText';
 
 import Buttons from '~/components/Gutenberg/Buttons';
 import Form from '~/components/Form';
+import Verse from '~/components/Gutenberg/Verse';
+import Instagram from '~/components/Gutenberg/Instagram';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
@@ -52,6 +54,24 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreParagraphBlock') {
     return (
       <Paragraph
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreVerseBlock') {
+    return (
+      <Verse
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreEmbedInstagramBlock') {
+    return (
+      <Instagram
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}

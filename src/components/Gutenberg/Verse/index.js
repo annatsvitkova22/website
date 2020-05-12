@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Separator = ({ block, className = '' }) => {
+const Verse = ({ block, className = '' }) => {
   return (
     <div
-      className={`${className}`}
       dangerouslySetInnerHTML={{ __html: block.saveContent }}
+      className={`gutenberg__verse ${className}`}
     />
   );
 };
 
-Separator.propTypes = {
+Verse.propTypes = {
   block: PropTypes.any,
   className: PropTypes.string,
 };
 
-export default Separator;
+export default Verse;
