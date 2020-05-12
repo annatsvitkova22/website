@@ -27,6 +27,34 @@ const HOME_PAGE = gql`
       }
     }
 
+    info {
+      generalInfoACF {
+        mainPublication {
+          ... on Publication {
+            title
+            slug
+            author {
+              name
+              nicename
+              nickname
+              slug
+              userId
+              username
+            }
+            categories {
+              nodes {
+                name
+                slug
+              }
+            }
+            featuredImage {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+
     posts(first: 40) {
       nodes {
         title
@@ -189,7 +217,7 @@ const HOME_PAGE = gql`
       }
     }
 
-    publications(first: 20) {
+    publications(first: 8) {
       nodes {
         excerpt
         title
@@ -425,6 +453,7 @@ const Home = (props) => {
 
   const {
     page,
+    info,
     posts,
     users,
     crowdfundings,
@@ -443,6 +472,7 @@ const Home = (props) => {
     });
     const newState = {
       page: data.pages.nodes[0],
+      info: data.info,
       posts: data.posts,
       users: data.users,
       crowdfundings: data.crowdfundings,
@@ -496,7 +526,7 @@ const Home = (props) => {
       <main>
         <h1 className="title d-none">{page.title}</h1>
 
-        <HeroScene {...{ posts, publications }} />
+        <HeroScene {...{ info, posts, publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
@@ -574,6 +604,7 @@ Home.getInitialProps = async () => {
 
   const {
     pages,
+    info,
     posts,
     users,
     crowdfundings,
@@ -587,6 +618,7 @@ Home.getInitialProps = async () => {
 
   return {
     page: pages.nodes[0],
+    info,
     posts,
     users,
     // crowdfundings,

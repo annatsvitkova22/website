@@ -6,10 +6,12 @@ import Author from '~/components/Article/Author';
 import Featured from '~/components/Article/Featured';
 import { ArticleProvider } from '~/components/Article/Context';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
+import HeroPublication from '~/components/HeroPublication';
 
-const HeroScene = ({ posts, publications }) => {
+const HeroScene = ({ info, posts, publications }) => {
   const heroPubRef = useRef(null);
   const heroListRef = useRef(null);
+  console.log(info);
 
   const onScroll = () => {
     const listHeight = heroListRef.current.clientHeight;
@@ -46,7 +48,8 @@ const HeroScene = ({ posts, publications }) => {
     <div className="container hero">
       <div className="row">
         <div className="col-xl-7">
-          {publications.nodes
+          <HeroPublication {...info.generalInfoACF.mainPublication} />
+          {/* {publications.nodes
             .slice(0, 1)
             .map(
               (
@@ -95,12 +98,12 @@ const HeroScene = ({ posts, publications }) => {
                   </div>
                 );
               }
-            )}
+            )} */}
         </div>
         <div className="col-xl-2 d-none d-xl-block">
           <div ref={heroPubRef} className="hero-pub__scroll">
             {publications.nodes
-              .slice(1, 6)
+              .slice(0, 5)
               .map(({ categories, title, slug, author, featuredImage }, i) => (
                 <div key={i} className="hero-pub">
                   <ArticleProvider value="publications">
