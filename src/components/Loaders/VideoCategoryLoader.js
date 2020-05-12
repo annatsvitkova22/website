@@ -1,13 +1,15 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const VideoCategoryLoader = () => {
+const VideoCategoryLoader = ({
+  backgroundColor = '#333',
+  foregroundColor = '#999',
+}) => {
   return (
     <div className="container">
       <ContentLoader
         viewBox={'0 0 1320 400'}
-        backgroundColor={'#333'}
-        foregroundColor={'#999'}
+        {...{ backgroundColor, foregroundColor }}
       >
         <rect x={'0'} y={'0'} width={'312'} height={`190`} />
         <rect x={'0'} y={'205'} width={'30'} height={`17`} />

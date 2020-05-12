@@ -30,7 +30,7 @@ const TagsScene = ({ tags, children, loading }) => {
               <SectionHeading
                 isRow={true}
                 title={`!${name}`}
-                href={`/search?tags=${slug}`}
+                href={`/search?by=tag&q=${slug}`}
               />
             </div>
             {publications.map(

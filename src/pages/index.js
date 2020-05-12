@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import client from '~/lib/ApolloClient';
-import addVideoDurations from '~/util/addVideoDurations';
 import HeroScene from '~/scenes/HeroScene';
 import CrowdfundingsScene from '~/scenes/CrowdfundingsScene';
 import VideosScene from '~/scenes/VideosScene';
@@ -321,6 +320,24 @@ const TAGS = gql`
   }
 `;
 
+const VIDEOS = gql`
+  query Videos {
+    videos(first: 8) {
+      nodes {
+        title
+        excerpt
+        date
+        zmVideoACF {
+          videoCover {
+            mediaItemUrl
+          }
+          videoUrl
+        }
+      }
+    }
+  }
+`;
+
 const OPPORTUNITIES = gql`
   query Opportunities {
     opportunities(first: 4) {
@@ -431,7 +448,7 @@ const Home = (props) => {
       crowdfundings: data.crowdfundings,
       tags: data.tags,
       // TODO: Put bellow function on frontend
-      videos: await addVideoDurations(data.videos.nodes),
+      videos: data.videos,
       opportunities: data.opportunities,
       events: data.events,
       publications: data.publications,
@@ -498,7 +515,11 @@ const Home = (props) => {
         </TagsScene>
 
         <SectionHeading title="Відео" href="/videos" classMode="videos" />
-        <VideosScene {...{ videos }} />
+        <VideosScene {...{ videos, loading }}>
+          {typeof videos === 'undefined' && (
+            <Waypoint onEnter={loadData(VIDEOS)} />
+          )}
+        </VideosScene>
 
         <SectionHeading
           title="Можлівості"
@@ -571,7 +592,7 @@ Home.getInitialProps = async () => {
     // crowdfundings,
     // tags,
     // TODO: Put bellow function on frontend
-    videos: await addVideoDurations(videos.nodes),
+    // videos,
     // opportunities,
     // events,
     publications,
