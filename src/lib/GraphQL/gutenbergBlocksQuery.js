@@ -31,6 +31,22 @@ const content = `... on CoreHeadingBlock {
           caption
         }
       }
+       ... on CoreEmbedTwitterBlock {
+        attributes {
+          url
+          type
+          className
+        }
+      }
+      ... on CoreEmbedFacebookBlock {
+        attributes {
+          url
+          className
+          type
+          caption
+          allowResponsive
+        }
+      }
           ... on CoreParagraphBlock {
           saveContent
             attributes {

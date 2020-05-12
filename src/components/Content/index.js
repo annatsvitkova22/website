@@ -36,6 +36,8 @@ import Buttons from '~/components/Gutenberg/Buttons';
 import Form from '~/components/Form';
 import Verse from '~/components/Gutenberg/Verse';
 import Instagram from '~/components/Gutenberg/Instagram';
+import Facebook from '~/components/Gutenberg/Facebook';
+import Twitter from '~/components/Gutenberg/Twitter';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
@@ -73,6 +75,24 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreEmbedVimeoBlock') {
     return (
       <Vimeo
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreEmbedTwitterBlock') {
+    return (
+      <Twitter
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreEmbedFacebookBlock') {
+    return (
+      <Facebook
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}
