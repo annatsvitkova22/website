@@ -22,6 +22,15 @@ const content = `... on CoreHeadingBlock {
                   url
                 }
       }
+            ... on CoreEmbedVimeoBlock {
+        saveContent
+        attributes {
+          url
+          className
+          allowResponsive
+          caption
+        }
+      }
           ... on CoreParagraphBlock {
           saveContent
             attributes {

@@ -5,6 +5,10 @@
 
   padding-bottom: 20px;
   padding-top: 20px;
+  @media screen and (max-width: 1250px) {
+    width: 100%;
+    max-width: 648px;
+  }
 
   &-content {
     display: flex;

@@ -11,9 +11,11 @@
     color: #1d9e74;
   }
   @include media-breakpoint-down(sm) {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.03em;
+    p {
+      font-size: 16px !important;
+      line-height: 24px;
+      letter-spacing: 0.03em;
+    }
   }
   .has-drop-cap {
     &::first-letter {

@@ -2,6 +2,9 @@
   margin: 0;
   padding-bottom: 20px;
   width: 100%;
+  & > * {
+    margin-bottom: 0;
+  }
 }
 
 .gutenberg__heading:not(:first-child) {

@@ -1,6 +1,19 @@
 .gutenberg__buttons {
   padding-top: 20px;
   padding-bottom: 40px;
+
+  @include media-breakpoint-down(sm) {
+    display: flex;
+    justify-content: center;
+  }
+
+  .zm-button {
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+
+      text-align: center;
+    }
+  }
   .zm-button:not(:last-child) {
     margin-right: 20px;
   }

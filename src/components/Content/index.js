@@ -30,6 +30,7 @@ import More from '../Gutenberg/More';
 import Spacer from '../Gutenberg/Space';
 import NextPage from '../Gutenberg/NextPage';
 import MediaText from '../Gutenberg/MediaText';
+import Vimeo from '../Gutenberg/Vimeo';
 
 import Buttons from '~/components/Gutenberg/Buttons';
 import Form from '~/components/Form';
@@ -63,6 +64,15 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreVerseBlock') {
     return (
       <Verse
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreEmbedVimeoBlock') {
+    return (
+      <Vimeo
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}
