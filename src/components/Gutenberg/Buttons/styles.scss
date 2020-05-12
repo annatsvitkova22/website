@@ -1,0 +1,22 @@
+.gutenberg__buttons {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  .zm-button:not(:last-child) {
+    margin-right: 20px;
+  }
+  .is-style-outline {
+    box-shadow: none;
+    background-color: transparent;
+    border: 1px solid #d6d6d6;
+
+    font-family: $font-family-titles;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+    &:hover {
+      border: 1px solid $black;
+    }
+  }
+}

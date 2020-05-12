@@ -1,17 +1,5 @@
 const content = `... on CoreHeadingBlock {
-            attributes {
-              __typename
-              ... on CoreHeadingBlockAttributes {
-                align
-                anchor
-                className
-                content
-                customTextColor
-                level
-                placeholder
-                textColor
-              }
-            }
+            saveContent
           }
           ... on CoreVerseBlock {
         attributes {

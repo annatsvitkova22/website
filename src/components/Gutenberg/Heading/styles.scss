@@ -1,11 +1,11 @@
-.gutenberg__title {
+.gutenberg__heading {
   margin: 0;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   width: 100%;
 }
 
-.gutenberg__title:not(:first-child) {
-  padding-top: 10px;
+.gutenberg__heading:not(:first-child) {
+  padding-top: 20px;
 
   @include media-breakpoint-down(sm) {
     padding-top: 24px;
