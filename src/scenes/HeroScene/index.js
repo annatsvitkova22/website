@@ -11,7 +11,6 @@ import HeroPublication from '~/components/HeroPublication';
 const HeroScene = ({ info, posts, publications }) => {
   const heroPubRef = useRef(null);
   const heroListRef = useRef(null);
-  console.log(info);
 
   const onScroll = () => {
     const listHeight = heroListRef.current.clientHeight;

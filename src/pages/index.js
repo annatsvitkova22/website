@@ -32,6 +32,7 @@ const HOME_PAGE = gql`
         mainPublication {
           ... on Publication {
             title
+            uri
             slug
             author {
               name
@@ -99,124 +100,6 @@ const HOME_PAGE = gql`
       }
     }
 
-    crowdfundings(first: 9) {
-      nodes {
-        id
-        excerpt
-        content
-        uri
-        title
-        slug
-        date
-        author {
-          id
-          name
-          nicename
-          nickname
-          username
-        }
-        featuredImage {
-          mediaItemUrl
-        }
-        cfACF {
-          tocollect
-          expiration
-          collected
-        }
-      }
-      pageInfo {
-        endCursor
-        total
-      }
-    }
-
-    tags {
-      nodes {
-        id
-        name
-        slug
-        zmTagsACF {
-          showOnHome
-        }
-        publications(first: 5) {
-          nodes {
-            title
-            slug
-            featuredImage {
-              mediaItemUrl
-            }
-            author {
-              slug
-              name
-            }
-            categories {
-              nodes {
-                slug
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-
-    videos(first: 8) {
-      nodes {
-        title
-        excerpt
-        date
-        zmVideoACF {
-          videoCover {
-            mediaItemUrl
-          }
-          videoUrl
-        }
-      }
-    }
-
-    opportunities(first: 4) {
-      nodes {
-        featuredImage {
-          sourceUrl(size: THUMBNAIL)
-        }
-        title
-        slug
-        id
-        zmAfishaACF {
-          eventAddress {
-            streetAddress
-            streetName
-            latitude
-            longitude
-          }
-          eventTime
-          eventDays {
-            day
-          }
-        }
-      }
-    }
-
-    events(first: 7) {
-      nodes {
-        featuredImage {
-          mediaItemUrl
-        }
-        title
-        slug
-        id
-        zmAfishaACF {
-          eventAddress {
-            city
-            streetName
-            streetNumber
-          }
-          eventTime
-          eventDate
-        }
-      }
-    }
-
     publications(first: 8) {
       nodes {
         excerpt
@@ -248,32 +131,6 @@ const HOME_PAGE = gql`
       pageInfo {
         endCursor
         total
-      }
-    }
-
-    categories {
-      nodes {
-        id
-        name
-        slug
-        zmCategoryACF {
-          order
-          showOnPublications
-          size
-        }
-        publications {
-          nodes {
-            slug
-            title
-            author {
-              slug
-              name
-            }
-            featuredImage {
-              mediaItemUrl
-            }
-          }
-        }
       }
     }
   }
