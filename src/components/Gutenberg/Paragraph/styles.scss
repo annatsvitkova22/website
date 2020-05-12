@@ -8,7 +8,10 @@
     font-weight: 600;
   }
   & a {
-    color: #1d9e74;
+    color: $green;
+    &:hover {
+      color: darken($green, 10);
+    }
   }
   @include media-breakpoint-down(sm) {
     p {
