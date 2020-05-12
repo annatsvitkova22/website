@@ -23,7 +23,6 @@ const OPPORTUNITY = gql`
         title
       }
       zmAfishaACF {
-        eventCost
         eventTime
         eventDate
         eventSocials {
@@ -61,6 +60,7 @@ const Opportunity = (props) => {
     isLoading: false,
     isSimilarLoading: false,
   });
+
 
   const { opportunity, isLoading } = state;
 

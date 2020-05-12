@@ -14,7 +14,7 @@ const Cover = ({ block, className = '' }) => {
     backgroundColor: block.attributes.overlayColor,
   };
   return (
-    <div className={`gutenberg__cover`}>
+    <div className="gutenberg__cover">
       <div className="gutenberg__cover-content" style={coverStyles}>
         <div className="content__inner">
           <Content content={block.innerBlocks} />
