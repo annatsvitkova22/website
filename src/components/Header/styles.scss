@@ -197,6 +197,13 @@ body.isB-MenuOpen {
   &__overlay {
     display: none;
   }
+  &__social {
+    .svg-icon {
+      &:hover {
+        color: $green;
+      }
+    }
+  }
 }
 .header ~ div {
   padding-top: 68px;
@@ -272,9 +279,6 @@ body.isB-MenuOpen {
         font-family: $font-family-alt;
         letter-spacing: 0.1em;
       }
-    }
-    &--active {
-      color: $green;
     }
     &:hover {
       .navigation__link:hover {

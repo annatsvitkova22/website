@@ -8,11 +8,23 @@
     font-weight: 600;
   }
   & a {
-    color: #1d9e74;
+    color: $green;
+    &:hover {
+      color: darken($green, 10);
+    }
   }
   @include media-breakpoint-down(sm) {
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.03em;
+    p {
+      font-size: 16px !important;
+      line-height: 24px;
+      letter-spacing: 0.03em;
+    }
+  }
+  .has-drop-cap {
+    &::first-letter {
+      margin: 0 2px 0 0;
+
+      font-size: 3em;
+    }
   }
 }

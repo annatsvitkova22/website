@@ -20,6 +20,7 @@ class ZmistDocument extends Document {
         {process.env.ENV === 'staging' && (
           <script type="text/javascript" src="/scripts/usersnap.js" />
         )}
+        <script async src="//www.instagram.com/embed.js" />
         <script
           id="widget-wfp-script"
           language="javascript"

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Spacer = ({ block, className = '' }) => {
   return (
     <div
-      className={`${className}`}
+      className={`gutenberg__spacer ${className}`}
       dangerouslySetInnerHTML={{ __html: block.saveContent }}
     />
   );

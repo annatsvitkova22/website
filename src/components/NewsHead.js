@@ -13,7 +13,6 @@ const NewsHead = (props) => {
     post ? setIsLoad(!isLoad) : setIsLoad(false);
   }, []);
 
-  console.log(post);
   return (
     <section className={'single-post__title-wrapper'}>
       {!isLoad ? (

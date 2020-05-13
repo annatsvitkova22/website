@@ -1,17 +1,5 @@
 const content = `... on CoreHeadingBlock {
-            attributes {
-              __typename
-              ... on CoreHeadingBlockAttributes {
-                align
-                anchor
-                className
-                content
-                customTextColor
-                level
-                placeholder
-                textColor
-              }
-            }
+            saveContent
           }
           ... on CoreVerseBlock {
         attributes {
@@ -33,6 +21,32 @@ const content = `... on CoreHeadingBlock {
                 attributes {
                   url
                 }
+      }
+            ... on CoreEmbedVimeoBlock {
+        saveContent
+        attributes {
+          url
+          className
+          allowResponsive
+          caption
+        }
+      }
+       ... on CoreEmbedTwitterBlock {
+       saveContent
+        attributes {
+          url
+          type
+          className
+        }
+      }
+      ... on CoreEmbedFacebookBlock {
+        attributes {
+          url
+          className
+          type
+          caption
+          allowResponsive
+        }
       }
           ... on CoreParagraphBlock {
           saveContent
