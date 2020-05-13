@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
 import client from '~/lib/ApolloClient';
-import addVideoDurations from '~/util/addVideoDurations';
 import HeroScene from '~/scenes/HeroScene';
 import CrowdfundingsScene from '~/scenes/CrowdfundingsScene';
 import VideosScene from '~/scenes/VideosScene';
@@ -25,6 +24,35 @@ const HOME_PAGE = gql`
     pages(where: { title: "Головна" }) {
       nodes {
         title
+      }
+    }
+
+    info {
+      generalInfoACF {
+        mainPublication {
+          ... on Publication {
+            title
+            uri
+            slug
+            author {
+              name
+              nicename
+              nickname
+              slug
+              userId
+              username
+            }
+            categories {
+              nodes {
+                name
+                slug
+              }
+            }
+            featuredImage {
+              mediaItemUrl
+            }
+          }
+        }
       }
     }
 
@@ -59,7 +87,7 @@ const HOME_PAGE = gql`
             url
           }
         }
-        blogs(first: 3) {
+        blogs(first: 1) {
           nodes {
             id
             title
@@ -72,125 +100,7 @@ const HOME_PAGE = gql`
       }
     }
 
-    crowdfundings(first: 9) {
-      nodes {
-        id
-        excerpt
-        content
-        uri
-        title
-        slug
-        date
-        author {
-          id
-          name
-          nicename
-          nickname
-          username
-        }
-        featuredImage {
-          mediaItemUrl
-        }
-        cfACF {
-          tocollect
-          expiration
-          collected
-        }
-      }
-      pageInfo {
-        endCursor
-        total
-      }
-    }
-
-    tags {
-      nodes {
-        id
-        name
-        slug
-        zmTagsACF {
-          showOnHome
-        }
-        publications(first: 5) {
-          nodes {
-            title
-            slug
-            featuredImage {
-              mediaItemUrl
-            }
-            author {
-              slug
-              name
-            }
-            categories {
-              nodes {
-                slug
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-
-    videos(first: 8) {
-      nodes {
-        title
-        excerpt
-        date
-        zmVideoACF {
-          videoCover {
-            mediaItemUrl
-          }
-          videoUrl
-        }
-      }
-    }
-
-    opportunities(first: 4) {
-      nodes {
-        featuredImage {
-          sourceUrl(size: THUMBNAIL)
-        }
-        title
-        slug
-        id
-        zmAfishaACF {
-          eventAddress {
-            streetAddress
-            streetName
-            latitude
-            longitude
-          }
-          eventTime
-          eventDays {
-            day
-          }
-        }
-      }
-    }
-
-    events(first: 7) {
-      nodes {
-        featuredImage {
-          mediaItemUrl
-        }
-        title
-        slug
-        id
-        zmAfishaACF {
-          eventAddress {
-            city
-            streetName
-            streetNumber
-          }
-          eventTime
-          eventDate
-        }
-      }
-    }
-
-    publications(first: 20) {
+    publications(first: 8) {
       nodes {
         excerpt
         title
@@ -223,38 +133,12 @@ const HOME_PAGE = gql`
         total
       }
     }
-
-    categories {
-      nodes {
-        id
-        name
-        slug
-        zmCategoryACF {
-          order
-          showOnPublications
-          size
-        }
-        publications {
-          nodes {
-            slug
-            title
-            author {
-              slug
-              name
-            }
-            featuredImage {
-              mediaItemUrl
-            }
-          }
-        }
-      }
-    }
   }
 `;
 
 const CROWDFUNDINGS = gql`
   query Crowdfundings {
-    crowdfundings(first: 9) {
+    crowdfundings(first: 3) {
       nodes {
         id
         excerpt
@@ -315,6 +199,24 @@ const TAGS = gql`
               }
             }
           }
+        }
+      }
+    }
+  }
+`;
+
+const VIDEOS = gql`
+  query Videos {
+    videos(first: 8) {
+      nodes {
+        title
+        excerpt
+        date
+        zmVideoACF {
+          videoCover {
+            mediaItemUrl
+          }
+          videoUrl
         }
       }
     }
@@ -408,6 +310,7 @@ const Home = (props) => {
 
   const {
     page,
+    info,
     posts,
     users,
     crowdfundings,
@@ -426,12 +329,13 @@ const Home = (props) => {
     });
     const newState = {
       page: data.pages.nodes[0],
+      info: data.info,
       posts: data.posts,
       users: data.users,
       crowdfundings: data.crowdfundings,
       tags: data.tags,
       // TODO: Put bellow function on frontend
-      videos: await addVideoDurations(data.videos.nodes),
+      videos: data.videos,
       opportunities: data.opportunities,
       events: data.events,
       publications: data.publications,
@@ -479,7 +383,7 @@ const Home = (props) => {
       <main>
         <h1 className="title d-none">{page.title}</h1>
 
-        <HeroScene {...{ posts, publications }} />
+        <HeroScene {...{ info, posts, publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
@@ -498,7 +402,11 @@ const Home = (props) => {
         </TagsScene>
 
         <SectionHeading title="Відео" href="/videos" classMode="videos" />
-        <VideosScene {...{ videos }} />
+        <VideosScene {...{ videos, loading }}>
+          {typeof videos === 'undefined' && (
+            <Waypoint onEnter={loadData(VIDEOS)} />
+          )}
+        </VideosScene>
 
         <SectionHeading
           title="Можлівості"
@@ -551,31 +459,14 @@ Home.getInitialProps = async () => {
     query: HOME_PAGE,
   });
 
-  const {
-    pages,
-    posts,
-    users,
-    crowdfundings,
-    tags,
-    videos,
-    opportunities,
-    events,
-    publications,
-    categories,
-  } = data;
+  const { pages, info, posts, users, publications } = data;
 
   return {
     page: pages.nodes[0],
+    info,
     posts,
     users,
-    // crowdfundings,
-    // tags,
-    // TODO: Put bellow function on frontend
-    videos: await addVideoDurations(videos.nodes),
-    // opportunities,
-    // events,
     publications,
-    // categories,
   };
 };
 

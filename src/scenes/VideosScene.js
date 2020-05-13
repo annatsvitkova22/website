@@ -1,5 +1,5 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import { isEmpty } from 'lodash';
 
 import PhotoSwipeGallery from '~/components/PhotoSwipeGallery';
 import {
@@ -7,19 +7,65 @@ import {
   prepareGalleryItems,
   options,
 } from '~/components/PhotoSwipeGallery/videoGalleryUtils';
+import addVideoDurations from '~/util/addVideoDurations';
+import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
-const VideosScene = ({ videos }) => (
-  <div className="container">
-    <div className="row">
-      <PhotoSwipeGallery
-        className="col-12 video-cat-gall"
-        items={prepareGalleryItems(videos)}
-        options={options()}
-        thumbnailContent={getThumbnailVideo}
-        playClass="tx-white"
-      />
+const VideosScene = ({ videos = {}, loading, children }) => {
+  const [state, setState] = useState(false);
+
+  useEffect(() => {
+    const updateVideos = async () => {
+      try {
+        const updatedVideos = await addVideoDurations(videos.nodes);
+        setState(
+          <PhotoSwipeGallery
+            className="col-12 video-cat-gall"
+            items={prepareGalleryItems(updatedVideos)}
+            options={options()}
+            thumbnailContent={getThumbnailVideo}
+            playClass="tx-white"
+          />
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (!isEmpty(videos.nodes) && !state) {
+      updateVideos();
+    }
+  }, [videos.nodes, state]);
+
+  if (typeof children === 'object' && !loading) {
+    return children;
+  }
+
+  if (state === false) {
+    return (
+      <main className="videos-main">
+        <div className="container">
+          <div className="row">
+            <VideoCategoryLoader
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+            <VideoCategoryLoader
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  console.log('test');
+
+  return (
+    <div className="container">
+      <div className="row">{state}</div>
     </div>
-  </div>
-);
+  );
+};
 
 export default VideosScene;

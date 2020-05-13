@@ -32,24 +32,6 @@ const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
             <div className="col-md-4">
               <PostCardLoader type="small" />
             </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
           </main>
         </div>
       </div>
