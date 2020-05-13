@@ -226,12 +226,14 @@ const content = `... on CoreHeadingBlock {
             }
           }
         }
+      ... on GravityformsPollsBlock {
+        attributes {
+          formId
+        }
+      }
       ... on CorePullquoteBlock {
             parentId
             originalContent
-          }
-      ... on CoreCalendarBlock {
-            renderedContent
           }
       ... on CoreTagCloudBlock {
             renderedContent
@@ -240,41 +242,13 @@ const content = `... on CoreHeadingBlock {
               className
             }
           }
-          ... on CoreSearchBlock {
-            renderedContent
-            attributes {
-              className
-            }
-          }
-          ... on CoreLatestPostsBlock {
-            attributes {
-              className
-            }
-            renderedContent
-          }
-          ... on CoreLatestCommentsBlock {
-            parentId
-            attributes {
-              className
-            }
-            renderedContent
-          }
           ... on CoreCategoriesBlock {
             renderedContent
             attributes {
               className
             }
           }
-          ... on CoreCodeBlock {
-            attributes {
-              className
-            }
-            saveContent
-          }
           ... on CoreFreeformBlock {
-            saveContent
-          }
-          ... on CoreMoreBlock {
             saveContent
           }
           ... on CoreSeparatorBlock {
@@ -282,9 +256,6 @@ const content = `... on CoreHeadingBlock {
             originalContent
           }
           ... on CoreSpacerBlock {
-            saveContent
-          }
-          ... on CoreNextpageBlock {
             saveContent
           }`;
 
