@@ -25,7 +25,7 @@ const SideBarNews = ({ news }) => {
 };
 
 SideBarNews.propTypes = {
-  news: PropTypes.array,
+  news: PropTypes.object,
 };
 
 export default SideBarNews;

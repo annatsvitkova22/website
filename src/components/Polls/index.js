@@ -1,38 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import Poll from 'react-polls';
 import PropTypes from 'prop-types';
 
-const Polls = ({ data }) => {
-  const [state, setState] = useState(data);
-  console.log(state);
+import Quiz from './Quiz';
 
-  const handleVote = () => {
-    alert('Vote');
+const Polls = ({ data }) => {
+  const [questionCount, setQuestionCount] = useState(0);
+  const [state, setState] = useState(data);
+  const [question, setQuestion] = useState(state[questionCount]);
+  const [answer, setAnswer] = useState([]);
+
+  const handleAnswerSelected = (event) => {
+    setQuestionCount(questionCount + 1);
+
+    setAnswer([...answer, event.currentTarget.value]);
   };
 
   useEffect(() => {
-    const newPoll = data.choices.map((obj, index) => {
-      obj.option = obj.text;
-      delete obj.text;
-      return obj;
-    });
-
-    setState({
-      ...state,
-      choices: newPoll,
-    });
-  }, [data]);
+    setQuestion(state[questionCount]);
+  }, [questionCount]);
 
   return (
     <div>
-      <Poll
-        question={state.label}
-        answers={state.choices}
-        noStorage={true}
-        onVote={handleVote}
+      <div>
+        {questionCount + 1} / {state.length}
+      </div>
+      <Quiz
+        answerOptions={question.choices}
+        question={question.label}
+        questionTotal={state.length}
+        onAnswerSelected={handleAnswerSelected}
+        type={question.inputType}
       />
     </div>
   );
+
+  /*  return (
+    <div>
+      <Quiz
+        answer={{ }}
+        answerOptions={['first', 'second', 'third']}
+        question={state.label}
+        questionTotal={1}
+        onAnswerSelected={handleAnswerSelected}
+      />
+    </div>
+  );
+ */
 };
 
 Polls.propTypes = {

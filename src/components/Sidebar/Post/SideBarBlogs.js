@@ -32,7 +32,7 @@ const SideBarBlogs = ({ news }) => {
 };
 
 SideBarBlogs.propTypes = {
-  news: PropTypes.array,
+  news: PropTypes.object,
 };
 
 export default SideBarBlogs;
