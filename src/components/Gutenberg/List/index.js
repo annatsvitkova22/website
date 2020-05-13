@@ -5,14 +5,14 @@ const List = ({ block, className = '' }) => {
   if (block.attributes.ordered) {
     return (
       <ol
-        className={`${block.attributes.className} gutenberg__ordered-list ${className}`}
+        className={`gutenberg__ordered-list ${block.attributes.className} ${className}`}
         dangerouslySetInnerHTML={{ __html: block.attributes.values }}
       />
     );
   }
   return (
     <ul
-      className={`${block.attributes.className} gutenberg__unordered-list ${className}`}
+      className={`gutenberg__unordered-list ${block.attributes.className} ${className}`}
       dangerouslySetInnerHTML={{ __html: block.attributes.values }}
     />
   );

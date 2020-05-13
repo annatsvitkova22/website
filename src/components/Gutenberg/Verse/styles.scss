@@ -5,5 +5,12 @@
   pre {
     margin-bottom: 0;
   }
-
+  @media screen and (max-width: 500px) {
+    pre {
+      font-size: 14px;
+    }
+    img {
+      display: none;
+    }
+  }
 }

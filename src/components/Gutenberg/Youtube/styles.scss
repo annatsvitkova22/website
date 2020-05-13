@@ -6,4 +6,8 @@
 }
 .gutenberg__youtube iframe {
   width: 100%;
+  @media screen and (max-width: 648px) {
+    max-width: 648px;
+    width: 100%;
+  }
 }

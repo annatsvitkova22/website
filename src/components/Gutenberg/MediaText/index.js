@@ -19,7 +19,7 @@ const MediaText = ({ block, className }) => {
   };
 
   return (
-    <div className={`${className} gutenberg__mtext`}>
+    <div className={`gutenberg__mtext ${className}`}>
       <div className={imgCls} style={imgStyles}>
         <img src={block.attributes.mediaUrl} alt="media-text-image" />
       </div>

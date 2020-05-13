@@ -24,7 +24,6 @@ const EVENT = gql`
         title
       }
       zmAfishaACF {
-        eventCost
         eventTime
         eventDate
         eventSocials {

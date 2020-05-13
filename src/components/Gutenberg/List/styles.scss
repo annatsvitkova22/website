@@ -3,6 +3,13 @@
   padding-bottom: 20px;
   margin-bottom: 0;
 
+  & a {
+    color: $green;
+    &:hover {
+      color: darken($green, 10);
+    }
+  }
+
   & > li:not(:last-child) {
     padding-bottom: 8px;
   }
@@ -25,6 +32,13 @@
   list-style: disc;
 
   margin: 0;
+
+  & a {
+    color: $green;
+    &:hover {
+      color: darken($green, 10);
+    }
+  }
   & > li:not(:last-child) {
     padding-bottom: 8px;
   }
