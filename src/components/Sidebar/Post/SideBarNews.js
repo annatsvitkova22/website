@@ -14,7 +14,7 @@ const SideBarNews = ({ news }) => {
           <li key={i} className={'sidebar-news__item'}>
             <Link href={`/news/[slug]`} as={`/news/${item.slug}`}>
               <a href={`/news/${item.slug}`} className={'sidebar-news__link'}>
-                {item.title}
+                {item.title.toLowerCase()}
               </a>
             </Link>
           </li>

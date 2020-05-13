@@ -120,7 +120,7 @@ const HeroScene = ({ info, posts, publications }) => {
                           href={`/publications/${slug}`}
                           className="hero-pub__title font-weight-semibold"
                         >
-                          {title}
+                          {title.toLowerCase()}
                         </a>
                       </Link>
                     </h6>
@@ -143,7 +143,7 @@ const HeroScene = ({ info, posts, publications }) => {
                       className="hero-list__link d-block"
                       href={`/news/${slug}`}
                     >
-                      {title}
+                      {title.toLowerCase()}
                     </a>
                   </Link>
                 </h6>

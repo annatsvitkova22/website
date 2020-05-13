@@ -20,7 +20,9 @@ const SideBarPopular = ({ publications }) => {
             >
               <a href={`/publications/${item.slug}`}>
                 <div className={'sidebar-popular__wrapper'}>
-                  <span className={'sidebar-popular__text'}>{item.title}</span>
+                  <span className={'sidebar-popular__text'}>
+                    {item.title.toLowerCase()}
+                  </span>
                   <img
                     src={item.featuredImage.mediaItemUrl}
                     className={'sidebar-popular__image'}
