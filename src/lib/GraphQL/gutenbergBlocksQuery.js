@@ -331,6 +331,7 @@ const gutenbergBlocksQuery = `blocks {
               }
               backgroundColor
             }
+            saveContent
             innerBlocks {
               ... on CoreColumnBlock {
                 attributes {
