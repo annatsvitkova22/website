@@ -21,26 +21,23 @@ const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
   if (isEmpty(crowdfundings) && loading) {
     return (
       <div className="container">
-        <div className="crowdfundings-archive">
-          <main className="row crowdfundings-archive__articles">
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-          </main>
-        </div>
+        <main className="row">
+          <div className="col-md-4">
+            <PostCardLoader type="small" />
+          </div>
+          <div className="col-md-4">
+            <PostCardLoader type="small" />
+          </div>
+          <div className="col-md-4">
+            <PostCardLoader type="small" />
+          </div>
+        </main>
       </div>
     );
   }
 
   return (
     <div className="container crowdfundings-page">
-      {/* {children} */}
       <main className="row crowdfundings-archive__articles">
         {crowdfundings.nodes.map((crowdfunding) => {
           return (
