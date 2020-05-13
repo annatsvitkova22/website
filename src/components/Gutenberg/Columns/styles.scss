@@ -1,4 +1,14 @@
 .gutenberg__columns {
+  &-column {
+    @include media-breakpoint-down(sm) {
+      padding-bottom: 10px;
+
+      text-align: center;
+      blockquote {
+        text-align: left;
+      }
+    }
+  }
   &-column > div {
     padding: 0;
     margin: 0;
