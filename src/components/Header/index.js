@@ -138,11 +138,11 @@ const Header = () => {
           navigationData={data.menus}
           className={`navigation ${searchCls}`}
         />
-        <div className={`header__icons-dd ${searchCls}`}>
-          <button>Полтава</button>
-          <Icons icon={'footer-chevron'} color={'white'} />
-          <Dropdown data={data.menus} className={'header__dd'} />
-        </div>
+        {/*<div className={`header__icons-dd ${searchCls}`}>*/}
+        {/*  <button>Полтава</button>*/}
+        {/*  <Icons icon={'footer-chevron'} color={'white'} />*/}
+        {/*  <Dropdown data={data.menus} className={'header__dd'} />*/}
+        {/*</div>*/}
         <SearchIcon
           onClick={handleSearch}
           color={'white'}

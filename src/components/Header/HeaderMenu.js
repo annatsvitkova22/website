@@ -8,14 +8,13 @@ import Dropdown from '~/components/Header/Dropdown';
 
 const HeaderMenu = ({ data }) => {
 
-
   return (
     <div className={'header__burgermenu'}>
       <Navigation
         navigationData={data.menus}
         className={'burger__navigation'}
       />
-      <Dropdown data={data.menus} className={'burger__dd'} />
+      {/*<Dropdown data={data.menus} className={'burger__dd'} />*/}
       <Social
         socialsData={data.info.generalInfoACF.socials}
         className={'header__social'}
