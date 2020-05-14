@@ -3,13 +3,14 @@ import Link from 'next/link';
 import _ from 'lodash';
 import he from 'he';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
 
 const ArticleTitle = ({
   post: { slug, title },
   className,
-  highlightInTitle,
+  isHighlightInTitle: highlightInTitle,
 }) => {
   const [width, setWidth] = useState();
   const breakpoint = 768;
@@ -71,6 +72,14 @@ const ArticleTitle = ({
       </Link>
     </h2>
   );
+};
+
+ArticleTitle.propTypes = {
+  post: PropTypes.object,
+  slug: PropTypes.string,
+  title: PropTypes.string,
+  className: PropTypes.string,
+  isHighlightInTitle: PropTypes.bool,
 };
 
 export default ArticleTitle;

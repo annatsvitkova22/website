@@ -1,12 +1,18 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleTitle from '~/components/Article/Title';
 import ArticleTaxonomies from '~/components/Article/Taxonomies';
 import ArticleFeatured from '~/components/Article/Featured';
 
-const ArticleBlogs = ({ post, children, className, highlightInTitle }) => {
+const ArticleBlogs = ({
+  post,
+  children,
+  className,
+  isHighlightInTitle: highlightInTitle,
+}) => {
   const { categories, title, slug, author, featuredImage } = post;
   return (
     <article className={classnames('article--blog', className)}>
@@ -36,6 +42,13 @@ const ArticleBlogs = ({ post, children, className, highlightInTitle }) => {
       {children}
     </article>
   );
+};
+
+ArticleBlogs.propTypes = {
+  post: PropTypes.object,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  isHighlightInTitle: PropTypes.bool,
 };
 
 export default ArticleBlogs;

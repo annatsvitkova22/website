@@ -11,7 +11,6 @@ import PartnersLogo from './PartnersLogo';
 import Resources from './Resourses';
 import Counters from './Counters';
 
-
 const FOOTER_QUERY = gql`
   query FooterQuery {
     info {
@@ -75,12 +74,12 @@ const FOOTER_QUERY = gql`
 const Footer = () => {
   const { loading, data } = useQuery(FOOTER_QUERY);
 
-  const handleClick = (event) => {
+  function handleClick(event) {
     event.currentTarget.parentNode
       .querySelector('.footer__sitemap-navigation')
       .classList.toggle('isOpen');
     event.currentTarget.childNodes[1].classList.toggle('isOpen');
-  };
+  }
 
   if (loading) return null;
 
@@ -159,6 +158,7 @@ const Footer = () => {
               Design and development by Outright Digital
             </span>
             <a
+              rel="noopener noreferrer"
               href="https://outright.digital/"
               target={'_blank'}
               className={'footer__developers-logo'}

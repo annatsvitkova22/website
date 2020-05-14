@@ -41,6 +41,7 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
 ZmistApp.propTypes = {
   Component: PropTypes.any,
   pageProps: PropTypes.any,
+  zmistAdditional: PropTypes.object,
 };
 
 // You can comment this method below if you don't want to have every single page rendered on server

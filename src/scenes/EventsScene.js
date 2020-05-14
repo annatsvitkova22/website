@@ -1,16 +1,17 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 
 import Article from '~/components/Article';
 import Form from '~/components/Form';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
-const EventsScene = ({ events, form, children, loading }) => {
-  if (typeof children === 'object' && !loading) {
+const EventsScene = ({ events, hasForm, children, isLoading }) => {
+  if (typeof children === 'object' && !isLoading) {
     return children;
   }
 
-  if (isEmpty(events) && loading)
+  if (isEmpty(events) && isLoading)
     return (
       <div className="events-page">
         <main>
@@ -52,7 +53,7 @@ const EventsScene = ({ events, form, children, loading }) => {
         {events.nodes.map((post, i) =>
           i === 3 ? (
             <React.Fragment key={post.id}>
-              {form && (
+              {hasForm && (
                 <div className="col-lg-3 col-sm-6 col-12">
                   <Form id={1} className="zm-form--event" />
                 </div>
@@ -72,6 +73,13 @@ const EventsScene = ({ events, form, children, loading }) => {
       </div>
     </div>
   );
+};
+
+EventsScene.propTypes = {
+  events: PropTypes.object,
+  hasForm: PropTypes.bool,
+  children: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 export default EventsScene;

@@ -306,7 +306,7 @@ const CATEGORIES = gql`
 
 const Home = (props) => {
   const [state, setState] = useState(props);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const {
     page,
@@ -334,7 +334,6 @@ const Home = (props) => {
       users: data.users,
       crowdfundings: data.crowdfundings,
       tags: data.tags,
-      // TODO: Put bellow function on frontend
       videos: data.videos,
       opportunities: data.opportunities,
       events: data.events,
@@ -389,7 +388,7 @@ const Home = (props) => {
         <BlogsScene {...{ users }} />
 
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
-        <CrowdfundingsScene {...{ crowdfundings, loading }}>
+        <CrowdfundingsScene {...{ crowdfundings, isLoading }}>
           {typeof crowdfundings === 'undefined' && (
             <Waypoint onEnter={loadData(CROWDFUNDINGS)} />
           )}
@@ -397,12 +396,12 @@ const Home = (props) => {
 
         <MainPublications {...{ publications }} />
 
-        <TagsScene {...{ tags, loading }}>
+        <TagsScene {...{ tags, isLoading }}>
           {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
         </TagsScene>
 
         <SectionHeading title="Відео" href="/videos" classMode="videos" />
-        <VideosScene {...{ videos, loading }}>
+        <VideosScene {...{ videos, isLoading }}>
           {typeof videos === 'undefined' && (
             <Waypoint onEnter={loadData(VIDEOS)} />
           )}
@@ -413,14 +412,14 @@ const Home = (props) => {
           href="/opportunities"
           classMode="opport"
         />
-        <OpportunitiesScene {...{ opportunities, loading }}>
+        <OpportunitiesScene {...{ opportunities, isLoading }}>
           {typeof opportunities === 'undefined' && (
             <Waypoint onEnter={loadData(OPPORTUNITIES)} />
           )}
         </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events, loading }} form={true}>
+        <EventsScene {...{ events, isLoading }} form={true}>
           {typeof events === 'undefined' && (
             <Waypoint onEnter={loadData(EVENTS)} />
           )}
@@ -433,7 +432,7 @@ const Home = (props) => {
         />
         <PublicationsScene {...{ publications }} />
 
-        <PublicationCategoriesScene {...{ categories, loading }}>
+        <PublicationCategoriesScene {...{ categories, isLoading }}>
           {typeof categories === 'undefined' && (
             <Waypoint onEnter={loadData(CATEGORIES)} />
           )}

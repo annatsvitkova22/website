@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const BlogsScene = ({ users: { nodes: users } }) => (
   <div className="container">
@@ -41,10 +42,10 @@ const BlogsScene = ({ users: { nodes: users } }) => (
                 </a>
               </Link>
               <ul className="user-pubs list-reset pos-relative z-10 bg-white">
-                {blogs.map(({ title, slug }) => (
-                  <li className="user-pub user-pubs__item">
+                {blogs.map(({ title, slug: blogSlug }, k) => (
+                  <li key={k} className="user-pub user-pubs__item">
                     <h6 className="font-weight-semibold line-height-12">
-                      <Link href={`/blogs/${slug}`}>
+                      <Link href={`/blogs/${blogSlug}`}>
                         <a className="user-pub__title d-block">{title}</a>
                       </Link>
                     </h6>
@@ -58,5 +59,10 @@ const BlogsScene = ({ users: { nodes: users } }) => (
     </div>
   </div>
 );
+
+BlogsScene.propTypes = {
+  nodes: PropTypes.array,
+  users: PropTypes.object,
+};
 
 export default BlogsScene;

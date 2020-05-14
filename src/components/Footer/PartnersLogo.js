@@ -13,6 +13,7 @@ const PartnersLogo = (props) => {
             return (
               <li className={'footer__sitemap-partner'} key={i}>
                 <a
+                  rel="noopener noreferrer"
                   href={item.url}
                   title={item.name}
                   className={'partners-logo'}

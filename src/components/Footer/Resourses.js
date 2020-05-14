@@ -19,7 +19,7 @@ const Resources = (props) => {
           navigationData.menuItems.nodes.map((item) => {
             return (
               <li className={'footer__sitemap-link'} key={item.id}>
-                <a href={item.url} target={'_blank'}>
+                <a rel="noopener noreferrer" href={item.url} target={'_blank'}>
                   {item.label}
                 </a>
               </li>

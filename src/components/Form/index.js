@@ -14,8 +14,6 @@ const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const Form = ({ id, className }) => {
-  if (!id) return null;
-
   const { apiUrl } = config;
 
   const authStateLink = useStateLink(AuthStore);
@@ -30,6 +28,8 @@ const Form = ({ id, className }) => {
   const [cleared, setCleared] = useState(false);
   const [values, setValues] = useState({});
   const { form, isSending, sent } = state;
+
+  if (!id) return null;
 
   const loadForm = async () => {
     const conf = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleTitle from '~/components/Article/Title';
 import ArticleFeatured from '~/components/Article/Featured';
@@ -42,6 +43,12 @@ const ArticleCrowdfundings = ({ post, children, className }) => {
       </div>
     </article>
   );
+};
+
+ArticleCrowdfundings.propTypes = {
+  post: PropTypes.object,
+  children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export default ArticleCrowdfundings;
