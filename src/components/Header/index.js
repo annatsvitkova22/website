@@ -8,12 +8,10 @@ import _ from 'lodash';
 
 import Navigation from '~/components/Navigation';
 import Logo from '~/components/Logo';
-import Icons from '~/components/Icons';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
 import SearchIcon from '~/components/Search/Icon';
 import SearchField from '~/components/Search/Field';
-import Dropdown from '~/components/Header/Dropdown';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -138,11 +136,11 @@ const Header = () => {
           navigationData={data.menus}
           className={`navigation ${searchCls}`}
         />
-        <div className={`header__icons-dd ${searchCls}`}>
-          <button>Полтава</button>
-          <Icons icon={'footer-chevron'} color={'white'} />
-          <Dropdown data={data.menus} className={'header__dd'} />
-        </div>
+        {/*<div className={`header__icons-dd ${searchCls}`}>*/}
+        {/*  <button>Полтава</button>*/}
+        {/*  <Icons icon={'footer-chevron'} color={'white'} />*/}
+        {/*  <Dropdown data={data.menus} className={'header__dd'} />*/}
+        {/*</div>*/}
         <SearchIcon
           onClick={handleSearch}
           color={'white'}

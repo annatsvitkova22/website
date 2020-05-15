@@ -61,6 +61,8 @@ const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
 
 SimilarPosts.propTypes = {
   similarPosts: PropTypes.array,
+  title: PropTypes.string,
+  link: PropTypes.any,
 };
 
 export default SimilarPosts;

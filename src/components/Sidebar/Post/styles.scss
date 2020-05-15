@@ -1,7 +1,5 @@
 .sidebar__wrapper {
   display: flex;
-
-  height: 100vh;
 }
 .sidebar-latest {
   padding-left: 24px;
@@ -11,8 +9,6 @@
   a {
     display: flex;
   }
-
-  overflow: scroll;
 }
 .sidebar {
   &-news {
@@ -48,6 +44,8 @@
       font-size: 13px;
       line-height: 15px;
       letter-spacing: 0.06em;
+
+      text-transform: capitalize;
     }
   }
   &-popular {
@@ -89,6 +87,8 @@
       font-size: 14px;
       line-height: 17px;
       letter-spacing: 0.02em;
+
+      text-transform: capitalize;
     }
     &__image {
       width: 64px;
@@ -135,6 +135,8 @@
       font-size: 14px;
       line-height: 17px;
       letter-spacing: 0.02em;
+
+      text-transform: capitalize;
     }
     &__author {
       color: #b0b0b0;

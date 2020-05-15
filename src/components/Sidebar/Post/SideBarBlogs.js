@@ -15,7 +15,9 @@ const SideBarBlogs = ({ news }) => {
             <Link href={`/blogs/[slug]`} as={`/blogs/${item.slug}`}>
               <a href={`/blogs/${item.slug}`}>
                 <div className={'sidebar-blogs__wrapper'}>
-                  <span className={'sidebar-blogs__text'}>{item.title}</span>
+                  <span className={'sidebar-blogs__text'}>
+                    {item.title.toLowerCase()}
+                  </span>
                   <span className={'sidebar-blogs__author'}>
                     {item.author.name}
                   </span>
@@ -30,7 +32,7 @@ const SideBarBlogs = ({ news }) => {
 };
 
 SideBarBlogs.propTypes = {
-  news: PropTypes.array,
+  news: PropTypes.object,
 };
 
 export default SideBarBlogs;

@@ -23,7 +23,7 @@
   }
 }
 
-// Apply styles to the last row of grid elements depends on columns number
+// Apply styles to the last row of grid elements depends on Columns number
 @mixin last-grid-row($columns) {
   &:nth-child(#{$columns}n+1):nth-last-child(-n+#{$columns}),
   &:nth-child(#{$columns}n+1):nth-last-child(-n+#{$columns}) ~ * {

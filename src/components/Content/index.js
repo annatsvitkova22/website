@@ -34,7 +34,6 @@ import Twitter from '~/components/Gutenberg/Twitter';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
-  // console.log(content);
 
   return (
     <>
@@ -304,7 +303,14 @@ export const getContentType = ({ block, index, className }) => {
     );
   }
   if (block.__typename === 'GravityformsFormBlock') {
-    return <Form id={block.attributes.formId} />;
+    return (
+      <Form id={block.attributes.formId} gutenbergType={block.__typename} />
+    );
+  }
+  if (block.__typename === 'GravityformsPollsBlock') {
+    return (
+      <Form id={block.attributes.formId} gutenbergType={block.__typename} />
+    );
   }
   return null;
 };

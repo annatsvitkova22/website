@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import Taxonomies from '~/components/Article/Taxonomies';
 import Author from '~/components/Article/Author';
@@ -120,7 +121,7 @@ const HeroScene = ({ info, posts, publications }) => {
                           href={`/publications/${slug}`}
                           className="hero-pub__title font-weight-semibold"
                         >
-                          {title}
+                          {title.toLowerCase()}
                         </a>
                       </Link>
                     </h6>
@@ -143,7 +144,7 @@ const HeroScene = ({ info, posts, publications }) => {
                       className="hero-list__link d-block"
                       href={`/news/${slug}`}
                     >
-                      {title}
+                      {title.toLowerCase()}
                     </a>
                   </Link>
                 </h6>
@@ -157,6 +158,12 @@ const HeroScene = ({ info, posts, publications }) => {
       </div>
     </div>
   );
+};
+
+HeroScene.propTypes = {
+  info: PropTypes.any,
+  posts: PropTypes.any,
+  publications: PropTypes.any,
 };
 
 export default HeroScene;

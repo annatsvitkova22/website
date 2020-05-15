@@ -5,6 +5,7 @@ import axios from 'axios';
 import getConfig from 'next/config';
 import * as _ from 'lodash';
 
+import Polls from '~/components/Polls';
 import { AuthStore } from '~/stores/Auth';
 import FormField from '~/components/Form/Field';
 import FormLoader from '~/components/Loaders/FormLoader';
@@ -13,7 +14,7 @@ import FormSubmit from '~/components/Form/Submit';
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const Form = ({ id, className }) => {
+const Form = ({ id, className, gutenbergType }) => {
   if (!id) return null;
 
   const { apiUrl } = config;
@@ -121,6 +122,14 @@ const Form = ({ id, className }) => {
       [name]: value,
     });
   };
+
+  if (gutenbergType === 'GravityformsPollsBlock') {
+    return (
+      <div className="content__posts gutenberg__poll">
+        <Polls data={form.fields} formId={form.id} />
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className={classnames('zm-form', className)}>

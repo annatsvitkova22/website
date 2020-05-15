@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import { Waypoint } from 'react-waypoint';
+import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
@@ -142,6 +143,10 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
       </div>
     </div>
   );
+};
+
+CrowdfundingsArchive.propTypes = {
+  crowdfundings: PropTypes.object,
 };
 
 CrowdfundingsArchive.getInitialProps = async () => {

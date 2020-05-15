@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import _ from 'lodash';
 import he from 'he';
+import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
 
 import ArticleContext from '~/components/Article/Context';
@@ -66,11 +67,17 @@ const ArticleTitle = ({
     <h2 className={classnames('article-title', className)}>
       <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>
         <a className="article-title__link" href={`/${postType}/${slug}`}>
-          {displayTitle}
+          {displayTitle.toLowerCase()}
         </a>
       </Link>
     </h2>
   );
+};
+
+ArticleTitle.propTypes = {
+  post: PropTypes.object,
+  className: PropTypes.string,
+  highlightInTitle: PropTypes.any,
 };
 
 export default ArticleTitle;

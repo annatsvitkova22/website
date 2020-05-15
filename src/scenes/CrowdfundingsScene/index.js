@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 
 import Modal from './Modal';
 
@@ -61,6 +62,12 @@ const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
       </main>
     </div>
   );
+};
+
+CrowdfundingsScene.propTypes = {
+  crowdfunding: PropTypes.any,
+  loading: PropTypes.bool,
+  children: PropTypes.any,
 };
 
 export default CrowdfundingsScene;

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleNews from '~/components/Article/News';
 import ArticleOpportunities from '~/components/Article/Opportunities';
@@ -92,6 +93,13 @@ const Article = ({ type, display, className, ...props }) => {
     default:
       return null;
   }
+};
+
+Article.propTypes = {
+  type: PropTypes.any,
+  display: PropTypes.any,
+  className: PropTypes.string,
+  props: PropTypes.any,
 };
 
 export default Article;

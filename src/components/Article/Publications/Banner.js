@@ -1,6 +1,7 @@
 import React from 'react';
 import * as classnames from 'classnames';
 import * as moment from 'moment';
+import PropTypes from 'prop-types';
 
 import FeaturedImage from '~/components/FeaturedImage';
 import NewsHead from '~/components/NewsHead';
@@ -92,6 +93,12 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
       )}
     </div>
   );
+};
+
+ArticlePublicationBanner.propTypes = {
+  className: PropTypes.string,
+  post: PropTypes.any,
+  userAvatarStyles: PropTypes.any,
 };
 
 export default ArticlePublicationBanner;
