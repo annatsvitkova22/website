@@ -19,7 +19,7 @@
   {
     "env": "staging",
     "apiUrl": "http://admin.zmist.tech",
-    "frontUrl": "http://zmist.tech",
+    "frontUrl": "https://zmist.outright.xyz",
     "graphql": "http://admin.zmist.tech/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
