@@ -145,9 +145,7 @@ const CommentForm = ({
         placeholder={`Ім'я`}
         onChange={handleInputChange}
         value={form.name}
-        id={`name-${Math.random()
-          .toString(36)
-          .substr(2, 9)}`}
+        id={`name-${Math.random().toString(36).substr(2, 9)}`}
         required
         invalid={!form.name}
       />
@@ -157,9 +155,7 @@ const CommentForm = ({
         placeholder={'Ваш коментар'}
         onChange={handleInputChange}
         value={form.message}
-        id={`message-${Math.random()
-          .toString(36)
-          .substr(2, 9)}`}
+        id={`message-${Math.random().toString(36).substr(2, 9)}`}
         required
         invalid={!form.message}
       />

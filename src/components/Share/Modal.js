@@ -16,7 +16,6 @@ const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 // TODO: refactor to be universal
 // combine with components/Crowdfunding/Share
 const ShareModal = ({ onClose = () => {} }) => {
-
   const { asPath } = useRouter();
   const [copied, setCopied] = useState(false);
 

@@ -18,7 +18,12 @@ const { publicRuntimeConfig } = getConfig();
 
 const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const Share = ({ className = '', type, onShared = () => {}, color = 'black' }) => {
+const Share = ({
+  className = '',
+  type,
+  onShared = () => {},
+  color = 'black',
+}) => {
   const { asPath } = useRouter();
 
   const [opened, setOpened] = useState(false);
@@ -69,10 +74,14 @@ const Share = ({ className = '', type, onShared = () => {}, color = 'black' }) =
     case 'main-first':
       content = (
         <>
-          {opened && <ShareModal onClose={() => {
-            setOpened(false);
-            document.querySelector('body').classList.remove('isB-MenuOpen');
-          }} />}
+          {opened && (
+            <ShareModal
+              onClose={() => {
+                setOpened(false);
+                document.querySelector('body').classList.remove('isB-MenuOpen');
+              }}
+            />
+          )}
           <div className="share-actions__main">{mainItems}</div>
           <button
             className={classnames('share-actions__open', {
@@ -91,10 +100,14 @@ const Share = ({ className = '', type, onShared = () => {}, color = 'black' }) =
     case 'compact':
       content = (
         <>
-          {opened && <ShareModal onClose={() => {
-            setOpened(false);
-            document.querySelector('body').classList.remove('isB-MenuOpen');
-          }} />}
+          {opened && (
+            <ShareModal
+              onClose={() => {
+                setOpened(false);
+                document.querySelector('body').classList.remove('isB-MenuOpen');
+              }}
+            />
+          )}
           <button
             className={classnames('share-actions__open', {
               'share-actions__open--active': opened,

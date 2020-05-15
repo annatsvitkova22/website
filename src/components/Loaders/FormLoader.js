@@ -15,5 +15,4 @@ const FormLoader = ({ className }) => {
   );
 };
 
-
 export default FormLoader;
