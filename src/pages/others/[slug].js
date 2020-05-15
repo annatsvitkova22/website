@@ -134,9 +134,7 @@ const Other = (props) => {
             className="event__hero"
             style={{
               backgroundImage: `url(${
-                other.featuredImage
-                  ? other.featuredImage.mediaItemUrl
-                  : ''
+                other.featuredImage ? other.featuredImage.mediaItemUrl : ''
               })`,
             }}
           >
@@ -177,10 +175,7 @@ const Other = (props) => {
               <div
                 className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
               >
-                <EventsLikeSidebar
-                  data={other.zmAfishaACF}
-                  withList={true}
-                />
+                <EventsLikeSidebar data={other.zmAfishaACF} withList={true} />
               </div>
             </StickyBox>
           </section>

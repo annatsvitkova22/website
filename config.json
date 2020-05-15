@@ -6,9 +6,9 @@
   },
   {
     "env": "development",
-    "apiUrl": "http://admin.zmist.tech",
-    "frontUrl": "http://zmist.tech",
-    "graphql": "http://admin.zmist.tech/graphql",
+    "apiUrl": "http://zmist.test:8080",
+    "frontUrl": "http://zmist.test:8080",
+    "graphql": "http://zmist.test:8080/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
     "wayForPay": {

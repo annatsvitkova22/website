@@ -11,7 +11,6 @@ import PartnersLogo from './PartnersLogo';
 import Resources from './Resourses';
 import Counters from './Counters';
 
-
 const FOOTER_QUERY = gql`
   query FooterQuery {
     info {

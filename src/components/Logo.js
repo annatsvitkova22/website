@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 const Logo = (props) => {
   const { logoData, className } = props;
 
+  if (!logoData) return null;
+
   return (
     <img
       src={logoData.mediaItemUrl}

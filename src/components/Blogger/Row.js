@@ -20,7 +20,12 @@ const BloggerRow = ({
   return (
     <div className="blogger-row row">
       {/* TODO: should we make it sticky on single blogger page? */}
-      <Blogger withLinks={withLinks} showBio={showBio} className="col-md-3" {...profile} />
+      <Blogger
+        withLinks={withLinks}
+        showBio={showBio}
+        className="col-md-3"
+        {...profile}
+      />
       <div className="col-md-12 col-lg-9 col-xl-9">
         <div className="blogger-row__wrapper row">
           {nodes.map((blog, i) => (

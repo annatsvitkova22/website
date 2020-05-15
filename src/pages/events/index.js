@@ -99,10 +99,7 @@ const EventsArchive = (props) => {
               i === 3 ? (
                 <>
                   <div className="col-lg-3 col-sm-6 col-12">
-                    <Form
-                      id={1}
-                      className="zm-form--event"
-                    />
+                    <Form id={1} className="zm-form--event" />
                   </div>
                   <div className="col-lg-3 col-sm-6 col-12">
                     <Article type="events" post={post} key={post.id}>

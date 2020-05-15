@@ -18,7 +18,10 @@ const PartnersLogo = (props) => {
                   className={'partners-logo'}
                   target={'_blank'}
                 >
-                  <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
+                  {item.logo && (
+                    <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
+                  )}
+                  {!item.logo && item.name}
                 </a>
               </li>
             );
