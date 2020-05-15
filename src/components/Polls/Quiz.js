@@ -13,12 +13,14 @@ const Quiz = (props) => {
     handleOptionChange,
     handleSelectChange,
     handleAnswerSelected,
+    handlePollSubmit,
+    btnCls,
   } = props;
   return (
-    <div>
-      <h2 className="question">{question}</h2>
+    <div className="poll__question">
+      <h3 className="poll__question-title">{question}</h3>
       <form>
-        <ul className="answerOptions">
+        <ul className="poll__answers">
           {answerOptions.map((answer, index) => {
             if (type === 'radio') {
               return (
@@ -44,7 +46,14 @@ const Quiz = (props) => {
             }
           })}
         </ul>
-        <button onClick={handleAnswerSelected}>Next</button>
+        <div className="poll__buttons">
+          <button onClick={handleAnswerSelected} className={`${btnCls.nxtBtn}`}>
+            наступне питання
+          </button>
+          <button className={`${btnCls.sbmBtn}`} onClick={handlePollSubmit}>
+            завершити
+          </button>
+        </div>
       </form>
     </div>
   );

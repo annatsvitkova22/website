@@ -12,7 +12,7 @@ function CheckboxAnswer({ id, answerType, answerContent, handleSelectChange }) {
         value={answerType}
         onChange={handleSelectChange}
       />
-      <label className="checkboxCustomLabel" htmlFor={answerType}>
+      <label className="checkboxCustomLabel" htmlFor={id}>
         {answerContent}
       </label>
     </li>

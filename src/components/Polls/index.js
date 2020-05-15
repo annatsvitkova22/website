@@ -4,9 +4,11 @@ import { useStateLink } from '@hookstate/core';
 import axios from 'axios';
 import getConfig from 'next/config';
 import * as _ from 'lodash';
+import classNames from 'classnames';
 
 import Quiz from './Quiz';
 
+import PollResults from '~/components/Polls/PollResults';
 import { AuthStore } from '~/stores/Auth';
 
 const { publicRuntimeConfig } = getConfig();
@@ -24,30 +26,38 @@ const Polls = ({ data, formId }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [pollResults, setPollResults] = useState(null);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [allAnswers, setAllAnswers] = useState(false);
 
-  const handlePollSubmit = async () => {
-    const conf = {
-      headers: {
-        Authorization: `Bearer ${authStore.token}`,
-      },
-    };
-    await axios.post(
-      `${apiUrl}/wp-json/gf/v2/entries`,
-      { form_id: formId, ...answer },
-      conf
-    );
 
-    const pollResponse = await axios.get(
-      `${apiUrl}/wp-json/gf/v2/forms/${formId}/entries`,
-      conf
-    );
-    setPollResults(pollResponse.data.entries);
+  const prevBtn = classNames({
+    'p-btn': true,
+    'prev-btn--active': questionCount > 0,
+  });
+  const nxtBtn = classNames({
+    'p-btn': true,
+    'nxt-btn--active': questionCount >= 0 && questionCount < data.length - 1,
+  });
+  const sbmBtn = classNames({
+    'p-btn': true,
+    'sbt-btn--active': questionCount === data.length - 1,
+  });
+  const btnCls = { prevBtn, nxtBtn, sbmBtn };
+
+  const handlePollSubmit = (event) => {
+    event.preventDefault();
+    if (question.inputType === 'radio') {
+      setAnswer({ [question.id]: selectedOption, ...answer });
+    }
+    if (question.inputType === 'checkbox') {
+      setAnswer({ ...answer, ...checkedItems });
+    }
+    setAllAnswers(true);
   };
 
   const handleAnswerSelected = (event) => {
     event.preventDefault();
 
-    setQuestionCount(questionCount + 1);
+    if (questionCount < data.length - 1) setQuestionCount(questionCount + 1);
 
     if (question.inputType === 'radio') {
       setAnswer({ [question.id]: selectedOption, ...answer });
@@ -62,6 +72,7 @@ const Polls = ({ data, formId }) => {
       setSelectedOption(event.target.value);
     }
   };
+
   const handleSelectChange = (event) => {
     if (`${question.id}.${event.target.id}` in checkedItems) {
       setCheckedItems(
@@ -76,13 +87,46 @@ const Polls = ({ data, formId }) => {
   };
 
   useEffect(() => {
+    async function postData() {
+      const conf = {
+        headers: {
+          Authorization: `Bearer ${authStore.token}`,
+        },
+      };
+      await axios
+        .post(
+          `${apiUrl}/wp-json/gf/v2/entries`,
+          { form_id: formId, ...answer },
+          conf
+        )
+        .then(async (response) => {
+          const pollResponse = await axios.get(
+            `${apiUrl}/wp-json/gf/v2/forms/${formId}/entries`,
+            conf
+          );
+          setPollResults(pollResponse.data.entries);
+        });
+    }
+    if (allAnswers) {
+      postData();
+    }
+  }, [allAnswers]);
+
+  useEffect(() => {
     setQuestion(data[questionCount]);
   }, [questionCount]);
 
+  const percentage = ((questionCount + 1) / data.length) * 100;
+
   return (
-    <div>
-      <div>
-        {questionCount + 1} / {data.length}
+    <div className="poll">
+      <div className="poll__progress">
+        <span className="poll__progress-count">
+          {questionCount + 1} з {data.length}
+        </span>
+        <div className="crowdfunding-progress__bar">
+          <span style={{ width: `${percentage}%` }} />
+        </div>
       </div>
       <Quiz
         answerOptions={question.choices}
@@ -92,8 +136,10 @@ const Polls = ({ data, formId }) => {
         handleOptionChange={handleOptionChange}
         handleSelectChange={handleSelectChange}
         handleAnswerSelected={handleAnswerSelected}
+        handlePollSubmit={handlePollSubmit}
+        btnCls={btnCls}
       />
-      <button onClick={handlePollSubmit}>submit</button>
+      {pollResults && <PollResults data={data} results={pollResults} />}
     </div>
   );
 

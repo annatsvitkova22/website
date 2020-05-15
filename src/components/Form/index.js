@@ -123,10 +123,9 @@ const Form = ({ id, className, gutenbergType }) => {
     });
   };
 
-
   if (gutenbergType === 'GravityformsPollsBlock') {
     return (
-      <div>
+      <div className="content__posts gutenberg__poll">
         <Polls data={form.fields} formId={form.id} />
       </div>
     );
