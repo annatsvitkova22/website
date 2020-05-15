@@ -15,7 +15,7 @@ services:
       - "traefik.docker.network=web"
       - "traefik.http.routers.zmist.rule=Host(`zmist.outright.xyz`)"
       - "traefik.http.routers.zmist.entrypoints=websecure"
-      - "traefik.http.routers.v.middlewares=zmist-auth"
+      - "traefik.http.routers.zmist.middlewares=zmist-auth"
       - "traefik.http.routers.zmist.tls=true"
       - "traefik.http.routers.zmist.tls.certresolver=leresolver"
       - "traefik.http.middlewares.zmist-auth.basicauth.users=zmist:$$apr1$$d0YsMUBx$$sUU/QhNf21bMrdOa8vG9y/"
