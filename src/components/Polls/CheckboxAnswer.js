@@ -20,6 +20,7 @@ function CheckboxAnswer({ id, answerType, answerContent, handleSelectChange }) {
 }
 
 CheckboxAnswer.propTypes = {
+  id: PropTypes.any,
   answerType: PropTypes.any,
   answerContent: PropTypes.string,
   handleSelectChange: PropTypes.func,

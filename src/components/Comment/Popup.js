@@ -58,6 +58,7 @@ const CommentPopup = ({ post }) => {
 
 CommentPopup.propTypes = {
   isVisible: PropTypes.bool,
+  post: PropTypes.object,
 };
 
 export default CommentPopup;

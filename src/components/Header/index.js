@@ -8,12 +8,10 @@ import _ from 'lodash';
 
 import Navigation from '~/components/Navigation';
 import Logo from '~/components/Logo';
-import Icons from '~/components/Icons';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
 import SearchIcon from '~/components/Search/Icon';
 import SearchField from '~/components/Search/Field';
-import Dropdown from '~/components/Header/Dropdown';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {

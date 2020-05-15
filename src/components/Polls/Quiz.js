@@ -59,4 +59,15 @@ const Quiz = (props) => {
   );
 };
 
+Quiz.propTypes = {
+  question: PropTypes.any,
+  answerOption: PropTypes.any,
+  type: PropTypes.string,
+  handleOptionChange: PropTypes.func,
+  handleSelectChange: PropTypes.func,
+  handleAnswerSelected: PropTypes.func,
+  handlePollSubmit: PropTypes.func,
+  btnCls: PropTypes.object,
+};
+
 export default Quiz;

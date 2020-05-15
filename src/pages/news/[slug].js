@@ -106,7 +106,7 @@ const Post = (props) => {
 
   // TODO: add loader when navigate between news
 
-  const { post, isLoading } = state;
+  const { post } = state;
   const { news, blogs, publications } = additionalInfo;
 
   moment.locale('uk');
@@ -241,9 +241,7 @@ const Post = (props) => {
 };
 
 Post.propTypes = {
-  post: PropTypes.object,
-  news: PropTypes.object,
-  similarPosts: PropTypes.object,
+  props: PropTypes.object,
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {

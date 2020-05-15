@@ -10,7 +10,6 @@ const PollResults = ({ data, results }) => {
       const pollRes = [];
       data.forEach((question) => {
         return question.choices.forEach((answer) => {
-          console.log(answer.value);
           const resultsObj = results.map((obj) => {
             return Object.values(obj).filter((item) => item === answer.value);
           });
@@ -52,6 +51,7 @@ const PollResults = ({ data, results }) => {
 
 PollResults.propTypes = {
   data: PropTypes.object,
+  result: PropTypes.any,
 };
 
 export default PollResults;

@@ -28,7 +28,6 @@ const Polls = ({ data, formId }) => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [allAnswers, setAllAnswers] = useState(false);
 
-
   const prevBtn = classNames({
     'p-btn': true,
     'prev-btn--active': questionCount > 0,
@@ -158,7 +157,8 @@ const Polls = ({ data, formId }) => {
 };
 
 Polls.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
+  formId: PropTypes.any,
 };
 
 export default Polls;

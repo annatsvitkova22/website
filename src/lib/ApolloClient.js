@@ -9,6 +9,7 @@ import getConfig from 'next/config';
 import { setContext } from 'apollo-link-context';
 
 import introspectionQueryResultData from './fragmentTypes';
+
 import { AuthStore } from '~/stores/Auth';
 
 const { publicRuntimeConfig } = getConfig();
@@ -36,7 +37,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const authStore = AuthStore.get();
-  const token = authStore.token;
+  const { token } = authStore;
   return {
     headers: {
       ...headers,

@@ -25,9 +25,12 @@ const Columns = ({ block, className = '' }) => {
 
   return (
     <div className={`gutenberg__columns row ${className}`}>
-      {block.innerBlocks.map((column) => {
+      {block.innerBlocks.map((column, i) => {
         return (
-          <div className={`gutenberg__columns-column ${columnWidth}`}>
+          <div
+            className={`gutenberg__columns-column ${columnWidth}`}
+            key={i + 1}
+          >
             {column.innerBlocks.map((b, index) =>
               getContentType({ block: b, index })
             )}
