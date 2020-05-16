@@ -1,0 +1,14 @@
+version: '3.3'
+
+networks:
+  internal:
+    external: false
+
+services:
+  zmist:
+    build: .
+    restart: always
+    networks:
+      - internal
+    ports:
+      - 3000:3000
