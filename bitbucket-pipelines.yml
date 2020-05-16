@@ -4,9 +4,16 @@ pipelines:
   branches:
     develop:
       - step:
-          caches:
-            - node
           deployment: staging
           script:
             - cat ./deploy.sh | ssh -tt staging@outright.xyz
             - echo "Deploy step finished"
+    development:
+      - step:
+          caches:
+            - node
+          deployment: staging
+          script:
+            - cat ./deploy-old.sh | ssh -p 19022 -tt zmist@zmist.tech
+            - echo "Deploy step finished"
+
