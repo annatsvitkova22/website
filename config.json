@@ -18,9 +18,9 @@
   },
   {
     "env": "staging",
-    "apiUrl": "https://zmist-admin.outright.xyz",
+    "apiUrl": "http://admin.zmist.tech",
     "frontUrl": "https://zmist.outright.xyz",
-    "graphql": "https://zmist-admin.outright.xyz/graphql",
+    "graphql": "http://admin.zmist.tech/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
     "wayForPay": {
