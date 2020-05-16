@@ -6,8 +6,8 @@
   },
   {
     "env": "development",
-    "apiUrl": "https://zmist-admin.outright.xyz",
-    "frontUrl": "http://zmist.test:3000",
+    "apiUrl": "https://zmist-admin.outright.xyz/",
+    "frontUrl": "http://zmist.test:3000/",
     "graphql": "https://zmist-admin.outright.xyz/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
@@ -18,8 +18,8 @@
   },
   {
     "env": "staging",
-    "apiUrl": "https://zmist-admin.outright.xyz",
-    "frontUrl": "https://zmist.outright.xyz",
+    "apiUrl": "https://zmist-admin.outright.xyz.",
+    "frontUrl": "https://zmist.outright.xyz.",
     "graphql": "https://zmist-admin.outright.xyz/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
