@@ -289,4 +289,4 @@ export const updateQuery = ({ q, by, type, category, period, sorting }) => {
     });
   }
   SearchStore.set(state);
-}
+};

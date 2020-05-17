@@ -6,9 +6,9 @@
   },
   {
     "env": "development",
-    "apiUrl": "http://admin.zmist.tech",
-    "frontUrl": "http://zmist.tech",
-    "graphql": "http://admin.zmist.tech/graphql",
+    "apiUrl": "https://zmist-admin.outright.xyz",
+    "frontUrl": "http://zmist.test:3000",
+    "graphql": "https://zmist-admin.outright.xyz/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
     "wayForPay": {
@@ -18,9 +18,9 @@
   },
   {
     "env": "staging",
-    "apiUrl": "http://admin.zmist.tech",
+    "apiUrl": "https://zmist-admin.outright.xyz",
     "frontUrl": "http://zmist.tech",
-    "graphql": "http://admin.zmist.tech/graphql",
+    "graphql": "https://zmist-admin.outright.xyz/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
     "wayForPay": {

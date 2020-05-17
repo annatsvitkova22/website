@@ -138,7 +138,7 @@ const VideosArchive = (props) => {
         },
         selectedIndex: 0,
         isPlaying: false,
-        categories: categories,
+        categories,
         isLoading: false,
         endCursor: data.categories.pageInfo.endCursor,
         hasNextPage: data.categories.pageInfo.hasNextPage,

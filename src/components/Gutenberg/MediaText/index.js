@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import Content from '~/components/Content';
 
 const MediaText = ({ block, className }) => {
