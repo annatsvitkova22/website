@@ -18,7 +18,7 @@
   },
   {
     "env": "staging",
-    "apiUrl": "https://zmist-admin.outright.xyz",
+    "apiUrl": "http://zmist-admin.outright.xyz",
     "frontUrl": "https://zmist.outright.xyz",
     "graphql": "https://zmist-admin.outright.xyz/graphql",
     "apiUser": "zmist",
