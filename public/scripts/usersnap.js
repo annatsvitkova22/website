@@ -1,8 +1,9 @@
 (function () {
-  const s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.async = true;
-  s.src = '//api.usersnap.com/load/6c5203c5-6376-4443-a2d9-28b383aa856c';
-  const x = document.getElementsByTagName('script')[0];
-  x.parentNode.insertBefore(s, x);
+  window.onUsersnapCXLoad = function(api) {
+    api.init();
+  }
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = "https://widget.usersnap.com/load/6c5203c5-6376-4443-a2d9-28b383aa856c?onload=onUsersnapCXLoad";
+  document.getElementsByTagName('head')[0].appendChild(script);
 })();
