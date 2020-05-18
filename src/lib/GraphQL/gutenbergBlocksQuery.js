@@ -1,6 +1,17 @@
 const content = `... on CoreHeadingBlock {
             saveContent
           }
+           ... on CoreGalleryBlock {
+        attributes {
+          ... on CoreGalleryBlockAttributesV2 {
+            caption
+            className
+            columns
+            images
+            linkTo
+          }
+        }
+      }
           ... on CoreVerseBlock {
         attributes {
           content

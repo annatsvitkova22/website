@@ -47,7 +47,8 @@ const HEADER_QUERY = gql`
 `;
 
 const Header = () => {
-  const { loading, data } = useQuery(HEADER_QUERY);
+  const queryData = useQuery(HEADER_QUERY);
+  const { loading, data } = queryData;
 
   const router = useRouter();
 
@@ -119,49 +120,55 @@ const Header = () => {
 
     return setIsSearchOpen(!isSearchOpen);
   };
-
   return (
-    <header className={`${headerCls}`}>
-      <div className={'header__wrapper'}>
-        <Burger handleOpenClick={handleOpenClick} className={`${searchCls}`} />
-        <Link href="/">
-          <a className={`header__logo ${searchCls}`}>
-            <Logo
-              logoData={data.info.generalInfoACF.logo}
-              className={`header__logo-img`}
+    <>
+      {data && (
+        <header className={`${headerCls}`}>
+          <div className={'header__wrapper'}>
+            <Burger
+              handleOpenClick={handleOpenClick}
+              className={`${searchCls}`}
             />
-          </a>
-        </Link>
-        <Navigation
-          navigationData={data.menus}
-          className={`navigation ${searchCls}`}
-        />
-        {/*<div className={`header__icons-dd ${searchCls}`}>*/}
-        {/*  <button>Полтава</button>*/}
-        {/*  <Icons icon={'footer-chevron'} color={'white'} />*/}
-        {/*  <Dropdown data={data.menus} className={'header__dd'} />*/}
-        {/*</div>*/}
-        <SearchIcon
-          onClick={handleSearch}
-          color={'white'}
-          className={`header__search ${searchCls}`}
-        />
-        <div className={`${openSearch} header__search-wrapper`}>
-          <SearchIcon
-            onClick={handleSearch}
-            color={'white'}
-            className={'header__search'}
-          />
-          <SearchField
-            isOpen={isSearchOpen}
-            onSearch={() => setIsSearchOpen(false)}
-          />
-        </div>
-      </div>
-      <div className={`header__overlay`} onClick={handleCloseClick}>
-        <HeaderMenu data={data} />
-      </div>
-    </header>
+            <Link href="/">
+              <a className={`header__logo ${searchCls}`}>
+                <Logo
+                  logoData={data.info.generalInfoACF.logo}
+                  className={`header__logo-img`}
+                />
+              </a>
+            </Link>
+            <Navigation
+              navigationData={data.menus}
+              className={`navigation ${searchCls}`}
+            />
+            {/*<div className={`header__icons-dd ${searchCls}`}>*/}
+            {/*  <button>Полтава</button>*/}
+            {/*  <Icons icon={'footer-chevron'} color={'white'} />*/}
+            {/*  <Dropdown data={data.menus} className={'header__dd'} />*/}
+            {/*</div>*/}
+            <SearchIcon
+              onClick={handleSearch}
+              color={'white'}
+              className={`header__search ${searchCls}`}
+            />
+            <div className={`${openSearch} header__search-wrapper`}>
+              <SearchIcon
+                onClick={handleSearch}
+                color={'white'}
+                className={'header__search'}
+              />
+              <SearchField
+                isOpen={isSearchOpen}
+                onSearch={() => setIsSearchOpen(false)}
+              />
+            </div>
+          </div>
+          <div className={`header__overlay`} onClick={handleCloseClick}>
+            <HeaderMenu data={data} />
+          </div>
+        </header>
+      )}
+    </>
   );
 };
 
