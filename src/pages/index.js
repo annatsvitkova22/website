@@ -399,7 +399,7 @@ const Home = (props) => {
         </VideosScene>
 
         <SectionHeading
-          title="Можлівості"
+          title="Можливості"
           href="/opportunities"
           classMode="opport"
         />
