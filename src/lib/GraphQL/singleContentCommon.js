@@ -22,6 +22,7 @@ const singleContentCommon = `${gutenbergBlocksQuery}
       title
       date
       excerpt
+      content
       categories {
         nodes {
           id
