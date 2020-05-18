@@ -70,6 +70,7 @@
     }
 
     &-featured {
+      height: 268px;
       @include media-breakpoint-down(sm) {
         order: 2;
 
@@ -86,6 +87,8 @@
       }
 
       &__link {
+        height: 100%;
+
         @include media-breakpoint-down(lg) {
           width: 100%;
         }
@@ -95,6 +98,7 @@
       }
 
       &__image {
+        height: 100%;
         @include media-breakpoint-down(lg) {
           width: 100%;
         }

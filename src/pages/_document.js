@@ -12,6 +12,7 @@ class ZmistDocument extends Document {
     return (
       <Html>
         <Head />
+
         <body>
           <Main />
           <div id="modal" />

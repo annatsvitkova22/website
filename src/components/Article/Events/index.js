@@ -6,7 +6,11 @@ import ArticleFeatured from '~/components/Article/Featured';
 import ArticleDateTime from '~/components/Article/DateTime';
 
 const ArticleEvents = ({ post, children, className }) => {
-  const { streetName, streetNumber, city } = post.zmAfishaACF.eventAddress;
+  const { streetName = null, streetNumber = null, city = null } = post
+    .zmAfishaACF.eventAddress
+    ? post.zmAfishaACF.eventAddress
+    : {};
+
   const { eventTime, eventDate } = post.zmAfishaACF;
   const withImage = post.featuredImage ? '' : 'article--no-image';
 
