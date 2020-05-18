@@ -5,6 +5,7 @@
     .feature__image {
       img {
         max-height: 488px;
+        object-fit: cover;
       }
     }
   }

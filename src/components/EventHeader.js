@@ -32,10 +32,14 @@ const EventHeader = ({ event, withTime, withList }) => {
         {withList ? (
           <ArticleList info={event.zmAfishaACF} />
         ) : (
-          <div className="event__hero-location">
-            <Icons icon="location" className="event__hero-location-icon" />
-            {location}
-          </div>
+          <>
+            {location && (
+              <div className="event__hero-location">
+                <Icons icon="location" className="event__hero-location-icon" />
+                {location}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
