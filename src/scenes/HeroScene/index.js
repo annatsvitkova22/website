@@ -45,7 +45,7 @@ const HeroScene = ({ info, posts, publications }) => {
   }, []);
 
   return (
-    <div className="container hero">
+    <div className="container container--full-hd hero">
       <div className="row">
         <div className="col-xl-7">
           <HeroPublication {...info.generalInfoACF.mainPublication} />

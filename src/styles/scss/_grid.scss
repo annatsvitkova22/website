@@ -5,6 +5,10 @@
 @if $enable-grid-classes {
   .container {
     @include make-container();
+
+    &--full-hd {
+      max-width: 1896px !important;
+    }
   }
 }
 
