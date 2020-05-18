@@ -107,6 +107,7 @@ body.isB-MenuOpen {
       margin-bottom: 16px;
     }
   }
+
   &__icons {
     display: flex;
     align-items: center;
@@ -171,6 +172,7 @@ body.isB-MenuOpen {
       }
     }
   }
+
   &__search {
     display: flex;
     justify-content: center;
@@ -179,7 +181,7 @@ body.isB-MenuOpen {
     margin-left: 27px;
 
     width: 32px;
-    height: 32px;
+    height: 100%;
 
     position: relative;
 
@@ -189,14 +191,27 @@ body.isB-MenuOpen {
     background: none;
 
     cursor: pointer;
+    svg {
+      transition: all 0.2s;
+    }
+    &:hover {
+      svg {
+        color: $green;
+
+        transition: all 0.2s;
+      }
+    }
+
     span {
       width: 32px;
       height: 32px;
     }
   }
+
   &__overlay {
     display: none;
   }
+
   &__social {
     .svg-icon {
       &:hover {
@@ -291,9 +306,11 @@ body.isB-MenuOpen {
 .burger__navigation {
   display: none;
 }
+
 .header__burger-button {
   display: none;
 }
+
 .header__burger-category {
   display: none;
 }

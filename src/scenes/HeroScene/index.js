@@ -8,7 +8,6 @@ import Featured from '~/components/Article/Featured';
 import { ArticleProvider } from '~/components/Article/Context';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import HeroPublication from '~/components/HeroPublication';
-import ArticleDateTime from '~/components/Article/DateTime';
 import ArticleDate from '~/components/Article/Date';
 
 const HeroScene = ({ info, posts, publications }) => {
@@ -45,8 +44,6 @@ const HeroScene = ({ info, posts, publications }) => {
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
-
-  console.log(posts);
   return (
     <div className="container hero">
       <div className="row">
