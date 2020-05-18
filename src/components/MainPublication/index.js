@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import ArticleAuthor from '~/components/Article/Author';
 import Taxonomies from '~/components/Article/Taxonomies';
@@ -42,5 +43,13 @@ const MainPublication = ({
       </div>
     </div>
   );
+};
+
+MainPublication.propTypes = {
+  title: PropTypes.string,
+  featuredImage: PropTypes.object,
+  author: PropTypes.object,
+  categories: PropTypes.any,
+  slug: PropTypes.any,
 };
 export default MainPublication;

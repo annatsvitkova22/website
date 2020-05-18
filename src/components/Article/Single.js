@@ -76,7 +76,6 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     backgroundSize: 'cover',
   };
 
-  console.log(storedPost.content);
   return (
     <>
       <Head>

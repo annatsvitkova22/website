@@ -8,6 +8,8 @@ import Featured from '~/components/Article/Featured';
 import { ArticleProvider } from '~/components/Article/Context';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import HeroPublication from '~/components/HeroPublication';
+import ArticleDateTime from '~/components/Article/DateTime';
+import ArticleDate from '~/components/Article/Date';
 
 const HeroScene = ({ info, posts, publications }) => {
   const heroPubRef = useRef(null);
@@ -44,6 +46,7 @@ const HeroScene = ({ info, posts, publications }) => {
     };
   }, []);
 
+  console.log(posts);
   return (
     <div className="container container--full-hd hero">
       <div className="row">
@@ -135,15 +138,16 @@ const HeroScene = ({ info, posts, publications }) => {
         </div>
         <div className="col-xl-3">
           <ul ref={heroListRef} className="hero-list list-reset">
-            {posts.nodes.slice(0, 40).map(({ title, slug }, i) => (
+            {posts.nodes.slice(0, 40).map(({ date, title, slug }, i) => (
               <li key={i} className="hero-list__item line-height-1">
                 <ChronologicalSeparator posts={posts.nodes} currentIndex={i} />
                 <h6 className="tx-tiny font-weight-medium">
                   <Link href={`/news/[slug]`} as={`/news/${slug}`}>
                     <a
-                      className="hero-list__link d-block"
+                      className="hero-list__link d-flex"
                       href={`/news/${slug}`}
                     >
+                      <ArticleDate date={date} />
                       {title.toLowerCase()}
                     </a>
                   </Link>
