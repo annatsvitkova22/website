@@ -1,6 +1,7 @@
 import React from 'react';
 import * as classnames from 'classnames';
 import * as moment from 'moment';
+import PropTypes from 'prop-types';
 
 const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
   const currentDate = moment(posts[currentIndex].date);
@@ -24,6 +25,12 @@ const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
       </time>
     </h4>
   );
+};
+
+ChronologicalSeparator.propTypes = {
+  posts: PropTypes.object,
+  currentIndex: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default ChronologicalSeparator;

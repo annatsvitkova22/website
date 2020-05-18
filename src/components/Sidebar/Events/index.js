@@ -15,7 +15,7 @@ const EventsLikeSidebar = ({ data, withTime, withList }) => {
       {withTime && <ArticleDateTime time={data.eventTime} date={date} />}
       {withList && <ArticleList info={data} />}
       <div className="info-card__map">
-        <SimpleMap data={data.eventAddress} />
+        {data.eventAddress && <SimpleMap data={data.eventAddress} />}
       </div>
       <div className="info-card__info-wrapper">
         {data.contactInfo && (

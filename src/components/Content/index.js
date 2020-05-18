@@ -35,15 +35,15 @@ import Twitter from '~/components/Gutenberg/Twitter';
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
 
-  if (!content.blocks.length) {
-    return <FreeForm block={content.content} className={className} />;
-  }
   return (
     <>
-      {content &&
+      {content && content.blocks && content.blocks.length ? (
         content.blocks.map((block, index) =>
           getContentType({ block, index, className })
-        )}
+        )
+      ) : (
+        <FreeForm className={className} block={content.content} />
+      )}
     </>
   );
 };
@@ -58,7 +58,15 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-
+  if (block.__typename === 'CoreFreeformBlock') {
+    return (
+      <FreeForm
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
   if (block.__typename === 'CoreVerseBlock') {
     return (
       <Verse
@@ -267,17 +275,6 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-
-  if (block.__typename === 'CoreFreeformBlock') {
-    return (
-      <FreeForm
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
-
   if (block.__typename === 'CoreSeparatorBlock') {
     return (
       <Separator

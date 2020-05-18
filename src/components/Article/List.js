@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import NavLink from '~/components/SiteLink';
 import Icons from '~/components/Icons';
@@ -52,6 +53,11 @@ const ArticleList = ({ info, className }) => {
       )}
     </ul>
   );
+};
+
+ArticleList.propTypes = {
+  info: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default ArticleList;

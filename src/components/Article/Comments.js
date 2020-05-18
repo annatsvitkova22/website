@@ -26,7 +26,7 @@ const ArticleComments = ({ comments, slug, className }) => {
 };
 
 ArticleComments.propTypes = {
-  comment: PropTypes.any,
+  comments: PropTypes.any,
   slug: PropTypes.string,
   className: PropTypes.string,
 };

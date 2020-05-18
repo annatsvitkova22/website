@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import NavLink from '~/components/SiteLink';
 
@@ -37,6 +38,12 @@ const ArticleTaxonomies = ({
       })}
     </ul>
   );
+};
+
+ArticleTaxonomies.propTypes = {
+  categories: PropTypes.object,
+  tags: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default ArticleTaxonomies;

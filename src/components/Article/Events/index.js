@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleTitle from '~/components/Article/Title';
 import ArticleFeatured from '~/components/Article/Featured';
@@ -35,6 +36,12 @@ const ArticleEvents = ({ post, children, className }) => {
       {children}
     </article>
   );
+};
+
+ArticleEvents.propTypes = {
+  post: PropTypes.object,
+  children: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default ArticleEvents;
