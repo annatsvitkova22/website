@@ -137,9 +137,13 @@
 
     cursor: pointer;
 
+    &:hover {
+      color: #242424;
+    }
+
     &--active {
       color: #242424;
-      font-weight: 700;
+      font-weight: 600;
     }
   }
 
@@ -174,13 +178,13 @@
         &__control {
           &::before {
             content: 'Показати';
-            
+
             position: absolute;
             top: 50%;
             right: calc(100% - 17px);
 
             letter-spacing: 0.02em;
-            
+
             transform: translateY(-50%);
           }
           &--menu-is-open {
