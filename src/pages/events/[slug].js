@@ -18,6 +18,7 @@ const EVENT = gql`
     eventBy(slug: $slug) {
       title
       ${gutenbergBlocksQuery}
+      content
       excerpt
       featuredImage {
         mediaItemUrl
@@ -198,10 +199,7 @@ const Event = (props) => {
           <section className="event__main container">
             <div className="event__content-wrapper">
               <div className="event__content">
-                <Content
-                  content={event.blocks}
-                  className="event__content-main"
-                />
+                <Content content={event} className="event__content-main" />
               </div>
             </div>
             <StickyBox

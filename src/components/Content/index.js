@@ -35,10 +35,13 @@ import Twitter from '~/components/Gutenberg/Twitter';
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
 
+  if (!content.blocks.length) {
+    return <FreeForm block={content.content} className={className} />;
+  }
   return (
     <>
       {content &&
-        content.map((block, index) =>
+        content.blocks.map((block, index) =>
           getContentType({ block, index, className })
         )}
     </>
@@ -55,6 +58,7 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
+
   if (block.__typename === 'CoreVerseBlock') {
     return (
       <Verse
