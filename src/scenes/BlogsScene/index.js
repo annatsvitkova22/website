@@ -42,7 +42,7 @@ const BlogsScene = ({ users: { nodes: users } }) => (
               </Link>
               <ul className="user-pubs list-reset pos-relative z-10 bg-white">
                 {blogs.map(({ title, slug }) => (
-                  <li className="user-pub user-pubs__item">
+                  <li key={slug} className="user-pub user-pubs__item">
                     <h6 className="font-weight-semibold line-height-12">
                       <Link href={`/blogs/${slug}`}>
                         <a className="user-pub__title d-block">{title}</a>
