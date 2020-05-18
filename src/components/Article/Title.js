@@ -67,7 +67,7 @@ const ArticleTitle = ({
     <h2 className={classnames('article-title', className)}>
       <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>
         <a className="article-title__link" href={`/${postType}/${slug}`}>
-          {displayTitle.toLowerCase()}
+          {displayTitle}
         </a>
       </Link>
     </h2>

@@ -20,6 +20,7 @@ import {
 import useViewsCounter from '~/hooks/useViewsCounter';
 import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
 import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
+import ArticleDate from '~/components/Article/Date';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
@@ -160,11 +161,11 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                                   'title__socials-name meta-author--black'
                                 }
                               />
-                              <span className={'title__socials-date'}>
-                                {moment(storedPost.date).format(
-                                  'DD MMMM, HH:MM'
-                                )}
-                              </span>
+                              <ArticleDate
+                                className={'title__socials-date'}
+                                date={storedPost.date}
+                                format={'DD MMMM YYYY, HH:MM'}
+                              />
                             </div>
                           </div>
                           <Share
