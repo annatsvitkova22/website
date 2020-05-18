@@ -42,24 +42,20 @@ const VideosScene = ({ videos = {}, loading, children }) => {
 
   if (state === false) {
     return (
-      <main className="videos-main">
-        <div className="container">
-          <div className="row">
-            <VideoCategoryLoader
-              backgroundColor="#f5f6f7"
-              foregroundColor="#eee"
-            />
-            <VideoCategoryLoader
-              backgroundColor="#f5f6f7"
-              foregroundColor="#eee"
-            />
-          </div>
+      <div className="videos-scene__loader container">
+        <div className="row">
+          <VideoCategoryLoader
+            backgroundColor="#f5f6f7"
+            foregroundColor="#eee"
+          />
+          <VideoCategoryLoader
+            backgroundColor="#f5f6f7"
+            foregroundColor="#eee"
+          />
         </div>
-      </main>
+      </div>
     );
   }
-
-  console.log('test');
 
   return (
     <div className="container">

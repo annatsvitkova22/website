@@ -35,9 +35,14 @@ const HomeHeroLoader = () => {
       {times(20, (i) => {
         return (
           <>
-            <rect x={'1018'} y={step*i+1} width={'50'} height={`12`} />
-            <rect x={'1018'} y={step*i+17} width={i % 4 === 0 ? '288' : '200'} height={`12`} />
-            <rect x={'1018'} y={step*i+39} width={'288'} height={`1`} />
+            <rect x={'1018'} y={step * i + 1} width={'50'} height={`12`} />
+            <rect
+              x={'1018'}
+              y={step * i + 17}
+              width={i % 4 === 0 ? '288' : '200'}
+              height={`12`}
+            />
+            <rect x={'1018'} y={step * i + 39} width={'288'} height={`1`} />
           </>
         );
       })}

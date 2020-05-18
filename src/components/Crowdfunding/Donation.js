@@ -152,11 +152,11 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       configs
     );
 
-    let {
+    const {
       data: { supported },
     } = getCurrentDonaters;
 
-    let sups = supported ? supported : [];
+    const sups = supported || [];
 
     sups.push({
       name: name || 'Анонімно',

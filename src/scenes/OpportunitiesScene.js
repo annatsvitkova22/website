@@ -14,16 +14,16 @@ const OpportunitiesScene = ({ opportunities, children, loading }) => {
       <div className="opportunities-page">
         <div className="container">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="article col-lg-6">
               <OpportunitiesLoader />
             </div>
-            <div className="col-lg-6">
+            <div className="article col-lg-6">
               <OpportunitiesLoader />
             </div>
-            <div className="col-lg-6">
+            <div className="article col-lg-6">
               <OpportunitiesLoader />
             </div>
-            <div className="col-lg-6">
+            <div className="article col-lg-6">
               <OpportunitiesLoader />
             </div>
           </div>

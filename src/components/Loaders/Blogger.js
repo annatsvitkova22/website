@@ -4,7 +4,14 @@ import ContentLoader from 'react-content-loader';
 const BloggerLoader = () => {
   return (
     <ContentLoader viewBox={'0 0 1312 1000'}>
-      <rect x={'0'} y={'0'} rx={'100'} ry={'100'} width={'200'} height={`200`} />
+      <rect
+        x={'0'}
+        y={'0'}
+        rx={'100'}
+        ry={'100'}
+        width={'200'}
+        height={`200`}
+      />
       <rect x={'0'} y={'226'} width={'150'} height={`16`} />
       <rect x={'0'} y={'246'} width={'130'} height={`16`} />
       <rect x={'0'} y={'286'} width={'200'} height={`20`} />

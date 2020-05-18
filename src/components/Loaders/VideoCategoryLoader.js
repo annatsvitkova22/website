@@ -8,7 +8,7 @@ const VideoCategoryLoader = ({
   return (
     <div className="container">
       <ContentLoader
-        viewBox={'0 0 1320 400'}
+        viewBox={'0 0 1320 350'}
         {...{ backgroundColor, foregroundColor }}
       >
         <rect x={'0'} y={'0'} width={'312'} height={`190`} />

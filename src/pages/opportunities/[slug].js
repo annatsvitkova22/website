@@ -61,7 +61,6 @@ const Opportunity = (props) => {
     isSimilarLoading: false,
   });
 
-
   const { opportunity, isLoading } = state;
 
   const sideBarCls = classNames({

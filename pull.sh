@@ -1,8 +1,5 @@
-. /home/zmist/.nvm/nvm.sh
-nvm use
 git reset --hard
-git pull origin development
-yarn install
-npm rebuild
-yarn build-staging
-pm2 restart nextjs
+git pull origin develop
+docker-compose down
+docker rmi zmist_zmist
+docker-compose up -d --build --force-recreate --no-deps
