@@ -75,6 +75,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     backgroundSize: 'cover',
   };
 
+  console.log(storedPost.content);
   return (
     <>
       <Head>
@@ -105,7 +106,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                     )}
                     <div className="single-post__content col-lg-6 col-md-8">
                       <Content
-                        content={storedPost.blocks}
+                        content={storedPost}
                         className={'content__posts'}
                       />
                       <NewsFooter post={storedPost} />
@@ -178,7 +179,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           }}
                         />
                         <Content
-                          content={storedPost.blocks}
+                          content={storedPost}
                           className={'content__posts'}
                         />
                         <NewsFooter post={storedPost} />

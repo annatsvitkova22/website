@@ -6,11 +6,10 @@ import ArticleDateTime from '~/components/Article/DateTime';
 import ArticleList from '~/components/Article/List';
 
 const EventHeader = ({ event, withTime, withList }) => {
-  const location = event.zmAfishaACF.eventAddress.streetAddress
-    .split(',')
-    .slice(0, 1)
-    .join();
-  const date = event.zmAfishaACF.eventDate;
+  const location = event.zmAfishaACF.eventAddress
+    ? event.zmAfishaACF.eventAddress.streetAddress.split(',').slice(0, 1).join()
+    : null;
+  const date = event.zmAfishaACF.eventDate ? event.zmAfishaACF.eventDate : null;
   const title = he.decode(event.title);
 
   console.log(event);
