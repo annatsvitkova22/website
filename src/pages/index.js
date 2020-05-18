@@ -96,6 +96,7 @@ const HOME_PAGE = gql`
 
     publications(first: 8) {
       nodes {
+        id
         excerpt
         title
         slug
@@ -391,23 +392,33 @@ const Home = (props) => {
           {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
         </TagsScene>
 
-        <SectionHeading title="Відео" href="/videos" classMode="videos" />
-        <VideosScene {...{ videos, loading }}>
-          {typeof videos === 'undefined' && (
-            <Waypoint onEnter={loadData(VIDEOS)} />
-          )}
-        </VideosScene>
+        {videos && videos.nodes && videos.nodes.length && (
+          <>
+            <SectionHeading title="Відео" href="/videos" classMode="videos" />
+            <VideosScene {...{ videos, loading }}>
+              {typeof videos === 'undefined' && (
+                <Waypoint onEnter={loadData(VIDEOS)} />
+              )}
+            </VideosScene>
+          </>
+        )}
 
-        <SectionHeading
-          title="Можливості"
-          href="/opportunities"
-          classMode="opport"
-        />
-        <OpportunitiesScene {...{ opportunities, loading }}>
-          {typeof opportunities === 'undefined' && (
-            <Waypoint onEnter={loadData(OPPORTUNITIES)} />
+        {opportunities &&
+          opportunities.nodes &&
+          opportunities.nodes.length(
+            <>
+              <SectionHeading
+                title="Можливості"
+                href="/opportunities"
+                classMode="opport"
+              />
+              <OpportunitiesScene {...{ opportunities, loading }}>
+                {typeof opportunities === 'undefined' && (
+                  <Waypoint onEnter={loadData(OPPORTUNITIES)} />
+                )}
+              </OpportunitiesScene>
+            </>
           )}
-        </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
         <EventsScene {...{ events, loading }} form={true}>
