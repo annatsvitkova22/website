@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import * as _ from 'lodash';
 import ImageGallery from 'react-image-gallery';
 
-const Gallery = ({ block }) => {
+
+
+const Gallery = ({ block, className = '' }) => {
   const [pictures, setPictures] = useState([]);
   console.log(block);
   const array = block.attributes.images;
@@ -42,7 +44,7 @@ const Gallery = ({ block }) => {
 
   console.log(pictures);
   return (
-    <div>
+    <div className={`gutenberg__gallery ${className}`}>
       <ImageGallery items={pictures} />
     </div>
   );
