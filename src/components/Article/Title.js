@@ -51,7 +51,6 @@ const ArticleTitle = ({
     };
   }, []);
 
-
   if (postType === 'pages') {
     return (
       <h2 className={classnames('article-title', className)}>

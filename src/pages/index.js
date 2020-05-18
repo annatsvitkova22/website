@@ -21,12 +21,6 @@ import HomeHeroLoader from '~/components/Loaders/Home/Hero';
 // TODO: split to multiple requests
 const HOME_PAGE = gql`
   query PageQuery {
-    pages(where: { title: "Головна" }) {
-      nodes {
-        title
-      }
-    }
-
     info {
       generalInfoACF {
         mainPublication {
@@ -102,6 +96,7 @@ const HOME_PAGE = gql`
 
     publications(first: 8) {
       nodes {
+        id
         excerpt
         title
         slug
@@ -309,7 +304,6 @@ const Home = (props) => {
   const [loading, setLoading] = useState(false);
 
   const {
-    page,
     info,
     posts,
     users,
@@ -328,7 +322,6 @@ const Home = (props) => {
       query: HOME_PAGE,
     });
     const newState = {
-      page: data.pages.nodes[0],
       info: data.info,
       posts: data.posts,
       users: data.users,
@@ -358,12 +351,12 @@ const Home = (props) => {
   }
 
   useEffect(() => {
-    if (!page) {
+    if (!posts) {
       loadMainData();
     }
   }, []);
 
-  if (!page) {
+  if (!posts) {
     return (
       <div className="home-page">
         <main className="container hero">
@@ -376,13 +369,11 @@ const Home = (props) => {
   return (
     <div className="home-page">
       <Head>
-        <title>{page.title}</title>
+        <title>Зміст</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className="title d-none">{page.title}</h1>
-
         <HeroScene {...{ info, posts, publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
@@ -401,23 +392,33 @@ const Home = (props) => {
           {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
         </TagsScene>
 
-        <SectionHeading title="Відео" href="/videos" classMode="videos" />
-        <VideosScene {...{ videos, loading }}>
-          {typeof videos === 'undefined' && (
-            <Waypoint onEnter={loadData(VIDEOS)} />
-          )}
-        </VideosScene>
+        {videos && videos.nodes && videos.nodes.length && (
+          <>
+            <SectionHeading title="Відео" href="/videos" classMode="videos" />
+            <VideosScene {...{ videos, loading }}>
+              {typeof videos === 'undefined' && (
+                <Waypoint onEnter={loadData(VIDEOS)} />
+              )}
+            </VideosScene>
+          </>
+        )}
 
-        <SectionHeading
-          title="Можлівості"
-          href="/opportunities"
-          classMode="opport"
-        />
-        <OpportunitiesScene {...{ opportunities, loading }}>
-          {typeof opportunities === 'undefined' && (
-            <Waypoint onEnter={loadData(OPPORTUNITIES)} />
+        {opportunities &&
+          opportunities.nodes &&
+          opportunities.nodes.length(
+            <>
+              <SectionHeading
+                title="Можливості"
+                href="/opportunities"
+                classMode="opport"
+              />
+              <OpportunitiesScene {...{ opportunities, loading }}>
+                {typeof opportunities === 'undefined' && (
+                  <Waypoint onEnter={loadData(OPPORTUNITIES)} />
+                )}
+              </OpportunitiesScene>
+            </>
           )}
-        </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
         <EventsScene {...{ events, loading }} form={true}>
@@ -459,10 +460,9 @@ Home.getInitialProps = async () => {
     query: HOME_PAGE,
   });
 
-  const { pages, info, posts, users, publications } = data;
+  const { info, posts, users, publications } = data;
 
   return {
-    page: pages.nodes[0],
     info,
     posts,
     users,
