@@ -102,6 +102,17 @@
     transform: translateX(0);
 
     transition: transform 0.3s ease-in-out;
+    .meta-date {
+      padding-right: 16px;
+      margin-top: 0;
+
+      font-family: $font-family-titles;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 15px;
+      letter-spacing: 0.06em;
+      color: $grey-200;
+    }
 
     &:hover {
       transform: translateX(10px);

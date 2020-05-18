@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FreeForm = ({ block, className = '' }) => {
-
-  const data = block.saveContent ? block.saveContent : block;
+  const data = block && block.saveContent ? block.saveContent : block;
   return (
     <div
       dangerouslySetInnerHTML={{ __html: data }}

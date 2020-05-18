@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleTitle from '~/components/Article/Title';
@@ -36,6 +37,13 @@ const ArticleBlogs = ({ post, children, className, highlightInTitle }) => {
       {children}
     </article>
   );
+};
+
+ArticleBlogs.propTypes = {
+  post: PropTypes.object,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  highlightInTitle: PropTypes.any,
 };
 
 export default ArticleBlogs;

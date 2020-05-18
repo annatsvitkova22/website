@@ -60,6 +60,8 @@ const SearchField = ({ className = '', onSearch = () => {}, isOpen }) => {
 
 SearchField.propTypes = {
   className: PropTypes.string,
+  onSearch: PropTypes.func,
+  isOpen: PropTypes.bool,
 };
 
 export default SearchField;

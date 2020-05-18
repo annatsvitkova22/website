@@ -50,7 +50,7 @@ const PollResults = ({ data, results }) => {
 };
 
 PollResults.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.func,
   result: PropTypes.any,
 };
 

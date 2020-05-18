@@ -187,12 +187,17 @@ const Event = (props) => {
             >
               <div className="event__hero-inner container">
                 <EventHeader event={event} withTime={isTimeExist} />
-                <div className="event__info-card">
-                  <EventsLikeSidebar
-                    data={event.zmAfishaACF}
-                    withTime={isTimeExist}
-                  />
-                </div>
+                {event.zmAfishaACF.eventTime &&
+                  event.zmAfishaACF.eventDate &&
+                  event.zmAfishaACF.eventSocials &&
+                  event.zmAfishaACF.eventAddress && (
+                    <div className="event__info-card">
+                      <EventsLikeSidebar
+                        data={event.zmAfishaACF}
+                        withTime={isTimeExist}
+                      />
+                    </div>
+                  )}
               </div>
             </div>
           </section>
@@ -202,22 +207,30 @@ const Event = (props) => {
                 <Content content={event} className="event__content-main" />
               </div>
             </div>
-            <StickyBox
-              className={'event__sticky-wrapper'}
-              offsetTop={20}
-              offsetBottom={20}
-              style={{
-                height: 'fit-content',
-                width: '100%',
-                maxWidth: '344px',
-              }}
-            >
-              <div
-                className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
-              >
-                <EventsLikeSidebar data={event.zmAfishaACF} withTime={true} />
-              </div>
-            </StickyBox>
+            {event.zmAfishaACF.eventTime &&
+              event.zmAfishaACF.eventDate &&
+              event.zmAfishaACF.eventSocials &&
+              event.zmAfishaACF.eventAddress && (
+                <StickyBox
+                  className={'event__sticky-wrapper'}
+                  offsetTop={20}
+                  offsetBottom={20}
+                  style={{
+                    height: 'fit-content',
+                    width: '100%',
+                    maxWidth: '344px',
+                  }}
+                >
+                  <div
+                    className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
+                  >
+                    <EventsLikeSidebar
+                      data={event.zmAfishaACF}
+                      withTime={true}
+                    />
+                  </div>
+                </StickyBox>
+              )}
           </section>
         </div>
         <EventsScene events={events} form={false} />
