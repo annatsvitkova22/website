@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
 
@@ -26,6 +27,11 @@ const ArticleAuthor = ({ author: { slug, name }, className }) => {
       </a>
     </Link>
   );
+};
+
+ArticleAuthor.propTypes = {
+  author: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default ArticleAuthor;

@@ -1,5 +1,6 @@
 import React from 'react';
 import he from 'he';
+import PropTypes from 'prop-types';
 
 import Icons from '~/components/Icons';
 import ArticleDateTime from '~/components/Article/DateTime';
@@ -44,6 +45,12 @@ const EventHeader = ({ event, withTime, withList }) => {
       </div>
     </div>
   );
+};
+
+EventHeader.propTypes = {
+  event: PropTypes.any,
+  withTime: PropTypes.any,
+  withList: PropTypes.any,
 };
 
 export default EventHeader;

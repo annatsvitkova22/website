@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import * as classnames from 'classnames';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
 
@@ -58,6 +59,14 @@ const ArticleFeatured = ({ image, alt = '', slug, className, modif }) => {
       </Link>
     </div>
   );
+};
+
+ArticleFeatured.propTypes = {
+  image: PropTypes.any,
+  alt: PropTypes.string,
+  slug: PropTypes.any,
+  className: PropTypes.string,
+  modif: PropTypes.any,
 };
 
 export default ArticleFeatured;

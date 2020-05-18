@@ -1,6 +1,7 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
   const {
@@ -32,6 +33,12 @@ const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
       </div>
     </div>
   );
+};
+
+CrowdfundingProgress.propTypes = {
+  post: PropTypes.any,
+  className: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default CrowdfundingProgress;

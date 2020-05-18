@@ -1,5 +1,6 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 
 import Article from '~/components/Article';
 import Form from '~/components/Form';
@@ -72,6 +73,13 @@ const EventsScene = ({ events, form, children, loading }) => {
       </div>
     </div>
   );
+};
+
+EventsScene.propTypes = {
+  events: PropTypes.any,
+  form: PropTypes.any,
+  children: PropTypes.any,
+  loading: PropTypes.bool,
 };
 
 export default EventsScene;
