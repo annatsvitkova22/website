@@ -2,6 +2,11 @@ body.isB-MenuOpen {
   overflow: hidden;
 }
 .header {
+  .search--active {
+    svg {
+      color: $green;
+    }
+  }
   &__search-wrapper {
     display: flex;
 
@@ -664,6 +669,9 @@ body.isB-MenuOpen {
 }
 @media (max-width: 767px) {
   .header {
+    padding-right: 18px;
+    padding-left: 18px;
+
     &__burgermenu {
       justify-content: flex-start;
 

@@ -31,6 +31,7 @@ import composeTaxQuery from '~/util/taxQuery';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleSearch from '~/components/Article/Search';
 import SearchbarLoader from '~/components/Loaders/SearchbarLoader';
+import Icons from '~/components/Icons';
 
 const sharedNodes = `id
           title
@@ -483,9 +484,16 @@ const Search = ({ posts, categories, types, query, users }) => {
                   <button
                     type="submit"
                     className="search-form__button pos-absolute pos-center-right"
-                    onClick={handleSearchString}
+                    onClick={() => {
+                      setSearchString('');
+                      document.querySelector('.search-form__field').focus();
+                    }}
                   >
-                    <SearchIcon />
+                    {searchString.length === 0 ? (
+                      <SearchIcon />
+                    ) : (
+                      <Icons icon={'close-comment'} />
+                    )}
                   </button>
                 </div>
                 <div className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap">

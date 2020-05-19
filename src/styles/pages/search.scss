@@ -12,6 +12,10 @@
 .search-form {
   border-bottom: 1px solid $grey-100;
 
+  @include media-breakpoint-down(sm) {
+    padding-bottom: 15px;
+  }
+
   &__button {
     padding: 0 7px;
 
@@ -24,10 +28,26 @@
     transition: color 0.3s ease-in;
 
     @include media-breakpoint-down(sm) {
-      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
+      width: 24px;
+      height: 24px;
+
+      padding-left: 0;
+      padding-right: 0;
+
+      .close-comment {
+        display: flex;
+      }
       svg {
-        width: 100%;
+        width: 13.33px;
+        height: 13.33px;
+
+        path {
+          fill: $grey-200;
+        }
       }
     }
 
@@ -70,7 +90,7 @@
     margin-bottom: 13px;
 
     @include media-breakpoint-down(sm) {
-      margin-bottom: 12px;
+      margin-bottom: 20px;
     }
   }
 
