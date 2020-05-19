@@ -8,8 +8,8 @@ import axios from 'axios';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
 import apolloClient from '~/lib/ApolloClient';
-import '../styles/app.scss';
 import { AuthStore, updateToken } from '~/stores/Auth';
+import '../styles/app.scss';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);

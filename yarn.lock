@@ -6188,6 +6188,11 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
 
+next-critical@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/next-critical/-/next-critical-0.1.1.tgz#7c715e0fd5fbeb11d604f53fe9c7ede11263136a"
+  integrity sha512-3ggXCv63NftAR0HppQWd3AZe5FhdcpeMXbeE9PVdn+DrbPnH9577vuYgOXtiPHv6dXiCJ/8/TpZRAmmxbX5Beg==
+
 next-optimized-images@^2.5.7:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/next-optimized-images/-/next-optimized-images-2.5.7.tgz#fca34ae981d7e84617db3396e6eec9fae3e58ab8"
