@@ -34,10 +34,13 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
                 <NewsHead post={post} />
                 <div className={'title__socials'}>
                   <div className={'title__socials-about'}>
-                    <span
-                      className="title__socials-image avatar"
-                      style={userAvatarStyles}
-                    />
+                    {userAvatarStyles &&
+                      userAvatarStyles.backgroundImage.length && (
+                        <span
+                          className="title__socials-image avatar"
+                          style={userAvatarStyles}
+                        />
+                      )}
                     <div className={'title__socials-author'}>
                       <ArticleAuthor
                         author={post.author}
