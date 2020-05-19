@@ -234,10 +234,17 @@ const Crowdfunding = (props) => {
                   className="crowdfunding-single__supported"
                 />
               </div>
-              <Content
-                content={storedPost}
-                className="crowdfunding-single__block"
-              />
+              {storedPost.blocks.length ? (
+                <Content
+                  content={storedPost.blocks}
+                  className={'content__posts'}
+                />
+              ) : (
+                <Content
+                  content={storedPost.content}
+                  className={'content__posts'}
+                />
+              )}
             </div>
           </main>
 

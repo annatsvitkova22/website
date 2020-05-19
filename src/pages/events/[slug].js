@@ -204,7 +204,17 @@ const Event = (props) => {
           <section className="event__main container">
             <div className="event__content-wrapper">
               <div className="event__content">
-                <Content content={event} className="event__content-main" />
+                {event.blocks.length ? (
+                  <Content
+                    content={event.blocks}
+                    className={'content__posts'}
+                  />
+                ) : (
+                  <Content
+                    content={event.content}
+                    className={'content__posts'}
+                  />
+                )}
               </div>
             </div>
             {event.zmAfishaACF.eventTime &&

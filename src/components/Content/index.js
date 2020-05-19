@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Paragraph from '../Gutenberg/Paragraph';
@@ -34,15 +34,19 @@ import Twitter from '~/components/Gutenberg/Twitter';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
+  console.log(content);
 
   return (
     <>
-      {content && content.blocks && content.blocks.length ? (
-        content.blocks.map((block, index) =>
+      {content && typeof content !== 'string' ? (
+        content.map((block, index) =>
           getContentType({ block, index, className })
         )
       ) : (
-        <FreeForm className={className} block={content.content} />
+        <FreeForm
+          className={`${className} gutenberg__freeform-old`}
+          block={content}
+        />
       )}
     </>
   );

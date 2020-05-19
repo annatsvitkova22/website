@@ -105,10 +105,17 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       </div>
                     )}
                     <div className="single-post__content col-lg-6 col-md-8">
-                      <Content
-                        content={storedPost}
-                        className={'content__posts'}
-                      />
+                      {storedPost.blocks.length ? (
+                        <Content
+                          content={storedPost.blocks}
+                          className={'content__posts'}
+                        />
+                      ) : (
+                        <Content
+                          content={storedPost.content}
+                          className={'content__posts'}
+                        />
+                      )}
                       <NewsFooter post={storedPost} />
                     </div>
                   </div>
@@ -178,10 +185,17 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                             __html: storedPost.excerpt,
                           }}
                         />
-                        <Content
-                          content={storedPost}
-                          className={'content__posts'}
-                        />
+                        {storedPost.blocks.length ? (
+                          <Content
+                            content={storedPost.blocks}
+                            className={'content__posts'}
+                          />
+                        ) : (
+                          <Content
+                            content={storedPost.content}
+                            className={'content__posts'}
+                          />
+                        )}
                         <NewsFooter post={storedPost} />
                       </section>
                     </section>
