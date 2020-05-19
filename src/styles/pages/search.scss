@@ -17,7 +17,12 @@
   }
 
   &__button {
-    padding: 0 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+    height: 40px;
 
     background-color: transparent;
     border: none;
@@ -26,6 +31,19 @@
 
     cursor: pointer;
     transition: color 0.3s ease-in;
+
+    &-icon {
+      width: 26.62px;
+      height: 26.62px;
+    }
+
+    .close-comment {
+      display: flex;
+    }
+
+    path {
+      fill: $grey-200;
+    }
 
     @include media-breakpoint-down(sm) {
       display: flex;

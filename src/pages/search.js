@@ -490,7 +490,7 @@ const Search = ({ posts, categories, types, query, users }) => {
                     }}
                   >
                     {searchString.length === 0 ? (
-                      <SearchIcon />
+                      <SearchIcon className={'search-form__button-icon'} />
                     ) : (
                       <Icons icon={'close-comment'} />
                     )}
