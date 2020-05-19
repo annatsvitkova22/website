@@ -15,6 +15,11 @@
     font-size: 9px;
     letter-spacing: 0.15em;
   }
+  @include media-breakpoint-up(lg) {
+    .article--blog {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .blogger {
