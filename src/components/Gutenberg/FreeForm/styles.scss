@@ -11,4 +11,10 @@
   .aligncenter {
     margin: 0 auto;
   }
+  &-old > * {
+    & > * {
+      text-align: left !important;
+    }
+    text-align: left !important;
+  }
 }

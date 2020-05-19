@@ -451,11 +451,11 @@
 }
 
 .publication-banner--image {
-  max-height: 550px;
+  height: 704px;
 }
 
 .feature__image--full {
-  max-height: 550px;
+  height: 704px;
 
   &:after {
     content: '';
@@ -474,4 +474,9 @@
     height: 100%;
     object-fit: cover;
   }
+}
+.feature__image--half {
+  max-height: 550px;
+  max-width: 100% !important;
+  width: 100%;
 }
