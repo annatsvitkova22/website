@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import he from 'he';
 
 const BlogsScene = ({ users: { nodes: users } }) => (
   <div className="container">
@@ -45,7 +46,9 @@ const BlogsScene = ({ users: { nodes: users } }) => (
                   <li key={slug} className="user-pub user-pubs__item">
                     <h6 className="font-weight-semibold line-height-12">
                       <Link href={`/blogs/${slug}`}>
-                        <a className="user-pub__title d-block">{title}</a>
+                        <a className="user-pub__title d-block">
+                          {he.decode(title)}
+                        </a>
                       </Link>
                     </h6>
                   </li>
