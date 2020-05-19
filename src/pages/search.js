@@ -7,6 +7,7 @@ import * as classnames from 'classnames';
 import { Waypoint } from 'react-waypoint';
 import { Router } from 'next/router';
 import stringSimilarity from 'string-similarity';
+import * as _ from 'lodash';
 
 import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
@@ -471,7 +472,9 @@ const Search = ({ posts, categories, types, query, users }) => {
               <div className="col-12">
                 <div className="search-form__field-wrapper pos-relative">
                   <input
-                    onChange={({ target: { value } }) => setSearchString(value)}
+                    onChange={({ target: { value } }) => {
+                      setSearchString(value);
+                    }}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
                     onKeyPress={({ key }) => {
                       if (key === 'Enter') handleSearchString();
@@ -485,15 +488,10 @@ const Search = ({ posts, categories, types, query, users }) => {
                     type="submit"
                     className="search-form__button pos-absolute pos-center-right"
                     onClick={() => {
-                      setSearchString('');
-                      document.querySelector('.search-form__field').focus();
+                      handleSearchString();
                     }}
                   >
-                    {searchString.length === 0 ? (
-                      <SearchIcon className={'search-form__button-icon'} />
-                    ) : (
-                      <Icons icon={'close-comment'} />
-                    )}
+                    <SearchIcon className={'search-form__button-icon'} />
                   </button>
                 </div>
                 <div className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap">
