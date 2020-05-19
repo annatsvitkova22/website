@@ -46,7 +46,6 @@ const HeroScene = ({ info, posts, publications }) => {
     };
   }, []);
 
-  console.log(posts);
   return (
     <div className="container container--full-hd hero">
       <div className="row">
@@ -110,7 +109,12 @@ const HeroScene = ({ info, posts, publications }) => {
               .map(({ categories, title, slug, author, featuredImage }, i) => (
                 <div key={i} className="hero-pub">
                   <ArticleProvider value="publications">
-                    <Featured image={featuredImage} alt={title} slug={slug} />
+                    <Featured
+                      image={featuredImage}
+                      size={'medium'}
+                      alt={title}
+                      slug={slug}
+                    />
                     <Taxonomies
                       categories={categories}
                       className={`article__category mt-l--small`}

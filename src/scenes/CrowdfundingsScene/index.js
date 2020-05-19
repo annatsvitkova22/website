@@ -43,7 +43,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
         {crowdfundings.nodes.map((crowdfunding) => {
           return (
             <div className="col-md-4" key={crowdfunding.id}>
-              <Article type={'crowdfundings'} post={crowdfunding} />
+              <Article imageSize={'mediumLarge'} type={'crowdfundings'} post={crowdfunding} />
             </div>
           );
         })}
