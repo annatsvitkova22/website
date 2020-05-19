@@ -56,6 +56,7 @@ const Header = () => {
   const [isUnPinned, setIsUnpinned] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [feedHeight, setFeedHeight] = useState(2355);
 
   const headerCls = classNames({
     header: true,
@@ -74,32 +75,52 @@ const Header = () => {
   });
 
   React.useEffect(() => {
-    window.addEventListener('scroll', fixedHeader);
+    if (router.route !== '/') {
+      window.addEventListener('scroll', fixedHeader);
+    }
+    if (router.route === '/') {
+      initialize();
+    }
+
     return () => {
       window.removeEventListener('scroll', fixedHeader);
     };
+  }, [router.route]);
+  React.useEffect(() => {
+    initialize();
   }, []);
 
+
   let scrollPos = 0;
+  const initialize = () => {
+    document.querySelector('.hero-list')
+      ? setFeedHeight(document.querySelector('.hero-list').offsetHeight)
+      : window.requestAnimationFrame(initialize);
+    window.addEventListener('scroll', fixedHeader);
+  };
 
   const fixedHeaderFn = () => {
     const isHome = router.route === '/';
     // TODO: replace 2000 with real feed height?
-
-    if (window.scrollY < (isHome ? 2000 : 100)) {
+    if (window.scrollY < (isHome ? feedHeight : 100)) {
       setIsUnpinned(false);
     }
     const st = window.scrollY;
-    if (window.scrollY > (isHome ? 1800 : 100) && st > scrollPos) {
+    if (window.scrollY > (isHome ? feedHeight - 200 : 100) && st > scrollPos) {
       setIsPinned(false);
       setIsUnpinned(true);
-    } else if (window.scrollY > (isHome ? 1800 : 100) && st < scrollPos) {
+    } else if (
+      window.scrollY > (isHome ? feedHeight - 200 : 100) &&
+      st < scrollPos
+    ) {
       setIsPinned(true);
       setIsUnpinned(false);
     }
     scrollPos = st;
   };
+
   const fixedHeader = _.debounce(fixedHeaderFn, 20);
+
   const handleOpenClick = () => {
     setIsPinned(false);
     setIsUnpinned(false);
