@@ -27,7 +27,6 @@ const ArticleNews = ({
   } = post;
   const showMeta =
     showAuthor || !!(comments && comments.pageInfo && comments.pageInfo.total);
-  console.log(categories);
   return (
     <article className={classnames('article--news', className)}>
       <div className="article__wrapper">

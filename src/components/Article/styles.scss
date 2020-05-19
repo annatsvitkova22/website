@@ -451,11 +451,11 @@
 }
 
 .publication-banner--image {
-  height: 704px;
+  max-height: 550px;
 }
 
 .feature__image--full {
-  height: 704px;
+  max-height: 550px;
 
   &:after {
     content: '';
