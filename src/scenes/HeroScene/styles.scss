@@ -125,6 +125,9 @@
 }
 
 .hero-pub {
+  .article-featured + h6 {
+    padding-top: 16px;
+  }
   &__scroll {
     max-height: 100vh;
 

@@ -17,7 +17,6 @@ import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 import MainPublications from '~/components/MainPublications';
 import HomeHeroLoader from '~/components/Loaders/Home/Hero';
-import PostStore from '~/stores/Post';
 
 // TODO: split to multiple requests
 const HOME_PAGE = gql`
