@@ -13,15 +13,16 @@ const HeroPublication = ({
 }) => (
   <div className="hero__container pos-relative">
     <Link href={`/publications/[slug]`} as={`/publications/${slug}`}>
-      <a
-        href={`/publications/${slug}`}
-        className="hero__image bg-cover d-block"
-        style={{
-          backgroundImage: `url(${mediaItemUrl})`,
-        }}
-      >
+      <>
+        <a
+          href={`/publications/${slug}`}
+          className="hero__image bg-cover d-block"
+          style={{
+            backgroundImage: `url(${mediaItemUrl})`,
+          }}
+        />
         <span />
-      </a>
+      </>
     </Link>
     <div className="hero__caption tx-white">
       <Taxonomies categories={categories} className={`article__category`} />
