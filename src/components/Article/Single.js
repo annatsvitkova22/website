@@ -4,6 +4,8 @@ import Head from 'next/head';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
 import * as moment from 'moment';
+import getConfig from 'next/config';
+import he from 'he';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -21,6 +23,9 @@ import useViewsCounter from '~/hooks/useViewsCounter';
 import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
 import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
 import ArticleDate from '~/components/Article/Date';
+
+const { publicRuntimeConfig } = getConfig();
+const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
@@ -77,10 +82,43 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     backgroundSize: 'cover',
   };
 
+  console.log(storedPost);
+
   return (
     <>
       <Head>
         <title>ЗМІСТ - {storedPost.title}</title>
+
+        <meta property="twitter:card" content="summary_large_image" />
+
+        <meta property="og:title" content={storedPost.title} />
+        <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={storedPost.date} />
+        <meta
+          property="og:description"
+          content={he.decode(
+            storedPost.excerpt
+              .replace(/<[^>]+>/g, '')
+              .replace('[&hellip;]', '...')
+          )}
+        />
+        <meta
+          property="og:url"
+          content={`${config.frontUrl}/${type}/${storedPost.slug}`}
+        />
+        <meta
+          property="twitter:url"
+          content={`${config.frontUrl}/${type}/${storedPost.slug}`}
+        />
+        <meta property="twitter:title" content={he.decode(storedPost.title)} />
+        <meta
+          property="twitter:description"
+          content={he.decode(
+            storedPost.excerpt
+              .replace(/<[^>]+>/g, '')
+              .replace('[&hellip;]', '...')
+          )}
+        />
         {storedPost &&
           storedPost.featuredImage &&
           storedPost.featuredImage.mediaItemUrl && (

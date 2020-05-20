@@ -3,6 +3,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
+import getConfig from 'next/config';
 
 import client from '~/lib/ApolloClient';
 import HeroScene from '~/scenes/HeroScene';
@@ -17,6 +18,9 @@ import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 import MainPublications from '~/components/MainPublications';
 import HomeHeroLoader from '~/components/Loaders/Home/Hero';
+
+const { publicRuntimeConfig } = getConfig();
+const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 // TODO: split to multiple requests
 const HOME_PAGE = gql`
@@ -369,6 +373,24 @@ const Home = (props) => {
     <div className="home-page">
       <Head>
         <title>ЗМІСТ - Головна</title>
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${config.frontUrl}`} />
+        <meta property="og:title" content="ЗМІСТ - Зміни створюєш ти!" />
+        <meta
+          property="og:description"
+          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+        />
+        <meta property="og:image" content="/zmist.jpg" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`${config.frontUrl}`} />
+        <meta property="twitter:title" content="ЗМІСТ - Зміни ствоюєш ти!" />
+        <meta
+          property="twitter:description"
+          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+        />
+        <meta property="twitter:image" content="/zmist.jpg" />
       </Head>
 
       <main>

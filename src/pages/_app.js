@@ -69,23 +69,8 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
         <meta property="og:locale" content="uk-UA" />
         <meta property="og:site_name" content="ЗМІСТ" />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${config.frontUrl}`} />
-        <meta property="og:title" content="ЗМІСТ - Зміни створюєш ти!" />
-        <meta
-          property="og:description"
-          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
-        />
-        <meta property="og:image" content="/zmist.jpg" />
-
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`${config.frontUrl}`} />
-        <meta property="twitter:title" content="ЗМІСТ - Зміни ствоюєш ти!" />
-        <meta
-          property="twitter:description"
-          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
-        />
-        <meta property="twitter:image" content="/zmist.jpg" />
+
         <meta property="twitter:site" content="@zmist" />
         <meta property="twitter:creator" content="@outright_digital" />
       </Head>
