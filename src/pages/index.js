@@ -372,6 +372,7 @@ const Home = (props) => {
       </Head>
 
       <main>
+        <h1 style={{ fontSize: 0, margin: 0 }}>ЗМІСТ - Зміни створюєш ти!</h1>
         <HeroScene {...{ info, posts, publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />

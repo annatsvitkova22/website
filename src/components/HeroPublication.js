@@ -29,11 +29,11 @@ const HeroPublication = ({
     </Link>
     <div className="hero__caption tx-white">
       <Taxonomies categories={categories} className={`article__category`} />
-      <h1 className="hero__title heading__big">
+      <h2 className="hero__title heading__big">
         <Link href={`/publications/[slug]`} as={`/publications/${slug}`}>
           <a href={`/publications/${slug}`}>{title}</a>
         </Link>
-      </h1>
+      </h2>
       <div className="article__meta">
         <Author className="article__author" author={author} />
       </div>
