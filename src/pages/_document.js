@@ -1,7 +1,8 @@
+import { readFileSync } from 'fs';
+
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import CustomHead from 'next-critical';
-import { readFileSync } from 'fs';
 
 let styleSheetContent = '';
 

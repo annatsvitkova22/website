@@ -186,7 +186,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       {
         fields: {
           collected: getCurrentAmount.data.collected
-            ? parseInt(getCurrentAmount.data.collected) + parseInt(sum)
+            ? parseInt(getCurrentAmount.data.collected, 10) + parseInt(sum, 10)
             : sum,
         },
       },

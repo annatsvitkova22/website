@@ -185,9 +185,9 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                             __html: storedPost.excerpt,
                           }}
                         />
-                        {/* Need to delete - only for testing*/}
+                        {/* Need to delete - only for testing */}
                         <Story />
-                        {/* Need to delete - only for testing*/}
+                        {/* Need to delete - only for testing */}
                         {storedPost.blocks.length ? (
                           <Content
                             content={storedPost.blocks}

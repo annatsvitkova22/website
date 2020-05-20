@@ -176,8 +176,8 @@ const BlogsArchive = ({ users }) => {
 
   useEffect(() => {
     const loadBlogs = async () => {
-      const users = await loadBloggersGQL();
-      setMainState({ users });
+      const usrs = await loadBloggersGQL();
+      setMainState({ users: usrs });
     };
 
     if (!mainState.users) {

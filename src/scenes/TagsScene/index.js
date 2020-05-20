@@ -40,49 +40,49 @@ const TagsScene = ({ tags, children, loading }) => {
                 href={`/search?by=tag&q=${slug}`}
               />
             </div>
-            {publications.map(
-              ({ title, slug, featuredImage, categories, author }, i) => {
-                const colClass = i === 2 ? 'col-xl-4' : 'col-xl-2';
-                return (
-                  <div
-                    key={i}
-                    className={`${colClass} tag-sec__col d-flex flex-row-reverse flex-xl-column justify-content-between justify-content-xl-start`}
-                  >
-                    <ArticleProvider value="publications">
-                      <Featured
-                        className={'tag-sec__image'}
-                        image={featuredImage}
-                        alt={title}
-                        slug={slug}
-                      />
-                      <div className="tag-sec__container">
-                        <div className="tag-sec__category d-none d-xl-block">
-                          <Taxonomies
-                            className="article__category"
-                            categories={categories}
-                          />
-                        </div>
-                        <h3
-                          className={`article-title tag-sec__title font-weight-semibold tag-sec__title--${
-                            i === 2 ? 'big' : 'small'
-                          }`}
-                        >
-                          <Link href={`/`}>
-                            <a>{title}</a>
-                          </Link>
-                        </h3>
-                        <div className="article__meta">
-                          <Author
-                            className="article__author meta-author--grey"
-                            author={author}
-                          />
-                        </div>
+            {publications.map((publication, i) => {
+              const { title, featuredImage, categories, author } = publication;
+              const sl = publication.slug;
+              const colClass = i === 2 ? 'col-xl-4' : 'col-xl-2';
+              return (
+                <div
+                  key={i}
+                  className={`${colClass} tag-sec__col d-flex flex-row-reverse flex-xl-column justify-content-between justify-content-xl-start`}
+                >
+                  <ArticleProvider value="publications">
+                    <Featured
+                      className={'tag-sec__image'}
+                      image={featuredImage}
+                      alt={title}
+                      slug={sl}
+                    />
+                    <div className="tag-sec__container">
+                      <div className="tag-sec__category d-none d-xl-block">
+                        <Taxonomies
+                          className="article__category"
+                          categories={categories}
+                        />
                       </div>
-                    </ArticleProvider>
-                  </div>
-                );
-              }
-            )}
+                      <h3
+                        className={`article-title tag-sec__title font-weight-semibold tag-sec__title--${
+                          i === 2 ? 'big' : 'small'
+                        }`}
+                      >
+                        <Link href={`/`}>
+                          <a>{title}</a>
+                        </Link>
+                      </h3>
+                      <div className="article__meta">
+                        <Author
+                          className="article__author meta-author--grey"
+                          author={author}
+                        />
+                      </div>
+                    </div>
+                  </ArticleProvider>
+                </div>
+              );
+            })}
           </div>
         )
       )}

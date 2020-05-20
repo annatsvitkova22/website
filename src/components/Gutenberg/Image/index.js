@@ -43,12 +43,7 @@ const Image = ({ block, className = '' }) => {
   if (block.imageAttributes.linkDestination) {
     return (
       <div className={`gutenberg__image ${className}`}>
-        <figure
-          className={imgAlign}
-          style={{
-
-          }}
-        >
+        <figure className={imgAlign} style={{}}>
           {image}
           <figcaption
             dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}

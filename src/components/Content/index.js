@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Paragraph from '../Gutenberg/Paragraph';
@@ -33,9 +33,6 @@ import Facebook from '~/components/Gutenberg/Facebook';
 import Twitter from '~/components/Gutenberg/Twitter';
 
 const Content = ({ content, className = '' }) => {
-  // TODO: add & test all content types listed in this log
-  console.log(content);
-
   return (
     <>
       {content && typeof content !== 'string' ? (

@@ -14,6 +14,6 @@ const PublicationsScene = ({ publications }) => {
       </div>
     </div>
   );
-}
+};
 
 export default PublicationsScene;

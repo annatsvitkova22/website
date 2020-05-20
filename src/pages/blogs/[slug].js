@@ -134,8 +134,9 @@ const Blog = (props) => {
     if (loaded && post && props.slug) {
       loadData();
     }
-  }, [props.slug]),
-    moment.locale('uk');
+  }, [props.slug]);
+
+  moment.locale('uk');
 
   useEffect(() => {
     if (props.slug && !post) {

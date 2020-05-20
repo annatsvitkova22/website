@@ -6,12 +6,13 @@ import { getContentType } from '~/components/Content';
 
 const Columns = ({ block, className = '' }) => {
   const countOfColumns = (source, word) => {
+    let sr = source;
     if (!word) return 0;
     let res = 0;
     let index = 0;
-    while ((index = source.indexOf(word)) >= 0) {
-      source = source.substring(index + word.length);
-      res++;
+    while ((index = sr.indexOf(word)) >= 0) {
+      sr = sr.substring(index + word.length);
+      res += 1;
     }
     return res;
   };

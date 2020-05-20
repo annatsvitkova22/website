@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
-import ArticleFeatured from '~/components/Article/Featured';
 
 const SideBarPopular = ({ publications }) => {
   if (!publications) return <SidebarLoader />;

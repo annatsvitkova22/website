@@ -11,7 +11,7 @@ const HeaderMenu = ({ data }) => {
         navigationData={data.menus}
         className={'burger__navigation'}
       />
-      {/*<Dropdown data={data.menus} className={'burger__dd'} />*/}
+      {/* <Dropdown data={data.menus} className={'burger__dd'} /> */}
       <Social
         socialsData={data.info.generalInfoACF.socials}
         className={'header__social'}
