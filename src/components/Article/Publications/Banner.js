@@ -33,7 +33,7 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
                 <div className={'title__socials'}>
                   <div className={'title__socials-about'}>
                     {userAvatarStyles &&
-                      userAvatarStyles.backgroundImage.length && (
+                      userAvatarStyles.backgroundImage.length > 1 && (
                         <span
                           className="title__socials-image avatar"
                           style={userAvatarStyles}
