@@ -460,9 +460,7 @@ const Search = ({ posts, categories, types, query, users }) => {
   return (
     <div className="search-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Change this!'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Пошук</title>
       </Head>
 
       <div className="search-main">

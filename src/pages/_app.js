@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import App from 'next/app';
+import Head from 'next/head';
 import { ApolloProvider } from 'react-apollo';
 import getConfig from 'next/config';
 import axios from 'axios';
@@ -31,6 +32,9 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
 
   return (
     <ApolloProvider client={apolloClient}>
+      <Head>
+        <title>ЗМІСТ</title>
+      </Head>
       <Header />
       <Component {...pageProps} />
       <Footer />

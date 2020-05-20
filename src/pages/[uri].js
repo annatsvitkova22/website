@@ -7,6 +7,7 @@ import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import Content from '~/components/Content';
 import GutenbergLoader from '~/components/Loaders/GutenbergLoader';
+import NotFound from '~/pages/404';
 
 const PAGE = gql`
   query Page($uri: String!) {
@@ -18,9 +19,12 @@ const PAGE = gql`
 `;
 
 const Page = (props) => {
-  const [state, setState] = useState({ page: props.page });
+  const [state, setState] = useState({
+    page: props.page,
+    notFound: props.notFound,
+  });
 
-  const { page, isLoading } = state;
+  const { page, isLoading, notFound } = state;
 
   const loadPage = async () => {
     setState({ ...state, isLoading: true });
@@ -30,7 +34,12 @@ const Page = (props) => {
       variables: { uri: props.query.uri },
     });
 
-    setState({ ...state, page: data.pageBy, isLoading: false });
+    setState({
+      ...state,
+      page: data.pageBy,
+      isLoading: false,
+      notFound: !data.pageBy,
+    });
   };
 
   useEffect(() => {
@@ -44,6 +53,10 @@ const Page = (props) => {
       loadPage();
     }
   }, [props.query.uri]);
+
+  if (notFound) {
+    return <NotFound />;
+  }
 
   if (!page || isLoading) {
     return (
@@ -63,8 +76,7 @@ const Page = (props) => {
     <div>
       <div className="page">
         <Head>
-          <title>{page.title}</title>
-          <link rel="icon" href="/favicon.ico" />
+          <title>ЗМІСТ - {page.title}</title>
         </Head>
 
         <div className="container">
@@ -84,7 +96,7 @@ Page.propTypes = {
   page: PropTypes.any,
 };
 
-Page.getInitialProps = async ({ query }) => {
+Page.getInitialProps = async ({ query, res }) => {
   if (process.browser) {
     return { query };
   }
@@ -94,9 +106,14 @@ Page.getInitialProps = async ({ query }) => {
     variables: { uri: query.uri },
   });
 
+  if (!data.pageBy) {
+    res.statusCode = 404;
+  }
+
   return {
     query,
     page: data.pageBy,
+    notFound: !data.pageBy,
   };
 };
 

@@ -6,8 +6,8 @@ const Error = ({ statusCode }) => {
   return (
     <h1>
       {statusCode
-        ? `An error ${statusCode} occurred on server`
-        : 'An error occurred on client'}
+        ? `Помилка ${statusCode} виникла на стороні сервера`
+        : 'Помилка виникла на стороні клієнта'}
     </h1>
   );
 };

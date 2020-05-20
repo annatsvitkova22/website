@@ -368,8 +368,7 @@ const Home = (props) => {
   return (
     <div className="home-page">
       <Head>
-        <title>Зміст</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Головна</title>
       </Head>
 
       <main>
