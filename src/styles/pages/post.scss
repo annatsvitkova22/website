@@ -3,6 +3,8 @@
 
   .svg-icon:hover {
     color: #1d9e74;
+
+    transition: all 0.3s;
   }
 
   &--news {
@@ -229,6 +231,8 @@
 
     width: 20px;
     height: 20px;
+
+    transition: all 0.3s;
   }
   .facebook svg {
     max-width: 12px;
