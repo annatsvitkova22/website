@@ -164,8 +164,7 @@ const Event = (props) => {
   return (
     <div className="single__event">
       <Head>
-        <title>{event.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {event.title}</title>
       </Head>
       <main className="event">
         <div className="container">
