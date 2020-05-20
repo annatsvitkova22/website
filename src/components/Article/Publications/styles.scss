@@ -265,6 +265,12 @@
       .meta-author {
         font-weight: 600;
       }
+      .article-title__link {
+        @include media-breakpoint-down(sm) {
+          font-size: 18px;
+          line-height: 1.26;
+        }
+      }
     }
   }
 
