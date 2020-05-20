@@ -1,8 +1,10 @@
 .single-post {
-  padding-top: 118px !important;
+  padding-top: 118px;
 
   .svg-icon:hover {
     color: #1d9e74;
+
+    transition: all 0.3s;
   }
 
   &--news {
@@ -13,12 +15,17 @@
       }
     }
   }
+
   &--publications {
     padding-top: 68px !important;
 
     .single-post__main {
       > .row {
         width: 100%;
+        @include media-breakpoint-down(sm) {
+          margin-left: 0;
+          margin-right: 0;
+        }
       }
     }
 
@@ -32,6 +39,25 @@
 
       @include media-breakpoint-up(lg) {
         margin-left: 16.66667%;
+      }
+    }
+    .title__socials--mobile {
+      display: none;
+      @include media-breakpoint-down(sm) {
+        display: flex;
+
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+        padding-top: 26px;
+      }
+      .share-actions__main {
+        display: block;
+      }
+      .social-icon.telegram {
+        @include media-breakpoint-down(sm) {
+          display: none;
+        }
       }
     }
   }
@@ -74,6 +100,7 @@
         padding-right: 20px;
         margin-left: 0;
         margin-right: 0;
+        margin-bottom: 24px;
       }
 
       .meta-taxonomy {
@@ -202,12 +229,13 @@
     max-width: 648px;
     width: 100%;
 
-    padding-top: 32px;
-
     border-top: 1px solid #efefef;
+    @include media-breakpoint-up(md) {
+      padding-top: 32px;
+    }
 
     .meta-taxonomy {
-      margin-bottom: 22px;
+      margin-top: 30px;
     }
   }
 
@@ -226,6 +254,8 @@
 
     width: 20px;
     height: 20px;
+
+    transition: all 0.3s;
   }
   .facebook svg {
     max-width: 12px;
@@ -250,7 +280,7 @@
   width: 100%;
 
   @include media-breakpoint-down(sm) {
-    padding-bottom: 20px;
+    padding-bottom: 24px;
   }
   @include media-breakpoint-down(xs) {
     max-width: 100%;
@@ -447,6 +477,7 @@
 
   z-index: 50;
 }
+
 @media screen and (max-width: 768px) {
   .category-tag__list {
     flex-wrap: wrap;

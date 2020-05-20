@@ -94,7 +94,7 @@ const HeroScene = ({ info, posts, publications }) => {
             {posts.nodes.slice(0, 40).map(({ date, title, slug }, i) => (
               <li key={i} className="hero-list__item line-height-1">
                 <ChronologicalSeparator posts={posts.nodes} currentIndex={i} />
-                <div>
+                <div className="hero-list__data">
                   <ArticleDate date={date} />
                   <h4 className="tx-tiny font-weight-medium">
                     <Link href={`/news/[slug]`} as={`/news/${slug}`}>

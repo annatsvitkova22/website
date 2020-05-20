@@ -32,7 +32,7 @@ input {
   &--event {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 
     @include media-breakpoint-up(sm) {
       margin-bottom: 58px;
@@ -42,7 +42,7 @@ input {
   }
 
   &__title {
-    margin-bottom: 31px;
+    margin-bottom: 30px;
 
     color: $green;
     font-size: 24px;
@@ -96,7 +96,7 @@ input {
       font-weight: 500;
       font-size: 16px;
       line-height: 32px;
-      color: #b0b0b0;
+      color: #8a9994;
 
       transition: 0.3s all;
       pointer-events: none;
@@ -187,13 +187,13 @@ input {
 .zm-datepicker__popper {
   min-width: 360px;
 
-  &[data-placement="bottom-start"],
-  &[data-placement="top-start"] {
+  &[data-placement='bottom-start'],
+  &[data-placement='top-start'] {
     left: -30px !important;
   }
 
-  &[data-placement="bottom-end"],
-  &[data-placement="top-end"] {
+  &[data-placement='bottom-end'],
+  &[data-placement='top-end'] {
     left: calc(100% + 30px) !important;
   }
 }

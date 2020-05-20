@@ -3,8 +3,7 @@ import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
-
-import Story from '../Gutenberg/Story';
+import * as moment from 'moment';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -25,6 +24,7 @@ import ArticleDate from '~/components/Article/Date';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
+  moment.locale('uk');
 
   const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
 
@@ -99,6 +99,30 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                 />
                 <section className={'single-post__main container'}>
                   <div className="row">
+                    <div className={'title__socials--mobile'}>
+                      <div className={'title__socials-about'}>
+                        {userAvatarStyles &&
+                          userAvatarStyles.backgroundImage.length > 0 && (
+                            <span
+                              className="title__socials-image avatar"
+                              style={userAvatarStyles}
+                            />
+                          )}
+                        <div className={'title__socials-author'}>
+                          <ArticleAuthor
+                            author={post.author}
+                            className={'title__socials-name'}
+                          />
+                          <span className={'title__socials-date'}>
+                            {moment(post.date).format('DD MMMM, HH:MM')}
+                          </span>
+                        </div>
+                      </div>
+                      <Share
+                        type={'main-first'}
+                        className={'title__socials-items'}
+                      />
+                    </div>
                     {hasShare && (
                       <div className={'side-bar__wrapper col-md-1'}>
                         <ActionsSidebar post={storedPost} />
@@ -185,9 +209,9 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                             __html: storedPost.excerpt,
                           }}
                         />
-                        {/* Need to delete - only for testing */}
-                        <Story />
-                        {/* Need to delete - only for testing */}
+                        {/* Need to delete - only for testing*/}
+                        {/*<Story />*/}
+                        {/* Need to delete - only for testing*/}
                         {storedPost.blocks.length ? (
                           <Content
                             content={storedPost.blocks}

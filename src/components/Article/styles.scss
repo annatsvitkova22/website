@@ -1,8 +1,9 @@
 .articles-container {
-  padding-top: 50px;
+  padding-top: 20px;
   padding-bottom: 40px;
 
   @include media-breakpoint-up(sm) {
+    padding-top: 50px;
     padding-bottom: 80px;
   }
 }
@@ -168,6 +169,9 @@
     display: flex;
 
     margin-bottom: 10px;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 8px;
+    }
     .meta-date {
       @include media-breakpoint-down(xs) {
         line-height: 10px;
