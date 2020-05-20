@@ -19,8 +19,7 @@ const Video = (props) => {
   return (
     <div className="single-video">
       <Head>
-        <title>{video.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {video.title}</title>
       </Head>
 
       <main>

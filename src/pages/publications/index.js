@@ -158,9 +158,7 @@ const Publications = (props) => {
   return (
     <div className="publ-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Публікації'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Публікації</title>
       </Head>
       <main>
         <MainPublication {...{ ...info.generalInfoACF.mainPublication }} />
