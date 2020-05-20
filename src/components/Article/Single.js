@@ -5,6 +5,8 @@ import moment from 'moment';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
 
+import Story from '../Gutenberg/Story';
+
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
 import FeaturedImage from '~/components/FeaturedImage';
@@ -185,6 +187,9 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                             __html: storedPost.excerpt,
                           }}
                         />
+                        {/* Need to delete - only for testing*/}
+                        <Story />
+                        {/* Need to delete - only for testing*/}
                         {storedPost.blocks.length ? (
                           <Content
                             content={storedPost.blocks}
