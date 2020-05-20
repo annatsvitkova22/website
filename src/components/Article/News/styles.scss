@@ -25,6 +25,17 @@
           padding-right: 24px;
         }
       }
+      &__chronology--mobile {
+        display: none;
+        @include media-breakpoint-down(sm) {
+          display: block;
+        }
+      }
+      &__title {
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 8px;
+        }
+      }
 
       &__image {
         flex-shrink: 0;
@@ -36,8 +47,9 @@
         }
       }
     }
-    
+
     .meta-author {
+      font-weight: 600;
       color: $grey-200;
     }
 
