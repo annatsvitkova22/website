@@ -13,6 +13,7 @@
       }
     }
   }
+
   &--publications {
     padding-top: 68px !important;
 
@@ -203,12 +204,13 @@
     max-width: 648px;
     width: 100%;
 
-    padding-top: 32px;
-
     border-top: 1px solid #efefef;
+    @include media-breakpoint-up(md) {
+      padding-top: 32px;
+    }
 
     .meta-taxonomy {
-      margin-bottom: 22px;
+      margin-top: 30px;
     }
   }
 
@@ -448,6 +450,7 @@
 
   z-index: 50;
 }
+
 @media screen and (max-width: 768px) {
   .category-tag__list {
     flex-wrap: wrap;
