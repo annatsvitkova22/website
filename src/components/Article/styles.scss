@@ -475,3 +475,8 @@
     object-fit: cover;
   }
 }
+.feature__image--half {
+  max-height: 550px;
+  max-width: 100% !important;
+  width: 100%;
+}

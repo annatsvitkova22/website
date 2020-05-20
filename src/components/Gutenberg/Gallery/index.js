@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import * as _ from 'lodash';
 import ImageGallery from 'react-image-gallery';
 
-
-
 const Gallery = ({ block, className = '' }) => {
   const [pictures, setPictures] = useState([]);
-  console.log(block);
   const array = block.attributes.images;
   const reg = /[\[\]\{\}\\]/gm;
   const regTwo = /\,/gm;
@@ -40,9 +37,7 @@ const Gallery = ({ block, className = '' }) => {
     });
     setPictures(temp);
   }, []);
-  console.log(dateToObject);
 
-  console.log(pictures);
   return (
     <div className={`gutenberg__gallery ${className}`}>
       <ImageGallery items={pictures} />

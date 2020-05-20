@@ -15,8 +15,6 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
 
   moment.locale('uk');
 
-  console.log(userAvatarStyles);
-
   return (
     <div
       className={classnames(
@@ -34,10 +32,13 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
                 <NewsHead post={post} />
                 <div className={'title__socials'}>
                   <div className={'title__socials-about'}>
-                    <span
-                      className="title__socials-image avatar"
-                      style={userAvatarStyles}
-                    />
+                    {userAvatarStyles &&
+                      userAvatarStyles.backgroundImage.length && (
+                        <span
+                          className="title__socials-image avatar"
+                          style={userAvatarStyles}
+                        />
+                      )}
                     <div className={'title__socials-author'}>
                       <ArticleAuthor
                         author={post.author}
@@ -71,10 +72,13 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
             />
             <div className={'title__socials'}>
               <div className={'title__socials-about'}>
-                <span
-                  className="title__socials-image avatar"
-                  style={userAvatarStyles}
-                />
+                {userAvatarStyles &&
+                  userAvatarStyles.backgroundImage.length > 0 && (
+                    <span
+                      className="title__socials-image avatar"
+                      style={userAvatarStyles}
+                    />
+                  )}
                 <div className={'title__socials-author'}>
                   <ArticleAuthor
                     author={post.author}
@@ -88,7 +92,7 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
               <Share type={'main-first'} className={'title__socials-items'} />
             </div>
           </div>
-          <FeaturedImage size={'full'} data={post.featuredImage} />
+          <FeaturedImage size={'half'} data={post.featuredImage} />
         </div>
       )}
     </div>

@@ -60,10 +60,12 @@
     "react-polls": "^1.2.0",
     "react-select": "^3.1.0",
     "react-share": "^4.1.0",
+    "react-slick": "^0.26.1",
     "react-sticky-box": "^0.9.3",
     "react-tiny-popover": "^4.0.0",
     "react-twitter-embed": "^3.0.3",
     "react-waypoint": "^9.0.2",
+    "slick-carousel": "^1.8.1",
     "string-similarity": "^4.0.1",
     "stylelint-webpack-plugin": "^1.2.3"
   },

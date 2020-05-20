@@ -7,7 +7,9 @@
     @include make-container();
 
     &--full-hd {
-      max-width: 1896px !important;
+      @media screen and (min-width: 1450px) {
+        max-width: 1896px !important;
+      }
     }
   }
 }
@@ -39,7 +41,7 @@
     margin-left: 0;
 
     > .col,
-    > [class*="col-"] {
+    > [class*='col-'] {
       padding-right: 0;
       padding-left: 0;
     }

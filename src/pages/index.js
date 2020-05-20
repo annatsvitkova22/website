@@ -377,7 +377,6 @@ const Home = (props) => {
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
-
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings, loading }}>
           {typeof crowdfundings === 'undefined' && (

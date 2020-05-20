@@ -6,7 +6,7 @@ const FreeForm = ({ block, className = '' }) => {
   return (
     <div
       dangerouslySetInnerHTML={{ __html: data }}
-      className={`gutenberg__freeform ${className}`}
+      className={`${className}`}
     />
   );
 };

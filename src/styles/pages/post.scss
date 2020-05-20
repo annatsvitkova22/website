@@ -1,6 +1,10 @@
 .single-post {
   padding-top: 118px !important;
 
+  .svg-icon:hover {
+    color: #1d9e74;
+  }
+
   &--news {
     .feature__image {
       img {
@@ -134,7 +138,7 @@
 
       position: absolute;
       bottom: 30px;
-      right: 20px;
+      right: 40px;
 
       border: none;
       background: transparent;
@@ -430,10 +434,6 @@
       }
     }
   }
-}
-
-.svg-icon:hover {
-  color: #1d9e74;
 }
 
 .side-bar__wrapper {
