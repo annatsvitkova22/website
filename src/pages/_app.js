@@ -34,6 +34,53 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
     <ApolloProvider client={apolloClient}>
       <Head>
         <title>ЗМІСТ</title>
+
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="keywords"
+          content="полтава, новини, блоги, публікації, події"
+        />
+        <meta name="description" content="Зміни створюєш ти!" />
+        <meta property="og:locale" content="uk-UA" />
+        <meta property="og:site_name" content="ЗМІСТ" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${config.frontUrl}`} />
+        <meta property="og:title" content="ЗМІСТ" />
+        <meta property="og:description" content="Зміни ствоюєш ти!" />
+        <meta property="og:image" content="/zmist.jpg" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`${config.frontUrl}`} />
+        <meta property="twitter:title" content="ЗМІСТ" />
+        <meta property="twitter:description" content="Зміни ствоюєш ти!" />
+        <meta property="twitter:image" content="/zmist.jpg" />
+        <meta property="twitter:site" content="@zmist" />
+        <meta property="twitter:creator" content="@outright_digital" />
       </Head>
       <Header />
       <Component {...pageProps} />
