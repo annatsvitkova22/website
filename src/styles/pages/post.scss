@@ -22,6 +22,10 @@
     .single-post__main {
       > .row {
         width: 100%;
+        @include media-breakpoint-down(sm) {
+          margin-left: 0;
+          margin-right: 0;
+        }
       }
     }
 
@@ -35,6 +39,25 @@
 
       @include media-breakpoint-up(lg) {
         margin-left: 16.66667%;
+      }
+    }
+    .title__socials--mobile {
+      display: none;
+      @include media-breakpoint-down(sm) {
+        display: flex;
+
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+        padding-top: 26px;
+      }
+      .share-actions__main {
+        display: block;
+      }
+      .social-icon.telegram {
+        @include media-breakpoint-down(sm) {
+          display: none;
+        }
       }
     }
   }
