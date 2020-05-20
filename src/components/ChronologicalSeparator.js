@@ -23,16 +23,16 @@ const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
   }
   const { date } = posts[currentIndex];
   return (
-    <h4 className={classnames('date-separator', className)}>
+    <h3 className={classnames('date-separator', className)}>
       <time className="date-separator__time" dateTime={date}>
         {text}
       </time>
-    </h4>
+    </h3>
   );
 };
 
 ChronologicalSeparator.propTypes = {
-  posts: PropTypes.object,
+  posts: PropTypes.any,
   currentIndex: PropTypes.any,
   className: PropTypes.string,
 };
