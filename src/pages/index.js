@@ -392,7 +392,7 @@ const Home = (props) => {
         {videos && videos.nodes && videos.nodes.length && (
           <>
             <SectionHeading title="Відео" href="/videos" classMode="videos" />
-            <VideosScene {...{ videos, loading }}>
+            <VideosScene {...{ videos, isLoading }}>
               {typeof videos === 'undefined' && (
                 <Waypoint onEnter={loadData(VIDEOS)} />
               )}
@@ -409,7 +409,7 @@ const Home = (props) => {
                 href="/opportunities"
                 classMode="opport"
               />
-              <OpportunitiesScene {...{ opportunities, loading }}>
+              <OpportunitiesScene {...{ opportunities, isLoading }}>
                 {typeof opportunities === 'undefined' && (
                   <Waypoint onEnter={loadData(OPPORTUNITIES)} />
                 )}
