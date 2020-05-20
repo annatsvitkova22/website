@@ -19,7 +19,7 @@ class ZmistDocument extends Document {
     const CriticalCssHead = CustomHead(Head, styleSheetContent);
 
     return (
-      <Html>
+      <Html lang="uk-UA">
         <CriticalCssHead />
 
         <body>

@@ -35,6 +35,7 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
       <Head>
         <title>ЗМІСТ</title>
 
+        <link rel="canonical" href={`${config.frontUrl}`} />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -61,10 +62,9 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
-          name="keywords"
-          content="полтава, новини, блоги, публікації, події"
+          name="description"
+          content="Зміни створюєш ти! Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
         />
-        <meta name="description" content="Зміни створюєш ти!" />
         <meta property="og:locale" content="uk-UA" />
         <meta property="og:site_name" content="ЗМІСТ" />
 
