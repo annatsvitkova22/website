@@ -158,9 +158,7 @@ const Publications = (props) => {
   return (
     <div className="publ-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Публікації'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Публікації</title>
       </Head>
       <main>
         <MainPublication {...{ ...info.generalInfoACF.mainPublication }} />
@@ -182,90 +180,81 @@ const Publications = (props) => {
         </div>
         <div className="container">
           <div className="row">
-            {sortedCategories
-              .slice(0, 4)
-              .map(
-                (
-                  {
-                    publications: { nodes },
-                    name,
-                    slug,
-                    zmCategoryACF: { order, size },
-                  },
-                  i
-                ) => {
-                  let colSize = '';
-                  switch (size) {
-                    case 'medium':
-                      colSize = 'col-xl-3';
-                      break;
-                    case 'big':
-                      colSize = 'col-xl-4';
-                      break;
-                    case 'small':
-                      colSize = 'col-xl-2';
-                      break;
+            {sortedCategories.slice(0, 4).map((cats, i) => {
+              const {
+                name,
+                slug,
+                zmCategoryACF: { size },
+              } = cats;
+              const nds = cats.publications.nodes;
+              let colSize = '';
+              switch (size) {
+                case 'medium':
+                  colSize = 'col-xl-3';
+                  break;
+                case 'big':
+                  colSize = 'col-xl-4';
+                  break;
+                case 'small':
+                  colSize = 'col-xl-2';
+                  break;
 
-                    default:
-                      break;
-                  }
+                default:
+                  break;
+              }
 
-                  return (
-                    <div
-                      key={i}
-                      className={`publ-cat__col--${size} ${colSize}`}
-                    >
-                      <h6 className="publ-page__title text-uppercase">
-                        <Link href={`/search?category=${slug}`}>
-                          <a>{name}</a>
-                        </Link>
-                      </h6>
-                      <div className="publ-cats__container">
-                        {size === 'big' && nodes.length && (
-                          <>
-                            <div className="row main-cat__row main-cat__row--primary">
-                              {nodes.slice(0, 1).map((post, k) => (
-                                <Article
-                                  isFirst={true}
-                                  size={size}
-                                  type="publications-cats"
-                                  post={post}
-                                  key={k}
-                                />
-                              ))}
-                            </div>
-                            <div className="row main-cat__row main-cat__row--sub">
-                              {nodes.slice(1, nodes.length).map((post, k) => (
-                                <Article
-                                  isFirst={false}
-                                  index={k}
-                                  size={size}
-                                  type="publications-cats"
-                                  post={post}
-                                  key={k}
-                                />
-                              ))}
-                            </div>
-                          </>
-                        )}
-                        {!(size === 'big') && nodes.length !== 1 && (
-                          <div className="row">
-                            {nodes.map((post, k) => (
-                              <Article
-                                index={k}
-                                size={size}
-                                type="publications-cats"
-                                post={post}
-                                key={k}
-                              />
-                            ))}
-                          </div>
-                        )}
+              return (
+                <div key={i} className={`publ-cat__col--${size} ${colSize}`}>
+                  <h6 className="publ-page__title text-uppercase">
+                    <Link href={`/search?category=${slug}`}>
+                      <a>{name}</a>
+                    </Link>
+                  </h6>
+                  <div className="publ-cats__container">
+                    {size === 'big' && nds.length && (
+                      <>
+                        <div className="row main-cat__row main-cat__row--primary">
+                          {nds.slice(0, 1).map((post, k) => (
+                            <Article
+                              isFirst={true}
+                              size={size}
+                              type="publications-cats"
+                              post={post}
+                              key={k}
+                            />
+                          ))}
+                        </div>
+                        <div className="row main-cat__row main-cat__row--sub">
+                          {nds.slice(1, nds.length).map((post, k) => (
+                            <Article
+                              isFirst={false}
+                              index={k}
+                              size={size}
+                              type="publications-cats"
+                              post={post}
+                              key={k}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                    {!(size === 'big') && nds.length !== 1 && (
+                      <div className="row">
+                        {nds.map((post, k) => (
+                          <Article
+                            index={k}
+                            size={size}
+                            type="publications-cats"
+                            post={post}
+                            key={k}
+                          />
+                        ))}
                       </div>
-                    </div>
-                  );
-                }
-              )}
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         {nodes && (

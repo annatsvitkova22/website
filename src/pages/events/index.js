@@ -87,9 +87,7 @@ const EventsArchive = (props) => {
   return (
     <div className="events-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Афіша'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Афіша</title>
       </Head>
 
       <main>
@@ -97,20 +95,20 @@ const EventsArchive = (props) => {
           <div className="row">
             {nodes.map((post, i) =>
               i === 3 ? (
-                <>
+                <React.Fragment key={i}>
                   <div className="col-lg-3 col-sm-6 col-12">
                     <Form id={1} className="zm-form--event" />
                   </div>
                   <div className="col-lg-3 col-sm-6 col-12">
-                    <Article type="events" post={post} key={post.id}>
+                    <Article type="events" post={post}>
                       {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                         <Waypoint onEnter={fetchingContent} />
                       )}
                     </Article>
                   </div>
-                </>
+                </React.Fragment>
               ) : (
-                <div className="col-lg-3 col-sm-6 col-12">
+                <div className="col-lg-3 col-sm-6 col-12" key={i}>
                   <Article type="events" post={post} key={post.id}>
                     {i === nodes.length - 1 && i < pageInfo.total - 1 && (
                       <Waypoint onEnter={fetchingContent} />

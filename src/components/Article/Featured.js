@@ -5,13 +5,17 @@ import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
 
-const ArticleFeatured = ({ image, alt = '', slug, className, modif }) => {
+const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
   const postType = useContext(ArticleContext);
   let imageUrl = image;
   if ((postType === 'opportunities' || postType === 'others') && image) {
     imageUrl = image.sourceUrl;
   } else if (image) {
     imageUrl = image.mediaItemUrl;
+  }
+
+  if (size) {
+    imageUrl = image[size];
   }
 
   if (postType === 'pages') {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
-import moment from 'moment';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
 
@@ -81,8 +80,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   return (
     <>
       <Head>
-        <title>{storedPost.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {storedPost.title}</title>
       </Head>
 
       <main

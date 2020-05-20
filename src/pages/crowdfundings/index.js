@@ -105,8 +105,7 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
   return (
     <div className="crowdfundings-page">
       <Head>
-        <title>ЗМІСТ | Збір Коштів</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Збір Коштів</title>
       </Head>
 
       <div className="container">

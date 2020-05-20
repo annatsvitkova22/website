@@ -41,6 +41,8 @@
   &__image {
     height: 100%;
 
+    font-size: 0;
+
     filter: brightness(0.5);
   }
   span {
@@ -94,6 +96,26 @@
     font-weight: 600;
   }
 
+  &__data {
+    display: flex;
+    .meta-date {
+      padding-right: 16px;
+      margin-top: 0;
+
+      font-family: $font-family-titles;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 15px;
+      letter-spacing: 0.06em;
+      color: #8a9994;
+    }
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateX(10px);
+    }
+  }
+
   &__item + &__item {
     margin-top: 8px;
     padding-top: 8px;
@@ -106,23 +128,6 @@
     text-transform: capitalize;
 
     transform: translateX(0);
-
-    transition: transform 0.3s ease-in-out;
-    .meta-date {
-      padding-right: 16px;
-      margin-top: 0;
-
-      font-family: $font-family-titles;
-      font-weight: 500;
-      font-size: 10px;
-      line-height: 15px;
-      letter-spacing: 0.06em;
-      color: #8a9994;
-    }
-
-    &:hover {
-      transform: translateX(10px);
-    }
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import App from 'next/app';
+import Head from 'next/head';
 import { ApolloProvider } from 'react-apollo';
 import getConfig from 'next/config';
 import axios from 'axios';
@@ -8,8 +9,8 @@ import axios from 'axios';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
 import apolloClient from '~/lib/ApolloClient';
-import '../styles/app.scss';
 import { AuthStore, updateToken } from '~/stores/Auth';
+import '../styles/app.scss';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -31,6 +32,56 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
 
   return (
     <ApolloProvider client={apolloClient}>
+      <Head>
+        <title>ЗМІСТ</title>
+
+        <link rel="canonical" href={`${config.frontUrl}`} />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="description"
+          content="Зміни створюєш ти! Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+        />
+        <meta property="og:locale" content="uk-UA" />
+        <meta property="og:site_name" content="ЗМІСТ" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${config.frontUrl}`} />
+        <meta property="og:title" content="ЗМІСТ" />
+        <meta property="og:description" content="Зміни ствоюєш ти!" />
+        <meta property="og:image" content="/zmist.jpg" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`${config.frontUrl}`} />
+        <meta property="twitter:title" content="ЗМІСТ" />
+        <meta property="twitter:description" content="Зміни ствоюєш ти!" />
+        <meta property="twitter:image" content="/zmist.jpg" />
+        <meta property="twitter:site" content="@zmist" />
+        <meta property="twitter:creator" content="@outright_digital" />
+      </Head>
       <Header />
       <Component {...pageProps} />
       <Footer />

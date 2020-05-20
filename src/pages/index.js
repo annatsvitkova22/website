@@ -102,6 +102,8 @@ const HOME_PAGE = gql`
         slug
         featuredImage {
           mediaItemUrl
+          thumbnail: sourceUrl(size: THUMBNAIL)
+          medium: sourceUrl(size: MEDIUM)
         }
         categories {
           nodes {
@@ -122,10 +124,6 @@ const HOME_PAGE = gql`
           size
           style
         }
-      }
-      pageInfo {
-        endCursor
-        total
       }
     }
   }
@@ -151,6 +149,7 @@ const CROWDFUNDINGS = gql`
         }
         featuredImage {
           mediaItemUrl
+          mediumLarge: sourceUrl(size: MEDIUM_LARGE)
         }
         cfACF {
           tocollect
@@ -369,8 +368,7 @@ const Home = (props) => {
   return (
     <div className="home-page">
       <Head>
-        <title>Зміст</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Головна</title>
       </Head>
 
       <main>

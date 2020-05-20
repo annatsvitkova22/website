@@ -176,8 +176,8 @@ const BlogsArchive = ({ users }) => {
 
   useEffect(() => {
     const loadBlogs = async () => {
-      const users = await loadBloggersGQL();
-      setMainState({ users });
+      const usrs = await loadBloggersGQL();
+      setMainState({ users: usrs });
     };
 
     if (!mainState.users) {
@@ -219,9 +219,7 @@ const BlogsArchive = ({ users }) => {
   return (
     <div className="container">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Change this!'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Блоги</title>
       </Head>
       <div className="blogs-page">
         <div className="row">

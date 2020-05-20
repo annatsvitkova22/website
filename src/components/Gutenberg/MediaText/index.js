@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import Content from '~/components/Content';
 
 const MediaText = ({ block, className }) => {
-
   const imgCls = classNames({
     'mtext-img': true,
     'mtext-img--right': block.attributes.mediaPosition === 'right',

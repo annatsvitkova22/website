@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
-import { useStateLink } from '@hookstate/core';
-import * as axios from 'axios';
 
 import Icons from '~/components/Icons';
 import Share from '~/components/Share';
-import { AuthStore } from '~/stores/Auth';
-import { updateShares } from '~/stores/SingleArticle';
 
 const { publicRuntimeConfig } = getConfig();
 

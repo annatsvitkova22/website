@@ -249,9 +249,7 @@ const VideosArchive = (props) => {
   return (
     <div className="videos-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Відео'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Відео</title>
       </Head>
 
       <main className="videos-main">

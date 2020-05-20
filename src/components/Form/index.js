@@ -15,8 +15,6 @@ const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const Form = ({ id, className, gutenbergType }) => {
-  if (!id) return null;
-
   const { apiUrl } = config;
 
   const authStateLink = useStateLink(AuthStore);
@@ -30,24 +28,6 @@ const Form = ({ id, className, gutenbergType }) => {
   const [valid, setValid] = useState(false);
   const [cleared, setCleared] = useState(false);
   const [values, setValues] = useState({});
-  const { form, isSending, sent } = state;
-
-  const loadForm = async () => {
-    const conf = {
-      headers: {
-        Authorization: `Bearer ${authStore.token}`,
-      },
-    };
-    const formResponse = await axios.get(
-      `${apiUrl}/wp-json/gf/v2/forms/${id}`,
-      conf
-    );
-
-    setState({
-      ...state,
-      form: formResponse.data,
-    });
-  };
 
   useEffect(() => {
     if (authStore.token && !form) {
@@ -66,6 +46,27 @@ const Form = ({ id, className, gutenbergType }) => {
     const rf = form.fields.filter(({ isRequired }) => isRequired);
     setValid(rf.length ? vld : true);
   }, [values]);
+
+  if (!id) return null;
+
+  const { form, isSending, sent } = state;
+
+  const loadForm = async () => {
+    const conf = {
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    };
+    const formResponse = await axios.get(
+      `${apiUrl}/wp-json/gf/v2/forms/${id}`,
+      conf
+    );
+
+    setState({
+      ...state,
+      form: formResponse.data,
+    });
+  };
 
   if (!form) {
     return <FormLoader />;
@@ -134,24 +135,24 @@ const Form = ({ id, className, gutenbergType }) => {
   return (
     <form onSubmit={handleSubmit} className={classnames('zm-form', className)}>
       <h2 className="zm-form__title">{title}</h2>
-      {fields.map(
-        ({ id, type, placeholder, cssClass, adminLabel, isRequired }) => {
-          return (
-            <FormField
-              cleared={cleared}
-              type={type}
-              value={values[adminLabel]}
-              key={id}
-              id={adminLabel}
-              placeholder={placeholder}
-              required={isRequired}
-              cssClass={cssClass}
-              invalid={!values[adminLabel] && isRequired}
-              onChange={handleChange}
-            />
-          );
-        }
-      )}
+      {fields.map((fld) => {
+        const { type, placeholder, cssClass, adminLabel, isRequired } = fld;
+        const fId = fld.id;
+        return (
+          <FormField
+            cleared={cleared}
+            type={type}
+            value={values[adminLabel]}
+            key={fId}
+            id={adminLabel}
+            placeholder={placeholder}
+            required={isRequired}
+            cssClass={cssClass}
+            invalid={!values[adminLabel] && isRequired}
+            onChange={handleChange}
+          />
+        );
+      })}
       <FormSubmit
         text={button.text}
         handleSubmit={handleSubmit}

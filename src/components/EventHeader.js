@@ -13,8 +13,6 @@ const EventHeader = ({ event, withTime, withList }) => {
   const date = event.zmAfishaACF.eventDate ? event.zmAfishaACF.eventDate : null;
   const title = he.decode(event.title);
 
-  console.log(event);
-
   return (
     <div className="event__hero-title-wrapper">
       <div className="event__hero-content">

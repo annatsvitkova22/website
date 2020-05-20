@@ -153,9 +153,7 @@ const Crowdfunding = (props) => {
   return (
     <div className="crowdfunding-single__container container">
       <Head>
-        {/* TODO: change it */}
-        <title>ЗМІСТ | {storedPost.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {storedPost.title}</title>
       </Head>
 
       <div className="crowdfunding-single">

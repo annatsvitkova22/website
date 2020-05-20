@@ -7,7 +7,6 @@ import * as classnames from 'classnames';
 import { Waypoint } from 'react-waypoint';
 import { Router } from 'next/router';
 import stringSimilarity from 'string-similarity';
-import * as _ from 'lodash';
 
 import Select from '~/components/Select';
 import apolloClient from '~/lib/ApolloClient';
@@ -32,7 +31,6 @@ import composeTaxQuery from '~/util/taxQuery';
 import { ArticleProvider } from '~/components/Article/Context';
 import ArticleSearch from '~/components/Article/Search';
 import SearchbarLoader from '~/components/Loaders/SearchbarLoader';
-import Icons from '~/components/Icons';
 
 const sharedNodes = `id
           title
@@ -460,9 +458,7 @@ const Search = ({ posts, categories, types, query, users }) => {
   return (
     <div className="search-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Change this!'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Пошук</title>
       </Head>
 
       <div className="search-main">

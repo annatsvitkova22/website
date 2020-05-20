@@ -34,7 +34,6 @@ import Twitter from '~/components/Gutenberg/Twitter';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
-
   return (
     <>
       {content && typeof content !== 'string' ? (

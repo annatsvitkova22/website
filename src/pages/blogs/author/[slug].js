@@ -150,8 +150,7 @@ const BlogsArchive = ({ users, query }) => {
   return (
     <div className="container">
       <Head>
-        {/* TODO: change it */}
-        <title>{`ЗМІСТ | Блоги - `}</title>
+        <title>{`ЗМІСТ - Блоги - ${state.data.users.nodes[0].name}`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="blogger-page">

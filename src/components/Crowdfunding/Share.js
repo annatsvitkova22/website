@@ -62,7 +62,7 @@ const CrowdfundingShare = ({ post, onClose = () => {}, color = 'black' }) => {
       {
         fields: {
           shared: currentShares.data.shared
-            ? parseInt(currentShares.data.shared) + 1
+            ? parseInt(currentShares.data.shared, 10) + 1
             : 1,
         },
       },

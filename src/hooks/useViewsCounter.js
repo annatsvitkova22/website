@@ -40,7 +40,7 @@ const useViewsCounter = (post) => {
           {
             fields: {
               views: currentViews.data.views
-                ? parseInt(currentViews.data.views) + 1
+                ? parseInt(currentViews.data.views, 10) + 1
                 : 1,
             },
           },

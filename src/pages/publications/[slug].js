@@ -58,7 +58,7 @@ const Publication = (props) => {
   });
   const [loaded, setLoaded] = useState(false);
 
-  const { post, isLoading } = state;
+  const { post } = state;
 
   const loadData = async () => {
     setState({

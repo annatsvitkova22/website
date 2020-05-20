@@ -79,7 +79,7 @@ EventsScene.propTypes = {
   events: PropTypes.any,
   form: PropTypes.any,
   children: PropTypes.any,
-  loading: PropTypes.bool,
+  loading: PropTypes.any,
 };
 
 export default EventsScene;
