@@ -4,7 +4,6 @@ import _ from 'lodash';
 import he from 'he';
 import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
-import PropTypes from 'prop-types';
 
 import ArticleContext from '~/components/Article/Context';
 
