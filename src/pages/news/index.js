@@ -25,6 +25,7 @@ import {
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import dateToGraphQLQuery from '~/util/date';
 import Filter from '~/static/images/filter';
+import ChevronDown from '~/static/images/chevron-down';
 import Icons from '~/components/Icons';
 import Calendar from '~/components/Calendar';
 import Sorting from '~/components/Sorting';
@@ -274,18 +275,20 @@ const News = ({ posts, categories, query }) => {
                 <Icons icon={'calendar'} />
               </button>
               <div className="news-archive__filter">
-                <select onChange={(event) => setCategory(event.target.value)}>
-                  <option disabled hidden selected>
-                    Категорії
-                  </option>
-                  {filters.categories.map((item) => {
-                    return <option value={item.value}>{item.label}</option>;
-                  })}
-                </select>
-                <Icons
-                  className={'footer__sitemap-chevron'}
-                  icon={'footer-chevron'}
-                />
+                <div className="pos-relative">
+                  <select
+                    className="news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
+                    onChange={(event) => setCategory(event.target.value)}
+                  >
+                    <option disabled hidden selected>
+                      Категорія
+                    </option>
+                    {filters.categories.map((item) => {
+                      return <option value={item.value}>{item.label}</option>;
+                    })}
+                  </select>
+                  <ChevronDown className="pos-absolute pos-center-right" />
+                </div>
               </div>
               {isSortingOpen && (
                 <Sorting
