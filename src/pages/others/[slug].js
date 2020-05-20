@@ -124,8 +124,7 @@ const Other = (props) => {
   return (
     <div className="single__event">
       <Head>
-        <title>{other.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {other.title}</title>
       </Head>
 
       <main className="event">
@@ -134,9 +133,7 @@ const Other = (props) => {
             className="event__hero"
             style={{
               backgroundImage: `url(${
-                other.featuredImage
-                  ? other.featuredImage.mediaItemUrl
-                  : ''
+                other.featuredImage ? other.featuredImage.mediaItemUrl : ''
               })`,
             }}
           >
@@ -177,10 +174,7 @@ const Other = (props) => {
               <div
                 className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
               >
-                <EventsLikeSidebar
-                  data={other.zmAfishaACF}
-                  withList={true}
-                />
+                <EventsLikeSidebar data={other.zmAfishaACF} withList={true} />
               </div>
             </StickyBox>
           </section>

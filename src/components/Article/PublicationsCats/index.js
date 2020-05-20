@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ArticleAuthor from '~/components/Article/Author';
 import ArticleFeatured from '~/components/Article/Featured';
@@ -47,4 +48,10 @@ const PublicationsCats = ({
   );
 };
 
+PublicationsCats.propTypes = {
+  size: PropTypes.any,
+  isFirst: PropTypes.bool,
+  post: PropTypes.object,
+  highlightInTitle: PropTypes.any,
+};
 export default PublicationsCats;

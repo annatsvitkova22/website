@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import ArticleTitle from '~/components/Article/Title';
 import ArticleList from '~/components/Article/List';
@@ -26,6 +27,12 @@ const ArticleOpportunities = ({ post, children, className }) => {
       {children}
     </article>
   );
+};
+
+ArticleOpportunities.propTypes = {
+  post: PropTypes.object,
+  children: PropTypes.any,
+  className: PropTypes.any,
 };
 
 export default ArticleOpportunities;

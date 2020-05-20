@@ -458,9 +458,7 @@ const Search = ({ posts, categories, types, query, users }) => {
   return (
     <div className="search-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Change this!'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Пошук</title>
       </Head>
 
       <div className="search-main">
@@ -470,7 +468,9 @@ const Search = ({ posts, categories, types, query, users }) => {
               <div className="col-12">
                 <div className="search-form__field-wrapper pos-relative">
                   <input
-                    onChange={({ target: { value } }) => setSearchString(value)}
+                    onChange={({ target: { value } }) => {
+                      setSearchString(value);
+                    }}
                     className="search-form__field tx-family-titles font-weight-semibold w-100"
                     onKeyPress={({ key }) => {
                       if (key === 'Enter') handleSearchString();
@@ -483,9 +483,11 @@ const Search = ({ posts, categories, types, query, users }) => {
                   <button
                     type="submit"
                     className="search-form__button pos-absolute pos-center-right"
-                    onClick={handleSearchString}
+                    onClick={() => {
+                      handleSearchString();
+                    }}
                   >
-                    <SearchIcon />
+                    <SearchIcon className={'search-form__button-icon'} />
                   </button>
                 </div>
                 <div className="search-form d-flex justify-content-between flex-wrap flex-md-nowrap">

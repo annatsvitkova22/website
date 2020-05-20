@@ -1,5 +1,5 @@
 echo "Deploy script started"
-cd /home/zmist/application/website
+cd /home/staging/applications/zmist
 sh pull.sh
 echo "Deploy script finished execution"
 exit

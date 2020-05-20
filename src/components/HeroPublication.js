@@ -13,23 +13,27 @@ const HeroPublication = ({
 }) => (
   <div className="hero__container pos-relative">
     <Link href={`/publications/[slug]`} as={`/publications/${slug}`}>
-      <a
-        href={`/publications/${slug}`}
-        className="hero__image bg-cover d-block"
-        style={{
-          backgroundImage: `url(${mediaItemUrl})`,
-        }}
-      >
+      <>
+        <a
+          href={`/publications/${slug}`}
+          className="hero__image bg-cover d-block"
+          style={{
+            backgroundImage: `url(${mediaItemUrl})`,
+            fontSize: 0
+          }}
+        >
+          {title}
+        </a>
         <span />
-      </a>
+      </>
     </Link>
     <div className="hero__caption tx-white">
       <Taxonomies categories={categories} className={`article__category`} />
-      <h1 className="hero__title heading__big">
+      <h2 className="hero__title heading__big">
         <Link href={`/publications/[slug]`} as={`/publications/${slug}`}>
           <a href={`/publications/${slug}`}>{title}</a>
         </Link>
-      </h1>
+      </h2>
       <div className="article__meta">
         <Author className="article__author" author={author} />
       </div>

@@ -11,7 +11,7 @@ const SectionHeading = ({ title, href, classMode, isRow = false }) => {
     `}
     >
       <div className="col-6">
-        <h6 className="text-uppercase tx-family-alt">{title}</h6>
+        <h4 className="text-uppercase tx-family-alt">{title}</h4>
       </div>
       <div className="col-6 text-right tx-green">
         {href && (

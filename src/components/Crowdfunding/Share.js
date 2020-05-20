@@ -20,7 +20,6 @@ const { frontUrl, apiUrl } = publicRuntimeConfig.find(
 const CrowdfundingShare = ({ post, onClose = () => {}, color = 'black' }) => {
   const authStateLink = useStateLink(AuthStore);
 
-
   let type = `${post.__typename.toLowerCase()}`;
   const id = post[`${type}Id`];
   type = `${type}s`;
@@ -63,7 +62,7 @@ const CrowdfundingShare = ({ post, onClose = () => {}, color = 'black' }) => {
       {
         fields: {
           shared: currentShares.data.shared
-            ? parseInt(currentShares.data.shared) + 1
+            ? parseInt(currentShares.data.shared, 10) + 1
             : 1,
         },
       },

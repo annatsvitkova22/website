@@ -49,7 +49,7 @@ module.exports = withBundleAnalyzer(
             customConfig.plugins.push(
               new StyleLintPlugin({
                 configFile: './.stylelintrc',
-                files: ['**/*.css', '**/*.scss'],
+                files: ['**/*.scss'],
                 emitErrors: false,
               })
             );

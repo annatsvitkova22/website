@@ -8,7 +8,7 @@ const MainPublications = ({ publications: { nodes: publications } }) => {
   const handleWheel = useCallback(
     throttle(
       ({ deltaY }) => {
-        setScroll((prevScroll) => prevScroll + deltaY);
+        setScroll((sc) => sc + deltaY);
       },
       100,
       { leading: false }

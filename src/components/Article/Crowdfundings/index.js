@@ -11,7 +11,7 @@ import ArticleDate from '~/components/Article/Date';
 import getCFStatus from '~/lib/getCFStatus';
 import CrowdfundingProgress from '~/components/Crowdfunding/Progress';
 
-const ArticleCrowdfundings = ({ post, children, className }) => {
+const ArticleCrowdfundings = ({ imageSize, post, children, className }) => {
   const { featuredImage, title, slug, excerpt, author, date } = post;
   const status = getCFStatus(post);
   return (
@@ -20,6 +20,7 @@ const ArticleCrowdfundings = ({ post, children, className }) => {
       <ArticleFeatured
         className="article__image"
         image={featuredImage}
+        size={imageSize}
         alt={title}
         slug={slug}
       />

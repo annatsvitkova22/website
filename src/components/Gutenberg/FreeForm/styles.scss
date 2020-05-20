@@ -1,0 +1,20 @@
+.gutenberg__freeform {
+  ul {
+    list-style: disc;
+  }
+  img {
+    display: flex;
+  }
+  .alignright {
+    margin-left: auto;
+  }
+  .aligncenter {
+    margin: 0 auto;
+  }
+  &-old > * {
+    & > * {
+      text-align: left !important;
+    }
+    text-align: left !important;
+  }
+}

@@ -12,9 +12,9 @@ const SidebarLoader = ({ type, className }) => {
         {times(20, (i) => {
           return (
             <>
-              <rect x={'0'} y={step*i+8} width={'288'} height={`12`} />
-              <rect x={'0'} y={step*i+24} width={'200'} height={`12`} />
-              <rect x={'0'} y={step*i+45} width={'288'} height={`1`} />
+              <rect x={'0'} y={step * i + 8} width={'288'} height={`12`} />
+              <rect x={'0'} y={step * i + 24} width={'200'} height={`12`} />
+              <rect x={'0'} y={step * i + 45} width={'288'} height={`1`} />
             </>
           );
         })}

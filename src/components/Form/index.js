@@ -5,6 +5,7 @@ import axios from 'axios';
 import getConfig from 'next/config';
 import * as _ from 'lodash';
 
+import Polls from '~/components/Polls';
 import { AuthStore } from '~/stores/Auth';
 import FormField from '~/components/Form/Field';
 import FormLoader from '~/components/Loaders/FormLoader';
@@ -13,7 +14,7 @@ import FormSubmit from '~/components/Form/Submit';
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const Form = ({ id, className }) => {
+const Form = ({ id, className, gutenbergType }) => {
   const { apiUrl } = config;
 
   const authStateLink = useStateLink(AuthStore);
@@ -27,26 +28,6 @@ const Form = ({ id, className }) => {
   const [valid, setValid] = useState(false);
   const [cleared, setCleared] = useState(false);
   const [values, setValues] = useState({});
-  const { form, isSending, sent } = state;
-
-  if (!id) return null;
-
-  const loadForm = async () => {
-    const conf = {
-      headers: {
-        Authorization: `Bearer ${authStore.token}`,
-      },
-    };
-    const formResponse = await axios.get(
-      `${apiUrl}/wp-json/gf/v2/forms/${id}`,
-      conf
-    );
-
-    setState({
-      ...state,
-      form: formResponse.data,
-    });
-  };
 
   useEffect(() => {
     if (authStore.token && !form) {
@@ -65,6 +46,27 @@ const Form = ({ id, className }) => {
     const rf = form.fields.filter(({ isRequired }) => isRequired);
     setValid(rf.length ? vld : true);
   }, [values]);
+
+  if (!id) return null;
+
+  const { form, isSending, sent } = state;
+
+  const loadForm = async () => {
+    const conf = {
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+    };
+    const formResponse = await axios.get(
+      `${apiUrl}/wp-json/gf/v2/forms/${id}`,
+      conf
+    );
+
+    setState({
+      ...state,
+      form: formResponse.data,
+    });
+  };
 
   if (!form) {
     return <FormLoader />;
@@ -122,27 +124,35 @@ const Form = ({ id, className }) => {
     });
   };
 
+  if (gutenbergType === 'GravityformsPollsBlock') {
+    return (
+      <div className="content__posts gutenberg__poll">
+        <Polls data={form.fields} formId={form.id} />
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className={classnames('zm-form', className)}>
       <h2 className="zm-form__title">{title}</h2>
-      {fields.map(
-        ({ id, type, placeholder, cssClass, adminLabel, isRequired }) => {
-          return (
-            <FormField
-              cleared={cleared}
-              type={type}
-              value={values[adminLabel]}
-              key={id}
-              id={adminLabel}
-              placeholder={placeholder}
-              required={isRequired}
-              cssClass={cssClass}
-              invalid={!values[adminLabel] && isRequired}
-              onChange={handleChange}
-            />
-          );
-        }
-      )}
+      {fields.map((fld) => {
+        const { type, placeholder, cssClass, adminLabel, isRequired } = fld;
+        const fId = fld.id;
+        return (
+          <FormField
+            cleared={cleared}
+            type={type}
+            value={values[adminLabel]}
+            key={fId}
+            id={adminLabel}
+            placeholder={placeholder}
+            required={isRequired}
+            cssClass={cssClass}
+            invalid={!values[adminLabel] && isRequired}
+            onChange={handleChange}
+          />
+        );
+      })}
       <FormSubmit
         text={button.text}
         handleSubmit={handleSubmit}

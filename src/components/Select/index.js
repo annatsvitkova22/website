@@ -60,7 +60,7 @@ const SiteSelect = (props) => {
         {...props}
         value={v}
         classNamePrefix="react-select"
-        // defaultMenuIsOpen={props.instanceId === 0}
+        // defaultMenuIsOpen={props.instanceId === 2}
         isClearable={isClearable}
         isSearchable={false}
         styles={colorStyles}

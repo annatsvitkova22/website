@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Icons from '~/components/Icons';
 import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
@@ -7,6 +8,12 @@ import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 const Image = ({ block, className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const imgAlign = classNames({
+    'img-wrapper': true,
+    'img--rt': block.attributes.align === 'right',
+    'img--lt': block.attributes.align === 'left',
+    'img--ct': block.attributes.align === 'center',
+  });
   const handleOpen = () => {
     setIsOpen(true);
   };
@@ -20,6 +27,8 @@ const Image = ({ block, className = '' }) => {
       src={block.imageAttributes.url}
       alt={block.imageAttributes.alt}
       className={block.imageAttributes.className}
+      maxHeight={block.imageAttributes.height}
+      width={block.imageAttributes.width}
     />
   );
 
@@ -33,31 +42,44 @@ const Image = ({ block, className = '' }) => {
   ];
   if (block.imageAttributes.linkDestination) {
     return (
-      <figure className={`gutenberg__image ${className}`}>
-        {image}
-        <figcaption
-          dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
-        />
-        <PhotoSwipeWrapper
-          items={img}
-          isOpen={isOpen}
-          onClose={handleClose}
-          className="gutenberg__image-pswp"
-        />
-        <button className={'expand-image'} onClick={handleOpen}>
-          <Icons icon={'expand'} />
-        </button>
-      </figure>
+      <div className={`gutenberg__image ${className}`}>
+        <figure className={imgAlign} style={{}}>
+          {image}
+          <figcaption
+            dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
+          />
+          <PhotoSwipeWrapper
+            items={img}
+            isOpen={isOpen}
+            onClose={handleClose}
+            className="gutenberg__image-pswp"
+          />
+          <button className={'expand-image'} onClick={handleOpen}>
+            <Icons icon={'expand'} />
+          </button>
+        </figure>
+      </div>
     );
   }
   if (block.imageAttributes.caption) {
     return (
-      <figure className={'gutenberg__image'}>
-        {image}
-        <figcaption
-          dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
-        />
-      </figure>
+      <div className={`gutenberg__image ${className}`}>
+        <figure>
+          {image}
+          <figcaption
+            dangerouslySetInnerHTML={{ __html: block.imageAttributes.caption }}
+          />
+          <PhotoSwipeWrapper
+            items={img}
+            isOpen={isOpen}
+            onClose={handleClose}
+            className="gutenberg__image-pswp"
+          />
+          <button className={'expand-image'} onClick={handleOpen}>
+            <Icons icon={'expand'} />
+          </button>
+        </figure>
+      </div>
     );
   }
   if (block.imageAttributes.href) {

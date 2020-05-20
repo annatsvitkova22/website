@@ -1,19 +1,17 @@
 import React from 'react';
 import he from 'he';
+import PropTypes from 'prop-types';
 
 import Icons from '~/components/Icons';
 import ArticleDateTime from '~/components/Article/DateTime';
 import ArticleList from '~/components/Article/List';
 
 const EventHeader = ({ event, withTime, withList }) => {
-  const location = event.zmAfishaACF.eventAddress.streetAddress
-    .split(',')
-    .slice(0, 1)
-    .join();
-  const date = event.zmAfishaACF.eventDate;
+  const location = event.zmAfishaACF.eventAddress
+    ? event.zmAfishaACF.eventAddress.streetAddress.split(',').slice(0, 1).join()
+    : null;
+  const date = event.zmAfishaACF.eventDate ? event.zmAfishaACF.eventDate : null;
   const title = he.decode(event.title);
-
-  console.log(event);
 
   return (
     <div className="event__hero-title-wrapper">
@@ -33,14 +31,24 @@ const EventHeader = ({ event, withTime, withList }) => {
         {withList ? (
           <ArticleList info={event.zmAfishaACF} />
         ) : (
-          <div className="event__hero-location">
-            <Icons icon="location" className="event__hero-location-icon" />
-            {location}
-          </div>
+          <>
+            {location && (
+              <div className="event__hero-location">
+                <Icons icon="location" className="event__hero-location-icon" />
+                {location}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
   );
+};
+
+EventHeader.propTypes = {
+  event: PropTypes.any,
+  withTime: PropTypes.any,
+  withList: PropTypes.any,
 };
 
 export default EventHeader;

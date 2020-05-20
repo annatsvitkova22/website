@@ -67,7 +67,12 @@ const NavLink = ({ children, href, ...otherProps }) => {
   }
 
   return (
-    <a href={href} {...otherProps}>
+    <a
+      href={href}
+      {...otherProps}
+      rel={'noopener norefeffer'}
+      target={'__blank'}
+    >
       {children}
     </a>
   );

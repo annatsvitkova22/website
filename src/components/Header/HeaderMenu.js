@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Navigation from '../Navigation';
 import Social from '../Social';
 
-import Dropdown from '~/components/Header/Dropdown';
-
 const HeaderMenu = ({ data }) => {
   return (
     <div className={'header__burgermenu'}>
@@ -13,7 +11,7 @@ const HeaderMenu = ({ data }) => {
         navigationData={data.menus}
         className={'burger__navigation'}
       />
-      <Dropdown data={data.menus} className={'burger__dd'} />
+      {/* <Dropdown data={data.menus} className={'burger__dd'} /> */}
       <Social
         socialsData={data.info.generalInfoACF.socials}
         className={'header__social'}

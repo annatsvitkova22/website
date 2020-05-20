@@ -254,9 +254,7 @@ const News = ({ posts, categories, query }) => {
   return (
     <div className="news-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Change this!'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Новини</title>
       </Head>
 
       <div className="container articles-container">

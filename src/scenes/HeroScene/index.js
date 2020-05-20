@@ -8,6 +8,7 @@ import Featured from '~/components/Article/Featured';
 import { ArticleProvider } from '~/components/Article/Context';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import HeroPublication from '~/components/HeroPublication';
+import ArticleDate from '~/components/Article/Date';
 
 const HeroScene = ({ info, posts, publications }) => {
   const heroPubRef = useRef(null);
@@ -45,7 +46,7 @@ const HeroScene = ({ info, posts, publications }) => {
   }, []);
 
   return (
-    <div className="container hero">
+    <div className="container container--full-hd hero">
       <div className="row">
         <div className="col-xl-7">
           <HeroPublication {...info.generalInfoACF.mainPublication} />
@@ -57,12 +58,17 @@ const HeroScene = ({ info, posts, publications }) => {
               .map(({ categories, title, slug, author, featuredImage }, i) => (
                 <div key={i} className="hero-pub">
                   <ArticleProvider value="publications">
-                    <Featured image={featuredImage} alt={title} slug={slug} />
+                    <Featured
+                      image={featuredImage}
+                      size={'medium'}
+                      alt={title}
+                      slug={slug}
+                    />
                     <Taxonomies
                       categories={categories}
                       className={`article__category mt-l--small`}
                     />
-                    <h6>
+                    <h2>
                       <Link
                         href={`/publications/[slug]`}
                         as={`/publications/${slug}`}
@@ -71,10 +77,10 @@ const HeroScene = ({ info, posts, publications }) => {
                           href={`/publications/${slug}`}
                           className="hero-pub__title font-weight-semibold"
                         >
-                          {title}
+                          {title.toLowerCase()}
                         </a>
                       </Link>
-                    </h6>
+                    </h2>
                     <div className="article__meta tx-grey">
                       <Author className="article__author" author={author} />
                     </div>
@@ -85,26 +91,26 @@ const HeroScene = ({ info, posts, publications }) => {
         </div>
         <div className="col-xl-3">
           <ul ref={heroListRef} className="hero-list list-reset">
-            {posts.nodes.slice(0, 40).map(({ title, slug }, i) => (
+            {posts.nodes.slice(0, 40).map(({ date, title, slug }, i) => (
               <li key={i} className="hero-list__item line-height-1">
                 <ChronologicalSeparator posts={posts.nodes} currentIndex={i} />
-                <h6 className="tx-tiny font-weight-medium">
-                  <Link href={`/news/[slug]`} as={`/news/${slug}`}>
-                    <a
-                      className="hero-list__link d-block"
-                      href={`/news/${slug}`}
-                    >
-                      {title}
-                    </a>
-                  </Link>
-                </h6>
+                <div>
+                  <ArticleDate date={date} />
+                  <h4 className="tx-tiny font-weight-medium">
+                    <Link href={`/news/[slug]`} as={`/news/${slug}`}>
+                      <a
+                        className="hero-list__link d-flex"
+                        href={`/news/${slug}`}
+                      >
+                        {title.toLowerCase()}
+                      </a>
+                    </Link>
+                  </h4>
+                </div>
               </li>
             ))}
           </ul>
         </div>
-        {/* <div className="row">
-          <div className="col-5"></div>
-        </div> */}
       </div>
     </div>
   );

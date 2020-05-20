@@ -6,8 +6,8 @@ import Button from '~/components/Gutenberg/Button';
 const Buttons = ({ block, className = '' }) => {
   return (
     <div className={`gutenberg__buttons ${className}`}>
-      {block.innerBlocks.map((button) => (
-        <Button block={button} />
+      {block.innerBlocks.map((button, index) => (
+        <Button block={button} key={index} />
       ))}
     </div>
   );

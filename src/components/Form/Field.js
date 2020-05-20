@@ -73,7 +73,7 @@ const FormField = ({
         <textarea
           className={'zm-form__textarea'}
           value={value}
-          onChange={({ target: { value } }) => onChange({ value, name: id })}
+          onChange={({ target }) => onChange({ value: target.value, name: id })}
           {...commonProps}
         />
       );
@@ -86,7 +86,7 @@ const FormField = ({
           type={type}
           className={'zm-form__input'}
           value={value}
-          onChange={({ target: { value } }) => onChange({ value, name: id })}
+          onChange={({ target }) => onChange({ value: target.value, name: id })}
           {...commonProps}
         />
       );

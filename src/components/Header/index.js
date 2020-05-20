@@ -8,12 +8,10 @@ import _ from 'lodash';
 
 import Navigation from '~/components/Navigation';
 import Logo from '~/components/Logo';
-import Icons from '~/components/Icons';
 import HeaderMenu from '~/components/Header/HeaderMenu';
 import Burger from '~/components/Header/Burger';
 import SearchIcon from '~/components/Search/Icon';
 import SearchField from '~/components/Search/Field';
-import Dropdown from '~/components/Header/Dropdown';
 
 const HEADER_QUERY = gql`
   query HeaderQuery {
@@ -49,7 +47,8 @@ const HEADER_QUERY = gql`
 `;
 
 const Header = () => {
-  const { loading, data } = useQuery(HEADER_QUERY);
+  const queryData = useQuery(HEADER_QUERY);
+  const { loading, data } = queryData;
 
   const router = useRouter();
 
@@ -57,6 +56,7 @@ const Header = () => {
   const [isUnPinned, setIsUnpinned] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [feedHeight, setFeedHeight] = useState(2355);
 
   const headerCls = classNames({
     header: true,
@@ -75,32 +75,51 @@ const Header = () => {
   });
 
   React.useEffect(() => {
-    window.addEventListener('scroll', fixedHeader);
+    if (router.route !== '/') {
+      window.addEventListener('scroll', fixedHeader);
+    }
+    if (router.route === '/') {
+      initialize();
+    }
+
     return () => {
       window.removeEventListener('scroll', fixedHeader);
     };
+  }, [router.route]);
+  React.useEffect(() => {
+    initialize();
   }, []);
 
   let scrollPos = 0;
+  const initialize = () => {
+    document.querySelector('.hero-list')
+      ? setFeedHeight(document.querySelector('.hero-list').offsetHeight)
+      : window.requestAnimationFrame(initialize);
+    window.addEventListener('scroll', fixedHeader);
+  };
 
   const fixedHeaderFn = () => {
     const isHome = router.route === '/';
     // TODO: replace 2000 with real feed height?
-
-    if (window.scrollY < (isHome ? 2000 : 100)) {
+    if (window.scrollY < (isHome ? feedHeight : 100)) {
       setIsUnpinned(false);
     }
     const st = window.scrollY;
-    if (window.scrollY > (isHome ? 1800 : 100) && st > scrollPos) {
+    if (window.scrollY > (isHome ? feedHeight - 200 : 100) && st > scrollPos) {
       setIsPinned(false);
       setIsUnpinned(true);
-    } else if (window.scrollY > (isHome ? 1800 : 100) && st < scrollPos) {
+    } else if (
+      window.scrollY > (isHome ? feedHeight - 200 : 100) &&
+      st < scrollPos
+    ) {
       setIsPinned(true);
       setIsUnpinned(false);
     }
     scrollPos = st;
   };
+
   const fixedHeader = _.debounce(fixedHeaderFn, 20);
+
   const handleOpenClick = () => {
     setIsPinned(false);
     setIsUnpinned(false);
@@ -121,49 +140,55 @@ const Header = () => {
 
     return setIsSearchOpen(!isSearchOpen);
   };
-
   return (
-    <header className={`${headerCls}`}>
-      <div className={'header__wrapper'}>
-        <Burger handleOpenClick={handleOpenClick} className={`${searchCls}`} />
-        <Link href="/">
-          <a className={`header__logo ${searchCls}`}>
-            <Logo
-              logoData={data.info.generalInfoACF.logo}
-              className={`header__logo-img`}
+    <>
+      {data && (
+        <header className={`${headerCls}`}>
+          <div className={'header__wrapper'}>
+            <Burger
+              handleOpenClick={handleOpenClick}
+              className={`${searchCls}`}
             />
-          </a>
-        </Link>
-        <Navigation
-          navigationData={data.menus}
-          className={`navigation ${searchCls}`}
-        />
-        <div className={`header__icons-dd ${searchCls}`}>
-          <button>Полтава</button>
-          <Icons icon={'footer-chevron'} color={'white'} />
-          <Dropdown data={data.menus} className={'header__dd'} />
-        </div>
-        <SearchIcon
-          onClick={handleSearch}
-          color={'white'}
-          className={`header__search ${searchCls}`}
-        />
-        <div className={`${openSearch} header__search-wrapper`}>
-          <SearchIcon
-            onClick={handleSearch}
-            color={'white'}
-            className={'header__search'}
-          />
-          <SearchField
-            isOpen={isSearchOpen}
-            onSearch={() => setIsSearchOpen(false)}
-          />
-        </div>
-      </div>
-      <div className={`header__overlay`} onClick={handleCloseClick}>
-        <HeaderMenu data={data} />
-      </div>
-    </header>
+            <Link href="/">
+              <a className={`header__logo ${searchCls}`}>
+                <Logo
+                  logoData={data.info.generalInfoACF.logo}
+                  className={`header__logo-img`}
+                />
+              </a>
+            </Link>
+            <Navigation
+              navigationData={data.menus}
+              className={`navigation ${searchCls}`}
+            />
+            {/* <div className={`header__icons-dd ${searchCls}`}> */}
+            {/*  <button>Полтава</button> */}
+            {/*  <Icons icon={'footer-chevron'} color={'white'} /> */}
+            {/*  <Dropdown data={data.menus} className={'header__dd'} /> */}
+            {/* </div> */}
+            <SearchIcon
+              onClick={handleSearch}
+              color={'white'}
+              className={`header__search ${searchCls}`}
+            />
+            <div className={`${openSearch} header__search-wrapper`}>
+              <SearchIcon
+                onClick={handleSearch}
+                color={'white'}
+                className={'header__search'}
+              />
+              <SearchField
+                isOpen={isSearchOpen}
+                onSearch={() => setIsSearchOpen(false)}
+              />
+            </div>
+          </div>
+          <div className={`header__overlay`} onClick={handleCloseClick}>
+            <HeaderMenu data={data} />
+          </div>
+        </header>
+      )}
+    </>
   );
 };
 

@@ -32,6 +32,7 @@ export const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {
     crowdfundingBy(slug: $slug) {
       ${gutenbergBlocksQuery}
+      content
       id
       crowdfundingId
       title
@@ -152,9 +153,7 @@ const Crowdfunding = (props) => {
   return (
     <div className="crowdfunding-single__container container">
       <Head>
-        {/* TODO: change it */}
-        <title>ЗМІСТ | {storedPost.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {storedPost.title}</title>
       </Head>
 
       <div className="crowdfunding-single">
@@ -233,10 +232,17 @@ const Crowdfunding = (props) => {
                   className="crowdfunding-single__supported"
                 />
               </div>
-              <Content
-                content={storedPost.blocks}
-                className="crowdfunding-single__block"
-              />
+              {storedPost.blocks.length ? (
+                <Content
+                  content={storedPost.blocks}
+                  className={'content__posts'}
+                />
+              ) : (
+                <Content
+                  content={storedPost.content}
+                  className={'content__posts'}
+                />
+              )}
             </div>
           </main>
 

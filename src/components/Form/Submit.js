@@ -1,5 +1,6 @@
 import React from 'react';
 import * as classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const FormSubmit = ({
   sent,
@@ -45,6 +46,15 @@ const FormSubmit = ({
       )}
     </button>
   );
+};
+
+FormSubmit.propTypes = {
+  sent: PropTypes.any,
+  handleSubmit: PropTypes.func,
+  formValid: PropTypes.any,
+  isSending: PropTypes.bool,
+  text: PropTypes.any,
+  className: PropTypes.string,
 };
 
 export default FormSubmit;

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
-import moment from 'moment';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
+
+import Story from '../Gutenberg/Story';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -20,6 +21,7 @@ import {
 import useViewsCounter from '~/hooks/useViewsCounter';
 import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
 import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
+import ArticleDate from '~/components/Article/Date';
 
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
@@ -78,8 +80,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   return (
     <>
       <Head>
-        <title>{storedPost.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {storedPost.title}</title>
       </Head>
 
       <main
@@ -99,19 +100,22 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                 <section className={'single-post__main container'}>
                   <div className="row">
                     {hasShare && (
-                      <StickyBox
-                        offsetTop={272}
-                        offsetBottom={20}
-                        className={'side-bar__wrapper col-md-1'}
-                      >
+                      <div className={'side-bar__wrapper col-md-1'}>
                         <ActionsSidebar post={storedPost} />
-                      </StickyBox>
+                      </div>
                     )}
                     <div className="single-post__content col-lg-6 col-md-8">
-                      <Content
-                        content={storedPost.blocks}
-                        className={'content__posts'}
-                      />
+                      {storedPost.blocks.length ? (
+                        <Content
+                          content={storedPost.blocks}
+                          className={'content__posts'}
+                        />
+                      ) : (
+                        <Content
+                          content={storedPost.content}
+                          className={'content__posts'}
+                        />
+                      )}
                       <NewsFooter post={storedPost} />
                     </div>
                   </div>
@@ -163,11 +167,11 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                                   'title__socials-name meta-author--black'
                                 }
                               />
-                              <span className={'title__socials-date'}>
-                                {moment(storedPost.date).format(
-                                  'DD MMMM, HH:MM'
-                                )}
-                              </span>
+                              <ArticleDate
+                                className={'title__socials-date'}
+                                date={storedPost.date}
+                                format={'DD MMMM YYYY, HH:MM'}
+                              />
                             </div>
                           </div>
                           <Share
@@ -181,10 +185,20 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                             __html: storedPost.excerpt,
                           }}
                         />
-                        <Content
-                          content={storedPost.blocks}
-                          className={'content__posts'}
-                        />
+                        {/* Need to delete - only for testing */}
+                        <Story />
+                        {/* Need to delete - only for testing */}
+                        {storedPost.blocks.length ? (
+                          <Content
+                            content={storedPost.blocks}
+                            className={'content__posts'}
+                          />
+                        ) : (
+                          <Content
+                            content={storedPost.content}
+                            className={'content__posts'}
+                          />
+                        )}
                         <NewsFooter post={storedPost} />
                       </section>
                     </section>

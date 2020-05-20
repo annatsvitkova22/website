@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import SidebarLoader from '~/components/Loaders/SidebarLoader';
-import ArticleFeatured from '~/components/Article/Featured';
 
 const SideBarPopular = ({ publications }) => {
   if (!publications) return <SidebarLoader />;
@@ -20,7 +19,9 @@ const SideBarPopular = ({ publications }) => {
             >
               <a href={`/publications/${item.slug}`}>
                 <div className={'sidebar-popular__wrapper'}>
-                  <span className={'sidebar-popular__text'}>{item.title}</span>
+                  <span className={'sidebar-popular__text'}>
+                    {item.title.toLowerCase()}
+                  </span>
                   <img
                     src={item.featuredImage.mediaItemUrl}
                     className={'sidebar-popular__image'}

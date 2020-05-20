@@ -152,11 +152,11 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       configs
     );
 
-    let {
+    const {
       data: { supported },
     } = getCurrentDonaters;
 
-    let sups = supported ? supported : [];
+    const sups = supported || [];
 
     sups.push({
       name: name || 'Анонімно',
@@ -186,7 +186,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       {
         fields: {
           collected: getCurrentAmount.data.collected
-            ? parseInt(getCurrentAmount.data.collected) + parseInt(sum)
+            ? parseInt(getCurrentAmount.data.collected, 10) + parseInt(sum, 10)
             : sum,
         },
       },

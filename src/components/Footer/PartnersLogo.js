@@ -6,20 +6,24 @@ const PartnersLogo = (props) => {
 
   return (
     <div className={`footer__sitemap-list ${className}`}>
-      <div className={'footer__sitemap-title partners-img'}>Наші партнери</div>
-      <ul className={'footer__sitemap-navigation'}>
+      <div className="footer__sitemap-title partners-img">Наші партнери</div>
+      <ul className="footer__sitemap-navigation">
         {partnersData &&
           partnersData.map((item, i) => {
             return (
-              <li className={'footer__sitemap-partner'} key={i}>
+              <li className="footer__sitemap-partner" key={i}>
                 <a
                   rel="noopener noreferrer"
                   href={item.url}
                   title={item.name}
-                  className={'partners-logo'}
-                  target={'_blank'}
+                  className="partners-logo"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
+                  {item.logo && (
+                    <img src={item.logo.mediaItemUrl} alt={item.logo.title} />
+                  )}
+                  {!item.logo && item.name}
                 </a>
               </li>
             );

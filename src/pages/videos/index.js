@@ -138,7 +138,7 @@ const VideosArchive = (props) => {
         },
         selectedIndex: 0,
         isPlaying: false,
-        categories: categories,
+        categories,
         isLoading: false,
         endCursor: data.categories.pageInfo.endCursor,
         hasNextPage: data.categories.pageInfo.hasNextPage,
@@ -249,9 +249,7 @@ const VideosArchive = (props) => {
   return (
     <div className="videos-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Відео'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Відео</title>
       </Head>
 
       <main className="videos-main">

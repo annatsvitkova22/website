@@ -28,7 +28,7 @@ const VideosScene = ({ videos = {}, isLoading, children }) => {
           />
         );
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 

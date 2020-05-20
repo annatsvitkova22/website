@@ -107,8 +107,7 @@ const Blog = (props) => {
   const [loaded, setLoaded] = useState(false);
 
   // TODO: add loader when navigate between blogs
-
-  const { post, isLoading } = state;
+  const { post } = state;
   const { news, blogs, publications } = additionalInfo;
 
   const loadData = async () => {
@@ -135,8 +134,9 @@ const Blog = (props) => {
     if (loaded && post && props.slug) {
       loadData();
     }
-  }, [props.slug]),
-    moment.locale('uk');
+  }, [props.slug]);
+
+  moment.locale('uk');
 
   useEffect(() => {
     if (props.slug && !post) {

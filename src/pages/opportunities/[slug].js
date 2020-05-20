@@ -61,7 +61,6 @@ const Opportunity = (props) => {
     isSimilarLoading: false,
   });
 
-
   const { opportunity, isLoading } = state;
 
   const sideBarCls = classNames({
@@ -127,8 +126,7 @@ const Opportunity = (props) => {
   return (
     <div className="single__event">
       <Head>
-        <title>{opportunity.title}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - {opportunity.title}</title>
       </Head>
 
       <main className="event">

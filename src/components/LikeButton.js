@@ -42,7 +42,7 @@ const LikeButton = ({ post, className, showNumber = true }) => {
       {
         fields: {
           likes: currentLikes.data.likes
-            ? parseInt(currentLikes.data.likes) + 1
+            ? parseInt(currentLikes.data.likes, 10) + 1
             : 1,
         },
       },

@@ -33,15 +33,18 @@ import Facebook from '~/components/Gutenberg/Facebook';
 import Twitter from '~/components/Gutenberg/Twitter';
 
 const Content = ({ content, className = '' }) => {
-  // TODO: add & test all content types listed in this log
-  // console.log(content);
-
   return (
     <>
-      {content &&
+      {content && typeof content !== 'string' ? (
         content.map((block, index) =>
           getContentType({ block, index, className })
-        )}
+        )
+      ) : (
+        <FreeForm
+          className={`${className} gutenberg__freeform-old`}
+          block={content}
+        />
+      )}
     </>
   );
 };
@@ -50,6 +53,15 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreParagraphBlock') {
     return (
       <Paragraph
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreFreeformBlock') {
+    return (
+      <FreeForm
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}
@@ -264,17 +276,6 @@ export const getContentType = ({ block, index, className }) => {
       />
     );
   }
-
-  if (block.__typename === 'CoreFreeformBlock') {
-    return (
-      <FreeForm
-        block={block}
-        key={`${block.__typename}-${index}`}
-        className={className}
-      />
-    );
-  }
-
   if (block.__typename === 'CoreSeparatorBlock') {
     return (
       <Separator
@@ -304,7 +305,14 @@ export const getContentType = ({ block, index, className }) => {
     );
   }
   if (block.__typename === 'GravityformsFormBlock') {
-    return <Form id={block.attributes.formId} />;
+    return (
+      <Form id={block.attributes.formId} gutenbergType={block.__typename} />
+    );
+  }
+  if (block.__typename === 'GravityformsPollsBlock') {
+    return (
+      <Form id={block.attributes.formId} gutenbergType={block.__typename} />
+    );
   }
   return null;
 };

@@ -4,6 +4,9 @@
 
   position: relative;
 
+  figure {
+    margin: 0;
+  }
   .is-style-circle-mask {
     width: 100%;
     height: auto;
@@ -22,6 +25,19 @@
     font-size: 11px;
     line-height: 1.45;
     letter-spacing: 0.02em;
+    text-align: left;
+  }
+  .img-wrapper {
+    max-width: fit-content;
+  }
+  .img--rt {
+    margin-left: auto;
+  }
+  .img--lt {
+    margin-right: auto;
+  }
+  .img--ct {
+    margin: auto;
   }
 }
 

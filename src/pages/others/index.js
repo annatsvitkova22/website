@@ -66,9 +66,7 @@ const OthersArchive = (props) => {
   return (
     <div className="opportunities-page">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Інше'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Інше</title>
       </Head>
 
       <main>

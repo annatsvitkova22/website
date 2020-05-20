@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Icons from '~/components/Icons';
 
@@ -81,4 +82,13 @@ export const MapIcons = ({ data, className = '' }) => {
         })}
     </>
   );
+};
+
+MapIcons.propTypes = {
+  data: PropTypes.any,
+  className: PropTypes.string,
+};
+MapComponent.propTypes = {
+  data: PropTypes.array,
+  type: PropTypes.any,
 };

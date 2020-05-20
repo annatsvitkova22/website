@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import he from 'he';
 
 const BlogsScene = ({ users: { nodes: users } }) => (
   <div className="container">
@@ -42,15 +43,21 @@ const BlogsScene = ({ users: { nodes: users } }) => (
                 </a>
               </Link>
               <ul className="user-pubs list-reset pos-relative z-10 bg-white">
-                {blogs.map(({ title, slug: blogSlug }, k) => (
-                  <li key={k} className="user-pub user-pubs__item">
-                    <h6 className="font-weight-semibold line-height-12">
-                      <Link href={`/blogs/${blogSlug}`}>
-                        <a className="user-pub__title d-block">{title}</a>
-                      </Link>
-                    </h6>
-                  </li>
-                ))}
+                {blogs.map((blog) => {
+                  const { title } = blog;
+                  const sl = blog.slug;
+                  return (
+                    <li key={sl} className="user-pub user-pubs__item">
+                      <h5 className="font-weight-semibold line-height-12">
+                        <Link href={`/blogs/${sl}`}>
+                          <a className="user-pub__title d-block">
+                            {he.decode(title)}
+                          </a>
+                        </Link>
+                      </h5>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           );

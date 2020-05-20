@@ -13,6 +13,7 @@ const useLoadMoreHook = (
   setIsChanged = () => {},
   slug
 ) => {
+  /* eslint-disable no-nested-ternary */
   const [state, setState] = useState({
     data: { ...props },
     endCursor:
@@ -115,7 +116,7 @@ const useLoadMoreHook = (
           });
           break;
         default:
-          console.log('no such type', type);
+          setState({ ...state });
       }
     }
 
@@ -291,7 +292,7 @@ const useLoadMoreHook = (
         });
         break;
       default:
-        console.log('no such type', type);
+        setState({ ...state });
     }
   };
   return {

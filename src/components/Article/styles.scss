@@ -326,6 +326,8 @@
   letter-spacing: 0.02em;
   font-weight: 600;
 
+  text-transform: capitalize;
+
   @include media-breakpoint-up(sm) {
     font-size: 20px;
     line-height: 1.27;
@@ -472,4 +474,9 @@
     height: 100%;
     object-fit: cover;
   }
+}
+.feature__image--half {
+  max-height: 550px;
+  max-width: 100% !important;
+  width: 100%;
 }
