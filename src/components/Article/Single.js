@@ -188,7 +188,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           }}
                         />
                         {/* Need to delete - only for testing*/}
-                        <Story />
+                        {/*<Story />*/}
                         {/* Need to delete - only for testing*/}
                         {storedPost.blocks.length ? (
                           <Content
