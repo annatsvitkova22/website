@@ -219,9 +219,7 @@ const BlogsArchive = ({ users }) => {
   return (
     <div className="container">
       <Head>
-        {/* TODO: change title */}
-        <title>{'Change this!'}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ЗМІСТ - Блоги</title>
       </Head>
       <div className="blogs-page">
         <div className="row">
