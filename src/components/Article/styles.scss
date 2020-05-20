@@ -1,8 +1,9 @@
 .articles-container {
-  padding-top: 50px;
+  padding-top: 20px;
   padding-bottom: 40px;
 
   @include media-breakpoint-up(sm) {
+    padding-top: 50px;
     padding-bottom: 80px;
   }
 }

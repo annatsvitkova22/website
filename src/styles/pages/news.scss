@@ -22,12 +22,19 @@
     }
 
     .date-separator {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+
       @include media-breakpoint-up(md) {
         padding-left: 64px;
       }
 
       @include media-breakpoint-up(lg) {
         padding-left: 112px;
+      }
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 24px;
       }
     }
   }
@@ -49,7 +56,7 @@
     }
   }
   &__sorting {
-    margin-right: 40px;
+    margin-right: 32px;
 
     width: 32px;
     height: 32px;
@@ -62,7 +69,7 @@
       width: 375px;
 
       max-height: 400px;
-          
+
       @include media-breakpoint-down(sm) {
         margin-top: 16px;
         width: 100%;
@@ -80,6 +87,9 @@
     display: flex;
 
     margin-left: auto;
+    select {
+      width: 120px;
+    }
     .svg-icon {
       color: $black;
     }
