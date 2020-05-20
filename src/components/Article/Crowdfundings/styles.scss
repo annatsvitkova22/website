@@ -6,6 +6,9 @@
   }
   .crowdfundings-archive__articles > div {
     padding-bottom: 24px;
+    &:last-child {
+      padding-bottom: 30px;
+    }
 
     @include media-breakpoint-down(lg) {
       @include make-col(6);
