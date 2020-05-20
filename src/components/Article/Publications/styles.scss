@@ -73,6 +73,10 @@
     &--under-medium,
     &--under-small {
       margin-bottom: 16px;
+
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 10px;
+      }
     }
   }
 
@@ -257,6 +261,9 @@
         @include media-breakpoint-down(md) {
           padding-bottom: 62.99%;
         }
+      }
+      .meta-author {
+        font-weight: 600;
       }
     }
   }
