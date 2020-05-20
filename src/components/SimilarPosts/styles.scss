@@ -61,7 +61,7 @@
     }
   }
   &__author {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.03em;
@@ -168,10 +168,14 @@
       max-width: 235px;
     }
     &__title {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 19px;
-      letter-spacing: 0.02em;
+      margin-right: 12px;
+      padding-bottom: 8px;
+      a {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        letter-spacing: 0.02em;
+      }
     }
     &__author {
       font-size: 12px;
