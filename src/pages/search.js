@@ -357,7 +357,7 @@ const Search = ({ posts, categories, types, query, users }) => {
   ];
 
   const updateMobile = () => {
-    window.outerWidth < 768 ? setMobile(true) : setMobile(false);
+    window.innerWidth < 768 ? setMobile(true) : setMobile(false);
   };
 
   useEffect(() => {

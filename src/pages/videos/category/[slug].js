@@ -108,7 +108,7 @@ const Category = (props) => {
     };
 
     const updateMobile = () => {
-      if (window.outerWidth < 768) {
+      if (window.innerWidth < 768) {
         setState((prevState) =>
           prevState.mobile !== true ? { ...prevState, mobile: true } : prevState
         );

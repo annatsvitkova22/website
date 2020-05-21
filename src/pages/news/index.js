@@ -181,7 +181,7 @@ const News = ({ posts, categories, query }) => {
   );
 
   const updateMobile = () => {
-    window.outerWidth < 768 ? setIsMobile(true) : setIsMobile(false);
+    window.innerWidth < 768 ? setIsMobile(true) : setIsMobile(false);
   };
 
   useEffect(() => {
