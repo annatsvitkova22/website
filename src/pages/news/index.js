@@ -24,11 +24,10 @@ import {
 } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import dateToGraphQLQuery from '~/util/date';
-import Filter from '~/static/images/filter';
 import ChevronDown from '~/static/images/chevron-down';
 import Icons from '~/components/Icons';
 import Calendar from '~/components/Calendar';
-import Sorting from '~/components/Sorting';
+import SortingSelect from '~/components/SortingSelect';
 
 const composeQuery = ({
   cursor,
@@ -283,7 +282,7 @@ const News = ({ posts, categories, query }) => {
                 <ChevronDown className="pos-absolute pos-center-right" />
               </div>
               <div className="pos-relative">
-                <Sorting
+                <SortingSelect
                   currentOption={currentSorting}
                   options={sorting}
                   className="sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
