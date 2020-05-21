@@ -181,7 +181,7 @@ const News = ({ posts, categories, query }) => {
   );
 
   const updateMobile = () => {
-    window.outerWidth < 768 ? setIsMobile(true) : setIsMobile(false);
+    window.innerWidth < 768 ? setIsMobile(true) : setIsMobile(false);
   };
 
   useEffect(() => {
@@ -269,7 +269,7 @@ const News = ({ posts, categories, query }) => {
               </button>
               <div className="pos-relative news-archive__filter">
                 <select
-                  className="news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
+                  className="reset-select news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={(event) => setCategory(event.target.value)}
                 >
                   <option disabled hidden selected>
@@ -285,7 +285,7 @@ const News = ({ posts, categories, query }) => {
                 <SortingSelect
                   currentOption={currentSorting}
                   options={sorting}
-                  className="sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
+                  className="reset-select sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={setSorting}
                 />
                 <ChevronDown className="pos-absolute pos-center-right" />

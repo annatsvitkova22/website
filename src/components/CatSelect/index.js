@@ -22,7 +22,7 @@ const CatSelect = ({ categories, currCatId, router }) => {
       <select
         id="cat-select"
         name="cat-select"
-        className="cat-select__main tx-white text-uppercase heading-huge tx-family-titles font-weight-bold"
+        className="cat-select__main reset-select tx-white text-uppercase heading-huge tx-family-titles font-weight-bold"
         onChange={onChange}
       >
         {categories.map((category) => {
