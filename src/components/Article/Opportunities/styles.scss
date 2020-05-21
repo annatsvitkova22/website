@@ -11,6 +11,11 @@
     .article-title {
       font-weight: 800;
     }
+    .article-title {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 12px;
+      }
+    }
     .article-featured {
       &__image {
         height: 181px;
