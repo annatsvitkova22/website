@@ -60,7 +60,11 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
 
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
         <meta name="title" content="ЗМІСТ - Зміни створюєш ти!" />
         <meta
           name="description"

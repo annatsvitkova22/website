@@ -323,4 +323,10 @@ Content.propTypes = {
   className: PropTypes.string,
 };
 
+getContentType.propTypes = {
+  block: PropTypes.any,
+  index: PropTypes.any,
+  className: PropTypes.string,
+};
+
 export default Content;
