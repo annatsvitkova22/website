@@ -240,7 +240,9 @@
 .search-results {
   max-width: 872px;
   margin: 48px auto;
-
+  @include media-breakpoint-down(sm) {
+    margin-top: 24px;
+  }
   .date-separator {
     padding-left: 110px;
 
@@ -248,6 +250,9 @@
       padding-left: 0;
     }
     @include media-breakpoint-down(sm) {
+      display: flex;
+
+      margin-bottom: 24px;
       time {
         font-size: 14px;
       }
