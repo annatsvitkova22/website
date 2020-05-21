@@ -85,6 +85,7 @@
   }
   &.liked {
     border-color: $green;
+    pointer-events: none;
 
     animation: shadow-grow 2s;
 

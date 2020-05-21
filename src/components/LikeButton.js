@@ -22,12 +22,6 @@ const LikeButton = ({ post, className, showNumber = true }) => {
     'like-count': true,
     liked: liked,
   });
-  // useEffect(() => {
-  //   document.querySelector('.like').addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     e.currentTarget.classList.toggle('liked');
-  //   });
-  // }, []);
   let type = `${post.__typename.toLowerCase()}`;
   const id = post[`${type}Id`];
   type = `${type}s`;
@@ -42,6 +36,7 @@ const LikeButton = ({ post, className, showNumber = true }) => {
   } = post;
 
   const handleLike = async () => {
+    setLiked(true);
     const { apiUrl } = config;
     const conf = {
       headers: {
@@ -63,9 +58,11 @@ const LikeButton = ({ post, className, showNumber = true }) => {
       },
       conf
     );
+    console.log(data);
+    console.log(currentLikes);
     updateLikes(data.likes);
-    setLiked(true);
-    setTimeout(() => setLiked(false), 800);
+
+    setTimeout(() => setLiked(false), 600);
   };
 
   return (
