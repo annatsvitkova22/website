@@ -373,6 +373,11 @@ const Home = (props) => {
       <Head>
         <title>ЗМІСТ - Головна</title>
 
+        <meta name="title" content="ЗМІСТ - Зміни створюєш ти!" />
+        <meta
+          name="description"
+          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+        />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${config.frontUrl}`} />
         <meta property="og:title" content="ЗМІСТ - Зміни створюєш ти!" />
