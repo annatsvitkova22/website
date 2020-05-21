@@ -51,11 +51,10 @@
 
     .sorting--news {
       margin-bottom: 0;
-      width: 100%;
-      max-width: 100px;
+      width: 94px;
 
       @include media-breakpoint-down(sm) {
-        margin-left: 24px;
+        margin-left: 29px;
 
         font-size: 14px;
       }
@@ -94,9 +93,8 @@
   }
 
   &__filter {
-    display: flex;
+    margin-left: 25px;
 
-    margin-left: 21px;
     .svg-icon {
       color: $black;
     }
@@ -104,7 +102,7 @@
 }
 
 .news-cats {
-  max-width: 114px;
+  width: 110px;
   
   letter-spacing: 0.02em;
   font-size: 14px;

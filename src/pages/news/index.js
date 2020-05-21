@@ -267,7 +267,7 @@ const News = ({ posts, categories, query }) => {
               >
                 <Icons icon={'calendar'} />
               </button>
-              <div className="pos-relative news-archive__filter">
+              <div className="pos-relative d-flex news-archive__filter">
                 <select
                   className="reset-select news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={(event) => setCategory(event.target.value)}
@@ -281,7 +281,7 @@ const News = ({ posts, categories, query }) => {
                 </select>
                 <ChevronDown className="pos-absolute pos-center-right" />
               </div>
-              <div className="pos-relative">
+              <div className="pos-relative d-flex">
                 <SortingSelect
                   currentOption={currentSorting}
                   options={sorting}
