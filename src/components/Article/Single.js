@@ -82,14 +82,22 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     backgroundSize: 'cover',
   };
 
-  console.log(storedPost);
-
   return (
     <>
       <Head>
         <title>ЗМІСТ - {storedPost.title}</title>
 
         <meta property="twitter:card" content="summary_large_image" />
+
+        <meta name="title" content={storedPost.title} />
+        <meta
+          name="description"
+          content={he.decode(
+            storedPost.excerpt
+              .replace(/<[^>]+>/g, '')
+              .replace('[&hellip;]', '...')
+          )}
+        />
 
         <meta property="og:title" content={storedPost.title} />
         <meta property="og:type" content="article" />
