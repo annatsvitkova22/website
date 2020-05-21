@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as _ from 'lodash';
-import ImageGallery from 'react-image-gallery';
+
+import Slick from '~/components/Slick';
 
 const Gallery = ({ block, className = '' }) => {
   const [pictures, setPictures] = useState([]);
@@ -40,7 +41,8 @@ const Gallery = ({ block, className = '' }) => {
 
   return (
     <div className={`gutenberg__gallery ${className}`}>
-      <ImageGallery items={pictures} />
+
+      <Slick images={pictures}/>
     </div>
   );
 };

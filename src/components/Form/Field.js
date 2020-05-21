@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as classnames from 'classnames';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import uk from 'date-fns/locale/uk';
+import PropTypes from 'prop-types';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 import Icon from '~/components/Icons';
@@ -118,6 +119,19 @@ const FormField = ({
       {children}
     </label>
   );
+};
+FormField.propTypes = {
+  cleared: PropTypes.any,
+  className: PropTypes.any,
+  id: PropTypes.any,
+  placeholder: PropTypes.any,
+  cssClass: PropTypes.any,
+  children: PropTypes.any,
+  required: PropTypes.any,
+  value: PropTypes.any,
+  type: PropTypes.any,
+  invalid: PropTypes.any,
+  onChange: PropTypes.any,
 };
 
 export default FormField;

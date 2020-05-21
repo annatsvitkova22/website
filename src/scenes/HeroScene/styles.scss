@@ -5,12 +5,14 @@
 
   &__title {
     margin-top: 16px;
+    margin-bottom: 24px;
 
     @include media-breakpoint-down(md) {
       margin-bottom: 12px;
     }
 
     a {
+      font-size: 48px;
       letter-spacing: -0.02em;
       line-height: 1.2;
       font-weight: 800;
@@ -148,7 +150,11 @@
     margin-top: 24px;
   }
 
+  h2 {
+    margin-bottom: 0;
+  }
   &__title {
+    font-size: 14px;
     letter-spacing: 0.02em;
     line-height: 1.2;
     text-transform: capitalize;
