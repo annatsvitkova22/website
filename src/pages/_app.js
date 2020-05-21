@@ -60,7 +60,7 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
 
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <meta
           name="description"
           content="Зміни створюєш ти! Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
