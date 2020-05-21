@@ -16,7 +16,7 @@
     right: $grid-gutter-width/2;
 
     border-top: 1px solid $black;
-    
+
   }
 
   @include media-breakpoint-down(md) {
@@ -35,7 +35,7 @@
   }
 
   &--events {
-    margin-top: 40px;
+    margin-top: 30px;
   }
 
   &--publ {

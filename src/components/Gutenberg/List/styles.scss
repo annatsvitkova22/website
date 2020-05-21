@@ -3,6 +3,8 @@
   padding-bottom: 20px;
   margin-bottom: 0;
 
+  font-family: $font-family-paragraph;
+
   & a {
     color: $green;
     &:hover {
@@ -32,6 +34,8 @@
   list-style: disc;
 
   margin: 0;
+
+  font-family: $font-family-paragraph;
 
   & a {
     color: $green;

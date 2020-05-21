@@ -154,6 +154,20 @@ const Crowdfunding = (props) => {
     <div className="crowdfunding-single__container container">
       <Head>
         <title>ЗМІСТ - {storedPost.title}</title>
+        {storedPost &&
+          storedPost.featuredImage &&
+          storedPost.featuredImage.mediaItemUrl && (
+            <>
+              <meta
+                property="twitter:image"
+                content={storedPost.featuredImage.mediaItemUrl}
+              />
+              <meta
+                property="og:image"
+                content={storedPost.featuredImage.mediaItemUrl}
+              />
+            </>
+          )}
       </Head>
 
       <div className="crowdfunding-single">

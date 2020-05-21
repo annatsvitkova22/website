@@ -3,8 +3,9 @@ import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
-
-import Story from '../Gutenberg/Story';
+import * as moment from 'moment';
+import getConfig from 'next/config';
+import he from 'he';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -23,8 +24,12 @@ import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoade
 import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
 import ArticleDate from '~/components/Article/Date';
 
+const { publicRuntimeConfig } = getConfig();
+const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+
 const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
   const [loaded, setLoaded] = useState(false);
+  moment.locale('uk');
 
   const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
 
@@ -77,10 +82,57 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     backgroundSize: 'cover',
   };
 
+  console.log(storedPost);
+
   return (
     <>
       <Head>
         <title>ЗМІСТ - {storedPost.title}</title>
+
+        <meta property="twitter:card" content="summary_large_image" />
+
+        <meta property="og:title" content={storedPost.title} />
+        <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={storedPost.date} />
+        <meta
+          property="og:description"
+          content={he.decode(
+            storedPost.excerpt
+              .replace(/<[^>]+>/g, '')
+              .replace('[&hellip;]', '...')
+          )}
+        />
+        <meta
+          property="og:url"
+          content={`${config.frontUrl}/${type}/${storedPost.slug}`}
+        />
+        <meta
+          property="twitter:url"
+          content={`${config.frontUrl}/${type}/${storedPost.slug}`}
+        />
+        <meta property="twitter:title" content={he.decode(storedPost.title)} />
+        <meta
+          property="twitter:description"
+          content={he.decode(
+            storedPost.excerpt
+              .replace(/<[^>]+>/g, '')
+              .replace('[&hellip;]', '...')
+          )}
+        />
+        {storedPost &&
+          storedPost.featuredImage &&
+          storedPost.featuredImage.mediaItemUrl && (
+            <>
+              <meta
+                property="twitter:image"
+                content={storedPost.featuredImage.mediaItemUrl}
+              />
+              <meta
+                property="og:image"
+                content={storedPost.featuredImage.mediaItemUrl}
+              />
+            </>
+          )}
       </Head>
 
       <main
@@ -99,6 +151,30 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                 />
                 <section className={'single-post__main container'}>
                   <div className="row">
+                    <div className={'title__socials--mobile'}>
+                      <div className={'title__socials-about'}>
+                        {userAvatarStyles &&
+                          userAvatarStyles.backgroundImage.length > 0 && (
+                            <span
+                              className="title__socials-image avatar"
+                              style={userAvatarStyles}
+                            />
+                          )}
+                        <div className={'title__socials-author'}>
+                          <ArticleAuthor
+                            author={post.author}
+                            className={'title__socials-name'}
+                          />
+                          <span className={'title__socials-date'}>
+                            {moment(post.date).format('DD MMMM, HH:MM')}
+                          </span>
+                        </div>
+                      </div>
+                      <Share
+                        type={'main-first'}
+                        className={'title__socials-items'}
+                      />
+                    </div>
                     {hasShare && (
                       <div className={'side-bar__wrapper col-md-1'}>
                         <ActionsSidebar post={storedPost} />
@@ -185,9 +261,9 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                             __html: storedPost.excerpt,
                           }}
                         />
-                        {/* Need to delete - only for testing */}
-                        <Story />
-                        {/* Need to delete - only for testing */}
+                        {/* Need to delete - only for testing*/}
+                        {/*<Story />*/}
+                        {/* Need to delete - only for testing*/}
                         {storedPost.blocks.length ? (
                           <Content
                             content={storedPost.blocks}

@@ -6,6 +6,9 @@
   }
   .crowdfundings-archive__articles > div {
     padding-bottom: 24px;
+    &:last-child {
+      padding-bottom: 30px;
+    }
 
     @include media-breakpoint-down(lg) {
       @include make-col(6);
@@ -141,8 +144,7 @@
 
         @include media-breakpoint-down(sm) {
           font-size: 14px;
-          line-height: 18px;
-          letter-spacing: 0.02em;
+          line-height: 1.26;
         }
       }
     }
@@ -209,7 +211,7 @@
 
       margin-top: 0;
 
-      font-weight: 700;
+      font-weight: 600;
       font-size: 12px;
       letter-spacing: 0.07em;
       line-height: 16px;

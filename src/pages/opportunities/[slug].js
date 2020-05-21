@@ -127,6 +127,20 @@ const Opportunity = (props) => {
     <div className="single__event">
       <Head>
         <title>ЗМІСТ - {opportunity.title}</title>
+        {opportunity &&
+          opportunity.featuredImage &&
+          opportunity.featuredImage.mediaItemUrl && (
+            <>
+              <meta
+                property="twitter:image"
+                content={opportunity.featuredImage.mediaItemUrl}
+              />
+              <meta
+                property="og:image"
+                content={opportunity.featuredImage.mediaItemUrl}
+              />
+            </>
+          )}
       </Head>
 
       <main className="event">

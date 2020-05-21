@@ -197,10 +197,10 @@ const icons = [
   },
   {
     type: 'likes',
-    tag: `<svg width="5" height="24" viewBox="0 0 5 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M4.41669 18.3124H0L0.0622069 -6.10352e-05H4.61886L4.41669 18.3124Z" fill="#242424"/>
-      <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M0 23.9999H4.41669V20.0873H0V23.9999Z" fill="#242424"/>
-    </svg>
+    tag: `<svg width="5" height="25" viewBox="0 0 5 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.57445 18.9665H0L0.0644289 0H4.78384L4.57445 18.9665Z" fill="#242424"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 24.857H4.57445V20.8047H0V24.857Z" fill="#1D9E74"/>
+</svg>
     `,
   },
   {
