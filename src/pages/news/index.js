@@ -134,7 +134,6 @@ const News = ({ posts, categories, query }) => {
   const [loaded, setLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const stateLink = useStateLink(
     loaded ? NewsStore : CreateNewsStore(loaded, { categories, ...query })
@@ -194,10 +193,6 @@ const News = ({ posts, categories, query }) => {
 
   const handleCalendarOpen = () => {
     setIsCalendarOpen(!isCalendarOpen);
-  };
-
-  const handleSortingOpen = () => {
-    setIsSortingOpen(!isSortingOpen);
   };
 
   useEffect(() => {

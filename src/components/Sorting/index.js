@@ -14,7 +14,7 @@ const Sorting = ({
       {options.map((option) => (
         <li
           key={option.value}
-          className={classnames('sorting__item', {
+          className={classnames('sorting__item d-inline-block', {
             'sorting__item--active': option.value === currentOption.value,
           })}
         >
