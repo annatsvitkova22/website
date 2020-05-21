@@ -1,6 +1,11 @@
 .gutenberg__gallery {
   padding-top: 20px;
   padding-bottom: 20px;
+  max-width: 648px;
+
+  @include media-breakpoint-down(lg) {
+    width: 90vw;
+  }
   .slick {
     &-dots {
       display: none;
@@ -14,6 +19,9 @@
       transition: all 0.3s;
 
       cursor: pointer;
+      @include media-breakpoint-down(lg) {
+        height: auto;
+      }
       &:hover .slick__info {
         visibility: visible;
 
@@ -30,6 +38,10 @@
       object-fit: cover;
 
       position: relative;
+      @include media-breakpoint-down(lg) {
+        max-width: 100%;
+        height: auto;
+      }
     }
     &__overlay {
       width: 100%;
