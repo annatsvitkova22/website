@@ -263,41 +263,34 @@ const News = ({ posts, categories, query }) => {
           {isMobile && (
             <div className="news-archive__mobile col-md-8">
               <button
-                className="news-archive__sorting"
-                onClick={handleSortingOpen}
-              >
-                <Filter />
-              </button>
-              <button
                 className="news-archive__calendar"
                 onClick={handleCalendarOpen}
               >
                 <Icons icon={'calendar'} />
               </button>
-              <div className="news-archive__filter">
-                <div className="pos-relative">
-                  <select
-                    className="news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
-                    onChange={(event) => setCategory(event.target.value)}
-                  >
-                    <option disabled hidden selected>
-                      Категорія
-                    </option>
-                    {filters.categories.map((item) => {
-                      return <option value={item.value}>{item.label}</option>;
-                    })}
-                  </select>
-                  <ChevronDown className="pos-absolute pos-center-right" />
-                </div>
+              <div className="pos-relative news-archive__filter">
+                <select
+                  className="news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
+                  onChange={(event) => setCategory(event.target.value)}
+                >
+                  <option disabled hidden selected>
+                    Категорія
+                  </option>
+                  {filters.categories.map((item) => {
+                    return <option value={item.value}>{item.label}</option>;
+                  })}
+                </select>
+                <ChevronDown className="pos-absolute pos-center-right" />
               </div>
-              {isSortingOpen && (
+              <div className="pos-relative">
                 <Sorting
                   currentOption={currentSorting}
                   options={sorting}
-                  className="sorting--news"
+                  className="sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={setSorting}
                 />
-              )}
+                <ChevronDown className="pos-absolute pos-center-right" />
+              </div>
               {isCalendarOpen && (
                 <Calendar
                   onChange={setDate}

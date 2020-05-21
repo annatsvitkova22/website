@@ -16,12 +16,6 @@ const SidebarNews = ({
 }) => {
   return (
     <aside className={classnames('sidebar--news', className)}>
-      <Sorting
-        currentOption={currentSorting}
-        options={sorting}
-        className="sorting--news"
-        onChange={setSorting}
-      />
       <Calendar onChange={setDate} currentValue={filters.date} />
       <Filter
         currentOption={currentCategory}
