@@ -249,9 +249,7 @@
 
   .crowdfunding-progress {
     &__info {
-      @include media-breakpoint-up(sm) {
-        margin-bottom: 8px;
-      }
+      margin-bottom: 8px;
     }
 
     &__amount {
@@ -264,8 +262,6 @@
       color: $green;
 
       @include media-breakpoint-down(sm) {
-        margin-bottom: 8px;
-
         font-size: 20px;
         line-height: 24px;
       }

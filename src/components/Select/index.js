@@ -86,6 +86,8 @@ const SiteSelect = (props) => {
           return (
             <option key={k} value={value}>
               {optionTitle}
+              {/*{optionTitle.split(' ').slice(0, -1)}{' '}*/}
+              {/*{optionTitle.split(' ').slice(-1)}*/}
             </option>
           );
         })}
