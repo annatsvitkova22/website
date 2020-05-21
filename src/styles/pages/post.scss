@@ -133,6 +133,7 @@
     position: relative;
 
     cursor: pointer;
+    transition: none;
     @include media-breakpoint-down(xs) {
       margin-bottom: 24px;
     }
@@ -171,6 +172,10 @@
       background: transparent;
 
       visibility: hidden;
+      transition: none;
+      .social-icon {
+        transition: none;
+      }
     }
     .expand-image:focus {
       outline: none;

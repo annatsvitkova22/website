@@ -58,8 +58,6 @@ const LikeButton = ({ post, className, showNumber = true }) => {
       },
       conf
     );
-    console.log(data);
-    console.log(currentLikes);
     updateLikes(data.likes);
 
     setTimeout(() => setLiked(false), 600);
