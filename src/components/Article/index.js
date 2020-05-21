@@ -96,10 +96,9 @@ const Article = ({ type, display, className, ...props }) => {
 };
 
 Article.propTypes = {
-  type: PropTypes.any,
-  display: PropTypes.any,
+  type: PropTypes.string,
+  display: PropTypes.string,
   className: PropTypes.string,
-  props: PropTypes.any,
 };
 
 export default Article;

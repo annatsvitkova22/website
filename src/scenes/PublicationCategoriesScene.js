@@ -1,16 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 
 import Article from '~/components/Article';
 import PublCatLoader from '~/components/Loaders/PublCatLoader';
 
-const PublicationCategoriesScene = ({ categories, children, loading }) => {
-  if (typeof children === 'object' && !loading) {
+const PublicationCategoriesScene = ({ categories, children, isLoading }) => {
+  if (typeof children === 'object' && !isLoading) {
     return children;
   }
 
-  if (isEmpty(categories) && loading) {
+  if (isEmpty(categories) && isLoading) {
     return <PublCatLoader />;
   }
 
@@ -29,12 +30,10 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
         {sortedCategories
           .slice(0, 4)
           .map(
-            ({
-              publications: { nodes },
-              name,
-              slug,
-              zmCategoryACF: { size },
-            }) => {
+            (
+              { publications: { nodes }, name, slug, zmCategoryACF: { size } },
+              k
+            ) => {
               let colSize = '';
               switch (size) {
                 case 'medium':
@@ -52,7 +51,7 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
               }
 
               return (
-                <div className={`publ-cat__col--${size} ${colSize}`}>
+                <div key={k} className={`publ-cat__col--${size} ${colSize}`}>
                   <h6 className="publ-page__title text-uppercase">
                     <Link href={`/search?category=${slug}`}>
                       <a>{name}</a>
@@ -68,7 +67,7 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
                               size={size}
                               type="publications-cats"
                               post={post}
-                              key={post.id}
+                              key={i}
                             />
                           ))}
                         </div>
@@ -80,7 +79,7 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
                               size={size}
                               type="publications-cats"
                               post={post}
-                              key={post.id}
+                              key={i}
                             />
                           ))}
                         </div>
@@ -94,7 +93,7 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
                             size={size}
                             type="publications-cats"
                             post={post}
-                            key={post.id + i}
+                            key={i}
                           />
                         ))}
                       </div>
@@ -107,6 +106,12 @@ const PublicationCategoriesScene = ({ categories, children, loading }) => {
       </div>
     </div>
   );
+};
+
+PublicationCategoriesScene.propTypes = {
+  categories: PropTypes.object,
+  children: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 export default PublicationCategoriesScene;

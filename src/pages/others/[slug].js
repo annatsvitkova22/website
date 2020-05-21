@@ -125,6 +125,20 @@ const Other = (props) => {
     <div className="single__event">
       <Head>
         <title>ЗМІСТ - {other.title}</title>
+        {other &&
+          other.featuredImage &&
+          other.featuredImage.mediaItemUrl && (
+            <>
+              <meta
+                property="twitter:image"
+                content={other.featuredImage.mediaItemUrl}
+              />
+              <meta
+                property="og:image"
+                content={other.featuredImage.mediaItemUrl}
+              />
+            </>
+          )}
       </Head>
 
       <main className="event">

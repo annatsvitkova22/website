@@ -47,9 +47,9 @@ const ArticleCrowdfundings = ({ imageSize, post, children, className }) => {
 };
 
 ArticleCrowdfundings.propTypes = {
-  post: PropTypes.any,
+  post: PropTypes.object,
+  children: PropTypes.node,
   className: PropTypes.string,
-  children: PropTypes.any,
 };
 
 export default ArticleCrowdfundings;

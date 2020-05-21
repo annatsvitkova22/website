@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import he from 'he';
 
 const BlogsScene = ({ users: { nodes: users } }) => (
@@ -65,5 +66,10 @@ const BlogsScene = ({ users: { nodes: users } }) => (
     </div>
   </div>
 );
+
+BlogsScene.propTypes = {
+  nodes: PropTypes.array,
+  users: PropTypes.object,
+};
 
 export default BlogsScene;

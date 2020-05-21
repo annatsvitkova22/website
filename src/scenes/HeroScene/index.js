@@ -117,9 +117,9 @@ const HeroScene = ({ info, posts, publications }) => {
 };
 
 HeroScene.propTypes = {
-  info: PropTypes.any,
-  posts: PropTypes.any,
-  publications: PropTypes.any,
+  info: PropTypes.object,
+  posts: PropTypes.object,
+  publications: PropTypes.object,
 };
 
 export default HeroScene;

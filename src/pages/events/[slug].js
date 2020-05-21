@@ -165,6 +165,18 @@ const Event = (props) => {
     <div className="single__event">
       <Head>
         <title>ЗМІСТ - {event.title}</title>
+        {event && event.featuredImage && event.featuredImage.mediaItemUrl && (
+          <>
+            <meta
+              property="twitter:image"
+              content={event.featuredImage.mediaItemUrl}
+            />
+            <meta
+              property="og:image"
+              content={event.featuredImage.mediaItemUrl}
+            />
+          </>
+        )}
       </Head>
       <main className="event">
         <div className="container">

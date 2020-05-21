@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Article from '~/components/Article';
 
@@ -14,6 +15,10 @@ const PublicationsScene = ({ publications }) => {
       </div>
     </div>
   );
+};
+
+PublicationsScene.propTypes = {
+  publications: PropTypes.object,
 };
 
 export default PublicationsScene;

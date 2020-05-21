@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 
 import Featured from '~/components/Article/Featured';
 import Author from '~/components/Article/Author';
@@ -10,12 +11,12 @@ import { ArticleProvider } from '~/components/Article/Context';
 import TagsLoader from '~/components/Loaders/TagsLoader';
 import SectionHeadingLoader from '~/components/Loaders/SectionHeadingLoader';
 
-const TagsScene = ({ tags, children, loading }) => {
-  if (typeof children === 'object' && !loading) {
+const TagsScene = ({ tags, children, isLoading }) => {
+  if (typeof children === 'object' && !isLoading) {
     return children;
   }
 
-  if (isEmpty(tags) && loading) {
+  if (isEmpty(tags) && isLoading) {
     return (
       <>
         <SectionHeadingLoader />
@@ -31,8 +32,8 @@ const TagsScene = ({ tags, children, loading }) => {
   return (
     <div className="container tag-sec">
       {filteredTags.map(
-        ({ name, slug, publications: { nodes: publications } }) => (
-          <div className="row">
+        ({ name, slug, publications: { nodes: publications } }, k) => (
+          <div key={k} className="row">
             <div className="col-12">
               <SectionHeading
                 isRow={true}
@@ -88,6 +89,12 @@ const TagsScene = ({ tags, children, loading }) => {
       )}
     </div>
   );
+};
+
+TagsScene.propTypes = {
+  tags: PropTypes.object,
+  children: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 export default TagsScene;

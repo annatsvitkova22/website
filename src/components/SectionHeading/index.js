@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const SectionHeading = ({ title, href, classMode, isRow = false }) => {
   const getRow = () => (
@@ -29,6 +30,13 @@ const SectionHeading = ({ title, href, classMode, isRow = false }) => {
   }
 
   return <div className={`container `}>{getRow()}</div>;
+};
+
+SectionHeading.propTypes = {
+  title: PropTypes.string,
+  href: PropTypes.string,
+  classMode: PropTypes.string,
+  isRow: PropTypes.bool,
 };
 
 export default SectionHeading;

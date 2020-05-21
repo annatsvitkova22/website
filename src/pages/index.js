@@ -3,6 +3,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
+import getConfig from 'next/config';
 
 import client from '~/lib/ApolloClient';
 import HeroScene from '~/scenes/HeroScene';
@@ -17,6 +18,9 @@ import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 import MainPublications from '~/components/MainPublications';
 import HomeHeroLoader from '~/components/Loaders/Home/Hero';
+
+const { publicRuntimeConfig } = getConfig();
+const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 // TODO: split to multiple requests
 const HOME_PAGE = gql`
@@ -300,7 +304,7 @@ const CATEGORIES = gql`
 
 const Home = (props) => {
   const [state, setState] = useState(props);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const {
     info,
@@ -326,7 +330,6 @@ const Home = (props) => {
       users: data.users,
       crowdfundings: data.crowdfundings,
       tags: data.tags,
-      // TODO: Put bellow function on frontend
       videos: data.videos,
       opportunities: data.opportunities,
       events: data.events,
@@ -369,15 +372,34 @@ const Home = (props) => {
     <div className="home-page">
       <Head>
         <title>ЗМІСТ - Головна</title>
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${config.frontUrl}`} />
+        <meta property="og:title" content="ЗМІСТ - Зміни створюєш ти!" />
+        <meta
+          property="og:description"
+          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+        />
+        <meta property="og:image" content="/zmist.jpg" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`${config.frontUrl}`} />
+        <meta property="twitter:title" content="ЗМІСТ - Зміни ствоюєш ти!" />
+        <meta
+          property="twitter:description"
+          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+        />
+        <meta property="twitter:image" content="/zmist.jpg" />
       </Head>
 
       <main>
+        <h1 style={{ fontSize: 0, margin: 0 }}>ЗМІСТ - Зміни створюєш ти!</h1>
         <HeroScene {...{ info, posts, publications }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
         <SectionHeading title="Збір коштів" href="/crowdfundings" />
-        <CrowdfundingsScene {...{ crowdfundings, loading }}>
+        <CrowdfundingsScene {...{ crowdfundings, isLoading }}>
           {typeof crowdfundings === 'undefined' && (
             <Waypoint onEnter={loadData(CROWDFUNDINGS)} />
           )}
@@ -385,14 +407,14 @@ const Home = (props) => {
 
         <MainPublications {...{ publications }} />
 
-        <TagsScene {...{ tags, loading }}>
+        <TagsScene {...{ tags, isLoading }}>
           {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
         </TagsScene>
 
         {videos && videos.nodes && videos.nodes.length && (
           <>
             <SectionHeading title="Відео" href="/videos" classMode="videos" />
-            <VideosScene {...{ videos, loading }}>
+            <VideosScene {...{ videos, isLoading }}>
               {typeof videos === 'undefined' && (
                 <Waypoint onEnter={loadData(VIDEOS)} />
               )}
@@ -409,7 +431,7 @@ const Home = (props) => {
                 href="/opportunities"
                 classMode="opport"
               />
-              <OpportunitiesScene {...{ opportunities, loading }}>
+              <OpportunitiesScene {...{ opportunities, isLoading }}>
                 {typeof opportunities === 'undefined' && (
                   <Waypoint onEnter={loadData(OPPORTUNITIES)} />
                 )}
@@ -418,7 +440,7 @@ const Home = (props) => {
           )}
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events, loading }} form={true}>
+        <EventsScene {...{ events, isLoading }} form={true}>
           {typeof events === 'undefined' && (
             <Waypoint onEnter={loadData(EVENTS)} />
           )}
@@ -431,7 +453,7 @@ const Home = (props) => {
         />
         <PublicationsScene {...{ publications }} />
 
-        <PublicationCategoriesScene {...{ categories, loading }}>
+        <PublicationCategoriesScene {...{ categories, isLoading }}>
           {typeof categories === 'undefined' && (
             <Waypoint onEnter={loadData(CATEGORIES)} />
           )}

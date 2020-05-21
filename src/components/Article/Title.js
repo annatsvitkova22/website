@@ -10,7 +10,7 @@ import ArticleContext from '~/components/Article/Context';
 const ArticleTitle = ({
   post: { slug, title },
   className,
-  highlightInTitle,
+  isHighlightInTitle: highlightInTitle,
 }) => {
   const [width, setWidth] = useState();
   const breakpoint = 768;
@@ -80,8 +80,10 @@ const ArticleTitle = ({
 
 ArticleTitle.propTypes = {
   post: PropTypes.object,
+  slug: PropTypes.string,
+  title: PropTypes.string,
   className: PropTypes.string,
-  highlightInTitle: PropTypes.any,
+  isHighlightInTitle: PropTypes.bool,
 };
 
 export default ArticleTitle;

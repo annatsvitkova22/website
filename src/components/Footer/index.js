@@ -74,12 +74,12 @@ const FOOTER_QUERY = gql`
 const Footer = () => {
   const { loading, data } = useQuery(FOOTER_QUERY);
 
-  const handleClick = (event) => {
+  function handleClick(event) {
     event.currentTarget.parentNode
       .querySelector('.footer__sitemap-navigation')
       .classList.toggle('isOpen');
     event.currentTarget.childNodes[1].classList.toggle('isOpen');
-  };
+  }
 
   if (loading) return null;
 

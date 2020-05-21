@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 
 import PhotoSwipeGallery from '~/components/PhotoSwipeGallery';
 import {
@@ -10,7 +11,7 @@ import {
 import addVideoDurations from '~/util/addVideoDurations';
 import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
-const VideosScene = ({ videos = {}, loading, children }) => {
+const VideosScene = ({ videos = {}, isLoading, children }) => {
   const [state, setState] = useState(false);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const VideosScene = ({ videos = {}, loading, children }) => {
     }
   }, [videos.nodes, state]);
 
-  if (typeof children === 'object' && !loading) {
+  if (typeof children === 'object' && !isLoading) {
     return children;
   }
 
@@ -62,6 +63,12 @@ const VideosScene = ({ videos = {}, loading, children }) => {
       <div className="row">{state}</div>
     </div>
   );
+};
+
+VideosScene.propTypes = {
+  videos: PropTypes.object,
+  isLoading: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default VideosScene;

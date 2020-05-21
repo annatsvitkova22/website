@@ -1,15 +1,16 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 
 import Article from '~/components/Article';
 import OpportunitiesLoader from '~/components/Loaders/OpportunitiesLoader';
 
-const OpportunitiesScene = ({ opportunities, children, loading }) => {
-  if (typeof children === 'object' && !loading) {
+const OpportunitiesScene = ({ opportunities, children, isLoading }) => {
+  if (typeof children === 'object' && !isLoading) {
     return children;
   }
 
-  if (isEmpty(opportunities) && loading) {
+  if (isEmpty(opportunities) && isLoading) {
     return (
       <div className="opportunities-page">
         <div className="container">
@@ -40,12 +41,18 @@ const OpportunitiesScene = ({ opportunities, children, loading }) => {
             className="col-lg-6"
             type="opportunities"
             post={post}
-            key={post.id}
+            key={i}
           />
         ))}
       </div>
     </div>
   );
+};
+
+OpportunitiesScene.propTypes = {
+  opportunities: PropTypes.object,
+  children: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 export default OpportunitiesScene;

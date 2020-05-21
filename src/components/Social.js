@@ -11,6 +11,7 @@ const Social = (props) => {
       {socialsData.map((item, i) => {
         return (
           <a
+            rel="noopener noreferrer"
             href={item.url}
             title={item.name}
             key={i}

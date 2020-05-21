@@ -60,25 +60,21 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
 
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
+        <meta name="title" content="ЗМІСТ - Зміни створюєш ти!" />
         <meta
           name="description"
-          content="Зміни створюєш ти! Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
         />
         <meta property="og:locale" content="uk-UA" />
         <meta property="og:site_name" content="ЗМІСТ" />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${config.frontUrl}`} />
-        <meta property="og:title" content="ЗМІСТ" />
-        <meta property="og:description" content="Зміни ствоюєш ти!" />
-        <meta property="og:image" content="/zmist.jpg" />
-
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`${config.frontUrl}`} />
-        <meta property="twitter:title" content="ЗМІСТ" />
-        <meta property="twitter:description" content="Зміни ствоюєш ти!" />
-        <meta property="twitter:image" content="/zmist.jpg" />
+
         <meta property="twitter:site" content="@zmist" />
         <meta property="twitter:creator" content="@outright_digital" />
       </Head>
@@ -92,6 +88,7 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
 ZmistApp.propTypes = {
   Component: PropTypes.any,
   pageProps: PropTypes.any,
+  zmistAdditional: PropTypes.object,
 };
 
 // You can comment this method below if you don't want to have every single page rendered on server

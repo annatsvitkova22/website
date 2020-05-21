@@ -8,18 +8,18 @@ import Modal from './Modal';
 import Article from '~/components/Article';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
-const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
+const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
   const [isModal, setIsModal] = useState(false);
 
   function onClick() {
     setIsModal(!isModal);
   }
 
-  if (typeof children === 'object' && !loading) {
+  if (typeof children === 'object' && !isLoading) {
     return children;
   }
 
-  if (isEmpty(crowdfundings) && loading) {
+  if (isEmpty(crowdfundings) && isLoading) {
     return (
       <div className="container">
         <main className="row">
@@ -69,9 +69,9 @@ const CrowdfundingsScene = ({ crowdfundings, children, loading = false }) => {
 };
 
 CrowdfundingsScene.propTypes = {
-  crowdfunding: PropTypes.any,
-  loading: PropTypes.any,
-  children: PropTypes.any,
+  crowdfundings: PropTypes.object,
+  children: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 export default CrowdfundingsScene;
