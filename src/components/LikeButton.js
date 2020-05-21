@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
 import axios from 'axios';
@@ -13,6 +13,21 @@ const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const LikeButton = ({ post, className, showNumber = true }) => {
+  const [liked, setLiked] = useState(false);
+  const likeCls = classnames({
+    like: true,
+    liked: liked,
+  });
+  const countCls = classnames({
+    'like-count': true,
+    liked: liked,
+  });
+  // useEffect(() => {
+  //   document.querySelector('.like').addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     e.currentTarget.classList.toggle('liked');
+  //   });
+  // }, []);
   let type = `${post.__typename.toLowerCase()}`;
   const id = post[`${type}Id`];
   type = `${type}s`;
@@ -49,14 +64,19 @@ const LikeButton = ({ post, className, showNumber = true }) => {
       conf
     );
     updateLikes(data.likes);
+    setLiked(true);
+    setTimeout(() => setLiked(false), 800);
   };
 
   return (
     <>
-      <button onClick={handleLike} className={classnames('like', className)}>
+      <button
+        onClick={handleLike}
+        className={`${likeCls} ${classnames(className)}`}
+      >
         <Icons icon={'likes'} />
       </button>
-      {showNumber && <span>{likes || '0'}</span>}
+      {showNumber && <span className={`${countCls}`}>{likes || '0'}</span>}
     </>
   );
 };

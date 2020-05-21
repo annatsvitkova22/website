@@ -3,12 +3,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  position: relative;
   &-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    position: relative;
     & > span {
       font-weight: 500;
       font-size: 14px;
@@ -35,10 +35,72 @@
   margin-bottom: 8px;
 
   background-color: transparent;
-  border: 1px solid lightgrey;
+  border: 1px solid rgba(239, 240, 244, 1);
   border-radius: 50%;
 
+  color: #1d9e74;
+
+  transition: all 0.5s ease;
+
   cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
+  }
+  &-count {
+    &:after {
+      content: '+1';
+
+      display: flex;
+      justify-content: center;
+
+      width: 32px;
+      height: 32px;
+
+      position: absolute;
+      top: 6px;
+      left: 6px;
+
+      background: $green;
+      border-radius: 50%;
+
+      font-size: 12px;
+      line-height: 32px;
+      color: $white;
+
+      pointer-events: none;
+
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    &.liked {
+      &:after {
+        animation: count 1s ease;
+      }
+    }
+  }
+  &.liked {
+    border-color: $green;
+
+    animation: shadow-grow 2s;
+
+    svg {
+      animation: heart-grow 0.7s;
+    }
+
+    .exclamation {
+      fill: $green;
+    }
+  }
+}
+
+.likes.social-icon {
+  width: auto;
+  height: auto;
 }
 .share-button {
   display: flex;
@@ -63,4 +125,50 @@
 }
 .share-button:hover + .svg-icon {
   color: #1d9e74;
+}
+
+@keyframes shadow-grow {
+  0% {
+    box-shadow: 0 0;
+  }
+  50% {
+    box-shadow: 0 0 5px 20px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes heart-grow {
+  0% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes count {
+  15% {
+    opacity: 1;
+    transform: scale(1.15) translateZ(0);
+  }
+  25% {
+    transform: scale(0.95) translateZ(0);
+  }
+  50% {
+    transform: scale(1) translateZ(0);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) translateZ(0);
+  }
+}
+.exclamation {
+  fill: rgba(0, 0, 0, 0.35);
 }
