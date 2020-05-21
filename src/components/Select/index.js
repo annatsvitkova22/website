@@ -74,7 +74,7 @@ const SiteSelect = (props) => {
       <select
         name={name}
         id={`mobile-filter-${instanceId}`}
-        className="mobile-select tx-family-titles w-100"
+        className="reset-select mobile-select tx-family-titles w-100"
         defaultValue="placeholder"
         onChange={onChangeHtml}
       >
