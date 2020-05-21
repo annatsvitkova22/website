@@ -9,6 +9,23 @@
   .similar-posts__author {
     letter-spacing: 0.07em;
   }
+  .article {
+    &__main {
+      @include media-breakpoint-down(sm) {
+        margin-right: 12px;
+      }
+    }
+    &__title {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 8px;
+      }
+    }
+    &__author {
+      @include media-breakpoint-down(sm) {
+        font-weight: 600;
+      }
+    }
+  }
 
   &__archive {
     max-width: 896px;
