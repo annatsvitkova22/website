@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
-import PropTypes from 'prop-types';
+
 import Icons from '~/components/Icons';
 
+const img = [
+  {
+    source:
+      'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg',
+  },
+  {
+    source:
+      'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg',
+  },
+];
 const svg = (
   <svg
     width="12"
@@ -44,6 +54,10 @@ const SamplePrevArrow = ({ className, style, onClick }) => {
 };
 
 const Slick = ({ images }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const toggleModal = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
   const settings = {
     dots: true,
     infinite: true,
