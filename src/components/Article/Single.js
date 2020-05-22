@@ -147,8 +147,8 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                   post={storedPost}
                   userAvatarStyles={userAvatarStyles}
                 />
-                <section className={'single-post__main container'}>
-                  <div className="row">
+                <div className="container">
+                  <section className={'single-post__main'}>
                     <div className={'title__socials--mobile'}>
                       <div className={'title__socials-about'}>
                         {userAvatarStyles &&
@@ -198,8 +198,8 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       )}
                       <NewsFooter post={storedPost} />
                     </div>
-                  </div>
-                </section>
+                  </section>
+                </div>
                 {similarPosts && (
                   <div className="container">{similarPosts}</div>
                 )}
