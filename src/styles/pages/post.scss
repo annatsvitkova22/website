@@ -1,6 +1,52 @@
 .single-post {
   padding-top: 118px;
 
+  .feature__image {
+    max-width: 872px;
+    margin-bottom: 40px;
+
+    position: relative;
+
+    cursor: zoom-in;
+    transition: none;
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 24px;
+    }
+
+    &--full {
+      max-width: 100%;
+    }
+
+    &-caption {
+      padding-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+
+      @include media-breakpoint-down(xs) {
+        padding-left: 20px;
+        padding-top: 4px;
+      }
+    }
+    p {
+      margin-bottom: 0;
+    }
+    .expand-image {
+      bottom: 30px;
+      right: 40px;
+
+      cursor: zoom-in;
+      .social-icon {
+        transition: all 0.3s;
+      }
+    }
+    .expand-image:focus {
+      outline: none;
+    }
+    &:hover .expand-image {
+      opacity: 1;
+    }
+  }
+
   .svg-icon:hover {
     color: #1d9e74;
 
@@ -14,33 +60,54 @@
         object-fit: cover;
       }
     }
+
+    .share {
+      margin-right: 20px;
+    }
   }
 
   &--publications {
     padding-top: 68px !important;
-
-    .single-post__main {
-      > .row {
-        width: 100%;
-        @include media-breakpoint-down(sm) {
+    .row {
+      position: relative;
+    }
+    .single-post {
+      &__main {
+        > .row {
+          width: 100%;
           margin-left: 0;
           margin-right: 0;
         }
       }
-    }
 
-    .single-post__content {
-      margin: 0;
-      padding-top: 62px;
-
-      @include media-breakpoint-up(md) {
-        margin-left: 8.33333%;
-      }
-
-      @include media-breakpoint-up(lg) {
-        margin-left: 16.66667%;
+      &__content {
+        margin: 0 auto;
+        padding-top: 62px;
       }
     }
+
+    .feature__image {
+      width: 100%;
+      max-width: 100%;
+
+      max-height: 550px;
+    }
+
+    .side-bar {
+      &__wrapper {
+        height: 100%;
+
+        position: absolute;
+      }
+      &__sticky {
+        height: 200px;
+      }
+    }
+
+    .share {
+      margin-right: 0;
+    }
+
     .title__socials--mobile {
       display: none;
       @include media-breakpoint-down(sm) {
@@ -126,52 +193,6 @@
     }
   }
 
-  .feature__image {
-    max-width: 872px;
-    margin-bottom: 40px;
-
-    position: relative;
-
-    cursor: zoom-in;
-    transition: none;
-    @include media-breakpoint-down(xs) {
-      margin-bottom: 24px;
-    }
-
-    &--full {
-      max-width: 100%;
-    }
-
-    &-caption {
-      padding-bottom: 0;
-      margin-left: auto;
-      margin-right: auto;
-
-      @include media-breakpoint-down(xs) {
-        padding-left: 20px;
-        padding-top: 4px;
-      }
-    }
-    p {
-      margin-bottom: 0;
-    }
-    .expand-image {
-      bottom: 30px;
-      right: 40px;
-
-      cursor: zoom-in;
-      .social-icon {
-        transition: all 0.3s;
-      }
-    }
-    .expand-image:focus {
-      outline: none;
-    }
-    &:hover .expand-image {
-      opacity: 1;
-    }
-  }
-
   .title__description {
     max-width: 648px;
     margin-bottom: 40px;
@@ -231,15 +252,12 @@
     }
   }
 
-  aside.share {
-    margin-right: 20px;
-  }
-
   .react-share__ShareButton {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .social-icon {
     display: flex;
     justify-content: center;
@@ -249,14 +267,17 @@
 
     transition: all 0.3s;
   }
+
   .facebook svg {
     max-width: 12px;
     height: 100%;
   }
+
   .telegram svg {
     height: auto;
     max-width: 17.5px;
   }
+
   .share.social-icon svg {
     max-width: 20.5px;
   }

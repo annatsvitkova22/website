@@ -21,9 +21,7 @@ const FeaturedImage = ({ data, className, size }) => {
       {data && (
         <figure
           className={classnames('feature__image', className, {
-            'col-lg-11': size !== 'full' && 'half',
             'feature__image--full': size === 'full',
-            'feature__image--half': size === 'half',
           })}
         >
           <img src={data.mediaItemUrl} alt={data.title} />

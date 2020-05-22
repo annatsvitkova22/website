@@ -57,6 +57,7 @@ class PhotoSwipeGallery extends React.Component {
     const { className } = this.props;
     const eventProps = [other, ...events];
     const { isOpen, options } = this.state;
+    console.log(options);
     return (
       <div
         id={`video-category-${options.galleryUID}`}
