@@ -76,8 +76,14 @@
         margin: 0 auto;
         padding-top: 62px;
       }
-    }
 
+      &__title-wrapper {
+        margin-bottom: 20px;
+      }
+    }
+    .title__title {
+      margin-bottom: 0;
+    }
     .feature__image {
       width: 100%;
       max-width: 100%;
@@ -99,6 +105,10 @@
 
     .share {
       margin-right: 0;
+    }
+
+    .publication-banner__excerpt > p {
+      margin-bottom: 32px;
     }
 
     .title__socials--mobile {
@@ -305,7 +315,7 @@
     width: 44px;
     height: 44px;
 
-    margin-right: 8px;
+    margin-right: 16px;
     padding: 0;
 
     border: none;
@@ -314,8 +324,6 @@
   &-author {
     display: flex;
     flex-direction: column;
-
-    margin-left: 8px;
   }
   &-name.meta-author {
     padding-bottom: 6px;
