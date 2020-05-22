@@ -225,7 +225,11 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                     <FeaturedImage data={storedPost.featuredImage} />
                     <section className={'single-post__main col-12'}>
                       {hasShare && (
-                        <StickyBox offsetTop={272} offsetBottom={20}>
+                        <StickyBox
+                          offsetTop={272}
+                          offsetBottom={20}
+                          className="side-bar__sticky"
+                        >
                           <ActionsSidebar post={storedPost} />
                         </StickyBox>
                       )}

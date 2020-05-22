@@ -60,10 +60,6 @@
         object-fit: cover;
       }
     }
-
-    .share {
-      margin-right: 20px;
-    }
   }
 
   &--publications {
@@ -99,9 +95,6 @@
 
         position: absolute;
       }
-      &__sticky {
-        height: 200px;
-      }
     }
 
     .share {
@@ -127,6 +120,10 @@
         }
       }
     }
+  }
+
+  .side-bar__sticky {
+    height: 200px;
   }
 
   @include media-breakpoint-down(sm) {
