@@ -214,12 +214,9 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
               <>
                 <div className={'row'}>
                   <div
-                    className={classnames(
-                      'single-post__wrapper col-12 no-gutters',
-                      {
-                        'col-xl-9': sidebar,
-                      }
-                    )}
+                    className={classnames('col-12', {
+                      'col-xl-9': sidebar,
+                    })}
                   >
                     <div className="single-post__block-wrapper">
                       <NewsHead post={storedPost} />

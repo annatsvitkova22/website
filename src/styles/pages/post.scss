@@ -179,14 +179,10 @@
     height: 200px;
   }
 
-  &__wrapper {
-    @include media-breakpoint-down(xs) {
-      padding: 0;
-    }
-  }
   &__block-wrapper {
     margin-left: auto;
     max-width: 872px;
+    width: 100%;
   }
 
   &__title {
