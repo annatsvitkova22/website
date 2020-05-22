@@ -4,6 +4,8 @@
 
   position: relative;
 
+  cursor: zoom-in;
+
   figure {
     margin: 0;
   }
@@ -39,9 +41,26 @@
   .img--ct {
     margin: auto;
   }
+
+  &-expand {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .img-wrapper:hover .expand-image {
+    opacity: 1;
+  }
+  .social-icon {
+    transition: none;
+  }
 }
 
 .gutenberg__image-pswp {
+  transition: all 0.3s;
   .pswp__bg {
     background-color: white;
   }
@@ -114,9 +133,6 @@
   // }
 }
 
-.gutenberg__image:hover > .expand-image {
-  visibility: visible;
-}
 .expand-image {
   display: flex;
   justify-content: center;
@@ -133,7 +149,9 @@
   border: none;
   background: transparent;
 
-  visibility: hidden;
+  opacity: 0;
+
+  transition: all 0.3s;
 }
 .expand-image:focus {
   outline: none;

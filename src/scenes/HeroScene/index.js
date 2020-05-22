@@ -68,7 +68,7 @@ const HeroScene = ({ info, posts, publications }) => {
                       categories={categories}
                       className={`article__category mt-l--small`}
                     />
-                    <h2>
+                    <h2 className="publ-title">
                       <Link
                         href={`/publications/[slug]`}
                         as={`/publications/${slug}`}

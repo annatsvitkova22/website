@@ -82,14 +82,22 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
     backgroundSize: 'cover',
   };
 
-  console.log(storedPost);
-
   return (
     <>
       <Head>
         <title>ЗМІСТ - {storedPost.title}</title>
 
         <meta property="twitter:card" content="summary_large_image" />
+
+        <meta name="title" content={storedPost.title} />
+        <meta
+          name="description"
+          content={he.decode(
+            storedPost.excerpt
+              .replace(/<[^>]+>/g, '')
+              .replace('[&hellip;]', '...')
+          )}
+        />
 
         <meta property="og:title" content={storedPost.title} />
         <meta property="og:type" content="article" />
@@ -149,8 +157,8 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                   post={storedPost}
                   userAvatarStyles={userAvatarStyles}
                 />
-                <section className={'single-post__main container'}>
-                  <div className="row">
+                <div className="container">
+                  <section className={'single-post__main'}>
                     <div className={'title__socials--mobile'}>
                       <div className={'title__socials-about'}>
                         {userAvatarStyles &&
@@ -176,11 +184,17 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       />
                     </div>
                     {hasShare && (
-                      <div className={'side-bar__wrapper col-md-1'}>
-                        <ActionsSidebar post={storedPost} />
+                      <div className={'side-bar__wrapper'}>
+                        <StickyBox
+                          offsetTop={272}
+                          offsetBottom={20}
+                          className="side-bar__sticky"
+                        >
+                          <ActionsSidebar post={storedPost} />
+                        </StickyBox>
                       </div>
                     )}
-                    <div className="single-post__content col-lg-6 col-md-8">
+                    <div className="single-post__content">
                       {storedPost.blocks.length ? (
                         <Content
                           content={storedPost.blocks}
@@ -194,8 +208,8 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       )}
                       <NewsFooter post={storedPost} />
                     </div>
-                  </div>
-                </section>
+                  </section>
+                </div>
                 {similarPosts && (
                   <div className="container">{similarPosts}</div>
                 )}
@@ -224,7 +238,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                         <StickyBox
                           offsetTop={272}
                           offsetBottom={20}
-                          className={'side-bar__wrapper'}
+                          className="side-bar__sticky"
                         >
                           <ActionsSidebar post={storedPost} />
                         </StickyBox>

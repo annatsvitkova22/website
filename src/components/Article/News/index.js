@@ -35,19 +35,17 @@ const ArticleNews = ({
             <ArticleDate className="article__time" date={date} />
           </div>
           <div className="article__main">
-            <div className="article__top">
-              <div className="article__chronology--mobile">
-                <ArticleDate className="article__time" date={date} />
+            {categories && categories.nodes && categories.nodes.length > 0 && (
+              <div className="article__top">
+                <div className="article__chronology--mobile">
+                  <ArticleDate className="article__time" date={date} />
+                </div>
+                <ArticleTaxonomies
+                  categories={categories}
+                  className="category-label"
+                />
               </div>
-              {categories &&
-                categories.nodes &&
-                categories.nodes.length > 0 && (
-                  <ArticleTaxonomies
-                    categories={categories}
-                    className="category-label"
-                  />
-                )}
-            </div>
+            )}
             <ArticleTitle
               highlightInTitle={highlightInTitle}
               post={post}
