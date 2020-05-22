@@ -23,12 +23,12 @@
         height: auto;
       }
       &:hover .slick__info {
-        visibility: visible;
+        opacity: 1;
 
         transition: all 0.3s;
       }
       &:hover .expand-image {
-        visibility: visible;
+        opacity: 1;
         transition: all 0.3s;
       }
     }
@@ -93,7 +93,7 @@
       bottom: 0;
       left: 0;
 
-      visibility: hidden;
+      opacity: 0;
 
       transition: all 0.3s;
       &-icon {
