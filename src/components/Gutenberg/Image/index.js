@@ -14,13 +14,13 @@ const Image = ({ block, className = '' }) => {
     'img--lt': block.attributes.align === 'left',
     'img--ct': block.attributes.align === 'center',
   });
-  const handleOpen = () => {
+  function handleOpen() {
     setIsOpen(true);
-  };
+  }
 
-  const handleClose = () => {
+  function handleClose() {
     setIsOpen(false);
-  };
+  }
 
   const image = (
     <img
@@ -54,9 +54,11 @@ const Image = ({ block, className = '' }) => {
             onClose={handleClose}
             className="gutenberg__image-pswp"
           />
-          <button className={'expand-image'} onClick={handleOpen}>
-            <Icons icon={'expand'} />
-          </button>
+          <div className="gutenberg__image-expand" onClick={handleOpen}>
+            <button className={'expand-image'}>
+              <Icons icon={'expand'} />
+            </button>
+          </div>
         </figure>
       </div>
     );

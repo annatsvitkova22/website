@@ -34,9 +34,11 @@ const FeaturedImage = ({ data, className, size }) => {
             className="gutenberg__image-pswp"
           />
           {size !== 'full' && (
-            <button className={'expand-image'} onClick={handleOpen}>
-              <Icons icon={'expand'} />
-            </button>
+            <div className="gutenberg__image-expand" onClick={handleOpen}>
+              <button className={'expand-image'}>
+                <Icons icon={'expand'} />
+              </button>
+            </div>
           )}
           {data.caption && size === 'full' && (
             <div className="container">

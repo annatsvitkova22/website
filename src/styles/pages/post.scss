@@ -132,7 +132,7 @@
 
     position: relative;
 
-    cursor: pointer;
+    cursor: zoom-in;
     transition: none;
     @include media-breakpoint-down(xs) {
       margin-bottom: 24px;
@@ -156,32 +156,19 @@
       margin-bottom: 0;
     }
     .expand-image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      padding: 0;
-      width: 64px;
-      height: 64px;
-
-      position: absolute;
       bottom: 30px;
       right: 40px;
 
-      border: none;
-      background: transparent;
-
-      visibility: hidden;
-      transition: none;
+      cursor: zoom-in;
       .social-icon {
-        transition: none;
+        transition: all 0.3s;
       }
     }
     .expand-image:focus {
       outline: none;
     }
-    &:hover > .expand-image {
-      visibility: visible;
+    &:hover .expand-image {
+      opacity: 1;
     }
   }
 
