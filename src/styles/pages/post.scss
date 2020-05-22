@@ -6,15 +6,12 @@
   }
 
   .feature__image {
-    margin-bottom: 40px;
+    margin-bottom: 0;
 
     position: relative;
 
     cursor: zoom-in;
     transition: none;
-    @include media-breakpoint-down(xs) {
-      margin-bottom: 24px;
-    }
 
     &-caption {
       padding-bottom: 0;
@@ -74,11 +71,6 @@
 
       &__content {
         margin: 0 auto;
-        padding-top: 40px;
-
-        @include media-breakpoint-down(xs) {
-          padding-top: 26px;
-        }
       }
 
       &__title-wrapper {
@@ -109,7 +101,6 @@
 
     .side-bar {
       &__wrapper {
-        padding-top: 62px;
         height: 100%;
 
         position: absolute;
@@ -157,7 +148,7 @@
         display: flex;
 
         width: 100%;
-        padding-top: 26px;
+        padding-bottom: 24px;
       }
       .share-actions__main {
         display: block;
@@ -200,6 +191,7 @@
       }
     }
   }
+
   .title__title {
     margin-bottom: 0;
 
@@ -241,6 +233,12 @@
 
   &__main {
     display: flex;
+
+    padding-top: 40px;
+
+    @include media-breakpoint-down(md) {
+      padding-top: 24px;
+    }
   }
 
   &__content {
