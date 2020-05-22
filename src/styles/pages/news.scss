@@ -107,3 +107,32 @@
   letter-spacing: 0.02em;
   font-size: 14px;
 }
+
+.news-pswp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: calc(100% - 60px);
+  margin: 30px 0;
+
+  &__wrap-img {
+    height: 100%;
+    width: calc(100% - 343px);
+  }
+
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__caption {
+    width: 100%;
+    max-width: 343px;
+    padding: 0 44px;
+    margin-bottom: 0;
+
+    font-size: 16px;
+  }
+}
