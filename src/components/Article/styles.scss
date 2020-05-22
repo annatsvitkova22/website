@@ -458,9 +458,10 @@
   height: 704px;
 }
 
-.feature__image--full {
+.feature__image--full.feature__image {
   height: 704px;
 
+  cursor: auto;
   &:after {
     content: '';
 

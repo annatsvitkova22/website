@@ -5,8 +5,10 @@
 
   position: relative;
 
-  h4 {
+  .sec-title {
     letter-spacing: 0.05em;
+    line-height: 17px;
+    font-size: 14px;
   }
 
   &::before {

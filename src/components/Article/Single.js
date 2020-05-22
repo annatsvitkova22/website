@@ -184,11 +184,17 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       />
                     </div>
                     {hasShare && (
-                      <div className={'side-bar__wrapper col-md-1'}>
-                        <ActionsSidebar post={storedPost} />
+                      <div className={'side-bar__wrapper'}>
+                        <StickyBox
+                          offsetTop={272}
+                          offsetBottom={20}
+                          className="side-bar__sticky"
+                        >
+                          <ActionsSidebar post={storedPost} />
+                        </StickyBox>
                       </div>
                     )}
-                    <div className="single-post__content col-lg-6 col-md-8">
+                    <div className="single-post__content">
                       {storedPost.blocks.length ? (
                         <Content
                           content={storedPost.blocks}
@@ -232,7 +238,7 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                         <StickyBox
                           offsetTop={272}
                           offsetBottom={20}
-                          className={'side-bar__wrapper'}
+                          className="side-bar__sticky"
                         >
                           <ActionsSidebar post={storedPost} />
                         </StickyBox>
