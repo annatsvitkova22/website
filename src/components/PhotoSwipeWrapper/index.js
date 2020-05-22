@@ -122,9 +122,6 @@ class PhotoSwipeWrapper extends React.Component {
 
     this.photoSwipe.listen('close', pauseVideo);
     this.photoSwipe.listen('beforeChange', pauseVideo);
-    this.photoSwipe.listen('helloWorld', () => {
-      console.log('hello');
-    });
   };
 
   openPhotoSwipe = (props) => {
@@ -137,7 +134,6 @@ class PhotoSwipeWrapper extends React.Component {
       options
     );
     this.listen();
-    this.photoSwipe.shout('helloWorld');
     events.forEach((event) => {
       const callback = props[event];
       if (callback || event === 'destroy') {

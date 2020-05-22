@@ -61,10 +61,30 @@
 
 .gutenberg__image-pswp {
   transition: all 0.3s;
-  .pswp__bg {
-    background-color: white;
-  }
-  
+
+  .pswp {
+    &__bg {
+        background-color: white;
+    }
+
+    &__zoom-wrap {
+      display: flex;
+      align-items: center;
+
+      // &::after {
+      //   content: '';
+
+      //   position: absolute;
+      //   top: 0;
+      //   left: 0;
+      //   right: 0;
+      //   bottom: 0;
+
+      //   z-index: 0;
+      // }
+    }
+  } 
+
   // .pswp__scroll-wrap {
   //   display: flex;
   // }

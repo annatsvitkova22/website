@@ -12,6 +12,7 @@ const FeaturedImage = ({ data, className, size }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [options] = useState({
     fullscreenEl: false,
+    zoomEl: false,
     shareEl: false,
     bgOpacity: 1,
   });
@@ -28,11 +29,15 @@ const FeaturedImage = ({ data, className, size }) => {
   const img = [
     {
       html: `
-      <div class="news-pswp">
+      <div class="news-pswp flex-column flex-lg-column">
         <div class="news-pswp__wrap-img">
           <img class="news-pswp__img" src="${data.mediaItemUrl}" alt="${data.caption}"/>
         </div>
-        <p class="news-pswp__caption tx-family-titles">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, unde.</p>
+        <div class="news-pswp__caption">
+          <p class="news-pswp__caption-inner tx-family-titles">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, unde.
+          </p>
+        </div>
       </div>
   `,
     },
