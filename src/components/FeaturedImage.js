@@ -31,13 +31,20 @@ const FeaturedImage = ({ data, className, size }) => {
       html: `
       <div class="news-pswp flex-column flex-lg-row">
         <div class="news-pswp__wrap-img">
-          <img class="news-pswp__img" src="${data.mediaItemUrl}" alt="${data.caption}"/>
+          <img class="news-pswp__img" src="${data.mediaItemUrl}" alt="${
+        data.caption
+      }"/>
         </div>
-        <div class="news-pswp__caption">
-          <p class="news-pswp__caption-inner tx-family-titles">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, unde.
-          </p>
-        </div>
+        ${
+          data.caption
+            ? `<div class="news-pswp__caption">
+            <p class="news-pswp__caption-inner tx-family-titles">
+            ${data.caption}
+            </p>
+          </div>`
+            : ``
+        }
+        
       </div>
   `,
     },

@@ -71,8 +71,11 @@
       &--close {
         background-image: url('../static/images/compress-alt.svg');
         background-position: center center;
-        background-color: transparent;
         background-size: 21px;
+
+        @include media-breakpoint-up(md) {
+          background-color: transparent;
+        }
       }
     }
 

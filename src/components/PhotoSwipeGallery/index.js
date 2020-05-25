@@ -80,6 +80,7 @@ class PhotoSwipeGallery extends React.Component {
           items={items}
           options={options}
           onClose={this.handleClose}
+          className="videos-pswp"
         />
       </div>
     );
