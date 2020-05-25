@@ -29,11 +29,13 @@
 
     z-index: 10000;
   }
+
   &__container {
     max-width: 648px;
     padding-top: 14px;
     margin: 0 auto;
   }
+
   &__header {
     display: flex;
     align-items: center;
@@ -45,6 +47,7 @@
     font-size: 24px;
     line-height: 16px;
     letter-spacing: 0.2px;
+
     .social-icon {
       display: flex;
       align-items: center;
@@ -52,28 +55,34 @@
       width: 20px;
       height: 20px;
     }
+
     .facebook > svg {
       height: 20px;
     }
+
     .telegram > svg {
       width: 17.5px;
     }
+
     .share > svg {
       width: 20px;
     }
   }
+
   &__socials-items {
     display: flex;
     align-items: center;
 
     margin-left: 15px;
   }
+
   &__socials-items > a {
     width: 20px;
     height: 20px;
 
     line-height: 0;
   }
+
   &__socials-items > a:not(:last-child) {
     margin-right: 30px;
   }
@@ -83,6 +92,7 @@
 
     position: sticky;
   }
+
   &__close-btn {
     display: flex;
     justify-content: center;
@@ -95,12 +105,14 @@
     background-color: inherit;
     outline: none;
     border: none;
+
     span {
       display: flex;
       justify-content: center;
       align-items: center;
     }
   }
+
   &__post {
     display: flex;
     flex-direction: column;
@@ -112,21 +124,26 @@
       margin-left: 50px;
     }
   }
+
   &__input {
     border: none;
     border-bottom: 1px solid #b0b0b0;
+
     &::placeholder {
       font-weight: 500;
       font-size: 16px;
       line-height: 32px;
       color: #8a9994;
     }
+
     &:focus {
       outline: none;
     }
+
     &.pp__input-name {
       margin-bottom: 30px;
     }
+
     &.pp__input-message {
       height: 100px;
       margin-bottom: 64px;
@@ -137,12 +154,14 @@
     margin-left: auto;
     max-width: 300px;
   }
+
   &__author {
     display: flex;
     align-items: center;
 
     margin-bottom: 20px;
   }
+
   &__name {
     display: flex;
     flex-direction: column;
@@ -152,9 +171,11 @@
     line-height: 20px;
     letter-spacing: 0.05em;
     text-transform: capitalize;
+
     & > span:not(:last-child) {
       padding-bottom: 6px;
     }
+
     & > span:last-child {
       color: #8a9994;
       font-weight: 600;
@@ -163,6 +184,7 @@
       letter-spacing: 0.07em;
     }
   }
+
   &__text {
     margin-bottom: 26px;
 
@@ -186,6 +208,7 @@
       }
     }
   }
+
   &__actions {
     display: flex;
     align-items: center;
@@ -203,6 +226,7 @@
 
       cursor: pointer;
     }
+
     &-icon {
       display: flex;
       justify-content: center;
@@ -216,7 +240,7 @@
   }
 }
 
-.comments-button{
+.comments-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -232,28 +256,36 @@
   letter-spacing: 0.2px;
 
   cursor: pointer;
+
   & > span:last-child {
     padding-left: 15px;
   }
+
   .social-icon {
     align-items: center;
   }
+
   .svg-icon {
     width: 15.97px;
     height: 15.97px;
   }
+
   .svg-icon:hover {
     color: #000;
   }
 }
+
 .comments-button:hover {
   border: 1px solid $black;
 }
+
 .comments-button:disabled > * {
   color: $disabled;
 }
+
 .comments-button:disabled {
   border: 1px solid $disabled;
+
   .svg-icon {
     color: $disabled;
   }

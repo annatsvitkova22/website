@@ -23,21 +23,26 @@
         padding-top: 4px;
       }
     }
+
     p {
       margin-bottom: 0;
     }
+
     .expand-image {
       bottom: 30px;
       right: 40px;
 
       cursor: zoom-in;
+
       .social-icon {
         transition: all 0.3s;
       }
     }
+
     .expand-image:focus {
       outline: none;
     }
+
     &:hover .expand-image {
       opacity: 1;
     }
@@ -75,6 +80,10 @@
 
       &__title-wrapper {
         margin-bottom: 20px;
+
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 24px;
+        }
       }
     }
 
@@ -89,6 +98,7 @@
       max-height: 550px;
       @include media-breakpoint-down(sm) {
         margin-bottom: 0;
+        margin-top: 0;
       }
 
       &--full {
@@ -113,19 +123,52 @@
 
     .publication-banner {
       &--text,
+      &--null ~ .container {
+        .title__socials--mobile {
+          display: none;
+        }
+      }
+
+      &--text,
       &--null {
         padding-top: 50px;
         @include media-breakpoint-down(md) {
           padding-top: 20px;
         }
+
+        .title__socials {
+          @include media-breakpoint-down(sm) {
+            display: flex;
+
+            margin-left: 0;
+            margin-right: 0;
+
+            .react-share__ShareButton {
+              margin-right: 30px;
+            }
+
+            .react-share__ShareButton:not(:first-child) {
+              display: none;
+            }
+          }
+
+          &-name {
+            @include media-breakpoint-down(sm) {
+              padding-bottom: 4px;
+            }
+          }
+        }
       }
+
       &__inner {
         max-width: 100%;
       }
+
       &__content {
         max-width: 872px;
         margin: 0 auto;
       }
+
       &__excerpt > p {
         margin-bottom: 32px;
 
@@ -135,6 +178,8 @@
         letter-spacing: 0.03em;
 
         @include media-breakpoint-down(md) {
+          margin-bottom: 24px;
+
           font-size: 16px;
           line-height: 1.65;
         }
@@ -150,15 +195,18 @@
         width: 100%;
         padding-bottom: 24px;
       }
+
       .share-actions__main {
         display: block;
       }
+
       .social-icon.telegram {
         @include media-breakpoint-down(sm) {
           display: none;
         }
       }
     }
+
     .title__socials {
       @include media-breakpoint-down(sm) {
         display: none;
@@ -185,6 +233,7 @@
 
       .meta-taxonomy {
         margin-bottom: 8px;
+
         &__link {
           line-height: 12px;
         }
@@ -251,6 +300,10 @@
 
   &__content > *:nth-last-child(2) {
     margin-bottom: 80px;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 40px;
+    }
   }
 
   &__footer {
@@ -319,6 +372,7 @@
   &-about {
     display: flex;
   }
+
   &-image.avatar {
     width: 44px;
     height: 44px;
@@ -329,10 +383,12 @@
     border: none;
     background-color: transparentize($green, 0.5);
   }
+
   &-author {
     display: flex;
     flex-direction: column;
   }
+
   &-name.meta-author {
     padding-bottom: 6px;
 
@@ -347,6 +403,7 @@
       line-height: 20px;
     }
   }
+
   &-date {
     color: #8a9994 !important;
     font-weight: 600 !important;
@@ -355,10 +412,12 @@
     letter-spacing: 0.07em;
     text-transform: capitalize;
   }
+
   &-items {
     display: flex;
 
     margin-left: auto;
+
     & > a {
       display: flex;
       justify-content: center;
@@ -367,12 +426,15 @@
       height: 24px;
       width: 24px;
     }
+
     & > a:not(:first-child) {
       margin-left: 15px;
     }
+
     & > a:not(:last-child) {
       margin-right: 15px;
     }
+
     &--white {
     }
   }
@@ -397,6 +459,7 @@
   &.gutenberg__youtube {
     width: 100%;
   }
+
   &.gutenberg__image {
     margin-top: 20px;
     margin-bottom: 40px;
@@ -412,6 +475,7 @@
       width: 100%;
     }
   }
+
   &.gutenberg__buttons {
     @include media-breakpoint-down(sm) {
       margin: auto;
@@ -461,6 +525,7 @@
       padding-bottom: 0;
     }
   }
+
   &-author {
     display: inline-flex;
 
