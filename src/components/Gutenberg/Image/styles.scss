@@ -67,6 +67,15 @@
         background-color: white;
     }
 
+    &__button {
+      &--close {
+        background-image: url('../static/images/compress-alt.svg');
+        background-position: center center;
+        background-color: transparent;
+        background-size: 21px;
+      }
+    }
+
     &__zoom-wrap {
       display: flex;
       align-items: center;
