@@ -77,7 +77,11 @@ const Slick = ({ images }) => {
         return (
           <div key={image.id}>
             <figure className="slick__figure">
-              <img src={image.original} alt="image" className="slick__image" />
+              <img
+                src={image.original}
+                alt="slick-image"
+                className="slick__img"
+              />
               <span className="slick__overlay" />
               {image.author ||
                 (image.description && (

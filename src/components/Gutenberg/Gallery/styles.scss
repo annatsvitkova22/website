@@ -6,6 +6,7 @@
   @include media-breakpoint-down(lg) {
     width: 90vw;
   }
+
   .slick {
     &-slider {
       font-size: 0;
@@ -27,11 +28,13 @@
       @include media-breakpoint-down(lg) {
         height: auto;
       }
+
       &:hover .slick__info {
         opacity: 1;
 
         transition: all 0.3s;
       }
+
       &:hover .expand-image {
         opacity: 1;
         transition: all 0.3s;
@@ -59,9 +62,9 @@
       left: 0;
 
       background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0) 79.17%,
-        #000000 100%
+          180deg,
+          rgba(0, 0, 0, 0) 79.17%,
+          #000000 100%
       );
     }
 
@@ -105,6 +108,7 @@
       opacity: 0;
 
       transition: all 0.3s;
+
       &-icon {
         display: flex;
         justify-content: center;
@@ -115,6 +119,7 @@
 
         transition: all 0.2s;
       }
+
       &-count {
         display: flex;
         align-items: center;
