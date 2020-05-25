@@ -62,6 +62,7 @@ const CommentForm = ({
   className,
   label = 'Повідомлення',
   onSent = () => {},
+  postId,
 }) => {
   const [state, setState] = useState({
     isSending: false,
@@ -126,7 +127,8 @@ const CommentForm = ({
 
       updateComments(
         updatedPost.data.contentNode.commentCount,
-        updatedPost.data.contentNode.comments
+        updatedPost.data.contentNode.comments,
+        postId
       );
       setState({
         ...state,

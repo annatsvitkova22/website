@@ -2,40 +2,42 @@ import { createStateLink } from '@hookstate/core';
 
 import apolloClient from '~/lib/ApolloClient';
 
-export const SingleArticleStore = createStateLink({ post: {} });
+export const SingleArticleStore = createStateLink({ id: {} });
 
-export const CreateSingleArticleStore = (post, loaded) => {
+export const CreateSingleArticleStore = (post, loaded, id) => {
+  const singleArticleStore = SingleArticleStore.get();
   if (!loaded) {
-    SingleArticleStore.set({ post });
+    singleArticleStore[id] = post;
+    SingleArticleStore.set(singleArticleStore);
   }
   return SingleArticleStore;
-};
+}; // Done
 
-export const updateComments = (commentCount, comments) => {
+export const updateComments = (commentCount, comments, id) => {
   const singleArticleStore = SingleArticleStore.get();
-  singleArticleStore.post.commentCount = commentCount;
-  singleArticleStore.post.comments = comments;
+  singleArticleStore[id].commentCount = commentCount;
+  singleArticleStore[id].comments = comments;
+  SingleArticleStore.set(singleArticleStore);
+}; // Done
+
+export const updateLikes = (likes, id) => {
+  const singleArticleStore = SingleArticleStore.get();
+  singleArticleStore[id].statisticsACF.likes = likes;
+  SingleArticleStore.set(singleArticleStore);
+}; // Done
+
+export const updateShares = (shares, id) => {
+  const singleArticleStore = SingleArticleStore.get();
+  singleArticleStore[id].cfACF.shared = shares;
   SingleArticleStore.set(singleArticleStore);
 };
-
-export const updateLikes = (likes) => {
-  const singleArticleStore = SingleArticleStore.get();
-  singleArticleStore.post.statisticsACF.likes = likes;
-  SingleArticleStore.set(singleArticleStore);
-};
-
-export const updateShares = (shares) => {
-  const singleArticleStore = SingleArticleStore.get();
-  singleArticleStore.post.cfACF.shared = shares;
-  SingleArticleStore.set(singleArticleStore);
-};
-
-export const updatePost = async (query, slug) => {
+//Update this query ????
+export const updatePost = async (query, slug, postId) => {
   const singleArticleStore = SingleArticleStore.get();
   const { data } = await apolloClient.query({
     query,
     variables: { slug },
   });
-  singleArticleStore.post = data.crowdfundingBy;
+  singleArticleStore[postId] = data.crowdfundingBy;
   SingleArticleStore.set(singleArticleStore);
 };

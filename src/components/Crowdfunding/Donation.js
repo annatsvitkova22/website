@@ -16,7 +16,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
+const CrowdfundingDonation = ({ post, onClose = () => {} }, postId) => {
   const authStateLink = useStateLink(AuthStore);
 
   const [wayforpay, setWayForPay] = useState();
@@ -193,7 +193,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }) => {
       configs
     );
 
-    await updatePost(CROWDFUNDING, post.slug);
+    await updatePost(CROWDFUNDING, post.slug, postId);
 
     setState({
       ...state,

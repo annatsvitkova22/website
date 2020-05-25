@@ -8,7 +8,7 @@ import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 import CommentForm from '~/components/Comment/Form';
 
-const CommentPopup = ({ post }) => {
+const CommentPopup = ({ post, postId }) => {
   const { comments } = post;
   const state = useStateLink(PostStore);
 
@@ -40,12 +40,13 @@ const CommentPopup = ({ post }) => {
                 <span>Коментарі</span>
                 <ShareItems className={'comments-pp__socials-items'} />
               </div>
-              <CommentForm post={post} />
+              <CommentForm post={post} postId={postId} />
               {comments.nodes.map((comment) => (
                 <Comment
                   key={comment.commentId}
                   post={post}
                   comment={comment}
+                  postId={postId}
                 />
               ))}
             </div>

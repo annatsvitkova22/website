@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import * as classnames from 'classnames';
+import gql from 'graphql-tag';
 import { useStateLink } from '@hookstate/core';
 import * as moment from 'moment';
 import getConfig from 'next/config';
 import he from 'he';
+import { Waypoint } from 'react-waypoint';
+import _ from 'lodash';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -23,26 +26,66 @@ import useViewsCounter from '~/hooks/useViewsCounter';
 import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
 import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
 import ArticleDate from '~/components/Article/Date';
+import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
+
+const PUBLICATION = gql`
+  query Publication ($publId: [ID]){
+    publications(first: 1, where: {notIn: $publId}) {
+      nodes {
+        publicationId
+        zmPublicationsACF {
+          bannerstyle
+        }
+        ${singleContentCommon}
+      }
+    }
+  }
+`;
+
+// const  query PageQuery {
+//   publications(first: 1, where: {notIn: ["5008", "5006"]}) {
+//     nodes {
+//       publicationId
+//       id
+//       title
+//       slug
+//     }
+//   }
+// }
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
+const ArticleSingle = ({
+  type,
+  post,
+  sidebar,
+  hasShare,
+  similarPosts,
+  loadNewArticle,
+  postId,
+}) => {
   const [loaded, setLoaded] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
   moment.locale('uk');
 
-  const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
-
+  const stateLink = useStateLink(
+    CreateSingleArticleStore(post, loaded, postId)
+  );
   const state = stateLink.get();
-  const storedPost = state.post;
+
+  const storedPost = state[postId];
 
   useEffect(() => {
     setLoaded(true);
   }, [loaded]);
 
   useEffect(() => {
+    const singleArticleStore = SingleArticleStore.get();
     if (post) {
-      SingleArticleStore.set({ post });
+      singleArticleStore[post.publicationId] = post;
+      SingleArticleStore.set(singleArticleStore);
     }
   }, [post]);
 
@@ -180,7 +223,10 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           offsetBottom={20}
                           className="side-bar__sticky"
                         >
-                          <ActionsSidebar post={storedPost} />
+                          <ActionsSidebar
+                            post={storedPost}
+                            postId={storedPost.publicationId}
+                          />
                         </StickyBox>
                       </div>
                     )}
@@ -196,7 +242,22 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           className={'content__posts'}
                         />
                       )}
-                      <NewsFooter post={storedPost} />
+                      <NewsFooter
+                        post={storedPost}
+                        postId={storedPost.publicationId}
+                      />
+                      {!hasEntered && (
+                        <Waypoint
+                          onEnter={() => {
+                            if (loadNewArticle) {
+                              loadNewArticle();
+                            }
+
+                            setHasEntered(true);
+                          }}
+                          onLeave={() => setHasEntered(true)}
+                        />
+                      )}
                     </div>
                   </section>
                 </div>

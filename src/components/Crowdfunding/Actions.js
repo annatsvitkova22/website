@@ -4,7 +4,7 @@ import * as classnames from 'classnames';
 import CrowdfundingDonation from '~/components/Crowdfunding/Donation';
 import CrowdfundingShare from '~/components/Crowdfunding/Share';
 
-const CrowdfundingActions = ({ className, post }) => {
+const CrowdfundingActions = ({ className, post, postId }) => {
   const [donationOpen, setDonationOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
 
@@ -33,9 +33,15 @@ const CrowdfundingActions = ({ className, post }) => {
         </li>
       </ul>
       {donationOpen && (
-        <CrowdfundingDonation post={post} onClose={handleClose} />
+        <CrowdfundingDonation
+          post={post}
+          onClose={handleClose}
+          postId={postId}
+        />
       )}
-      {shareOpen && <CrowdfundingShare post={post} onClose={handleClose} />}
+      {shareOpen && (
+        <CrowdfundingShare post={post} onClose={handleClose} postId={postId} />
+      )}
     </>
   );
 };

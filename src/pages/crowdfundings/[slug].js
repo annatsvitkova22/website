@@ -84,8 +84,10 @@ const Crowdfunding = (props) => {
     setLoaded(true);
   }, [state.post]);
 
-  const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
-  const storedPost = stateLink.get().post;
+  const stateLink = useStateLink(
+    CreateSingleArticleStore(post, loaded, post.crowdfundingId)
+  );
+  const storedPost = stateLink.get()[post.crowdfundingId];
 
   useEffect(() => {
     async function loadData() {
@@ -103,7 +105,10 @@ const Crowdfunding = (props) => {
         },
       });
 
-      SingleArticleStore.set({ post: postResponse.data.crowdfundingBy });
+      SingleArticleStore.set({
+        [postResponse.data.crowdfundingBy.crowdfundingId]:
+          postResponse.data.crowdfundingBy,
+      });
 
       setState({
         ...state,
@@ -239,6 +244,7 @@ const Crowdfunding = (props) => {
                   <CrowdfundingActions
                     post={storedPost}
                     className="crowdfunding-single__actions"
+                    postId={storedPost.crowdfundingId}
                   />
                 )}
                 <CrowdfundingSupported
@@ -284,6 +290,7 @@ const Crowdfunding = (props) => {
                   <CrowdfundingActions
                     post={storedPost}
                     className="crowdfunding-single__actions"
+                    postId={storedPost.crowdfundingId}
                   />
                 )}
                 <CrowdfundingSupported

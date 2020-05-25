@@ -91,6 +91,7 @@ const PUBLICATIONS = gql`
   }
 `;
 
+
 const Post = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -103,6 +104,8 @@ const Post = (props) => {
     loading: false,
   });
   const [loaded, setLoaded] = useState(false);
+
+
 
   // TODO: add loader when navigate between news
 
@@ -191,6 +194,7 @@ const Post = (props) => {
       loading: false,
     });
   };
+
 
   const sidebar =
     news && blogs ? (
