@@ -7,9 +7,13 @@
   &__button {
     font-family: $font-family-titles;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 18px;
     letter-spacing: 0.02em;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
 
     &:hover,
     &:focus {
@@ -19,7 +23,7 @@
 
   &__item {
     &:not(:last-child) {
-      margin-bottom: 12px;
+      margin-right: 24px;
     }
     &--active {
       .sorting__button {

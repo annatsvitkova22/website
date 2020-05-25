@@ -28,7 +28,7 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
           <FeaturedImage size={'full'} data={post.featuredImage} />
           <div className="publication-banner__inner">
             <div className="container">
-              <div className="col-md-8 publication-banner__content">
+              <div className="publication-banner__content">
                 <NewsHead post={post} />
                 <div className={'title__socials'}>
                   <div className={'title__socials-about'}>
@@ -64,7 +64,7 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
       )}
       {bannerstyle !== 'image' && (
         <div className="container">
-          <div className="col-md-8 publication-banner__content">
+          <div className="publication-banner__content">
             <NewsHead post={post} />
             <div
               className="publication-banner__excerpt"

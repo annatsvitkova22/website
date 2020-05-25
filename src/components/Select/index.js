@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 
@@ -54,6 +54,9 @@ const SiteSelect = (props) => {
 
   const v = options.find((i) => i.active);
 
+  const ref = React.useRef();
+  console.log(ref);
+
   if (!isMobile) {
     return (
       <Select
@@ -84,10 +87,9 @@ const SiteSelect = (props) => {
         {options.map(({ value, label, mobileLabel }, k) => {
           const optionTitle = mobileLabel || label;
           return (
-            <option key={k} value={value}>
-              {optionTitle}
-              {/*{optionTitle.split(' ').slice(0, -1)}{' '}*/}
-              {/*{optionTitle.split(' ').slice(-1)}*/}
+            <option key={k} value={value} ref={ref}>
+              {optionTitle.split(' ').slice(0, -1)}{' '}
+              {optionTitle.split(' ').slice(-1)}
             </option>
           );
         })}

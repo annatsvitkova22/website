@@ -21,9 +21,7 @@ const FeaturedImage = ({ data, className, size }) => {
       {data && (
         <figure
           className={classnames('feature__image', className, {
-            'col-lg-11': size !== 'full' && 'half',
             'feature__image--full': size === 'full',
-            'feature__image--half': size === 'half',
           })}
         >
           <img src={data.mediaItemUrl} alt={data.title} />
@@ -34,9 +32,11 @@ const FeaturedImage = ({ data, className, size }) => {
             className="gutenberg__image-pswp"
           />
           {size !== 'full' && (
-            <button className={'expand-image'} onClick={handleOpen}>
-              <Icons icon={'expand'} />
-            </button>
+            <div className="gutenberg__image-expand" onClick={handleOpen}>
+              <button className={'expand-image'}>
+                <Icons icon={'expand'} />
+              </button>
+            </div>
           )}
           {data.caption && size === 'full' && (
             <div className="container">

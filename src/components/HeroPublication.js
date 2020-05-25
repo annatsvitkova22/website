@@ -19,7 +19,7 @@ const HeroPublication = ({
           className="hero__image bg-cover d-block"
           style={{
             backgroundImage: `url(${mediaItemUrl})`,
-            fontSize: 0
+            fontSize: 0,
           }}
         >
           {title}
