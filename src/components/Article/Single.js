@@ -222,18 +222,18 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
           <>
             {storedPost ? (
               <>
-                <div className={'single-post__title row'}>
+                <div className={'row'}>
                   <div
-                    className={classnames(
-                      'single-post__wrapper col-12 no-gutters',
-                      {
-                        'col-xl-9': sidebar,
-                      }
-                    )}
+                    className={classnames('col-12', {
+                      'col-xl-9': sidebar,
+                    })}
                   >
-                    <NewsHead post={storedPost} />
-                    <FeaturedImage data={storedPost.featuredImage} />
-                    <section className={'single-post__main col-12'}>
+                    <div className="single-post__block-wrapper">
+                      <NewsHead post={storedPost} />
+                      <FeaturedImage data={storedPost.featuredImage} />
+                    </div>
+
+                    <section className={'single-post__main'}>
                       {hasShare && (
                         <StickyBox
                           offsetTop={272}
@@ -243,53 +243,55 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           <ActionsSidebar post={storedPost} />
                         </StickyBox>
                       )}
-                      <section className={'single-post__content'}>
-                        <div className={'title__socials'}>
-                          <div className={'title__socials-about'}>
-                            <span
-                              className="title__socials-image"
-                              style={userAvatarStyles}
-                            />
-                            <div className={'title__socials-author'}>
-                              <ArticleAuthor
-                                author={storedPost.author}
-                                className={
-                                  'title__socials-name meta-author--black'
-                                }
+                      <section className={'single-post__block-wrapper'}>
+                        <div className="single-post__content">
+                          <div className={'title__socials'}>
+                            <div className={'title__socials-about'}>
+                              <span
+                                className="title__socials-image"
+                                style={userAvatarStyles}
                               />
-                              <ArticleDate
-                                className={'title__socials-date'}
-                                date={storedPost.date}
-                                format={'DD MMMM YYYY, HH:MM'}
-                              />
+                              <div className={'title__socials-author'}>
+                                <ArticleAuthor
+                                  author={storedPost.author}
+                                  className={
+                                    'title__socials-name meta-author--black'
+                                  }
+                                />
+                                <ArticleDate
+                                  className={'title__socials-date'}
+                                  date={storedPost.date}
+                                  format={'DD MMMM YYYY, HH:MM'}
+                                />
+                              </div>
                             </div>
+                            <Share
+                              type={'main-first'}
+                              className={'title__socials-items'}
+                            />
                           </div>
-                          <Share
-                            type={'main-first'}
-                            className={'title__socials-items'}
+                          <article
+                            className={'title__description'}
+                            dangerouslySetInnerHTML={{
+                              __html: storedPost.excerpt,
+                            }}
                           />
+                          {/* Need to delete - only for testing*/}
+                          {/*<Story />*/}
+                          {/* Need to delete - only for testing*/}
+                          {storedPost.blocks.length ? (
+                            <Content
+                              content={storedPost.blocks}
+                              className={'content__posts'}
+                            />
+                          ) : (
+                            <Content
+                              content={storedPost.content}
+                              className={'content__posts'}
+                            />
+                          )}
+                          <NewsFooter post={storedPost} />
                         </div>
-                        <article
-                          className={'title__description'}
-                          dangerouslySetInnerHTML={{
-                            __html: storedPost.excerpt,
-                          }}
-                        />
-                        {/* Need to delete - only for testing*/}
-                        {/*<Story />*/}
-                        {/* Need to delete - only for testing*/}
-                        {storedPost.blocks.length ? (
-                          <Content
-                            content={storedPost.blocks}
-                            className={'content__posts'}
-                          />
-                        ) : (
-                          <Content
-                            content={storedPost.content}
-                            className={'content__posts'}
-                          />
-                        )}
-                        <NewsFooter post={storedPost} />
                       </section>
                     </section>
                   </div>

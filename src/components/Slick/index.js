@@ -79,16 +79,19 @@ const Slick = ({ images }) => {
             <figure className="slick__figure">
               <img src={image.original} alt="image" className="slick__image" />
               <span className="slick__overlay" />
-              <caption className="slick__caption">
-                {image.author && (
-                  <span className="slick__author">{image.description}</span>
-                )}
-                {image.description && (
-                  <span className="slick__description">
-                    {image.description}
-                  </span>
-                )}
-              </caption>
+              {image.author ||
+                (image.description && (
+                  <caption className="slick__caption">
+                    {image.author && (
+                      <span className="slick__author">{image.description}</span>
+                    )}
+                    {image.description && (
+                      <span className="slick__description">
+                        {image.description}
+                      </span>
+                    )}
+                  </caption>
+                ))}
               <div className="slick__info">
                 <Icons icon={'gallery'} className="slick__info-icon" />
                 <span className="slick__info-count">

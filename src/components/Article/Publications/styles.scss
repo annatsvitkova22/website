@@ -211,6 +211,9 @@
 
       .meta-author {
         color: $black;
+        @include media-breakpoint-down(md) {
+          font-weight: 600;
+        }
       }
     }
 
