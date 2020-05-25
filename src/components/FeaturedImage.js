@@ -29,7 +29,7 @@ const FeaturedImage = ({ data, className, size }) => {
   const img = [
     {
       html: `
-      <div class="news-pswp flex-column flex-lg-column">
+      <div class="news-pswp flex-column flex-lg-row">
         <div class="news-pswp__wrap-img">
           <img class="news-pswp__img" src="${data.mediaItemUrl}" alt="${data.caption}"/>
         </div>
