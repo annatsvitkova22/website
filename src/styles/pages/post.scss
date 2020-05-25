@@ -1,24 +1,17 @@
 .single-post {
   padding-top: 118px;
 
-  .container {
-    @include media-breakpoint-down(md) {
-      padding-right: 20px;
-      padding-left: 20px;
-    }
+  @include media-breakpoint-down(sm) {
+    padding-top: 88px;
   }
 
   .feature__image {
-    max-width: 872px;
-    margin-bottom: 40px;
+    margin-bottom: 0;
 
     position: relative;
 
     cursor: zoom-in;
     transition: none;
-    @include media-breakpoint-down(xs) {
-      margin-bottom: 24px;
-    }
 
     &-caption {
       padding-bottom: 0;
@@ -78,11 +71,6 @@
 
       &__content {
         margin: 0 auto;
-        padding-top: 40px;
-
-        @include media-breakpoint-down(xs) {
-          padding-top: 26px;
-        }
       }
 
       &__title-wrapper {
@@ -113,7 +101,6 @@
 
     .side-bar {
       &__wrapper {
-        padding-top: 62px;
         height: 100%;
 
         position: absolute;
@@ -161,7 +148,7 @@
         display: flex;
 
         width: 100%;
-        padding-top: 26px;
+        padding-bottom: 24px;
       }
       .share-actions__main {
         display: block;
@@ -183,34 +170,16 @@
     height: 200px;
   }
 
-  &__wrapper {
-    @include media-breakpoint-down(xs) {
-      padding: 0;
-    }
+  &__block-wrapper {
+    margin-left: auto;
+    max-width: 872px;
+    width: 100%;
   }
 
   &__title {
-    display: flex;
-
-    @include media-breakpoint-down(xs) {
-      margin-right: 0;
-      margin-left: 0;
-    }
     &-wrapper {
-      margin-left: auto;
       margin-bottom: 40px;
-      max-width: 872px;
-
-      @include media-breakpoint-down(lg) {
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-      }
       @include media-breakpoint-down(xs) {
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-left: 0;
-        margin-right: 0;
         margin-bottom: 24px;
       }
 
@@ -221,19 +190,20 @@
         }
       }
     }
-    h1 {
-      margin-bottom: 0;
+  }
 
-      font-size: 36px;
-      line-height: 46px;
+  .title__title {
+    margin-bottom: 0;
 
-      text-transform: capitalize;
-      @include media-breakpoint-down(sm) {
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 31px;
-        letter-spacing: -0.01em;
-      }
+    font-size: 36px;
+    line-height: 46px;
+
+    text-transform: capitalize;
+    @include media-breakpoint-down(sm) {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 31px;
+      letter-spacing: -0.01em;
     }
   }
 
@@ -263,6 +233,12 @@
 
   &__main {
     display: flex;
+
+    padding-top: 40px;
+
+    @include media-breakpoint-down(md) {
+      padding-top: 24px;
+    }
   }
 
   &__content {
@@ -319,16 +295,6 @@
 
   .share.social-icon svg {
     max-width: 20.5px;
-  }
-
-  @include media-breakpoint-down(sm) {
-    padding-top: 88px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  @include media-breakpoint-down(xs) {
-    padding-left: 0;
-    padding-right: 0;
   }
 }
 
@@ -470,8 +436,6 @@
 
 .feature__image {
   width: 100%;
-
-  margin-left: auto;
 
   overflow: hidden;
 

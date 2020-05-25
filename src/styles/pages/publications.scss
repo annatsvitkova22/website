@@ -72,6 +72,12 @@
       will-change: transform;
     }
   }
+
+  .meta-author {
+    @include media-breakpoint-down(md) {
+      font-weight: 600;
+    }
+  }
 }
 
 .last-publs {

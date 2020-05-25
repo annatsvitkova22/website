@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import he from 'he';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import ArticleTaxonomies from '~/components/Article/Taxonomies';
@@ -25,7 +26,7 @@ const NewsHead = (props) => {
               post.__typename === 'Publication' ? 'mt-l--small' : ''
             }`}
           />
-          <h1 className={'title__title'}>{post.title}</h1>
+          <h1 className={'title__title'}>{he.decode(post.title)}</h1>
         </>
       )}
     </section>

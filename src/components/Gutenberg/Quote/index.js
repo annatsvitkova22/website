@@ -12,7 +12,9 @@ const Quote = ({ block, className = '' }) => {
         className={`${block.attributes.className} ${className}`}
         dangerouslySetInnerHTML={{ __html: block.attributes.value }}
       />
-      <span className={'quote__citation'}>{block.attributes.citation}</span>
+      {block.attributes.citation && (
+        <span className={'quote__citation'}>{block.attributes.citation}</span>
+      )}
     </div>
   );
 };

@@ -41,8 +41,7 @@ const Gallery = ({ block, className = '' }) => {
 
   return (
     <div className={`gutenberg__gallery ${className}`}>
-
-      <Slick images={pictures}/>
+      <Slick images={pictures} />
     </div>
   );
 };
