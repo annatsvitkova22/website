@@ -6,6 +6,7 @@
   padding-top: 16px;
 
   border-top: 1px solid #242424;
+
   &__wrapper {
     padding-bottom: 80px;
   }
@@ -31,6 +32,9 @@
     justify-content: space-between;
 
     padding-top: 17px;
+    @include media-breakpoint-down(sm) {
+      padding-top: 0;
+    }
   }
 
   &__item {
@@ -58,6 +62,7 @@
   &__title {
     margin-bottom: 0;
     padding-bottom: 14px;
+
     a {
       font-weight: 600;
       font-size: 14px;
@@ -97,13 +102,16 @@
 
       margin: 0 auto;
     }
+
     &__type {
       margin-bottom: 17px;
     }
+
     &__items {
       flex-direction: column;
       align-items: center;
     }
+
     &__item {
       flex-direction: row;
       justify-content: space-between;
@@ -111,14 +119,17 @@
       width: 100%;
       max-width: 100%;
     }
+
     &__item:not(:last-child) {
       margin-bottom: 40px;
     }
+
     &__about {
       order: 1;
 
       max-width: 300px;
     }
+
     &__image {
       order: 2;
 
@@ -130,6 +141,7 @@
       position: relative;
 
       overflow: hidden;
+
       img {
         width: 100%;
 
@@ -150,36 +162,44 @@
     }
   }
 }
+
 @media screen and (max-width: 650px) {
   .similar-posts {
     &__wrapper {
       padding-bottom: 40px;
     }
+
     &__item:not(:last-child) {
       margin-bottom: 26px;
     }
+
     &__image {
       height: 88px;
       width: 88px;
 
       padding-bottom: 0;
+
       img {
         max-width: max-content;
         width: auto;
       }
     }
+
     &__type {
       font-size: 14px;
       line-height: 17px;
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
+
     &__about {
       max-width: 235px;
     }
+
     &__title {
       margin-right: 12px;
       padding-bottom: 8px;
+
       a {
         font-weight: 600;
         font-size: 16px;
@@ -187,6 +207,7 @@
         letter-spacing: 0.02em;
       }
     }
+
     &__author {
       font-size: 12px;
       line-height: 16px;
@@ -196,6 +217,7 @@
     }
   }
 }
+
 @include media-breakpoint-down(md) {
   .blogs-page__content {
     .similar-posts {
@@ -206,9 +228,11 @@
     .similar-posts__wrapper {
       width: 100%;
     }
+
     .similar-posts__items {
       @include make-row(1);
     }
+
     .similar-posts__item {
       justify-content: space-around;
       @include make-col(12);
