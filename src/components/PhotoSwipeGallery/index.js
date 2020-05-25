@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import PhotoSwipeWrapper from '../PhotoSwipeWrapper';
 import events from '../PhotoSwipeWrapper/events';
+import PswpWrapperVideo from '../PhotoSwipeWrapper/components/PswpWrapperVideo';
 
 class PhotoSwipeGallery extends React.Component {
   state = {
@@ -74,7 +74,7 @@ class PhotoSwipeGallery extends React.Component {
             </div>
           ))}
         </div>
-        <PhotoSwipeWrapper
+        <PswpWrapperVideo
           {...eventProps}
           isOpen={isOpen}
           items={items}
