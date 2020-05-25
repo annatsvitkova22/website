@@ -98,6 +98,7 @@
       max-height: 550px;
       @include media-breakpoint-down(sm) {
         margin-bottom: 0;
+        margin-top: 0;
       }
 
       &--full {
@@ -122,10 +123,40 @@
 
     .publication-banner {
       &--text,
+      &--null ~ .container {
+        .title__socials--mobile {
+          display: none;
+        }
+      }
+
+      &--text,
       &--null {
         padding-top: 50px;
         @include media-breakpoint-down(md) {
           padding-top: 20px;
+        }
+
+        .title__socials {
+          @include media-breakpoint-down(sm) {
+            display: flex;
+
+            margin-left: 0;
+            margin-right: 0;
+
+            .react-share__ShareButton {
+              margin-right: 30px;
+            }
+
+            .react-share__ShareButton:not(:first-child) {
+              display: none;
+            }
+          }
+
+          &-name {
+            @include media-breakpoint-down(sm) {
+              padding-bottom: 4px;
+            }
+          }
         }
       }
 
