@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import { Waypoint } from 'react-waypoint';
+import getConfig from 'next/config';
 
 import apolloClient from '~/lib/ApolloClient';
 import BloggerRow from '~/components/Blogger/Row';
@@ -10,12 +11,16 @@ import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import BloggerLoader from '~/components/Loaders/Blogger';
 
+const { publicRuntimeConfig } = getConfig();
+const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+
 const composeQuery = ({ cursor, articles, slug }) => {
   return gql`
     query Blogger($cursor: String = ${cursor}, $articles: Int = ${articles}) {
       users(where: { search: "${slug}", searchColumns: "slug" }) {
         nodes {
           name
+          slug
           description
           stats: blogs(first: 9999) {
             pageInfo {
@@ -147,11 +152,53 @@ const BlogsArchive = ({ users, query }) => {
     );
   }
 
+  console.log(state.data.users.nodes[0]);
+
   return (
     <div className="container">
       <Head>
         <title>{`ЗМІСТ - Блоги - ${state.data.users.nodes[0].name}`}</title>
-        <link rel="icon" href="/favicon.ico" />
+
+        <meta
+          name="title"
+          content={`ЗМІСТ - Блоги - ${state.data.users.nodes[0].name}`}
+        />
+        {state.data.users.nodes[0].description && (
+          <meta
+            name="description"
+            content={state.data.users.nodes[0].description}
+          />
+        )}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`${config.frontUrl}/blogs/author/${state.data.users.nodes[0].slug}`}
+        />
+        <meta
+          property="og:title"
+          content={`ЗМІСТ - Блоги - ${state.data.users.nodes[0].name}`}
+        />
+        {state.data.users.nodes[0].description && (
+          <meta
+            property="og:description"
+            content={state.data.users.nodes[0].description}
+          />
+        )}
+        <meta property="og:image" content="/zmist.jpg" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`${config.frontUrl}`} />
+        <meta
+          property="twitter:title"
+          content={`ЗМІСТ - Блоги - ${state.data.users.nodes[0].name}`}
+        />
+        {state.data.users.nodes[0].description && (
+          <meta
+            property="twitter:description"
+            content={state.data.users.nodes[0].description}
+          />
+        )}
+        <meta property="twitter:image" content="/zmist.jpg" />
       </Head>
       <div className="blogger-page">
         <div className="row">
