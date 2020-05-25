@@ -2,19 +2,24 @@
   ul {
     list-style: disc;
   }
+
   img {
     display: flex;
   }
+
   .alignright {
     margin-left: auto;
   }
+
   .aligncenter {
     margin: 0 auto;
   }
+
   &-old {
     img {
       word-break: break-all;
     }
+
     h1 {
       margin-bottom: 20px;
 
@@ -23,11 +28,15 @@
       letter-spacing: 0.03em;
     }
   }
+
   &-old > * {
-    margin-bottom: 20px;
     & > * {
       text-align: left !important;
     }
+
     text-align: left !important;
+  }
+  &-old > *:last-child {
+    margin-bottom: 0;
   }
 }
