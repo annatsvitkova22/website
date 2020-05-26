@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as classnames from 'classnames';
 
 import CrowdfundingDonation from '~/components/Crowdfunding/Donation';
@@ -21,6 +21,12 @@ const CrowdfundingActions = ({ className, post, postId }) => {
     setShareOpen(false);
     document.querySelector('body').classList.remove('isB-MenuOpen');
   };
+
+  useEffect(() => {
+    return () => {
+      document.querySelector('body').classList.remove('isB-MenuOpen');
+    };
+  }, []);
 
   return (
     <>

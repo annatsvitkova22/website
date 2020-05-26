@@ -103,8 +103,6 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }, postId) => {
       }
     );
 
-    handlePostDonate({ orderId, name, sum, photo, date: p.orderDate });
-
     window.addEventListener(
       'message',
       (event) => {
