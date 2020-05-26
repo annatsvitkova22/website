@@ -159,16 +159,18 @@ const Publication = (props) => {
 
   return (
     <>
-      <React.Fragment key={post.publicationId}>
-        <ArticleSingle
-          post={post}
-          type={'publications'}
-          hasShare={true}
-          similarPosts={similarPosts}
-          loadNewArticle={loadNewArticle}
-          postId={post.publicationId}
-        />
-      </React.Fragment>
+      {post && (
+        <React.Fragment key={post.publicationId}>
+          <ArticleSingle
+            post={post}
+            type={'publications'}
+            hasShare={true}
+            similarPosts={similarPosts}
+            loadNewArticle={loadNewArticle}
+            postId={post.publicationId}
+          />
+        </React.Fragment>
+      )}
       {!similar.posts && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
