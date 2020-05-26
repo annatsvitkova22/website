@@ -51,11 +51,10 @@
 
     .sorting--news {
       margin-bottom: 0;
-      width: 100%;
-      max-width: 100px;
+      width: 94px;
 
       @include media-breakpoint-down(sm) {
-        margin-left: 24px;
+        margin-left: 29px;
 
         font-size: 14px;
       }
@@ -94,9 +93,8 @@
   }
 
   &__filter {
-    display: flex;
+    margin-left: 25px;
 
-    margin-left: 21px;
     .svg-icon {
       color: $black;
     }
@@ -104,8 +102,67 @@
 }
 
 .news-cats {
-  max-width: 114px;
-  
+  width: 110px;
+
   letter-spacing: 0.02em;
   font-size: 14px;
+}
+
+.news-pswp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
+  @include media-breakpoint-down(md) {
+    max-height: calc(100vh - 40px);
+    margin: 20px 0;
+  }
+
+  &__wrap-img {
+    @include media-breakpoint-up(lg) {
+      width: calc(100% - 343px);
+      max-width: 1100px;
+    }
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+  }
+
+  &__img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__caption {
+    width: 100%;
+    padding: 0 44px;
+    margin-bottom: 0;
+    min-width: 343px;
+
+    font-size: 16px;
+
+    @include media-breakpoint-up(lg) {
+      max-width: calc(100% - 1100px);
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 14px 20px 0;
+    }
+  }
+
+  &__caption-inner {
+    margin-bottom: 0;
+
+    line-height: 26px;
+    letter-spacing: 0.03em;
+
+    @include media-breakpoint-up(lg) {
+      max-width: 470px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }

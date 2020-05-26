@@ -24,12 +24,10 @@ import {
 } from '~/stores/News';
 import useRouterSubscription from '~/hooks/useRouterSubscription';
 import dateToGraphQLQuery from '~/util/date';
-import Filter from '~/static/images/filter';
 import ChevronDown from '~/static/images/chevron-down';
 import Icons from '~/components/Icons';
 import Calendar from '~/components/Calendar';
-import Sorting from '~/components/Sorting';
-import ScrollTop from '~/components/ScrollTop';
+import SortingSelect from '~/components/SortingSelect';
 
 const composeQuery = ({
   cursor,
@@ -136,7 +134,6 @@ const News = ({ posts, categories, query }) => {
   const [loaded, setLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [isSortingOpen, setIsSortingOpen] = useState(false);
 
   const stateLink = useStateLink(
     loaded ? NewsStore : CreateNewsStore(loaded, { categories, ...query })
@@ -183,7 +180,7 @@ const News = ({ posts, categories, query }) => {
   );
 
   const updateMobile = () => {
-    window.outerWidth < 768 ? setIsMobile(true) : setIsMobile(false);
+    window.innerWidth < 768 ? setIsMobile(true) : setIsMobile(false);
   };
 
   useEffect(() => {
@@ -196,10 +193,6 @@ const News = ({ posts, categories, query }) => {
 
   const handleCalendarOpen = () => {
     setIsCalendarOpen(!isCalendarOpen);
-  };
-
-  const handleSortingOpen = () => {
-    setIsSortingOpen(!isSortingOpen);
   };
 
   useEffect(() => {
@@ -269,9 +262,9 @@ const News = ({ posts, categories, query }) => {
               >
                 <Icons icon={'calendar'} />
               </button>
-              <div className="pos-relative news-archive__filter">
+              <div className="pos-relative d-flex news-archive__filter">
                 <select
-                  className="news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
+                  className="reset-select news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={(event) => setCategory(event.target.value)}
                 >
                   <option disabled hidden selected>
@@ -283,11 +276,11 @@ const News = ({ posts, categories, query }) => {
                 </select>
                 <ChevronDown className="pos-absolute pos-center-right" />
               </div>
-              <div className="pos-relative">
-                <Sorting
+              <div className="pos-relative d-flex">
+                <SortingSelect
                   currentOption={currentSorting}
                   options={sorting}
-                  className="sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
+                  className="reset-select sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={setSorting}
                 />
                 <ChevronDown className="pos-absolute pos-center-right" />

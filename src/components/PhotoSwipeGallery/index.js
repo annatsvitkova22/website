@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import PhotoSwipeWrapper from '../PhotoSwipeWrapper';
 import events from '../PhotoSwipeWrapper/events';
+import PswpWrapperVideo from '../PhotoSwipeWrapper/components/PswpWrapperVideo';
 
 class PhotoSwipeGallery extends React.Component {
   state = {
@@ -57,7 +57,6 @@ class PhotoSwipeGallery extends React.Component {
     const { className } = this.props;
     const eventProps = [other, ...events];
     const { isOpen, options } = this.state;
-    console.log(options);
     return (
       <div
         id={`video-category-${options.galleryUID}`}
@@ -75,12 +74,13 @@ class PhotoSwipeGallery extends React.Component {
             </div>
           ))}
         </div>
-        <PhotoSwipeWrapper
+        <PswpWrapperVideo
           {...eventProps}
           isOpen={isOpen}
           items={items}
           options={options}
           onClose={this.handleClose}
+          className="videos-pswp"
         />
       </div>
     );

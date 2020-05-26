@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
 
@@ -6,16 +6,50 @@ import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 import Icons from '~/components/Icons';
 
 const FeaturedImage = ({ data, className, size }) => {
+  const imageRef = useRef(false);
+
+  // const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isOpen, setIsOpen] = useState(false);
+  const [options] = useState({
+    fullscreenEl: false,
+    zoomEl: false,
+    shareEl: false,
+    bgOpacity: 1,
+  });
 
   const handleOpen = () => {
+    // const rect = imageRef.current.getBoundingClientRect();
+    // setPosition({ x: rect.left, y: rect.top });
     setIsOpen(true);
   };
 
   const handleClose = () => {
     setIsOpen(false);
   };
-  const img = [{ src: data.mediaItemUrl, title: data.caption, w: 800, h: 600 }];
+  const img = [
+    {
+      html: `
+      <div class="news-pswp flex-column flex-lg-row">
+        <div class="news-pswp__wrap-img">
+          <img class="news-pswp__img" src="${data.mediaItemUrl}" alt="${
+        data.caption
+      }"/>
+        </div>
+        ${
+          data.caption
+            ? `<div class="news-pswp__caption">
+            <p class="news-pswp__caption-inner tx-family-titles">
+            ${data.caption}
+            </p>
+          </div>`
+            : ``
+        }
+        
+      </div>
+  `,
+    },
+  ];
+
   return (
     <>
       {data && (
@@ -24,8 +58,9 @@ const FeaturedImage = ({ data, className, size }) => {
             'feature__image--full': size === 'full',
           })}
         >
-          <img src={data.mediaItemUrl} alt={data.title} />
+          <img ref={imageRef} src={data.mediaItemUrl} alt={data.title} />
           <PhotoSwipeWrapper
+            options={options}
             items={img}
             isOpen={isOpen}
             onClose={handleClose}

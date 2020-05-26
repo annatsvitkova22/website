@@ -67,7 +67,6 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
     <ApolloProvider client={apolloClient}>
       <Head>
         <title>ЗМІСТ</title>
-
         <link rel="canonical" href={`${config.frontUrl}`} />
         <link
           rel="apple-touch-icon"
@@ -90,24 +89,16 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
-
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta charSet="utf-8" />
 
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-        />
-        <meta name="title" content="ЗМІСТ - Зміни створюєш ти!" />
-        <meta
-          name="description"
-          content="Ресурс ЗМІСТ – це платформа для активних полтавців, не байдужих до долі рідного міста."
+          content="width=device-width, initial-scale=1, user-scalable=yes"
         />
         <meta property="og:locale" content="uk-UA" />
         <meta property="og:site_name" content="ЗМІСТ" />
-
         <meta property="twitter:card" content="summary_large_image" />
-
         <meta property="twitter:site" content="@zmist" />
         <meta property="twitter:creator" content="@outright_digital" />
       </Head>

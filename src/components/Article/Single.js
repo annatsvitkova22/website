@@ -149,6 +149,16 @@ const ArticleSingle = ({
 
         <meta property="twitter:card" content="summary_large_image" />
 
+        <meta name="title" content={storedPost.title} />
+        <meta
+          name="description"
+          content={he.decode(
+            storedPost.excerpt
+              .replace(/<[^>]+>/g, '')
+              .replace('[&hellip;]', '...')
+          )}
+        />
+
         <meta property="og:title" content={storedPost.title} />
         <meta property="og:type" content="article" />
         <meta property="article:published_time" content={storedPost.date} />

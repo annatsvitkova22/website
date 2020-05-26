@@ -54,8 +54,6 @@ class PhotoSwipeWrapper extends React.Component {
           options
         );
 
-        this.listen();
-
         if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
           this.photoSwipe.init();
         }
@@ -109,21 +107,6 @@ class PhotoSwipeWrapper extends React.Component {
     this.closePhotoSwipe();
   };
 
-  listen = () => {
-    const pauseVideo = () => {
-      const iframes = document.querySelectorAll(
-        '.video-category__iframe iframe'
-      );
-      iframes.forEach((iframe) => {
-        const { src } = iframe;
-        iframe.setAttribute('src', src);
-      });
-    };
-
-    this.photoSwipe.listen('close', pauseVideo);
-    this.photoSwipe.listen('beforeChange', pauseVideo);
-  };
-
   openPhotoSwipe = (props) => {
     const { items, options } = props;
     const { pswpElement } = this;
@@ -133,7 +116,7 @@ class PhotoSwipeWrapper extends React.Component {
       items,
       options
     );
-    this.listen();
+
     events.forEach((event) => {
       const callback = props[event];
       if (callback || event === 'destroy') {

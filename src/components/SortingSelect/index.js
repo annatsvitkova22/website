@@ -10,23 +10,22 @@ const Sorting = ({
   if (!options.length) return null;
 
   return (
-    <ul className={classnames('sorting', className)}>
+    <select
+      onChange={(e) => onChange(e.target.value)}
+      className={classnames(className)}
+    >
       {options.map((option) => (
-        <li
+        <option
           key={option.value}
-          className={classnames('sorting__item d-inline-block', {
+          className={classnames('sorting__item', {
             'sorting__item--active': option.value === currentOption.value,
           })}
+          value={option.value}
         >
-          <button
-            className="sorting__button"
-            onClick={() => onChange(option.value)}
-          >
-            {option.label}
-          </button>
-        </li>
+          {option.label}
+        </option>
       ))}
-    </ul>
+    </select>
   );
 };
 
