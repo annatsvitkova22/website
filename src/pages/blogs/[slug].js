@@ -232,21 +232,23 @@ const Blog = (props) => {
   };
 
   useEffect(() => {
-    setPId([...pId, String(post.blogId)]);
-  }, []);
+    if (post) setPId([...pId, String(post.blogId)]);
+  }, [post]);
 
   return (
     <>
-      <React.Fragment key={post.blogId}>
-        <ArticleSingle
-          post={post}
-          type={'blogs'}
-          hasShare={true}
-          sidebar={sidebar}
-          similarPosts={similarPosts}
-          postId={post.blogId}
-        />
-      </React.Fragment>
+      {post && post.blogId && (
+        <React.Fragment key={post.blogId}>
+          <ArticleSingle
+            post={post}
+            type={'blogs'}
+            hasShare={true}
+            sidebar={sidebar}
+            similarPosts={similarPosts}
+            postId={post.blogId}
+          />
+        </React.Fragment>
+      )}
       {!similar.posts && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />

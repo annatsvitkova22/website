@@ -231,21 +231,23 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    setPId([...pId, String(post.postId)]);
-  }, []);
+    if (post) setPId([...pId, String(post.postId)]);
+  }, [post]);
 
   return (
     <>
-      <React.Fragment key={post.postId}>
-        <ArticleSingle
-          post={post}
-          type={'news'}
-          hasShare={true}
-          sidebar={sidebar}
-          similarPosts={similarPosts}
-          postId={post.postId}
-        />
-      </React.Fragment>
+      {post && post.postId && (
+        <React.Fragment key={post.postId}>
+          <ArticleSingle
+            post={post}
+            type={'news'}
+            hasShare={true}
+            sidebar={sidebar}
+            similarPosts={similarPosts}
+            postId={post.postId}
+          />
+        </React.Fragment>
+      )}
       {!similar.posts && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />

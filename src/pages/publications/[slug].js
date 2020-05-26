@@ -154,8 +154,10 @@ const Publication = (props) => {
   };
 
   useEffect(() => {
-    setPId([...pId, String(post.publicationId)]);
-  }, []);
+    if (post) {
+      setPId([...pId, String(post.publicationId)]);
+    }
+  }, [post]);
 
   return (
     <>

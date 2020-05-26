@@ -1,10 +1,4 @@
 .single-post {
-  padding-top: 118px;
-
-  @include media-breakpoint-down(sm) {
-    padding-top: 88px;
-  }
-
   .feature__image {
     margin-bottom: 0;
 
@@ -55,6 +49,10 @@
   }
 
   &--news {
+    padding-top: 50px;
+    @include media-breakpoint-down(md) {
+      padding-top: 20px;
+    }
     .feature__image {
       img {
         max-height: 488px;
@@ -64,8 +62,6 @@
   }
 
   &--publications {
-    padding-top: 68px !important;
-
     .single-post {
       &__main {
         position: relative;
@@ -94,12 +90,6 @@
     .feature__image {
       width: 100%;
       max-width: 100%;
-
-      img {
-        max-height: 550px;
-
-        object-fit: cover;
-      }
 
       @include media-breakpoint-down(sm) {
         margin-bottom: 0;
@@ -136,7 +126,11 @@
 
       &--text,
       &--null {
-        padding-top: 50px;
+        img {
+          max-height: 550px;
+
+          object-fit: cover;
+        }
         @include media-breakpoint-down(md) {
           padding-top: 20px;
         }
@@ -172,6 +166,10 @@
       &__content {
         max-width: 872px;
         margin: 0 auto;
+        padding-top: 50px;
+        @include media-breakpoint-down(md) {
+          padding-top: 20px;
+        }
       }
 
       &__excerpt > p {
@@ -216,6 +214,12 @@
       @include media-breakpoint-down(sm) {
         display: none;
       }
+    }
+  }
+  &--blogs {
+    padding-top: 50px;
+    @include media-breakpoint-down(md) {
+      padding-top: 20px;
     }
   }
 
