@@ -8,6 +8,7 @@ import { useStateLink } from '@hookstate/core';
 import * as moment from 'moment';
 import getConfig from 'next/config';
 import he from 'he';
+import * as _ from 'lodash';
 import { Waypoint } from 'react-waypoint';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
@@ -201,20 +202,19 @@ const ArticleSingle = ({
           <>
             {storedPost ? (
               <>
+                <ArticlePublicationBanner
+                  className="single-post__banner"
+                  post={storedPost}
+                  userAvatarStyles={userAvatarStyles}
+                />
                 <Waypoint
-                  key={Math.random()}
-                  onLeave={() => {
+                  onEnter={_.debounce(() => {
                     Router.replace(
                       `/${type}/[slug]?slug=${storedPost.slug}`,
                       `/${type}/${storedPost.slug}`,
                       { shallow: true }
                     );
-                  }}
-                />
-                <ArticlePublicationBanner
-                  className="single-post__banner"
-                  post={storedPost}
-                  userAvatarStyles={userAvatarStyles}
+                  }, 50)}
                 />
                 <div className="container">
                   <section className={'single-post__main'}>
@@ -291,14 +291,13 @@ const ArticleSingle = ({
                   <div className="container">{similarPosts}</div>
                 )}
                 <Waypoint
-                  key={Math.random()}
-                  onLeave={() => {
+                  onEnter={_.debounce(() => {
                     Router.replace(
                       `/${type}/[slug]?slug=${storedPost.slug}`,
                       `/${type}/${storedPost.slug}`,
                       { shallow: true }
                     );
-                  }}
+                  }, 50)}
                 />
               </>
             ) : (
@@ -309,16 +308,6 @@ const ArticleSingle = ({
           <>
             {storedPost ? (
               <>
-                <Waypoint
-                  key={Math.random()}
-                  onLeave={() => {
-                    Router.replace(
-                      `/${type}/[slug]?slug=${storedPost.slug}`,
-                      `/${type}/${storedPost.slug}`,
-                      { shallow: true }
-                    );
-                  }}
-                />
                 <div className={'row'}>
                   <div
                     className={classnames('col-12', {
@@ -329,6 +318,15 @@ const ArticleSingle = ({
                       <NewsHead post={storedPost} />
                       <FeaturedImage data={storedPost.featuredImage} />
                     </div>
+                    <Waypoint
+                      onEnter={_.debounce(() => {
+                        Router.replace(
+                          `/${type}/[slug]?slug=${storedPost.slug}`,
+                          `/${type}/${storedPost.slug}`,
+                          { shallow: true }
+                        );
+                      }, 50)}
+                    />
 
                     <section className={'single-post__main'}>
                       {hasShare && (
@@ -387,6 +385,15 @@ const ArticleSingle = ({
                               className={'content__posts'}
                             />
                           )}
+                          <Waypoint
+                            onEnter={_.debounce(() => {
+                              Router.replace(
+                                `/${type}/[slug]?slug=${storedPost.slug}`,
+                                `/${type}/${storedPost.slug}`,
+                                { shallow: true }
+                              );
+                            }, 50)}
+                          />
                           <NewsFooter post={storedPost} />
                         </div>
                       </section>
@@ -403,16 +410,6 @@ const ArticleSingle = ({
                   )}
                 </div>
                 {similarPosts && similarPosts}
-                <Waypoint
-                  key={Math.random()}
-                  onLeave={() => {
-                    Router.replace(
-                      `/${type}/[slug]?slug=${storedPost.slug}`,
-                      `/${type}/${storedPost.slug}`,
-                      { shallow: true }
-                    );
-                  }}
-                />
               </>
             ) : (
               <PostHeaderLoader />
