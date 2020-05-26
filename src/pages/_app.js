@@ -1,26 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import App from 'next/app';
 import Head from 'next/head';
 import { ApolloProvider } from 'react-apollo';
 import getConfig from 'next/config';
 import axios from 'axios';
+import StickyBox from 'react-sticky-box';
+import classNames from 'classnames';
+import * as _ from 'lodash';
 
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
 import apolloClient from '~/lib/ApolloClient';
 import { AuthStore, updateToken } from '~/stores/Auth';
 import '../styles/app.scss';
+import ScrollTop from '~/components/ScrollTop';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
+  const [scrollTopVisible, setScrollTopVisible] = useState(false);
+  const scrollTopCls = classNames({
+    'scroll-top__container': true,
+    'scroll-top--active': scrollTopVisible,
+  });
+
+  let scrollPos = 0;
+
+  function fixedScroll() {
+    const st = window.scrollY;
+
+    if (window.scrollY > window.innerHeight && st > scrollPos) {
+      setScrollTopVisible(false);
+    } else if (window.scrollY > window.innerHeight && st < scrollPos) {
+      setScrollTopVisible(true);
+      const delayFunc = _.debounce(() => setScrollTopVisible(false), 2500);
+      delayFunc();
+    }
+    scrollPos = st;
+  }
+
   useEffect(() => {
     if (zmistAdditional && zmistAdditional.token) {
       updateToken(zmistAdditional.token);
     }
+
+    window.addEventListener('scroll', fixedScrollDebounced);
+    return () => {
+      window.removeEventListener('scroll', fixedScrollDebounced);
+    };
   }, []);
+
+  const fixedScrollDebounced = _.debounce(fixedScroll, 20);
+
   useEffect(() => {
     return () => {
       if (document.querySelector('body') && document.querySelector('.header')) {
@@ -79,7 +112,14 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
         <meta property="twitter:creator" content="@outright_digital" />
       </Head>
       <Header />
-      <Component {...pageProps} />
+      <div className="main-container">
+        <Component {...pageProps} />
+        <div className={scrollTopCls}>
+          <StickyBox offsetBottom={16} offsetTop={50} bottom>
+            <ScrollTop />
+          </StickyBox>
+        </div>
+      </div>
       <Footer />
     </ApolloProvider>
   );

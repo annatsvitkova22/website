@@ -29,6 +29,7 @@ import ChevronDown from '~/static/images/chevron-down';
 import Icons from '~/components/Icons';
 import Calendar from '~/components/Calendar';
 import Sorting from '~/components/Sorting';
+import ScrollTop from '~/components/ScrollTop';
 
 const composeQuery = ({
   cursor,
