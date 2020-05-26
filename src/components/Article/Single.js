@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import * as classnames from 'classnames';
@@ -8,7 +9,6 @@ import * as moment from 'moment';
 import getConfig from 'next/config';
 import he from 'he';
 import { Waypoint } from 'react-waypoint';
-import _ from 'lodash';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -82,10 +82,12 @@ const ArticleSingle = ({
   }, [loaded]);
 
   useEffect(() => {
-    const singleArticleStore = SingleArticleStore.get();
-    if (post) {
-      singleArticleStore[post.publicationId] = post;
-      SingleArticleStore.set(singleArticleStore);
+    if (type === 'publication') {
+      const singleArticleStore = SingleArticleStore.get();
+      if (post) {
+        singleArticleStore[post.publicationId] = post;
+        SingleArticleStore.set(singleArticleStore);
+      }
     }
   }, [post]);
 
@@ -185,6 +187,16 @@ const ArticleSingle = ({
           <>
             {storedPost ? (
               <>
+                <Waypoint
+                  key={Math.random()}
+                  onLeave={() => {
+                    Router.replace(
+                      `/${type}/[slug]?slug=${storedPost.slug}`,
+                      `/${type}/${storedPost.slug}`,
+                      { shallow: true }
+                    );
+                  }}
+                />
                 <ArticlePublicationBanner
                   className="single-post__banner"
                   post={storedPost}
@@ -264,6 +276,16 @@ const ArticleSingle = ({
                 {similarPosts && (
                   <div className="container">{similarPosts}</div>
                 )}
+                <Waypoint
+                  key={Math.random()}
+                  onLeave={() => {
+                    Router.replace(
+                      `/${type}/[slug]?slug=${storedPost.slug}`,
+                      `/${type}/${storedPost.slug}`,
+                      { shallow: true }
+                    );
+                  }}
+                />
               </>
             ) : (
               <PublicationSingleLoader />
@@ -273,6 +295,16 @@ const ArticleSingle = ({
           <>
             {storedPost ? (
               <>
+                <Waypoint
+                  key={Math.random()}
+                  onLeave={() => {
+                    Router.replace(
+                      `/${type}/[slug]?slug=${storedPost.slug}`,
+                      `/${type}/${storedPost.slug}`,
+                      { shallow: true }
+                    );
+                  }}
+                />
                 <div className={'row'}>
                   <div
                     className={classnames('col-12', {
@@ -357,6 +389,16 @@ const ArticleSingle = ({
                   )}
                 </div>
                 {similarPosts && similarPosts}
+                <Waypoint
+                  key={Math.random()}
+                  onLeave={() => {
+                    Router.replace(
+                      `/${type}/[slug]?slug=${storedPost.slug}`,
+                      `/${type}/${storedPost.slug}`,
+                      { shallow: true }
+                    );
+                  }}
+                />
               </>
             ) : (
               <PostHeaderLoader />

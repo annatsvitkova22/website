@@ -205,21 +205,19 @@ const Publication = (props) => {
           </div>
         </>
       )}
-      <React.Fragment key={Math.random()}>
-        {newPosts.length &&
-          newPosts.map((item) => {
-            return (
-              <React.Fragment key={item.publicationId}>
-                <ArticleSingle
-                  type={'publications'}
-                  hasShare={true}
-                  post={item}
-                  postId={item.publicationId}
-                />
-              </React.Fragment>
-            );
-          })}
-      </React.Fragment>
+      {newPosts.length &&
+        newPosts.map((item) => {
+          return (
+            <React.Fragment key={item.publicationId}>
+              <ArticleSingle
+                type={'publications'}
+                hasShare={true}
+                post={item}
+                postId={item.publicationId}
+              />
+            </React.Fragment>
+          );
+        })}
       <Waypoint
         onEnter={() => {
           loadNewArticle();
