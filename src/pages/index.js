@@ -106,8 +106,8 @@ const HOME_PAGE = gql`
         slug
         featuredImage {
           mediaItemUrl
-          thumbnail: sourceUrl(size: THUMBNAIL)
-          medium: sourceUrl(size: MEDIUM)
+          zm_xss: sourceUrl(size: ZM_XSS)
+          zm_md_rect: sourceUrl(size: ZM_MD_RECT)
         }
         categories {
           nodes {

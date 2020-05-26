@@ -67,6 +67,7 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
 
 ArticleFeatured.propTypes = {
   image: PropTypes.any,
+  size: PropTypes.string,
   alt: PropTypes.string,
   slug: PropTypes.any,
   className: PropTypes.string,
