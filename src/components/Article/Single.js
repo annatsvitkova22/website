@@ -89,6 +89,20 @@ const ArticleSingle = ({
         SingleArticleStore.set(singleArticleStore);
       }
     }
+    if (type === 'news') {
+      const singleArticleStore = SingleArticleStore.get();
+      if (post) {
+        singleArticleStore[post.postId] = post;
+        SingleArticleStore.set(singleArticleStore);
+      }
+    }
+    if (type === 'blogs') {
+      const singleArticleStore = SingleArticleStore.get();
+      if (post) {
+        singleArticleStore[post.blogId] = post;
+        SingleArticleStore.set(singleArticleStore);
+      }
+    }
   }, [post]);
 
   useViewsCounter(post);

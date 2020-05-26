@@ -73,7 +73,6 @@ const Publication = (props) => {
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState([]);
   const [pId, setPId] = useState([]);
-  const [renderedPosts, setRenderedPosts] = useState(null);
 
   const { post } = state;
 
@@ -136,8 +135,6 @@ const Publication = (props) => {
     />
   ) : null;
 
-  const [needToLoad, setNeedToLoad] = useState(true);
-
   const loadNewArticle = async () => {
     async function loadNewPosts() {
       const response = await apolloClient.query({
@@ -146,12 +143,6 @@ const Publication = (props) => {
           publId: pId,
         },
       });
-
-      if (
-        !pId.includes(String(response.data.publications.nodes[0].publicationId))
-      ) {
-        setRenderedPosts(response.data.publications.nodes[0]);
-      }
 
       setPId([
         ...pId,
@@ -165,8 +156,6 @@ const Publication = (props) => {
   useEffect(() => {
     setPId([...pId, String(post.publicationId)]);
   }, []);
-
-  console.log(newPosts);
 
   return (
     <>

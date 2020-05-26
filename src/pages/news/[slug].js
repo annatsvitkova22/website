@@ -91,6 +91,16 @@ const PUBLICATIONS = gql`
   }
 `;
 
+const NEWPOST = gql`
+  query Post ($publId: [ID]){
+    posts(first: 1, where: {notIn: $publId}) {
+      nodes {
+        postId
+        ${singleContentCommon}
+      }
+    }
+  }
+`;
 
 const Post = (props) => {
   const [state, setState] = useState({
@@ -104,8 +114,8 @@ const Post = (props) => {
     loading: false,
   });
   const [loaded, setLoaded] = useState(false);
-
-
+  const [newPosts, setNewPosts] = useState([]);
+  const [pId, setPId] = useState([]);
 
   // TODO: add loader when navigate between news
 
@@ -195,7 +205,6 @@ const Post = (props) => {
     });
   };
 
-
   const sidebar =
     news && blogs ? (
       <SideBarPost news={news} blogs={blogs} publications={publications} />
@@ -206,15 +215,37 @@ const Post = (props) => {
     <SimilarPosts similarPosts={similar.posts.nodes} title={'Схожі новини'} />
   ) : null;
 
+  const loadNewArticle = async () => {
+    async function loadNewPosts() {
+      const response = await apolloClient.query({
+        query: NEWPOST,
+        variables: {
+          publId: pId,
+        },
+      });
+
+      setPId([...pId, String(response.data.posts.nodes[0].postId)]);
+      setNewPosts([...newPosts, response.data.posts.nodes[0]]);
+    }
+    loadNewPosts();
+  };
+
+  useEffect(() => {
+    setPId([...pId, String(post.postId)]);
+  }, []);
+
   return (
     <>
-      <ArticleSingle
-        post={post}
-        type={'news'}
-        hasShare={true}
-        sidebar={sidebar}
-        similarPosts={similarPosts}
-      />
+      <React.Fragment key={post.postId}>
+        <ArticleSingle
+          post={post}
+          type={'news'}
+          hasShare={true}
+          sidebar={sidebar}
+          similarPosts={similarPosts}
+          postId={post.postId}
+        />
+      </React.Fragment>
       {!similar.posts && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
@@ -240,6 +271,25 @@ const Post = (props) => {
           </div>
         </>
       )}
+      {newPosts.length &&
+        newPosts.map((item) => {
+          return (
+            <React.Fragment key={item.postId}>
+              <ArticleSingle
+                type={'news'}
+                hasShare={true}
+                post={item}
+                postId={item.postId}
+                sidebar={sidebar}
+              />
+            </React.Fragment>
+          );
+        })}
+      <Waypoint
+        onEnter={() => {
+          loadNewArticle();
+        }}
+      />
     </>
   );
 };

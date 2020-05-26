@@ -92,6 +92,17 @@ const PUBLICATIONS = gql`
   }
 `;
 
+const NEWBLOG = gql`
+  query Blog ($publId: [ID]){
+    blogs(first: 1, where: {notIn: $publId}) {
+      nodes {
+        blogId
+        ${singleContentCommon}
+      }
+    }
+  }
+`;
+
 const Blog = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -105,6 +116,8 @@ const Blog = (props) => {
     loading: false,
   });
   const [loaded, setLoaded] = useState(false);
+  const [newPosts, setNewPosts] = useState([]);
+  const [pId, setPId] = useState([]);
 
   // TODO: add loader when navigate between blogs
   const { post } = state;
@@ -202,15 +215,38 @@ const Blog = (props) => {
     <SimilarPosts similarPosts={similar.posts.nodes} title={'Схожі'} />
   ) : null;
 
+  const loadNewArticle = async () => {
+    async function loadNewPosts() {
+      const response = await apolloClient.query({
+        query: NEWBLOG,
+        variables: {
+          publId: pId,
+        },
+      });
+      console.log(response);
+
+      setPId([...pId, String(response.data.blogs.nodes[0].blogId)]);
+      setNewPosts([...newPosts, response.data.blogs.nodes[0]]);
+    }
+    loadNewPosts();
+  };
+
+  useEffect(() => {
+    setPId([...pId, String(post.blogId)]);
+  }, []);
+
   return (
     <>
-      <ArticleSingle
-        post={post}
-        type={'blog'}
-        hasShare={true}
-        sidebar={sidebar}
-        similarPosts={similarPosts}
-      />
+      <React.Fragment key={post.blogId}>
+        <ArticleSingle
+          post={post}
+          type={'blogs'}
+          hasShare={true}
+          sidebar={sidebar}
+          similarPosts={similarPosts}
+          postId={post.blogId}
+        />
+      </React.Fragment>
       {!similar.posts && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
@@ -236,6 +272,25 @@ const Blog = (props) => {
           </div>
         </>
       )}
+      {newPosts.length &&
+        newPosts.map((item) => {
+          return (
+            <React.Fragment key={item.blogId}>
+              <ArticleSingle
+                type={'blogs'}
+                hasShare={true}
+                post={item}
+                postId={item.blogId}
+                sidebar={sidebar}
+              />
+            </React.Fragment>
+          );
+        })}
+      <Waypoint
+        onEnter={() => {
+          loadNewArticle();
+        }}
+      />
     </>
   );
 };
