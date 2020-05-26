@@ -60,7 +60,7 @@ const HeroScene = ({ info, posts, publications }) => {
                   <ArticleProvider value="publications">
                     <Featured
                       image={featuredImage}
-                      size={'medium'}
+                      size={'zm_xss'}
                       alt={title}
                       slug={slug}
                     />
