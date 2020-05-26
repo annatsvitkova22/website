@@ -26,7 +26,9 @@ const CrowdfundingProgress = ({ post, className, size = 'small' }) => {
           />{' '}
           <span>зібрано</span>
         </div>
-        <div className="crowdfunding-progress__percentage">{percentage}</div>
+        <div className="crowdfunding-progress__percentage">
+          {Math.floor(parseFloat(percentage) * 100) / 100}%
+        </div>
       </div>
       <div className="crowdfunding-progress__bar">
         <span style={{ width: percentage }} />

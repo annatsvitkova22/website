@@ -12,7 +12,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const LikeButton = ({ post, className, showNumber = true }) => {
+const LikeButton = ({ post, className, showNumber = true, postId }) => {
   const [liked, setLiked] = useState(false);
   const likeCls = classnames({
     like: true,
@@ -58,7 +58,7 @@ const LikeButton = ({ post, className, showNumber = true }) => {
       },
       conf
     );
-    updateLikes(data.likes);
+    updateLikes(data.likes, postId);
 
     setTimeout(() => setLiked(false), 600);
   };

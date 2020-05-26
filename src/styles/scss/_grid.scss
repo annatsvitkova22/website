@@ -37,6 +37,10 @@
 @if $enable-grid-classes {
   .row {
     @include make-row();
+    @include media-breakpoint-down(sm) {
+      margin-right: -20px;
+      margin-left: -20px;
+    }
   }
 
   // Remove the negative margin from default .row, then the horizontal padding

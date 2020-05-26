@@ -456,10 +456,16 @@
 
 .publication-banner--image {
   height: 704px;
+  @include media-breakpoint-down(md) {
+    height: 500px;
+  }
 }
 
 .feature__image--full.feature__image {
   height: 704px;
+  @include media-breakpoint-down(md) {
+    height: 500px;
+  }
 
   cursor: auto;
   &:after {

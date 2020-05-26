@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as classnames from 'classnames';
 
 import CrowdfundingDonation from '~/components/Crowdfunding/Donation';
 import CrowdfundingShare from '~/components/Crowdfunding/Share';
 
-const CrowdfundingActions = ({ className, post }) => {
+const CrowdfundingActions = ({ className, post, postId }) => {
   const [donationOpen, setDonationOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
 
@@ -22,6 +22,12 @@ const CrowdfundingActions = ({ className, post }) => {
     document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
+  useEffect(() => {
+    return () => {
+      document.querySelector('body').classList.remove('isB-MenuOpen');
+    };
+  }, []);
+
   return (
     <>
       <ul className={classnames('crowdfunding-actions', className)}>
@@ -33,9 +39,15 @@ const CrowdfundingActions = ({ className, post }) => {
         </li>
       </ul>
       {donationOpen && (
-        <CrowdfundingDonation post={post} onClose={handleClose} />
+        <CrowdfundingDonation
+          post={post}
+          onClose={handleClose}
+          postId={postId}
+        />
       )}
-      {shareOpen && <CrowdfundingShare post={post} onClose={handleClose} />}
+      {shareOpen && (
+        <CrowdfundingShare post={post} onClose={handleClose} postId={postId} />
+      )}
     </>
   );
 };

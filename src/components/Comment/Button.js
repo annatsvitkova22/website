@@ -6,7 +6,7 @@ import CommentPopup from '~/components/Comment/Popup';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 
-const CommentButton = ({ post }) => {
+const CommentButton = ({ post, postId }) => {
   const { commentCount } = post;
   const state = useStateLink(PostStore);
 
@@ -28,7 +28,7 @@ const CommentButton = ({ post }) => {
         <Icons icon={'comment'} />
         <span>Коментарі ({commentCount || '0'})</span>
       </button>
-      <CommentPopup post={post} />
+      <CommentPopup post={post} postId={postId} />
     </>
   );
 };

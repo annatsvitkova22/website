@@ -28,6 +28,8 @@
     &--active {
       .sorting__button {
         font-weight: 700;
+
+        transition: all 0s;
       }
     }
   }

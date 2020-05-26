@@ -17,7 +17,12 @@ const { frontUrl, apiUrl } = publicRuntimeConfig.find(
 
 // TODO: refactor to be universal
 // combine with components/Share/Modal
-const CrowdfundingShare = ({ post, onClose = () => {}, color = 'black' }) => {
+const CrowdfundingShare = ({
+  post,
+  onClose = () => {},
+  color = 'black',
+  postId,
+}) => {
   const authStateLink = useStateLink(AuthStore);
 
   let type = `${post.__typename.toLowerCase()}`;
@@ -68,7 +73,7 @@ const CrowdfundingShare = ({ post, onClose = () => {}, color = 'black' }) => {
       },
       conf
     );
-    updateShares(updatedShares.data.shared);
+    updateShares(updatedShares.data.shared, postId);
   };
 
   return (

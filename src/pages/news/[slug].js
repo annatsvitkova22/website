@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Waypoint } from 'react-waypoint';
+import * as classnames from 'classnames';
 
 import apolloClient from '~/lib/ApolloClient';
 import SimilarPosts from '~/components/SimilarPosts';
@@ -11,6 +12,7 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ArticleSingle from '~/components/Article/Single';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const POST = gql`
   query Post($slug: String!) {
@@ -91,6 +93,17 @@ const PUBLICATIONS = gql`
   }
 `;
 
+const NEWPOST = gql`
+  query Post ($publId: [ID]){
+    posts(first: 1, where: {notIn: $publId}) {
+      nodes {
+        postId
+        ${singleContentCommon}
+      }
+    }
+  }
+`;
+
 const Post = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -103,6 +116,8 @@ const Post = (props) => {
     loading: false,
   });
   const [loaded, setLoaded] = useState(false);
+  const [newPosts, setNewPosts] = useState([]);
+  const [pId, setPId] = useState([]);
 
   // TODO: add loader when navigate between news
 
@@ -202,15 +217,64 @@ const Post = (props) => {
     <SimilarPosts similarPosts={similar.posts.nodes} title={'Схожі новини'} />
   ) : null;
 
+  const loadNewArticle = async () => {
+    async function loadNewPosts() {
+      const response = await apolloClient.query({
+        query: NEWPOST,
+        variables: {
+          publId: pId,
+        },
+      });
+
+      setPId([...pId, String(response.data.posts.nodes[0].postId)]);
+      setNewPosts([...newPosts, response.data.posts.nodes[0]]);
+    }
+    loadNewPosts();
+  };
+
+  useEffect(() => {
+    if (post) setPId([...pId, String(post.postId)]);
+  }, [post]);
+
+  if (!post) {
+    return (
+      <>
+        <div className="single-post container">
+          <div className={'single-post__title row'}>
+            <>
+              <div
+                className={classnames('single-post__wrapper', {
+                  'col-xl-9': sidebar,
+                  'col-12': !sidebar,
+                })}
+              >
+                <div className="single-post__title-wrapper col-xl-11">
+                  <PostHeaderLoader type={'news'} />
+                </div>
+              </div>
+              {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
+            </>
+          </div>
+        </div>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
-      <ArticleSingle
-        post={post}
-        type={'news'}
-        hasShare={true}
-        sidebar={sidebar}
-        similarPosts={similarPosts}
-      />
+      {post && post.postId && (
+        <React.Fragment key={post.postId}>
+          <ArticleSingle
+            post={post}
+            type={'news'}
+            hasShare={true}
+            sidebar={sidebar}
+            similarPosts={similarPosts}
+            postId={post.postId}
+          />
+        </React.Fragment>
+      )}
       {!similar.posts && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
@@ -236,6 +300,25 @@ const Post = (props) => {
           </div>
         </>
       )}
+      {newPosts.length &&
+        newPosts.map((item) => {
+          return (
+            <React.Fragment key={item.postId}>
+              <ArticleSingle
+                type={'news'}
+                hasShare={true}
+                post={item}
+                postId={item.postId}
+                sidebar={sidebar}
+              />
+            </React.Fragment>
+          );
+        })}
+      <Waypoint
+        onEnter={() => {
+          loadNewArticle();
+        }}
+      />
     </>
   );
 };

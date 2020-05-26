@@ -8,6 +8,8 @@ import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
 import SimilarPosts from '~/components/SimilarPosts';
 import ArticleSingle from '~/components/Article/Single';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
+import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const PUBLICATION = gql`
   query Publication($slug: String!) {
@@ -46,6 +48,20 @@ const SIMILAR = gql`
   }
 `;
 
+const NEWPUBLICATION = gql`
+  query Publication ($publId: [ID]){
+    publications(first: 1, where: {notIn: $publId}) {
+      nodes {
+        publicationId
+        zmPublicationsACF {
+          bannerstyle
+        }
+        ${singleContentCommon}
+      }
+    }
+  }
+`;
+
 const Publication = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -57,6 +73,8 @@ const Publication = (props) => {
     loading: false,
   });
   const [loaded, setLoaded] = useState(false);
+  const [newPosts, setNewPosts] = useState([]);
+  const [pId, setPId] = useState([]);
 
   const { post } = state;
 
@@ -119,14 +137,48 @@ const Publication = (props) => {
     />
   ) : null;
 
+  const loadNewArticle = async () => {
+    async function loadNewPosts() {
+      const response = await apolloClient.query({
+        query: NEWPUBLICATION,
+        variables: {
+          publId: pId,
+        },
+      });
+
+      setPId([
+        ...pId,
+        String(response.data.publications.nodes[0].publicationId),
+      ]);
+      setNewPosts([...newPosts, response.data.publications.nodes[0]]);
+    }
+    loadNewPosts();
+  };
+
+  useEffect(() => {
+    if (post) {
+      setPId([...pId, String(post.publicationId)]);
+    }
+  }, [post]);
+
+  if (!post) {
+    return <PublicationSingleLoader />;
+  }
+
   return (
     <>
-      <ArticleSingle
-        post={post}
-        type={'publications'}
-        hasShare={true}
-        similarPosts={similarPosts}
-      />
+      {post && (
+        <React.Fragment key={post.publicationId}>
+          <ArticleSingle
+            post={post}
+            type={'publications'}
+            hasShare={true}
+            similarPosts={similarPosts}
+            loadNewArticle={loadNewArticle}
+            postId={post.publicationId}
+          />
+        </React.Fragment>
+      )}
       {!similar.posts && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
@@ -152,6 +204,24 @@ const Publication = (props) => {
           </div>
         </>
       )}
+      {newPosts.length &&
+        newPosts.map((item) => {
+          return (
+            <React.Fragment key={item.publicationId}>
+              <ArticleSingle
+                type={'publications'}
+                hasShare={true}
+                post={item}
+                postId={item.publicationId}
+              />
+            </React.Fragment>
+          );
+        })}
+      <Waypoint
+        onEnter={() => {
+          loadNewArticle();
+        }}
+      />
     </>
   );
 };

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import * as classnames from 'classnames';
+import gql from 'graphql-tag';
 import { useStateLink } from '@hookstate/core';
 import * as moment from 'moment';
 import getConfig from 'next/config';
 import he from 'he';
+import * as _ from 'lodash';
+import { Waypoint } from 'react-waypoint';
 
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 import NewsHead from '~/components/NewsHead';
@@ -23,57 +27,86 @@ import useViewsCounter from '~/hooks/useViewsCounter';
 import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
 import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
 import ArticleDate from '~/components/Article/Date';
+import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
+
+const PUBLICATION = gql`
+  query Publication ($publId: [ID]){
+    publications(first: 1, where: {notIn: $publId}) {
+      nodes {
+        publicationId
+        zmPublicationsACF {
+          bannerstyle
+        }
+        ${singleContentCommon}
+      }
+    }
+  }
+`;
+
+// const  query PageQuery {
+//   publications(first: 1, where: {notIn: ["5008", "5006"]}) {
+//     nodes {
+//       publicationId
+//       id
+//       title
+//       slug
+//     }
+//   }
+// }
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
+const ArticleSingle = ({
+  type,
+  post,
+  sidebar,
+  hasShare,
+  similarPosts,
+  loadNewArticle,
+  postId,
+}) => {
   const [loaded, setLoaded] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
   moment.locale('uk');
 
-  const stateLink = useStateLink(CreateSingleArticleStore(post, loaded));
-
+  const stateLink = useStateLink(
+    CreateSingleArticleStore(post, loaded, postId)
+  );
   const state = stateLink.get();
-  const storedPost = state.post;
+
+  const storedPost = state[postId];
 
   useEffect(() => {
     setLoaded(true);
   }, [loaded]);
 
   useEffect(() => {
-    if (post) {
-      SingleArticleStore.set({ post });
+    if (type === 'publication') {
+      const singleArticleStore = SingleArticleStore.get();
+      if (post) {
+        singleArticleStore[post.publicationId] = post;
+        SingleArticleStore.set(singleArticleStore);
+      }
+    }
+    if (type === 'news') {
+      const singleArticleStore = SingleArticleStore.get();
+      if (post) {
+        singleArticleStore[post.postId] = post;
+        SingleArticleStore.set(singleArticleStore);
+      }
+    }
+    if (type === 'blogs') {
+      const singleArticleStore = SingleArticleStore.get();
+      if (post) {
+        singleArticleStore[post.blogId] = post;
+        SingleArticleStore.set(singleArticleStore);
+      }
     }
   }, [post]);
 
   useViewsCounter(post);
-
-  if (!storedPost) {
-    return (
-      <>
-        {type === 'publications' && <PublicationSingleLoader />}
-        {type !== 'publications' && (
-          <div className="single-post container">
-            <div className={'single-post__title row'}>
-              <>
-                <div
-                  className={classnames('single-post__wrapper', {
-                    'col-xl-9': sidebar,
-                    'col-12': !sidebar,
-                  })}
-                >
-                  <div className="single-post__title-wrapper col-xl-11">
-                    <PostHeaderLoader type={type} />
-                  </div>
-                </div>
-                {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
-              </>
-            </div>
-          </div>
-        )}
-      </>
-    );
-  }
 
   const userAvatarStyles = {
     backgroundImage: storedPost.author.userAdditionalACF.avatar
@@ -157,6 +190,15 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                   post={storedPost}
                   userAvatarStyles={userAvatarStyles}
                 />
+                <Waypoint
+                  onEnter={_.debounce(() => {
+                    Router.replace(
+                      `/${type}/[slug]?slug=${storedPost.slug}`,
+                      `/${type}/${storedPost.slug}`,
+                      { shallow: true }
+                    );
+                  }, 50)}
+                />
                 <div className="container">
                   <section className={'single-post__main'}>
                     <div className={'title__socials--mobile'}>
@@ -190,7 +232,10 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           offsetBottom={20}
                           className="side-bar__sticky"
                         >
-                          <ActionsSidebar post={storedPost} />
+                          <ActionsSidebar
+                            post={storedPost}
+                            postId={storedPost.publicationId}
+                          />
                         </StickyBox>
                       </div>
                     )}
@@ -206,13 +251,37 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                           className={'content__posts'}
                         />
                       )}
-                      <NewsFooter post={storedPost} />
+                      <NewsFooter
+                        post={storedPost}
+                        postId={storedPost.publicationId}
+                      />
+                      {!hasEntered && (
+                        <Waypoint
+                          onEnter={() => {
+                            if (loadNewArticle) {
+                              loadNewArticle();
+                            }
+
+                            setHasEntered(true);
+                          }}
+                          onLeave={() => setHasEntered(true)}
+                        />
+                      )}
                     </div>
                   </section>
                 </div>
                 {similarPosts && (
                   <div className="container">{similarPosts}</div>
                 )}
+                <Waypoint
+                  onEnter={_.debounce(() => {
+                    Router.replace(
+                      `/${type}/[slug]?slug=${storedPost.slug}`,
+                      `/${type}/${storedPost.slug}`,
+                      { shallow: true }
+                    );
+                  }, 50)}
+                />
               </>
             ) : (
               <PublicationSingleLoader />
@@ -232,6 +301,15 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                       <NewsHead post={storedPost} />
                       <FeaturedImage data={storedPost.featuredImage} />
                     </div>
+                    <Waypoint
+                      onEnter={_.debounce(() => {
+                        Router.replace(
+                          `/${type}/[slug]?slug=${storedPost.slug}`,
+                          `/${type}/${storedPost.slug}`,
+                          { shallow: true }
+                        );
+                      }, 50)}
+                    />
 
                     <section className={'single-post__main'}>
                       {hasShare && (
@@ -290,6 +368,15 @@ const ArticleSingle = ({ type, post, sidebar, hasShare, similarPosts }) => {
                               className={'content__posts'}
                             />
                           )}
+                          <Waypoint
+                            onEnter={_.debounce(() => {
+                              Router.replace(
+                                `/${type}/[slug]?slug=${storedPost.slug}`,
+                                `/${type}/${storedPost.slug}`,
+                                { shallow: true }
+                              );
+                            }, 50)}
+                          />
                           <NewsFooter post={storedPost} />
                         </div>
                       </section>
