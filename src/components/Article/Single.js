@@ -108,33 +108,6 @@ const ArticleSingle = ({
 
   useViewsCounter(post);
 
-  if (!storedPost) {
-    return (
-      <>
-        {type === 'publications' && <PublicationSingleLoader />}
-        {type !== 'publications' && (
-          <div className="single-post container">
-            <div className={'single-post__title row'}>
-              <>
-                <div
-                  className={classnames('single-post__wrapper', {
-                    'col-xl-9': sidebar,
-                    'col-12': !sidebar,
-                  })}
-                >
-                  <div className="single-post__title-wrapper col-xl-11">
-                    <PostHeaderLoader type={type} />
-                  </div>
-                </div>
-                {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
-              </>
-            </div>
-          </div>
-        )}
-      </>
-    );
-  }
-
   const userAvatarStyles = {
     backgroundImage: storedPost.author.userAdditionalACF.avatar
       ? `url(${storedPost.author.userAdditionalACF.avatar.mediaItemUrl})`

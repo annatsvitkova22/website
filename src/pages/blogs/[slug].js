@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Waypoint } from 'react-waypoint';
+import * as classnames from 'classnames';
 
 import apolloClient from '~/lib/ApolloClient';
 import SimilarPosts from '~/components/SimilarPosts';
@@ -11,6 +12,7 @@ import SidebarLoader from '~/components/Loaders/SidebarLoader';
 import ArticleSingle from '~/components/Article/Single';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const BLOG = gql`
   query Blog($slug: String!) {
@@ -234,6 +236,31 @@ const Blog = (props) => {
   useEffect(() => {
     if (post) setPId([...pId, String(post.blogId)]);
   }, [post]);
+
+  if (!post) {
+    return (
+      <>
+        <div className="single-post container">
+          <div className={'single-post__title row'}>
+            <>
+              <div
+                className={classnames('single-post__wrapper', {
+                  'col-xl-9': sidebar,
+                  'col-12': !sidebar,
+                })}
+              >
+                <div className="single-post__title-wrapper col-xl-11">
+                  <PostHeaderLoader type={'blog'} />
+                </div>
+              </div>
+              {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
+            </>
+          </div>
+        </div>
+        )}
+      </>
+    );
+  }
 
   return (
     <>

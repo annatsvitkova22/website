@@ -8,6 +8,8 @@ import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
 import SimilarPosts from '~/components/SimilarPosts';
 import ArticleSingle from '~/components/Article/Single';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
+import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
+import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const PUBLICATION = gql`
   query Publication($slug: String!) {
@@ -158,6 +160,10 @@ const Publication = (props) => {
       setPId([...pId, String(post.publicationId)]);
     }
   }, [post]);
+
+  if (!post) {
+    return <PublicationSingleLoader />;
+  }
 
   return (
     <>
