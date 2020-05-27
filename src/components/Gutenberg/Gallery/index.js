@@ -1,10 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as _ from 'lodash';
 
 import Slick from '~/components/Slick';
+import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 
 const Gallery = ({ block, className = '' }) => {
+  const imageRef = useRef(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [options, setOptions] = useState({
+    fullscreenEl: false,
+    zoomEl: false,
+    shareEl: false,
+    bgOpacity: 1,
+  });
+
+  const handleOpen = (itemIndex) => () => {
+    setOptions((prevOpts) => ({
+      ...prevOpts,
+      index: itemIndex,
+    }));
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   const [pictures, setPictures] = useState([]);
   const array = block.attributes.images;
   const reg = /[\[\]\{\}\\]/gm;
@@ -39,10 +62,41 @@ const Gallery = ({ block, className = '' }) => {
     setPictures(temp);
   }, []);
 
-  return (
-    <div className={`gutenberg__gallery ${className}`}>
-      <Slick images={pictures} />
+  const items = pictures.map((pic) => ({
+    html: `
+    <div class="news-pswp flex-column flex-lg-row">
+      <div class="news-pswp__wrap-img">
+        <img class="news-pswp__img" src="${pic.original}" alt="${
+      pic.originalAlt
+    }"/>
+      </div>
+      ${
+        pic.description
+          ? `<div class="news-pswp__caption">
+          <p class="news-pswp__caption-inner tx-family-titles">
+          ${pic.description}
+          </p>
+        </div>`
+          : ``
+      }
+      
     </div>
+  `,
+  }));
+
+  return (
+    <>
+      <PhotoSwipeWrapper
+        options={options}
+        items={items}
+        isOpen={isOpen}
+        onClose={handleClose}
+        className="gutenberg__image-pswp"
+      />
+      <div className={`gutenberg__gallery ${className}`}>
+        <Slick images={pictures} {...{ handleOpen, imageRef }} />
+      </div>
+    </>
   );
 };
 Gallery.propTypes = {

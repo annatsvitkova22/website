@@ -8,7 +8,6 @@ import Icons from '~/components/Icons';
 const FeaturedImage = ({ data, className, size }) => {
   const imageRef = useRef(false);
 
-  // const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isOpen, setIsOpen] = useState(false);
   const [options] = useState({
     fullscreenEl: false,
@@ -18,8 +17,6 @@ const FeaturedImage = ({ data, className, size }) => {
   });
 
   const handleOpen = () => {
-    // const rect = imageRef.current.getBoundingClientRect();
-    // setPosition({ x: rect.left, y: rect.top });
     setIsOpen(true);
   };
 

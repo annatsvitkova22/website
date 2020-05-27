@@ -53,7 +53,7 @@ const SamplePrevArrow = ({ className, style, onClick }) => {
   );
 };
 
-const Slick = ({ images }) => {
+const Slick = ({ images, handleOpen, imageRef }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
@@ -73,9 +73,13 @@ const Slick = ({ images }) => {
   };
   return (
     <Slider {...settings}>
-      {images.map((image) => {
+      {images.map((image, i) => {
         return (
-          <div key={image.id}>
+          <div
+            key={image.id}
+            onClick={handleOpen(i) || null}
+            ref={imageRef || null}
+          >
             <figure className="slick__figure">
               <img
                 src={image.original}
