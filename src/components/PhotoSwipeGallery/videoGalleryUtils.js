@@ -79,6 +79,7 @@ const options = (galleryUID = 0) => ({
   shareEl: false,
   galleryUID: galleryUID + 1,
   bgOpacity: 0.75,
+  arrowEl: false,
 });
 
 export { getThumbnailVideo, prepareGalleryItems, options };

@@ -51,11 +51,37 @@
       }
     }
 
-    &--arrow--left,
-    &--arrow--right {
-      display: none;
-      @include media-breakpoint-down(sm) {
-        visibility: hidden;
+    &--arrow {
+      &--right {
+        right: calc(100% - 1100px + 24px);
+
+        &::before {
+          background-image: url('../static/images/chevron-right.svg');
+        }
+      }
+
+      &--left {
+        left: 24px;
+
+        &::before {
+          background-image: url('../static/images/chevron-left.svg');
+        }
+      }
+    }
+
+    &--arrow--right,
+    &--arrow--left {
+      &::before {
+        height: 62px;
+        width: 64px;
+
+        top: 19px;
+
+        background-color: rgba(0, 0, 0, 0.8);
+        background-position: center center;
+        background-size: 12px 20px;
+
+        border-radius: 50%;
       }
     }
   }

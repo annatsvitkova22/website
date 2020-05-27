@@ -14,6 +14,7 @@ const FeaturedImage = ({ data, className, size }) => {
     zoomEl: false,
     shareEl: false,
     bgOpacity: 1,
+    arrowEl: false,
   });
 
   const handleOpen = () => {

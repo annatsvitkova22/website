@@ -91,7 +91,7 @@ const Gallery = ({ block, className = '' }) => {
         items={items}
         isOpen={isOpen}
         onClose={handleClose}
-        className="gutenberg__image-pswp"
+        className="gutenberg__image-pswp gutenberg__image-pswp--gallery"
       />
       <div className={`gutenberg__gallery ${className}`}>
         <Slick images={pictures} {...{ handleOpen, imageRef }} />

@@ -182,7 +182,7 @@ class PhotoSwipeWrapper extends React.Component {
     if (this.state.isMounted) {
       return createPortal(
         <div
-          id={`pswp-gallery-${options.galleryUID}`}
+          id={`pswp-gallery-${options.galleryUID ? options.galleryUID : 1}`}
           className={`pswp ${className}`}
           tabIndex="-1"
           role="dialog"
