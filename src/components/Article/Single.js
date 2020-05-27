@@ -318,7 +318,10 @@ const ArticleSingle = ({
                           offsetBottom={20}
                           className="side-bar__sticky"
                         >
-                          <ActionsSidebar post={storedPost} />
+                          <ActionsSidebar
+                            post={storedPost}
+                            postId={storedPost.postId}
+                          />
                         </StickyBox>
                       )}
                       <section className={'single-post__block-wrapper'}>

@@ -216,6 +216,7 @@
       }
     }
   }
+
   &--blogs {
     padding-top: 50px;
     @include media-breakpoint-down(md) {
@@ -231,6 +232,9 @@
     margin-left: auto;
     max-width: 872px;
     width: 100%;
+    @media screen and (max-width: 1200px) {
+      margin-right: auto;
+    }
   }
 
   &__title {
