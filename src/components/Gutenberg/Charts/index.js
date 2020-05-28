@@ -7,6 +7,7 @@ import { AuthStore } from '~/stores/Auth';
 import LineChart from '~/components/Gutenberg/Charts/Line';
 import BarChart from '~/components/Gutenberg/Charts/Bar';
 import GutenbergLoader from '~/components/Loaders/GutenbergLoader';
+import PieChart from '~/components/Gutenberg/Charts/Pie';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -48,12 +49,16 @@ const ChartContainer = ({ id, className = '', guttenbrgType }) => {
       conf
     );
 
-    setState({
-      ...state,
-      chart: formResponse.data,
-      type: typeResponse.data['visualizer-chart-type'][0],
-      adOptions: typeResponse.data['visualizer-settings'][0].series,
-    });
+    if (typeResponse && formResponse) {
+      setState({
+        ...state,
+        chart: formResponse.data,
+        type: typeResponse.data['visualizer-chart-type'][0],
+        adOptions: typeResponse.data['visualizer-settings'][0].series
+          ? typeResponse.data['visualizer-settings'][0].series
+          : typeResponse.data['visualizer-settings'][0].slices,
+      });
+    }
   };
 
   if (!chart) {
@@ -66,7 +71,7 @@ const ChartContainer = ({ id, className = '', guttenbrgType }) => {
     case 'column':
       return <BarChart chart={chart} adOptions={adOptions} />;
     case 'pie':
-      return <BarChart chart={chart} adOptions={adOptions} />;
+      return <PieChart chart={chart} adOptions={adOptions} />;
     default:
       return null;
   }

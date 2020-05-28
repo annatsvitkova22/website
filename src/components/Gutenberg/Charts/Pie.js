@@ -1,9 +1,13 @@
 import React from 'react';
 import * as Papa from 'papaparse';
-import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 
 const PieChart = ({ chart, adOptions }) => {
   const parsed = Papa.parse(chart.data.csv);
+
+  const colors = adOptions.map((item) => {
+    return item.color;
+  });
 
   const clearData = [
     ...parsed.data.slice(0, 1),
@@ -16,24 +20,21 @@ const PieChart = ({ chart, adOptions }) => {
 
   const newChartData = {
     labels: transpondedData[0].slice(1, transpondedData[0].length),
-    datasets: transpondedData
-      .slice(1, transpondedData.length)
-      .map((item, index) => {
-        return {
-          label: item[0],
-          data: item.slice(1, item.length).map((i) => parseFloat(i)),
-          borderColor: adOptions[index].color,
-        };
-      }),
+    datasets: [
+      {
+        data: transpondedData[1].slice(1, transpondedData[1].length),
+        backgroundColor: colors,
+      },
+    ],
   };
 
   return (
     <div className="gutenberg__chart content__posts">
-      <Doughnut
+      <Pie
         options={{
           title: { display: true },
           legend: { display: true },
-          maintainAspectRatio: true,
+          showTooltips: true,
         }}
         data={newChartData}
       />
