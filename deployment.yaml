@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: zmist-website
+    app.kubernetes.io/instance: zmist
+    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: zmist
+    app.kubernetes.io/managed-by: docker
+    environment: staging
+    tier: frontend
+    partition: zmist
+  name: zmist-website
+  namespace: zmist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: zmist-website
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: zmist-website
+    spec:
+      containers:
+        - image: vladyslavromanenko/zmist-website:staging
+          imagePullPolicy: "Always"
+          name: zmist-website
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: zmist-website
+    app.kubernetes.io/instance: zmist
+    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: zmist
+    app.kubernetes.io/managed-by: docker
+    environment: staging
+    tier: frontend
+    partition: zmist-website
+  name: zmist-website
+  namespace: zmist
+spec:
+  type: ClusterIP
+  ports:
+    - name: "80"
+      port: 80
+      targetPort: 3000
+  selector:
+    app.kubernetesio/name: zmist-website
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: zmist-ingress
+  namespace: zmist
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    environment: staging
+    tier: ingress
+    partition: zmist
+spec:
+  tls:
+    - hosts:
+        - zmist.outright.xyz
+      secretName: od-tls
+  rules:
+    - host: zmist.outright.xyz
+      http:
+        paths:
+          - backend:
+              serviceName: zmist-website
+              servicePort: 80

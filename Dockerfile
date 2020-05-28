@@ -1,5 +1,5 @@
 FROM node:12.6.0
-WORKDIR /home/staging/applications/zmist
+WORKDIR .
 COPY package.json yarn.lock ./
 RUN yarn
 COPY . ./
