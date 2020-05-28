@@ -26,13 +26,15 @@ const PollResults = ({ data, results }) => {
       {data.map((question, i) => {
         return (
           <div className="p-results__item" key={i}>
-            <h3>{question.label}</h3>
+            <h3 className="p-results__question">{question.label}</h3>
             {question.choices.map((answer, ind) => {
               return (
-                <div>
-                  <p key={ind}>{answer.text}</p>
+                <div className="p-results__wrapper">
+                  <p key={ind} className="p-results__answer">
+                    {answer.text}
+                  </p>
                   {pollResulsts && (
-                    <span>
+                    <span className="p-results__result">
                       {
                         pollResulsts.filter((item) => item === answer.value)
                           .length

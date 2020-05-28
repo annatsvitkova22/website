@@ -24,6 +24,7 @@ import FreeForm from '../Gutenberg/FreeForm';
 import Spacer from '../Gutenberg/Space';
 import MediaText from '../Gutenberg/MediaText';
 import Vimeo from '../Gutenberg/Vimeo';
+import Charts from '../Gutenberg/Charts/Line';
 
 import Buttons from '~/components/Gutenberg/Buttons';
 import Form from '~/components/Form';
@@ -31,6 +32,7 @@ import Verse from '~/components/Gutenberg/Verse';
 import Instagram from '~/components/Gutenberg/Instagram';
 import Facebook from '~/components/Gutenberg/Facebook';
 import Twitter from '~/components/Gutenberg/Twitter';
+import ChartContainer from '~/components/Gutenberg/Charts';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
@@ -313,6 +315,14 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'GravityformsPollsBlock') {
     return (
       <Form id={block.attributes.formId} gutenbergType={block.__typename} />
+    );
+  }
+  if (block.__typename === 'VisualizerChartBlock') {
+    return (
+      <ChartContainer
+        id={block.attributes.id}
+        gutenbergType={block.__typename}
+      />
     );
   }
   return null;

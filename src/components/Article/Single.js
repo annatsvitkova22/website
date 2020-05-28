@@ -255,18 +255,6 @@ const ArticleSingle = ({
                         post={storedPost}
                         postId={storedPost.publicationId}
                       />
-                      {!hasEntered && (
-                        <Waypoint
-                          onEnter={() => {
-                            if (loadNewArticle) {
-                              loadNewArticle();
-                            }
-
-                            setHasEntered(true);
-                          }}
-                          onLeave={() => setHasEntered(true)}
-                        />
-                      )}
                     </div>
                   </section>
                 </div>
@@ -318,7 +306,10 @@ const ArticleSingle = ({
                           offsetBottom={20}
                           className="side-bar__sticky"
                         >
-                          <ActionsSidebar post={storedPost} />
+                          <ActionsSidebar
+                            post={storedPost}
+                            postId={storedPost.postId}
+                          />
                         </StickyBox>
                       )}
                       <section className={'single-post__block-wrapper'}>
