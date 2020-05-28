@@ -76,7 +76,7 @@
 .p-results {
   &__item {
     max-width: 423px;
-    margin: 0 auto;
+    margin: 0 auto 24px auto;
   }
   &__question {
     margin-bottom: 20px;
@@ -91,7 +91,7 @@
     display: flex;
     justify-content: space-between;
 
-    margin-bottom: 32px;
+    margin-bottom: 4px;
   }
   &__answer {
     margin-bottom: 0;
@@ -105,6 +105,12 @@
     font-size: 16px;
     line-height: 20px;
     letter-spacing: 0.03em;
+  }
+  .crowdfunding-progress__bar:not(:last-child) {
+    margin-bottom: 32px;
+  }
+  .crowdfunding-progress__bar:last-child {
+    margin-bottom: 0px;
   }
 }
 

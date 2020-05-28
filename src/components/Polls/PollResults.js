@@ -29,19 +29,38 @@ const PollResults = ({ data, results }) => {
             <h3 className="p-results__question">{question.label}</h3>
             {question.choices.map((answer, ind) => {
               return (
-                <div className="p-results__wrapper">
-                  <p key={ind} className="p-results__answer">
-                    {answer.text}
-                  </p>
+                <>
+                  <div className="p-results__wrapper">
+                    <p key={ind} className="p-results__answer">
+                      {answer.text}
+                    </p>
+                    {pollResulsts && (
+                      <span className="p-results__result">
+                        {`${Math.floor(
+                          (pollResulsts.filter((item) => item === answer.value)
+                            .length *
+                            100) /
+                            results.length
+                        )} %`}
+                      </span>
+                    )}
+                  </div>
                   {pollResulsts && (
-                    <span className="p-results__result">
-                      {
-                        pollResulsts.filter((item) => item === answer.value)
-                          .length
-                      }
-                    </span>
+                    <div className="crowdfunding-progress__bar">
+                      <span
+                        style={{
+                          width: `${
+                            (pollResulsts.filter(
+                              (item) => item === answer.value
+                            ).length *
+                              100) /
+                            results.length
+                          }%`,
+                        }}
+                      />
+                    </div>
                   )}
-                </div>
+                </>
               );
             })}
           </div>

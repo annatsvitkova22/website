@@ -60,9 +60,11 @@ const Polls = ({ data, formId }) => {
 
   const handleOpenModal = () => {
     setResultsModalOpen(true);
+    document.querySelector('body').classList.add('isB-MenuOpen');
   };
   const handleCloseModal = () => {
     setResultsModalOpen(false);
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   const handleAnswerSelected = (event) => {
