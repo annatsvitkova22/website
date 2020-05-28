@@ -2,6 +2,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 .poll {
   &__question {
     &-title {
@@ -9,10 +10,12 @@
       line-height: 24px;
     }
   }
+
   &__answers {
     padding-left: 0;
     padding-bottom: 30px;
     margin-bottom: 0;
+
     &-thx {
       margin-bottom: 24px;
 
@@ -23,6 +26,7 @@
       letter-spacing: 0.03em;
     }
   }
+
   &__progress {
     font-family: $font-family-titles;
 
@@ -39,16 +43,39 @@
       margin-bottom: 7px;
     }
   }
+
   &__buttons {
     display: flex;
   }
+
   .crowdfunding-progress__bar {
     max-width: 423px;
     margin-bottom: 24px;
 
     border-radius: 10px;
+
     span {
       border-radius: 10px;
+    }
+  }
+
+  .comments-pp {
+    @include media-breakpoint-down(sm) {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    &__header {
+      @include media-breakpoint-down(sm) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &__socials-items {
+      @include media-breakpoint-down(sm) {
+        padding-top: 20px;
+      }
     }
   }
 }
@@ -68,6 +95,7 @@
   color: $black;
 
   text-transform: capitalize;
+
   &:hover {
     border: 1px solid $black;
   }
@@ -78,6 +106,7 @@
     max-width: 423px;
     margin: 0 auto 24px auto;
   }
+
   &__question {
     margin-bottom: 20px;
 
@@ -87,12 +116,14 @@
     line-height: 1.65;
     letter-spacing: 0.03em;
   }
+
   &__wrapper {
     display: flex;
     justify-content: space-between;
 
     margin-bottom: 4px;
   }
+
   &__answer {
     margin-bottom: 0;
 
@@ -101,14 +132,17 @@
     line-height: 20px;
     letter-spacing: 0.03em;
   }
+
   &__result {
     font-size: 16px;
     line-height: 20px;
     letter-spacing: 0.03em;
   }
+
   .crowdfunding-progress__bar:not(:last-child) {
     margin-bottom: 32px;
   }
+
   .crowdfunding-progress__bar:last-child {
     margin-bottom: 0px;
   }
@@ -117,6 +151,7 @@
 .p-btn:not(:last-child) {
   margin-right: 24px;
 }
+
 .nxt-btn--active,
 .sbt-btn--active {
   display: flex;
@@ -150,6 +185,7 @@
 
   width: fit-content;
 }
+
 .answerOption:not(:last-child) {
   padding-bottom: 28px;
 }

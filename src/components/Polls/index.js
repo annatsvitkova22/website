@@ -156,7 +156,7 @@ const Polls = ({ data, formId }) => {
         <>
           <h3 className="poll__question-title">Результат</h3>
           <p className="poll__answers-thx">
-            Дякуэмо за проходження опитування!
+            Дякуємо за проходження опитування!
           </p>
           <button className={`${btnCls.sbmBtn}`} onClick={handleOpenModal}>
             Переглянути Результати
