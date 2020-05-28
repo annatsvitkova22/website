@@ -10,6 +10,8 @@ import Quiz from './Quiz';
 
 import PollResults from '~/components/Polls/PollResults';
 import { AuthStore } from '~/stores/Auth';
+import PollProgress from '~/components/Polls/PollProgress';
+import ModalWrapper from '~/components/Gutenberg/Charts/ModalWrapper';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -27,6 +29,8 @@ const Polls = ({ data, formId }) => {
   const [pollResults, setPollResults] = useState(null);
   const [checkedItems, setCheckedItems] = useState([]);
   const [allAnswers, setAllAnswers] = useState(false);
+  const [completePoll, setCompletePoll] = useState(false);
+  const [resultsModalOpen, setResultsModalOpen] = useState(false);
 
   const prevBtn = classNames({
     'p-btn': true,
@@ -51,6 +55,14 @@ const Polls = ({ data, formId }) => {
       setAnswer({ ...answer, ...checkedItems });
     }
     setAllAnswers(true);
+    setCompletePoll(true);
+  };
+
+  const handleOpenModal = () => {
+    setResultsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setResultsModalOpen(false);
   };
 
   const handleAnswerSelected = (event) => {
@@ -100,10 +112,10 @@ const Polls = ({ data, formId }) => {
         )
         .then(async (response) => {
           const pollResponse = await axios.get(
-            `${apiUrl}/wp-json/gf/v2/forms/${formId}/entries`,
+            `${apiUrl}/wp-json/zmrest/gf-entries?id=${formId}`,
             conf
           );
-          setPollResults(pollResponse.data.entries);
+          setPollResults(pollResponse.data);
         });
     }
     if (allAnswers) {
@@ -116,29 +128,46 @@ const Polls = ({ data, formId }) => {
   }, [questionCount]);
 
   const percentage = ((questionCount + 1) / data.length) * 100;
-
+  console.log(pollResults);
   return (
     <div className="poll">
-      <div className="poll__progress">
-        <span className="poll__progress-count">
-          {questionCount + 1} з {data.length}
-        </span>
-        <div className="crowdfunding-progress__bar">
-          <span style={{ width: `${percentage}%` }} />
-        </div>
-      </div>
-      <Quiz
-        answerOptions={question.choices}
-        question={question.label}
-        questionTotal={data.length}
-        type={question.inputType}
-        handleOptionChange={handleOptionChange}
-        handleSelectChange={handleSelectChange}
-        handleAnswerSelected={handleAnswerSelected}
-        handlePollSubmit={handlePollSubmit}
-        btnCls={btnCls}
+      <PollProgress
+        questionCount={questionCount}
+        percentage={percentage}
+        length={data.length}
+        pollResult={completePoll}
       />
-      {pollResults && <PollResults data={data} results={pollResults} />}
+      {!completePoll && (
+        <Quiz
+          answerOptions={question.choices}
+          question={question.label}
+          questionTotal={data.length}
+          type={question.inputType}
+          handleOptionChange={handleOptionChange}
+          handleSelectChange={handleSelectChange}
+          handleAnswerSelected={handleAnswerSelected}
+          handlePollSubmit={handlePollSubmit}
+          btnCls={btnCls}
+        />
+      )}
+      {completePoll && (
+        <>
+          <h3 className="poll__question-title">Результат</h3>
+          <p className="poll__answers-thx">
+            Дякуэмо за проходження опитування!
+          </p>
+          <button className={`${btnCls.sbmBtn}`} onClick={handleOpenModal}>
+            Переглянути Результати
+          </button>
+          {resultsModalOpen && (
+            <ModalWrapper
+              handleClose={handleCloseModal}
+              data={data}
+              pollResult={pollResults}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 
