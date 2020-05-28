@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import * as _ from 'lodash';
 
 import Slick from '~/components/Slick';
-import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
+import PswpWrapperGallery from '~/components/PhotoSwipeWrapper/components/PswpWrapperGallery';
 
 const Gallery = ({ block, className = '' }) => {
   const imageRef = useRef(false);
 
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState({
+    galleryUID: 2,
+    closeOnScroll: false,
     fullscreenEl: false,
     zoomEl: false,
     shareEl: false,
@@ -17,9 +19,19 @@ const Gallery = ({ block, className = '' }) => {
   });
 
   const handleOpen = (itemIndex) => () => {
+    // const getThumbBoundsFn = (index) => {
+    //   const thumbnail = this.thumbnails[index];
+    //   const img = thumbnail.querySelector('.news-pswp');
+    //   const pageYScroll =
+    //     window.pageYOffset || document.documentElement.scrollTop;
+    //   const rect = img.getBoundingClientRect();
+    //   return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+    // };
+
     setOptions((prevOpts) => ({
       ...prevOpts,
       index: itemIndex,
+      // getThumbBoundsFn,
     }));
     setIsOpen(true);
   };
@@ -63,6 +75,7 @@ const Gallery = ({ block, className = '' }) => {
   }, []);
 
   const items = pictures.map((pic) => ({
+    thumbUrl: pic.thumbnail,
     html: `
     <div class="news-pswp flex-column flex-lg-row">
       <div class="news-pswp__wrap-img">
@@ -86,12 +99,12 @@ const Gallery = ({ block, className = '' }) => {
 
   return (
     <>
-      <PhotoSwipeWrapper
+      <PswpWrapperGallery
         options={options}
         items={items}
         isOpen={isOpen}
         onClose={handleClose}
-        className="gutenberg__image-pswp gutenberg__image-pswp--gallery"
+        className="gutenberg__image-pswp pswp-gallery"
       />
       <div className={`gutenberg__gallery ${className}`}>
         <Slick images={pictures} {...{ handleOpen, imageRef }} />
