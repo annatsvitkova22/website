@@ -299,7 +299,7 @@ const Post = (props) => {
           </div>
         </>
       )}
-      {newPosts.length &&
+      {newPosts.length > 0 &&
         newPosts.map((item) => {
           return (
             <React.Fragment key={item.postId}>
@@ -314,6 +314,7 @@ const Post = (props) => {
           );
         })}
       <Waypoint
+        topOffset={'200%'}
         onEnter={() => {
           loadNewArticle();
         }}

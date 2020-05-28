@@ -255,18 +255,6 @@ const ArticleSingle = ({
                         post={storedPost}
                         postId={storedPost.publicationId}
                       />
-                      {!hasEntered && (
-                        <Waypoint
-                          onEnter={() => {
-                            if (loadNewArticle) {
-                              loadNewArticle();
-                            }
-
-                            setHasEntered(true);
-                          }}
-                          onLeave={() => setHasEntered(true)}
-                        />
-                      )}
                     </div>
                   </section>
                 </div>
