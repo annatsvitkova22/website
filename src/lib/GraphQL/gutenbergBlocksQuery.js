@@ -27,6 +27,14 @@ const content = `... on CoreHeadingBlock {
               }
             }
           }
+                    ... on VisualizerChartBlock {
+            attributes {
+              __typename
+              ... on VisualizerChartBlockAttributes {
+                id
+              }
+            }
+          }
       ... on CoreEmbedInstagramBlock {
                 saveContent
                 attributes {
