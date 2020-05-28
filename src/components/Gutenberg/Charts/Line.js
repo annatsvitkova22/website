@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Papa from 'papaparse';
 import { Line } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
 
 const LineChart = ({ chart, adOptions }) => {
   const parsed = Papa.parse(chart.data.csv);
@@ -39,6 +40,10 @@ const LineChart = ({ chart, adOptions }) => {
       <Line options={options} data={newChartData} />
     </div>
   );
+};
+LineChart.propTypes = {
+  chart: PropTypes.any,
+  adOptions: PropTypes.any,
 };
 
 export default LineChart;

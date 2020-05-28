@@ -115,7 +115,7 @@ const Post = (props) => {
     posts: undefined,
     loading: false,
   });
-  const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newPosts, setNewPosts] = useState([]);
   const [pId, setPId] = useState([]);
 
@@ -147,7 +147,7 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    if (loaded && post && props.slug) {
+    if (post && props.slug) {
       loadData();
     }
   }, [props.slug]);
@@ -182,8 +182,6 @@ const Post = (props) => {
     if (!news && !blogs && !publications) {
       loadAdditionalInfo();
     }
-
-    setLoaded(true);
   }, []);
 
   const loadSimilarPosts = async () => {
@@ -218,6 +216,7 @@ const Post = (props) => {
   ) : null;
 
   const loadNewArticle = async () => {
+    setLoading(true);
     async function loadNewPosts() {
       const response = await apolloClient.query({
         query: NEWPOST,
@@ -228,6 +227,8 @@ const Post = (props) => {
 
       setPId([...pId, String(response.data.posts.nodes[0].postId)]);
       setNewPosts([...newPosts, response.data.posts.nodes[0]]);
+
+      setLoading(false);
     }
     loadNewPosts();
   };
@@ -239,20 +240,22 @@ const Post = (props) => {
   if (!post) {
     return (
       <>
-        <div className="single-post container">
-          <div className={'single-post__title row'}>
+        <div className="main-container">
+          <div className={' single-post single-post--news container'}>
             <>
-              <div
-                className={classnames('single-post__wrapper', {
-                  'col-xl-9': sidebar,
-                  'col-12': !sidebar,
-                })}
-              >
-                <div className="single-post__title-wrapper col-xl-11">
-                  <PostHeaderLoader type={'news'} />
+              <div className="row">
+                <div
+                  className={classnames({
+                    'col-xl-9': sidebar,
+                    'col-12': !sidebar,
+                  })}
+                >
+                  <div className="single-post__block-wrapper ">
+                    <PostHeaderLoader type={'news'} />
+                  </div>
                 </div>
+                {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
               </div>
-              {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
             </>
           </div>
         </div>
@@ -299,7 +302,7 @@ const Post = (props) => {
           </div>
         </>
       )}
-      {newPosts.length > 0 &&
+      {newPosts.length > 0 ? (
         newPosts.map((item) => {
           return (
             <React.Fragment key={item.postId}>
@@ -312,7 +315,30 @@ const Post = (props) => {
               />
             </React.Fragment>
           );
-        })}
+        })
+      ) : (
+        <>
+          <div className="main-container">
+            <div className={' single-post single-post--news container'}>
+              <>
+                <div className="row">
+                  <div
+                    className={classnames({
+                      'col-xl-9': sidebar,
+                      'col-12': !sidebar,
+                    })}
+                  >
+                    <div className="single-post__block-wrapper ">
+                      <PostHeaderLoader type={'news'} />
+                    </div>
+                  </div>
+                  {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
+                </div>
+              </>
+            </div>
+          </div>
+        </>
+      )}
       <Waypoint
         topOffset={'200%'}
         onEnter={() => {
@@ -324,7 +350,7 @@ const Post = (props) => {
 };
 
 Post.propTypes = {
-  props: PropTypes.object,
+  props: PropTypes.any,
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {

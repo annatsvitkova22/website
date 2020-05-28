@@ -20,6 +20,7 @@ PollProgress.propTypes = {
   percentage: PropTypes.any,
   questionCount: PropTypes.any,
   length: PropTypes.any,
+  pollResults: PropTypes.any,
 };
 
 export default PollProgress;

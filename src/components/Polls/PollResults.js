@@ -71,7 +71,7 @@ const PollResults = ({ data, results }) => {
 };
 
 PollResults.propTypes = {
-  data: PropTypes.func,
+  data: PropTypes.any,
   result: PropTypes.any,
 };
 

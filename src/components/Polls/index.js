@@ -8,10 +8,9 @@ import classNames from 'classnames';
 
 import Quiz from './Quiz';
 
-import PollResults from '~/components/Polls/PollResults';
 import { AuthStore } from '~/stores/Auth';
 import PollProgress from '~/components/Polls/PollProgress';
-import ModalWrapper from '~/components/Gutenberg/Charts/ModalWrapper';
+import ModalWrapper from '~/components/Polls/ModalWrapper';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -130,7 +129,6 @@ const Polls = ({ data, formId }) => {
   }, [questionCount]);
 
   const percentage = ((questionCount + 1) / data.length) * 100;
-  console.log(pollResults);
   return (
     <div className="poll">
       <PollProgress
@@ -172,23 +170,10 @@ const Polls = ({ data, formId }) => {
       )}
     </div>
   );
-
-  /*  return (
-    <div>
-      <Quiz
-        answer={{ }}
-        answerOptions={['first', 'second', 'third']}
-        question={state.label}
-        questionTotal={1}
-        onAnswerSelected={handleAnswerSelected}
-      />
-    </div>
-  );
- */
 };
 
 Polls.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.any,
   formId: PropTypes.any,
 };
 
