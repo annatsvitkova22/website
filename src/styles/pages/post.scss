@@ -604,3 +604,14 @@
   width: 64px;
   height: 64px;
 }
+
+.loader-container__desktop {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+.loader-container__mobile {
+  @include media-breakpoint-up(sm) {
+    display: none;
+  }
+}

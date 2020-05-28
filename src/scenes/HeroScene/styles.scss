@@ -43,6 +43,7 @@
     @include media-breakpoint-down(sm) {
       margin-right: -20px;
       margin-left: -20px;
+      height: auto;
     }
   }
 
@@ -52,6 +53,10 @@
     font-size: 0;
 
     filter: brightness(0.5);
+
+    @include media-breakpoint-down(sm) {
+      height: 400px;
+    }
   }
   span {
     display: block;
