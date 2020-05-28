@@ -93,36 +93,6 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
     );
   };
 
-  updateItems = (items = []) => {
-    this.photoSwipe.items.length = 0;
-    items.forEach((item) => {
-      this.photoSwipe.items.push(item);
-    });
-    this.photoSwipe.invalidateCurrItems();
-    this.photoSwipe.updateSize(true);
-  };
-
-  closePhotoSwipe = () => {
-    if (!this.photoSwipe) {
-      return;
-    }
-    this.photoSwipe.close();
-  };
-
-  handleClose = () => {
-    const { onClose } = this.props;
-    this.setState(
-      {
-        isOpen: false,
-      },
-      () => {
-        if (onClose) {
-          onClose();
-        }
-      }
-    );
-  };
-
   ref = (node) => {
     this.pswpElement = node;
   };
