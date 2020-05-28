@@ -225,7 +225,7 @@ const News = ({ posts, categories, query }) => {
     }
   );
 
-  if (state.data.nodes) {
+  if (!state.data.nodes) {
     return (
       <div className="container articles-container">
         <div className="row">
