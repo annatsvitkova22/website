@@ -1,7 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import Photoswipe from 'photoswipe';
-import PropTypes from 'prop-types';
 import PhotoswipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
 import Slider from 'react-slick';
 
@@ -9,104 +8,52 @@ import events from '~/components/PhotoSwipeWrapper/events';
 import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 
 class PswpWrapperVideo extends PhotoSwipeWrapper {
-  static propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    items: PropTypes.array.isRequired,
-    options: PropTypes.object,
-    onClose: PropTypes.func,
-    id: PropTypes.string,
-    className: PropTypes.string,
-  };
-
-  static defaultProps = {
-    options: {},
-    onClose: () => {},
-    id: '',
-    className: '',
-  };
-
   state = {
     isOpen: this.props.isOpen,
     isMounted: false,
+    settings: {
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      infinite: false,
+    },
   };
-
-  componentDidMount() {
-    const { isOpen } = this.state;
-    if (isOpen) {
-      this.openPhotoSwipe(this.props);
-    }
-
-    this.setState({
-      isMounted: true,
-    });
-  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isMounted !== this.state.isMounted) {
-      const galleryParams = this.photoswipeParseHash();
-      const { pswpElement } = this;
+      // const galleryParams = this.photoswipeParseHash();
+      // const { pswpElement } = this;
+      this.listen();
 
-      if (pswpElement && galleryParams) {
-        const { items, options } = prevProps;
+      // if (pswpElement && galleryParams) {
+      //   const { items, options } = prevProps;
 
-        this.photoSwipe = new Photoswipe(
-          pswpElement,
-          PhotoswipeUIDefault,
-          items,
-          options
-        );
+      //   this.photoSwipe = new Photoswipe(
+      //     pswpElement,
+      //     PhotoswipeUIDefault,
+      //     items,
+      //     options
+      //   );
 
-        if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
-          this.photoSwipe.init();
-        }
-      }
+      //   if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
+      //     this.photoSwipe.init();
+      //   }
+      // }
     }
   }
 
-  photoswipeParseHash = () => {
-    const hash = window.location.hash.substring(1);
-    const params = {};
-
-    if (hash.length < 5) {
-      // pid=1
-      return false;
+  listen = () => {
+    if (this.photoSwipe) {
+      this.photoSwipe.listen('afterChange', () => {
+        this.slider.innerSlider.state.currentSlide = this.photoSwipe.getCurrentIndex();
+        this.setState((prevState) => ({
+          ...prevState,
+          settings: {
+            ...prevState.settings,
+            currentSlide: this.photoSwipe.getCurrentIndex(),
+          },
+        }));
+      });
     }
-
-    const vars = hash.split('&');
-    for (let i = 0; i < vars.length; i += 1) {
-      let pair = [];
-      if (vars[i]) {
-        pair = vars[i].split('=');
-      }
-
-      if (pair.length === 2) {
-        const [id, value] = pair;
-        params[id] = value;
-      }
-    }
-    if (Object.keys(params).length !== 0) {
-      return params;
-    }
-
-    return false;
-  };
-
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { isOpen } = this.state;
-    if (nextProps.isOpen) {
-      if (!isOpen) {
-        this.openPhotoSwipe(nextProps);
-      } else {
-        this.updateItems(nextProps.items);
-      }
-    } else if (isOpen) {
-      this.closePhotoSwipe();
-    }
-  }
-
-  componentWillUnmount = () => {
-    this.closePhotoSwipe();
   };
 
   openPhotoSwipe = (props) => {
@@ -118,6 +65,8 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
       items,
       options
     );
+
+    this.listen();
 
     events.forEach((event) => {
       const callback = props[event];
@@ -190,12 +139,6 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
   render() {
     const { className, options, items } = this.props;
 
-    const settings = {
-      slidesToShow: 6,
-      slidesToScroll: 1,
-      infinite: false,
-    };
-
     if (this.state.isMounted) {
       return createPortal(
         <div
@@ -256,15 +199,20 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
               </div>
             </div>
             <div className="pswp-thumbs">
-              <Slider {...settings}>
+              <Slider
+                {...this.state.settings}
+                ref={(slider) => (this.slider = slider)}
+              >
                 {items.map((item, i) => (
-                  <img
-                    key={i}
-                    src={item.thumbUrl}
-                    alt=""
-                    onClick={this.handleClick(i)}
-                    ref={this.imageRef(i)}
-                  />
+                  <div className="line-height-1">
+                    <div
+                      className="pswp-thumb bg-cover"
+                      key={i}
+                      style={{ backgroundImage: `url(${item.thumbUrl})` }}
+                      onClick={this.handleClick(i)}
+                      ref={this.imageRef(i)}
+                    />
+                  </div>
                 ))}
               </Slider>
             </div>

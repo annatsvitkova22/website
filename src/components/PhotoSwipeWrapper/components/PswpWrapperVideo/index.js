@@ -31,6 +31,7 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
 
   listen = () => {
     const pauseVideo = () => {
+      console.log(this.photoSwipe);
       const iframes = document.querySelectorAll(
         '.video-category__iframe iframe'
       );

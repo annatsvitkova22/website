@@ -1,6 +1,51 @@
 .pswp-thumbs {
+  margin-top: 20px;
+  padding: 30px 0;
+
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(100% - 126px);
+  top: calc(100% - 146px);
+
+  border: 1px solid $grey-100;
+
+  .slick-slide {
+    max-width: 100px;
+    margin: 0 5px;
+
+    .pswp-thumb {
+      position: relative;
+
+      &::before {
+        content: '';
+
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        border: 2px solid transparent;
+
+        transition: border-color 0.3s ease-in;
+      }
+    }
+
+    &.slick-current {
+      .pswp-thumb {
+        &::before {
+          border-color: $green;
+        }
+      }
+    }
+  }
+
+  .slick-track {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.pswp-thumb {
+  padding-bottom: 65%;
 }
