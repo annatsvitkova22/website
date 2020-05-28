@@ -53,10 +53,20 @@
 
     &--arrow {
       &--right {
-        right: calc(100% - 1100px + 24px);
+        @include media-breakpoint-down(md) {
+          right: 24px;
+        }
+
+        @media (min-width: 1443px) {
+          right: calc(100% - 1100px + 24px);
+        }
+
+        @media (max-width: 1442px) and (min-width: 992px) {
+          right: 343px + 24px;
+        }
 
         &::before {
-          background-image: url('../static/images/chevron-right.svg');
+          background-image: url('../static/images/chevron-right.svg') !important;
         }
       }
 
@@ -64,13 +74,19 @@
         left: 24px;
 
         &::before {
-          background-image: url('../static/images/chevron-left.svg');
+          background-image: url('../static/images/chevron-left.svg') !important;
         }
       }
     }
 
     &--arrow--right,
     &--arrow--left {
+      top: calc(50% - 75px);
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+
       &::before {
         height: 62px;
         width: 64px;
