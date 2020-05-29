@@ -119,9 +119,9 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
     this.photoSwipe.goTo(index);
   };
 
-  // sliderRef = (slider) => {
-  //   this.slider = slider;
-  // };
+  sliderRef = (slider) => {
+    this.slider = slider;
+  };
 
   render() {
     const { className, options, items } = this.props;
@@ -186,10 +186,7 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
               </div>
             </div>
             <div className="pswp-thumbs">
-              <Slider
-                {...this.state.settings}
-                ref={(slider) => (this.slider = slider)}
-              >
+              <Slider {...this.state.settings} ref={this.sliderRef}>
                 {items.map((item, i) => (
                   <div className="line-height-1">
                     <div
