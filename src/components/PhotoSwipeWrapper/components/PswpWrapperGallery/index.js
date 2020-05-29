@@ -15,6 +15,16 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
       slidesToShow: 6,
       slidesToScroll: 1,
       infinite: false,
+      arrows: false,
+      variableWidth: true,
+      responsive: [
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 2,
+          },
+        },
+      ],
     },
   };
 

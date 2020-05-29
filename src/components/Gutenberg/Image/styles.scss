@@ -73,7 +73,7 @@
         background-position: center center;
         background-size: 21px;
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           background-color: transparent;
         }
       }

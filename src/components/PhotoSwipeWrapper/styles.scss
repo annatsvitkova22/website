@@ -18,9 +18,11 @@
       border-radius: 50%;
       background-position: 10px -34px;
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         background-color: rgba(244, 244, 244, 0.8);
+      }
 
+      @include media-breakpoint-down(sm) {
         .videos-pswp & {
           background-image: none !important;
 

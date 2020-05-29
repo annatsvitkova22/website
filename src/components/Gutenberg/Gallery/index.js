@@ -77,7 +77,7 @@ const Gallery = ({ block, className = '' }) => {
   const items = pictures.map((pic) => ({
     thumbUrl: pic.thumbnail,
     html: `
-    <div class="news-pswp flex-column flex-lg-row">
+    <div class="news-pswp pswp-gallery__body flex-column flex-lg-row">
       <div class="news-pswp__wrap-img">
         <img class="news-pswp__img" src="${pic.original}" alt="${
       pic.originalAlt
@@ -88,6 +88,7 @@ const Gallery = ({ block, className = '' }) => {
           ? `<div class="news-pswp__caption">
           <p class="news-pswp__caption-inner tx-family-titles">
           ${pic.description}
+            Комунальники замінили прожектори, кабелі та лампи. Спершу відновили підсвічування Полтавської міськради. 
           </p>
         </div>`
           : ``
