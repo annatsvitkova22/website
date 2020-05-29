@@ -7,7 +7,7 @@ import Slider from 'react-slick';
 import events from '~/components/PhotoSwipeWrapper/events';
 import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 
-class PswpWrapperVideo extends PhotoSwipeWrapper {
+class PswpWrapperGallery extends PhotoSwipeWrapper {
   state = {
     isOpen: this.props.isOpen,
     isMounted: false,
@@ -30,24 +30,24 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isMounted !== this.state.isMounted) {
-      // const galleryParams = this.photoswipeParseHash();
-      // const { pswpElement } = this;
+      const galleryParams = this.photoswipeParseHash();
+      const { pswpElement } = this;
       this.listen();
 
-      // if (pswpElement && galleryParams) {
-      //   const { items, options } = prevProps;
+      if (pswpElement && galleryParams) {
+        const { items, options } = this.props;
 
-      //   this.photoSwipe = new Photoswipe(
-      //     pswpElement,
-      //     PhotoswipeUIDefault,
-      //     items,
-      //     options
-      //   );
+        this.photoSwipe = new Photoswipe(
+          pswpElement,
+          PhotoswipeUIDefault,
+          items,
+          options
+        );
 
-      //   if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
-      //     this.photoSwipe.init();
-      //   }
-      // }
+        if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
+          this.photoSwipe.init();
+        }
+      }
     }
   }
 
@@ -206,4 +206,4 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
   }
 }
 
-export default PswpWrapperVideo;
+export default PswpWrapperGallery;

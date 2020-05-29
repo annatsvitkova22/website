@@ -19,19 +19,9 @@ const Gallery = ({ block, className = '' }) => {
   });
 
   const handleOpen = (itemIndex) => () => {
-    // const getThumbBoundsFn = (index) => {
-    //   const thumbnail = this.thumbnails[index];
-    //   const img = thumbnail.querySelector('.news-pswp');
-    //   const pageYScroll =
-    //     window.pageYOffset || document.documentElement.scrollTop;
-    //   const rect = img.getBoundingClientRect();
-    //   return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
-    // };
-
     setOptions((prevOpts) => ({
       ...prevOpts,
       index: itemIndex,
-      // getThumbBoundsFn,
     }));
     setIsOpen(true);
   };
@@ -101,9 +91,9 @@ const Gallery = ({ block, className = '' }) => {
   return (
     <>
       <PswpWrapperGallery
-        options={options}
-        items={items}
         isOpen={isOpen}
+        items={items}
+        options={options}
         onClose={handleClose}
         className="gutenberg__image-pswp pswp-gallery"
       />
