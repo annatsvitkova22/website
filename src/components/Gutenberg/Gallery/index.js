@@ -77,8 +77,7 @@ const Gallery = ({ block, className = '' }) => {
         pic.description
           ? `<div class="news-pswp__caption">
           <p class="news-pswp__caption-inner tx-family-titles">
-          ${pic.description}
-            Комунальники замінили прожектори, кабелі та лампи. Спершу відновили підсвічування Полтавської міськради. 
+            ${pic.description}
           </p>
         </div>`
           : ``
