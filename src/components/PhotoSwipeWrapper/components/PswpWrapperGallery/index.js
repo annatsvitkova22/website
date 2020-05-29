@@ -21,7 +21,7 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
         {
           breakpoint: 767,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 3,
           },
         },
       ],
