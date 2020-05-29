@@ -28,11 +28,10 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
     },
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     if (prevState.isMounted !== this.state.isMounted) {
       const galleryParams = this.photoswipeParseHash();
       const { pswpElement } = this;
-      this.listen();
 
       if (pswpElement && galleryParams) {
         const { items, options } = this.props;
@@ -46,6 +45,7 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
 
         if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
           this.photoSwipe.init();
+          this.listen();
         }
       }
     }
@@ -53,7 +53,7 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
 
   listen = () => {
     if (this.photoSwipe) {
-      this.photoSwipe.listen('afterChange', () => {
+      const syncPswpSlick = () => {
         this.slider.innerSlider.state.currentSlide = this.photoSwipe.getCurrentIndex();
         this.setState((prevState) => ({
           ...prevState,
@@ -62,7 +62,10 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
             currentSlide: this.photoSwipe.getCurrentIndex(),
           },
         }));
-      });
+      };
+
+      this.photoSwipe.listen('afterChange', syncPswpSlick);
+      this.photoSwipe.listen('gettingData', syncPswpSlick);
     }
   };
 
@@ -115,6 +118,10 @@ class PswpWrapperGallery extends PhotoSwipeWrapper {
   handleClick = (index) => () => {
     this.photoSwipe.goTo(index);
   };
+
+  // sliderRef = (slider) => {
+  //   this.slider = slider;
+  // };
 
   render() {
     const { className, options, items } = this.props;
