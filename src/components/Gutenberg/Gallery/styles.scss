@@ -156,8 +156,6 @@
   &__body {
     @include media-breakpoint-down(md) {
       max-height: calc(100vh - 133px - 20px);
-
-      overflow-y: auto;
     }
   }
 }
