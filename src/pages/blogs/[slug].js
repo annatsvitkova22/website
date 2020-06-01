@@ -238,7 +238,7 @@ const Blog = (props) => {
     if (post) setPId([...pId, String(post.blogId)]);
   }, [post]);
 
-  if (post || !sidebar) {
+  if (!post || !sidebar) {
     return (
       <>
         <div className="main-container">

@@ -235,6 +235,7 @@ const Post = (props) => {
   useEffect(() => {
     if (post) setPId([...pId, String(post.postId)]);
   }, [post]);
+
   if (!post || !sidebar) {
     return (
       <>
