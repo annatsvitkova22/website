@@ -22,19 +22,25 @@ const ArticlePublications = ({
   highlightInTitle,
 }) => {
   let sizeCol = '';
+  let imageSize = '';
 
   switch (size) {
     case 'medium':
       sizeCol = 'col-lg-6';
+      imageSize = 'zm_lg_rect_2';
       break;
     case 'big':
       sizeCol = 'col-12';
+      imageSize = 'zm_lg_rect';
       break;
     case 'small':
       sizeCol = 'col-lg-4';
+      imageSize = 'zm_md_rect';
       break;
 
     default:
+      sizeCol = 'col-lg-4';
+      imageSize = 'zm_md_rect';
       break;
   }
 
@@ -54,6 +60,7 @@ const ArticlePublications = ({
           size === 'big' ? 'flex-lg-grow-1 w-lg-50' : ''
         }`}
         image={featuredImage}
+        size={imageSize}
         alt={title}
         slug={slug}
       />

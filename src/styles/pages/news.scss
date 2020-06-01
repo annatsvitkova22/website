@@ -117,7 +117,6 @@
 
   @include media-breakpoint-down(md) {
     max-height: calc(100vh - 40px);
-    margin: 20px 0;
   }
 
   &__wrap-img {

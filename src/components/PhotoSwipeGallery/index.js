@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import events from '../PhotoSwipeWrapper/events';
+// import events from '../PhotoSwipeWrapper/events';
 import PswpWrapperVideo from '../PhotoSwipeWrapper/components/PswpWrapperVideo';
 
 class PhotoSwipeGallery extends React.Component {
@@ -23,20 +23,10 @@ class PhotoSwipeGallery extends React.Component {
   }
 
   showPhotoSwipe = (itemIndex) => () => {
-    const getThumbBoundsFn = (index) => {
-      const thumbnail = this.thumbnails[index];
-      const img = thumbnail.querySelector('.video-category__thumbnail');
-      const pageYScroll =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const rect = img.getBoundingClientRect();
-      return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
-    };
     const { options } = this.state;
-    options.index = itemIndex;
-    options.getThumbBoundsFn = options.getThumbBoundsFn || getThumbBoundsFn;
     this.setState({
       isOpen: true,
-      options,
+      options: { ...options, index: itemIndex },
     });
   };
 
@@ -53,9 +43,9 @@ class PhotoSwipeGallery extends React.Component {
   };
 
   render() {
-    const { items, thumbnailContent, playClass, ...other } = this.props;
+    const { items, thumbnailContent, playClass } = this.props;
     const { className } = this.props;
-    const eventProps = [other, ...events];
+    // const eventProps = [other, ...events];
     const { isOpen, options } = this.state;
     return (
       <div
@@ -75,7 +65,7 @@ class PhotoSwipeGallery extends React.Component {
           ))}
         </div>
         <PswpWrapperVideo
-          {...eventProps}
+          // {...eventProps}
           isOpen={isOpen}
           items={items}
           options={options}

@@ -18,9 +18,11 @@
       border-radius: 50%;
       background-position: 10px -34px;
 
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         background-color: rgba(244, 244, 244, 0.8);
+      }
 
+      @include media-breakpoint-down(sm) {
         .videos-pswp & {
           background-image: none !important;
 
@@ -51,11 +53,53 @@
       }
     }
 
-    &--arrow--left,
-    &--arrow--right {
-      display: none;
+    &--arrow {
+      &--right {
+        @include media-breakpoint-down(md) {
+          right: 24px;
+        }
+
+        @media (min-width: 1443px) {
+          right: calc(100% - 1100px + 24px);
+        }
+
+        @media (max-width: 1442px) and (min-width: 992px) {
+          right: 343px + 24px;
+        }
+
+        &::before {
+          background-image: url('../static/images/chevron-right.svg') !important;
+        }
+      }
+
+      &--left {
+        left: 24px;
+
+        &::before {
+          background-image: url('../static/images/chevron-left.svg') !important;
+        }
+      }
+    }
+
+    &--arrow--right,
+    &--arrow--left {
+      top: calc(50% - 75px);
+
       @include media-breakpoint-down(sm) {
-        visibility: hidden;
+        display: none;
+      }
+
+      &::before {
+        height: 62px;
+        width: 64px;
+
+        top: 19px;
+
+        background-color: rgba(0, 0, 0, 0.8);
+        background-position: center center;
+        background-size: 12px 20px;
+
+        border-radius: 50%;
       }
     }
   }

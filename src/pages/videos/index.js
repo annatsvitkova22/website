@@ -148,7 +148,6 @@ const VideosArchive = (props) => {
     if (!content.videos) {
       loadContent();
     } else {
-      console.log(content);
       const { title, zmVideoACF } = content.videos[0];
       const { videoUrl, videoCover, duration } = zmVideoACF;
 
