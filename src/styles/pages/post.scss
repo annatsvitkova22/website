@@ -606,12 +606,14 @@
 }
 
 .loader-container__desktop {
+  width: 100%;
   @include media-breakpoint-down(sm) {
     display: none;
   }
 }
 .loader-container__mobile {
-  @include media-breakpoint-up(sm) {
+  width: 100%;
+  @include media-breakpoint-up(md) {
     display: none;
   }
 }
