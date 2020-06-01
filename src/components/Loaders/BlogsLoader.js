@@ -42,7 +42,7 @@ const BlogsLoader = () => {
           </div>
         </div>
       </div>
-      <div className="col-md12 col-lg-9 col-xl-9">
+      <div className="col-md-12 col-lg-9 col-xl-9">
         <div
           className="blogger-row__wrapper row"
           style={{ justifyContent: 'space-between' }}

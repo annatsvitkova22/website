@@ -152,8 +152,6 @@ const BlogsArchive = ({ users, query }) => {
     );
   }
 
-  console.log(state.data.users.nodes[0]);
-
   return (
     <div className="container">
       <Head>
