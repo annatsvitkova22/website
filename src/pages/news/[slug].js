@@ -115,7 +115,8 @@ const Post = (props) => {
     posts: undefined,
     loading: false,
   });
-  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [disabledNew, setDisabledNew] = useState({});
   const [newPosts, setNewPosts] = useState([]);
   const [pId, setPId] = useState([]);
 
@@ -211,12 +212,12 @@ const Post = (props) => {
     ) : (
       <SidebarLoader className={'full-width'} type={'popular'} />
     );
+
   const similarPosts = similar.posts ? (
     <SimilarPosts similarPosts={similar.posts.nodes} title={'Схожі новини'} />
   ) : null;
 
   const loadNewArticle = async () => {
-    setLoading(true);
     async function loadNewPosts() {
       const response = await apolloClient.query({
         query: NEWPOST,
@@ -227,8 +228,6 @@ const Post = (props) => {
 
       setPId([...pId, String(response.data.posts.nodes[0].postId)]);
       setNewPosts([...newPosts, response.data.posts.nodes[0]]);
-
-      setLoading(false);
     }
     loadNewPosts();
   };
@@ -236,8 +235,7 @@ const Post = (props) => {
   useEffect(() => {
     if (post) setPId([...pId, String(post.postId)]);
   }, [post]);
-
-  if (!post) {
+  if (!post || !sidebar) {
     return (
       <>
         <div className="main-container">
@@ -254,7 +252,7 @@ const Post = (props) => {
                     <PostHeaderLoader type={'news'} />
                   </div>
                 </div>
-                {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
+                <aside className={'col-md-3'}>{sidebar}</aside>}
               </div>
             </>
           </div>
@@ -275,9 +273,19 @@ const Post = (props) => {
             similarPosts={similarPosts}
             postId={post.postId}
           />
+          <Waypoint
+            onEnter={
+              disabled
+                ? undefined
+                : () => {
+                    setDisabled(true);
+                    loadNewArticle();
+                  }
+            }
+          />
         </React.Fragment>
       )}
-      {!similar.posts && (
+      {!similar.posts && post && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
           <div className="posts-similar posts-similar--loading posts-similar--news">
@@ -302,8 +310,9 @@ const Post = (props) => {
           </div>
         </>
       )}
+
       {newPosts.length > 0 ? (
-        newPosts.map((item) => {
+        newPosts.map((item, index) => {
           return (
             <React.Fragment key={item.postId}>
               <ArticleSingle
@@ -312,6 +321,19 @@ const Post = (props) => {
                 post={item}
                 postId={item.postId}
                 sidebar={sidebar}
+              />
+              <Waypoint
+                topOffset={'-300%'}
+                bottomOffset={'-300%'}
+                key={index}
+                onEnter={
+                  disabledNew[index]
+                    ? undefined
+                    : () => {
+                        setDisabledNew({ ...disabledNew, [index]: true });
+                        loadNewArticle();
+                      }
+                }
               />
             </React.Fragment>
           );
@@ -332,19 +354,13 @@ const Post = (props) => {
                       <PostHeaderLoader type={'news'} />
                     </div>
                   </div>
-                  {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
+                  <aside className={'col-md-3'}>{sidebar}</aside>
                 </div>
               </>
             </div>
           </div>
         </>
       )}
-      <Waypoint
-        topOffset={'200%'}
-        onEnter={() => {
-          loadNewArticle();
-        }}
-      />
     </>
   );
 };
