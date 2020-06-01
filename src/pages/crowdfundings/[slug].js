@@ -94,19 +94,10 @@ const Crowdfunding = (props) => {
 
   if (!post) {
     return (
-      <div className="container">
+      <div className="crowdfunding-single__container container">
         <div className="crowdfunding-single">
           <div className="row">
-            <div className="col-12 crowdfunding-single__top">
-              <ActionbarLoader />
-              <ActionbarLoader />
-            </div>
-            <main className="col-md-8 crowdfunding-single__main">
-              <PostHeaderLoader type="crowdfunding" />
-            </main>
-            <aside className="col-md-4 crowdfunding-single__sidebar">
-              <SidebarLoader className="full-width" type="popular" />
-            </aside>
+            <PostHeaderLoader type={'crowdfunding'} />
           </div>
         </div>
       </div>

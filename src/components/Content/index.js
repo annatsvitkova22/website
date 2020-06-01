@@ -35,7 +35,6 @@ import ChartContainer from '~/components/Gutenberg/Charts';
 import Video from '~/components/Gutenberg/Video/Video';
 
 const Content = ({ content, className = '' }) => {
-  console.log(content);
   // TODO: add & test all content types listed in this log
   return (
     <>

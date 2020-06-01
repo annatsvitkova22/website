@@ -51,11 +51,27 @@ const OthersArchive = (props) => {
     return (
       <div className="opportunities-page">
         <div className="container articles-container articles-container--sm">
-          <OpportunitiesLoader />
-          <OpportunitiesLoader />
-          <OpportunitiesLoader />
-          <OpportunitiesLoader />
-          <OpportunitiesLoader />
+          <div className="loader-container__desktop">
+            <div className="article--opportunities article">
+              <OpportunitiesLoader />
+            </div>
+            <div className="article--opportunities article">
+              <OpportunitiesLoader />
+            </div>
+            <div className="article--opportunities article">
+              <OpportunitiesLoader />
+            </div>
+            <div className="article--opportunities article">
+              <OpportunitiesLoader />
+            </div>
+          </div>
+          <div className="loader-container__mobile">
+            <OpportunitiesLoader type={'mobile'} />
+            <OpportunitiesLoader type={'mobile'} />
+            <OpportunitiesLoader type={'mobile'} />
+            <OpportunitiesLoader type={'mobile'} />
+            <OpportunitiesLoader type={'mobile'} />
+          </div>
         </div>
       </div>
     );

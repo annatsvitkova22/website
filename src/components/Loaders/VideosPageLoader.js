@@ -1,7 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ContentLoader from 'react-content-loader';
 
-const VideosPageLoader = () => {
+const VideosPageLoader = ({ type }) => {
+  if (type === 'mobile') {
+    return (
+      <div className="container">
+        <ContentLoader
+          viewBox={'0 0 375 1120'}
+          backgroundColor={'#333'}
+          foregroundColor={'#999'}
+        >
+          <rect x={'0'} y={'0'} width={'375'} height={`232`} />
+          <rect x={'0'} y={'244'} width={'375'} height={`60`} />
+
+          <rect x={'0'} y={'331'} width={'375'} height={`60`} />
+          <rect x={'0'} y={'418'} width={'375'} height={`60`} />
+          <rect x={'0'} y={'505'} width={'375'} height={`60`} />
+          <rect x={'0'} y={'592'} width={'375'} height={`60`} />
+
+          <rect x={'0'} y={'679'} width={'375'} height={`5`} />
+
+          <rect x={'0'} y={'700'} width={'375'} height={`17`} />
+
+          <rect x={'0'} y={'731'} width={'375'} height={`200`} />
+
+          <rect x={'0'} y={'947'} width={'30'} height={`10`} />
+
+          <rect x={'0'} y={'966'} width={'375'} height={`50`} />
+        </ContentLoader>
+      </div>
+    );
+  }
+
   return (
     <div className={'container'}>
       <ContentLoader
@@ -32,4 +63,7 @@ const VideosPageLoader = () => {
   );
 };
 
+VideosPageLoader.propTypes = {
+  type: PropTypes.string,
+};
 export default VideosPageLoader;

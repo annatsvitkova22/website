@@ -229,7 +229,12 @@ const VideosArchive = (props) => {
         <main className="videos-main">
           <div className="container">
             <div className="row">
-              <VideosPageLoader />
+              <div className="loader-container__desktop">
+                <VideosPageLoader />
+              </div>
+              <div className="loader-container__mobile">
+                <VideosPageLoader type={'mobile'} />
+              </div>
             </div>
           </div>
         </main>

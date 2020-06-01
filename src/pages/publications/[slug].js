@@ -9,7 +9,6 @@ import SimilarPosts from '~/components/SimilarPosts';
 import ArticleSingle from '~/components/Article/Single';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
-import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
 
 const PUBLICATION = gql`
   query Publication($slug: String!) {
@@ -75,6 +74,8 @@ const Publication = (props) => {
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState([]);
   const [pId, setPId] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+  const [disabledNew, setDisabledNew] = useState({});
 
   const { post } = state;
 
@@ -162,7 +163,16 @@ const Publication = (props) => {
   }, [post]);
 
   if (!post) {
-    return <PublicationSingleLoader />;
+    return (
+      <>
+        <div className="loader-container__desktop">
+          <PublicationSingleLoader />
+        </div>
+        <div className="loader-container__mobile">
+          <PublicationSingleLoader type={'mobile'} />
+        </div>
+      </>
+    );
   }
 
   return (
@@ -177,9 +187,19 @@ const Publication = (props) => {
             loadNewArticle={loadNewArticle}
             postId={post.publicationId}
           />
+          <Waypoint
+            onEnter={
+              disabled
+                ? undefined
+                : () => {
+                    setDisabled(true);
+                    loadNewArticle();
+                  }
+            }
+          />
         </React.Fragment>
       )}
-      {!similar.posts && (
+      {!similar.posts && post && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
           <div className="posts-similar posts-similar--loading posts-similar--news">
@@ -205,7 +225,7 @@ const Publication = (props) => {
         </>
       )}
       {newPosts.length &&
-        newPosts.map((item) => {
+        newPosts.map((item, index) => {
           return (
             <React.Fragment key={item.publicationId}>
               <ArticleSingle
@@ -214,14 +234,22 @@ const Publication = (props) => {
                 post={item}
                 postId={item.publicationId}
               />
+              <Waypoint
+                topOffset={'-300%'}
+                bottomOffset={'-300%'}
+                key={index}
+                onEnter={
+                  disabledNew[index]
+                    ? undefined
+                    : () => {
+                        setDisabledNew({ ...disabledNew, [index]: true });
+                        loadNewArticle();
+                      }
+                }
+              />
             </React.Fragment>
           );
         })}
-      <Waypoint
-        onEnter={() => {
-          loadNewArticle();
-        }}
-      />
     </>
   );
 };

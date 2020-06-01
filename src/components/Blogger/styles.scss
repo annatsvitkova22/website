@@ -23,6 +23,11 @@
       margin-bottom: 0;
     }
   }
+  .blog-loader {
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+  }
 }
 
 .blogger {
