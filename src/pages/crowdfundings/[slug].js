@@ -92,7 +92,7 @@ const Crowdfunding = (props) => {
     }
   }, []);
 
-  if (post) {
+  if (!post) {
     return (
       <div className="crowdfunding-single__container container">
         <div className="crowdfunding-single">
