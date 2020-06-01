@@ -1,7 +1,29 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const PublicationSingleLoader = () => {
+const PublicationSingleLoader = ({ type }) => {
+  if (type === 'mobile') {
+    return (
+      <div>
+        <ContentLoader viewBox={'0 0 375 500'}>
+          <rect x={'0'} y={'0'} width={'375'} height={`500`} />
+        </ContentLoader>
+        <div
+          style={{
+            paddingRight: '20px',
+            paddingLeft: '20px',
+            marginTop: '10px',
+          }}
+        >
+          <ContentLoader viewBox={'0 0 335 565'}>
+            <rect x={'0'} y={'0'} width={'335'} height={`20`} />
+            <rect x={'0'} y={'44'} width={'335'} height={`250`} />
+            <rect x={'0'} y={'314'} width={'335'} height={`250`} />
+          </ContentLoader>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <ContentLoader

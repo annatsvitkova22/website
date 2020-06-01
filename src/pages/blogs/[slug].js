@@ -340,11 +340,6 @@ const Blog = (props) => {
             </React.Fragment>
           );
         })}
-      <Waypoint
-        onEnter={() => {
-          loadNewArticle();
-        }}
-      />
     </>
   );
 };
