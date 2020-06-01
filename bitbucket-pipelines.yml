@@ -1,5 +1,10 @@
 image: node:12.16.0
 
+definitions:
+  services:
+    docker:
+      memory: 7128
+
 pipelines:
   branches:
     develop:
@@ -12,6 +17,7 @@ pipelines:
             - npm run test
       - step:
           name: Build
+          size: 2x
           script:
             - export IMAGE_NAME=$DOCKER_HUB_USERNAME/$APPLICATION_NAME:staging
             - docker build -t $IMAGE_NAME .
