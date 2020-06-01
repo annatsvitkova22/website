@@ -28,6 +28,7 @@ import ChevronDown from '~/static/images/chevron-down';
 import Icons from '~/components/Icons';
 import Calendar from '~/components/Calendar';
 import SortingSelect from '~/components/SortingSelect';
+import LineLoader from '~/components/Loaders/LineLoader';
 
 const composeQuery = ({
   cursor,
@@ -227,13 +228,26 @@ const News = ({ posts, categories, query }) => {
   if (!state.data.nodes) {
     return (
       <div className="container articles-container">
-        <div className="news-archive row">
-          <main className="news-archive__content col-md-8">
-            <NewsLoader />
-            <NewsLoader />
-            <NewsLoader />
-            <NewsLoader />
-            <NewsLoader />
+        <div className="row">
+          <main className="col-md-8">
+            <div className="news-archive__content">
+              <div className="loader-container__desktop">
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+                <NewsLoader />
+              </div>
+              <div className="loader-container__mobile">
+                <LineLoader />
+                <NewsLoader type={'mobile'} />
+                <NewsLoader type={'mobile'} />
+                <NewsLoader type={'mobile'} />
+                <NewsLoader type={'mobile'} />
+                <NewsLoader type={'mobile'} />
+                <NewsLoader type={'mobile'} />
+              </div>
+            </div>
           </main>
           <aside className="news-archive__sidebar-wrapper col-md-4">
             <div className="news-archive__sidebar">
@@ -295,7 +309,7 @@ const News = ({ posts, categories, query }) => {
             </div>
           )}
           <div className="col-md-8">
-            <main className="news-archive__content ">
+            <main className="news-archive__content">
               {nodes.map((post, i) => (
                 <React.Fragment key={i}>
                   <ChronologicalSeparator posts={nodes} currentIndex={i} />

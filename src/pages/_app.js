@@ -27,6 +27,7 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
   });
 
   let scrollPos = 0;
+  let gTimer = null;
 
   function fixedScroll() {
     const st = window.scrollY;
@@ -34,10 +35,26 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
     if (window.scrollY > window.innerHeight && st > scrollPos) {
       setScrollTopVisible(false);
     } else if (window.scrollY > window.innerHeight && st < scrollPos) {
-      setScrollTopVisible(true);
-      const delayFunc = _.debounce(() => setScrollTopVisible(false), 2500);
+      const delayFunc = _.throttle(() => {
+        setScrollTopVisible(true);
+
+        const start = () => {
+          gTimer = setTimeout(() => setScrollTopVisible(false), 5000);
+        };
+
+        const clearT = () => {
+          clearTimeout(gTimer);
+          start();
+        };
+        const clear = () => {
+          clearTimeout(gTimer);
+        };
+
+        setScrollTopVisible ? clearT() : clear();
+      }, 1000);
       delayFunc();
     }
+
     scrollPos = st;
   }
 

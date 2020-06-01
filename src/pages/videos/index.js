@@ -148,7 +148,6 @@ const VideosArchive = (props) => {
     if (!content.videos) {
       loadContent();
     } else {
-      console.log(content);
       const { title, zmVideoACF } = content.videos[0];
       const { videoUrl, videoCover, duration } = zmVideoACF;
 
@@ -230,7 +229,12 @@ const VideosArchive = (props) => {
         <main className="videos-main">
           <div className="container">
             <div className="row">
-              <VideosPageLoader />
+              <div className="loader-container__desktop">
+                <VideosPageLoader />
+              </div>
+              <div className="loader-container__mobile">
+                <VideosPageLoader type={'mobile'} />
+              </div>
             </div>
           </div>
         </main>

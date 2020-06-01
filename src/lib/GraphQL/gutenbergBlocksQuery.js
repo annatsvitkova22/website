@@ -19,11 +19,26 @@ const content = `... on CoreHeadingBlock {
         }
         saveContent
       }
+      ... on CoreVideoBlock {
+        attributes {
+          poster
+          src
+        }
+        saveContent
+      }
           ... on GravityformsFormBlock {
             attributes {
               __typename
               ... on GravityformsFormBlockAttributes {
                 formId
+              }
+            }
+          }
+                    ... on VisualizerChartBlock {
+            attributes {
+              __typename
+              ... on VisualizerChartBlockAttributes {
+                id
               }
             }
           }

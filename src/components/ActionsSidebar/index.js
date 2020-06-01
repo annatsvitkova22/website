@@ -4,6 +4,7 @@ import LikeButton from '~/components/LikeButton';
 import Share from '~/components/Share';
 
 const ActionsSidebar = ({ post, postId }) => {
+
   return (
     <aside className={'share'}>
       <div className={'share-wrapper'}>

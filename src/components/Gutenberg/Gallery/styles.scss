@@ -141,3 +141,21 @@
     bottom: 20px;
   }
 }
+
+.pswp-gallery {
+  .pswp {
+    &__container {
+      height: calc(100% - 146px);
+
+      @include media-breakpoint-down(md) {
+        height: calc(100% - 154px);
+      }
+    }
+  }
+
+  &__body {
+    @include media-breakpoint-down(md) {
+      max-height: calc(100vh - 133px - 20px);
+    }
+  }
+}

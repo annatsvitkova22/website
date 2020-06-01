@@ -24,10 +24,10 @@ const Contacts = (props) => {
                   {item.role && <span>{item.role}:</span>}
                   <span>{item.name}</span>
                 </li>
-                {item.contacts ? (
-                  item.contacts.reverse().map((contacts, k) => {
+                {item.contacts && item.contacts.length > 0 ? (
+                  item.contacts.map((contacts, k) => {
                     return (
-                      <li key={k} className={'footer__sitemap-link d-flex'}>
+                      <li className={'footer__sitemap-link d-flex'}>
                         <Icons
                           icon={contacts.type}
                           className={'footer__sitemap-icons'}

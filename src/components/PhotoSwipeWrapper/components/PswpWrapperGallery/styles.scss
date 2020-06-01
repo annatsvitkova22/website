@@ -1,0 +1,89 @@
+.pswp-thumbs {
+  margin-top: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% - 146px);
+
+  @include media-breakpoint-down(md) {
+    margin-left: 20px;
+    padding-top: 34px;
+    padding-bottom: 34px;
+
+    top: calc(100% - 154px);
+  }
+
+  &::before {
+    content: '';
+
+    width: 100vw;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    border-top: 1px solid $grey-100;
+  }
+
+
+  .slick-slide {
+    margin: 0 5px;
+
+    > div {
+      display: flex;
+    }
+
+    .pswp-thumb {
+      position: relative;
+
+      &::before {
+        content: '';
+
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        border: 2px solid transparent;
+
+        transition: border-color 0.3s ease-in;
+      }
+    }
+
+    &.slick-current {
+      .pswp-thumb {
+        &::before {
+          border-color: $green;
+        }
+      }
+    }
+  }
+
+  .slick-track {
+    @include media-breakpoint-up(md) {
+      display: flex;
+      justify-content: center;
+    }
+
+    transition: transform 0.3s ease-in;
+  }
+}
+
+.pswp-thumb {
+  padding-bottom: 65%;
+  width: 100px;
+
+  cursor: pointer;
+
+  opacity: 1;
+
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

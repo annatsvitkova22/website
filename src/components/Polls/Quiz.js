@@ -62,13 +62,13 @@ const Quiz = (props) => {
 
 Quiz.propTypes = {
   question: PropTypes.any,
-  answerOption: PropTypes.any,
-  type: PropTypes.string,
-  handleOptionChange: PropTypes.func,
-  handleSelectChange: PropTypes.func,
-  handleAnswerSelected: PropTypes.func,
-  handlePollSubmit: PropTypes.func,
-  btnCls: PropTypes.object,
+  answerOptions: PropTypes.any,
+  type: PropTypes.any,
+  handleOptionChange: PropTypes.any,
+  handleSelectChange: PropTypes.any,
+  handleAnswerSelected: PropTypes.any,
+  handlePollSubmit: PropTypes.any,
+  btnCls: PropTypes.any,
 };
 
 export default Quiz;

@@ -344,6 +344,7 @@ const Home = (props) => {
       publications: data.publications,
       categories: data.categories,
     };
+
     setState(newState);
   };
 
@@ -367,13 +368,7 @@ const Home = (props) => {
   }, []);
 
   if (!posts) {
-    return (
-      <div className="home-page">
-        <main className="container hero">
-          <HomeHeroLoader />
-        </main>
-      </div>
-    );
+    return <HomeHeroLoader />;
   }
 
   return (
@@ -424,33 +419,23 @@ const Home = (props) => {
           {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
         </TagsScene>
 
-        {videos && videos.nodes && videos.nodes.length && (
-          <>
-            <SectionHeading title="Відео" href="/videos" classMode="videos" />
-            <VideosScene {...{ videos, isLoading }}>
-              {typeof videos === 'undefined' && (
-                <Waypoint onEnter={loadData(VIDEOS)} />
-              )}
-            </VideosScene>
-          </>
-        )}
-
-        {opportunities &&
-          opportunities.nodes &&
-          opportunities.nodes.length(
-            <>
-              <SectionHeading
-                title="Можливості"
-                href="/opportunities"
-                classMode="opport"
-              />
-              <OpportunitiesScene {...{ opportunities, isLoading }}>
-                {typeof opportunities === 'undefined' && (
-                  <Waypoint onEnter={loadData(OPPORTUNITIES)} />
-                )}
-              </OpportunitiesScene>
-            </>
+        <SectionHeading title="Відео" href="/videos" classMode="videos" />
+        <VideosScene {...{ videos, isLoading }}>
+          {typeof videos === 'undefined' && (
+            <Waypoint onEnter={loadData(VIDEOS)} />
           )}
+        </VideosScene>
+
+        <SectionHeading
+          title="Можливості"
+          href="/opportunities"
+          classMode="opport"
+        />
+        <OpportunitiesScene {...{ opportunities, isLoading }}>
+          {typeof opportunities === 'undefined' && (
+            <Waypoint onEnter={loadData(OPPORTUNITIES)} />
+          )}
+        </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
         <EventsScene {...{ events, isLoading }} form={true}>

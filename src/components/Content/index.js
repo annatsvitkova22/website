@@ -31,6 +31,8 @@ import Verse from '~/components/Gutenberg/Verse';
 import Instagram from '~/components/Gutenberg/Instagram';
 import Facebook from '~/components/Gutenberg/Facebook';
 import Twitter from '~/components/Gutenberg/Twitter';
+import ChartContainer from '~/components/Gutenberg/Charts';
+import Video from '~/components/Gutenberg/Video/Video';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
@@ -72,6 +74,15 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreVerseBlock') {
     return (
       <Verse
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreVideoBlock') {
+    return (
+      <Video
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}
@@ -313,6 +324,14 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'GravityformsPollsBlock') {
     return (
       <Form id={block.attributes.formId} gutenbergType={block.__typename} />
+    );
+  }
+  if (block.__typename === 'VisualizerChartBlock') {
+    return (
+      <ChartContainer
+        id={block.attributes.id}
+        gutenbergType={block.__typename}
+      />
     );
   }
   return null;

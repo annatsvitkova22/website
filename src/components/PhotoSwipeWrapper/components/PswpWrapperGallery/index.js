@@ -1,51 +1,40 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
 import Photoswipe from 'photoswipe';
 import PhotoswipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
+import Slider from 'react-slick';
 
-import events from './events';
+import events from '~/components/PhotoSwipeWrapper/events';
+import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 
-class PhotoSwipeWrapper extends React.Component {
-  static propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    items: PropTypes.array.isRequired,
-    options: PropTypes.object,
-    onClose: PropTypes.func,
-    id: PropTypes.string,
-    className: PropTypes.string,
-  };
-
-  static defaultProps = {
-    options: {},
-    onClose: () => {},
-    id: '',
-    className: '',
-  };
-
+class PswpWrapperGallery extends PhotoSwipeWrapper {
   state = {
     isOpen: this.props.isOpen,
     isMounted: false,
+    settings: {
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      infinite: false,
+      arrows: false,
+      variableWidth: true,
+      responsive: [
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 3,
+          },
+        },
+      ],
+    },
   };
 
-  componentDidMount() {
-    const { isOpen } = this.state;
-    if (isOpen) {
-      this.openPhotoSwipe(this.props);
-    }
-
-    this.setState({
-      isMounted: true,
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     if (prevState.isMounted !== this.state.isMounted) {
       const galleryParams = this.photoswipeParseHash();
       const { pswpElement } = this;
 
       if (pswpElement && galleryParams) {
-        const { items, options } = prevProps;
+        const { items, options } = this.props;
 
         this.photoSwipe = new Photoswipe(
           pswpElement,
@@ -56,55 +45,28 @@ class PhotoSwipeWrapper extends React.Component {
 
         if (pswpElement.id === `pswp-gallery-${galleryParams.gid}`) {
           this.photoSwipe.init();
+          this.listen();
         }
       }
     }
   }
 
-  photoswipeParseHash = () => {
-    const hash = window.location.hash.substring(1);
-    const params = {};
+  listen = () => {
+    if (this.photoSwipe) {
+      const syncPswpSlick = () => {
+        this.slider.innerSlider.state.currentSlide = this.photoSwipe.getCurrentIndex();
+        this.setState((prevState) => ({
+          ...prevState,
+          settings: {
+            ...prevState.settings,
+            currentSlide: this.photoSwipe.getCurrentIndex(),
+          },
+        }));
+      };
 
-    if (hash.length < 5) {
-      // pid=1
-      return false;
+      this.photoSwipe.listen('afterChange', syncPswpSlick);
+      this.photoSwipe.listen('gettingData', syncPswpSlick);
     }
-
-    const vars = hash.split('&');
-    for (let i = 0; i < vars.length; i += 1) {
-      let pair = [];
-      if (vars[i]) {
-        pair = vars[i].split('=');
-      }
-
-      if (pair.length === 2) {
-        const [id, value] = pair;
-        params[id] = value;
-      }
-    }
-    if (Object.keys(params).length !== 0) {
-      return params;
-    }
-
-    return false;
-  };
-
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { isOpen } = this.state;
-    if (nextProps.isOpen) {
-      if (!isOpen) {
-        this.openPhotoSwipe(nextProps);
-      } else {
-        this.updateItems(nextProps.items);
-      }
-    } else if (isOpen) {
-      this.closePhotoSwipe();
-    }
-  }
-
-  componentWillUnmount = () => {
-    this.closePhotoSwipe();
   };
 
   openPhotoSwipe = (props) => {
@@ -116,6 +78,8 @@ class PhotoSwipeWrapper extends React.Component {
       items,
       options
     );
+
+    this.listen();
 
     events.forEach((event) => {
       const callback = props[event];
@@ -142,42 +106,25 @@ class PhotoSwipeWrapper extends React.Component {
     );
   };
 
-  updateItems = (items = []) => {
-    this.photoSwipe.items.length = 0;
-    items.forEach((item) => {
-      this.photoSwipe.items.push(item);
-    });
-    this.photoSwipe.invalidateCurrItems();
-    this.photoSwipe.updateSize(true);
-  };
-
-  closePhotoSwipe = () => {
-    if (!this.photoSwipe) {
-      return;
-    }
-    this.photoSwipe.close();
-  };
-
-  handleClose = () => {
-    const { onClose } = this.props;
-    this.setState(
-      {
-        isOpen: false,
-      },
-      () => {
-        if (onClose) {
-          onClose();
-        }
-      }
-    );
-  };
-
   ref = (node) => {
     this.pswpElement = node;
   };
 
+  imageRef = (index) => (node) => {
+    this.thumbnails = this.thumbnails || [];
+    this.thumbnails[index] = node;
+  };
+
+  handleClick = (index) => () => {
+    this.photoSwipe.goTo(index);
+  };
+
+  sliderRef = (slider) => {
+    this.slider = slider;
+  };
+
   render() {
-    const { className, options } = this.props;
+    const { className, options, items } = this.props;
 
     if (this.state.isMounted) {
       return createPortal(
@@ -238,6 +185,21 @@ class PhotoSwipeWrapper extends React.Component {
                 <div className="pswp__caption__center" />
               </div>
             </div>
+            <div className="pswp-thumbs">
+              <Slider {...this.state.settings} ref={this.sliderRef}>
+                {items.map((item, i) => (
+                  <div className="line-height-1">
+                    <div
+                      className="pswp-thumb bg-cover"
+                      key={i}
+                      style={{ backgroundImage: `url(${item.thumbUrl})` }}
+                      onClick={this.handleClick(i)}
+                      ref={this.imageRef(i)}
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
           </div>
         </div>,
         document.getElementById('modal')
@@ -248,20 +210,4 @@ class PhotoSwipeWrapper extends React.Component {
   }
 }
 
-PhotoSwipeWrapper.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  items: PropTypes.array.isRequired,
-  options: PropTypes.object,
-  onClose: PropTypes.func,
-  id: PropTypes.string,
-  className: PropTypes.string,
-};
-
-PhotoSwipeWrapper.defaultProps = {
-  options: {},
-  onClose: () => {},
-  id: '',
-  className: '',
-};
-
-export default PhotoSwipeWrapper;
+export default PswpWrapperGallery;
