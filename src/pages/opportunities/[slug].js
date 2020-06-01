@@ -117,7 +117,12 @@ const Opportunity = (props) => {
     return (
       <div className="single__event">
         <div className="container">
-          <EventMainLoader />
+          <div className="loader-container__desktop">
+            <EventMainLoader />
+          </div>
+          <div className="loader-container__mobile">
+            <EventMainLoader type={'mobile'} />
+          </div>
         </div>
       </div>
     );

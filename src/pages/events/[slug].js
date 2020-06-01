@@ -151,7 +151,7 @@ const Event = (props) => {
     }
   }, [state.event]);
 
-  if (event) {
+  if (!event) {
     return (
       <div className="single__event">
         <div className="container">
