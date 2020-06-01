@@ -25,7 +25,7 @@ const SidebarLoader = ({ type, className }) => {
     return (
       <ContentLoader viewBox={'0 0 390 550'}>
         <rect x={'0'} y={`0`} width={'55'} height={`18`} />
-        <rect x={'0'} y={`30`} width={'103'} height={`18`} />
+        <rect x={'70'} y={`0`} width={'103'} height={`18`} />
         <rect x={'0'} y={`88`} width={'390'} height={`336`} />
         <rect x={'0'} y={`464`} width={'360'} height={`86`} />
       </ContentLoader>

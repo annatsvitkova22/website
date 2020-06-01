@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Papa from 'papaparse';
+import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
 
 const BarChart = ({ chart, adOptions }) => {
@@ -39,6 +40,11 @@ const BarChart = ({ chart, adOptions }) => {
       />
     </div>
   );
+};
+
+BarChart.propTypes = {
+  chart: PropTypes.any,
+  adOptions: PropTypes.any,
 };
 
 export default BarChart;

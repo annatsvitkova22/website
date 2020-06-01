@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Papa from 'papaparse';
 import { Pie } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
 
 const PieChart = ({ chart, adOptions }) => {
   const parsed = Papa.parse(chart.data.csv);
@@ -42,4 +43,8 @@ const PieChart = ({ chart, adOptions }) => {
   );
 };
 
+PieChart.propTypes = {
+  chart: PropTypes.any,
+  adOptions: PropTypes.any,
+};
 export default PieChart;

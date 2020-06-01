@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useStateLink } from '@hookstate/core';
 import axios from 'axios';
 import getConfig from 'next/config';
+import PropTypes from 'prop-types';
 
 import { AuthStore } from '~/stores/Auth';
 import LineChart from '~/components/Gutenberg/Charts/Line';
@@ -12,7 +13,7 @@ import PieChart from '~/components/Gutenberg/Charts/Pie';
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const ChartContainer = ({ id, className = '', guttenbrgType }) => {
+const ChartContainer = ({ id }) => {
   const { apiUrl } = config;
 
   const authStateLink = useStateLink(AuthStore);
@@ -75,6 +76,10 @@ const ChartContainer = ({ id, className = '', guttenbrgType }) => {
     default:
       return null;
   }
+};
+
+ChartContainer.propTypes = {
+  id: PropTypes.any,
 };
 
 export default ChartContainer;
