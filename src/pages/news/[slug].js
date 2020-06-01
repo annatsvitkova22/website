@@ -252,7 +252,7 @@ const Post = (props) => {
                     <PostHeaderLoader type={'news'} />
                   </div>
                 </div>
-                <aside className={'col-md-3'}>{sidebar}</aside>}
+                <aside className={'col-md-3'}>{sidebar}</aside>
               </div>
             </>
           </div>

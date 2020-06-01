@@ -120,6 +120,8 @@ const Blog = (props) => {
   const [loaded, setLoaded] = useState(false);
   const [newPosts, setNewPosts] = useState([]);
   const [pId, setPId] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+  const [disabledNew, setDisabledNew] = useState({});
 
   // TODO: add loader when navigate between blogs
   const { post } = state;
@@ -225,7 +227,6 @@ const Blog = (props) => {
           publId: pId,
         },
       });
-      console.log(response);
 
       setPId([...pId, String(response.data.blogs.nodes[0].blogId)]);
       setNewPosts([...newPosts, response.data.blogs.nodes[0]]);
@@ -237,27 +238,28 @@ const Blog = (props) => {
     if (post) setPId([...pId, String(post.blogId)]);
   }, [post]);
 
-  if (!post) {
+  if (post || !sidebar) {
     return (
       <>
-        <div className="single-post container">
-          <div className={'single-post__title row'}>
+        <div className="main-container">
+          <div className="single-post single-post--news container">
             <>
-              <div
-                className={classnames('single-post__wrapper', {
-                  'col-xl-9': sidebar,
-                  'col-12': !sidebar,
-                })}
-              >
-                <div className="single-post__title-wrapper col-xl-11">
-                  <PostHeaderLoader type={'blog'} />
+              <div className="row">
+                <div
+                  className={classnames({
+                    'col-xl-9': sidebar,
+                    'col-12': !sidebar,
+                  })}
+                >
+                  <div className="single-post__block-wrapper ">
+                    <PostHeaderLoader type={'news'} />
+                  </div>
                 </div>
+                <aside className="col-md-3">{sidebar}</aside>
               </div>
-              {sidebar && <aside className={'col-md-3'}>{sidebar}</aside>}
             </>
           </div>
         </div>
-        )}
       </>
     );
   }
@@ -274,9 +276,19 @@ const Blog = (props) => {
             similarPosts={similarPosts}
             postId={post.blogId}
           />
+          <Waypoint
+            onEnter={
+              disabled
+                ? undefined
+                : () => {
+                    setDisabled(true);
+                    loadNewArticle();
+                  }
+            }
+          />
         </React.Fragment>
       )}
-      {!similar.posts && (
+      {!similar.posts && post && (
         <>
           <Waypoint onEnter={loadSimilarPosts} />
           <div className="posts-similar posts-similar--loading posts-similar--news">
@@ -302,7 +314,7 @@ const Blog = (props) => {
         </>
       )}
       {newPosts.length &&
-        newPosts.map((item) => {
+        newPosts.map((item, index) => {
           return (
             <React.Fragment key={item.blogId}>
               <ArticleSingle
@@ -311,6 +323,19 @@ const Blog = (props) => {
                 post={item}
                 postId={item.blogId}
                 sidebar={sidebar}
+              />
+              <Waypoint
+                topOffset={'-300%'}
+                bottomOffset={'-300%'}
+                key={index}
+                onEnter={
+                  disabledNew[index]
+                    ? undefined
+                    : () => {
+                        setDisabledNew({ ...disabledNew, [index]: true });
+                        loadNewArticle();
+                      }
+                }
               />
             </React.Fragment>
           );
