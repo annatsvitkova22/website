@@ -58,6 +58,110 @@ const PostHeaderLoader = ({ type }) => {
   }
   if (type === 'crowdfunding') {
     return (
+      <>
+        <div className="col-12 crowdfunding-single__top">
+          <div
+            className="article-status crowdfunding-single__status"
+            style={{ paddingLeft: '0' }}
+          >
+            <ContentLoader
+              viewBox={'0 0 102 22'}
+              height={'22px'}
+              width={'102px'}
+            >
+              <rect x={'0'} y={'0'} width={'102'} height={'22'} />
+            </ContentLoader>
+          </div>
+          <div className="crowdfunding-single__title">
+            <ContentLoader
+              viewBox={'0 0 974 54'}
+              height={'54px'}
+              width={'974px'}
+            >
+              <rect x={'0'} y={'0'} width={'974'} height={'54'} />
+            </ContentLoader>
+          </div>
+        </div>
+        <main className="col-md-8 crowdfunding-single__main">
+          <div className="feature__image crowdfunding-single__featured">
+            <ContentLoader
+              viewBox={'0 0 802 460'}
+              height={'460px'}
+              width={'802px'}
+            >
+              <rect x={'0'} y={'0'} width={'802'} height={'460'} />
+            </ContentLoader>
+          </div>
+          <div className="crowdfunding-single__content">
+            <div className="crowdfunding-single__about-wrapper title__social-about">
+              <div
+                className="crowdfunding-single__about title__socials-about"
+                style={{ marginBottom: '20px' }}
+              >
+                <ContentLoader
+                  viewBox={'0 0 182 44'}
+                  height={'44px'}
+                  width={'182px'}
+                >
+                  <rect x={'0'} y={'0'} width={'182'} height={'44'} />
+                </ContentLoader>
+              </div>
+              <div className="content__posts">
+                <ContentLoader
+                  viewBox={'0 0 648 500'}
+                >
+                  <rect x={'0'} y={'0'} width={'648'} height={'500'} />
+                </ContentLoader>
+              </div>
+            </div>
+          </div>
+        </main>
+        <aside className="col-md-4 crowdfunding-single__sidebar">
+          <div className="crowdfunding-single__sidebar-wrapper">
+            <div
+              className="crowdfunding-single__goal"
+              style={{ marginBottom: '10px' }}
+            >
+              <ContentLoader
+                viewBox={'0 0 98 16'}
+                height={'16px'}
+                width={'98px'}
+              >
+                <rect x={'0'} y={'0'} width={'98'} height={'16'} />
+              </ContentLoader>
+            </div>
+            <div className="crowdfunding-progress crowdfunding-single__progress">
+              <ContentLoader
+                viewBox={'0 0 424 56'}
+                height={'56px'}
+                width={'424px'}
+              >
+                <rect x={'0'} y={'0'} width={'424'} height={'56'} />
+              </ContentLoader>
+            </div>
+            <div className="crowdfunding-stats crowdfunding-single__stats">
+              <ContentLoader
+                viewBox={'0 0 119 54'}
+                height={'54px'}
+                width={'119px'}
+              >
+                <rect x={'0'} y={'0'} width={'119'} height={'54'} />
+              </ContentLoader>
+            </div>
+            <div className="crowdfunding-supported crowdfunding-single__supported">
+              <ContentLoader
+                viewBox={'0 0 472 472'}
+                height={'472px'}
+                width={'472px'}
+              >
+                <rect x={'0'} y={'0'} width={'472'} height={'472'} />
+              </ContentLoader>
+            </div>
+          </div>
+        </aside>
+      </>
+    );
+    return (
       <ContentLoader viewBox={'0 0 1044 1000'}>
         <rect x={'0'} y={'0'} width={'1044'} height={'535'} />
         <rect x={'0'} y={'550'} width={'60'} height={'15'} />
