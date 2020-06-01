@@ -3,7 +3,7 @@ image: node:12.16.0
 definitions:
   services:
     docker:
-      memory: 4096
+      memory: 512
 
 pipelines:
   branches:
