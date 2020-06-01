@@ -4,7 +4,7 @@ import ContentLoader from 'react-content-loader';
 const PostHeaderLoader = ({ type }) => {
   if (type === 'news') {
     return (
-      <ContentLoader viewBox={'0 0 872 1300'}>
+      <ContentLoader viewBox={'0 0 872 2000'}>
         <rect x={'0'} y={'0'} width={'85'} height={'22'} />
 
         <rect x={'0'} y={'40'} width={'750'} height={'34'} />
@@ -16,7 +16,8 @@ const PostHeaderLoader = ({ type }) => {
         <rect x={'112'} y={'750'} width={'648'} height={'44'} />
 
         <rect x={'112'} y={'834'} width={'648'} height={'116'} />
-        <rect x={'112'} y={'950'} width={'648'} height={'270'} />
+        <rect x={'112'} y={'950'} width={'648'} height={'500'} />
+        <rect x={'112'} y={'1500'} width={'648'} height={'500'} />
       </ContentLoader>
     );
   }
