@@ -6,6 +6,7 @@
 
       max-width: 100%;
     }
+
     .article__image {
       margin-bottom: 21px;
       @include media-breakpoint-down(md) {
@@ -44,6 +45,7 @@
         width: 88px;
         height: 88px;
       }
+
       img {
         width: 100%;
         height: 100%;
@@ -74,27 +76,28 @@
   .blogger-row__wrapper {
     flex-direction: row;
   }
+
   .article {
-    &--blog {
+    &--blog.article {
       flex-wrap: wrap;
       flex-direction: column;
       flex-grow: 2;
 
+      margin-bottom: 80px;
+
       @include make-col(6);
 
       @include media-breakpoint-down(md) {
-
         @include make-col(6);
-
       }
 
       @include media-breakpoint-down(sm) {
-
         @include make-col(12);
-
+        margin-bottom: 24px;
       }
     }
   }
+
   @include media-breakpoint-down(lg) {
     &__content {
       .meta-taxonomy {
@@ -122,6 +125,7 @@
         width: 100%;
         max-width: 100%;
         height: 211px;
+
         .article-featured__image {
           width: auto;
           height: 211px;
