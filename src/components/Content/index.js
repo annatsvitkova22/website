@@ -24,7 +24,6 @@ import FreeForm from '../Gutenberg/FreeForm';
 import Spacer from '../Gutenberg/Space';
 import MediaText from '../Gutenberg/MediaText';
 import Vimeo from '../Gutenberg/Vimeo';
-import Charts from '../Gutenberg/Charts/Line';
 
 import Buttons from '~/components/Gutenberg/Buttons';
 import Form from '~/components/Form';
@@ -33,8 +32,10 @@ import Instagram from '~/components/Gutenberg/Instagram';
 import Facebook from '~/components/Gutenberg/Facebook';
 import Twitter from '~/components/Gutenberg/Twitter';
 import ChartContainer from '~/components/Gutenberg/Charts';
+import Video from '~/components/Gutenberg/Video/Video';
 
 const Content = ({ content, className = '' }) => {
+  console.log(content);
   // TODO: add & test all content types listed in this log
   return (
     <>
@@ -74,6 +75,15 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreVerseBlock') {
     return (
       <Verse
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'CoreVideoBlock') {
+    return (
+      <Video
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}

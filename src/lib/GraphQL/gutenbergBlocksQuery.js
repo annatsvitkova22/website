@@ -19,6 +19,13 @@ const content = `... on CoreHeadingBlock {
         }
         saveContent
       }
+      ... on CoreVideoBlock {
+        attributes {
+          poster
+          src
+        }
+        saveContent
+      }
           ... on GravityformsFormBlock {
             attributes {
               __typename
