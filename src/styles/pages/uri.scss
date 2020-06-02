@@ -1,20 +1,98 @@
 .crowdfunding-terms-of-use,
-.terms-of-use {
+.terms-of-use,
+.about {
   max-width: 872px;
   margin: 0 auto;
   padding-top: 50px;
   padding-bottom: 80px;
+
+  .gutenberg__image-expand {
+    display: none;
+  }
+
   .title {
     margin-bottom: 20px;
 
     font-size: 24px;
   }
+
   & > *:last-child {
     padding-bottom: 0;
   }
+
+  p {
+    font-family: $font-family-titles;
+  }
+
+  ol {
+    font-family: $font-family-titles;
+  }
 }
+
 .terms-of-use {
   .gutenberg__ordered-list {
     padding-left: 20px;
+  }
+}
+
+.about {
+  &-page {
+    position: relative;
+
+    .title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      font-family: $font-family-titles;
+      font-weight: 700;
+      font-size: 64px;
+      line-height: 1.29;
+      letter-spacing: -0.01em;
+      text-transform: capitalize;
+      color: $white;
+
+      transform: translate(-50%, -50%);
+    }
+    .feature__image {
+      margin-bottom: 0;
+    }
+  }
+
+  .gutenberg__columns {
+    padding-top: 70px;
+  }
+
+  .gutenberg__columns:first-child {
+    padding-top: 40px;
+  }
+
+  .gutenberg__image {
+    padding-bottom: 23px;
+  }
+
+  .gutenberg__image + div {
+    padding-bottom: 10px;
+
+    font-family: $font-family-titles;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .gutenberg__columns-column > *:first-child {
+    padding-bottom: 10px;
+
+    font-family: $font-family-titles;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .gutenberg__columns-column > *:last-child {
+    font-family: $font-family-titles;
+
+    font-size: 16px;
+    line-height: 20px;
   }
 }
