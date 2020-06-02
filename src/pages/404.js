@@ -1,6 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import getConfig from 'next/config';
+import Link from 'next/link';
+
+import gif from '../static/images/c8d18b302cf9135d66bc32770c5b1316.gif';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -34,9 +37,19 @@ const NotFound = () => {
         />
         <meta property="twitter:image" content="/zmist.jpg" />
       </Head>
-      <div className={'404'}>
-        <div className="container">
-          <h1>404 - Сторінку не знайдено</h1>
+      <div className={'not-found'}>
+        <div
+          className="not-found__outer"
+          style={{ backgroundImage: `url('${gif}')` }}
+        />
+        <div className="not-found__text">
+          <h1 className="not-found__title">404</h1>
+          <p className="not-found__message">Хтось спалив сторінку...</p>
+          <Link href={'/'}>
+            <a href="/" className="not-found__button">
+              На Головну
+            </a>
+          </Link>
         </div>
       </div>
     </>
