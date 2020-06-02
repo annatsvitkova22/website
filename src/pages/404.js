@@ -40,7 +40,9 @@ const NotFound = () => {
       <div className={'not-found'}>
         <div
           className="not-found__outer"
-          style={{ backgroundImage: `url('${gif}')` }}
+          style={{
+            background: `linear-gradient(0deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)), url('${gif}') no-repeat center / cover`,
+          }}
         />
         <div className="not-found__text">
           <h1 className="not-found__title">404</h1>
