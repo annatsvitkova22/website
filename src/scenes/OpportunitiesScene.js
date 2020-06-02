@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Article from '~/components/Article';
 import OpportunitiesLoader from '~/components/Loaders/OpportunitiesLoader';
+import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
 const OpportunitiesScene = ({ opportunities, children, isLoading }) => {
   if (typeof children === 'object' && !isLoading) {
@@ -15,17 +16,36 @@ const OpportunitiesScene = ({ opportunities, children, isLoading }) => {
       <div className="opportunities-page">
         <div className="container">
           <div className="row">
-            <div className="article col-lg-6">
-              <OpportunitiesLoader />
+            <div className="loader-container__desktop">
+              <div className="article col-lg-6">
+                <OpportunitiesLoader />
+              </div>
+              <div className="article col-lg-6">
+                <OpportunitiesLoader />
+              </div>
+              <div className="article col-lg-6">
+                <OpportunitiesLoader />
+              </div>
+              <div className="article col-lg-6">
+                <OpportunitiesLoader />
+              </div>
             </div>
-            <div className="article col-lg-6">
-              <OpportunitiesLoader />
-            </div>
-            <div className="article col-lg-6">
-              <OpportunitiesLoader />
-            </div>
-            <div className="article col-lg-6">
-              <OpportunitiesLoader />
+            <div className="loader-container__mobile">
+              <VideoCategoryLoader
+                type={'mobile'}
+                backgroundColor="#f5f6f7"
+                foregroundColor="#eee"
+              />
+              <VideoCategoryLoader
+                type={'mobile'}
+                backgroundColor="#f5f6f7"
+                foregroundColor="#eee"
+              />
+              <VideoCategoryLoader
+                type={'mobile'}
+                backgroundColor="#f5f6f7"
+                foregroundColor="#eee"
+              />
             </div>
           </div>
         </div>
