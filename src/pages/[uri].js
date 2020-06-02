@@ -3,6 +3,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import getConfig from 'next/config';
+import he from 'he';
 
 import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
@@ -109,8 +110,10 @@ const Page = (props) => {
         <div className="container">
           <div className="row">
             <main className="col-12">
-              <h1 className="title">{page.title}</h1>
-              <Content content={page.blocks} />
+              <div className={props.query.uri}>
+                <h2 className="title">{he.decode(page.title)}</h2>
+                <Content content={page.blocks} />
+              </div>
             </main>
           </div>
         </div>
