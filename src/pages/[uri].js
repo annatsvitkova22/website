@@ -11,6 +11,7 @@ import Content from '~/components/Content';
 import GutenbergLoader from '~/components/Loaders/GutenbergLoader';
 import NotFound from '~/pages/404';
 import FeaturedImage from '~/components/FeaturedImage';
+import Contacts from '~/components/Contacts';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -19,6 +20,27 @@ const PAGE = gql`
   query Page($uri: String!) {
     pageBy(uri: $uri) {
       title
+      zmAfishaACF {
+        contactInfo {
+          email
+          phoneNumber
+          phoneNumberDisplay
+        }
+        eventAddress {
+          city
+          country
+          streetAddress
+          streetNumber
+          streetName
+          longitude
+          latitude
+          zoom
+        }
+        eventSocials {
+          socialUrl
+          icon
+        }
+      }
       featuredImage {
         mediaItemUrl
       }
@@ -66,7 +88,6 @@ const Page = (props) => {
   if (notFound) {
     return <NotFound />;
   }
-
   if (!page || isLoading) {
     return (
       <div className="page">
@@ -82,6 +103,9 @@ const Page = (props) => {
       </div>
     );
   }
+
+  console.log(props.query.uri);
+  console.log(page);
 
   return (
     <div className="page">
@@ -122,10 +146,16 @@ const Page = (props) => {
         <div className="row">
           <main className="col-12">
             <div className={props.query.uri}>
-              {page.featuredImage ? null : (
-                <h2 className="title">{he.decode(page.title)}</h2>
+              {props.query.uri !== 'contacts' ? (
+                <>
+                  {page.featuredImage ? null : (
+                    <h2 className="title">{he.decode(page.title)}</h2>
+                  )}
+                  <Content content={page.blocks} />
+                </>
+              ) : (
+                <Contacts page={page} />
               )}
-              <Content content={page.blocks} />
             </div>
           </main>
         </div>
