@@ -104,9 +104,6 @@ const Page = (props) => {
     );
   }
 
-  console.log(props.query.uri);
-  console.log(page);
-
   return (
     <div className="page">
       <Head>
@@ -154,7 +151,7 @@ const Page = (props) => {
                   <Content content={page.blocks} />
                 </>
               ) : (
-                <Contacts page={page} />
+                <>{page && <Contacts page={page} />}</>
               )}
             </div>
           </main>

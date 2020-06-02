@@ -10,7 +10,9 @@ const Contacts = ({ page }) => {
         <Content content={page.blocks} />
       </div>
       <div className="feedback__inner-map">
-        <EventsLikeSidebar data={page.zmAfishaACF} withAdress={true}/>
+        {page.zmAfishaACF && (
+          <EventsLikeSidebar data={page.zmAfishaACF} withAdress={true} />
+        )}
       </div>
     </div>
   );
