@@ -218,10 +218,18 @@ const Category = (props) => {
       <div className="videos-page">
         <main className="videos-main">
           <div className="container">
-            <div className="row">
-              <VideosCategoryPageLoader />
-              <VideoCategoryLoader />
-              <VideoCategoryLoader />
+            <div className="loader-container__desktop">
+              <div className="row">
+                <VideosCategoryPageLoader />
+                <VideoCategoryLoader />
+                <VideoCategoryLoader />
+              </div>
+            </div>
+            <div className="loader-container__mobile">
+              <VideoCategoryLoader type={'mobile'} />
+              <VideoCategoryLoader type={'mobile'} />
+              <VideoCategoryLoader type={'mobile'} />
+              <VideoCategoryLoader type={'mobile'} />
             </div>
           </div>
         </main>
