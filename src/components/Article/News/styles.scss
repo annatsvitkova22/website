@@ -25,12 +25,14 @@
           padding-right: 24px;
         }
       }
+
       &__chronology--mobile {
         display: none;
         @include media-breakpoint-down(sm) {
           display: block;
         }
       }
+
       &__title {
         @include media-breakpoint-down(sm) {
           margin-bottom: 8px;
