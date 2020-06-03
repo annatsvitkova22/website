@@ -28,7 +28,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
               <PostCardLoader type="small" />
             </div>
             <div
-              className="lodaer-container__mobile"
+              className="loader-container__mobile"
               style={{ marginBottom: '25px' }}
             >
               <PostCardLoader type={'mobile'} />
@@ -39,7 +39,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
               <PostCardLoader type="small" />
             </div>
             <div
-              className="lodaer-container__mobile"
+              className="loader-container__mobile"
               style={{ marginBottom: '25px' }}
             >
               <PostCardLoader type={'mobile'} />
@@ -50,7 +50,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
               <PostCardLoader type="small" />
             </div>
             <div
-              className="lodaer-container__mobile"
+              className="loader-container__mobile"
               style={{ marginBottom: '25px' }}
             >
               <PostCardLoader type={'mobile'} />

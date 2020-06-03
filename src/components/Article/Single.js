@@ -29,31 +29,6 @@ import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
 import ArticleDate from '~/components/Article/Date';
 import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
 
-const PUBLICATION = gql`
-  query Publication ($publId: [ID]){
-    publications(first: 1, where: {notIn: $publId}) {
-      nodes {
-        publicationId
-        zmPublicationsACF {
-          bannerstyle
-        }
-        ${singleContentCommon}
-      }
-    }
-  }
-`;
-
-// const  query PageQuery {
-//   publications(first: 1, where: {notIn: ["5008", "5006"]}) {
-//     nodes {
-//       publicationId
-//       id
-//       title
-//       slug
-//     }
-//   }
-// }
-
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
@@ -63,11 +38,9 @@ const ArticleSingle = ({
   sidebar,
   hasShare,
   similarPosts,
-  loadNewArticle,
   postId,
 }) => {
   const [loaded, setLoaded] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
 
   moment.locale('uk');
 

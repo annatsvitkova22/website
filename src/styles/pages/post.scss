@@ -226,6 +226,8 @@
 
   .side-bar__sticky {
     height: 200px;
+
+    z-index: 100;
   }
 
   &__block-wrapper {
