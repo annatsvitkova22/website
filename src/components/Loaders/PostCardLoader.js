@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const PostCardLoader = ({ type }) => {
   if (type === 'mobile') {
     return (
-      <ContentLoader viewBox={'0 0 335 90'}>
+      <ContentLoader viewBox={'0 0 335 110'}>
         <rect x={'0'} y={'0'} width={'235'} height={`36`} />
         <rect x={'0'} y={'44'} width={'235'} height={`16`} />
         <rect x={'0'} y={'68'} width={'235'} height={`22`} />
