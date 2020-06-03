@@ -163,6 +163,8 @@ const Page = (props) => {
 
 Page.propTypes = {
   page: PropTypes.any,
+  query: PropTypes.any,
+  slug: PropTypes.any,
 };
 
 Page.getInitialProps = async ({ query, res }) => {

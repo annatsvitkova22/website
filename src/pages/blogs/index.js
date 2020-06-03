@@ -309,6 +309,7 @@ BlogsArchive.propTypes = {
       cursor: PropTypes.string,
     })
   ),
+  users: PropTypes.any,
 };
 
 BlogsArchive.getInitialProps = async () => {

@@ -215,6 +215,7 @@ const Opportunity = (props) => {
 
 Opportunity.propTypes = {
   opportunity: PropTypes.object,
+  slug: PropTypes.string,
 };
 
 Opportunity.getInitialProps = async ({ query: { slug } }) => {

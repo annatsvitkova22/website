@@ -50,6 +50,7 @@ ArticleCrowdfundings.propTypes = {
   post: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
+  imageSize: PropTypes.any,
 };
 
 export default ArticleCrowdfundings;

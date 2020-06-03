@@ -639,6 +639,10 @@ const Search = ({ posts, categories, types, query, users }) => {
 
 Search.propTypes = {
   posts: PropTypes.any,
+  categories: PropTypes.array,
+  types: PropTypes.object,
+  query: PropTypes.object,
+  users: PropTypes.array,
 };
 
 Search.getInitialProps = async ({ query }) => {

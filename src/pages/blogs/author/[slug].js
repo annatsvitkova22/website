@@ -3,6 +3,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import { Waypoint } from 'react-waypoint';
 import getConfig from 'next/config';
+import PropTypes from 'prop-types';
 
 import apolloClient from '~/lib/ApolloClient';
 import BloggerRow from '~/components/Blogger/Row';
@@ -256,6 +257,11 @@ const BlogsArchive = ({ users, query }) => {
       </div>
     </div>
   );
+};
+
+BlogsArchive.propTypes = {
+  users: PropTypes.any,
+  query: PropTypes.any,
 };
 
 BlogsArchive.getInitialProps = async ({ query }) => {

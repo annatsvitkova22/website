@@ -291,6 +291,7 @@ const Category = (props) => {
 };
 
 Category.propTypes = {
+  query: PropTypes.any,
   categoryName: PropTypes.string,
   currCatId: PropTypes.number,
   videos: PropTypes.array,

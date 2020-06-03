@@ -256,6 +256,8 @@ const Publication = (props) => {
 
 Publication.propTypes = {
   publication: PropTypes.object,
+  slug: PropTypes.string,
+  post: PropTypes.any,
 };
 
 Publication.getInitialProps = async ({ query: { slug } }) => {

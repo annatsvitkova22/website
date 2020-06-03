@@ -14,7 +14,7 @@ const Audio = ({ block, className = '' }) => {
       )}
     </>
   );
-  /*return (
+  /* return (
     <>
       {block.attributes && (
         <div className={`gutenberg__audio ${className}`}>

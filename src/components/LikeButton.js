@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as classnames from 'classnames';
 import { useStateLink } from '@hookstate/core';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import getConfig from 'next/config';
 
 import { AuthStore } from '~/stores/Auth';
@@ -16,11 +17,11 @@ const LikeButton = ({ post, className, showNumber = true, postId }) => {
   const [liked, setLiked] = useState(false);
   const likeCls = classnames({
     like: true,
-    liked: liked,
+    liked,
   });
   const countCls = classnames({
     'like-count': true,
-    liked: liked,
+    liked,
   });
   let type = `${post.__typename.toLowerCase()}`;
   const id = post[`${type}Id`];
@@ -74,6 +75,13 @@ const LikeButton = ({ post, className, showNumber = true, postId }) => {
       {showNumber && <span className={`${countCls}`}>{likes || '0'}</span>}
     </>
   );
+};
+
+LikeButton.propTypes = {
+  post: PropTypes.any,
+  className: PropTypes.string,
+  showNumber: PropTypes.string,
+  postId: PropTypes.string,
 };
 
 export default LikeButton;

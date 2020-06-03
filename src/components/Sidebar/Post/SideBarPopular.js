@@ -38,9 +38,7 @@ const SideBarPopular = ({ publications }) => {
 };
 
 SideBarPopular.propTypes = {
-  news: PropTypes.array,
-  fetchingContent: PropTypes.any,
-  isLoading: PropTypes.bool,
+  publications: PropTypes.any,
 };
 
 export default SideBarPopular;
