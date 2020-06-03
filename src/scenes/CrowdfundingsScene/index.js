@@ -24,13 +24,37 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
       <div className="container">
         <main className="row">
           <div className="col-md-4">
-            <PostCardLoader type="small" />
+            <div className="loader-container__desktop">
+              <PostCardLoader type="small" />
+            </div>
+            <div
+              className="loader-container__mobile"
+              style={{ marginBottom: '25px' }}
+            >
+              <PostCardLoader type={'mobile'} />
+            </div>
           </div>
           <div className="col-md-4">
-            <PostCardLoader type="small" />
+            <div className="loader-container__desktop">
+              <PostCardLoader type="small" />
+            </div>
+            <div
+              className="loader-container__mobile"
+              style={{ marginBottom: '25px' }}
+            >
+              <PostCardLoader type={'mobile'} />
+            </div>
           </div>
           <div className="col-md-4">
-            <PostCardLoader type="small" />
+            <div className="loader-container__desktop">
+              <PostCardLoader type="small" />
+            </div>
+            <div
+              className="loader-container__mobile"
+              style={{ marginBottom: '25px' }}
+            >
+              <PostCardLoader type={'mobile'} />
+            </div>
           </div>
         </main>
       </div>

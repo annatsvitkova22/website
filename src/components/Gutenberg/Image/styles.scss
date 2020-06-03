@@ -9,11 +9,13 @@
   figure {
     margin: 0;
   }
-  .is-style-circle-mask {
+
+  .is-style-circle-mask,
+  .is-style-rounded {
     width: 100%;
     height: auto;
 
-    border-radius: 100%;
+    border-radius: 50%;
 
     overflow: hidden;
   }
@@ -29,15 +31,19 @@
     letter-spacing: 0.02em;
     text-align: left;
   }
+
   .img-wrapper {
     max-width: fit-content;
   }
+
   .img--rt {
     margin-left: auto;
   }
+
   .img--lt {
     margin-right: auto;
   }
+
   .img--ct {
     margin: auto;
   }
@@ -54,6 +60,7 @@
   .img-wrapper:hover .expand-image {
     opacity: 1;
   }
+
   .social-icon {
     transition: none;
   }
@@ -64,7 +71,7 @@
 
   .pswp {
     &__bg {
-        background-color: white;
+      background-color: white;
     }
 
     &__button {
@@ -83,7 +90,7 @@
       display: flex;
       align-items: center;
     }
-  } 
+  }
 }
 
 .expand-image {
@@ -106,6 +113,7 @@
 
   transition: all 0.3s;
 }
+
 .expand-image:focus {
   outline: none;
 }

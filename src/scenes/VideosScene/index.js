@@ -45,14 +45,35 @@ const VideosScene = ({ videos = {}, isLoading, children }) => {
     return (
       <div className="videos-scene__loader container">
         <div className="row">
-          <VideoCategoryLoader
-            backgroundColor="#f5f6f7"
-            foregroundColor="#eee"
-          />
-          <VideoCategoryLoader
-            backgroundColor="#f5f6f7"
-            foregroundColor="#eee"
-          />
+          <div className="loader-container__desktop">
+            <VideoCategoryLoader
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+          </div>
+          <div className="loader-container__desktop">
+            <VideoCategoryLoader
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+          </div>
+          <div className="loader-container__mobile">
+            <VideoCategoryLoader
+              type={'mobile'}
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+            <VideoCategoryLoader
+              type={'mobile'}
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+            <VideoCategoryLoader
+              type={'mobile'}
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+          </div>
         </div>
       </div>
     );

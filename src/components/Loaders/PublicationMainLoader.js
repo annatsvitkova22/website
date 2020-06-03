@@ -13,10 +13,10 @@ const PublicationMainLoader = () => {
         <div className="main-publ">
           <div className="main-publ__image">
             <ContentLoader
-              viewBox={`0 0 ${width} 747`}
+              viewBox={`0 0 ${width} 676`}
               style={{ backgroundColor: 'rgba(0,0,0,0.01)' }}
             >
-              <rect x={'0'} y={'0'} width={'1320'} height={`747`} />
+              <rect x={'0'} y={'0'} width={'1320'} height={`676`} />
             </ContentLoader>
           </div>
         </div>

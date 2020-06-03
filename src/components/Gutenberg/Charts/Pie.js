@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import { Pie } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
-const PieChart = ({ chart, adOptions }) => {
+const PieChart = ({ chart, adOptions, isMobile }) => {
   const parsed = Papa.parse(chart.data.csv);
 
   const colors = adOptions.map((item) => {
@@ -34,7 +34,7 @@ const PieChart = ({ chart, adOptions }) => {
       <Pie
         options={{
           title: { display: true },
-          legend: { display: true },
+          legend: { display: isMobile },
           showTooltips: true,
         }}
         data={newChartData}
@@ -46,5 +46,6 @@ const PieChart = ({ chart, adOptions }) => {
 PieChart.propTypes = {
   chart: PropTypes.any,
   adOptions: PropTypes.any,
+  isMobile: PropTypes.bool,
 };
 export default PieChart;

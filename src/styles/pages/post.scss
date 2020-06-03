@@ -23,8 +23,8 @@
     }
 
     .expand-image {
-      bottom: 30px;
-      right: 40px;
+      bottom: 20px;
+      right: 20px;
 
       cursor: zoom-in;
 
@@ -226,6 +226,8 @@
 
   .side-bar__sticky {
     height: 200px;
+
+    z-index: 100;
   }
 
   &__block-wrapper {

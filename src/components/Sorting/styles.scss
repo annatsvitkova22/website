@@ -11,6 +11,8 @@
     line-height: 18px;
     letter-spacing: 0.02em;
 
+    transition: none;
+
     &::first-letter {
       text-transform: uppercase;
     }
@@ -28,8 +30,6 @@
     &--active {
       .sorting__button {
         font-weight: 700;
-
-        transition: all 0s;
       }
     }
   }
