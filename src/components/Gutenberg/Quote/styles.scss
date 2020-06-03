@@ -6,6 +6,10 @@
 
   position: relative;
 
+  @include media-breakpoint-down(xs) {
+    margin-left: 30px;
+  }
+
   p:last-of-type {
     margin-bottom: 0;
   }
