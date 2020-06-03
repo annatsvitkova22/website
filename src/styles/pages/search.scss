@@ -304,6 +304,11 @@
         max-width: 300px;
       }
     }
+    &__meta {
+      .article__author {
+        color: #b0b0b0;
+      }
+    }
 
     &__title {
       font-size: 18px;
