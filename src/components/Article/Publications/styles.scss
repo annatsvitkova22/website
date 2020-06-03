@@ -65,8 +65,9 @@
       .article-title__link {
         line-height: 32px;
       }
+
       @include media-breakpoint-up(md) {
-        margin-bottom: 15px;
+        margin-bottom: 16px;
       }
     }
 
@@ -86,7 +87,7 @@
       &-small,
       &-medium,
       &-big {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
     }
 
@@ -265,9 +266,11 @@
           padding-bottom: 62.99%;
         }
       }
+
       .meta-author {
         font-weight: 600;
       }
+
       .article-title__link {
         @include media-breakpoint-down(sm) {
           font-size: 18px;
@@ -341,6 +344,7 @@
         }
       }
     }
+
     &-small {
       .article-title__link {
         line-height: 1.35;

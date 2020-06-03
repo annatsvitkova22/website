@@ -60,6 +60,7 @@ const Slick = ({ images, handleOpen, imageRef }) => {
   };
   const settings = {
     dots: true,
+    adaptiveHeight: true,
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
@@ -81,12 +82,23 @@ const Slick = ({ images, handleOpen, imageRef }) => {
             ref={imageRef || null}
           >
             <figure className="slick__figure">
-              <img
-                src={image.original}
-                alt="slick-image"
-                className="slick__img"
-              />
-              <span className="slick__overlay" />
+              <div className="slick__img-container">
+                <img
+                  src={image.original}
+                  alt="slick-image"
+                  className="slick__img"
+                />
+                <span className="slick__overlay" />
+                <div className="slick__info">
+                  <Icons icon={'gallery'} className="slick__info-icon" />
+                  <span className="slick__info-count">
+                    {images.length} зображень
+                  </span>
+                </div>
+                <button className={'expand-image'}>
+                  <Icons icon={'expand'} />
+                </button>
+              </div>
               {image.author ||
                 (image.description && (
                   <caption className="slick__caption">
@@ -100,15 +112,6 @@ const Slick = ({ images, handleOpen, imageRef }) => {
                     )}
                   </caption>
                 ))}
-              <div className="slick__info">
-                <Icons icon={'gallery'} className="slick__info-icon" />
-                <span className="slick__info-count">
-                  {images.length} зображень
-                </span>
-              </div>
-              <button className={'expand-image'}>
-                <Icons icon={'expand'} />
-              </button>
             </figure>
           </div>
         );

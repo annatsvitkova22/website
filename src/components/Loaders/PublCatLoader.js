@@ -1,7 +1,15 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import PropTypes from 'prop-types';
 
-const TagsLoader = () => {
+const TagsLoader = ({ type }) => {
+  if (type === 'mobile') {
+    return (
+      <ContentLoader viewBox={'0 0 335 383'}>
+        <rect x={'0'} y={'0'} width={'335'} height={`350`} />
+      </ContentLoader>
+    );
+  }
   return (
     <div className="container">
       <ContentLoader viewBox={'0 0 1320 365'}>
@@ -27,6 +35,10 @@ const TagsLoader = () => {
       </ContentLoader>
     </div>
   );
+};
+
+TagsLoader.propTypes = {
+  type: PropTypes.string,
 };
 
 export default TagsLoader;

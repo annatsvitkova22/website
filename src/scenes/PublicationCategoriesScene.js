@@ -12,7 +12,19 @@ const PublicationCategoriesScene = ({ categories, children, isLoading }) => {
   }
 
   if (isEmpty(categories) && isLoading) {
-    return <PublCatLoader />;
+    return (
+      <>
+        <div className="loader-container__desktop">
+          <PublCatLoader />
+        </div>
+        <div className="loader-container__mobile">
+          <PublCatLoader type={'mobile'} />
+          <PublCatLoader type={'mobile'} />
+          <PublCatLoader type={'mobile'} />
+          <PublCatLoader type={'mobile'} />
+        </div>
+      </>
+    );
   }
 
   const filteredCategories = categories.nodes.filter(

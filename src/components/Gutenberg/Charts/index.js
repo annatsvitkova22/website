@@ -14,6 +14,10 @@ const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
 const ChartContainer = ({ id }) => {
+  const [isMobile, setIsMobile] = useState(null);
+  useEffect(() => {
+    window.innerWidth <= 570 ? setIsMobile(false) : setIsMobile(true);
+  }, []);
   const { apiUrl } = config;
 
   const authStateLink = useStateLink(AuthStore);
@@ -68,11 +72,17 @@ const ChartContainer = ({ id }) => {
 
   switch (type) {
     case 'line':
-      return <LineChart chart={chart} adOptions={adOptions} />;
+      return (
+        <LineChart chart={chart} adOptions={adOptions} isMobile={isMobile} />
+      );
     case 'column':
-      return <BarChart chart={chart} adOptions={adOptions} />;
+      return (
+        <BarChart chart={chart} adOptions={adOptions} isMobile={isMobile} />
+      );
     case 'pie':
-      return <PieChart chart={chart} adOptions={adOptions} />;
+      return (
+        <PieChart chart={chart} adOptions={adOptions} isMobile={isMobile} />
+      );
     default:
       return null;
   }
