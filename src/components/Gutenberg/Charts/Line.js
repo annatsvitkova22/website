@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
-const LineChart = ({ chart, adOptions }) => {
+const LineChart = ({ chart, adOptions, isMobile }) => {
   const parsed = Papa.parse(chart.data.csv);
 
   const clearData = [
@@ -13,6 +13,7 @@ const LineChart = ({ chart, adOptions }) => {
 
   const options = {
     title: { display: true },
+    legend: { display: isMobile },
     maintainAspectRatio: true,
   };
 
@@ -44,6 +45,7 @@ const LineChart = ({ chart, adOptions }) => {
 LineChart.propTypes = {
   chart: PropTypes.any,
   adOptions: PropTypes.any,
+  isMobile: PropTypes.bool,
 };
 
 export default LineChart;

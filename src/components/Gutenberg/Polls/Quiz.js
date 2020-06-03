@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import RadioAnswer from './RadioAnswer';
 
-import CheckboxAnswer from '~/components/Polls/CheckboxAnswer';
+import CheckboxAnswer from '~/components/Gutenberg/Polls/CheckboxAnswer';
 
 const Quiz = (props) => {
   const {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Icons from '~/components/Icons';
 import ShareItems from '~/components/Share';
-import PollResults from '~/components/Polls/PollResults';
+import PollResults from '~/components/Gutenberg/Polls/PollResults';
 
 const ModalWrapper = ({ handleClose, data, pollResult }) => {
   return (

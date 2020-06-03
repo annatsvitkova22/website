@@ -5,7 +5,7 @@ import axios from 'axios';
 import getConfig from 'next/config';
 import * as _ from 'lodash';
 
-import Polls from '~/components/Polls';
+import Polls from '~/components/Gutenberg/Polls';
 import { AuthStore } from '~/stores/Auth';
 import FormField from '~/components/Form/Field';
 import FormLoader from '~/components/Loaders/FormLoader';

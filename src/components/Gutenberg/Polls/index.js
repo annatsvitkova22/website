@@ -9,8 +9,8 @@ import classNames from 'classnames';
 import Quiz from './Quiz';
 
 import { AuthStore } from '~/stores/Auth';
-import PollProgress from '~/components/Polls/PollProgress';
-import ModalWrapper from '~/components/Polls/ModalWrapper';
+import PollProgress from '~/components/Gutenberg/Polls/PollProgress';
+import ModalWrapper from '~/components/Gutenberg/Polls/ModalWrapper';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);

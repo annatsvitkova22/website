@@ -44,11 +44,28 @@
       height: 100%;
       max-width: fit-content;
       object-fit: cover;
-
-      position: relative;
       @include media-breakpoint-down(lg) {
         max-width: 100%;
         height: auto;
+      }
+    }
+    &__img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      &-container {
+        height: 100%;
+        padding-bottom: 60%;
+
+        position: relative;
+
+        overflow: hidden;
       }
     }
 
@@ -62,9 +79,9 @@
       right: 0;
 
       background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0) 79.17%,
-          #000000 100%
+        180deg,
+        rgba(0, 0, 0, 0) 79.17%,
+        #000000 100%
       );
     }
 
