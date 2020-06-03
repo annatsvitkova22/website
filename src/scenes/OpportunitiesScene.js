@@ -15,8 +15,8 @@ const OpportunitiesScene = ({ opportunities, children, isLoading }) => {
     return (
       <div className="opportunities-page">
         <div className="container">
-          <div className="row">
-            <div className="loader-container__desktop">
+          <div className="loader-container__desktop">
+            <div className="row">
               <div className="article col-lg-6">
                 <OpportunitiesLoader />
               </div>
@@ -30,7 +30,9 @@ const OpportunitiesScene = ({ opportunities, children, isLoading }) => {
                 <OpportunitiesLoader />
               </div>
             </div>
-            <div className="loader-container__mobile">
+          </div>
+          <div className="loader-container__mobile">
+            <div className="row">
               <VideoCategoryLoader
                 type={'mobile'}
                 backgroundColor="#f5f6f7"

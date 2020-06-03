@@ -17,8 +17,8 @@ const EventsScene = ({ events, hasForm, children, isLoading }) => {
       <div className="events-page">
         <main>
           <div className="container articles-container">
-            <div className="row">
-              <div className="loader-container__desktop">
+            <div className="loader-container__desktop">
+              <div className="row">
                 <div className="col-lg-3 col-sm-6 col-12">
                   <PostCardLoader type="event" />
                 </div>
@@ -44,7 +44,9 @@ const EventsScene = ({ events, hasForm, children, isLoading }) => {
                   <PostCardLoader type="event" />
                 </div>
               </div>
-              <div className="loader-container__mobile">
+            </div>
+            <div className="loader-container__mobile">
+              <div className="row">
                 <VideoCategoryLoader
                   type={'mobile'}
                   backgroundColor="#f5f6f7"
