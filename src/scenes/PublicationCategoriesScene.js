@@ -17,7 +17,10 @@ const PublicationCategoriesScene = ({ categories, children, isLoading }) => {
         <div className="loader-container__desktop">
           <PublCatLoader />
         </div>
-        <div className="loader-container__mobile">
+        <div
+          className="loader-container__mobile"
+          style={{ padding: '0 20px 0 20px' }}
+        >
           <PublCatLoader type={'mobile'} />
           <PublCatLoader type={'mobile'} />
           <PublCatLoader type={'mobile'} />
