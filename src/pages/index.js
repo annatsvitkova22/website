@@ -63,11 +63,11 @@ const HOME_PAGE = gql`
     }
 
     users(
-      first: 4
       where: {
         orderby: { field: REGISTERED, order: ASC }
         hasPublishedPosts: BLOG
       }
+      first: 4
     ) {
       nodes {
         name

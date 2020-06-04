@@ -7,6 +7,7 @@ import Form from '~/components/Form';
 const Modal = ({ trigger }) => {
   function onClick() {
     trigger(false);
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   }
 
   return createPortal(
