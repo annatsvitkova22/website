@@ -438,7 +438,7 @@ const Home = (props) => {
         </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events, isLoading }} form={true}>
+        <EventsScene {...{ events, isLoading }} hasForm={true}>
           {typeof events === 'undefined' && (
             <Waypoint onEnter={loadData(EVENTS)} />
           )}
