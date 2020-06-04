@@ -91,6 +91,7 @@ const Image = ({ block, className = '' }) => {
       </a>
     );
   }
+
   return image;
 };
 

@@ -27,7 +27,7 @@ const Contacts = (props) => {
                 {item.contacts && item.contacts.length > 0 ? (
                   item.contacts.map((contacts, k) => {
                     return (
-                      <li className={'footer__sitemap-link d-flex'}>
+                      <li className={'footer__sitemap-link d-flex'} key={k}>
                         <Icons
                           icon={contacts.type}
                           className={'footer__sitemap-icons'}

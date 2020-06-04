@@ -114,6 +114,7 @@
     @include media-breakpoint-down(md) {
       @include make-col(12);
     }
+
     .gutenberg__image-expand {
       display: none;
     }

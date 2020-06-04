@@ -1,5 +1,6 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import PropTypes from 'prop-types';
 
 const PublicationSingleLoader = ({ type }) => {
   if (type === 'mobile') {
@@ -35,6 +36,10 @@ const PublicationSingleLoader = ({ type }) => {
       </ContentLoader>
     </div>
   );
+};
+
+PublicationSingleLoader.propTypes = {
+  type: PropTypes.string,
 };
 
 export default PublicationSingleLoader;

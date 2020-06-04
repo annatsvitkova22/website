@@ -368,6 +368,7 @@ const Post = (props) => {
 
 Post.propTypes = {
   props: PropTypes.any,
+  slug: PropTypes.any,
 };
 
 Post.getInitialProps = async ({ query: { slug } }) => {

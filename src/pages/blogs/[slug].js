@@ -348,6 +348,7 @@ Blog.propTypes = {
   post: PropTypes.object,
   news: PropTypes.object,
   similarPosts: PropTypes.object,
+  slug: PropTypes.any,
 };
 
 Blog.getInitialProps = async ({ query: { slug } }) => {

@@ -57,7 +57,10 @@ const VideosScene = ({ videos = {}, isLoading, children }) => {
               foregroundColor="#eee"
             />
           </div>
-          <div className="loader-container__mobile">
+          <div
+            className="loader-container__mobile"
+            style={{ padding: '0 20px 0 20px' }}
+          >
             <VideoCategoryLoader
               type={'mobile'}
               backgroundColor="#f5f6f7"

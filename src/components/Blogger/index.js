@@ -1,6 +1,7 @@
 import React from 'react';
 import * as classnames from 'classnames';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 import Avatar from '~/components/Avatar';
 import BloggerBio from '~/components/Blogger/Bio';
@@ -99,6 +100,14 @@ const Blogger = ({
       {showBio && description && <BloggerBio bio={description} />}
     </div>
   );
+};
+
+Blogger.propTypes = {
+  className: PropTypes.string,
+  avatarSize: PropTypes.any,
+  withLinks: PropTypes.any,
+  showBio: PropTypes.any,
+  blogger: PropTypes.any,
 };
 
 export default Blogger;

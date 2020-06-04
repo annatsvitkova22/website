@@ -180,6 +180,19 @@
     .info-card__map {
       height: 305px;
     }
+
+    @include media-breakpoint-down(sm) {
+      .info-card__info-wrapper > .info-card__contact:not(:last-child) {
+        padding-bottom: 10px;
+      }
+      .info-card__info-wrapper > .info-card__contact {
+        padding-top: 10px;
+      }
+      .info-card__info-wrapper > .info-card__social {
+        padding-top: 20px;
+        padding-bottom: 0;
+      }
+    }
   }
 
   &__inner-form {

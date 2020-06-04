@@ -289,7 +289,7 @@ const CATEGORIES = gql`
           showOnPublications
           size
         }
-        publications {
+        publications(first: 10) {
           nodes {
             slug
             title
@@ -438,7 +438,7 @@ const Home = (props) => {
         </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events, isLoading }} form={true}>
+        <EventsScene {...{ events, isLoading }} hasForm={true}>
           {typeof events === 'undefined' && (
             <Waypoint onEnter={loadData(EVENTS)} />
           )}

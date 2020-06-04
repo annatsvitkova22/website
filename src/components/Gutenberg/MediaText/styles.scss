@@ -26,25 +26,39 @@
 
     &--right {
       order: 2;
+
+      & + .mtext__content {
+        order: 1;
+      }
     }
+
     &--left {
       order: 1;
+
+      & + .mtext__content {
+        order: 2;
+      }
     }
+
     img {
       height: 100%;
 
       object-fit: cover;
     }
   }
+
   .mtext-text {
     max-width: 100%;
   }
+
   .has-text-align-center {
     text-align: center;
   }
+
   .has-text-align-right {
     text-align: right;
   }
+
   .mtext__content {
     display: flex;
     flex-direction: column;

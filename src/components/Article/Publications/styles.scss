@@ -63,7 +63,11 @@
 
     &--on-medium {
       .article-title__link {
-        line-height: 32px;
+        line-height: 1.26;
+
+        @include media-breakpoint-up(md) {
+          line-height: 1.3;
+        }
       }
 
       @include media-breakpoint-up(md) {
@@ -109,7 +113,7 @@
 
   &__wrapper {
     &--grey {
-      padding: 23px 20px 24px;
+      padding: 69px 49px 69px 49px;
     }
 
     &--under {

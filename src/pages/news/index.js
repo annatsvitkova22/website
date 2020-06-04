@@ -390,6 +390,7 @@ News.getInitialProps = async ({ query }) => {
 News.propTypes = {
   className: PropTypes.string,
   query: PropTypes.any,
+  categories: PropTypes.object,
 };
 
 export default News;
