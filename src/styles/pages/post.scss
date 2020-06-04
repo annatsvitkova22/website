@@ -386,9 +386,10 @@
 
   &-about {
     display: flex;
+    align-items: center;
   }
 
-  &-image.avatar {
+  &-image {
     width: 44px;
     height: 44px;
 
@@ -396,6 +397,7 @@
     padding: 0;
 
     border: none;
+    border-radius: 50%;
     background-color: transparentize($green, 0.5);
   }
 
@@ -432,6 +434,16 @@
     display: flex;
 
     margin-left: auto;
+    .share-actions__main {
+      @include media-breakpoint-down(sm) {
+        & .social-icon {
+          margin-right: 30px;
+        }
+        & > *:last-child {
+          display: none;
+        }
+      }
+    }
 
     & > a {
       display: flex;

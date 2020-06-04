@@ -88,6 +88,7 @@ const ArticleSingle = ({
     backgroundSize: 'cover',
   };
 
+  console.log(userAvatarStyles);
   return (
     <>
       <Head>

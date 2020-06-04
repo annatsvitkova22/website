@@ -31,17 +31,16 @@ const BlogsScene = ({ users: { nodes: users } }) => (
                           backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
                         }
                   }
-                >
-                  <span className="blogs-user__container tx-white d-block pos-absolute l-24 r-24 b-52">
-                    <span className="blogs-user__name h4 font-weight-extrabold d-block">
-                      {name}
-                    </span>
-                    <span className="blogs-user__info d-block font-weight-medium">
-                      {info}
-                    </span>
-                  </span>
-                </a>
+                />
               </Link>
+              <span className="blogs-user__container tx-white d-block pos-absolute l-24 r-24">
+                <span className="blogs-user__name h4 font-weight-extrabold d-block">
+                  {name}
+                </span>
+                <span className="blogs-user__info d-block font-weight-medium">
+                  {info}
+                </span>
+              </span>
               <ul className="user-pubs list-reset pos-relative z-10 bg-white">
                 {blogs.map((blog) => {
                   const { title } = blog;

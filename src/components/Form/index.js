@@ -116,6 +116,7 @@ const Form = ({ id, className, gutenbergType }) => {
       setValues(clearedValues);
       setCleared(true);
     }, 10000);
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   const handleChange = ({ value, name }) => {

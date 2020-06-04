@@ -12,6 +12,7 @@ import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import Article from '~/components/Article';
 import NewsLoader from '~/components/Loaders/NewsLoader';
 import MainPublication from '~/components/MainPublication';
+import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
 
 const PUBLICATIONS_ARCHIVE = gql`
   query PublicationsArchive($cursor: String, $articles: Int) {
@@ -76,8 +77,14 @@ const PUBLICATIONS_ARCHIVE = gql`
         total
       }
     }
+  }
+`;
+
+const CATEGORIES = gql`
+  query Categories {
     categories {
       nodes {
+        id
         name
         slug
         zmCategoryACF {
@@ -85,7 +92,7 @@ const PUBLICATIONS_ARCHIVE = gql`
           showOnPublications
           size
         }
-        publications {
+        publications(first: 10) {
           nodes {
             slug
             title
@@ -104,12 +111,14 @@ const PUBLICATIONS_ARCHIVE = gql`
 `;
 
 const variables = {
-  articles: 11,
+  articles: 12,
 };
 
 const Publications = (props) => {
   const [data, setData] = useState(props);
-  const { info, publications, categories } = data;
+  const { info, publications } = data;
+  const [categories, setCategories] = useState(undefined);
+  const [isLoading, setLoading] = useState(false);
 
   const { fetchingContent, state } = useLoadMoreHook(
     PUBLICATIONS_ARCHIVE,
@@ -117,6 +126,19 @@ const Publications = (props) => {
     'publications',
     variables.articles
   );
+
+  function loadData(query) {
+    return async () => {
+      setLoading(true);
+      const response = await apolloClient.query({ query });
+
+      setCategories((prevState) => ({
+        ...prevState,
+        ...response.data.categories,
+      }));
+      setLoading(false);
+    };
+  }
 
   useEffect(() => {
     const loadContent = async () => {
@@ -129,12 +151,12 @@ const Publications = (props) => {
 
       setData(content.data);
     };
-    if (!info && !publications && !categories) {
+    if (!info && !publications) {
       loadContent();
     }
   }, []);
 
-  if (!info && !publications && !categories) {
+  if (!info && !publications) {
     return (
       <div className="publ-page">
         <main>
@@ -143,15 +165,6 @@ const Publications = (props) => {
       </div>
     );
   }
-
-  const filteredCategories = categories.nodes.filter(
-    ({ zmCategoryACF: { showOnPublications } }) => showOnPublications === true
-  );
-
-  const sortedCategories = filteredCategories.sort(
-    (categoryA, categoryB) =>
-      categoryA.zmCategoryACF.order - categoryB.zmCategoryACF.order
-  );
 
   const { nodes, pageInfo } = state.data;
 
@@ -178,85 +191,13 @@ const Publications = (props) => {
             </div>
           )}
         </div>
-        <div className="container">
-          <div className="row">
-            {sortedCategories.slice(0, 4).map((cats, i) => {
-              const {
-                name,
-                slug,
-                zmCategoryACF: { size },
-              } = cats;
-              const nds = cats.publications.nodes;
-              let colSize = '';
-              switch (size) {
-                case 'medium':
-                  colSize = 'col-xl-3';
-                  break;
-                case 'big':
-                  colSize = 'col-xl-4';
-                  break;
-                case 'small':
-                  colSize = 'col-xl-2';
-                  break;
 
-                default:
-                  break;
-              }
+        <PublicationCategoriesScene {...{ categories, isLoading }}>
+          {typeof categories === 'undefined' && (
+            <Waypoint onEnter={loadData(CATEGORIES)} />
+          )}
+        </PublicationCategoriesScene>
 
-              return (
-                <div key={i} className={`publ-cat__col--${size} ${colSize}`}>
-                  <h6 className="publ-page__title text-uppercase">
-                    <Link href={`/search?category=${slug}`}>
-                      <a>{name}</a>
-                    </Link>
-                  </h6>
-                  <div className="publ-cats__container">
-                    {size === 'big' && nds.length && (
-                      <>
-                        <div className="row main-cat__row main-cat__row--primary">
-                          {nds.slice(0, 1).map((post, k) => (
-                            <Article
-                              isFirst={true}
-                              size={size}
-                              type="publications-cats"
-                              post={post}
-                              key={k}
-                            />
-                          ))}
-                        </div>
-                        <div className="row main-cat__row main-cat__row--sub">
-                          {nds.slice(1, nds.length).map((post, k) => (
-                            <Article
-                              isFirst={false}
-                              index={k}
-                              size={size}
-                              type="publications-cats"
-                              post={post}
-                              key={k}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
-                    {!(size === 'big') && nds.length !== 1 && (
-                      <div className="row">
-                        {nds.map((post, k) => (
-                          <Article
-                            index={k}
-                            size={size}
-                            type="publications-cats"
-                            post={post}
-                            key={k}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
         {nodes && (
           <div className="container publ-archive">
             <div className="row">
