@@ -126,6 +126,7 @@ const Blog = (props) => {
   // TODO: add loader when navigate between blogs
   const { post } = state;
   const { news, blogs, publications } = additionalInfo;
+  console.log(post);
 
   const loadData = async () => {
     setState({
