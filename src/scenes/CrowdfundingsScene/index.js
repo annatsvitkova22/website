@@ -13,6 +13,8 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
 
   function onClick() {
     setIsModal(!isModal);
+
+    document.querySelector('body').classList.add('isB-MenuOpen');
   }
 
   if (typeof children === 'object' && !isLoading) {

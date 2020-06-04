@@ -61,6 +61,14 @@
       margin-bottom: 10px;
     }
 
+    &--grey-big {
+      .article-title__link {
+        font-weight: 800;
+        font-size: 32px;
+        line-height: 1.26;
+        letter-spacing: -0.02em;
+      }
+    }
     &--on-medium {
       .article-title__link {
         line-height: 1.26;
@@ -113,7 +121,7 @@
 
   &__wrapper {
     &--grey {
-      padding: 23px 20px 24px;
+      padding: 69px 49px 69px 49px;
     }
 
     &--under {

@@ -149,6 +149,12 @@
             max-width: none;
             padding-left: 0;
             padding-right: 0;
+
+            break-inside: avoid;
+          }
+          &__title {
+            margin-top: 16px;
+            margin-bottom: 14px;
           }
         }
       }

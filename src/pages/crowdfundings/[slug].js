@@ -111,6 +111,7 @@ const Crowdfunding = (props) => {
 
 Crowdfunding.propTypes = {
   crowdfunding: PropTypes.object,
+  slug: PropTypes.string,
 };
 
 Crowdfunding.getInitialProps = async ({ query: { slug } }) => {

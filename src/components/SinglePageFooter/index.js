@@ -24,6 +24,7 @@ const NewsFooter = ({ post, postId }) => {
 
 NewsFooter.propTypes = {
   post: PropTypes.any,
+  postId: PropTypes.any,
 };
 
 export default NewsFooter;

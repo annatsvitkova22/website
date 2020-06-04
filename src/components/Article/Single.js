@@ -88,6 +88,7 @@ const ArticleSingle = ({
     backgroundSize: 'cover',
   };
 
+  console.log(userAvatarStyles);
   return (
     <>
       <Head>
@@ -318,9 +319,9 @@ const ArticleSingle = ({
                               __html: storedPost.excerpt,
                             }}
                           />
-                          {/* Need to delete - only for testing*/}
-                          {/*<Story />*/}
-                          {/* Need to delete - only for testing*/}
+                          {/* Need to delete - only for testing */}
+                          {/* <Story /> */}
+                          {/* Need to delete - only for testing */}
                           {storedPost.blocks.length ? (
                             <Content
                               content={storedPost.blocks}

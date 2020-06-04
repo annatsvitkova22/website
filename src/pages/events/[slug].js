@@ -268,6 +268,7 @@ const Event = (props) => {
 Event.propTypes = {
   event: PropTypes.object,
   events: PropTypes.object,
+  slug: PropTypes.string,
 };
 
 Event.getInitialProps = async ({ query: { slug } }) => {

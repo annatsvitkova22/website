@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Icons from '~/components/Icons';
 
@@ -14,6 +15,10 @@ const ScrollTop = ({ className = '' }) => {
       <Icons icon={'scroll-icon'} />
     </div>
   );
+};
+
+ScrollTop.propTypes = {
+  className: PropTypes.string,
 };
 
 export default ScrollTop;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 import Icons from '~/components/Icons';
 import Share from '~/components/Share';
@@ -9,8 +10,6 @@ const { publicRuntimeConfig } = getConfig();
 
 const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-// TODO: refactor to be universal
-// combine with components/Crowdfunding/Share
 const ShareModal = ({ onClose = () => {} }) => {
   const { asPath } = useRouter();
   const [copied, setCopied] = useState(false);
@@ -51,6 +50,10 @@ const ShareModal = ({ onClose = () => {} }) => {
       </div>
     </div>
   );
+};
+
+ShareModal.propTypes = {
+  onClose: PropTypes.func,
 };
 
 export default ShareModal;

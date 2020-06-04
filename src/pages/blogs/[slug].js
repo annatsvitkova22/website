@@ -126,6 +126,7 @@ const Blog = (props) => {
   // TODO: add loader when navigate between blogs
   const { post } = state;
   const { news, blogs, publications } = additionalInfo;
+  console.log(post);
 
   const loadData = async () => {
     setState({
@@ -348,6 +349,7 @@ Blog.propTypes = {
   post: PropTypes.object,
   news: PropTypes.object,
   similarPosts: PropTypes.object,
+  slug: PropTypes.any,
 };
 
 Blog.getInitialProps = async ({ query: { slug } }) => {

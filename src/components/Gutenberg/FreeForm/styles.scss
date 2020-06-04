@@ -33,6 +33,9 @@
       width: 100%;
       max-width: 648px;
     }
+    a {
+      word-break: break-all;
+    }
   }
 
   &-old > * {

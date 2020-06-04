@@ -1,5 +1,6 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import PropTypes from 'prop-types';
 
 const VideoCategoryLoader = ({
   backgroundColor = '#333',
@@ -54,6 +55,11 @@ const VideoCategoryLoader = ({
       </ContentLoader>
     </div>
   );
+};
+VideoCategoryLoader.propTypes = {
+  backgroundColor: PropTypes.string,
+  foregroundColor: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default VideoCategoryLoader;

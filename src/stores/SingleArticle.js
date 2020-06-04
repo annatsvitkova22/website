@@ -31,7 +31,7 @@ export const updateShares = (shares, id) => {
   singleArticleStore[id].cfACF.shared = shares;
   SingleArticleStore.set(singleArticleStore);
 };
-//Update this query ????
+// Update this query ????
 export const updatePost = async (query, slug, postId) => {
   const singleArticleStore = SingleArticleStore.get();
   const { data } = await apolloClient.query({

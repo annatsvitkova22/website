@@ -45,7 +45,10 @@ const EventsScene = ({ events, hasForm, children, isLoading }) => {
                 </div>
               </div>
             </div>
-            <div className="loader-container__mobile">
+            <div
+              className="loader-container__mobile"
+              style={{ padding: '0 20px 0 20px' }}
+            >
               <div className="row">
                 <VideoCategoryLoader
                   type={'mobile'}
