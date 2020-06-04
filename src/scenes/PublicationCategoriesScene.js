@@ -87,7 +87,7 @@ const PublicationCategoriesScene = ({ categories, children, isLoading }) => {
                           ))}
                         </div>
                         <div className="row main-cat__row main-cat__row--sub">
-                          {nodes.slice(1, nodes.length).map((post, i) => (
+                          {nodes.slice(1, 9).map((post, i) => (
                             <Article
                               isFirst={false}
                               index={i}
@@ -100,9 +100,22 @@ const PublicationCategoriesScene = ({ categories, children, isLoading }) => {
                         </div>
                       </>
                     )}
-                    {!(size === 'big') && nodes.length !== 1 && (
+                    {size === 'medium' && nodes.length !== 1 && (
                       <div className="row">
-                        {nodes.map((post, i) => (
+                        {nodes.slice(0, 4).map((post, i) => (
+                          <Article
+                            index={i}
+                            size={size}
+                            type="publications-cats"
+                            post={post}
+                            key={i}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    {size !== 'medium' && size !== 'big' && nodes.length !== 1 && (
+                      <div className="row">
+                        {nodes.slice(0, 6).map((post, i) => (
                           <Article
                             index={i}
                             size={size}

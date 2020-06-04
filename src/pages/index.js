@@ -289,7 +289,7 @@ const CATEGORIES = gql`
           showOnPublications
           size
         }
-        publications {
+        publications(first: 10) {
           nodes {
             slug
             title
