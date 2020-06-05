@@ -6,7 +6,7 @@ import Icons from '~/components/Icons';
 import CommentAction from '~/components/Comment/Action';
 import CommentForm from '~/components/Comment/Form';
 
-const Comment = ({ comment, post }) => {
+const Comment = ({ comment, post, postId }) => {
   const [replyOpen, setReplyOpen] = useState(false);
   const commentDisplayed = cloneDeep(comment);
   commentDisplayed.date = moment(commentDisplayed.date)
@@ -76,6 +76,7 @@ const Comment = ({ comment, post }) => {
           comment={comment}
           className="comments-pp__post--reply"
           label={'Відповісти'}
+          postId={postId}
           onSent={() => setReplyOpen(!replyOpen)}
         />
       )}

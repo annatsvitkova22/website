@@ -32,11 +32,17 @@
   }
 }
 .wp-block-table {
+  margin: 0 auto;
   &.alignright {
+    margin-right: 0;
     margin-left: auto;
   }
   &.aligncenter {
     margin: 0 auto;
+  }
+  &.alignleft {
+    margin-left: 0;
+    margin-right: auto;
   }
   &.is-style-stripes tbody tr:nth-child(2n-1) {
     background-color: $grey-100;

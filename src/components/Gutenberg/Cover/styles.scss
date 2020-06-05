@@ -15,9 +15,15 @@
     align-items: center;
 
     position: relative;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
   }
   .content__inner {
     width: 100%;
+
+    color: white;
   }
 
   &-overlay {

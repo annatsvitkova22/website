@@ -103,10 +103,11 @@
 
 .p-results {
   @include media-breakpoint-down(sm) {
-    height: 500px;
+    height: 400px;
 
     overflow: scroll;
   }
+
   &__item {
     max-width: 423px;
     margin: 0 auto 24px auto;
