@@ -1,38 +1,8 @@
 body.isB-MenuOpen {
   overflow: hidden;
 }
+
 .header {
-  .search--active {
-    svg {
-      color: $green;
-    }
-  }
-  &__search-wrapper {
-    display: flex;
-
-    width: 100%;
-
-    position: absolute;
-  }
-  .isSearchMenuOpen {
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.2s;
-  }
-
-  .header__search-field {
-    display: flex;
-
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.2s;
-  }
-  .header__search-field--active {
-    visibility: visible;
-    opacity: 1;
-    transition: all 0.2s;
-  }
-
   padding-right: 20px;
   padding-left: 30px;
 
@@ -50,6 +20,46 @@ body.isB-MenuOpen {
   z-index: 100;
 
   transition: all 0.2s linear;
+
+  button {
+    transition: none;
+  }
+  .search--active {
+    svg {
+      color: $green;
+    }
+  }
+
+  &__search-wrapper {
+    display: flex;
+
+    width: 100%;
+
+    position: absolute;
+  }
+
+  .isSearchMenuOpen {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+
+    pointer-events: initial;
+  }
+
+  .header__search-field {
+    display: flex;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  .header__search-field--active {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.2s;
+  }
+
   &__wrapper {
     display: flex;
     justify-content: flex-end;
@@ -89,11 +99,13 @@ body.isB-MenuOpen {
     opacity: 0;
     transition: opacity 0.3s;
     cursor: pointer;
+
     &-icon {
       display: inline-block;
 
       margin-right: 16px;
     }
+
     &-text {
       font-family: $font-family-titles;
       font-weight: 700;
@@ -102,6 +114,7 @@ body.isB-MenuOpen {
       letter-spacing: 0.07em;
       text-transform: uppercase;
     }
+
     &-link {
       &:hover {
         color: $green;
@@ -118,6 +131,7 @@ body.isB-MenuOpen {
     align-items: center;
 
     margin-left: auto;
+
     &-item:not(:last-child) {
       margin-right: 25px;
     }
@@ -141,6 +155,7 @@ body.isB-MenuOpen {
 
         width: 22px;
         height: 22px;
+
         .svg-icon {
           transition: all 0.3s;
         }
@@ -158,17 +173,20 @@ body.isB-MenuOpen {
         text-transform: uppercase;
         letter-spacing: 0.07em;
       }
+
       &:hover > button {
         color: $green;
 
         transition: all 0.3s;
       }
+
       &:hover > span > .svg-icon {
         color: $green;
 
         transform: rotate(180deg);
         transition: all 0.3s;
       }
+
       &:hover > .header__dd {
         opacity: 1;
         visibility: visible;
@@ -196,9 +214,7 @@ body.isB-MenuOpen {
     background: none;
 
     cursor: pointer;
-    svg {
-      transition: all 0.2s;
-    }
+
     &:hover {
       svg {
         color: $green;
@@ -225,17 +241,21 @@ body.isB-MenuOpen {
     }
   }
 }
+
 .header ~ div {
   padding-top: 68px;
 }
+
 .fixed-header {
   &-pinned {
     transform: translateY(0%);
   }
+
   &-unpinned {
     transform: translateY(-100%);
   }
 }
+
 .navigation {
   display: flex;
 
@@ -287,6 +307,7 @@ body.isB-MenuOpen {
       line-height: 1.2;
 
       text-transform: uppercase;
+
       & > a:hover {
         background-color: darken($green, 8);
       }
@@ -300,6 +321,7 @@ body.isB-MenuOpen {
         letter-spacing: 0.1em;
       }
     }
+
     &:hover {
       .navigation__link:hover {
         color: $green;
@@ -324,6 +346,7 @@ body.isB-MenuOpen {
   .header {
     padding-right: 20px;
     padding-left: 20px;
+
     &__overlay {
       display: flex;
 
@@ -344,6 +367,7 @@ body.isB-MenuOpen {
 
       z-index: -10;
     }
+
     &__burger-icon {
       width: 18px;
       height: 2px;
@@ -386,6 +410,7 @@ body.isB-MenuOpen {
         transition: all 0.2s ease-in;
       }
     }
+
     &.isMenuOpen {
       .header__overlay {
         visibility: visible;
@@ -527,6 +552,7 @@ body.isB-MenuOpen {
     width: 50px;
   }
 }
+
 @media screen and (max-width: 1318px) and (min-width: 1199px) {
   .header__logo {
     margin-right: 10px;
@@ -545,6 +571,7 @@ body.isB-MenuOpen {
     }
   }
 }
+
 @media screen and (max-width: 1199px) and (min-width: 768px) {
   .header {
     padding-right: 20px;
@@ -615,6 +642,7 @@ body.isB-MenuOpen {
     .navigation__list > li:not(:first-child) {
       display: none;
     }
+
     &__item--highlighted {
       padding-right: 0;
     }
@@ -629,6 +657,7 @@ body.isB-MenuOpen {
     display: none;
   }
 }
+
 @media screen and (max-width: 1199px) {
   .header {
     &__social {
@@ -647,6 +676,7 @@ body.isB-MenuOpen {
   }
   .burger__navigation {
     padding-bottom: 0;
+
     .navigation__item.navigation__item--highlighted {
       padding-left: 16px;
       padding-bottom: 16px;
@@ -662,11 +692,13 @@ body.isB-MenuOpen {
       margin-left: 0;
       margin-bottom: 0;
     }
+
     .header__dd-icon {
       display: none;
     }
   }
 }
+
 @media (max-width: 767px) {
   .header {
     padding-right: 18px;
@@ -681,15 +713,19 @@ body.isB-MenuOpen {
 
       overflow: scroll;
     }
+
     &__search {
       margin-left: 0;
     }
+
     &__logo-img {
       max-width: 80px;
     }
+
     &__icons-dd {
       display: none;
     }
+
     &__social {
       display: flex;
     }
