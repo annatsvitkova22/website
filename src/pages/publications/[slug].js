@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
+import getConfig from 'next/config';
+import { useRouter } from 'next/router';
 
 import apolloClient from '~/lib/ApolloClient';
 import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
@@ -16,6 +18,12 @@ const PUBLICATION = gql`
       publicationId
       zmPublicationsACF {
         bannerstyle
+      }
+      zmBrandedPublication {
+        logo {
+          mediaItemUrl
+          title
+        }
       }
       ${singleContentCommon}
     }
@@ -61,6 +69,10 @@ const NEWPUBLICATION = gql`
   }
 `;
 
+const { publicRuntimeConfig } = getConfig();
+
+const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
+
 const Publication = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -78,6 +90,7 @@ const Publication = (props) => {
   const [disabledNew, setDisabledNew] = useState({});
 
   const { post } = state;
+  const { asPath } = useRouter();
 
   const loadData = async () => {
     setState({
@@ -111,6 +124,13 @@ const Publication = (props) => {
     }
 
     setLoaded(true);
+    if (
+      post &&
+      post.zmBrandedPublication.logo &&
+      post.zmBrandedPublication.logo.mediaItemUrl
+    ) {
+      document.querySelector('.header').classList.add('header--branded');
+    }
   }, []);
 
   const loadSimilarPosts = async () => {

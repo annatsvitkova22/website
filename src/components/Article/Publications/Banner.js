@@ -65,6 +65,15 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
       {bannerstyle !== 'image' && (
         <div className="container">
           <div className="publication-banner__content">
+            {post.zmBrandedPublication &&
+              post.zmBrandedPublication.logo.mediaItemUrl && (
+                <div className="branded-logo">
+                  <img
+                    src={post.zmBrandedPublication.logo.mediaItemUrl}
+                    alt={post.zmBrandedPublication.logo.title}
+                  />
+                </div>
+              )}
             <NewsHead post={post} />
             <div
               className="publication-banner__excerpt"
