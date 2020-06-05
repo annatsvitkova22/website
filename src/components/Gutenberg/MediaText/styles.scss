@@ -41,8 +41,6 @@
     }
 
     img {
-      height: 100%;
-
       object-fit: cover;
     }
   }
@@ -72,9 +70,7 @@
 
     @include media-breakpoint-down(xs) {
       width: 100% !important;
-      padding-left: 0;
-      padding-right: 0;
-      padding-bottom: 20px;
+      padding: 20px 0;
       & > div {
         padding-bottom: 0;
       }

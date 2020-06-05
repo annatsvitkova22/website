@@ -82,7 +82,6 @@ const Gallery = ({ block, className = '' }) => {
         </div>`
           : ``
       }
-      
     </div>
   `,
   }));

@@ -6,6 +6,11 @@
   background: #fff;
 
   overflow: scroll;
+  @include media-breakpoint-down(sm) {
+    margin-top: 0;
+
+    overflow: visible;
+  }
 
   button:focus {
     outline: none;
@@ -34,6 +39,11 @@
     max-width: 648px;
     padding-top: 14px;
     margin: 0 auto;
+
+    @include media-breakpoint-down(sm) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
 
   &__header {
@@ -47,6 +57,10 @@
     font-size: 24px;
     line-height: 16px;
     letter-spacing: 0.2px;
+    @include media-breakpoint-down(sm) {
+      display: flex;
+      flex-direction: column;
+    }
 
     .social-icon {
       display: flex;
@@ -74,6 +88,10 @@
     align-items: center;
 
     margin-left: 15px;
+    @include media-breakpoint-down(sm) {
+      margin-left: 0;
+      margin-top: 20px;
+    }
   }
 
   &__socials-items > a {
@@ -182,6 +200,14 @@
       font-size: 12px;
       line-height: 16px;
       letter-spacing: 0.07em;
+    }
+  }
+
+  &__items {
+    @include media-breakpoint-down(sm) {
+      height: 400px;
+
+      overflow: scroll;
     }
   }
 
