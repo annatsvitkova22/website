@@ -4,7 +4,9 @@ import 'moment/locale/uk';
 
 import Play from '~/static/images/play';
 import formatYouTubeUrl from '~/util/formatYouTubeUrl';
-import Share from '~/components/Share';
+import share from '~/static/images/share';
+import facebook from '~/static/images/facebook-f';
+import telegram from '~/static/images/telegram-plane';
 
 const getThumbnailVideo = (item, playClass) => {
   return (
@@ -51,10 +53,15 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                   </div>
                   <div class="col-6">
                     <ul class="share-list list-reset d-flex justify-content-end">
-                       <Share
-                        type={'main-first'}
-                        className={'title__socials-items'}
-                      />
+                      <li class="share-list__item">
+                        <a href="https://google.com/" target="_blank">${share}</a>
+                      </li>
+                      <li class="share-list__item">
+                        <a href="https://facebook.com/" target="_blank">${facebook}</a>
+                       </li>
+                      <li class="share-list__item">
+                        <a href="https://telegram.org/" target="_blank">${telegram}</a>
+                      </li>
                     </ul>
                   </div>
                 </div>
