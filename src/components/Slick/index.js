@@ -86,19 +86,14 @@ const Slick = ({ images, handleOpen, imageRef }) => {
                   <Icons icon={'expand'} />
                 </button>
               </div>
-              {image.author ||
-                (image.description && (
-                  <caption className="slick__caption">
-                    {image.author && (
-                      <span className="slick__author">{image.description}</span>
-                    )}
-                    {image.description && (
-                      <span className="slick__description">
-                        {image.description}
-                      </span>
-                    )}
-                  </caption>
-                ))}
+              <caption className="slick__caption">
+                {image.author && (
+                  <span className="slick__author">{image.description}</span>
+                )}
+                <span className="slick__description">
+                  {image.description ? image.description : 'Фото'}
+                </span>
+              </caption>
             </figure>
           </div>
         );

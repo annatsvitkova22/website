@@ -88,7 +88,6 @@ const ArticleSingle = ({
     backgroundSize: 'cover',
   };
 
-  console.log(userAvatarStyles);
   return (
     <>
       <Head>
@@ -342,7 +341,7 @@ const ArticleSingle = ({
                               );
                             }, 50)}
                           />
-                          <NewsFooter post={storedPost} />
+                          <NewsFooter post={storedPost} postId={postId} />
                         </div>
                       </section>
                     </section>

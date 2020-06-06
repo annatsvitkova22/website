@@ -1,13 +1,42 @@
-image: atlassian/default-image:latest
+image: node:12.16.0
+
+definitions:
+  services:
+    docker:
+      memory: 2048
 
 pipelines:
   branches:
     develop:
       - step:
+          name: Test
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run test
+      - step:
+          name: Build
+          size: 2x
+          script:
+            - export IMAGE_NAME=$DOCKER_HUB_USERNAME/$APPLICATION_NAME:staging
+            - docker build -t $IMAGE_NAME .
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker push $IMAGE_NAME
+          services:
+            - docker
+      - step:
+          name: Deploy
           deployment: staging
           script:
-            - cat ./deploy.sh | ssh -tt staging@outright.xyz
-            - echo "Deploy step finished"
+            - sed -i "s|{{image}}|$DOCKER_HUB_USERNAME/$APPLICATION_NAME:staging|g" deployment.yaml
+            - pipe: atlassian/kubectl-run:1.1.6
+              variables:
+                KUBE_CONFIG: $KUBE_CONFIG
+                KUBECTL_COMMAND: 'apply'
+                RESOURCE_PATH: 'deployment.yaml'
+                KUBECTL_ARGS:
+                  - '--namespace=zmist'
     development:
       - step:
           caches:

@@ -15,6 +15,7 @@ export const CreateSingleArticleStore = (post, loaded, id) => {
 
 export const updateComments = (commentCount, comments, id) => {
   const singleArticleStore = SingleArticleStore.get();
+  console.log(singleArticleStore);
   singleArticleStore[id].commentCount = commentCount;
   singleArticleStore[id].comments = comments;
   SingleArticleStore.set(singleArticleStore);
