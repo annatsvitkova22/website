@@ -20,36 +20,38 @@ const EventsLikeSidebar = ({ data, withTime, withList, withAdress }) => {
           <div className="info-card__map">
             {data.eventAddress && <SimpleMap data={data.eventAddress} />}
           </div>
-          <div className="info-card__info-wrapper">
-            {withAdress && data.eventAddress && (
-              <div className="info-card__contact">
-                <span className="info-card__description info-card__phone">
-                  Адреса
-                </span>
-                <span className="info-card__item">
-                  {`м. ${
-                    data.eventAddress.city
-                  }, вул. ${data.eventAddress.streetName
-                    .split(' ')
-                    .slice(1, data.eventAddress.streetName.split(' ').length)
-                    .join(' ')},
+          {(data.contactInfo || data.eventSocials) && (
+            <div className="info-card__info-wrapper">
+              {withAdress && data.eventAddress && (
+                <div className="info-card__contact">
+                  <span className="info-card__description info-card__phone">
+                    Адреса
+                  </span>
+                  <span className="info-card__item">
+                    {`м. ${
+                      data.eventAddress.city
+                    }, вул. ${data.eventAddress.streetName
+                      .split(' ')
+                      .slice(1, data.eventAddress.streetName.split(' ').length)
+                      .join(' ')},
               ${data.eventAddress.streetNumber}`}
-                </span>
-              </div>
-            )}
-            {data.contactInfo && (
-              <>
-                <MapComponent data={data.contactInfo} type={'name'} />
-                <MapComponent data={data.contactInfo} type={'phone'} />
-                <MapComponent data={data.contactInfo} type={'email'} />
-              </>
-            )}
-            {data.eventSocials && (
-              <div className="info-card__social">
-                <MapIcons data={data.eventSocials} />
-              </div>
-            )}
-          </div>
+                  </span>
+                </div>
+              )}
+              {data.contactInfo && (
+                <>
+                  <MapComponent data={data.contactInfo} type={'name'} />
+                  <MapComponent data={data.contactInfo} type={'phone'} />
+                  <MapComponent data={data.contactInfo} type={'email'} />
+                </>
+              )}
+              {data.eventSocials && (
+                <div className="info-card__social">
+                  <MapIcons data={data.eventSocials} />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
     </>

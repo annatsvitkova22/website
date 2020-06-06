@@ -1,7 +1,7 @@
 .comments-pp {
   max-width: 910px;
   height: 100%;
-  margin: 47px auto;
+  margin: auto;
 
   background: #fff;
 
@@ -25,6 +25,8 @@
   &__wrapper {
     width: 100%;
     height: 100vh;
+    padding-top: 47px;
+    padding-bottom: 47px;
 
     position: fixed;
     top: 0;
@@ -38,6 +40,7 @@
   &__container {
     max-width: 648px;
     padding-top: 14px;
+    padding-bottom: 20px;
     margin: 0 auto;
 
     @include media-breakpoint-down(sm) {

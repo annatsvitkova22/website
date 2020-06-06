@@ -27,6 +27,7 @@
 
     opacity: 0;
     transition: all 0.3s;
+
     .info-card__date {
       display: block;
     }
@@ -69,6 +70,7 @@
   &__hero {
     margin-left: -20px;
     margin-right: -20px;
+    max-height: 650px;
 
     background-color: rgba(29, 158, 116, 0.2);
     @include media-breakpoint-up(md) {
@@ -111,6 +113,7 @@
       @include media-breakpoint-up(md) {
         display: block;
       }
+
       .meta-date-group {
         display: none;
       }
@@ -195,14 +198,21 @@
       font-size: 24px;
     }
   }
+
   &__hero-excerpt {
     max-width: 424px;
+    max-height: 100px;
 
+    font-family: $font-family-titles;
     font-weight: 500;
-  }
-  &__hero-excerpt > p {
-    margin-bottom: 18px;
+    font-size: 16px;
+    line-height: 1.65;
+    letter-spacing: 0.03em;
 
+    overflow: scroll;
+  }
+
+  &__hero-excerpt > p {
     font-family: $font-family-titles;
 
     font-size: 16px;
@@ -213,9 +223,12 @@
       margin-bottom: 24px;
     }
   }
+
   &__hero-location {
     display: flex;
     align-items: center;
+
+    padding-top: 25px;
 
     font-weight: 600;
     font-size: 15px;
@@ -252,6 +265,7 @@
   .sidebar-active {
     opacity: 1;
   }
+
   .article-list {
     &__item:not(:last-child) {
       margin-bottom: 15px;

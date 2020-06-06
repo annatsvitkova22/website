@@ -36,6 +36,10 @@
     }
   }
 
+  &__wrapper {
+    position: relative;
+  }
+
   &__col {
     @include media-breakpoint-between(sm, lg) {
       @include last-grid-row(2) {
@@ -51,7 +55,7 @@
   }
 
   &__container {
-    top: 218px;
+    bottom: 52px;
 
     opacity: 1;
     transition: opacity 0.3s ease-in;
