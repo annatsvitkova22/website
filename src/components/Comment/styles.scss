@@ -306,6 +306,10 @@
   .post-comments-count {
     > div {
       display: inline;
+
+      > span {
+        display: inline;
+      }
     }
   }
 }

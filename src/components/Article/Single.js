@@ -3,7 +3,6 @@ import Router from 'next/router';
 import StickyBox from 'react-sticky-box';
 import Head from 'next/head';
 import * as classnames from 'classnames';
-import gql from 'graphql-tag';
 import { useStateLink } from '@hookstate/core';
 import * as moment from 'moment';
 import getConfig from 'next/config';
@@ -27,7 +26,7 @@ import useViewsCounter from '~/hooks/useViewsCounter';
 import PublicationSingleLoader from '~/components/Loaders/PublicationSingleLoader';
 import ArticlePublicationBanner from '~/components/Article/Publications/Banner';
 import ArticleDate from '~/components/Article/Date';
-import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
+import BrandedHeader from '~/components/BrandedHeader';
 
 const { publicRuntimeConfig } = getConfig();
 const config = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
@@ -158,6 +157,7 @@ const ArticleSingle = ({
           <>
             {storedPost ? (
               <>
+                <BrandedHeader post={storedPost} />
                 <ArticlePublicationBanner
                   className="single-post__banner"
                   post={storedPost}

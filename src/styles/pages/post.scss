@@ -631,3 +631,30 @@
     display: none;
   }
 }
+
+.branded-header {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  height: 68px;
+
+  padding: 18px 0;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background-color: #fff;
+
+  z-index: 99;
+
+  img {
+    max-width: 80px;
+  }
+
+  @media (max-width: 1200px) {
+    display: flex;
+  }
+}

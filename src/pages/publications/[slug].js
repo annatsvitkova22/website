@@ -63,6 +63,12 @@ const NEWPUBLICATION = gql`
         zmPublicationsACF {
           bannerstyle
         }
+        zmBrandedPublication {
+          logo {
+            mediaItemUrl
+            title
+          }
+        }
         ${singleContentCommon}
       }
     }
