@@ -70,7 +70,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
           return (
             <div className="col-md-4" key={crowdfunding.id}>
               <Article
-                imageSize={'mediumLarge'}
+                imageSize={'zm_md_rect'}
                 type={'crowdfundings'}
                 post={crowdfunding}
               />
