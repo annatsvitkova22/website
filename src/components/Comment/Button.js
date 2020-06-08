@@ -6,7 +6,6 @@ import CommentPopup from '~/components/Comment/Popup';
 import Icons from '~/components/Icons';
 
 const CommentButton = ({ post, postId }) => {
-  const { commentCount } = post;
   const [popupIsOpen, setPopupIsOpen] = useState(false);
 
   const handleOpen = () => {

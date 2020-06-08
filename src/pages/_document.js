@@ -27,16 +27,6 @@ class ZmistDocument extends Document {
           <div id="modal" />
           <NextScript />
         </body>
-        {process.env.ENV === 'staging' && (
-          <script type="text/javascript" src="/scripts/usersnap.js" />
-        )}
-        <script async src="//www.instagram.com/embed.js" />
-        <script
-          id="widget-wfp-script"
-          language="javascript"
-          type="text/javascript"
-          src="https://secure.wayforpay.com/server/pay-widget.js"
-        />
       </Html>
     );
   }
