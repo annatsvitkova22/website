@@ -36,7 +36,8 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: zmist-website
-  strategy: {}
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
