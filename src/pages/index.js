@@ -16,7 +16,6 @@ import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
 import BlogsScene from '~/scenes/BlogsScene';
 import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
-import MainPublications from '~/components/MainPublications';
 import HomeHeroLoader from '~/components/Loaders/Home/Hero';
 
 const { publicRuntimeConfig } = getConfig();
