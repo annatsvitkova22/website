@@ -18,6 +18,12 @@ const BlogsScene = ({ users: { nodes: users } }) => (
           },
           i
         ) => {
+          let avatarImage = '';
+
+          if (avatar) {
+            avatarImage = avatar.zm_xs ? avatar.zm_xs : avatar.mediaItemUrl;
+          }
+
           return (
             <div key={i} className="col-xl-3 col-sm-6 blogs-user__col">
               <div className="blogs-user__wrapper">
@@ -28,7 +34,7 @@ const BlogsScene = ({ users: { nodes: users } }) => (
                       style={
                         avatar
                           ? {
-                            backgroundImage: `url(${avatar.mediaItemUrl})`,
+                            backgroundImage: `url(${avatarImage})`,
                           }
                           : {
                             backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
