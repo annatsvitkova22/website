@@ -1102,7 +1102,7 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
 
-"@types/prop-types@*":
+"@types/prop-types@*", "@types/prop-types@^15.5.3":
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
@@ -7802,6 +7802,14 @@ react-datepicker@^2.14.1:
     react-onclickoutside "^6.9.0"
     react-popper "^1.3.4"
 
+react-deco@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-deco/-/react-deco-0.7.0.tgz#429904968240bc85f3c6b232c27aefda00e9512d"
+  integrity sha512-49YZJY/k9gSa3R6KrBxXEaGjk1xJky5kH9o5FMEE2zes8xrUqQx7aBwAxqvXSK9Pgck7r6zioRqbYY2JzHchdQ==
+  dependencies:
+    "@types/prop-types" "^15.5.3"
+    prop-types "^15.6.2"
+
 react-dev-utils@^10.2.1:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"
@@ -7981,6 +7989,14 @@ react-popper@^1.3.4:
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
     warning "^4.0.2"
+
+react-progressive-loader@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-progressive-loader/-/react-progressive-loader-0.4.1.tgz#064b7e9b5761896b1129e0e6629e470ae09c09bf"
+  integrity sha512-aFL7FIdvEFAcBhK7yhAnYcSKsjcucxSd6lcpKZO5RVoEwOltPoLBLvh25AKwl25kmO/gPX5vaWe5RNXUnRPQJw==
+  dependencies:
+    prop-types "^15.6.2"
+    react-deco "^0.7.0"
 
 react-proptype-conditional-require@^1.0.4:
   version "1.0.4"
