@@ -48,6 +48,7 @@ const HOME_PAGE = gql`
             }
             featuredImage {
               mediaItemUrl
+              frontHeroImage: sourceUrl(size: FRONT_HERO_IMAGE)
             }
           }
         }
