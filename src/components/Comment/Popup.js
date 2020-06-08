@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
+import { FacebookProvider, Comments } from 'react-facebook';
 
 import ShareItems from '~/components/Share';
 import Comment from '~/components/Comment/index';
@@ -35,20 +36,25 @@ const CommentPopup = ({ post, postId }) => {
                 <Icons icon={'close-comment'} />
               </button>
             </div>
-            <div className="comments-pp__container">
+            <div className="comments-pp__container container">
               <div className={'comments-pp__header'}>
                 <span>Коментарі</span>
                 <ShareItems className={'comments-pp__socials-items'} />
               </div>
-              <CommentForm post={post} postId={postId} />
-              {comments.nodes.map((comment) => (
-                <Comment
-                  key={comment.commentId}
-                  post={post}
-                  comment={comment}
-                  postId={postId}
-                />
-              ))}
+
+              <FacebookProvider appId="595420217740360" language={'uk_UA'}>
+                <Comments href={window.location.href} />
+              </FacebookProvider>
+
+              {/*<CommentForm post={post} postId={postId} />*/}
+              {/*{comments.nodes.map((comment) => (*/}
+              {/*  <Comment*/}
+              {/*    key={comment.commentId}*/}
+              {/*    post={post}*/}
+              {/*    comment={comment}*/}
+              {/*    postId={postId}*/}
+              {/*  />*/}
+              {/*))}*/}
             </div>
           </div>
         </div>

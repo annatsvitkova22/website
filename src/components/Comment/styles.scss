@@ -273,6 +273,12 @@
   .svg-icon:hover {
     color: #000;
   }
+
+  .post-comments-count {
+    > div {
+      display: inline;
+    }
+  }
 }
 
 .comments-button:hover {

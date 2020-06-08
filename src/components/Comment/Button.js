@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useStateLink } from '@hookstate/core';
+import { FacebookProvider, CommentsCount } from 'react-facebook';
 
 import CommentPopup from '~/components/Comment/Popup';
 import Icons from '~/components/Icons';
 import PostStore from '~/stores/Post';
 
 const CommentButton = ({ post, postId }) => {
-  const { commentCount } = post;
   const state = useStateLink(PostStore);
 
   const changeVisibility = () => {
@@ -26,7 +26,15 @@ const CommentButton = ({ post, postId }) => {
     <>
       <button className={`comments-button`} onClick={changeVisibility}>
         <Icons icon={'comment'} />
-        <span>Коментарі ({commentCount || '0'})</span>
+        <span className={'post-comments-count'}>
+          Коментарі (
+          {typeof window !== 'undefined' && (
+            <FacebookProvider appId="595420217740360" language={'uk_UA'}>
+              <CommentsCount href={window.location.href} />
+            </FacebookProvider>
+          )}
+          )
+        </span>
       </button>
       <CommentPopup post={post} postId={postId} />
     </>
