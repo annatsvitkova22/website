@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import * as classnames from 'classnames';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { Img } from 'react-progressive-loader';
 
 import ArticleContext from '~/components/Article/Context';
 
@@ -34,7 +35,12 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
               ${!imageUrl ? `article-featured__image--empty` : ''}
             `}
             >
-              {imageUrl && <img src={imageUrl} alt={alt} />}
+              {imageUrl && <Img
+                src={imageUrl}
+                alt={alt}
+                bgColor="#1d9e74"
+                loadOnScreen
+              />}
             </figure>
           </a>
         </Link>
@@ -57,7 +63,12 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
               ${!imageUrl ? `article-featured__image--empty` : ''}
             `}
           >
-            {imageUrl && <img src={imageUrl} alt={alt} />}
+            {imageUrl && <Img
+              src={imageUrl}
+              alt={alt}
+              bgColor="#1d9e74"
+              loadOnScreen
+            />}
           </figure>
         </a>
       </Link>
