@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PartnersLogo = (props) => {
-  const { partnersData, className = '' } = props;
-
+const PartnersLogo = ({ partnersData, className = '' }) => {
   return (
     <div className={`footer__sitemap-list ${className}`}>
       <div className="footer__sitemap-title partners-img">Наші партнери</div>
@@ -13,7 +11,6 @@ const PartnersLogo = (props) => {
             return (
               <li className="footer__sitemap-partner" key={i}>
                 <a
-                  rel="noopener noreferrer"
                   href={item.url}
                   title={item.name}
                   className="partners-logo"
@@ -34,16 +31,7 @@ const PartnersLogo = (props) => {
 };
 PartnersLogo.propTypes = {
   className: PropTypes.string,
-  partnersData: PropTypes.arrayOf(
-    PropTypes.shape({
-      url: PropTypes.string,
-      name: PropTypes.string,
-      logo: PropTypes.shape({
-        mediaItemUrl: PropTypes.string,
-        title: PropTypes.string,
-      }),
-    })
-  ),
+  partnersData: PropTypes.any,
 };
 
 export default PartnersLogo;

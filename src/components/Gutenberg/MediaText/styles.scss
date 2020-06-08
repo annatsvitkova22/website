@@ -26,25 +26,37 @@
 
     &--right {
       order: 2;
+
+      & + .mtext__content {
+        order: 1;
+      }
     }
+
     &--left {
       order: 1;
-    }
-    img {
-      height: 100%;
 
+      & + .mtext__content {
+        order: 2;
+      }
+    }
+
+    img {
       object-fit: cover;
     }
   }
+
   .mtext-text {
     max-width: 100%;
   }
+
   .has-text-align-center {
     text-align: center;
   }
+
   .has-text-align-right {
     text-align: right;
   }
+
   .mtext__content {
     display: flex;
     flex-direction: column;
@@ -58,9 +70,7 @@
 
     @include media-breakpoint-down(xs) {
       width: 100% !important;
-      padding-left: 0;
-      padding-right: 0;
-      padding-bottom: 20px;
+      padding: 20px 0;
       & > div {
         padding-bottom: 0;
       }

@@ -23,6 +23,9 @@
   &-wrapper:not(:first-child) {
     margin-top: 15px;
   }
+  .branded-logo {
+    max-width: 80px;
+  }
 }
 .like {
   display: flex;

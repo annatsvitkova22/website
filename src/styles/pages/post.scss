@@ -23,8 +23,8 @@
     }
 
     .expand-image {
-      bottom: 30px;
-      right: 40px;
+      bottom: 20px;
+      right: 20px;
 
       cursor: zoom-in;
 
@@ -226,6 +226,8 @@
 
   .side-bar__sticky {
     height: 200px;
+
+    z-index: 100;
   }
 
   &__block-wrapper {
@@ -384,9 +386,10 @@
 
   &-about {
     display: flex;
+    align-items: center;
   }
 
-  &-image.avatar {
+  &-image {
     width: 44px;
     height: 44px;
 
@@ -394,6 +397,7 @@
     padding: 0;
 
     border: none;
+    border-radius: 50%;
     background-color: transparentize($green, 0.5);
   }
 
@@ -430,6 +434,16 @@
     display: flex;
 
     margin-left: auto;
+    .share-actions__main {
+      @include media-breakpoint-down(sm) {
+        & .social-icon {
+          margin-right: 30px;
+        }
+        & > *:last-child {
+          display: none;
+        }
+      }
+    }
 
     & > a {
       display: flex;

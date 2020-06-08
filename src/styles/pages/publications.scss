@@ -149,6 +149,12 @@
             max-width: none;
             padding-left: 0;
             padding-right: 0;
+
+            break-inside: avoid;
+          }
+          &__title {
+            margin-top: 16px;
+            margin-bottom: 14px;
           }
         }
       }
@@ -164,6 +170,16 @@
 
     @include media-breakpoint-up(md) {
       margin-left: 16.66667%;
+    }
+    .branded-logo {
+      max-width: 90px;
+
+      position: absolute;
+      top: 82px;
+      left: 60px;
+      @include media-breakpoint-down(lg) {
+        display: none;
+      }
     }
   }
 

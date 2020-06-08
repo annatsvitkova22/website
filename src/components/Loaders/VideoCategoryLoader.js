@@ -1,10 +1,24 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import PropTypes from 'prop-types';
 
 const VideoCategoryLoader = ({
   backgroundColor = '#333',
   foregroundColor = '#999',
+  type,
 }) => {
+  if (type === 'mobile') {
+    return (
+      <ContentLoader
+        viewBox={'0 0 335 318'}
+        {...{ backgroundColor, foregroundColor }}
+      >
+        <rect x={'0'} y={'0'} width={'335'} height={`201`} />
+        <rect x={'0'} y={'217'} width={'335'} height={`17`} />
+        <rect x={'0'} y={'243'} width={'335'} height={`51`} />
+      </ContentLoader>
+    );
+  }
   return (
     <div className="container">
       <ContentLoader
@@ -41,6 +55,11 @@ const VideoCategoryLoader = ({
       </ContentLoader>
     </div>
   );
+};
+VideoCategoryLoader.propTypes = {
+  backgroundColor: PropTypes.string,
+  foregroundColor: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default VideoCategoryLoader;

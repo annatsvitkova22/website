@@ -15,6 +15,7 @@ export const CreateSingleArticleStore = (post, loaded, id) => {
 
 export const updateComments = (commentCount, comments, id) => {
   const singleArticleStore = SingleArticleStore.get();
+  console.log(singleArticleStore);
   singleArticleStore[id].commentCount = commentCount;
   singleArticleStore[id].comments = comments;
   SingleArticleStore.set(singleArticleStore);
@@ -31,7 +32,7 @@ export const updateShares = (shares, id) => {
   singleArticleStore[id].cfACF.shared = shares;
   SingleArticleStore.set(singleArticleStore);
 };
-//Update this query ????
+// Update this query ????
 export const updatePost = async (query, slug, postId) => {
   const singleArticleStore = SingleArticleStore.get();
   const { data } = await apolloClient.query({

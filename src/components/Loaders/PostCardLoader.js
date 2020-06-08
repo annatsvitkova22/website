@@ -3,6 +3,16 @@ import ContentLoader from 'react-content-loader';
 import PropTypes from 'prop-types';
 
 const PostCardLoader = ({ type }) => {
+  if (type === 'mobile') {
+    return (
+      <ContentLoader viewBox={'0 0 335 110'}>
+        <rect x={'0'} y={'0'} width={'235'} height={`36`} />
+        <rect x={'0'} y={'44'} width={'235'} height={`16`} />
+        <rect x={'0'} y={'68'} width={'235'} height={`22`} />
+        <rect x={'262'} y={'0'} width={'90'} height={`90`} />
+      </ContentLoader>
+    );
+  }
   if (type === 'small') {
     return (
       <ContentLoader viewBox={'0 0 425 410'}>

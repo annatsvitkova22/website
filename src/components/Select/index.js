@@ -55,7 +55,6 @@ const SiteSelect = (props) => {
   const v = options.find((i) => i.active);
 
   const ref = React.useRef();
-  console.log(ref);
 
   if (!isMobile) {
     return (

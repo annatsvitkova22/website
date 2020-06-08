@@ -6,6 +6,8 @@
   top: 0;
   left: 0;
 
+  z-index: 20;
+
   &__close {
     height: 20px;
     width: 16px;
@@ -44,7 +46,7 @@
   left: 50%;
 
   background-color: $white;
-  
+
   transform: translate(-50%, -50%);
 }
 

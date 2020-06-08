@@ -1,5 +1,8 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import PropTypes from 'prop-types';
+
+import Post from '~/pages/news/[slug]';
 
 const PostHeaderLoader = ({ type }) => {
   if (type === 'news') {
@@ -107,9 +110,7 @@ const PostHeaderLoader = ({ type }) => {
                 </ContentLoader>
               </div>
               <div className="content__posts">
-                <ContentLoader
-                  viewBox={'0 0 648 500'}
-                >
+                <ContentLoader viewBox={'0 0 648 500'}>
                   <rect x={'0'} y={'0'} width={'648'} height={'500'} />
                 </ContentLoader>
               </div>
@@ -161,17 +162,12 @@ const PostHeaderLoader = ({ type }) => {
         </aside>
       </>
     );
-    return (
-      <ContentLoader viewBox={'0 0 1044 1000'}>
-        <rect x={'0'} y={'0'} width={'1044'} height={'535'} />
-        <rect x={'0'} y={'550'} width={'60'} height={'15'} />
-        <rect x={'0'} y={'570'} width={'875'} height={'15'} />
-        <rect x={'0'} y={'590'} width={'750'} height={'15'} />
-        <rect x={'0'} y={'630'} width={'1044'} height={'535'} />
-      </ContentLoader>
-    );
   }
   return null;
+};
+
+PostHeaderLoader.propTypes = {
+  type: PropTypes.string,
 };
 
 export default PostHeaderLoader;

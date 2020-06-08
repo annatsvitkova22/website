@@ -8,6 +8,7 @@
   left: 50%;
 
   transform: translate(-50%);
+
   &__list {
     display: flex;
 
@@ -18,6 +19,7 @@
     .slick-active {
       background-color: #1d9e74;
     }
+
     li {
       width: 100%;
       height: 7px;
@@ -25,10 +27,12 @@
       border-radius: 6px;
 
       background-color: #ffffff;
+
       button {
         font-size: 0;
         color: transparent;
       }
+
       &:not(:last-child) {
         margin-right: 2px;
       }
@@ -51,7 +55,12 @@
       }
     }
   }
+
+  @include media-breakpoint-down(sm) {
+    display: none !important;
+  }
 }
+
 .slick-next {
   width: 36px;
   height: 36px;
@@ -64,6 +73,7 @@
     right: 0;
   }
 }
+
 .slick-prev {
   width: 36px;
   height: 36px;

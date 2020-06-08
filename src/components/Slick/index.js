@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
+import PropTypes from 'prop-types';
 
 import Icons from '~/components/Icons';
 
-const img = [
-  {
-    source:
-      'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg',
-  },
-  {
-    source:
-      'https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg',
-  },
-];
 const svg = (
   <svg
     width="12"
@@ -54,12 +45,9 @@ const SamplePrevArrow = ({ className, style, onClick }) => {
 };
 
 const Slick = ({ images, handleOpen, imageRef }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const toggleModal = () => {
-    setModalIsOpen(!modalIsOpen);
-  };
   const settings = {
     dots: true,
+    adaptiveHeight: true,
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
@@ -81,40 +69,43 @@ const Slick = ({ images, handleOpen, imageRef }) => {
             ref={imageRef || null}
           >
             <figure className="slick__figure">
-              <img
-                src={image.original}
-                alt="slick-image"
-                className="slick__img"
-              />
-              <span className="slick__overlay" />
-              {image.author ||
-                (image.description && (
-                  <caption className="slick__caption">
-                    {image.author && (
-                      <span className="slick__author">{image.description}</span>
-                    )}
-                    {image.description && (
-                      <span className="slick__description">
-                        {image.description}
-                      </span>
-                    )}
-                  </caption>
-                ))}
-              <div className="slick__info">
-                <Icons icon={'gallery'} className="slick__info-icon" />
-                <span className="slick__info-count">
-                  {images.length} зображень
-                </span>
+              <div className="slick__img-container">
+                <img
+                  src={image.original}
+                  alt="slick-image"
+                  className="slick__img"
+                />
+                <span className="slick__overlay" />
+                <div className="slick__info">
+                  <Icons icon={'gallery'} className="slick__info-icon" />
+                  <span className="slick__info-count">
+                    {images.length} зображень
+                  </span>
+                </div>
+                <button className={'expand-image'}>
+                  <Icons icon={'expand'} />
+                </button>
               </div>
-              <button className={'expand-image'}>
-                <Icons icon={'expand'} />
-              </button>
+              <caption className="slick__caption">
+                {image.author && (
+                  <span className="slick__author">{image.description}</span>
+                )}
+                <span className="slick__description">
+                  {image.description ? image.description : 'Фото'}
+                </span>
+              </caption>
             </figure>
           </div>
         );
       })}
     </Slider>
   );
+};
+
+Slick.propTypes = {
+  images: PropTypes.any,
+  handleOpen: PropTypes.func,
+  imageRef: PropTypes.any,
 };
 
 export default Slick;

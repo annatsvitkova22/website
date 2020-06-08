@@ -63,11 +63,11 @@ const HOME_PAGE = gql`
     }
 
     users(
-      first: 4
       where: {
         orderby: { field: REGISTERED, order: ASC }
         hasPublishedPosts: BLOG
       }
+      first: 4
     ) {
       nodes {
         name
@@ -85,7 +85,7 @@ const HOME_PAGE = gql`
             url
           }
         }
-        blogs(first: 1) {
+        blogs(first: 3) {
           nodes {
             id
             title
@@ -289,7 +289,7 @@ const CATEGORIES = gql`
           showOnPublications
           size
         }
-        publications {
+        publications(first: 10) {
           nodes {
             slug
             title
@@ -436,7 +436,7 @@ const Home = (props) => {
         </OpportunitiesScene>
 
         <SectionHeading title="Афіша" href="/events" classMode="events" />
-        <EventsScene {...{ events, isLoading }} form={true}>
+        <EventsScene {...{ events, isLoading }} hasForm={true}>
           {typeof events === 'undefined' && (
             <Waypoint onEnter={loadData(EVENTS)} />
           )}

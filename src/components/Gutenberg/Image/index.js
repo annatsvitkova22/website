@@ -34,12 +34,28 @@ const Image = ({ block, className = '' }) => {
 
   const img = [
     {
-      src: block.imageAttributes.url,
-      w: block.imageAttributes.width,
-      h: block.imageAttributes.height,
-      title: block.imageAttributes.caption,
+      html: `
+      <div class="news-pswp flex-column flex-lg-row">
+        <div class="news-pswp__wrap-img">
+          <img class="news-pswp__img" src="${block.imageAttributes.url}" alt="${
+        block.imageAttributes.caption
+      }"/>
+        </div>
+        ${
+          block.imageAttributes.caption
+            ? `<div class="news-pswp__caption">
+            <p class="news-pswp__caption-inner tx-family-titles">
+            ${block.imageAttributes.caption}
+            </p>
+          </div>`
+            : ``
+        }
+        
+      </div>
+  `,
     },
   ];
+
   if (block.imageAttributes.linkDestination) {
     return (
       <div className={`gutenberg__image ${className}`}>
@@ -91,6 +107,7 @@ const Image = ({ block, className = '' }) => {
       </a>
     );
   }
+
   return image;
 };
 

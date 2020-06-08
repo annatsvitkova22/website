@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import PropTypes from 'prop-types';
 
 const mapContainter = (props) => {
   const { google, data } = props;
@@ -21,6 +22,11 @@ const mapContainter = (props) => {
       />
     </Map>
   );
+};
+
+mapContainter.propTypes = {
+  google: PropTypes.any,
+  data: PropTypes.any,
 };
 
 export default GoogleApiWrapper({

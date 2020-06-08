@@ -141,6 +141,9 @@ const Share = ({
 
 Share.propTypes = {
   className: PropTypes.string,
+  type: PropTypes.any,
+  onShared: PropTypes.func,
+  color: PropTypes.string,
 };
 
 export default Share;

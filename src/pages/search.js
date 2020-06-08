@@ -448,11 +448,27 @@ const Search = ({ posts, categories, types, query, users }) => {
           </div>
         </div>
         <main className="search-results">
-          <NewsLoader />
-          <NewsLoader />
-          <NewsLoader />
-          <NewsLoader />
-          <NewsLoader />
+          <div className="loader-container__desktop">
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+            <NewsLoader />
+          </div>
+          <div
+            className="loader-container__mobile"
+            style={{ padding: '0 20px 0 20px' }}
+          >
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+            <NewsLoader type={'mobile'} />
+          </div>
         </main>
       </div>
     );
@@ -623,6 +639,10 @@ const Search = ({ posts, categories, types, query, users }) => {
 
 Search.propTypes = {
   posts: PropTypes.any,
+  categories: PropTypes.array,
+  types: PropTypes.object,
+  query: PropTypes.object,
+  users: PropTypes.array,
 };
 
 Search.getInitialProps = async ({ query }) => {

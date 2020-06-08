@@ -125,20 +125,18 @@ const Other = (props) => {
     <div className="single__event">
       <Head>
         <title>ЗМІСТ - {other.title}</title>
-        {other &&
-          other.featuredImage &&
-          other.featuredImage.mediaItemUrl && (
-            <>
-              <meta
-                property="twitter:image"
-                content={other.featuredImage.mediaItemUrl}
-              />
-              <meta
-                property="og:image"
-                content={other.featuredImage.mediaItemUrl}
-              />
-            </>
-          )}
+        {other && other.featuredImage && other.featuredImage.mediaItemUrl && (
+          <>
+            <meta
+              property="twitter:image"
+              content={other.featuredImage.mediaItemUrl}
+            />
+            <meta
+              property="og:image"
+              content={other.featuredImage.mediaItemUrl}
+            />
+          </>
+        )}
       </Head>
 
       <main className="event">
@@ -200,6 +198,8 @@ const Other = (props) => {
 
 Other.propTypes = {
   opportunity: PropTypes.object,
+  slug: PropTypes.string,
+  props: PropTypes.any,
 };
 
 Other.getInitialProps = async ({ query: { slug } }) => {

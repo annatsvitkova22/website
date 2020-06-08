@@ -15,7 +15,7 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
   }
 
   if (size) {
-    imageUrl = image[size];
+    imageUrl = image[size] ? image[size] : image.mediaItemUrl;
   }
 
   if (postType === 'pages') {

@@ -61,12 +61,25 @@
       margin-bottom: 10px;
     }
 
+    &--grey-big {
+      .article-title__link {
+        font-weight: 800;
+        font-size: 32px;
+        line-height: 1.26;
+        letter-spacing: -0.02em;
+      }
+    }
     &--on-medium {
       .article-title__link {
-        line-height: 32px;
+        line-height: 1.26;
+
+        @include media-breakpoint-up(md) {
+          line-height: 1.3;
+        }
       }
+
       @include media-breakpoint-up(md) {
-        margin-bottom: 15px;
+        margin-bottom: 16px;
       }
     }
 
@@ -86,7 +99,7 @@
       &-small,
       &-medium,
       &-big {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
     }
 
@@ -108,7 +121,7 @@
 
   &__wrapper {
     &--grey {
-      padding: 23px 20px 24px;
+      padding: 69px 49px 69px 49px;
     }
 
     &--under {
@@ -265,9 +278,11 @@
           padding-bottom: 62.99%;
         }
       }
+
       .meta-author {
         font-weight: 600;
       }
+
       .article-title__link {
         @include media-breakpoint-down(sm) {
           font-size: 18px;
@@ -341,6 +356,7 @@
         }
       }
     }
+
     &-small {
       .article-title__link {
         line-height: 1.35;

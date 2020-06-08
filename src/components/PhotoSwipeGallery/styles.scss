@@ -14,6 +14,9 @@
 
     line-height: 1.3;
     letter-spacing: 0.06em;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 9px;
+    }
   }
 
   &__name {
@@ -73,6 +76,9 @@
   &__thumbnail {
     padding-bottom: 61.53%;
     margin-bottom: 14px;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 16px;
+    }
 
     svg {
       width: 24px;
@@ -87,12 +93,14 @@
 
 .video-popup {
   &__title {
-    margin-bottom: 11px;
+    margin-bottom: 12px;
   }
 
   &__excerpt {
     p {
-      margin-bottom: 17px;
+      margin-bottom: 20px;
+
+      font-family: $font-family-titles;
     }
   }
 }
@@ -103,6 +111,7 @@
   &__item + &__item {
     margin-left: 21px;
   }
+
   &__item:hover > a > svg > path {
     fill: $green;
   }

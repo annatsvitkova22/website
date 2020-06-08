@@ -12,6 +12,8 @@
   opacity: 0;
 
   transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 50;
 }
 .scroll-top--active {
   opacity: 1;
@@ -33,12 +35,15 @@
   background-color: #fff;
 
   transition: all 0.3s;
+
+  pointer-events: all;
+
+  z-index: 50;
   &:hover {
     border-color: #242424;
     svg > path {
       fill: #1d9e74;
     }
-
   }
   &:focus {
     outline: none;

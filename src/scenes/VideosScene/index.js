@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
+import getConfig from 'next/config';
 
 import PhotoSwipeGallery from '~/components/PhotoSwipeGallery';
 import {
@@ -13,7 +14,6 @@ import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
 const VideosScene = ({ videos = {}, isLoading, children }) => {
   const [state, setState] = useState(false);
-
   useEffect(() => {
     const updateVideos = async () => {
       try {
@@ -45,14 +45,38 @@ const VideosScene = ({ videos = {}, isLoading, children }) => {
     return (
       <div className="videos-scene__loader container">
         <div className="row">
-          <VideoCategoryLoader
-            backgroundColor="#f5f6f7"
-            foregroundColor="#eee"
-          />
-          <VideoCategoryLoader
-            backgroundColor="#f5f6f7"
-            foregroundColor="#eee"
-          />
+          <div className="loader-container__desktop">
+            <VideoCategoryLoader
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+          </div>
+          <div className="loader-container__desktop">
+            <VideoCategoryLoader
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+          </div>
+          <div
+            className="loader-container__mobile"
+            style={{ padding: '0 20px 0 20px' }}
+          >
+            <VideoCategoryLoader
+              type={'mobile'}
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+            <VideoCategoryLoader
+              type={'mobile'}
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+            <VideoCategoryLoader
+              type={'mobile'}
+              backgroundColor="#f5f6f7"
+              foregroundColor="#eee"
+            />
+          </div>
         </div>
       </div>
     );

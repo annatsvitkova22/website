@@ -69,32 +69,56 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
       <div className="container">
         <div className="crowdfundings-archive">
           <main className="row crowdfundings-archive__articles">
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
+            <div className="loader-container__desktop">
+              <div className="row">
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-md-4">
+                  <PostCardLoader type="small" />
+                </div>
+              </div>
             </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
-            </div>
-            <div className="col-md-4">
-              <PostCardLoader type="small" />
+            <div className="loader-container__mobile">
+              <div className="col-12">
+                <PostCardLoader type="mobile" />
+              </div>
+              <div className="col-12">
+                <PostCardLoader type="mobile" />
+              </div>
+              <div className="col-12">
+                <PostCardLoader type="mobile" />
+              </div>
+              <div className="col-12">
+                <PostCardLoader type="mobile" />
+              </div>
+              <div className="col-12">
+                <PostCardLoader type="mobile" />
+              </div>
+              <div className="col-12">
+                <PostCardLoader type="mobile" />
+              </div>
             </div>
           </main>
         </div>

@@ -360,7 +360,6 @@ VideosArchive.getInitialProps = async ({ query }) => {
       },
     };
   });
-  console.log(videos);
 
   const categories = addCategoryVideosDurations(
     data.categories.nodes,

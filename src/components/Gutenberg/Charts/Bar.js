@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
 
-const BarChart = ({ chart, adOptions }) => {
+const BarChart = ({ chart, adOptions, isMobile }) => {
   const parsed = Papa.parse(chart.data.csv);
 
   const clearData = [
@@ -33,7 +33,7 @@ const BarChart = ({ chart, adOptions }) => {
       <Bar
         options={{
           title: { display: true },
-          legend: { display: true },
+          legend: { display: isMobile },
           maintainAspectRatio: true,
         }}
         data={newChartData}
@@ -45,6 +45,7 @@ const BarChart = ({ chart, adOptions }) => {
 BarChart.propTypes = {
   chart: PropTypes.any,
   adOptions: PropTypes.any,
+  isMobile: PropTypes.bool,
 };
 
 export default BarChart;

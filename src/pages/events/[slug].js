@@ -203,17 +203,14 @@ const Event = (props) => {
             >
               <div className="event__hero-inner container">
                 <EventHeader event={event} withTime={isTimeExist} />
-                {event.zmAfishaACF.eventTime &&
-                  event.zmAfishaACF.eventDate &&
-                  event.zmAfishaACF.eventSocials &&
-                  event.zmAfishaACF.eventAddress && (
-                    <div className="event__info-card">
-                      <EventsLikeSidebar
-                        data={event.zmAfishaACF}
-                        withTime={isTimeExist}
-                      />
-                    </div>
-                  )}
+                {event.zmAfishaACF && (
+                  <div className="event__info-card">
+                    <EventsLikeSidebar
+                      data={event.zmAfishaACF}
+                      withTime={isTimeExist}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </section>
@@ -233,30 +230,24 @@ const Event = (props) => {
                 )}
               </div>
             </div>
-            {event.zmAfishaACF.eventTime &&
-              event.zmAfishaACF.eventDate &&
-              event.zmAfishaACF.eventSocials &&
-              event.zmAfishaACF.eventAddress && (
-                <StickyBox
-                  className={'event__sticky-wrapper'}
-                  offsetTop={20}
-                  offsetBottom={20}
-                  style={{
-                    height: 'fit-content',
-                    width: '100%',
-                    maxWidth: '344px',
-                  }}
+            {event.zmAfishaACF && (
+              <StickyBox
+                className={'event__sticky-wrapper'}
+                offsetTop={20}
+                offsetBottom={20}
+                style={{
+                  height: 'fit-content',
+                  width: '100%',
+                  maxWidth: '344px',
+                }}
+              >
+                <div
+                  className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
                 >
-                  <div
-                    className={`event__info-card event__sticky-sidebar ${sideBarCls}`}
-                  >
-                    <EventsLikeSidebar
-                      data={event.zmAfishaACF}
-                      withTime={true}
-                    />
-                  </div>
-                </StickyBox>
-              )}
+                  <EventsLikeSidebar data={event.zmAfishaACF} withTime={true} />
+                </div>
+              </StickyBox>
+            )}
           </section>
         </div>
         <EventsScene events={events} form={false} />
@@ -268,6 +259,7 @@ const Event = (props) => {
 Event.propTypes = {
   event: PropTypes.object,
   events: PropTypes.object,
+  slug: PropTypes.string,
 };
 
 Event.getInitialProps = async ({ query: { slug } }) => {

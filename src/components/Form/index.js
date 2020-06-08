@@ -4,8 +4,9 @@ import { useStateLink } from '@hookstate/core';
 import axios from 'axios';
 import getConfig from 'next/config';
 import * as _ from 'lodash';
+import PropTypes from 'prop-types';
 
-import Polls from '~/components/Polls';
+import Polls from '~/components/Gutenberg/Polls';
 import { AuthStore } from '~/stores/Auth';
 import FormField from '~/components/Form/Field';
 import FormLoader from '~/components/Loaders/FormLoader';
@@ -115,6 +116,7 @@ const Form = ({ id, className, gutenbergType }) => {
       setValues(clearedValues);
       setCleared(true);
     }, 10000);
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   const handleChange = ({ value, name }) => {
@@ -162,6 +164,12 @@ const Form = ({ id, className, gutenbergType }) => {
       />
     </form>
   );
+};
+
+Form.propTypes = {
+  id: PropTypes.any,
+  className: PropTypes.string,
+  gutenbergType: PropTypes.any,
 };
 
 export default Form;

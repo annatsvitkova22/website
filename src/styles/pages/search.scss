@@ -226,6 +226,7 @@
 
             transform: translateY(-50%);
           }
+
           &--menu-is-open {
             &::before {
               display: none;
@@ -243,6 +244,7 @@
   @include media-breakpoint-down(sm) {
     margin-top: 24px;
   }
+
   .date-separator {
     padding-left: 110px;
 
@@ -305,6 +307,12 @@
       }
     }
 
+    &__meta {
+      .article__author {
+        color: #b0b0b0;
+      }
+    }
+
     &__title {
       font-size: 18px;
 
@@ -351,6 +359,7 @@
       .article-featured__image {
         height: 100%;
       }
+
       .article-featured__link {
         height: 100%;
       }

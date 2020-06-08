@@ -19,29 +19,30 @@ const BlogsScene = ({ users: { nodes: users } }) => (
         ) => {
           return (
             <div key={i} className="col-xl-3 col-sm-6 blogs-user__col">
-              <Link href={`/blogs/author/${slug}`}>
-                <a
-                  className="blogs-user__avatar bg-cover d-block pos-relative"
-                  style={
-                    avatar
-                      ? {
-                          backgroundImage: `url(${avatar.mediaItemUrl})`,
-                        }
-                      : {
-                          backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
-                        }
-                  }
-                >
-                  <span className="blogs-user__container tx-white d-block pos-absolute l-24 r-24 b-52">
-                    <span className="blogs-user__name h4 font-weight-extrabold d-block">
-                      {name}
-                    </span>
-                    <span className="blogs-user__info d-block font-weight-medium">
-                      {info}
-                    </span>
+              <div className="blogs-user__wrapper">
+                <Link href={`/blogs/author/${slug}`}>
+                  <a
+                    className="blogs-user__avatar bg-cover d-block pos-relative"
+                    style={
+                      avatar
+                        ? {
+                            backgroundImage: `url(${avatar.mediaItemUrl})`,
+                          }
+                        : {
+                            backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
+                          }
+                    }
+                  />
+                </Link>
+                <span className="blogs-user__container tx-white d-block pos-absolute l-24 r-24">
+                  <span className="blogs-user__name h4 font-weight-extrabold d-block">
+                    {name}
                   </span>
-                </a>
-              </Link>
+                  <span className="blogs-user__info d-block font-weight-medium">
+                    {info}
+                  </span>
+                </span>
+              </div>
               <ul className="user-pubs list-reset pos-relative z-10 bg-white">
                 {blogs.map((blog) => {
                   const { title } = blog;

@@ -36,6 +36,7 @@ const SidebarLoader = ({ type, className }) => {
 
 SidebarLoader.propTypes = {
   type: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default SidebarLoader;

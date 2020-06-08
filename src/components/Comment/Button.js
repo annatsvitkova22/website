@@ -1,30 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useStateLink } from '@hookstate/core';
 import { FacebookProvider, CommentsCount } from 'react-facebook';
 
 import CommentPopup from '~/components/Comment/Popup';
 import Icons from '~/components/Icons';
-import PostStore from '~/stores/Post';
 
 const CommentButton = ({ post, postId }) => {
-  const state = useStateLink(PostStore);
+  const { commentCount } = post;
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
 
-  const changeVisibility = () => {
-    state.set((visibility) => {
-      return {
-        ...visibility,
-        isVisible: true,
-      };
-    });
-    state.get().isVisible
-      ? document.querySelector('body').classList.add('isB-MenuOpen')
-      : document.querySelector('body').classList.remove('isB-MenuOpen');
+  const handleOpen = () => {
+    setPopupIsOpen(true);
+    document.querySelector('body').classList.add('isB-MenuOpen');
+  };
+
+  const handleClose = () => {
+    setPopupIsOpen(false);
+    document.querySelector('body').classList.remove('isB-MenuOpen');
   };
 
   return (
     <>
-      <button className={`comments-button`} onClick={changeVisibility}>
+      <button className={`comments-button`} onClick={handleOpen}>
         <Icons icon={'comment'} />
         <span className={'post-comments-count'}>
           Коментарі (
@@ -36,13 +33,16 @@ const CommentButton = ({ post, postId }) => {
           )
         </span>
       </button>
-      <CommentPopup post={post} postId={postId} />
+      {popupIsOpen && (
+        <CommentPopup post={post} postId={postId} handleClose={handleClose} />
+      )}
     </>
   );
 };
 
 CommentButton.propTypes = {
-  className: PropTypes.string,
+  post: PropTypes.any,
+  postId: PropTypes.any,
 };
 
 export default CommentButton;

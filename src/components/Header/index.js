@@ -86,9 +86,6 @@ const Header = () => {
       window.removeEventListener('scroll', fixedHeader);
     };
   }, [router.route]);
-  React.useEffect(() => {
-    initialize();
-  }, []);
 
   let scrollPos = 0;
   const initialize = () => {

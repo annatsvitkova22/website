@@ -2,6 +2,7 @@
   &__avatar {
     padding-bottom: 100%;
 
+    filter: brightness(0.5);
     &::before {
       content: '';
 
@@ -11,8 +12,11 @@
       left: 0;
       right: 0;
 
-      background-image: linear-gradient(0deg, $green, $green),
-        linear-gradient(0deg, rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.44));
+      background-image: linear-gradient(
+        0deg,
+        rgba(29, 158, 116, 0.6),
+        rgba(29, 158, 116, 0.6)
+      );
 
       opacity: 1;
 
@@ -32,6 +36,10 @@
     }
   }
 
+  &__wrapper {
+    position: relative;
+  }
+
   &__col {
     @include media-breakpoint-between(sm, lg) {
       @include last-grid-row(2) {
@@ -47,6 +55,8 @@
   }
 
   &__container {
+    bottom: 52px;
+
     opacity: 1;
     transition: opacity 0.3s ease-in;
   }

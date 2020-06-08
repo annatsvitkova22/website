@@ -4,6 +4,10 @@
     order: 10;
 
     width: 100%;
+
+    &__button {
+      transition: none;
+    }
     &__input {
       margin-left: 16px;
 
@@ -50,11 +54,15 @@
 
       width: 32px;
       height: 32px;
+
+      transition: 0.2s;
       svg > path {
         fill: $white;
       }
       &:hover > svg > path {
         fill: $green;
+
+        transition: 0.2s;
       }
     }
   }

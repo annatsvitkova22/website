@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Article from '~/components/Article';
 import Form from '~/components/Form';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
+import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 
 const EventsScene = ({ events, hasForm, children, isLoading }) => {
   if (typeof children === 'object' && !isLoading) {
@@ -16,30 +17,54 @@ const EventsScene = ({ events, hasForm, children, isLoading }) => {
       <div className="events-page">
         <main>
           <div className="container articles-container">
-            <div className="row">
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
+            <div className="loader-container__desktop">
+              <div className="row">
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
               </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
+            </div>
+            <div
+              className="loader-container__mobile"
+              style={{ padding: '0 20px 0 20px' }}
+            >
+              <div className="row">
+                <VideoCategoryLoader
+                  type={'mobile'}
+                  backgroundColor="#f5f6f7"
+                  foregroundColor="#eee"
+                />
+                <VideoCategoryLoader
+                  type={'mobile'}
+                  backgroundColor="#f5f6f7"
+                  foregroundColor="#eee"
+                />
+                <VideoCategoryLoader
+                  type={'mobile'}
+                  backgroundColor="#f5f6f7"
+                  foregroundColor="#eee"
+                />
               </div>
             </div>
           </div>
