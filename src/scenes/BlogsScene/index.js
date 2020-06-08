@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import he from 'he';
+import { Defer } from 'react-progressive-loader';
 
 const BlogsScene = ({ users: { nodes: users } }) => (
   <div className="container">
@@ -21,17 +22,20 @@ const BlogsScene = ({ users: { nodes: users } }) => (
             <div key={i} className="col-xl-3 col-sm-6 blogs-user__col">
               <div className="blogs-user__wrapper">
                 <Link href={`/blogs/author/${slug}`}>
-                  <a
-                    className="blogs-user__avatar bg-cover d-block pos-relative"
-                    style={
-                      avatar
-                        ? {
+                  <Defer
+                    render={() => <a
+                      className="blogs-user__avatar bg-cover d-block pos-relative"
+                      style={
+                        avatar
+                          ? {
                             backgroundImage: `url(${avatar.mediaItemUrl})`,
                           }
-                        : {
+                          : {
                             backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
                           }
-                    }
+                      }
+                    />}
+                    loadOnScreen
                   />
                 </Link>
                 <span className="blogs-user__container tx-white d-block pos-absolute l-24 r-24">
