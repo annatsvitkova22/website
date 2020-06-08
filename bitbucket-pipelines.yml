@@ -19,7 +19,7 @@ pipelines:
           name: Build
           size: 2x
           script:
-            - export IMAGE_NAME=$DOCKER_HUB_USERNAME/$APPLICATION_NAME:staging
+            - export IMAGE_NAME=$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT
             - docker build -t $IMAGE_NAME .
             - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
             - docker push $IMAGE_NAME
@@ -29,7 +29,7 @@ pipelines:
           name: Deploy
           deployment: staging
           script:
-            - sed -i "s|{{image}}|$DOCKER_HUB_USERNAME/$APPLICATION_NAME:staging|g" deployment.yaml
+            - sed -i "s|{{image}}|$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT|g" deployment.yaml
             - pipe: atlassian/kubectl-run:1.1.6
               variables:
                 KUBE_CONFIG: $KUBE_CONFIG

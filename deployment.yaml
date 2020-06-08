@@ -36,15 +36,13 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: zmist-website
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app.kubernetes.io/name: zmist-website
     spec:
       containers:
-        - image: vladyslavromanenko/zmist-website:staging
+        - image: {{image}}
           imagePullPolicy: "Always"
           name: zmist-website
           ports:
