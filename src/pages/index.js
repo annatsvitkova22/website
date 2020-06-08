@@ -47,6 +47,7 @@ const HOME_PAGE = gql`
             }
             featuredImage {
               mediaItemUrl
+              frontHeroImage: sourceUrl(size: FRONT_HERO_IMAGE)
             }
           }
         }
@@ -75,6 +76,7 @@ const HOME_PAGE = gql`
         userAdditionalACF {
           avatar {
             mediaItemUrl
+            zm_xs: sourceUrl(size: ZM_XS)
           }
         }
         bloggerInfoACF {
@@ -154,7 +156,7 @@ const CROWDFUNDINGS = gql`
         }
         featuredImage {
           mediaItemUrl
-          mediumLarge: sourceUrl(size: MEDIUM_LARGE)
+          zm_md_rect: sourceUrl(size: ZM_MD_RECT)
         }
         cfACF {
           tocollect
