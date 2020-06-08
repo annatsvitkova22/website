@@ -413,8 +413,6 @@ const Home = (props) => {
           )}
         </CrowdfundingsScene>
 
-        <MainPublications {...{ publications }} />
-
         <TagsScene {...{ tags, isLoading }}>
           {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
         </TagsScene>
