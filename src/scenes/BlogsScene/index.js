@@ -29,18 +29,20 @@ const BlogsScene = ({ users: { nodes: users } }) => (
               <div className="blogs-user__wrapper">
                 <Link href={`/blogs/author/${slug}`}>
                   <Defer
-                    render={() => <a
-                      className="blogs-user__avatar bg-cover d-block pos-relative"
-                      style={
-                        avatar
-                          ? {
-                            backgroundImage: `url(${avatarImage})`,
-                          }
-                          : {
-                            backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
-                          }
-                      }
-                    />}
+                    render={() => (
+                      <a
+                        className="blogs-user__avatar bg-cover d-block pos-relative"
+                        style={
+                          avatar
+                            ? {
+                                backgroundImage: `url(${avatarImage})`,
+                              }
+                            : {
+                                backgroundImage: `url(/assets/placeholders/user-placeholder.jpg)`,
+                              }
+                        }
+                      />
+                    )}
                     loadOnScreen
                   />
                 </Link>

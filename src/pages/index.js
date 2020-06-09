@@ -188,9 +188,8 @@ const TAGS = gql`
             slug
             featuredImage {
               mediaItemUrl
-              zm_md_rect: sourceUrl(size: ZM_MD_RECT)
-              zm_lg_rect_2: sourceUrl(size: ZM_LG_RECT_2)
-              zm_lg_rect: sourceUrl(size: ZM_LG_RECT)
+              zm_xss: sourceUrl(size: ZM_XSS)
+              zm_md: sourceUrl(size: ZM_MD)
             }
             author {
               slug
@@ -219,6 +218,7 @@ const VIDEOS = gql`
         zmVideoACF {
           videoCover {
             mediaItemUrl
+            zm_xs: sourceUrl(size: ZM_XS)
           }
           videoUrl
         }

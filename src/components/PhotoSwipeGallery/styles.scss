@@ -76,6 +76,8 @@
   &__thumbnail {
     padding-bottom: 61.53%;
     margin-bottom: 14px;
+
+    background-color: $grey-700;
     @include media-breakpoint-down(sm) {
       margin-bottom: 16px;
     }

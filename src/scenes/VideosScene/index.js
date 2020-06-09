@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import getConfig from 'next/config';
 
 import PhotoSwipeGallery from '~/components/PhotoSwipeGallery';
 import {
