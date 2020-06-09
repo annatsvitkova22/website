@@ -27,9 +27,10 @@ const ChartContainer = ({ id }) => {
     chart: null,
     type: null,
     adOptions: null,
+    title: null,
   });
 
-  const { chart, type, adOptions } = state;
+  const { chart, type, adOptions, title } = state;
 
   useEffect(() => {
     if (authStore.token && !chart && !type) {
@@ -62,26 +63,44 @@ const ChartContainer = ({ id }) => {
         adOptions: typeResponse.data['visualizer-settings'][0].series
           ? typeResponse.data['visualizer-settings'][0].series
           : typeResponse.data['visualizer-settings'][0].slices,
+        title: typeResponse.data['visualizer-settings'][0].title
+          ? typeResponse.data['visualizer-settings'][0].title
+          : null,
       });
     }
   };
 
   if (!chart) {
-    return <GutenbergLoader />;
+    return <GutenbergLoader type={'chart'} />;
   }
 
   switch (type) {
     case 'line':
       return (
-        <LineChart chart={chart} adOptions={adOptions} isMobile={isMobile} />
+        <LineChart
+          chart={chart}
+          adOptions={adOptions}
+          isMobile={isMobile}
+          title={title}
+        />
       );
     case 'column':
       return (
-        <BarChart chart={chart} adOptions={adOptions} isMobile={isMobile} />
+        <BarChart
+          chart={chart}
+          adOptions={adOptions}
+          isMobile={isMobile}
+          title={title}
+        />
       );
     case 'pie':
       return (
-        <PieChart chart={chart} adOptions={adOptions} isMobile={isMobile} />
+        <PieChart
+          chart={chart}
+          adOptions={adOptions}
+          isMobile={isMobile}
+          title={title}
+        />
       );
     default:
       return null;
