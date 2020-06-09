@@ -44,7 +44,7 @@ const SamplePrevArrow = ({ className, style, onClick }) => {
   );
 };
 
-const Slick = ({ images, handleOpen, imageRef }) => {
+const Slick = ({ images, handleOpen, imageRef, type }) => {
   const settings = {
     dots: true,
     adaptiveHeight: true,
@@ -58,7 +58,46 @@ const Slick = ({ images, handleOpen, imageRef }) => {
     ),
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    autoplaySpeed: 2000,
+    autoplay: type === 'story',
   };
+  if (type === 'story') {
+    return (
+      <Slider {...settings}>
+        {images.map((image, i) => {
+          return (
+            <div key={i}>
+              <figure className="slick__figure">
+                <div className="slick__img-container">
+                  <img
+                    src={image.url}
+                    alt="slick-image"
+                    className="slick__img"
+                  />
+                  <span className="slick__overlay" />
+                  <div className="slick__info">
+                    <Icons icon={'gallery'} className="slick__info-icon" />
+                    <span className="slick__info-count">
+                      {images.length} зображень
+                    </span>
+                  </div>
+                  <button className={'expand-image'}>
+                    <Icons icon={'expand'} />
+                  </button>
+                </div>
+                <caption className="slick__caption">
+                  {image.author && (
+                    <span className="slick__author">{image.description}</span>
+                  )}
+                  <span className="slick__description">{image.caption}</span>
+                </caption>
+              </figure>
+            </div>
+          );
+        })}
+      </Slider>
+    );
+  }
   return (
     <Slider {...settings}>
       {images.map((image, i) => {
@@ -103,6 +142,7 @@ const Slick = ({ images, handleOpen, imageRef }) => {
 };
 
 Slick.propTypes = {
+  type: PropTypes.string,
   images: PropTypes.any,
   handleOpen: PropTypes.func,
   imageRef: PropTypes.any,

@@ -49,33 +49,27 @@
           max-width: 200px;
         }
       }
+
+      &-featured {
+        &__image {
+          width: 88px;
+          height: 88px;
+
+          @include media-breakpoint-up(sm) {
+            width: 150px;
+            height: 138px;
+          }
+
+          @include media-breakpoint-up(lg) {
+            width: 200px;
+          }
+        }
+      }
     }
 
     .meta-author {
       font-weight: 600;
       color: $grey-200;
-    }
-
-    .article-featured {
-      &__image {
-        width: 88px;
-        height: 88px;
-
-        @include media-breakpoint-up(sm) {
-          width: 150px;
-          height: 138px;
-        }
-
-        @include media-breakpoint-up(lg) {
-          width: 200px;
-        }
-
-        img {
-          height: 100%;
-          width: 100%;
-          object-fit: cover;
-        }
-      }
     }
   }
 }
