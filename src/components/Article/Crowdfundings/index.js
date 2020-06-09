@@ -14,7 +14,6 @@ import CrowdfundingProgress from '~/components/Crowdfunding/Progress';
 const ArticleCrowdfundings = ({ imageSize, post, children, className }) => {
   const { featuredImage, title, slug, excerpt, author, date } = post;
   const status = getCFStatus(post);
-  console.log(featuredImage);
   return (
     <article className={classnames('article--crowdfunding', className)}>
       {status && <ArticleStatus {...status} />}
