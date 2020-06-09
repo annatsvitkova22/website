@@ -14,7 +14,8 @@ const OPPORTUNITIES_ARCHIVE = gql`
     opportunities(first: 5, before: $cursor) {
       nodes {
         featuredImage {
-          sourceUrl(size: THUMBNAIL)
+          mediaItemUrl
+          zm_xss_square: sourceUrl(size: ZM_XSS_SQUARE)
         }
         title
         slug

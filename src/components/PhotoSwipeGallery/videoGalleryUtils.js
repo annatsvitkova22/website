@@ -9,7 +9,6 @@ import facebook from '~/static/images/facebook-f';
 import telegram from '~/static/images/telegram-plane';
 
 const getThumbnailVideo = (item, playClass) => {
-  console.log(item);
   return (
     <>
       <div
@@ -33,7 +32,6 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
     const { zmVideoACF, title, excerpt, date } = video;
     const { videoUrl, videoCover, duration } = zmVideoACF;
     const pubDate = new Date(date);
-    console.log(zmVideoACF);
     return {
       html: `
             <div class="video-category__iframe">
@@ -71,7 +69,7 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
             </div>
             `,
       thumbnail: videoCover ? videoCover.mediaItemUrl : '',
-      thumbnailSmall: videoCover ? videoCover.zm_xs : '',
+      thumbnailSmall: videoCover ? videoCover.zm_xs_rect : '',
       name: title,
       duration,
     };

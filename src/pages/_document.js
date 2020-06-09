@@ -21,6 +21,7 @@ class ZmistDocument extends Document {
     return (
       <Html lang="uk-UA">
         <CriticalCssHead />
+        {/* <Head /> */}
 
         <body>
           <Main />

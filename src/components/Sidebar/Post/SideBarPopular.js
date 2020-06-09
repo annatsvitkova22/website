@@ -11,6 +11,12 @@ const SideBarPopular = ({ publications }) => {
     <ul className={'sidebar-popular'}>
       <li className={'sidebar-popular__title'}>популярне</li>
       {publications.nodes.map((item, i) => {
+        let image = '';
+        if (item.featuredImage) {
+          image = item.featuredImage.mediaItemUrl
+            ? item.featuredImage.mediaItemUrl
+            : item.featuredImage.zm_xss;
+        }
         return (
           <li key={i} className={'sidebar-popular__item'}>
             <Link
@@ -23,7 +29,7 @@ const SideBarPopular = ({ publications }) => {
                     {item.title.toLowerCase()}
                   </span>
                   <img
-                    src={item.featuredImage.mediaItemUrl}
+                    src={image}
                     className={'sidebar-popular__image'}
                     alt={item.featuredImage.title}
                   />

@@ -41,6 +41,7 @@ const BLOGGERS = gql`
         userAdditionalACF {
           avatar {
             mediaItemUrl
+            zm_xss_square: sourceUrl(size: ZM_XSS_SQUARE)
           }
         }
         bloggerInfoACF {
@@ -57,6 +58,7 @@ const BLOGGERS = gql`
             slug
             featuredImage {
               mediaItemUrl
+              zm_xs_rect: sourceUrl(size: ZM_XS_RECT)
             }
             categories {
               nodes {
@@ -90,6 +92,8 @@ const POPULAR = gql`
         slug
         featuredImage {
           mediaItemUrl
+          zm_xss: sourceUrl(size: ZM_XSS)
+          zm_md: sourceUrl(size: ZM_MD)
         }
         author {
           name
@@ -113,6 +117,7 @@ const ALL_BLOGS = gql`
         slug
         featuredImage {
           mediaItemUrl
+          zm_xss_square: sourceUrl(size: ZM_XSS_SQUARE)
         }
         categories {
           nodes {

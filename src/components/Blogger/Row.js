@@ -35,6 +35,7 @@ const BloggerRow = ({
                   'col-md-4': inRow === 3,
                   'col-md-6': inRow === 2,
                 })}
+                imageSize={inRow === 3 ? 'zm_xs_rect' : 'zm_md_rect'}
                 type="blogs"
                 post={blog}
               />

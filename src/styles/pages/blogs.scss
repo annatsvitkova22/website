@@ -34,6 +34,12 @@
     .article:not(:last-child) {
       margin-bottom: 24px;
     }
+
+    .article {
+      .article-featured__image {
+        height: auto;
+      }
+    }
   }
   .blogger {
     @include media-breakpoint-down(sm) {

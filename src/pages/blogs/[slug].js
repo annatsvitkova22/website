@@ -41,6 +41,8 @@ const SIMILAR = gql`
         featuredImage {
           link
           mediaItemUrl
+          zm_xss: sourceUrl(size: ZM_XSS)
+          zm_md: sourceUrl(size: ZM_MD)
         }
       }
     }
@@ -87,6 +89,7 @@ const PUBLICATIONS = gql`
         slug
         featuredImage {
           mediaItemUrl
+          zm_xss: sourceUrl(size: ZM_XSS)
           title
         }
       }

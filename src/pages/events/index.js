@@ -17,6 +17,7 @@ const EVENTS_ARCHIVE = gql`
       nodes {
         featuredImage {
           mediaItemUrl
+          zm_xs_rect: sourceUrl(size: ZM_XS_RECT)
         }
         title
         slug

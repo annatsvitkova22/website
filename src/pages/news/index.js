@@ -88,6 +88,7 @@ const composeQuery = ({
           slug
           featuredImage {
             mediaItemUrl
+            zm_xss: sourceUrl(size: ZM_XSS)
           }
           categories {
             nodes {
