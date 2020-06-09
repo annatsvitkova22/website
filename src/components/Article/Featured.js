@@ -35,12 +35,15 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
               ${!imageUrl ? `article-featured__image--empty` : ''}
             `}
             >
-              {imageUrl && <Img
-                src={imageUrl}
-                alt={alt}
-                bgColor="#1d9e74"
-                loadOnScreen
-              />}
+              {imageUrl && (
+                <Img
+                  src={imageUrl}
+                  alt={alt}
+                  bgColor="#1d9e74"
+                  loadOnScreen
+                  className="article-featured__loader-wrapper"
+                />
+              )}
             </figure>
           </a>
         </Link>
@@ -63,12 +66,15 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
               ${!imageUrl ? `article-featured__image--empty` : ''}
             `}
           >
-            {imageUrl && <Img
-              src={imageUrl}
-              alt={alt}
-              bgColor="#1d9e74"
-              loadOnScreen
-            />}
+            {imageUrl && (
+              <Img
+                src={imageUrl}
+                alt={alt}
+                bgColor="#1d9e74"
+                loadOnScreen
+                className="article-featured__loader-wrapper"
+              />
+            )}
           </figure>
         </a>
       </Link>
