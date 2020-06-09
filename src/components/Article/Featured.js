@@ -15,7 +15,7 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
     imageUrl = image.mediaItemUrl;
   }
 
-  if (size) {
+  if (size && image) {
     imageUrl = image[size] ? image[size] : image.mediaItemUrl;
   }
 
