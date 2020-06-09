@@ -18,6 +18,7 @@ import ArticleAuthor from '~/components/Article/Author';
 import Share from '~/components/Share';
 import Content from '~/components/Content';
 import NewsFooter from '~/components/SinglePageFooter';
+import Story from '~/components/Gutenberg/Story';
 import {
   CreateSingleArticleStore,
   SingleArticleStore,
@@ -319,7 +320,7 @@ const ArticleSingle = ({
                             }}
                           />
                           {/* Need to delete - only for testing */}
-                          {/* <Story /> */}
+                          <Story />
                           {/* Need to delete - only for testing */}
                           {storedPost.blocks.length ? (
                             <Content

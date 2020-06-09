@@ -33,7 +33,7 @@ const images = [
 const Story = () => {
   return (
     <div className="content__posts gutenberg__story">
-      <Slick images={images} />
+      <Slick images={images} type={'story'} />
     </div>
   );
 };
