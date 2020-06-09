@@ -43,25 +43,15 @@
     .article-featured {
       @include media-breakpoint-down(xs) {
         width: 88px;
-        height: 88px;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-
-        object-fit: cover;
       }
 
       &__image {
         width: 100%;
-        height: 192px;
         @include media-breakpoint-down(md) {
           max-width: 300px;
         }
         @include media-breakpoint-down(xs) {
           width: 88px;
-          height: 88px;
         }
       }
 
@@ -124,11 +114,9 @@
         margin-bottom: 16px;
         width: 100%;
         max-width: 100%;
-        height: 211px;
 
         .article-featured__image {
           width: auto;
-          height: 211px;
           max-width: 100%;
         }
       }

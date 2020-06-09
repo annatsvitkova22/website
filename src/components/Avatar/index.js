@@ -1,24 +1,19 @@
 import React from 'react';
 import * as classnames from 'classnames';
 
-const Avatar = ({ className, avatar, ...props }) => {
-  if (!avatar || (!avatar.mediaItemUrl && !avatar.url)) return null;
+const Avatar = ({ className, size, avatar, ...props }) => {
+  let avatarUrl = '/assets/placeholders/user-placeholder.jpg';
 
-  if (avatar.mediaItemUrl) {
-    return (
-      <div className={classnames('avatar', className)}>
-        <img className="avatar__image" src={avatar.mediaItemUrl} {...props} />
-      </div>
-    );
+  if (avatar) {
+    avatarUrl = avatar[size] ? avatar[size] : avatar.mediaItemUrl;
+    console.log(avatarUrl);
   }
-  if (avatar.url) {
-    return (
-      <div className={classnames('avatar', className)}>
-        <img className="avatar__image" src={avatar.url} {...props} />
-      </div>
-    );
-  }
-  return null;
+
+  return (
+    <div className={classnames('avatar', className)}>
+      <img className="avatar__image" src={avatarUrl} {...props} />
+    </div>
+  );
 };
 
 export default Avatar;

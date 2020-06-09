@@ -47,6 +47,7 @@ const Blogger = ({
                 'blogger__avatar',
                 `blogger__avatar--${avatarSize}`
               )}
+              size={'zm_xss_square'}
               avatar={avatar}
               alt={name}
             />
@@ -59,6 +60,7 @@ const Blogger = ({
             'blogger__avatar',
             `blogger__avatar--${avatarSize}`
           )}
+          size={'zm_xss_square'}
           avatar={avatar}
           alt={name}
         />

@@ -12,7 +12,7 @@ const PublicationsCats = ({
   post: { title, slug, author, featuredImage },
   highlightInTitle,
 }) => {
-  let colSize = '';
+  let colSize = 'col-12';
   let titleModificator = '';
   let imageSize = '';
   switch (size) {
@@ -32,11 +32,12 @@ const PublicationsCats = ({
       break;
 
     default:
+      colSize = 'col-12';
       break;
   }
 
   return (
-    <div className={`${colSize} ${size} publ-cat__col`}>
+    <div className={`${colSize} publ-cat__col`}>
       <div className="publ-cat">
         <ArticleFeatured
           size={imageSize}

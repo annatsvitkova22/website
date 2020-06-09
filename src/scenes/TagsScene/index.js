@@ -53,7 +53,7 @@ const TagsScene = ({ tags, children, isLoading }) => {
                   <ArticleProvider value="publications">
                     <Featured
                       className={'tag-sec__image'}
-                      imageSize={i === 2 ? 'zm_md' : 'zm_xss'}
+                      size={i === 2 ? 'zm_md' : 'zm_xss'}
                       image={featuredImage}
                       alt={title}
                       slug={sl}

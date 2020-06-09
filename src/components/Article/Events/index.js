@@ -19,6 +19,7 @@ const ArticleEvents = ({ post, children, className }) => {
     <article className={classnames('article--events', withImage, className)}>
       <ArticleDateTime time={eventTime} date={eventDate} />
       <ArticleFeatured
+        size={'zm_xs_rect'}
         className="article__image"
         image={post.featuredImage}
         alt={post.title}
