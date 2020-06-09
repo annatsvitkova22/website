@@ -15,6 +15,7 @@ const ArticleOpportunities = ({ post, children, className }) => {
       <div className="article__wrapper">
         <ArticleFeatured
           className="article__image"
+          size="zm_xss_square"
           image={post.featuredImage}
           alt={post.title}
           slug={post.slug}

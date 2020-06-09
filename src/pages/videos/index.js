@@ -27,6 +27,7 @@ const VIDEOS_ARCHIVE = gql`
           videoUrl
           videoCover {
             mediaItemUrl
+            zm_xs: sourceUrl(size: ZM_XS)
           }
         }
       }
@@ -44,6 +45,7 @@ const VIDEOS_ARCHIVE = gql`
               videoUrl
               videoCover {
                 mediaItemUrl
+                zm_xs: sourceUrl(size: ZM_XS)
               }
             }
           }
@@ -72,6 +74,7 @@ const VIDEOS_CATEGORIES = gql`
               videoUrl
               videoCover {
                 mediaItemUrl
+                zm_xs: sourceUrl(size: ZM_XS)
               }
             }
           }
