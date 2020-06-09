@@ -69,7 +69,7 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
             </div>
             `,
       thumbnail: videoCover ? videoCover.mediaItemUrl : '',
-      thumbnailSmall: videoCover ? videoCover.zm_xs : '',
+      thumbnailSmall: videoCover ? videoCover.zm_xs_rect : '',
       name: title,
       duration,
     };
