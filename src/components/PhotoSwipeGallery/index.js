@@ -44,7 +44,7 @@ class PhotoSwipeGallery extends React.Component {
 
   render() {
     const { items, thumbnailContent, playClass } = this.props;
-    console.log(items);
+
     const { className } = this.props;
     // const eventProps = [other, ...events];
     const { isOpen, options } = this.state;
