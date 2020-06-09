@@ -19,7 +19,7 @@ const PublicationsCats = ({
     case 'big':
       colSize = isFirst ? 'col-12' : 'col-xl-6';
       titleModificator = isFirst ? 'big-long' : 'big-short';
-      imageSize = 'zm_md';
+      imageSize = isFirst ? 'zm_md' : 'zm_xs';
       break;
 
     case 'medium':
@@ -36,7 +36,7 @@ const PublicationsCats = ({
   }
 
   return (
-    <div className={`${colSize} publ-cat__col`}>
+    <div className={`${colSize} ${size} publ-cat__col`}>
       <div className="publ-cat">
         <ArticleFeatured
           size={imageSize}
