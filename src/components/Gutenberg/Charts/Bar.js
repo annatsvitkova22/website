@@ -5,6 +5,7 @@ import { Bar } from 'react-chartjs-2';
 
 const BarChart = ({ chart, adOptions, isMobile }) => {
   const [randomColor, setRandomColor] = useState(null);
+
   const parsed = Papa.parse(chart.data.csv);
 
   const clearData = [
