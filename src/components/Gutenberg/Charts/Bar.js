@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
 
-const BarChart = ({ chart, adOptions, isMobile }) => {
+const BarChart = ({ chart, adOptions, isMobile, title }) => {
   const [randomColor, setRandomColor] = useState(null);
 
   const parsed = Papa.parse(chart.data.csv);
@@ -49,7 +49,7 @@ const BarChart = ({ chart, adOptions, isMobile }) => {
     <div className="gutenberg__chart content__posts">
       <Bar
         options={{
-          title: { display: true },
+          title: { display: true, text: title },
           legend: { display: isMobile },
           maintainAspectRatio: true,
         }}

@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import { Pie } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
-const PieChart = ({ chart, adOptions, isMobile }) => {
+const PieChart = ({ chart, adOptions, isMobile, title }) => {
   const [randomColor, setRandomColor] = useState([]);
   const parsed = Papa.parse(chart.data.csv);
 
@@ -46,7 +46,7 @@ const PieChart = ({ chart, adOptions, isMobile }) => {
     <div className="gutenberg__chart content__posts">
       <Pie
         options={{
-          title: { display: true },
+          title: { display: true, text: title },
           legend: { display: isMobile },
           showTooltips: true,
         }}
@@ -60,5 +60,6 @@ PieChart.propTypes = {
   chart: PropTypes.any,
   adOptions: PropTypes.any,
   isMobile: PropTypes.bool,
+  title: PropTypes.any,
 };
 export default PieChart;

@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
-const LineChart = ({ chart, adOptions, isMobile }) => {
+const LineChart = ({ chart, adOptions, isMobile, title }) => {
   const [randomColor, setRandomColor] = useState([]);
   const parsed = Papa.parse(chart.data.csv);
 
@@ -13,7 +13,7 @@ const LineChart = ({ chart, adOptions, isMobile }) => {
   ];
 
   const options = {
-    title: { display: true },
+    title: { display: true, text: title },
     legend: { display: isMobile },
     maintainAspectRatio: true,
   };
