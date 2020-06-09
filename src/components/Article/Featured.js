@@ -36,7 +36,13 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
             `}
             >
               {imageUrl && (
-                <Img src={imageUrl} alt={alt} bgColor="#1d9e74" loadOnScreen />
+                <Img
+                  src={imageUrl}
+                  alt={alt}
+                  bgColor="#1d9e74"
+                  loadOnScreen
+                  className="article-featured__loader-wrapper"
+                />
               )}
             </figure>
           </a>
@@ -61,7 +67,13 @@ const ArticleFeatured = ({ image, alt = '', size, slug, className, modif }) => {
             `}
           >
             {imageUrl && (
-              <Img src={imageUrl} alt={alt} bgColor="#1d9e74" loadOnScreen />
+              <Img
+                src={imageUrl}
+                alt={alt}
+                bgColor="#1d9e74"
+                loadOnScreen
+                className="article-featured__loader-wrapper"
+              />
             )}
           </figure>
         </a>
