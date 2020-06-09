@@ -14,15 +14,21 @@ const PublicationsCats = ({
 }) => {
   let colSize = '';
   let titleModificator = '';
+  let imageSize = '';
   switch (size) {
     case 'big':
       colSize = isFirst ? 'col-12' : 'col-xl-6';
       titleModificator = isFirst ? 'big-long' : 'big-short';
+      imageSize = 'zm_md';
       break;
 
     case 'medium':
+      imageSize = 'zm_xs';
+      break;
+
     case 'small':
       colSize = 'col-12';
+      imageSize = 'zm_xss';
       break;
 
     default:
@@ -32,7 +38,12 @@ const PublicationsCats = ({
   return (
     <div className={`${colSize} publ-cat__col`}>
       <div className="publ-cat">
-        <ArticleFeatured image={featuredImage} alt={title} slug={slug} />
+        <ArticleFeatured
+          size={imageSize}
+          image={featuredImage}
+          alt={title}
+          slug={slug}
+        />
         <div className="publ-cat__wrapper">
           <ArticleTitle
             highlightInTitle={highlightInTitle}
