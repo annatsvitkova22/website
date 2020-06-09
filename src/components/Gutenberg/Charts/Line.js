@@ -17,7 +17,6 @@ const LineChart = ({ chart, adOptions, isMobile }) => {
     legend: { display: isMobile },
     maintainAspectRatio: true,
   };
-  console.log(randomColor);
 
   const transpose = (matrix) =>
     matrix[0].map((col, i) => matrix.map((row) => row[i]));
