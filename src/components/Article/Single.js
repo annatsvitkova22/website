@@ -319,9 +319,6 @@ const ArticleSingle = ({
                               __html: storedPost.excerpt,
                             }}
                           />
-                          {/* Need to delete - only for testing */}
-                          <Story />
-                          {/* Need to delete - only for testing */}
                           {storedPost.blocks.length ? (
                             <Content
                               content={storedPost.blocks}
