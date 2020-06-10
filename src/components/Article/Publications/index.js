@@ -15,7 +15,7 @@ const ArticlePublications = ({
     slug,
     author,
     featuredImage,
-    zmPublicationsACF: { size, style },
+    zmPublicationsACF: { size, style, additionalImage },
   },
   children,
   className,
@@ -59,7 +59,7 @@ const ArticlePublications = ({
         className={`article__image--publ ${
           size === 'big' ? 'flex-lg-grow-1 w-lg-50' : ''
         }`}
-        image={featuredImage}
+        image={additionalImage ? additionalImage : featuredImage}
         size={imageSize}
         alt={title}
         slug={slug}

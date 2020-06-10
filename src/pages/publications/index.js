@@ -70,6 +70,10 @@ const PUBLICATIONS_ARCHIVE = gql`
         zmPublicationsACF {
           size
           style
+          additionalImage {
+            zm_md: sourceUrl(size: ZM_MD)
+            mediaItemUrl
+          }
         }
       }
       pageInfo {
@@ -169,7 +173,6 @@ const Publications = (props) => {
 
   const { nodes, pageInfo } = state.data;
 
-  console.log(nodes);
   return (
     <div className="publ-page">
       <Head>
