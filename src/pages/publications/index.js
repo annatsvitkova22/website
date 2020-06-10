@@ -146,6 +146,7 @@ const Publications = (props) => {
         query: PUBLICATIONS_ARCHIVE,
         variables: {
           cursor: null,
+          articles: 11,
         },
       });
 
@@ -168,6 +169,7 @@ const Publications = (props) => {
 
   const { nodes, pageInfo } = state.data;
 
+  console.log(nodes);
   return (
     <div className="publ-page">
       <Head>
@@ -184,7 +186,7 @@ const Publications = (props) => {
           {nodes && (
             <div className="last-publs">
               <div className="row">
-                {nodes.slice(0, 10).map((post, i) => (
+                {nodes.slice(0, 11).map((post, i) => (
                   <Article type="publications" post={post} key={i} />
                 ))}
               </div>
@@ -238,6 +240,7 @@ Publications.getInitialProps = async () => {
     query: PUBLICATIONS_ARCHIVE,
     variables: {
       cursor: null,
+      articles: 11,
     },
   });
 

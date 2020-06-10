@@ -129,6 +129,16 @@
   }
 
   &__wrapper {
+    &--null-null {
+      padding: 23px 20px;
+      .meta-taxonomy--categories {
+        padding-bottom: 10px;
+      }
+      .article__meta {
+        margin-top: auto;
+      }
+    }
+
     &--grey {
       padding: 69px 49px 69px 49px;
       @include media-breakpoint-down(md) {
@@ -223,6 +233,7 @@
       @include media-breakpoint-down(sm) {
         padding: 0;
       }
+
       &::before {
         content: '';
 
