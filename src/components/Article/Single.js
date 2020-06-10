@@ -87,8 +87,6 @@ const ArticleSingle = ({
       : '',
     backgroundSize: 'cover',
   };
-
-  console.log(storedPost);
   return (
     <>
       <Head>

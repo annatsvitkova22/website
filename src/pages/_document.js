@@ -9,19 +9,19 @@ let styleSheetContent = '';
 class ZmistDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    /*const filePath = `./src/styles/critical.css`;*/
-    /*styleSheetContent = readFileSync(filePath, 'utf8');*/
+    const filePath = `./src/styles/critical.css`;
+    styleSheetContent = readFileSync(filePath, 'utf8');
     return { ...initialProps };
   }
 
   /* eslint-disable class-methods-use-this */
   render() {
-    /*const CriticalCssHead = CustomHead(Head, styleSheetContent);*/
+    const CriticalCssHead = CustomHead(Head, styleSheetContent);
 
     return (
       <Html lang="uk-UA">
-        {/*<CriticalCssHead />*/}
-        <Head />
+        <CriticalCssHead />
+        {/*<Head />*/}
 
         <body>
           <Main />
