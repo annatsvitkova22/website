@@ -78,6 +78,7 @@ const ChartContainer = ({ id }) => {
     case 'line':
       return (
         <LineChart
+          key={chart.title}
           chart={chart}
           adOptions={adOptions}
           isMobile={isMobile}
