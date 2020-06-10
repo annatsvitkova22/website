@@ -5,7 +5,7 @@ import * as classnames from 'classnames';
 import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 import Icons from '~/components/Icons';
 
-const FeaturedImage = ({ data, className, size }) => {
+const FeaturedImage = ({ data, className, size, ...settings }) => {
   const imageRef = useRef(false);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +50,36 @@ const FeaturedImage = ({ data, className, size }) => {
 
   return (
     <>
-      {data && (
+      {data && size === 'full' && (
+        <div
+          className={classnames('feature__image', className, {
+            'feature__image--full': size === 'full',
+          })}
+          style={{
+            backgroundImage: `url(${data.mediaItemUrl})`,
+            backgroundPosition: settings.position
+              ? settings.position
+              : 'center',
+          }}
+        >
+          {data.caption && size === 'full' && (
+            <div className="container">
+              <caption
+                className={classnames(
+                  'feature__image-caption col-lg-6 col-md-8'
+                )}
+              >
+                <span className={'feature__image-author'}>{data.title}</span>
+                <span
+                  className={'feature__image-description'}
+                  dangerouslySetInnerHTML={{ __html: data.caption }}
+                />
+              </caption>
+            </div>
+          )}
+        </div>
+      )}
+      {data && size !== 'full' && (
         <figure
           className={classnames('feature__image', className, {
             'feature__image--full': size === 'full',
@@ -69,21 +98,6 @@ const FeaturedImage = ({ data, className, size }) => {
               <button className={'expand-image'}>
                 <Icons icon={'expand'} />
               </button>
-            </div>
-          )}
-          {data.caption && size === 'full' && (
-            <div className="container">
-              <caption
-                className={classnames(
-                  'feature__image-caption col-lg-6 col-md-8'
-                )}
-              >
-                <span className={'feature__image-author'}>{data.title}</span>
-                <span
-                  className={'feature__image-description'}
-                  dangerouslySetInnerHTML={{ __html: data.caption }}
-                />
-              </caption>
             </div>
           )}
           {data.caption && size !== 'full' && (

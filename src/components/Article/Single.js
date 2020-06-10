@@ -87,7 +87,6 @@ const ArticleSingle = ({
       : '',
     backgroundSize: 'cover',
   };
-
   return (
     <>
       <Head>
@@ -214,7 +213,7 @@ const ArticleSingle = ({
                       </div>
                     )}
                     <div className="single-post__content">
-                      {storedPost.blocks.length ? (
+                      {storedPost.blocks.length > 0 ? (
                         <Content
                           content={storedPost.blocks}
                           className={'content__posts'}

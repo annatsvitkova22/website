@@ -18,6 +18,7 @@ const PUBLICATION = gql`
       publicationId
       zmPublicationsACF {
         bannerstyle
+        featuredImagePosition
       }
       zmBrandedPublication {
         logo {
@@ -62,6 +63,7 @@ const NEWPUBLICATION = gql`
         publicationId
         zmPublicationsACF {
           bannerstyle
+          featuredImagePosition
         }
         zmBrandedPublication {
           logo {
@@ -250,7 +252,7 @@ const Publication = (props) => {
           </div>
         </>
       )}
-      {newPosts.length &&
+      {newPosts.length > 0 &&
         newPosts.map((item, index) => {
           return (
             <React.Fragment key={item.publicationId}>
