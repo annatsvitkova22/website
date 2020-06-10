@@ -25,7 +25,11 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
     >
       {bannerstyle === 'image' && (
         <>
-          <FeaturedImage size={'full'} data={post.featuredImage} />
+          <FeaturedImage
+            size={'full'}
+            data={post.featuredImage}
+            position={post.zmPublicationsACF.featuredImagePosition}
+          />
           <div className="publication-banner__inner">
             <div className="container">
               <div className="publication-banner__content">
