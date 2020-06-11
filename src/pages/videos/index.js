@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
+
 import VideosList from '~/components/VideosList';
 import VideoCategories from '~/components/VideoCategories';
 import apolloClient from '~/lib/ApolloClient';
