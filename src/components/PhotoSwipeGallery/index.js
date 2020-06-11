@@ -31,10 +31,12 @@ class PhotoSwipeGallery extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({
-      isOpen: false,
-    });
-    this.props.onClose();
+    if (!this.props.isModalOpen) {
+      this.setState({
+        isOpen: false,
+      });
+      this.props.onClose();
+    }
   };
 
   ref = (index) => (node) => {
@@ -45,7 +47,7 @@ class PhotoSwipeGallery extends React.Component {
   render() {
     const { items, thumbnailContent, playClass } = this.props;
 
-    const { className } = this.props;
+    const { className, isModalOpen, handleModalClose } = this.props;
     // const eventProps = [other, ...events];
     const { isOpen, options } = this.state;
     return (
@@ -72,6 +74,8 @@ class PhotoSwipeGallery extends React.Component {
           options={options}
           onClose={this.handleClose}
           className="videos-pswp"
+          isModalOpen={isModalOpen}
+          handleModalClose={handleModalClose}
         />
       </div>
     );
@@ -87,6 +91,7 @@ PhotoSwipeGallery.propTypes = {
   className: PropTypes.string,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  handleModalClose: PropTypes.func,
 };
 
 PhotoSwipeGallery.defaultProps = {

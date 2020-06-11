@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import objectToGetParams from '~/util/objectToGetParams';
 
 import PhotoSwipeGallery from '../PhotoSwipeGallery';
 import {
@@ -11,7 +11,61 @@ import {
 } from '../PhotoSwipeGallery/videoGalleryUtils';
 
 const VideoCategories = ({ categories }) => {
-  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  useEffect(() => {
+    if (window) {
+      document.addEventListener('click', handleClickOnShare);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOnShare);
+    };
+  }, []);
+
+  const handleClickOnShare = (event) => {
+    const path =
+      event.target && event.target.parentNode
+        ? event.target.parentNode.parentNode.classList.value
+        : null;
+    const svg =
+      event.target && event.target.parentNode
+        ? event.target.parentNode.classList.value
+        : null;
+    event.preventDefault();
+    if (path === 'video-share__copy' || svg === 'video-share__copy') {
+      setIsModalOpen(true);
+    }
+    if (path === 'video-share__facebook' || svg === 'video-share__facebook') {
+      const facebookLink = (url) => {
+        return (
+          'https://www.facebook.com/sharer/sharer.php' +
+          objectToGetParams({
+            u: url,
+          })
+        );
+      };
+      const link = facebookLink(window.location.href);
+
+      window.open(link, '_blank');
+    }
+    if (path === 'video-share__telegram') {
+      const telegramLink = (url) => {
+        return (
+          'https://telegram.me/share/' +
+          objectToGetParams({
+            url,
+          })
+        );
+      };
+      const link = telegramLink(window.location.href);
+      window.open(link, '_blank');
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       {categories.map((category, i) => {
@@ -44,6 +98,8 @@ const VideoCategories = ({ categories }) => {
                   className="col-12"
                   items={prepareGalleryItems(nodes, 4)}
                   options={options(i)}
+                  isModalOpen={isModalOpen}
+                  handleModalClose={handleModalClose}
                   thumbnailContent={getThumbnailVideo}
                 />
               </div>

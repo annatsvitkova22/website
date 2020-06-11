@@ -19,6 +19,7 @@ import addVideoDurations from '~/util/addVideoDurations';
 import Times from '~/static/images/times';
 import VideoCategoryLoader from '~/components/Loaders/VideoCategoryLoader';
 import VideosCategoryPageLoader from '~/components/Loaders/VideosCategoryPageLoader';
+import objectToGetParams from '~/util/objectToGetParams';
 
 const CATEGORY_ID = gql`
   query CategoryId($slug: [String]) {
@@ -77,6 +78,60 @@ const CATEGORIES = gql`
 const Category = (props) => {
   const videosRef = useRef();
   const [state, setState] = useState({ ...props, mobile: false });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  useEffect(() => {
+    if (window) {
+      document.addEventListener('click', handleClickOnShare);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOnShare);
+    };
+  }, []);
+
+  const handleClickOnShare = (event) => {
+    const path =
+      event.target && event.target.parentNode
+        ? event.target.parentNode.parentNode.classList.value
+        : null;
+    const svg =
+      event.target && event.target.parentNode
+        ? event.target.parentNode.classList.value
+        : null;
+    event.preventDefault();
+    if (path === 'video-share__copy' || svg === 'video-share__copy') {
+      setIsModalOpen(true);
+    }
+    if (path === 'video-share__facebook' || svg === 'video-share__facebook') {
+      const facebookLink = (url) => {
+        return (
+          'https://www.facebook.com/sharer/sharer.php' +
+          objectToGetParams({
+            u: url,
+          })
+        );
+      };
+      const link = facebookLink(window.location.href);
+
+      window.open(link, '_blank');
+    }
+    if (path === 'video-share__telegram') {
+      const telegramLink = (url) => {
+        return (
+          'https://telegram.me/share/' +
+          objectToGetParams({
+            url,
+          })
+        );
+      };
+      const link = telegramLink(window.location.href);
+      window.open(link, '_blank');
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const loadContent = async () => {
@@ -136,8 +191,6 @@ const Category = (props) => {
 
   const onLoadMore = async () => {
     const { videos, endCursor, isLoading, hasNextPage } = state;
-
-    // TODO: check why it's calling on the initial load
 
     if (!isLoading && hasNextPage) {
       setState({
@@ -274,6 +327,8 @@ const Category = (props) => {
                 items={prepareGalleryItems(state.videos)}
                 options={options()}
                 thumbnailContent={getThumbnailVideo}
+                isModalOpen={isModalOpen}
+                handleModalClose={handleModalClose}
               />
             )}
             {isUpdating && (
