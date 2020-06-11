@@ -34,11 +34,30 @@ class PhotoSwipeWrapper extends React.Component {
     if (window) {
       window.addEventListener('click', (event) => {
         event.preventDefault();
-        if (event.target.parentNode.classList.value === 'video-share__copy') {
-          console.log(this.state.isModalOpen);
+        const path = event.target.parentNode.parentNode.classList.value;
+        const svg = event.target.parentNode.classList.value;
+        if (path === 'video-share__copy' || svg === 'video-share__copy') {
           this.setState({
             isModalOpen: true,
           });
+        }
+        if (
+          path === 'video-share__facebook' ||
+          svg === 'video-share__facebook'
+        ) {
+          window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`,
+            '_blank'
+          );
+        }
+        if (
+          path === 'video-share__telegram' ||
+          svg === 'video-share__telegram'
+        ) {
+          window.open(
+            `https://t.me/share/url?url=${window.location.href}`,
+            '_blank'
+          );
         }
       });
     }
@@ -169,6 +188,7 @@ class PhotoSwipeWrapper extends React.Component {
       return;
     }
     this.photoSwipe.close();
+    this.setState({ isModalOpen: false });
   };
 
   handleClose = () => {

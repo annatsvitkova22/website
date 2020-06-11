@@ -57,16 +57,10 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                         <button class="video-share__copy">${share}</button>
                       </li>
                       <li class="share-list__item">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=${
-                          window.location.href
-                        }"  target="_blank">${facebook}</a>
+                        <button class="video-share__facebook">${facebook}</button>
                        </li>
                       <li class="share-list__item">
-                        <a href="https://t.me/share/url?url=${
-                          window.location.href
-                        }"
-                        target="_blank"
-                        class="video-share__telegram">${telegram}</a>
+                        <button class="video-share__telegram">${telegram}</button>
                       </li>
                     </ul>
                   </div>
