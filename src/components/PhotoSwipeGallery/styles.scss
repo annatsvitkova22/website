@@ -118,3 +118,17 @@
     fill: $green;
   }
 }
+
+.video-share__telegram,
+.video-share__facebook,
+.video-share__copy {
+  transition: 0.3s;
+
+  & > svg > path {
+    fill: white;
+  }
+
+  &:hover > svg > path {
+    fill: $green;
+  }
+}
