@@ -54,13 +54,19 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                   <div class="col-6">
                     <ul class="share-list list-reset d-flex justify-content-end">
                       <li class="share-list__item">
-                        <a href="https://google.com/" target="_blank">${share}</a>
+                        <button class="video-share__copy">${share}</button>
                       </li>
                       <li class="share-list__item">
-                        <a href="https://facebook.com/" target="_blank">${facebook}</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${
+                          window.location.href
+                        }"  target="_blank">${facebook}</a>
                        </li>
                       <li class="share-list__item">
-                        <a href="https://telegram.org/" target="_blank">${telegram}</a>
+                        <a href="https://t.me/share/url?url=${
+                          window.location.href
+                        }"
+                        target="_blank"
+                        class="video-share__telegram">${telegram}</a>
                       </li>
                     </ul>
                   </div>

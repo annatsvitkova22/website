@@ -5,6 +5,7 @@ import Photoswipe from 'photoswipe';
 import PhotoswipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
 
 import events from './events';
+import ShareModal from '~/components/Share/Modal';
 
 class PhotoSwipeWrapper extends React.Component {
   static propTypes = {
@@ -26,9 +27,22 @@ class PhotoSwipeWrapper extends React.Component {
   state = {
     isOpen: this.props.isOpen,
     isMounted: false,
+    isModalOpen: false,
   };
 
   componentDidMount() {
+    if (window) {
+      window.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (event.target.parentNode.classList.value === 'video-share__copy') {
+          console.log(this.state.isModalOpen);
+          this.setState({
+            isModalOpen: true,
+          });
+        }
+      });
+    }
+
     const { isOpen } = this.state;
     if (isOpen) {
       this.openPhotoSwipe(this.props);
@@ -85,7 +99,6 @@ class PhotoSwipeWrapper extends React.Component {
     if (Object.keys(params).length !== 0) {
       return params;
     }
-
     return false;
   };
 
@@ -178,7 +191,6 @@ class PhotoSwipeWrapper extends React.Component {
 
   render() {
     const { className, options } = this.props;
-
     if (this.state.isMounted) {
       return createPortal(
         <div
@@ -239,6 +251,16 @@ class PhotoSwipeWrapper extends React.Component {
               </div>
             </div>
           </div>
+          {this.state.isModalOpen && (
+            <ShareModal
+              onClose={() =>
+                this.setState({
+                  isModalOpen: false,
+                })
+              }
+              location={window.location.href}
+            />
+          )}
         </div>,
         document.getElementById('modal')
       );

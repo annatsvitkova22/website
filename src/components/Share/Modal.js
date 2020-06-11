@@ -10,7 +10,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
 
-const ShareModal = ({ onClose = () => {} }) => {
+const ShareModal = ({ onClose = () => {}, ...props }) => {
   const { asPath } = useRouter();
   const [copied, setCopied] = useState(false);
 
@@ -35,11 +35,18 @@ const ShareModal = ({ onClose = () => {} }) => {
             <Icons icon={'close-comment'} />
           </button>
         </div>
-        <Share className="crowdfunding-share__socials" />
+        <Share
+          className="crowdfunding-share__socials"
+          location={props.location}
+        />
         <div className="crowdfunding-share__share">
           <input
             className="crowdfunding-share__link"
-            value={`${frontUrl}${asPath}`}
+            value={
+              props && props.location
+                ? `${props.location}`
+                : `${frontUrl}${asPath}`
+            }
             disabled
           />
           <button disabled={copied} className="zm-button" onClick={handleCopy}>
