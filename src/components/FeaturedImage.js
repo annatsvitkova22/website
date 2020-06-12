@@ -47,9 +47,6 @@ const FeaturedImage = ({ data, className, size, ...settings }) => {
   `,
     },
   ];
-  console.log(data);
-  console.log(size);
-  console.log(settings);
   return (
     <>
       {data && size === 'full' && (
