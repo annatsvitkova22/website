@@ -77,10 +77,6 @@ const NEWPUBLICATION = gql`
   }
 `;
 
-const { publicRuntimeConfig } = getConfig();
-
-const { frontUrl } = publicRuntimeConfig.find((e) => e.env === process.env.ENV);
-
 const Publication = (props) => {
   const [state, setState] = useState({
     post: props.post,
@@ -98,7 +94,6 @@ const Publication = (props) => {
   const [disabledNew, setDisabledNew] = useState({});
 
   const { post } = state;
-  const { asPath } = useRouter();
 
   const loadData = async () => {
     setState({

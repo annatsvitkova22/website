@@ -59,7 +59,7 @@ const ArticlePublications = ({
         className={`article__image--publ ${
           size === 'big' ? 'flex-lg-grow-1 w-lg-50' : ''
         }`}
-        image={additionalImage ? additionalImage : featuredImage}
+        image={additionalImage || featuredImage}
         size={imageSize}
         alt={title}
         slug={slug}

@@ -102,10 +102,10 @@ class PhotoSwipeWrapper extends React.Component {
         this.updateItems(nextProps.items);
       }
     }
-    //Hope it is not important
-    /*else if (isOpen) {
+    // Hope it is not important
+    /* else if (isOpen) {
       this.closePhotoSwipe();
-    }*/
+    } */
   }
 
   componentWillUnmount() {

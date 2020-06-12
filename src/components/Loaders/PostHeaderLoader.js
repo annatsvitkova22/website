@@ -2,8 +2,6 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 import PropTypes from 'prop-types';
 
-import Post from '~/pages/news/[slug]';
-
 const PostHeaderLoader = ({ type }) => {
   if (type === 'news') {
     return (

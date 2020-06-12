@@ -6,7 +6,6 @@ const Avatar = ({ className, size, avatar, ...props }) => {
 
   if (avatar) {
     avatarUrl = avatar[size] ? avatar[size] : avatar.mediaItemUrl;
-    console.log(avatarUrl);
   }
 
   return (

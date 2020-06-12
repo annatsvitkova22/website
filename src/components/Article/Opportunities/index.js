@@ -7,7 +7,6 @@ import ArticleList from '~/components/Article/List';
 import ArticleFeatured from '~/components/Article/Featured';
 
 const ArticleOpportunities = ({ post, children, className }) => {
-  console.log(post.featuredImage);
   return (
     <article
       className={classnames('article--opportunities', className)}

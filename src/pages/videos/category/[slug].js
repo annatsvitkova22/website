@@ -104,12 +104,9 @@ const Category = (props) => {
     }
     if (path === 'video-share__facebook' || svg === 'video-share__facebook') {
       const facebookLink = (url) => {
-        return (
-          'https://www.facebook.com/sharer/sharer.php' +
-          objectToGetParams({
-            u: url,
-          })
-        );
+        return `https://www.facebook.com/sharer/sharer.php${objectToGetParams({
+          u: url,
+        })}`;
       };
       const link = facebookLink(window.location.href);
 
@@ -117,12 +114,9 @@ const Category = (props) => {
     }
     if (path === 'video-share__telegram') {
       const telegramLink = (url) => {
-        return (
-          'https://telegram.me/share/' +
-          objectToGetParams({
-            url,
-          })
-        );
+        return `https://telegram.me/share/${objectToGetParams({
+          url,
+        })}`;
       };
       const link = telegramLink(window.location.href);
       window.open(link, '_blank');

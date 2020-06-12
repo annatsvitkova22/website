@@ -32,13 +32,13 @@ const Share = ({
   const mainItems = (
     <>
       <FacebookShareButton
-        url={location ? location : `${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'facebook'} />
       </FacebookShareButton>
       <TelegramShareButton
-        url={location ? location : `${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'telegram'} />
@@ -49,19 +49,19 @@ const Share = ({
   const additionalItems = (
     <>
       <EmailShareButton
-        url={location ? location : `${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'email'} />
       </EmailShareButton>
       <TwitterShareButton
-        url={location ? location : `${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'twitter'} />
       </TwitterShareButton>
       <ViberShareButton
-        url={location ? location : `${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'viber'} />
