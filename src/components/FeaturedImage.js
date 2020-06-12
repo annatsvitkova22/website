@@ -47,7 +47,6 @@ const FeaturedImage = ({ data, className, size, ...settings }) => {
   `,
     },
   ];
-
   return (
     <>
       {data && size === 'full' && (
@@ -79,7 +78,31 @@ const FeaturedImage = ({ data, className, size, ...settings }) => {
           )}
         </div>
       )}
-      {data && size !== 'full' && (
+      {data && size !== 'full' && settings.type === 'Publication' && (
+        <div
+          className="feature__image feature__image--background"
+          style={{
+            backgroundImage: `url(${data.mediaItemUrl})`,
+            backgroundPosition: settings.position
+              ? settings.position
+              : 'center',
+          }}
+        >
+          <PhotoSwipeWrapper
+            options={options}
+            items={img}
+            isOpen={isOpen}
+            onClose={handleClose}
+            className="gutenberg__image-pswp"
+          />
+          <div className="gutenberg__image-expand" onClick={handleOpen}>
+            <button className={'expand-image'}>
+              <Icons icon={'expand'} />
+            </button>
+          </div>
+        </div>
+      )}
+      {data && size !== 'full' && settings.type !== 'Publication' && (
         <figure
           className={classnames('feature__image', className, {
             'feature__image--full': size === 'full',

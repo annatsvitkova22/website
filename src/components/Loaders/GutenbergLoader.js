@@ -25,7 +25,7 @@ const GutenbergLoader = ({ type }) => {
 };
 
 GutenbergLoader.propTypes = {
-  type: PropTypes.sting,
+  type: PropTypes.string,
 };
 
 export default GutenbergLoader;

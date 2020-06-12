@@ -105,7 +105,11 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
               <Share type={'main-first'} className={'title__socials-items'} />
             </div>
           </div>
-          <FeaturedImage size={'half'} data={post.featuredImage} />
+          <FeaturedImage
+            position={post.zmPublicationsACF.featuredImagePosition}
+            data={post.featuredImage}
+            type={post.__typename}
+          />
         </div>
       )}
     </div>

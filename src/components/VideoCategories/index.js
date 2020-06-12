@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import objectToGetParams from '~/util/objectToGetParams';
 
 import PhotoSwipeGallery from '../PhotoSwipeGallery';
 import {
@@ -9,6 +8,8 @@ import {
   prepareGalleryItems,
   options,
 } from '../PhotoSwipeGallery/videoGalleryUtils';
+
+import objectToGetParams from '~/util/objectToGetParams';
 
 const VideoCategories = ({ categories }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,12 +38,9 @@ const VideoCategories = ({ categories }) => {
     }
     if (path === 'video-share__facebook' || svg === 'video-share__facebook') {
       const facebookLink = (url) => {
-        return (
-          'https://www.facebook.com/sharer/sharer.php' +
-          objectToGetParams({
-            u: url,
-          })
-        );
+        return `https://www.facebook.com/sharer/sharer.php${objectToGetParams({
+          u: url,
+        })}`;
       };
       const link = facebookLink(window.location.href);
 
@@ -50,12 +48,9 @@ const VideoCategories = ({ categories }) => {
     }
     if (path === 'video-share__telegram') {
       const telegramLink = (url) => {
-        return (
-          'https://telegram.me/share/' +
-          objectToGetParams({
-            url,
-          })
-        );
+        return `https://telegram.me/share/${objectToGetParams({
+          url,
+        })}`;
       };
       const link = telegramLink(window.location.href);
       window.open(link, '_blank');

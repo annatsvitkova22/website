@@ -80,11 +80,11 @@ const ArticleSingle = ({
   }, [post]);
 
   useViewsCounter(post);
-
+  const avatarUrl = '/assets/placeholders/user-placeholder.jpg';
   const userAvatarStyles = {
     backgroundImage: storedPost.author.userAdditionalACF.avatar
       ? `url(${storedPost.author.userAdditionalACF.avatar.mediaItemUrl})`
-      : '',
+      : `url(${avatarUrl})`,
     backgroundSize: 'cover',
   };
   return (

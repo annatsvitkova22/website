@@ -49,6 +49,11 @@
 
 .rhap_progress-section {
   order: 2;
+  .rhap_time {
+    @include media-breakpoint-down(sm) {
+      font-size: 12px !important;
+    }
+  }
 }
 
 .rhap_controls-section {
@@ -83,4 +88,7 @@
   margin-left: 0 !important;
 
   top: 0 !important;
+  @include media-breakpoint-down(sm) {
+    width: 5px !important;
+  }
 }
