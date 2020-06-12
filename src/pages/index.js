@@ -45,6 +45,9 @@ const HOME_PAGE = gql`
                 slug
               }
             }
+            zmPublicationsACF {
+              featuredImagePosition
+            }
             featuredImage {
               mediaItemUrl
               frontHeroImage: sourceUrl(size: FRONT_HERO_IMAGE)

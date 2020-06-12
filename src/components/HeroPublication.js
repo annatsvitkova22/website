@@ -10,6 +10,7 @@ const HeroPublication = ({
   slug,
   author,
   featuredImage,
+  ...other
 }) => {
   const imageUrl = featuredImage.frontHeroImage
     ? featuredImage.frontHeroImage
@@ -23,6 +24,9 @@ const HeroPublication = ({
             className="hero__image bg-cover d-block"
             style={{
               backgroundImage: `url(${imageUrl})`,
+              backgroundPosition: other.zmPublicationsACF.featuredImagePosition
+                ? other.zmPublicationsACF.featuredImagePosition
+                : 'center',
               fontSize: 0,
             }}
           >
