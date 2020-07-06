@@ -189,6 +189,7 @@ const Blog = (props) => {
       loadAdditionalInfo();
     }
     setLoaded(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadSimilarPosts = async () => {

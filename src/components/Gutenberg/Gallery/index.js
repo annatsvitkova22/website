@@ -32,6 +32,7 @@ const Gallery = ({ block, className = '' }) => {
 
   const [pictures, setPictures] = useState([]);
   const array = block.attributes.images;
+  /* eslint-disable */
   const reg = /[\[\]\{\}\\]/gm;
   const regTwo = /\,/gm;
   const newArr = array.replace(reg, '').replace(regTwo, ' ').split(' ');

@@ -126,6 +126,7 @@ const Polls = ({ data, formId }) => {
 
   useEffect(() => {
     setQuestion(data[questionCount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionCount]);
 
   const percentage = ((questionCount + 1) / data.length) * 100;

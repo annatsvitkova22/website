@@ -48,6 +48,7 @@ const PUBLICATIONS_ARCHIVE = gql`
         excerpt
         title
         slug
+        date
         featuredImage {
           mediaItemUrl
         }

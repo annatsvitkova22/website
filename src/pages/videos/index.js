@@ -93,7 +93,6 @@ const VideosArchive = (props) => {
   const categoriesRef = useRef(null);
   const [content, setContent] = useState(props);
   const [state, setState] = useState({});
-
   useEffect(() => {
     const loadContent = async () => {
       const { data } = await apolloClient.query({
@@ -169,6 +168,7 @@ const VideosArchive = (props) => {
         hasNextPage: content.hasNextPage,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onLoadMore = async () => {

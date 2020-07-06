@@ -14,6 +14,8 @@
   transition: opacity 0.3s;
   pointer-events: none;
   z-index: 50;
+
+  cursor: pointer;
 }
 .scroll-top--active {
   opacity: 1;

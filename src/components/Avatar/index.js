@@ -1,11 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
 
 const Avatar = ({ className, size, avatar, ...props }) => {
   let avatarUrl = '/assets/placeholders/user-placeholder.jpg';
 
   if (avatar) {
-    avatarUrl = avatar[size] ? avatar[size] : avatar.mediaItemUrl;
+    if (avatar.url) {
+      avatarUrl = avatar[size] ? avatar[size] : avatar.url;
+    } else {
+      avatarUrl = avatar[size] ? avatar[size] : avatar.mediaItemUrl;
+    }
   }
 
   return (
@@ -16,3 +21,9 @@ const Avatar = ({ className, size, avatar, ...props }) => {
 };
 
 export default Avatar;
+
+Avatar.propTypes = {
+  className: PropTypes.string,
+  size: PropTypes.any,
+  avatar: PropTypes.any,
+};

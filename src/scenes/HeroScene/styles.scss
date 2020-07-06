@@ -58,6 +58,7 @@
       height: 400px;
     }
   }
+
   span {
     display: block;
 
@@ -102,16 +103,18 @@
   .date-separator {
     display: block;
 
-    margin-top: 1px;
-    margin-bottom: 5px;
+    margin-top: 3px;
+    margin-bottom: 7px;
 
-    color: $grey-300;
     font-size: 10px;
     font-weight: 600;
+    text-transform: uppercase;
+    color: $grey-300;
   }
 
   &__data {
     display: flex;
+
     .meta-date {
       padding-right: 16px;
       margin-top: 0;
@@ -123,6 +126,7 @@
       letter-spacing: 0.06em;
       color: #8a9994;
     }
+
     transition: transform 0.3s ease-in-out;
 
     &:hover {
@@ -140,6 +144,7 @@
   &__link {
     font-size: 13px;
     text-transform: capitalize;
+    letter-spacing: 0.06em;
 
     transform: translateX(0);
   }
@@ -149,6 +154,7 @@
   .article-featured + .publ-title {
     padding-top: 16px;
   }
+
   &__scroll {
     max-height: 100vh;
 
@@ -165,11 +171,11 @@
   h2 {
     margin-bottom: 0;
   }
+
   &__title {
     font-size: 14px;
     letter-spacing: 0.02em;
     line-height: 1.2;
-    text-transform: capitalize;
   }
 
   .meta-taxonomy {
