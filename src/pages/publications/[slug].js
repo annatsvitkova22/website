@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
-import getConfig from 'next/config';
-import { useRouter } from 'next/router';
 
 import apolloClient from '~/lib/ApolloClient';
 import singleContentCommon from '~/lib/GraphQL/singleContentCommon';
@@ -134,6 +132,7 @@ const Publication = (props) => {
     ) {
       document.querySelector('.header').classList.add('header--branded');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadSimilarPosts = async () => {

@@ -8,6 +8,7 @@ const Story = ({ block, className = '' }) => {
 
   useEffect(() => {
     const array = block.innerBlocks[0].attributes.images;
+    /* eslint-disable */
     const reg = /[\[\]\{\}\\]/gm;
     const regTwo = /\,/gm;
     const newArr = array.replace(reg, '').replace(regTwo, ' ').split(' ');

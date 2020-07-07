@@ -18,7 +18,6 @@ import ArticleAuthor from '~/components/Article/Author';
 import Share from '~/components/Share';
 import Content from '~/components/Content';
 import NewsFooter from '~/components/SinglePageFooter';
-import Story from '~/components/Gutenberg/Story';
 import {
   CreateSingleArticleStore,
   SingleArticleStore,

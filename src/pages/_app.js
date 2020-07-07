@@ -8,6 +8,7 @@ import axios from 'axios';
 import StickyBox from 'react-sticky-box';
 import classNames from 'classnames';
 import * as _ from 'lodash';
+import Router from 'next/router';
 
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
@@ -61,6 +62,22 @@ const ZmistApp = ({ Component, pageProps, zmistAdditional }) => {
   useEffect(() => {
     if (zmistAdditional && zmistAdditional.token) {
       updateToken(zmistAdditional.token);
+    }
+
+    const path = Router.router.asPath.split('/');
+    if (path.find((item) => item === 'fundraising')) {
+      const newPath = path
+        .filter((entry) => entry.trim() !== '')
+        .slice(1, path.length)
+        .join('/');
+      Router.push(`/crowdfundings/${newPath}`);
+    }
+    if (path.find((item) => item === 'analytics')) {
+      const newPath = path
+        .filter((entry) => entry.trim() !== '')
+        .slice(1, path.length)
+        .join('/');
+      Router.push(`/publications/${newPath}`);
     }
 
     window.addEventListener('scroll', fixedScrollDebounced);

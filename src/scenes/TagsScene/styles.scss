@@ -31,7 +31,7 @@
   }
 
   &__title {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 
     a {
       letter-spacing: 0.02em;
@@ -56,8 +56,8 @@
   }
 
   &__category {
-    margin-top: 20px;
-    margin-bottom: 14px;
+    margin-top: 16px;
+    margin-bottom: 11px;
   }
 
   @include media-breakpoint-between(sm, lg) {

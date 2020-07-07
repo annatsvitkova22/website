@@ -183,6 +183,7 @@ const Post = (props) => {
     if (!news && !blogs && !publications) {
       loadAdditionalInfo();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadSimilarPosts = async () => {

@@ -77,6 +77,7 @@ const Page = (props) => {
     if (!page) {
       loadPage();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
