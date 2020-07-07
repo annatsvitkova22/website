@@ -53,29 +53,45 @@ const EventsArchive = (props) => {
         <main>
           <div className="container articles-container">
             <div className="row">
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
+              <div className="loader-container__desktop">
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="event" />
+                </div>
               </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
-              </div>
-              <div className="col-lg-3 col-sm-6 col-12">
-                <PostCardLoader type="event" />
+              <div className="loader-container__mobile">
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="small" />
+                </div>
+                <div className="col-lg-3 col-sm-6 col-12">
+                  <PostCardLoader type="small" />
+                </div>
               </div>
             </div>
           </div>

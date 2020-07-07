@@ -30,6 +30,7 @@ const BlogsScene = ({ users: { nodes: users } }) => (
                 <Link href={`/blogs/author/${slug}`}>
                   <Defer
                     render={() => (
+                      // eslint-disable-next-line jsx-a11y/anchor-has-content
                       <a
                         className="blogs-user__avatar bg-cover d-block pos-relative"
                         style={

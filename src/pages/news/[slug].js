@@ -120,8 +120,6 @@ const Post = (props) => {
   const [newPosts, setNewPosts] = useState([]);
   const [pId, setPId] = useState([]);
 
-  // TODO: add loader when navigate between news
-
   const { post } = state;
   const { news, blogs, publications } = additionalInfo;
 
@@ -151,6 +149,7 @@ const Post = (props) => {
     if (post && props.slug) {
       loadData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.slug]);
 
   useEffect(() => {
@@ -291,23 +290,36 @@ const Post = (props) => {
         <>
           <Waypoint onEnter={loadSimilarPosts} />
           <div className="posts-similar posts-similar--loading posts-similar--news">
-            <div>
-              <PostCardLoader type={'small'} />
+            <div className="loader-container__desktop">
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
+              <div>
+                <PostCardLoader type={'small'} />
+              </div>
             </div>
-            <div>
-              <PostCardLoader type={'small'} />
-            </div>
-            <div>
-              <PostCardLoader type={'small'} />
-            </div>
-            <div>
-              <PostCardLoader type={'small'} />
-            </div>
-            <div>
-              <PostCardLoader type={'small'} />
-            </div>
-            <div>
-              <PostCardLoader type={'small'} />
+            <div
+              className="loader-container__mobile"
+              style={{ width: '100%', marginLeft: '0', padding: '0 20px' }}
+            >
+              <PostCardLoader type={'mobile'} />
+              <PostCardLoader type={'mobile'} />
+              <PostCardLoader type={'mobile'} />
+              <PostCardLoader type={'mobile'} />
+              <PostCardLoader type={'mobile'} />
+              <PostCardLoader type={'mobile'} />
             </div>
           </div>
         </>

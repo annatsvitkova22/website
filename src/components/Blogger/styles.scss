@@ -5,24 +5,29 @@
       margin-bottom: 30px;
     }
   }
+
   @include media-breakpoint-down(md) {
     flex-direction: column;
   }
+
   &__wrapper {
     @include media-breakpoint-down(md) {
       display: flex;
       flex-direction: column;
     }
   }
+
   .meta-taxonomy__link {
     font-size: 9px;
     letter-spacing: 0.15em;
   }
+
   @include media-breakpoint-up(lg) {
     .article--blog {
       margin-bottom: 0;
     }
   }
+
   .blog-loader {
     @include media-breakpoint-down(md) {
       width: 100%;
@@ -46,22 +51,26 @@
 
     margin-bottom: 20px;
   }
+
   &__wrapper {
     @include media-breakpoint-down(md) {
       display: flex;
       flex-direction: column;
     }
   }
+
   &__about {
     padding-top: 16px;
     padding-bottom: 16px;
   }
+
   &__name {
     padding-bottom: 4px;
 
     font-size: 16px;
     text-transform: capitalize;
   }
+
   &__info {
     font-family: $font-family-titles;
 
@@ -71,6 +80,7 @@
     letter-spacing: 0.02em;
     text-transform: capitalize;
   }
+
   &__stats {
     display: flex;
 
@@ -78,6 +88,7 @@
     padding-top: 8px;
     padding-bottom: 24px;
     margin: 0;
+
     &-item {
       display: flex;
       align-items: center;
@@ -91,6 +102,7 @@
       line-height: 16px;
       letter-spacing: 0.06em;
     }
+
     &-icon {
       display: flex;
       align-items: center;
@@ -102,11 +114,13 @@
       margin-right: 8px;
     }
   }
+
   &__socials {
     display: flex;
     @include media-breakpoint-down(md) {
       display: none;
     }
+
     &-links {
       display: flex;
       justify-content: center;
@@ -114,26 +128,32 @@
 
       width: 16px;
       height: 16px;
+
       &:not(:last-child) {
         margin-right: 25px;
       }
+
       .facebook > svg {
         width: 8.57px;
       }
+
       .instagram > svg {
         width: 14px;
       }
     }
   }
+
   &-bio {
     font-family: $font-family-titles;
 
     font-size: 15px;
     line-height: 25px;
     letter-spacing: 0.03em;
+
     &__text {
       padding-top: 30px;
     }
+
     &__button {
       text-decoration: underline;
 
@@ -158,6 +178,7 @@
     @include media-breakpoint-down(xs) {
       justify-content: start;
     }
+
     &__avatar {
       width: 200px;
       height: 200px;
@@ -170,12 +191,15 @@
         height: 90px;
       }
     }
+
     &__about {
       padding-top: 24px;
     }
+
     &__name {
       line-height: 18px;
     }
+
     &__stats {
       @include media-breakpoint-down(xs) {
         padding-top: 0;
@@ -183,6 +207,7 @@
       }
     }
   }
+
   .blogger-row > div:last-child {
     @include make-col(8);
     @include media-breakpoint-down(md) {

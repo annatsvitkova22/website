@@ -52,6 +52,7 @@
         }
         @include media-breakpoint-down(xs) {
           width: 88px;
+          height: 88px;
         }
       }
 
@@ -63,6 +64,12 @@
 }
 
 .blogger-page {
+  padding: 50px 0;
+
+  &__content {
+    margin-bottom: 50px;
+  }
+
   .blogger-row__wrapper {
     flex-direction: row;
   }
@@ -118,6 +125,7 @@
         .article-featured__image {
           width: auto;
           max-width: 100%;
+          min-height: 211px;
         }
       }
     }

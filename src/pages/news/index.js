@@ -46,7 +46,7 @@ const composeQuery = ({
       $day: Int = ${day || null}
       $month: Int = ${month || null}
       $year: Int = ${year || null}
-      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
+    ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
       categories(where: { hideEmpty: true }) {
         nodes {
@@ -57,15 +57,15 @@ const composeQuery = ({
       }
       posts(
         where: {
-          ${
-            sorting
-              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
-              : ``
-          }
-          dateQuery: { day: $day, month: $month, year: $year }
-          ${
-            category
-              ? `taxQuery: {
+        ${
+          sorting
+            ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
+            : ``
+        }
+        dateQuery: { day: $day, month: $month, year: $year }
+        ${
+          category
+            ? `taxQuery: {
             relation: OR
             taxArray: [
               {
@@ -76,8 +76,8 @@ const composeQuery = ({
               }
             ]
           }`
-              : ``
-          }
+            : ``
+        }
         }
         first: $articles
         before: $cursor
@@ -286,7 +286,11 @@ const News = ({ posts, categories, query }) => {
                     Категорія
                   </option>
                   {filters.categories.map((item) => {
-                    return <option value={item.value}>{item.label}</option>;
+                    return (
+                      <option value={item.value} key={item.value}>
+                        {item.label}
+                      </option>
+                    );
                   })}
                 </select>
                 <ChevronDown className="pos-absolute pos-center-right" />
@@ -312,7 +316,7 @@ const News = ({ posts, categories, query }) => {
           <div className="col-md-8">
             <main className="news-archive__content">
               {nodes.map((post, i) => (
-                <React.Fragment key={i}>
+                <React.Fragment key={post.id}>
                   <ChronologicalSeparator posts={nodes} currentIndex={i} />
                   <Article type="news" post={post} key={post.id}>
                     {i === nodes.length - 1 && i < pageInfo.total - 1 && (
@@ -343,10 +347,6 @@ const News = ({ posts, categories, query }) => {
       </div>
     </div>
   );
-};
-
-News.propTypes = {
-  posts: PropTypes.any,
 };
 
 News.getInitialProps = async ({ query }) => {
@@ -392,6 +392,7 @@ News.propTypes = {
   className: PropTypes.string,
   query: PropTypes.any,
   categories: PropTypes.object,
+  posts: PropTypes.any,
 };
 
 export default News;

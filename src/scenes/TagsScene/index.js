@@ -20,7 +20,12 @@ const TagsScene = ({ tags, children, isLoading }) => {
     return (
       <>
         <SectionHeadingLoader />
-        <TagsLoader />
+        <div className="loader-container__desktop">
+          <TagsLoader type={'desktop'} />
+        </div>
+        <div className="loader-container__mobile">
+          <TagsLoader type={'mobile'} />
+        </div>
       </>
     );
   }
