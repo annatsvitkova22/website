@@ -71,7 +71,7 @@ const Slick = ({ images, handleOpen, imageRef, type }) => {
                 <div className="slick__img-container">
                   <img
                     src={image.url}
-                    alt="slick-picture"
+                    alt="slick-slide"
                     className="slick__img"
                   />
                   <span className="slick__overlay" />

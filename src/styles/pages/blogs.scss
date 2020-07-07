@@ -3,23 +3,28 @@
   @include media-breakpoint-down(sm) {
     padding: 20px 0;
   }
+
   .similar-posts__title {
     margin-bottom: 0;
   }
+
   .similar-posts__author {
     letter-spacing: 0.07em;
   }
+
   .article {
     &__main {
       @include media-breakpoint-down(sm) {
         margin-right: 12px;
       }
     }
-    &__title {
+
+    &__title.article-title {
       @include media-breakpoint-down(sm) {
         margin-bottom: 8px;
       }
     }
+
     &__author {
       @include media-breakpoint-down(sm) {
         font-weight: 600;
@@ -37,21 +42,24 @@
 
     .article {
       .article-featured__image {
-        height: auto;
+        height: 88px;
       }
     }
   }
+
   .blogger {
     @include media-breakpoint-down(sm) {
       display: flex;
       flex-direction: row;
     }
+
     .author {
       @include media-breakpoint-down(sm) {
         width: 90px;
         height: 90px;
       }
     }
+
     &__stats {
       @include media-breakpoint-down(xs) {
         padding-top: 0;
@@ -61,10 +69,3 @@
   }
 }
 
-.blogger-page {
-  padding: 50px 0;
-
-  &__content {
-    margin-bottom: 50px;
-  }
-}

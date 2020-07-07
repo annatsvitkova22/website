@@ -33,6 +33,7 @@
         }
       }
     }
+
     .article-featured {
       &__image {
         height: 211px;
@@ -45,12 +46,17 @@
     }
 
     .meta-date-group {
-      padding: 0 7px 14px 2px;
+      padding-left: 5px;
 
       top: 0;
       left: 0;
 
       position: absolute;
+
+      z-index: 10;
+      &__time {
+        margin-bottom: 14px;
+      }
       @include media-breakpoint-up(sm) {
         padding: 0;
 

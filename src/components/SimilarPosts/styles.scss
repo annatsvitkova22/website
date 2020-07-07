@@ -185,6 +185,10 @@
         max-width: max-content;
         width: auto;
       }
+
+      .article-featured__image {
+        height: 88px;
+      }
     }
 
     &__type {
@@ -227,6 +231,11 @@
     }
   }
   .blogger-page {
+    .similar-posts {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
     .similar-posts__wrapper {
       width: 100%;
     }
@@ -236,7 +245,6 @@
     }
 
     .similar-posts__item {
-      justify-content: space-around;
       @include make-col(12);
     }
   }
