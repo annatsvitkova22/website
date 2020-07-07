@@ -22,22 +22,21 @@ const BlogsLoader = () => {
         <div className="blogger__wrapper">
           <div className="blogger__about">
             <ContentLoader
-              viewBox={'0, 0, 170, 36'}
+              viewBox={'0, 0, 202, 36'}
               height={'36px'}
-              width={'170px'}
+              width={'202px'}
             >
-              <rect x={'0'} y={'0'} width={'170'} height={`16`} />
-              <rect x={'0'} y={'18'} width={'130'} height={`16`} />
+              <rect x={'50'} y={'0'} width={'170'} height={`25`} />
             </ContentLoader>
           </div>
           <div className="blogger__stats">
             <ContentLoader
               viewBox={'0, 0, 202, 36'}
-              height={'57px'}
+              height={'36'}
               width={'202px'}
             >
-              <rect x={'0'} y={'0'} width={'202'} height={`16`} />
-              <rect x={'0'} y={'20'} width={'58'} height={`16`} />
+              <rect x={'50'} y={'0'} width={'202'} height={`16`} />
+              <rect x={'50'} y={'20'} width={'58'} height={`16`} />
             </ContentLoader>
           </div>
         </div>

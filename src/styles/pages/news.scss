@@ -51,10 +51,9 @@
 
     .sorting--news {
       margin-bottom: 0;
-      width: 94px;
 
       @include media-breakpoint-down(sm) {
-        margin-left: 29px;
+        margin-left: 24px;
 
         font-size: 14px;
       }
