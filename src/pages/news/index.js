@@ -6,6 +6,7 @@ import { Waypoint } from 'react-waypoint';
 import { useStateLink } from '@hookstate/core';
 import { Router } from 'next/router';
 import StickyBox from 'react-sticky-box';
+import * as classnames from 'classnames';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -27,7 +28,6 @@ import dateToGraphQLQuery from '~/util/date';
 import ChevronDown from '~/static/images/chevron-down';
 import Icons from '~/components/Icons';
 import Calendar from '~/components/Calendar';
-import SortingSelect from '~/components/SortingSelect';
 import LineLoader from '~/components/Loaders/LineLoader';
 
 const composeQuery = ({
@@ -133,6 +133,8 @@ const composeQuery = ({
 };
 
 const News = ({ posts, categories, query }) => {
+  const [categoryWidth, setCategoryWidth] = useState('110px');
+  const [sortingWidth, setSortingWidth] = useState('100px');
   const [loaded, setLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -149,6 +151,25 @@ const News = ({ posts, categories, query }) => {
     return acc;
   }, {});
   const currentCategory = filters.categories.find((i) => i.active);
+
+  useEffect(() => {
+    if (currentCategory) {
+      if (currentCategory.label.length > 12) {
+        setCategoryWidth('120px');
+      } else {
+        setCategoryWidth('110px');
+      }
+    }
+    if (currentSorting) {
+      if (currentSorting.label.length > 12) {
+        setSortingWidth('130px');
+      } else {
+        setSortingWidth('100px');
+      }
+    }
+  }, [currentCategory, currentSorting]);
+
+  console.log(currentSorting);
 
   let variables = {
     articles: 10,
@@ -281,6 +302,7 @@ const News = ({ posts, categories, query }) => {
                 <select
                   className="reset-select news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={(event) => setCategory(event.target.value)}
+                  style={{ width: `${categoryWidth}` }}
                 >
                   <option disabled hidden selected>
                     Категорія
@@ -296,12 +318,24 @@ const News = ({ posts, categories, query }) => {
                 <ChevronDown className="pos-absolute pos-center-right" />
               </div>
               <div className="pos-relative d-flex">
-                <SortingSelect
-                  currentOption={currentSorting}
-                  options={sorting}
+                <select
+                  style={{ width: `${sortingWidth}` }}
+                  onChange={(e) => setSorting(e.target.value)}
                   className="reset-select sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
-                  onChange={setSorting}
-                />
+                >
+                  {sorting.map((option) => (
+                    <option
+                      key={option.value}
+                      className={classnames('sorting__item', {
+                        'sorting__item--active':
+                          option.value === currentSorting.value,
+                      })}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
                 <ChevronDown className="pos-absolute pos-center-right" />
               </div>
               {isCalendarOpen && (
