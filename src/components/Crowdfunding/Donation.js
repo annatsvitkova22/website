@@ -70,7 +70,7 @@ const CrowdfundingDonation = ({ post, onClose = () => {} }, postId) => {
 
     const p = {
       merchantAccount: merchantLogin,
-      merchantDomainName: 'http://zmist.tech',
+      merchantDomainName: 'zmist_tech',
       authorizationType: 'SimpleSignature',
       merchantTransactionSecureType: 'AUTO',
       merchantSignature: merchantSecretKey,
