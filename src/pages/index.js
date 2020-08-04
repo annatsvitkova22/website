@@ -110,7 +110,6 @@ const HOME_PAGE = gql`
         slug
         featuredImage {
           mediaItemUrl
-          zm_xss: sourceUrl(size: ZM_XSS)
           zm_md_rect: sourceUrl(size: ZM_MD_RECT)
           zm_lg_rect_2: sourceUrl(size: ZM_LG_RECT_2)
           zm_lg_rect: sourceUrl(size: ZM_LG_RECT)
