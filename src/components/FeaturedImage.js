@@ -78,7 +78,7 @@ const FeaturedImage = ({ data, className, size, ...settings }) => {
           )}
         </div>
       )}
-      {data && size !== 'full' && settings.type === 'Publication' && (
+      {/* {data && size !== 'full' && settings.type === 'Publication' && (
         <div
           className="feature__image feature__image--background"
           style={{
@@ -101,8 +101,8 @@ const FeaturedImage = ({ data, className, size, ...settings }) => {
             </button>
           </div>
         </div>
-      )}
-      {data && size !== 'full' && settings.type !== 'Publication' && (
+      )} */}
+      {data && size !== 'full' && (
         <figure
           className={classnames('feature__image', className, {
             'feature__image--full': size === 'full',

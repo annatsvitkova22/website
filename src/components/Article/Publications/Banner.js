@@ -70,7 +70,8 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
         <div className="container">
           <div className="publication-banner__content">
             {post.zmBrandedPublication &&
-              post.zmBrandedPublication.logo.mediaItemUrl && (
+              post.zmBrandedPublication.logo &&
+                post.zmBrandedPublication.logo.mediaItemUrl && (
                 <div className="branded-logo">
                   <img
                     src={post.zmBrandedPublication.logo.mediaItemUrl}
