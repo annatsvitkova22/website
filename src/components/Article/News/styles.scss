@@ -55,6 +55,8 @@
           width: 88px;
           height: 88px;
 
+          background-color: rgba($green, 0.5);
+
           @include media-breakpoint-up(sm) {
             width: 150px;
             height: 138px;

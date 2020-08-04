@@ -124,6 +124,13 @@
       margin-right: 0;
     }
 
+    .avatar {
+      width: 44px;
+      height: 44px;
+
+      border: 1px solid transparent;
+    }
+
     .publication-banner {
       &--text,
       &--null ~ .container {
@@ -134,12 +141,6 @@
 
       &--text,
       &--null {
-        img {
-          max-height: 550px;
-
-          object-fit: cover;
-        }
-
         @include media-breakpoint-down(md) {
           padding-top: 20px;
         }
