@@ -28,11 +28,12 @@ const SideBarPopular = ({ publications }) => {
                   <span className={'sidebar-popular__text'}>
                     {item.title.toLowerCase()}
                   </span>
-                  <img
+
+                  {/* <img 
                     src={image}
                     className={'sidebar-popular__image'}
                     alt={item.featuredImage.title}
-                  />
+                  /> */}
                 </div>
               </a>
             </Link>

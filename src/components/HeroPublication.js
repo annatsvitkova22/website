@@ -42,9 +42,6 @@ const HeroPublication = ({
             <a href={`/publications/${slug}`}>{title}</a>
           </Link>
         </h2>
-        <div className="article__meta">
-          <Author className="article__author" author={author} />
-        </div>
       </div>
     </div>
   );

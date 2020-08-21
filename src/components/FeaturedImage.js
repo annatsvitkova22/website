@@ -103,26 +103,28 @@ const FeaturedImage = ({ data, className, size, ...settings }) => {
         </div>
       )} */}
       {data && size !== 'full' && (
-        <figure
-          className={classnames('feature__image', className, {
-            'feature__image--full': size === 'full',
-          })}
-        >
-          <img ref={imageRef} src={data.mediaItemUrl} alt={data.title} />
-          <PhotoSwipeWrapper
-            options={options}
-            items={img}
-            isOpen={isOpen}
-            onClose={handleClose}
-            className="gutenberg__image-pswp"
-          />
-          {size !== 'full' && (
-            <div className="gutenberg__image-expand" onClick={handleOpen}>
-              <button className={'expand-image'}>
-                <Icons icon={'expand'} />
-              </button>
-            </div>
-          )}
+        <div>
+          <figure
+            className={classnames('feature__image', className, {
+              'feature__image--full': size === 'full',
+            })}
+          >
+            <img ref={imageRef} src={data.mediaItemUrl} alt={data.title} />
+            <PhotoSwipeWrapper
+              options={options}
+              items={img}
+              isOpen={isOpen}
+              onClose={handleClose}
+              className="gutenberg__image-pswp"
+            />
+            {size !== 'full' && (
+              <div className="gutenberg__image-expand" onClick={handleOpen}>
+                <button className={'expand-image'}>
+                  <Icons icon={'expand'} />
+                </button>
+              </div>
+            )}
+          </figure>
           {data.caption && size !== 'full' && (
             <caption className={classnames('feature__image-caption')}>
               <span className={'feature__image-author'}>{data.title}</span>
@@ -132,7 +134,7 @@ const FeaturedImage = ({ data, className, size, ...settings }) => {
               />
             </caption>
           )}
-        </figure>
+        </div>
       )}
     </>
   );
