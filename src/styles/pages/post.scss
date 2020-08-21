@@ -106,6 +106,9 @@
 
       &--full {
         max-height: 100%;
+
+        background-size: cover;
+
         @include media-breakpoint-down(sm) {
           margin-top: 0;
         }
@@ -137,6 +140,10 @@
         .title__socials--mobile {
           display: none;
         }
+      }
+
+      .feature__image-caption {
+        display: none;
       }
 
       &--text,
@@ -590,9 +597,10 @@
     color: #8a9994;
 
     & > p {
-      @include media-breakpoint-down(sm) {
-        margin-bottom: 0;
-      }
+      margin-bottom: 0;
+      // @include media-breakpoint-down(sm) {
+      //   margin-bottom: 0;
+      // }
     }
   }
 }

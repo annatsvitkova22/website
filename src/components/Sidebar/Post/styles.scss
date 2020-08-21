@@ -92,12 +92,11 @@
     }
     &__wrapper {
       display: flex;
+      justify-content: space-between;
 
       width: 100%;
     }
     &__text {
-      padding-right: 23px;
-
       font-weight: 600;
       font-size: 14px;
       line-height: 17px;

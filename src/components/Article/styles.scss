@@ -95,11 +95,11 @@
     margin-bottom: 24px;
   }
 
-  @include media-breakpoint-up(sm) {
-    &:not(:last-child) {
-      margin-bottom: 40px;
-    }
-  }
+  // @include media-breakpoint-up(sm) {
+  //   &:not(:last-child) {
+  //     margin-bottom: 24px;
+  //   }
+  // }
 
   &__wrapper {
     display: flex;
