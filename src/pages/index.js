@@ -89,7 +89,7 @@ const HOME_PAGE = gql`
             url
           }
         }
-        blogs(first: 3) {
+        blogs(first: 1) {
           nodes {
             id
             title
