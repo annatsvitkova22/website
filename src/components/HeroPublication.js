@@ -21,16 +21,9 @@ const HeroPublication = ({
         <>
           <a
             href={`/publications/${slug}`}
-            className="hero__image bg-cover d-block"
-            style={{
-              backgroundImage: `url(${imageUrl})`,
-              backgroundPosition: other.zmPublicationsACF.featuredImagePosition
-                ? other.zmPublicationsACF.featuredImagePosition
-                : 'center',
-              fontSize: 0,
-            }}
+            className="hero__image d-block"
           >
-            {title}
+            <img src={imageUrl} />
           </a>
           <span />
         </>

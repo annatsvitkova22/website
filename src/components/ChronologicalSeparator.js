@@ -3,8 +3,9 @@ import * as classnames from 'classnames';
 import * as moment from 'moment';
 import PropTypes from 'prop-types';
 
-const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
+const ChronologicalSeparator = ({ posts, currentIndex, showTime, className }) => {
   const currentDate = moment(posts[currentIndex].date);
+  const time = moment(posts[currentIndex].date).format('HH:mm');
   let format = 'D MMMM';
   if (!currentDate.isSame(moment(), 'year')) {
     format = 'D MMMM YYYY';
@@ -25,7 +26,7 @@ const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
   return (
     <h3 className={classnames('date-separator', className)}>
       <time className="date-separator__time" dateTime={date}>
-        {text}
+        {text}  {showTime && time}
       </time>
     </h3>
   );
@@ -33,6 +34,7 @@ const ChronologicalSeparator = ({ posts, currentIndex, className }) => {
 
 ChronologicalSeparator.propTypes = {
   posts: PropTypes.any,
+  showTime: PropTypes.bool,
   currentIndex: PropTypes.any,
   className: PropTypes.string,
 };
