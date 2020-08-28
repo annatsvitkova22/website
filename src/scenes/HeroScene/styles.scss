@@ -101,7 +101,7 @@
   &__data {
     display: flex;
 
-    height: 51px;
+    max-height: 51px;
 
     overflow: hidden;
 
@@ -168,7 +168,7 @@
   .publ-title {
     display: flex;
 
-    height: 48px;
+    max-height: 48px;
 
     overflow: hidden;
   }

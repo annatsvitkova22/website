@@ -7,7 +7,7 @@ import Featured from '~/components/Article/Featured';
 import { ArticleProvider } from '~/components/Article/Context';
 import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import HeroPublication from '~/components/HeroPublication';
-import ArticleDate from '~/components/Article/Date';
+import ArticleDateTime from '~/components/Article/DateTime';
 
 const HeroScene = ({ info, posts, publications }) => {
   // const heroPubRef = useRef(null);
@@ -122,7 +122,8 @@ const HeroScene = ({ info, posts, publications }) => {
           <ul className="hero-list list-reset">
             {posts.nodes.slice(0, 10).map(({ date, title, slug }, i) => (
               <li key={i} className="hero-list__item line-height-1">
-                <ChronologicalSeparator posts={posts.nodes} currentIndex={i} showTime={true} />
+                <ChronologicalSeparator posts={posts.nodes} currentIndex={i} showTime={true} showForEach={true} />
+                {/* <ArticleDateTime time={eventTime} date={eventDate} /> */}
                 <div className="hero-list__data">
                   <h4 className="tx-tiny font-weight-medium">
                     <Link href={`/news/[slug]`} as={`/news/${slug}`}>
