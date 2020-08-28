@@ -3,7 +3,7 @@ import * as classnames from 'classnames';
 import * as moment from 'moment';
 import PropTypes from 'prop-types';
 
-const ChronologicalSeparator = ({ posts, currentIndex, showTime, className }) => {
+const ChronologicalSeparator = ({ posts, currentIndex, showTime, showForEach, className }) => {
   const currentDate = moment(posts[currentIndex].date);
   const time = moment(posts[currentIndex].date).format('HH:mm');
   let format = 'D MMMM';
@@ -16,7 +16,9 @@ const ChronologicalSeparator = ({ posts, currentIndex, showTime, className }) =>
   } else {
     if (currentIndex === 0) return null;
     const prevDate = moment(posts[currentIndex - 1].date);
-    if (currentDate.isSame(prevDate, 'day')) return null;
+
+    if (!showForEach && currentDate.isSame(prevDate, 'day')) return null;
+    
     text = currentDate.locale('uk').format(format);
     if (moment().subtract(1, 'days').isSame(currentDate, 'day')) {
       text = 'Вчора';
@@ -35,6 +37,7 @@ const ChronologicalSeparator = ({ posts, currentIndex, showTime, className }) =>
 ChronologicalSeparator.propTypes = {
   posts: PropTypes.any,
   showTime: PropTypes.bool,
+  showForEach: PropTypes.bool,
   currentIndex: PropTypes.any,
   className: PropTypes.string,
 };
