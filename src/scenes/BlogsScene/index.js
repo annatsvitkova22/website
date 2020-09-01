@@ -27,12 +27,13 @@ const BlogsScene = ({ users: { nodes: users } }) => (
           return (
             <div key={i} className="col-xl-3 col-sm-6 blogs-user__col">
               <div className="blogs-user__wrapper">
-                <Link href={`/blogs/author/${slug}`}>
+                <Link>
                   <Defer
                     render={() => (
                       // eslint-disable-next-line jsx-a11y/anchor-has-content
                       <a
                         className="blogs-user__avatar bg-cover d-block pos-relative"
+                        href={`/blogs/author/${slug}`}
                         style={
                           avatar
                             ? {

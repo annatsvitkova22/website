@@ -30,7 +30,7 @@ const MainPublication = ({
           <div className="d-flex">
             <Taxonomies categories={mainCats} className="cat-list__button" />
           </div>
-          <h1 className="main-publ__title text-left text-capitalize">
+          <h1 className="main-publ__title text-left">
             <Link href={`/publications/${slug}`}>
               <a>{title}</a>
             </Link>

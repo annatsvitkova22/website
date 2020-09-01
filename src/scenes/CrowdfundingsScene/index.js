@@ -78,7 +78,7 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
           );
         })}
         <div className="col-12">
-          <button onClick={onClick} className="zm-button tx-green w-100">
+          <button onClick={onClick} className="zm-button zm-button--dark tx-green w-100">
             Створити Проект
           </button>
           <ReactCSSTransitionGroup

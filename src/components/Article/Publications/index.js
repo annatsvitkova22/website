@@ -82,7 +82,7 @@ const ArticlePublications = ({
         <ArticleTitle
           highlightInTitle={highlightInTitle}
           post={post}
-          className={`text-capitalize art-publ__title art-publ__title--${style}-${size}`}
+          className={`art-publ__title art-publ__title--${style}-${size}`}
         />
         <div className="article__meta">
           <ArticleAuthor className="article__author" author={author} />
