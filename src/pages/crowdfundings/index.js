@@ -86,8 +86,11 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
   } = state;
 
   const sorted = cloneDeep(nodes);
-  // console.log(sorted);
+  console.log(sorted);
+
   // sorted.forEach(post => console.log(getCFStatus(post)))
+
+  // sorted.filter(function())
 
   if (!nodes) {
     return (

@@ -1,4 +1,5 @@
 .hero {
+  max-width: 1690px !important;
   @include media-breakpoint-up(xl) {
     margin-top: 32px;
   }
@@ -26,6 +27,12 @@
   }
 
   &__container {
+    height: calc(66.6666% - 24px);
+
+    @include media-breakpoint-down(lg) {
+      height: auto;
+    }
+
     margin-bottom: 24px;
 
     cursor: pointer;
@@ -39,15 +46,29 @@
       margin-left: -20px;
       height: auto;
     }
+
+    &:hover,
+    &:focus {
+      span {
+        background-color: rgba($green, 0.4);
+      }
+    }
   }
 
   &__image {
     height: 100%;
+    width: 100%;
 
     font-size: 0;
 
     img {
+      height: 100%;
       width: 100%;
+      object-fit: cover;
+
+      @include media-breakpoint-down(lg) {
+        min-height: 500px;
+      }
     }
   }
 
@@ -63,6 +84,8 @@
     pointer-events: none;
 
     background: linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2b2b2b 100%);
+
+    transition: all 0.3s;
   }
 
   &__caption {
@@ -75,6 +98,14 @@
       left: 20px;
       right: 20px;
       bottom: 20px;
+    }
+  }
+
+  &__selected-publications {
+    height: 33.3333%;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
     }
   }
 }
@@ -101,9 +132,13 @@
   &__data {
     display: flex;
 
-    max-height: 51px;
+    max-height: 45px;
 
     overflow: hidden;
+
+    @include media-breakpoint-down(lg) {
+      max-height: 100%;
+    }
 
     .meta-date {
       padding-right: 16px;
@@ -121,19 +156,27 @@
 
     &:hover {
       transform: translateX(10px);
+
+      @include media-breakpoint-down(lg) {
+        transform: translateX(0);
+      }
     }
   }
 
   &__item + &__item {
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 4px;
+    padding-top: 4px;
 
     border-top: 1px solid $grey-100;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 8px;
+      padding-top: 8px;
+    }
   }
 
   &__link {
-    font-size: 13px;
-    text-transform: capitalize;
+    font-size: 12px;
     letter-spacing: 0.06em;
 
     transform: translateX(0);
@@ -141,13 +184,27 @@
 }
 
 .hero-pub-wrap {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: space-between;
+
   width: 19.4444%;
   padding-left: 12px;
   padding-right: 12px;
 
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
+
   .hero-pub {
+    height: 33.3333%;
+
     &:not(:last-child) {
-      margin-bottom: 24px;
+      // margin-bottom: 24px;
+    }
+
+    &:last-child {
+      margin-top: auto;
     }
   }
 }
@@ -156,6 +213,16 @@
   width: 22.2222%;
   padding-left: 12px;
   padding-right: 12px;
+
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+  }
 }
 
 .hero-pub {
@@ -194,5 +261,18 @@
 
   .meta-author {
     margin-top: 12px;
+  }
+
+  .article-featured {
+    height: calc(100% - 101px);
+
+    &__image,
+    &__link {
+      height: 100%;
+    }
+
+    &__image {
+      background-color: rgba($green, 0.5);
+    }
   }
 }

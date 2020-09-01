@@ -14,7 +14,6 @@ import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
 import BlogsScene from '~/scenes/BlogsScene';
-import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 import HomeHeroLoader from '~/components/Loaders/Home/Hero';
 
@@ -51,6 +50,42 @@ const HOME_PAGE = gql`
             featuredImage {
               mediaItemUrl
               frontHeroImage: sourceUrl(size: FRONT_HERO_IMAGE)
+            }
+          }
+        }
+        selectedNews {
+          ... on Post {
+            id
+            title
+            uri
+            slug
+            categories {
+              nodes {
+                name
+                slug
+              }
+            }
+            featuredImage {
+              mediaItemUrl
+              sizes(size: ZM_XS)
+            }
+          }
+        }
+        selectedPublications {
+          ... on Publication {
+            id
+            title
+            uri
+            slug
+            categories {
+              nodes {
+                name
+                slug
+              }
+            }
+            featuredImage {
+              mediaItemUrl
+              sizes(size: ZM_XS)
             }
           }
         }
@@ -171,42 +206,6 @@ const CROWDFUNDINGS = gql`
       pageInfo {
         endCursor
         total
-      }
-    }
-  }
-`;
-
-const TAGS = gql`
-  query Tags {
-    tags {
-      nodes {
-        id
-        name
-        slug
-        zmTagsACF {
-          showOnHome
-        }
-        publications(first: 5) {
-          nodes {
-            title
-            slug
-            featuredImage {
-              mediaItemUrl
-              zm_xss: sourceUrl(size: ZM_XSS)
-              zm_md: sourceUrl(size: ZM_MD)
-            }
-            author {
-              slug
-              name
-            }
-            categories {
-              nodes {
-                slug
-                name
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -413,16 +412,12 @@ const Home = (props) => {
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
-        <SectionHeading title="Збір коштів" href="/crowdfundings" />
+        <SectionHeading classMode="events" title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings, isLoading }}>
           {typeof crowdfundings === 'undefined' && (
             <Waypoint onEnter={loadData(CROWDFUNDINGS)} />
           )}
         </CrowdfundingsScene>
-
-        <TagsScene {...{ tags, isLoading }}>
-          {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
-        </TagsScene>
 
         <SectionHeading title="Відео" href="/videos" classMode="videos" />
         <VideosScene {...{ videos, isLoading }}>

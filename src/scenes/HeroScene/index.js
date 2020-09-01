@@ -49,9 +49,8 @@ const HeroScene = ({ info, posts, publications }) => {
       <div className="row">
         <div className="col-xl-7">
           <HeroPublication {...info.generalInfoACF.mainPublication} />
-          <div class="row">       
-            {publications.nodes
-              .slice(0, 3)
+          <div class="row hero__selected-publications">
+            {info.generalInfoACF.selectedPublications
               .map(({ categories, title, slug, author, featuredImage }, i) => (
                 <div key={i} className="hero-pub col-xl-4">
                   <ArticleProvider value="publications">
@@ -84,43 +83,41 @@ const HeroScene = ({ info, posts, publications }) => {
           </div>
         </div>
         <div className="hero-pub-wrap d-none d-xl-block">
-          <div>
-            {publications.nodes
-              .slice(3, 6)
-              .map(({ categories, title, slug, author, featuredImage }, i) => (
-                <div key={i} className="hero-pub">
-                  <ArticleProvider value="publications">
-                    <Featured
-                      image={featuredImage}
-                      size={'zm_xs'}
-                      alt={title}
-                      slug={slug}
-                    />
-                    <Taxonomies
-                      categories={categories}
-                      className={`article__category mt-l--small`}
-                    />
-                    <h2 className="publ-title">
-                      <Link
-                        href={`/publications/[slug]`}
-                        as={`/publications/${slug}`}
+          {info.generalInfoACF.selectedNews
+            .map(({ categories, title, slug, author, featuredImage }, i) => (
+              <div key={i} className="hero-pub">
+                <ArticleProvider value="publications">
+                  <Featured
+                    image={featuredImage}
+                    size={'zm_xs'}
+                    alt={title}
+                    slug={slug}
+                  />
+                  <Taxonomies
+                    categories={categories}
+                    className={`article__category mt-l--small`}
+                  />
+                  <h2 className="publ-title">
+                    <Link
+                      href={`/publications/[slug]`}
+                      as={`/publications/${slug}`}
+                    >
+                      <a
+                        href={`/publications/${slug}`}
+                        className="hero-pub__title font-weight-semibold"
                       >
-                        <a
-                          href={`/publications/${slug}`}
-                          className="hero-pub__title font-weight-semibold"
-                        >
-                          {title}
-                        </a>
-                      </Link>
-                    </h2>
-                  </ArticleProvider>
-                </div>
-              ))}
-          </div>
+                        {title}
+                      </a>
+                    </Link>
+                  </h2>
+                </ArticleProvider>
+              </div>
+            ))}
         </div>
         <div className="hero-pub-news">
+          <h3 className="hero-pub-news__title">Новини</h3>
           <ul className="hero-list list-reset">
-            {posts.nodes.slice(0, 10).map(({ date, title, slug }, i) => (
+            {posts.nodes.slice(0, 12).map(({ date, title, slug }, i) => (
               <li key={i} className="hero-list__item line-height-1">
                 <ChronologicalSeparator posts={posts.nodes} currentIndex={i} showTime={true} showForEach={true} />
                 {/* <ArticleDateTime time={eventTime} date={eventDate} /> */}

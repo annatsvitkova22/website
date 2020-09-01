@@ -49,7 +49,7 @@ const PublicationsCats = ({
           <ArticleTitle
             highlightInTitle={highlightInTitle}
             post={post}
-            className={`text-capitalize publ-cat__title publ-cat__title--${titleModificator} font-weight-semibold`}
+            className={`publ-cat__title publ-cat__title--${titleModificator} font-weight-semibold`}
           />
           <div className="article__meta">
             <ArticleAuthor className="article__author" author={author} />
