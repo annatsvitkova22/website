@@ -1,0 +1,44 @@
+.primary-publ {
+  & + & {
+    margin-top: 20px;
+  }
+
+  &__title {
+    margin-bottom: 0;
+
+    font-size: 96px;
+    color: $white;
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    transition: color 0.2s ease-in;
+
+    @include media-breakpoint-down(md) {
+      font-size: 48px;
+    }
+
+    &:hover,
+    &:focus {
+      color: $green;
+    }
+
+    a {
+
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: $green;
+
+      position: relative;
+
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+
+      transition: transform .2s;
+
+      &:hover {
+        //transition: transform .5s ease-in;
+        //transform: translateX(0) !important;
+      }
+    }
+  }
+}

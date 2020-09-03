@@ -1,0 +1,13 @@
+.gutenberg__youtube {
+  width: 696px;
+
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+.gutenberg__youtube iframe {
+  width: 100%;
+  @media screen and (max-width: 648px) {
+    max-width: 648px;
+    width: 100%;
+  }
+}

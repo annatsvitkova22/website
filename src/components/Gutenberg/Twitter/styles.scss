@@ -1,0 +1,13 @@
+.gutenberg__twitter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+
+  .twitter-tweet {
+    width: 100% !important;
+  }
+}

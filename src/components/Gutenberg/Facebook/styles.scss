@@ -1,0 +1,23 @@
+.gutenberg__facebook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-bottom: 20px;
+  padding-top: 20px;
+  .fb-post > span {
+    max-width: 100%;
+
+    @include media-breakpoint-down(xs) {
+      width: 300px !important;
+    }
+  }
+  .fb-post iframe {
+    display: block;
+
+    margin: 0 auto;
+    max-width: 100%;
+
+    border: 0;
+  }
+}

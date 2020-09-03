@@ -1,0 +1,66 @@
+.sec-heading {
+  margin-top: 80px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+
+  position: relative;
+
+  .sec-title {
+    display: inline-flex;
+
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    font-size: 24px;
+  }
+
+  &::before {
+    content: '';
+
+    display: block;
+
+    position: absolute;
+    top: 0;
+    left: $grid-gutter-width/2;
+    right: $grid-gutter-width/2;
+
+    border-top: 1px solid $black;
+  }
+
+  @include media-breakpoint-down(md) {
+    margin-top: 30px;
+  }
+
+  &--videos {
+    @include media-breakpoint-up(md) {
+      margin-bottom: -25px;
+    }
+    margin-bottom: -12px;
+  }
+
+  &--opport {
+    margin-top: 54px;
+  }
+
+  &--events {
+    margin-top: 30px;
+  }
+
+  &--publ {
+    margin-top: 0;
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__watch-all {
+    font-size: 13px;
+
+    transition: color 0.3s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: lighten($green, 10%);
+    }
+  }
+}

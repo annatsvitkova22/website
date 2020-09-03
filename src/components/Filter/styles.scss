@@ -1,0 +1,33 @@
+.filter {
+  &--categories {
+    display: flex;
+    flex-wrap: wrap;
+
+    padding-left: 0;
+
+    list-style: none;
+  }
+  &__button {
+    @include make-category;
+
+    border: none;
+    box-shadow: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+  &__item {
+    display: flex;
+
+    margin-bottom: 10px;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+    &--active {
+      .filter__button {
+        background-color: $black;
+      }
+    }
+  }
+}

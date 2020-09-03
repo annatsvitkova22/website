@@ -1,0 +1,69 @@
+.gutenberg__freeform {
+  ul {
+    list-style: disc;
+  }
+
+  img {
+    display: flex;
+  }
+
+  .alignright {
+    margin-left: auto;
+  }
+
+  .aligncenter {
+    margin: 0 auto;
+  }
+
+  &-old {
+    img {
+      word-break: break-all;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 0.03em;
+    }
+
+    iframe {
+      height: auto;
+      width: 100%;
+      max-width: 648px;
+    }
+
+    a {
+      word-break: break-all;
+    }
+
+    tr {
+      display: flex;
+
+      width: 50%;
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+
+        width: 100%;
+        td {
+          p {
+            padding-left: 0 !important;
+          }
+        }
+      }
+    }
+  }
+
+  &-old > * {
+    & > * {
+      text-align: left !important;
+    }
+
+    text-align: left !important;
+  }
+
+  &-old > *:last-child {
+    margin-bottom: 0;
+  }
+}

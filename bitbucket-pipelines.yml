@@ -1,15 +1,72 @@
-# This is a sample build configuration for JavaScript.
-# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
-image: node:10.15.3
+image: node:12.16.0
+
+definitions:
+  services:
+    docker:
+      memory: 2048
 
 pipelines:
-  default:
-    - step:
-        caches:
-          - node
-        script: # Modify the commands below to build your repository.
-          - npm install
-          - npm test
+  branches:
+    develop:
+      - step:
+          name: Test
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run test
+      - step:
+          name: Build
+          size: 2x
+          script:
+            - export IMAGE_NAME=$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT
+            - docker build -t $IMAGE_NAME .
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker push $IMAGE_NAME
+          services:
+            - docker
+      - step:
+          name: Deploy
+          deployment: staging
+          script:
+            - sed -i "s|{{image}}|$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT|g" deployment.yaml
+            - sed -i "s|{{host}}|$STAGING_URL|g" deployment.yaml
+            - pipe: atlassian/kubectl-run:1.2.0
+              variables:
+                KUBE_CONFIG: $KUBE_CONFIG
+                KUBECTL_COMMAND: 'apply'
+                RESOURCE_PATH: 'deployment.yaml'
+                KUBECTL_ARGS:
+                  - '--namespace=zmist'
+    master:
+      - step:
+          name: Test
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run test
+            - step:
+                name: Build
+                size: 2x
+                script:
+                  - export IMAGE_NAME=$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT
+                  - docker build -t $IMAGE_NAME .
+                  - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+                  - docker push $IMAGE_NAME
+                services:
+                  - docker
+            - step:
+                name: Deploy
+                deployment: production
+                script:
+                  - sed -i "s|{{image}}|$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT|g" deployment.yaml
+                  - sed -i "s|{{host}}|$PROD_URL|g" deployment.yaml
+                  - pipe: atlassian/kubectl-run:1.2.0
+                    variables:
+                      KUBE_CONFIG: $PROD_KUBE
+                      KUBECTL_COMMAND: 'apply'
+                      RESOURCE_PATH: 'deployment.yaml'
+                      KUBECTL_ARGS:
+                        - '--namespace=zmist'
+

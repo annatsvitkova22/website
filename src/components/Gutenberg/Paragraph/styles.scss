@@ -1,0 +1,30 @@
+.gutenberg__paragraph {
+  padding-bottom: 20px;
+
+  p {
+    margin: 0;
+  }
+  strong {
+    font-weight: 600;
+  }
+  & a {
+    color: $green;
+    &:hover {
+      color: darken($green, 10);
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    p {
+      font-size: 16px !important;
+      line-height: 24px;
+      letter-spacing: 0.03em;
+    }
+  }
+  .has-drop-cap {
+    &::first-letter {
+      margin: 0 2px 0 0;
+
+      font-size: 3em;
+    }
+  }
+}

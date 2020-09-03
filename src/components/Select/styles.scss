@@ -1,0 +1,131 @@
+.search-form {
+  .react-select {
+    &__quantity {
+      padding-left: 6px;
+    }
+
+    &__option {
+      padding: 4.4px 14px;
+
+      letter-spacing: 0.02em;
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    &__value-container {
+      letter-spacing: 0.02em;
+
+      &--has-value {
+        font-weight: 600;
+      }
+    }
+
+    &__dropdown-indicator {
+      padding-right: 3px;
+      padding-left: 3px;
+    }
+
+    &__menu {
+      margin-top: -3px;
+      padding-bottom: 11px;
+
+      box-shadow: 0px -6px 6px $white, 0px 0px 6px rgba($black, 0.25);
+
+      z-index: 100;
+    }
+
+    &__single-value .react-select__quantity {
+      display: none;
+    }
+
+    &__placeholder {
+      margin-left: 0;
+      margin-right: 0;
+
+      font-weight: 500;
+    }
+
+    &__control {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+
+      box-shadow: none;
+      background-color: transparent;
+
+      letter-spacing: 0.08em;
+
+      cursor: pointer;
+
+      @include media-breakpoint-down(sm) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      &:not(.react-select__control--menu-is-open) {
+        .react-select {
+          &__value-container {
+            flex-grow: 0;
+            flex-basis: auto;
+            flex-wrap: nowrap;
+          }
+
+          &__single-value,
+          &__placeholder {
+            max-width: 100%;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            position: static;
+            top: auto;
+
+            letter-spacing: 0.02em;
+
+            overflow: hidden;
+
+            transform: none;
+          }
+        }
+      }
+
+      &--menu-is-open {
+        box-shadow: 0px 0 6px $white, 0px 0px 6px rgba($black, 0.25);
+
+        .react-select__dropdown-indicator {
+          transform: rotate(180deg);
+        }
+        .react-select__placeholder {
+          font-weight: 600;
+        }
+
+        &,
+        & + .react-select__menu {
+          width: 211px;
+
+          background-color: $white;
+        }
+      }
+    }
+
+    &__clear-indicator ~ .react-select__dropdown-indicator {
+      display: none;
+    }
+
+    &__indicator {
+      margin-left: 7px;
+
+      line-height: 1;
+    }
+  }
+}
+
+.mobile-select {
+  padding: 12px 0;
+
+  background-color: transparent;
+  outline: none;
+
+  border: none;
+
+  font-size: 14px;
+}

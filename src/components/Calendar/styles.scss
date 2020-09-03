@@ -1,0 +1,81 @@
+.react-calendar {
+  margin-bottom: 38px;
+
+  font-family: $font-family-titles;
+
+  abbr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    text-decoration: none;
+
+    transition: all 0.3s;
+  }
+
+  &__month-view {
+    &__weekdays {
+      &__weekday {
+        margin-bottom: 14px;
+      }
+      abbr {
+        font-size: 12px;
+        line-height: 15px;
+    
+        cursor: default;
+      }
+    }
+
+    &__days {
+      font-size: 16px;
+      line-height: 24px;
+
+      &__day {
+        abbr {
+          margin: 2px auto;
+        
+          width: 48px;
+          height: 48px;
+          padding: 0;
+        
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  &__tile {
+    &--active,
+    &:hover {
+      abbr {
+        background: rgba(29, 158, 116, 0.08);
+
+        color: $green;
+      }
+    }
+  }
+  &__navigation {
+    margin-bottom: 26px;
+
+    line-height: 1;
+
+    &__label {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      text-align: center;
+      letter-spacing: 0.1px;
+      text-transform: capitalize;
+    }
+
+    &__arrow {
+      width: 24px;
+      height: 24px;
+    }
+
+    &__next2-button,
+    &__prev2-button {
+      display: none;
+    }
+  }
+}

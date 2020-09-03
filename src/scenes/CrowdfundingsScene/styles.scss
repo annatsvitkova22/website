@@ -1,0 +1,69 @@
+.modal {
+  height: 100vh;
+  width: 100vw;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 20;
+
+  &__close {
+    height: 20px;
+    width: 16px;
+
+    position: absolute;
+    top: 34px;
+    right: 34px;
+
+    line-height: 1;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__overlay {
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: rgba($black, 0.75);
+  }
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 505px;
+  padding: 34px 34px 34px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  background-color: $white;
+
+  transform: translate(-50%, -50%);
+}
+
+.modal-enter {
+  opacity: 0.01;
+}
+
+.modal-enter.modal-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.modal-leave {
+  opacity: 1;
+}
+
+.modal-leave.modal-leave-active {
+  opacity: 0.01;
+  transition: opacity 0.3s ease-in;
+}

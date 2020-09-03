@@ -1,0 +1,29 @@
+.cat-list {
+  margin-bottom: 34px;
+  margin-left: -5px;
+  margin-right: -5px;
+
+  &__button {
+    @include make-category;
+    &:focus {
+      background-color: $white;
+
+      color: $black;
+    }
+    &--active {
+      background-color: $white;
+
+      color: $black;
+    }
+  }
+
+  &__item {
+    padding: 5px;
+
+    line-height: 1;
+  }
+}
+
+.category-label {
+  @include make-category;
+}

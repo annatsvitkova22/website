@@ -1,75 +1,42 @@
 import React from 'react';
-import Link from 'next/link';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import PropTypes from 'prop-types';
+import * as classnames from 'classnames';
 
-const MENU = gql`
-  query Menu($id: ID!) {
-    menu(id: $id) {
-      menuItems {
-        edges {
-          node {
-            id
-            menuItemId
-            title
-            url
-            connectedObject {
-              __typename
-            }
-            cssClasses
-            description
-            label
-            linkRelationship
-            target
-          }
-        }
-        nodes {
-          id
-          menuItemId
-          title
-          url
-          connectedObject {
-            __typename
-          }
-          cssClasses
-          description
-          label
-          linkRelationship
-          target
-        }
-      }
-    }
-  }
-`;
+import NavLink from './SiteLink';
 
-const Navigation = (props) => {
-  const { menuId } = props;
-  const { loading, data } = useQuery(MENU, {
-    variables: { id: menuId },
-  });
-
-  if (loading) return null;
-
+const Navigation = ({ navigationData, className = '' }) => {
   return (
-    <nav>
-      <ul>
-        {data.menu &&
-          data.menu.menuItems &&
-          data.menu.menuItems.nodes.map((item) => {
-            return console.log(item);
+    <nav className={`${className}`}>
+      <ul className="navigation__list">
+        {navigationData &&
+          navigationData.nodes &&
+          navigationData.nodes[0].menuItems.nodes.map((item) => {
             return (
-              <li key={item.id}>
-                <Link href={item.url}>
-                  <a target={item.target} href={item.url}>
-                    {item.label}
-                  </a>
-                </Link>
+              <li
+                key={item.id}
+                className={classnames('navigation__item', {
+                  'navigation__item--highlighted':
+                    item.menuItemACF.ishighlighted,
+                })}
+              >
+                <NavLink
+                  href={item.url}
+                  target={item.target}
+                  className="navigation__link"
+                >
+                  {`${item.menuItemACF.ishighlighted ? '!' : ''}${item.label}`}
+                </NavLink>
               </li>
             );
           })}
       </ul>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  navigationData: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default Navigation;

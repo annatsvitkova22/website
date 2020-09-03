@@ -1,0 +1,18 @@
+.bg-cover {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+
+$bgs: (
+  'white': $white,
+);
+
+@each $name, $bg in $bgs {
+  .bg {
+    &-#{$name} {
+      background-color: $bg;
+    }
+  }
+}

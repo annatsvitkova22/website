@@ -1,0 +1,60 @@
+.videos-list {
+  @include media-breakpoint-down(md) {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  &__item {
+    display: flex;
+
+    @include media-breakpoint-up(md) {
+      align-items: flex-start;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__item + &__item {
+    padding-top: 24px;
+  }
+}
+
+.video-item {
+  cursor: pointer;
+
+  &__title {
+    max-height: 3.6rem;
+
+    font-size: 14px;
+
+    line-height: 1.05rem;
+    letter-spacing: 0.02em;
+
+    overflow: hidden;
+
+    @include media-breakpoint-down(sm) {
+      margin-top: 5px;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+
+    min-width: 108px;
+    
+    &--current {
+      color: $green;
+    }
+  }
+
+  &__duration {
+    margin-left: 13px;
+
+    font-size: 12px;
+    line-height: 1.333;
+    letter-spacing: 0.06em;
+  }
+}

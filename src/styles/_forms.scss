@@ -1,0 +1,199 @@
+form,
+.zm-form {
+  display: block;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea,
+input {
+  display: block;
+
+  width: 100%;
+
+  border: 0;
+  box-shadow: none;
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 32px;
+  }
+}
+
+.zm-form {
+  &--event {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 58px;
+
+      max-width: 264px;
+    }
+  }
+
+  &__title {
+    margin-bottom: 30px;
+
+    color: $green;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+
+    @include media-breakpoint-up(sm) {
+      font-size: 33px;
+    }
+  }
+
+  &__icon {
+    top: 50%;
+    right: 6px;
+    position: absolute;
+
+    transform: translateY(-50%);
+
+    cursor: pointer;
+
+    &--date {
+      transform: translateY(-60%);
+    }
+  }
+
+  &-field {
+    display: block;
+
+    margin-bottom: 30px;
+
+    position: relative;
+
+    &:after {
+      content: '';
+
+      height: 1px;
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      background-color: $grey-200;
+    }
+
+    &__placeholder {
+      position: absolute;
+      top: 4px;
+      left: 0;
+
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 32px;
+      color: #8a9994;
+
+      transition: 0.3s all;
+      pointer-events: none;
+    }
+
+    &__required {
+      position: absolute;
+      top: 0;
+      right: -14px;
+
+      color: red;
+    }
+
+    &--invalid.zm-form-field--touched {
+      letter-spacing: 0.05em;
+      color: #eb5757;
+
+      &:after {
+        height: 2px;
+
+        background-color: #eb5757;
+      }
+
+      .zm-form-field__placeholder {
+        letter-spacing: 0.05em;
+        color: #eb5757;
+      }
+    }
+
+    &--focused,
+    &--filled {
+      .zm-form-field__placeholder {
+        top: -12px;
+
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.05em;
+        color: #b0b0b0;
+      }
+
+      &:after {
+        background-color: $grey-400;
+      }
+    }
+  }
+
+  &__textarea {
+    height: 91px;
+    @include media-breakpoint-up(sm) {
+      height: 72px;
+    }
+  }
+
+  .react-datepicker {
+    &-wrapper {
+      display: block;
+
+      width: 100%;
+    }
+
+    &__input-container {
+      height: 37px;
+
+      line-height: 37px;
+    }
+  }
+
+  &__textarea,
+  &__input {
+    padding: 2px 0 3px;
+
+    color: $black;
+    font-size: 16px;
+    line-height: 32px;
+  }
+
+  &__submit {
+    width: 100%;
+
+    color: $green;
+
+    &--sent {
+      color: $green !important;
+    }
+  }
+}
+
+.zm-datepicker__popper {
+  min-width: 360px;
+
+  &[data-placement='bottom-start'],
+  &[data-placement='top-start'] {
+    left: -30px !important;
+  }
+
+  &[data-placement='bottom-end'],
+  &[data-placement='top-end'] {
+    left: calc(100% + 30px) !important;
+  }
+}

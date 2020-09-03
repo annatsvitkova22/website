@@ -1,0 +1,59 @@
+.gutenberg__ordered-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 0;
+
+  font-family: $font-family-paragraph;
+
+  & a {
+    color: $green;
+    &:hover {
+      color: darken($green, 10);
+    }
+  }
+
+  & > li:not(:last-child) {
+    padding-bottom: 8px;
+  }
+  & > li:not(:first-child) {
+    padding-top: 8px;
+  }
+  @include media-breakpoint-down(sm) {
+    .gutenberg__ordered-list > li {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.03em;
+    }
+  }
+}
+.gutenberg__unordered-list {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 26.5px;
+
+  list-style: disc;
+
+  margin: 0;
+
+  font-family: $font-family-paragraph;
+
+  & a {
+    color: $green;
+    &:hover {
+      color: darken($green, 10);
+    }
+  }
+  & > li:not(:last-child) {
+    padding-bottom: 8px;
+  }
+  & > li:not(:first-child) {
+    padding-top: 8px;
+  }
+  @include media-breakpoint-down(sm) {
+    .gutenberg__unordered-list > li {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.03em;
+    }
+  }
+}

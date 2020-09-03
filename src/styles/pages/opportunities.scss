@@ -1,0 +1,9 @@
+.opportunities-page {
+  .container {
+    > svg {
+      & + svg {
+        margin-top: 20px;
+      }
+    }
+  }
+}

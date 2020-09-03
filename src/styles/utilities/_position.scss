@@ -1,0 +1,79 @@
+.pos {
+  &-relative {
+    position: relative;
+  }
+
+  &-absolute {
+    position: absolute;
+  }
+
+  &-bottom-center {
+    bottom: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+  }
+
+  &-center {
+    &-right,
+    &-left {
+      top: 50%;
+      
+      transform: translateY(-50%);
+    }
+    
+    &-left {
+      left: 0;
+    }
+    
+    &-right {
+      right: 0;
+    }
+  }
+}
+
+$positions: (0, 24, 36, 52);
+
+@each $value in $positions {
+  .t {
+    &-#{$value} {
+      top: #{$value}px;
+    }
+  }
+  .b {
+    &-#{$value} {
+      bottom: #{$value}px;
+    }
+  }
+  .l {
+    &-#{$value} {
+      left: #{$value}px;
+    }
+  }
+  .r {
+    &-#{$value} {
+      right: #{$value}px;
+    }
+  }
+}
+
+$z-indexes: (
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10
+);
+
+@each $value in $z-indexes {
+  .z {
+    &-#{$value} {
+      z-index: #{$value};
+    }
+  }
+}

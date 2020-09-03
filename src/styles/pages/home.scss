@@ -1,0 +1,22 @@
+.home-page {
+  // TODO: remove
+  iframe {
+    display: block;
+  }
+  
+  margin-bottom: 80px;
+  
+  @include media-breakpoint-down(md) {
+    margin-bottom: 40px;
+  }
+}
+
+.opp-section {
+  .article {
+    &__main {
+      @include media-breakpoint-up(sm) {
+        max-width: calc(100% - 200px);
+      }
+    }
+  }
+}

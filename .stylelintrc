@@ -4,11 +4,21 @@
     "stylelint-order"
   ],
   "rules": {
+    "no-descending-specificity": null,
     "at-rule-no-unknown": [
       true,
       {
         "ignoreAtRules": [
-          "extends"
+          "function",
+          "return",
+          "include",
+          "mixin",
+          "each",
+          "extend",
+          "extends",
+          "for",
+          "if",
+          "else"
         ]
       }
     ],
@@ -21,7 +31,8 @@
       "deg",
       "s",
       "em",
-      "rem"
+      "rem",
+      "fr"
     ],
     "order/properties-order": [
       [

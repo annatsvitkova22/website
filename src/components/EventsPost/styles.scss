@@ -1,0 +1,10 @@
+.events__wrapper {
+  flex-wrap: nowrap;
+  align-items: center;
+
+  height: 400px;
+  .events__date {
+    display: flex;
+    flex-direction: column;
+  }
+}

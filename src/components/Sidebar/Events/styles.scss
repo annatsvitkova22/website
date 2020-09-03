@@ -1,0 +1,135 @@
+.info-card {
+  &__info-wrapper > div:first-child {
+    padding-top: 12px;
+  }
+  &__wrapper {
+    width: 100%;
+
+    padding: 20px 0 0 0;
+
+    & > div:last-child {
+      margin-bottom: 0;
+    }
+
+    @include media-breakpoint-up(md) {
+      width: auto;
+
+      padding: 16px;
+    }
+
+    background-color: #ffffff;
+    .instagram,
+    .facebook {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 24px;
+      height: 24px;
+
+      @include media-breakpoint-up(md) {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .instagram .svg-icon {
+      height: 22px;
+      width: 22px;
+
+      @include media-breakpoint-up(md) {
+        height: 14px;
+        width: 14px;
+      }
+    }
+
+    .facebook .svg-icon {
+      height: 24px;
+
+      @include media-breakpoint-up(md) {
+        height: 16px;
+      }
+    }
+    .article-list {
+      padding-bottom: 25px;
+    }
+  }
+
+  &__map {
+    width: 312px;
+    width: 100%;
+    height: 196px;
+    margin-bottom: 12px;
+  }
+
+  &__map > * {
+    height: 100%;
+
+    position: relative;
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+
+    padding: 12px 0;
+
+    font-family: $font-family-titles;
+  }
+
+  &__description {
+    margin-bottom: 2px;
+
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+
+    color: #606664;
+  }
+
+  &__item {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.06em;
+    text-transform: capitalize;
+
+    color: $black;
+  }
+
+  &__email ~ .info-card__item > a {
+    text-transform: lowercase;
+    line-height: 18px;
+  }
+
+  &__social {
+    display: flex;
+
+    padding-top: 32px;
+    padding-bottom: 23px;
+
+    .social-icon .svg-icon > path {
+      fill: $black;
+    }
+
+    & > a:not(:last-child) {
+      margin-right: 30px;
+
+      @include media-breakpoint-up(md) {
+        margin-right: 16px;
+      }
+    }
+  }
+}
+
+.event__hero-noimage {
+  .social-icon {
+    svg {
+      path {
+        fill: $black;
+      }
+    }
+  }
+}

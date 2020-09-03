@@ -1,0 +1,26 @@
+.cat-select {
+  margin-top: 19px;
+  margin-bottom: 8px;
+
+  > svg {
+    width: 19px;
+    height: 14px;
+  }
+
+  path {
+    fill: $white;
+  }
+
+  &__main {
+    padding-left: 21px;
+    padding-right: 16px;
+    outline: none;
+
+    border: none;
+    background-color: transparent;
+  }
+
+  &__label {
+    margin-bottom: 0;
+  }
+}

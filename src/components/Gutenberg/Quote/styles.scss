@@ -1,0 +1,50 @@
+.gutenberg__quote {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  position: relative;
+
+  @include media-breakpoint-down(xs) {
+    margin-left: 30px;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &:before {
+    content: '';
+
+    width: 2px;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: -30px;
+
+    background-color: $black;
+  }
+  & > blockquote {
+    margin-bottom: 0;
+
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    font-style: italic;
+
+    font-weight: bold;
+  }
+  .quote__citation {
+    display: flex;
+    align-items: center;
+
+    margin-top: 24px;
+
+    font-family: $font-family-titles;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: 0.2px;
+  }
+}

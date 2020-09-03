@@ -1,0 +1,368 @@
+.footer {
+  background-color: $black;
+
+  font-family: $font-family-titles;
+
+  color: $white;
+
+  &__navigation {
+    padding-top: 64px;
+    padding-bottom: 82px;
+
+    &-logo {
+      @include media-breakpoint-up(md) {
+        width: 110px;
+        height: 60px;
+      }
+    }
+  }
+
+  &__data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 39px;
+
+    border-bottom: 1px solid $grey-400;
+    &-socials {
+      display: flex;
+      justify-content: space-between;
+
+      height: 100%;
+    }
+    &-link {
+      margin-right: 26px;
+      margin-left: 26px;
+
+      path {
+        transition: all 0.3s;
+      }
+      &:hover {
+        path {
+          fill: $white;
+
+          transition: all 0.3s;
+        }
+      }
+    }
+    &-link:first-child {
+      margin-left: -14.86px;
+    }
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 64px;
+      height: 64px;
+    }
+    &-icon > .svg-icon {
+      color: rgba(255, 255, 255, 0.24);
+    }
+  }
+
+  &__sitemap {
+    display: flex;
+    justify-content: space-around;
+
+    &-partner:not(:last-child) {
+      margin-bottom: 12px;
+    }
+    &-list {
+      align-items: start;
+
+      padding: 0;
+      margin: 0;
+
+      text-align: left;
+      list-style: none;
+    }
+
+    &-navigation {
+      align-items: start;
+
+      padding: 0;
+      margin: 0;
+
+      text-align: left;
+      list-style: none;
+    }
+
+    &-title {
+      margin-bottom: 6px;
+
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: $font-weight-semibold;
+      letter-spacing: 0.05em;
+    }
+    .partners-img {
+      margin-bottom: 12px;
+    }
+    &-icons {
+      display: grid;
+
+      margin-right: 14px;
+      .svg-icon {
+        width: 12px;
+
+        transition: all 0.3s;
+      }
+    }
+
+    &-link {
+      padding-top: 6px;
+      padding-bottom: 6px;
+
+      font-size: 12px;
+      line-height: 16px;
+
+      & > a {
+        line-height: 16px;
+      }
+      &.project__owner:hover {
+        color: $white;
+      }
+      &:hover > a {
+        color: $green;
+      }
+      &:hover {
+        .svg-icon {
+          color: $green;
+
+          transition: all 0.3s;
+        }
+      }
+    }
+
+    &-link:nth-child(1) {
+      span {
+        display: flex;
+      }
+    }
+
+    &-chevron {
+      display: none;
+    }
+  }
+
+  &__developers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 12px;
+    line-height: 1.6;
+
+    &-date {
+      display: flex;
+      align-items: center;
+    }
+    &-date > svg {
+      width: 12px;
+      height: 12px;
+      margin-right: 2px;
+    }
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      padding-top: 27px;
+      padding-bottom: 27px;
+    }
+    &-description {
+      margin-right: 58px;
+    }
+  }
+
+  &__counters {
+    display: flex;
+    justify-content: flex-end;
+    &-block {
+      display: flex;
+      flex-direction: column;
+
+      &:not(:last-child) {
+        margin-right: 48px;
+      }
+    }
+
+    &-counter {
+      margin-bottom: 4px;
+
+      color: rgba(255, 255, 255, 0.24);
+      font-family: $font-family-secondary;
+      font-size: 72px;
+      line-height: 72px;
+    }
+    &-description {
+      font-size: 12px;
+      text-transform: lowercase;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    &__navigation-logo {
+      margin-bottom: 40px;
+    }
+
+    &__sitemap-list {
+      &:first-child {
+        .footer__sitemap-title {
+          margin-bottom: 13px;
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    background-color: $black;
+    &__navigation {
+      flex-direction: column;
+
+      padding-top: 38px;
+      padding-bottom: 14px;
+      &-logo {
+        max-width: 94px;
+      }
+    }
+    &-facebook > svg {
+      width: 25.72px;
+    }
+    &-instagram > svg {
+      width: 42px;
+    }
+    &-telegram > svg {
+      width: 42px;
+    }
+    &__sitemap {
+      flex-direction: column;
+
+      &-partner:not(:last-child) {
+        margin-right: 52px;
+        margin-bottom: 0;
+      }
+
+      &-list:not(:first-child) {
+        display: flex;
+        flex-direction: column;
+
+        padding-top: 13px;
+        padding-bottom: 13px;
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+      }
+      &-navigation {
+        display: none;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        width: 100%;
+        max-height: 151px;
+      }
+      &-navigation.isOpen {
+        display: flex;
+      }
+      &-list:first-child {
+        display: flex;
+        flex-direction: column;
+
+        padding-bottom: 29px;
+
+        .footer__sitemap {
+          &-navigation {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            max-height: 100%;
+          }
+          &-link {
+            margin-right: 52px;
+          }
+
+          &-link:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+      &-title {
+        display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 0;
+        width: 100%;
+      }
+      &-chevron {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 24px;
+        height: 24px;
+      }
+      &-chevron > svg {
+        color: $white;
+
+        transition: all 0.2s ease-in;
+      }
+      &-chevron.isOpen > svg {
+        transform: rotate(180deg);
+
+        transition: all 0.2s ease-in;
+      }
+    }
+    &__data {
+      flex-direction: column;
+      align-items: flex-start;
+
+      padding-top: 14px;
+      &-link:first-child {
+        margin-left: 0;
+      }
+      &-socials {
+        padding-bottom: 16px;
+      }
+      &-icon {
+        width: 48px;
+        height: 48px;
+      }
+    }
+    &__counters {
+      padding-top: 16px;
+      &-counter {
+        margin-bottom: 0;
+
+        font-size: 48px;
+        line-height: 1;
+      }
+    }
+    &__developers-description {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    &__sitemap-list:first-child {
+      .footer__sitemap-link {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+
+// .footer {
+//   .footer__sitemap-link {
+//     @include media-breakpoint-down(sm) {
+//       margin-right: 40px;
+//     }
+//   }
+// }

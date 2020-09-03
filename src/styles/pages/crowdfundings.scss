@@ -1,0 +1,28 @@
+.crowdfundings-archive {
+  padding: 50px 0;
+}
+
+.crowdfunding-single {
+  padding: 50px 0;
+
+  &__top {
+    margin-bottom: 50px;
+  }
+
+  &__stats {
+    margin-top: 20px;
+  }
+
+  &__actions {
+    margin-top: 20px;
+  }
+
+  &__featured {
+    flex: 1;
+
+    max-width: none;
+
+    margin: 0;
+    padding: 0;
+  }
+}

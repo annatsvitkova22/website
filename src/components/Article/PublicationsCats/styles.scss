@@ -1,0 +1,111 @@
+.publ-cat {
+  @include media-breakpoint-down(lg) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    .article-featured {
+      flex-shrink: 0;
+
+      max-width: 200px;
+      width: auto;
+
+      &__image {
+          width: 200px;
+
+          @include media-breakpoint-down(md) {
+            width: 150px;
+          }
+
+        height: 138px;
+
+        img {
+          height: 100%;
+          width: 100%;
+          
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  .meta-author {
+    color: $grey-200;
+  }
+
+  &__col {
+    @include media-breakpoint-up(xl) {
+      &:not(:last-child) {
+        margin-bottom: 24px;
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 24px;
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    .article-featured {
+      &__image {
+        width: 88px;
+        height: 88px;
+      }
+    }
+  }
+
+  &__wrapper {
+    @include media-breakpoint-down(lg) {
+      max-width: 551px;
+      padding-right: 12px;
+    }
+  }
+
+  &__title {
+    margin-bottom: 16px;
+
+    @include media-breakpoint-up(xl) {
+      margin-top: 21px;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 7px;
+
+      line-height: 1.3;
+    }
+  }
+
+  &__col--big &__title {
+    &--big-long {
+      a {
+        @include media-breakpoint-up(xl) {
+          font-size: 20px;
+        }
+      }
+    }
+    
+    &--big-short {
+      a {
+        @include media-breakpoint-up(xl) {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  &__col--medium &__title {
+    a {
+      @include media-breakpoint-up(xl) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  &__col--small &__title {
+    @include media-breakpoint-up(xl) {
+      a {
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+.gutenberg__button {
+  display: flex;
+
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+
+.wp-block-button {
+  padding: 12px 30px;
+
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+
+  box-shadow: 4px 4px 0px #000000;
+
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0.03em;
+  text-transform: capitalize;
+}
+.wp-block-button:hover {
+  box-shadow: 0px 0px 0px #000000;
+}
+.wp-block-button:disabled {
+  background: #f1f1f1;
+  border: 2px solid #d6d6d6;
+  box-sizing: border-box;
+
+  box-shadow: 4px 4px 0px #c7c7c7;
+}
+
+
+.has-vivid-red-color {
+  color: $vivid-red !important;
+}
+.has-pale-pink-color {
+  color: $pale-pink !important;
+}
+.has-luminous-vivid-orange-color {
+  color: $luminous-vivid-orange !important;
+}
+.has-luminous-vivid-amber-color {
+  color: $luminous-vivid-amber !important;
+}
+.has-light-green-cyan-color {
+  color: $light-green-cyan !important;
+}
+.has-vivid-green-cyan-color {
+  color: $vivid-green-cyan !important;
+}
+.has-pale-cyan-blue-color {
+  color: $pale-cyan-blue !important;
+}
+.has-vivid-cyan-blue-color {
+  color: $vivid-cyan-blue !important;
+}
+.has-vivid-purple-color {
+  color: $vivid-purple !important;
+}
+.has-very-light-gray-color {
+  color: $very-light-gray !important;
+}
+.has-cyan-bluish-gray-color {
+  color: $cyan-bluish-gray !important;
+}
+.has-very-dark-gray-color {
+  color: $very-dark-gray !important;
+}
+.has-vivid-red-background-color {
+  background-color: $vivid-red !important;
+}
+.has-pale-pink-background-color {
+  background-color: $pale-pink !important;
+}
+.has-luminous-vivid-orange-background-color {
+  background-color: $luminous-vivid-orange !important;
+}
+.has-luminous-vivid-amber-background-color {
+  background-color: $luminous-vivid-amber !important;
+}
+.has-light-green-cyan-background-color {
+  background-color: $light-green-cyan !important;
+}
+.has-vivid-green-cyan-background-color {
+  background-color: $vivid-green-cyan !important;
+}
+.has-pale-cyan-blue-background-color {
+  background-color: $pale-cyan-blue !important;
+}
+.has-vivid-cyan-blue-background-color {
+  background-color: $vivid-cyan-blue !important;
+}
+.has-vivid-purple-background-color {
+  background-color: $vivid-purple !important;
+}
+.has-very-light-gray-background-color {
+  background-color: $very-light-gray !important;
+}
+.has-cyan-bluish-gray-background-color {
+  background-color: $cyan-bluish-gray !important;
+}
+.has-very-dark-gray-background-color {
+  background-color: $very-dark-gray !important;
+}
+.has-subtle-pale-blue-background-color {
+  background-color: $subtle-pale-blue !important;
+}
+.has-subtle-pale-green-background-color {
+  background-color: $subtle-pale-green !important;
+}
+.has-subtle-pale-pink-background-color {
+  background-color: $subtle-pale-pink !important;
+}
+.has-subtle-light-gray-background-color {
+  background-color: $grey-100 !important;
+}
+
+.has-text-align-center {
+  text-align: center;
+}
+
+.has-text-align-right {
+  text-align: right;
+}

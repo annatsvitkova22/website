@@ -1,0 +1,97 @@
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-grid-classes: true !default;
+
+// Grid Columns
+//
+// Set the number of Columns and specify the width of the gutters.
+
+$grid-columns: 12 !default;
+$grid-gutter-width: 24px !default;
+$grid-gutter-external: 60px !default;
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+) !default;
+
+// Grid containers
+//
+// Define the maximum width of `.container
+$container-max-width: 1344px !default;
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$sizes: map-merge(
+  (
+    25: 25%,
+    50: 50%,
+    75: 75%,
+    100: 100%,
+    auto: auto,
+  ),
+  $sizes
+);
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg: $white !default;
+
+// Utilities
+
+$displays: none, inline, inline-block, block, table, table-row, table-cell, flex,
+  inline-flex !default;
+
+// Typography
+
+$font-weight-thin: 100;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700 !default;
+$font-weight-extrabold: 800 !default;
+
+$dt-font-weight: $font-weight-bold !default;
+
+$font-weight-base: $font-weight-normal !default;
+
+// stylelint-disable value-keyword-case
+$font-family-titles: 'Montserrat', sans-serif !default;
+$font-family-paragraph: 'Merriweather', serif !default;
+$font-family-secondary: 'IBM Plex Serif', serif !default;
+$font-family-base: $font-family-paragraph !default;
+$font-family-alt: 'Montserrat Alternates', sans-serif !default;
+// stylelint-enable value-keyword-case
+
+$font-size-base: 18px !default; // Assumes the browser default, typically `16px`
+
+// Paragraphs
+//
+// Style p element.
+
+$paragraph-margin-bottom: 2.222rem !default;
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+$table-cell-padding: 0.75rem !default;
+
+// Forms
+
+$label-margin-bottom: 0.5rem !default;

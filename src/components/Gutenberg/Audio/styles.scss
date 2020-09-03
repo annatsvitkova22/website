@@ -1,0 +1,94 @@
+.gutenberg__audio {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+
+  width: 100%;
+
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+
+  &-caption {
+    margin-bottom: 20px;
+
+    font-family: $font-family-titles;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.14;
+    letter-spacing: 0.2px;
+    color: #242424;
+  }
+
+  audio {
+    width: 100%;
+
+    background-color: transparent;
+  }
+
+  .gutenberg__audio-player {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0;
+
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+  }
+}
+
+.rhap_container {
+  justify-content: center;
+
+  padding: 0;
+
+  box-shadow: none !important;
+}
+
+.rhap_main {
+  flex-direction: row !important;
+}
+
+.rhap_progress-section {
+  order: 2;
+  .rhap_time {
+    @include media-breakpoint-down(sm) {
+      font-size: 12px !important;
+    }
+  }
+}
+
+.rhap_controls-section {
+  order: 1;
+  flex: 0 1 auto !important;
+
+  margin-right: 18px;
+  margin-top: 0 !important;
+}
+
+.rhap_additional-controls {
+  display: none !important;
+}
+
+.rhap_volume-container {
+  display: none !important;
+}
+
+.rhap_main-controls-button,
+.rhap_play-pause-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.rhap_progress-bar {
+  height: 1px !important;
+}
+
+.rhap_progress-indicator {
+  height: 2px !important;
+  margin-left: 0 !important;
+
+  top: 0 !important;
+  @include media-breakpoint-down(sm) {
+    width: 5px !important;
+  }
+}

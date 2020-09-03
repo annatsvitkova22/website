@@ -1,0 +1,15 @@
+.gutenberg__vimeo {
+  &-iframe {
+    width: 100%;
+    max-width: 648px;
+
+    @include media-breakpoint-down(xs) {
+      max-height: 200px;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    figcaption {
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,180 @@
+.gutenberg__gallery {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-width: 648px;
+
+  @include media-breakpoint-down(lg) {
+    width: 90vw;
+  }
+
+  .slick {
+    &-slider {
+      font-size: 0;
+    }
+
+    &-dots {
+      display: none;
+    }
+
+    &__figure {
+      margin-bottom: 0;
+
+      position: relative;
+
+      transition: all 0.3s;
+
+      cursor: pointer;
+      @include media-breakpoint-down(lg) {
+        height: auto;
+      }
+
+      &:hover .slick__info {
+        opacity: 1;
+
+        transition: all 0.3s;
+      }
+
+      &:hover .expand-image {
+        opacity: 1;
+        transition: all 0.3s;
+      }
+    }
+
+    &__image {
+      height: 100%;
+      max-width: fit-content;
+      object-fit: cover;
+      @include media-breakpoint-down(lg) {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    &__img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      &-container {
+        height: 100%;
+        padding-bottom: 60%;
+
+        position: relative;
+
+        overflow: hidden;
+      }
+    }
+
+    &__overlay {
+      width: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+      background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 79.17%,
+          #000000 100%
+      );
+    }
+
+    &__caption {
+      display: flex;
+
+      width: 100%;
+
+      padding-bottom: 0;
+      padding-top: 6px;
+
+      color: $black;
+    }
+
+    &__author {
+      font-family: $font-family-paragraph;
+      font-size: 11px;
+      line-height: 1.45;
+      letter-spacing: 0.2px;
+      color: $black;
+    }
+
+    &__description {
+      font-family: $font-family-paragraph;
+      font-size: 11px;
+      line-height: 1.45;
+      letter-spacing: 0.2px;
+      color: #8a9994;
+    }
+
+    &__info {
+      display: flex;
+
+      padding-bottom: 20px;
+      padding-left: 20px;
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      opacity: 0;
+
+      transition: all 0.3s;
+
+      &-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 36px;
+        height: 36px;
+
+        transition: all 0.2s;
+      }
+
+      &-count {
+        display: flex;
+        align-items: center;
+
+        font-family: $font-family-titles;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.8;
+        letter-spacing: 0.03em;
+
+        color: $white;
+
+        transition: all 0.2s;
+      }
+    }
+  }
+
+  .expand-image {
+    bottom: 20px;
+  }
+}
+
+.pswp-gallery {
+  .pswp {
+    &__container {
+      height: calc(100% - 146px);
+
+      @include media-breakpoint-down(md) {
+        height: calc(100% - 154px);
+      }
+    }
+  }
+
+  &__body {
+    @include media-breakpoint-down(md) {
+      max-height: calc(100vh - 133px - 20px);
+    }
+  }
+}

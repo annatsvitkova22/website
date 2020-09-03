@@ -1,0 +1,278 @@
+.hero {
+  max-width: 1690px !important;
+  @include media-breakpoint-up(xl) {
+    margin-top: 32px;
+  }
+
+  &__title {
+    margin-top: 16px;
+    margin-bottom: 24px;
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: 12px;
+    }
+
+    a {
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      font-weight: 800;
+
+      @include media-breakpoint-down(md) {
+        line-height: 1.29;
+        font-size: 24px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &__container {
+    height: calc(66.6666% - 24px);
+
+    @include media-breakpoint-down(lg) {
+      height: auto;
+    }
+
+    margin-bottom: 24px;
+
+    cursor: pointer;
+
+    @include media-breakpoint-down(lg) {
+      margin-left: -12px;
+      margin-right: -12px;
+    }
+    @include media-breakpoint-down(sm) {
+      margin-right: -20px;
+      margin-left: -20px;
+      height: auto;
+    }
+
+    &:hover,
+    &:focus {
+      span {
+        background-color: rgba($green, 0.4);
+      }
+    }
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+
+    font-size: 0;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+
+      @include media-breakpoint-down(lg) {
+        min-height: 500px;
+      }
+    }
+  }
+
+  span {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+
+    background: linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2b2b2b 100%);
+
+    transition: all 0.3s;
+  }
+
+  &__caption {
+    position: absolute;
+    bottom: 24px;
+    left: 48px;
+    right: 48px;
+
+    @include media-breakpoint-down(lg) {
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+    }
+  }
+
+  &__selected-publications {
+    height: 33.3333%;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+}
+
+.hero-list {
+  overflow: hidden;
+
+  @include media-breakpoint-down(lg) {
+    margin-top: 20px;
+  }
+
+  .date-separator {
+    display: block;
+
+    margin-top: 3px;
+    margin-bottom: 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $grey-300;
+  }
+
+  &__data {
+    display: flex;
+
+    max-height: 45px;
+
+    overflow: hidden;
+
+    @include media-breakpoint-down(lg) {
+      max-height: 100%;
+    }
+
+    .meta-date {
+      padding-right: 16px;
+      margin-top: 0;
+
+      font-family: $font-family-titles;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 15px;
+      letter-spacing: 0.06em;
+      color: #8a9994;
+    }
+
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateX(10px);
+
+      @include media-breakpoint-down(lg) {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &__item + &__item {
+    margin-top: 4px;
+    padding-top: 4px;
+
+    border-top: 1px solid $grey-100;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+  }
+
+  &__link {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+
+    transform: translateX(0);
+  }
+}
+
+.hero-pub-wrap {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: space-between;
+
+  width: 19.4444%;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
+
+  .hero-pub {
+    height: 33.3333%;
+
+    &:not(:last-child) {
+      // margin-bottom: 24px;
+    }
+
+    &:last-child {
+      margin-top: auto;
+    }
+  }
+}
+
+.hero-pub-news {
+  width: 22.2222%;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+  }
+}
+
+.hero-pub {
+  overflow: hidden;
+
+  .article-featured + .publ-title {
+    margin-top: 16px;
+  }
+
+  .publ-title {
+    display: flex;
+
+    max-height: 48px;
+
+    overflow: hidden;
+  }
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  &__title {
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+
+  .meta-taxonomy {
+    margin-top: 16px;
+    margin-bottom: 10px;
+
+    &__link {
+      padding: 3px 5px;
+    }
+  }
+
+  .meta-author {
+    margin-top: 12px;
+  }
+
+  .article-featured {
+    height: calc(100% - 101px);
+
+    &__image,
+    &__link {
+      height: 100%;
+    }
+
+    &__image {
+      background-color: rgba($green, 0.5);
+    }
+  }
+}

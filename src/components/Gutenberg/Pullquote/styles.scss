@@ -1,0 +1,16 @@
+.gutenberg__pullquote {
+  width: 100%;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .wp-block-pullquote {
+    width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    border-top: 2px solid $black;
+    border-bottom: 2px solid $black;
+
+    text-align: center;
+  }
+}
