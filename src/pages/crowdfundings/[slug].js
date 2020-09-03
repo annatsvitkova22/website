@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import apolloClient from '~/lib/ApolloClient';
 import gutenbergBlocksQuery from '~/lib/GraphQL/gutenbergBlocksQuery';
 import CrowdfundingSingle from '~/components/Article/Crowdfunding';
-import ActionbarLoader from '~/components/Loaders/ActionbarLoader';
 import PostHeaderLoader from '~/components/Loaders/PostHeaderLoader';
-import SidebarLoader from '~/components/Loaders/SidebarLoader';
 
 export const CROWDFUNDING = gql`
   query Crowdfunding($slug: String!) {

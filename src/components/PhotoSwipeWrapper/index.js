@@ -6,6 +6,8 @@ import PhotoswipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
 
 import events from './events';
 
+import ShareModal from '~/components/Share/Modal';
+
 class PhotoSwipeWrapper extends React.Component {
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
@@ -14,6 +16,8 @@ class PhotoSwipeWrapper extends React.Component {
     onClose: PropTypes.func,
     id: PropTypes.string,
     className: PropTypes.string,
+    isModalOpen: PropTypes.bool,
+    handleModalClose: PropTypes.func,
   };
 
   static defaultProps = {
@@ -85,7 +89,6 @@ class PhotoSwipeWrapper extends React.Component {
     if (Object.keys(params).length !== 0) {
       return params;
     }
-
     return false;
   };
 
@@ -98,14 +101,16 @@ class PhotoSwipeWrapper extends React.Component {
       } else {
         this.updateItems(nextProps.items);
       }
-    } else if (isOpen) {
-      this.closePhotoSwipe();
     }
+    // Hope it is not important
+    /* else if (isOpen) {
+      this.closePhotoSwipe();
+    } */
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     this.closePhotoSwipe();
-  };
+  }
 
   openPhotoSwipe = (props) => {
     const { items, options } = props;
@@ -160,16 +165,18 @@ class PhotoSwipeWrapper extends React.Component {
 
   handleClose = () => {
     const { onClose } = this.props;
-    this.setState(
-      {
-        isOpen: false,
-      },
-      () => {
-        if (onClose) {
-          onClose();
+    if (!this.props.isModalOpen) {
+      this.setState(
+        {
+          isOpen: false,
+        },
+        () => {
+          if (onClose) {
+            onClose();
+          }
         }
-      }
-    );
+      );
+    }
   };
 
   ref = (node) => {
@@ -177,8 +184,7 @@ class PhotoSwipeWrapper extends React.Component {
   };
 
   render() {
-    const { className, options } = this.props;
-
+    const { className, options, isModalOpen, handleModalClose } = this.props;
     if (this.state.isMounted) {
       return createPortal(
         <div
@@ -239,6 +245,12 @@ class PhotoSwipeWrapper extends React.Component {
               </div>
             </div>
           </div>
+          {isModalOpen && (
+            <ShareModal
+              onClose={handleModalClose}
+              location={window.location.href}
+            />
+          )}
         </div>,
         document.getElementById('modal')
       );
@@ -255,6 +267,8 @@ PhotoSwipeWrapper.propTypes = {
   onClose: PropTypes.func,
   id: PropTypes.string,
   className: PropTypes.string,
+  isModalOpen: PropTypes.bool,
+  handleModalClose: PropTypes.func,
 };
 
 PhotoSwipeWrapper.defaultProps = {

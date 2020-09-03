@@ -53,7 +53,6 @@ class PswpWrapperVideo extends PhotoSwipeWrapper {
       items,
       options
     );
-    console.log(items);
     this.listen();
     events.forEach((event) => {
       const callback = props[event];

@@ -11,6 +11,7 @@ const ArticleBlogs = ({
   post,
   children,
   className,
+  imageSize,
   isHighlightInTitle: highlightInTitle,
 }) => {
   const { categories, title, slug, author, featuredImage } = post;
@@ -18,6 +19,7 @@ const ArticleBlogs = ({
     <article className={classnames('article--blog', className)}>
       <ArticleFeatured
         className="article__image"
+        size={imageSize}
         image={featuredImage}
         alt={title}
         slug={slug}
@@ -48,6 +50,7 @@ ArticleBlogs.propTypes = {
   post: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
+  imageSize: PropTypes.string,
   isHighlightInTitle: PropTypes.bool,
 };
 

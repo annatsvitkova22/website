@@ -15,7 +15,7 @@ const ArticlePublications = ({
     slug,
     author,
     featuredImage,
-    zmPublicationsACF: { size, style },
+    zmPublicationsACF: { size, style, additionalImage },
   },
   children,
   className,
@@ -59,7 +59,7 @@ const ArticlePublications = ({
         className={`article__image--publ ${
           size === 'big' ? 'flex-lg-grow-1 w-lg-50' : ''
         }`}
-        image={featuredImage}
+        image={additionalImage || featuredImage}
         size={imageSize}
         alt={title}
         slug={slug}
@@ -82,7 +82,7 @@ const ArticlePublications = ({
         <ArticleTitle
           highlightInTitle={highlightInTitle}
           post={post}
-          className={`text-capitalize art-publ__title art-publ__title--${style}-${size}`}
+          className={`art-publ__title art-publ__title--${style}-${size}`}
         />
         <div className="article__meta">
           <ArticleAuthor className="article__author" author={author} />

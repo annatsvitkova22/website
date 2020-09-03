@@ -6,6 +6,7 @@ import { Waypoint } from 'react-waypoint';
 import { useStateLink } from '@hookstate/core';
 import { Router } from 'next/router';
 import StickyBox from 'react-sticky-box';
+import * as classnames from 'classnames';
 
 import apolloClient from '~/lib/ApolloClient';
 import NewsLoader from '~/components/Loaders/NewsLoader';
@@ -27,7 +28,6 @@ import dateToGraphQLQuery from '~/util/date';
 import ChevronDown from '~/static/images/chevron-down';
 import Icons from '~/components/Icons';
 import Calendar from '~/components/Calendar';
-import SortingSelect from '~/components/SortingSelect';
 import LineLoader from '~/components/Loaders/LineLoader';
 
 const composeQuery = ({
@@ -46,7 +46,7 @@ const composeQuery = ({
       $day: Int = ${day || null}
       $month: Int = ${month || null}
       $year: Int = ${year || null}
-      ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
+    ${category ? `$category: [String] = ["${category.join('","')}"]` : ``}
     ) {
       categories(where: { hideEmpty: true }) {
         nodes {
@@ -57,15 +57,15 @@ const composeQuery = ({
       }
       posts(
         where: {
-          ${
-            sorting
-              ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
-              : ``
-          }
-          dateQuery: { day: $day, month: $month, year: $year }
-          ${
-            category
-              ? `taxQuery: {
+        ${
+          sorting
+            ? `orderby: { field: ${sorting.field}, order: ${sorting.order} }`
+            : ``
+        }
+        dateQuery: { day: $day, month: $month, year: $year }
+        ${
+          category
+            ? `taxQuery: {
             relation: OR
             taxArray: [
               {
@@ -76,8 +76,8 @@ const composeQuery = ({
               }
             ]
           }`
-              : ``
-          }
+            : ``
+        }
         }
         first: $articles
         before: $cursor
@@ -88,6 +88,7 @@ const composeQuery = ({
           slug
           featuredImage {
             mediaItemUrl
+            zm_xss: sourceUrl(size: ZM_XSS)
           }
           categories {
             nodes {
@@ -132,6 +133,8 @@ const composeQuery = ({
 };
 
 const News = ({ posts, categories, query }) => {
+  const [categoryWidth, setCategoryWidth] = useState('110px');
+  const [sortingWidth, setSortingWidth] = useState('100px');
   const [loaded, setLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -148,6 +151,25 @@ const News = ({ posts, categories, query }) => {
     return acc;
   }, {});
   const currentCategory = filters.categories.find((i) => i.active);
+
+  useEffect(() => {
+    if (currentCategory) {
+      if (currentCategory.label.length > 12) {
+        setCategoryWidth('120px');
+      } else {
+        setCategoryWidth('110px');
+      }
+    }
+    if (currentSorting) {
+      if (currentSorting.label.length > 12) {
+        setSortingWidth('130px');
+      } else {
+        setSortingWidth('100px');
+      }
+    }
+  }, [currentCategory, currentSorting]);
+
+  console.log(currentSorting);
 
   let variables = {
     articles: 10,
@@ -280,23 +302,40 @@ const News = ({ posts, categories, query }) => {
                 <select
                   className="reset-select news-cats tx-family-titles font-weight-medium pos-relative z-1 outline-none"
                   onChange={(event) => setCategory(event.target.value)}
+                  style={{ width: `${categoryWidth}` }}
                 >
                   <option disabled hidden selected>
                     Категорія
                   </option>
                   {filters.categories.map((item) => {
-                    return <option value={item.value}>{item.label}</option>;
+                    return (
+                      <option value={item.value} key={item.value}>
+                        {item.label}
+                      </option>
+                    );
                   })}
                 </select>
                 <ChevronDown className="pos-absolute pos-center-right" />
               </div>
               <div className="pos-relative d-flex">
-                <SortingSelect
-                  currentOption={currentSorting}
-                  options={sorting}
+                <select
+                  style={{ width: `${sortingWidth}` }}
+                  onChange={(e) => setSorting(e.target.value)}
                   className="reset-select sorting--news text-capitalize tx-family-titles font-weight-medium pos-relative z-1 outline-none"
-                  onChange={setSorting}
-                />
+                >
+                  {sorting.map((option) => (
+                    <option
+                      key={option.value}
+                      className={classnames('sorting__item', {
+                        'sorting__item--active':
+                          option.value === currentSorting.value,
+                      })}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
                 <ChevronDown className="pos-absolute pos-center-right" />
               </div>
               {isCalendarOpen && (
@@ -311,7 +350,7 @@ const News = ({ posts, categories, query }) => {
           <div className="col-md-8">
             <main className="news-archive__content">
               {nodes.map((post, i) => (
-                <React.Fragment key={i}>
+                <React.Fragment key={post.id}>
                   <ChronologicalSeparator posts={nodes} currentIndex={i} />
                   <Article type="news" post={post} key={post.id}>
                     {i === nodes.length - 1 && i < pageInfo.total - 1 && (
@@ -342,10 +381,6 @@ const News = ({ posts, categories, query }) => {
       </div>
     </div>
   );
-};
-
-News.propTypes = {
-  posts: PropTypes.any,
 };
 
 News.getInitialProps = async ({ query }) => {
@@ -391,6 +426,7 @@ News.propTypes = {
   className: PropTypes.string,
   query: PropTypes.any,
   categories: PropTypes.object,
+  posts: PropTypes.any,
 };
 
 export default News;

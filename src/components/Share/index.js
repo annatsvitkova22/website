@@ -23,6 +23,7 @@ const Share = ({
   type,
   onShared = () => {},
   color = 'black',
+  location,
 }) => {
   const { asPath } = useRouter();
 
@@ -31,13 +32,13 @@ const Share = ({
   const mainItems = (
     <>
       <FacebookShareButton
-        url={`${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'facebook'} />
       </FacebookShareButton>
       <TelegramShareButton
-        url={`${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'telegram'} />
@@ -48,19 +49,19 @@ const Share = ({
   const additionalItems = (
     <>
       <EmailShareButton
-        url={`${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'email'} />
       </EmailShareButton>
       <TwitterShareButton
-        url={`${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'twitter'} />
       </TwitterShareButton>
       <ViberShareButton
-        url={`${frontUrl}${asPath}`}
+        url={location || `${frontUrl}${asPath}`}
         onShareWindowClose={onShared}
       >
         <Icons color={color} icon={'viber'} />

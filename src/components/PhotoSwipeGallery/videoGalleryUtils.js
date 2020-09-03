@@ -13,7 +13,7 @@ const getThumbnailVideo = (item, playClass) => {
     <>
       <div
         className="video-category__thumbnail bg-cover pos-relative"
-        style={{ backgroundImage: `url(${item.thumbnail})` }}
+        style={{ backgroundImage: `url(${item.thumbnailSmall})` }}
       >
         <Play className={playClass} />
       </div>
@@ -54,13 +54,13 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
                   <div class="col-6">
                     <ul class="share-list list-reset d-flex justify-content-end">
                       <li class="share-list__item">
-                        <a href="https://google.com/" target="_blank">${share}</a>
+                        <button class="video-share__copy">${share}</button>
                       </li>
                       <li class="share-list__item">
-                        <a href="https://facebook.com/" target="_blank">${facebook}</a>
+                        <button class="video-share__facebook">${facebook}</button>
                        </li>
                       <li class="share-list__item">
-                        <a href="https://telegram.org/" target="_blank">${telegram}</a>
+                        <button class="video-share__telegram">${telegram}</button>
                       </li>
                     </ul>
                   </div>
@@ -68,7 +68,8 @@ const prepareGalleryItems = (videos, quantity = videos.length) =>
               </div>
             </div>
             `,
-      thumbnail: videoCover.mediaItemUrl,
+      thumbnail: videoCover ? videoCover.mediaItemUrl : '',
+      thumbnailSmall: videoCover ? videoCover.zm_xs_rect : '',
       name: title,
       duration,
     };

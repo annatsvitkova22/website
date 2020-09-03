@@ -51,6 +51,18 @@
 
     .article-featured__image {
       margin: 0;
+
+      img {
+        position: static !important;
+
+        & + div {
+          padding: 0 !important;
+        }
+      }
+
+      &--empty {
+        padding-bottom: 63%;
+      }
     }
   }
 
@@ -141,16 +153,6 @@
       position: relative;
 
       overflow: hidden;
-
-      img {
-        width: 100%;
-
-        position: absolute;
-        top: 50%;
-        left: 50%;
-
-        transform: translate(-50%, -50%);
-      }
     }
   }
 }
@@ -182,6 +184,10 @@
       img {
         max-width: max-content;
         width: auto;
+      }
+
+      .article-featured__image {
+        height: 88px;
       }
     }
 
@@ -225,6 +231,11 @@
     }
   }
   .blogger-page {
+    .similar-posts {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
     .similar-posts__wrapper {
       width: 100%;
     }
@@ -234,7 +245,6 @@
     }
 
     .similar-posts__item {
-      justify-content: space-around;
       @include make-col(12);
     }
   }

@@ -1,24 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as classnames from 'classnames';
 
-const Avatar = ({ className, avatar, ...props }) => {
-  if (!avatar || (!avatar.mediaItemUrl && !avatar.url)) return null;
+const Avatar = ({ className, size, avatar, ...props }) => {
+  let avatarUrl = '/assets/placeholders/user-placeholder.jpg';
 
-  if (avatar.mediaItemUrl) {
-    return (
-      <div className={classnames('avatar', className)}>
-        <img className="avatar__image" src={avatar.mediaItemUrl} {...props} />
-      </div>
-    );
+  if (avatar) {
+    if (avatar.url) {
+      avatarUrl = avatar[size] ? avatar[size] : avatar.url;
+    } else {
+      avatarUrl = avatar[size] ? avatar[size] : avatar.mediaItemUrl;
+    }
   }
-  if (avatar.url) {
-    return (
-      <div className={classnames('avatar', className)}>
-        <img className="avatar__image" src={avatar.url} {...props} />
-      </div>
-    );
-  }
-  return null;
+
+  return (
+    <div className={classnames('avatar', className)}>
+      <img className="avatar__image" src={avatarUrl} {...props} />
+    </div>
+  );
 };
 
 export default Avatar;
+
+Avatar.propTypes = {
+  className: PropTypes.string,
+  size: PropTypes.any,
+  avatar: PropTypes.any,
+};

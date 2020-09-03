@@ -2,7 +2,6 @@
   &__avatar {
     padding-bottom: 100%;
 
-    filter: brightness(0.5);
     &::before {
       content: '';
 
@@ -12,26 +11,18 @@
       left: 0;
       right: 0;
 
-      background-image: linear-gradient(
-        0deg,
-        rgba(29, 158, 116, 0.6),
-        rgba(29, 158, 116, 0.6)
-      );
+      background-color: transparent;
 
-      opacity: 1;
-
-      mix-blend-mode: color;
-
-      transition: opacity 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
 
     &:hover {
-      .blogs-user__container {
+      & + .blogs-user__container {
         opacity: 0;
       }
 
       &::before {
-        opacity: 0;
+        background-color: rgba(29, 158, 116, 0.5);
       }
     }
   }
@@ -60,6 +51,7 @@
     opacity: 1;
     transition: opacity 0.3s ease-in;
   }
+
   &__name {
     font-size: 18px;
   }

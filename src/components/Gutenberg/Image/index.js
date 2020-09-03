@@ -50,7 +50,7 @@ const Image = ({ block, className = '' }) => {
           </div>`
             : ``
         }
-        
+
       </div>
   `,
     },
@@ -102,7 +102,11 @@ const Image = ({ block, className = '' }) => {
   }
   if (block.imageAttributes.href) {
     return (
-      <a href={block.imageAttributes.href} target="_blank">
+      <a
+        href={block.imageAttributes.href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {image}
       </a>
     );

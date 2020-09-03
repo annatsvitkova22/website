@@ -5,7 +5,7 @@ import * as classnames from 'classnames';
 import PhotoSwipeWrapper from '~/components/PhotoSwipeWrapper';
 import Icons from '~/components/Icons';
 
-const FeaturedImage = ({ data, className, size }) => {
+const FeaturedImage = ({ data, className, size, ...settings }) => {
   const imageRef = useRef(false);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -29,12 +29,12 @@ const FeaturedImage = ({ data, className, size }) => {
       html: `
       <div class="news-pswp flex-column flex-lg-row">
         <div class="news-pswp__wrap-img">
-          <img class="news-pswp__img" src="${data.mediaItemUrl}" alt="${
-        data.caption
-      }"/>
+          <img class="news-pswp__img" src="${
+            data ? data.mediaItemUrl : ''
+          }" alt="${data ? data.caption : ''}"/>
         </div>
         ${
-          data.caption
+          data && data.caption
             ? `<div class="news-pswp__caption">
             <p class="news-pswp__caption-inner tx-family-titles">
             ${data.caption}
@@ -42,35 +42,25 @@ const FeaturedImage = ({ data, className, size }) => {
           </div>`
             : ``
         }
-        
+
       </div>
   `,
     },
   ];
-
   return (
     <>
-      {data && (
-        <figure
+      {data && size === 'full' && (
+        <div
           className={classnames('feature__image', className, {
             'feature__image--full': size === 'full',
           })}
+          style={{
+            backgroundImage: `url(${data.mediaItemUrl})`,
+            backgroundPosition: settings.position
+              ? settings.position
+              : 'center',
+          }}
         >
-          <img ref={imageRef} src={data.mediaItemUrl} alt={data.title} />
-          <PhotoSwipeWrapper
-            options={options}
-            items={img}
-            isOpen={isOpen}
-            onClose={handleClose}
-            className="gutenberg__image-pswp"
-          />
-          {size !== 'full' && (
-            <div className="gutenberg__image-expand" onClick={handleOpen}>
-              <button className={'expand-image'}>
-                <Icons icon={'expand'} />
-              </button>
-            </div>
-          )}
           {data.caption && size === 'full' && (
             <div className="container">
               <caption
@@ -86,6 +76,55 @@ const FeaturedImage = ({ data, className, size }) => {
               </caption>
             </div>
           )}
+        </div>
+      )}
+      {/* {data && size !== 'full' && settings.type === 'Publication' && (
+        <div
+          className="feature__image feature__image--background"
+          style={{
+            backgroundImage: `url(${data.mediaItemUrl})`,
+            backgroundPosition: settings.position
+              ? settings.position
+              : 'center',
+          }}
+        >
+          <PhotoSwipeWrapper
+            options={options}
+            items={img}
+            isOpen={isOpen}
+            onClose={handleClose}
+            className="gutenberg__image-pswp"
+          />
+          <div className="gutenberg__image-expand" onClick={handleOpen}>
+            <button className={'expand-image'}>
+              <Icons icon={'expand'} />
+            </button>
+          </div>
+        </div>
+      )} */}
+      {data && size !== 'full' && (
+        <div>
+          <figure
+            className={classnames('feature__image', className, {
+              'feature__image--full': size === 'full',
+            })}
+          >
+            <img ref={imageRef} src={data.mediaItemUrl} alt={data.title} />
+            <PhotoSwipeWrapper
+              options={options}
+              items={img}
+              isOpen={isOpen}
+              onClose={handleClose}
+              className="gutenberg__image-pswp"
+            />
+            {size !== 'full' && (
+              <div className="gutenberg__image-expand" onClick={handleOpen}>
+                <button className={'expand-image'}>
+                  <Icons icon={'expand'} />
+                </button>
+              </div>
+            )}
+          </figure>
           {data.caption && size !== 'full' && (
             <caption className={classnames('feature__image-caption')}>
               <span className={'feature__image-author'}>{data.title}</span>
@@ -95,7 +134,7 @@ const FeaturedImage = ({ data, className, size }) => {
               />
             </caption>
           )}
-        </figure>
+        </div>
       )}
     </>
   );

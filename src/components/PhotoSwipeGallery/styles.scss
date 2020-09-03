@@ -76,6 +76,8 @@
   &__thumbnail {
     padding-bottom: 61.53%;
     margin-bottom: 14px;
+
+    background-color: $grey-700;
     @include media-breakpoint-down(sm) {
       margin-bottom: 16px;
     }
@@ -113,6 +115,20 @@
   }
 
   &__item:hover > a > svg > path {
+    fill: $green;
+  }
+}
+
+.video-share__telegram,
+.video-share__facebook,
+.video-share__copy {
+  transition: 0.3s;
+
+  & > svg > path {
+    fill: white;
+  }
+
+  &:hover > svg > path {
     fill: $green;
   }
 }

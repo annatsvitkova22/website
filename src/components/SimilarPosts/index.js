@@ -36,6 +36,7 @@ const SimilarPosts = ({ similarPosts, title = 'Схожі', link }) => {
                   <div className={'similar-posts__item'}>
                     <ArticleFeatured
                       slug={item.slug}
+                      size={'zm_md'}
                       image={item.featuredImage}
                       className={'similar-posts__image'}
                     />

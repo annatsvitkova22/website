@@ -66,6 +66,7 @@ const ArticleNews = ({
           </div>
         </div>
         <ArticleFeatured
+          size={'zm_xss'}
           className="article__image"
           image={featuredImage}
           alt={title}

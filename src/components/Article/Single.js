@@ -79,14 +79,13 @@ const ArticleSingle = ({
   }, [post]);
 
   useViewsCounter(post);
-
+  const avatarUrl = '/assets/placeholders/user-placeholder.jpg';
   const userAvatarStyles = {
     backgroundImage: storedPost.author.userAdditionalACF.avatar
       ? `url(${storedPost.author.userAdditionalACF.avatar.mediaItemUrl})`
-      : '',
+      : `url(${avatarUrl})`,
     backgroundSize: 'cover',
   };
-
   return (
     <>
       <Head>
@@ -213,7 +212,7 @@ const ArticleSingle = ({
                       </div>
                     )}
                     <div className="single-post__content">
-                      {storedPost.blocks.length ? (
+                      {storedPost.blocks.length > 0 ? (
                         <Content
                           content={storedPost.blocks}
                           className={'content__posts'}
@@ -318,9 +317,6 @@ const ArticleSingle = ({
                               __html: storedPost.excerpt,
                             }}
                           />
-                          {/* Need to delete - only for testing */}
-                          {/* <Story /> */}
-                          {/* Need to delete - only for testing */}
                           {storedPost.blocks.length ? (
                             <Content
                               content={storedPost.blocks}

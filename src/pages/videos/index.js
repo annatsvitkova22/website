@@ -27,6 +27,7 @@ const VIDEOS_ARCHIVE = gql`
           videoUrl
           videoCover {
             mediaItemUrl
+            zm_xs_rect: sourceUrl(size: ZM_XS_RECT)
           }
         }
       }
@@ -44,6 +45,7 @@ const VIDEOS_ARCHIVE = gql`
               videoUrl
               videoCover {
                 mediaItemUrl
+                zm_xs_rect: sourceUrl(size: ZM_XS_RECT)
               }
             }
           }
@@ -72,6 +74,7 @@ const VIDEOS_CATEGORIES = gql`
               videoUrl
               videoCover {
                 mediaItemUrl
+                zm_xs_rect: sourceUrl(size: ZM_XS_RECT)
               }
             }
           }
@@ -90,7 +93,6 @@ const VideosArchive = (props) => {
   const categoriesRef = useRef(null);
   const [content, setContent] = useState(props);
   const [state, setState] = useState({});
-
   useEffect(() => {
     const loadContent = async () => {
       const { data } = await apolloClient.query({
@@ -166,6 +168,7 @@ const VideosArchive = (props) => {
         hasNextPage: content.hasNextPage,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onLoadMore = async () => {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
 
@@ -49,6 +48,7 @@ const PUBLICATIONS_ARCHIVE = gql`
         excerpt
         title
         slug
+        date
         featuredImage {
           mediaItemUrl
         }
@@ -70,6 +70,10 @@ const PUBLICATIONS_ARCHIVE = gql`
         zmPublicationsACF {
           size
           style
+          additionalImage {
+            zm_md: sourceUrl(size: ZM_MD)
+            mediaItemUrl
+          }
         }
       }
       pageInfo {
@@ -146,6 +150,7 @@ const Publications = (props) => {
         query: PUBLICATIONS_ARCHIVE,
         variables: {
           cursor: null,
+          articles: 11,
         },
       });
 
@@ -184,7 +189,7 @@ const Publications = (props) => {
           {nodes && (
             <div className="last-publs">
               <div className="row">
-                {nodes.slice(0, 10).map((post, i) => (
+                {nodes.slice(0, 11).map((post, i) => (
                   <Article type="publications" post={post} key={i} />
                 ))}
               </div>
@@ -238,6 +243,7 @@ Publications.getInitialProps = async () => {
     query: PUBLICATIONS_ARCHIVE,
     variables: {
       cursor: null,
+      articles: 11,
     },
   });
 

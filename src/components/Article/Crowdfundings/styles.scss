@@ -31,6 +31,10 @@
       top: 20px;
       left: 32px;
 
+      line-height: 1.1;
+
+      z-index: 10;
+
       @include media-breakpoint-down(sm) {
         display: none;
       }
@@ -79,12 +83,16 @@
 
         height: 100%;
       }
-      @include media-breakpoint-down(xs) {
+
+      @include media-breakpoint-down(sm) {
+        flex-shrink: 0;
+
         max-width: 200px;
         height: 100px;
         margin-left: auto;
       }
-      @media screen and (max-width: 400px) {
+
+      @include media-breakpoint-down(xs) {
         height: 88px;
         width: 88px;
       }
@@ -95,6 +103,7 @@
         @include media-breakpoint-down(lg) {
           width: 100%;
         }
+
         @include media-breakpoint-down(xs) {
           height: 100%;
         }

@@ -1,4 +1,5 @@
 .hero {
+  max-width: 1690px !important;
   @include media-breakpoint-up(xl) {
     margin-top: 32px;
   }
@@ -12,7 +13,7 @@
     }
 
     a {
-      font-size: 48px;
+      font-size: 32px;
       letter-spacing: -0.02em;
       line-height: 1.2;
       font-weight: 800;
@@ -26,13 +27,13 @@
   }
 
   &__container {
-    height: 90vh;
-    max-height: calc(100vh - 130px);
+    height: calc(66.6666% - 24px);
 
-    min-height: 400px;
+    @include media-breakpoint-down(lg) {
+      height: auto;
+    }
 
-    position: sticky;
-    top: 100px;
+    margin-bottom: 24px;
 
     cursor: pointer;
 
@@ -45,19 +46,32 @@
       margin-left: -20px;
       height: auto;
     }
+
+    &:hover,
+    &:focus {
+      span {
+        background-color: rgba($green, 0.4);
+      }
+    }
   }
 
   &__image {
     height: 100%;
+    width: 100%;
 
     font-size: 0;
 
-    filter: brightness(0.5);
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
 
-    @include media-breakpoint-down(sm) {
-      height: 400px;
+      @include media-breakpoint-down(lg) {
+        min-height: 500px;
+      }
     }
   }
+
   span {
     display: block;
 
@@ -69,18 +83,14 @@
     right: 0;
     pointer-events: none;
 
-    background-image: linear-gradient(
-      0deg,
-      rgba(29, 158, 116, 0.6),
-      rgba(29, 158, 116, 0.6)
-    );
+    background: linear-gradient(180deg, rgba(66, 65, 65, 0) 0%, #2b2b2b 100%);
 
-    mix-blend-mode: color;
+    transition: all 0.3s;
   }
 
   &__caption {
     position: absolute;
-    bottom: 48px;
+    bottom: 24px;
     left: 48px;
     right: 48px;
 
@@ -88,6 +98,14 @@
       left: 20px;
       right: 20px;
       bottom: 20px;
+    }
+  }
+
+  &__selected-publications {
+    height: 33.3333%;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
     }
   }
 }
@@ -102,16 +120,26 @@
   .date-separator {
     display: block;
 
-    margin-top: 1px;
-    margin-bottom: 5px;
+    margin-top: 3px;
+    margin-bottom: 7px;
 
-    color: $grey-300;
     font-size: 10px;
     font-weight: 600;
+    text-transform: uppercase;
+    color: $grey-300;
   }
 
   &__data {
     display: flex;
+
+    max-height: 45px;
+
+    overflow: hidden;
+
+    @include media-breakpoint-down(lg) {
+      max-height: 100%;
+    }
+
     .meta-date {
       padding-right: 16px;
       margin-top: 0;
@@ -123,53 +151,103 @@
       letter-spacing: 0.06em;
       color: #8a9994;
     }
+
     transition: transform 0.3s ease-in-out;
 
     &:hover {
       transform: translateX(10px);
+
+      @include media-breakpoint-down(lg) {
+        transform: translateX(0);
+      }
     }
   }
 
   &__item + &__item {
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 4px;
+    padding-top: 4px;
 
     border-top: 1px solid $grey-100;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 8px;
+      padding-top: 8px;
+    }
   }
 
   &__link {
-    font-size: 13px;
-    text-transform: capitalize;
+    font-size: 12px;
+    letter-spacing: 0.06em;
 
     transform: translateX(0);
   }
 }
 
-.hero-pub {
-  .article-featured + .publ-title {
-    padding-top: 16px;
-  }
-  &__scroll {
-    max-height: 100vh;
+.hero-pub-wrap {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: space-between;
 
-    position: sticky;
-    top: 0;
+  width: 19.4444%;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
+
+  .hero-pub {
+    height: 33.3333%;
+
+    &:not(:last-child) {
+      // margin-bottom: 24px;
+    }
+
+    &:last-child {
+      margin-top: auto;
+    }
+  }
+}
+
+.hero-pub-news {
+  width: 22.2222%;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+  }
+}
+
+.hero-pub {
+  overflow: hidden;
+
+  .article-featured + .publ-title {
+    margin-top: 16px;
+  }
+
+  .publ-title {
+    display: flex;
+
+    max-height: 48px;
 
     overflow: hidden;
-  }
-
-  & + & {
-    margin-top: 24px;
   }
 
   h2 {
     margin-bottom: 0;
   }
+
   &__title {
     font-size: 14px;
     letter-spacing: 0.02em;
     line-height: 1.2;
-    text-transform: capitalize;
   }
 
   .meta-taxonomy {
@@ -183,5 +261,18 @@
 
   .meta-author {
     margin-top: 12px;
+  }
+
+  .article-featured {
+    height: calc(100% - 101px);
+
+    &__image,
+    &__link {
+      height: 100%;
+    }
+
+    &__image {
+      background-color: rgba($green, 0.5);
+    }
   }
 }

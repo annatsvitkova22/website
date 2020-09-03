@@ -14,7 +14,6 @@ import EventsScene from '~/scenes/EventsScene';
 import PublicationsScene from '~/scenes/PublicationsScene';
 import PublicationCategoriesScene from '~/scenes/PublicationCategoriesScene';
 import BlogsScene from '~/scenes/BlogsScene';
-import TagsScene from '~/scenes/TagsScene';
 import SectionHeading from '~/components/SectionHeading';
 import HomeHeroLoader from '~/components/Loaders/Home/Hero';
 
@@ -45,9 +44,48 @@ const HOME_PAGE = gql`
                 slug
               }
             }
+            zmPublicationsACF {
+              featuredImagePosition
+            }
             featuredImage {
               mediaItemUrl
               frontHeroImage: sourceUrl(size: FRONT_HERO_IMAGE)
+            }
+          }
+        }
+        selectedNews {
+          ... on Post {
+            id
+            title
+            uri
+            slug
+            categories {
+              nodes {
+                name
+                slug
+              }
+            }
+            featuredImage {
+              mediaItemUrl
+              sizes(size: ZM_XS)
+            }
+          }
+        }
+        selectedPublications {
+          ... on Publication {
+            id
+            title
+            uri
+            slug
+            categories {
+              nodes {
+                name
+                slug
+              }
+            }
+            featuredImage {
+              mediaItemUrl
+              sizes(size: ZM_XS)
             }
           }
         }
@@ -86,7 +124,7 @@ const HOME_PAGE = gql`
             url
           }
         }
-        blogs(first: 3) {
+        blogs(first: 1) {
           nodes {
             id
             title
@@ -108,6 +146,7 @@ const HOME_PAGE = gql`
         featuredImage {
           mediaItemUrl
           zm_xss: sourceUrl(size: ZM_XSS)
+          zm_xs: sourceUrl(size: ZM_XS)
           zm_md_rect: sourceUrl(size: ZM_MD_RECT)
           zm_lg_rect_2: sourceUrl(size: ZM_LG_RECT_2)
           zm_lg_rect: sourceUrl(size: ZM_LG_RECT)
@@ -172,43 +211,6 @@ const CROWDFUNDINGS = gql`
   }
 `;
 
-const TAGS = gql`
-  query Tags {
-    tags {
-      nodes {
-        id
-        name
-        slug
-        zmTagsACF {
-          showOnHome
-        }
-        publications(first: 5) {
-          nodes {
-            title
-            slug
-            featuredImage {
-              mediaItemUrl
-              zm_md_rect: sourceUrl(size: ZM_MD_RECT)
-              zm_lg_rect_2: sourceUrl(size: ZM_LG_RECT_2)
-              zm_lg_rect: sourceUrl(size: ZM_LG_RECT)
-            }
-            author {
-              slug
-              name
-            }
-            categories {
-              nodes {
-                slug
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const VIDEOS = gql`
   query Videos {
     videos(first: 8) {
@@ -219,6 +221,7 @@ const VIDEOS = gql`
         zmVideoACF {
           videoCover {
             mediaItemUrl
+            zm_xs_rect: sourceUrl(size: ZM_XS_RECT)
           }
           videoUrl
         }
@@ -232,7 +235,8 @@ const OPPORTUNITIES = gql`
     opportunities(first: 4) {
       nodes {
         featuredImage {
-          sourceUrl(size: THUMBNAIL)
+          mediaItemUrl
+          zm_xss_square: sourceUrl(size: ZM_XSS_SQUARE)
         }
         title
         slug
@@ -260,6 +264,7 @@ const EVENTS = gql`
       nodes {
         featuredImage {
           mediaItemUrl
+          zm_xs_rect: sourceUrl(size: ZM_XS_RECT)
         }
         title
         slug
@@ -300,9 +305,9 @@ const CATEGORIES = gql`
             }
             featuredImage {
               mediaItemUrl
-              zm_md_rect: sourceUrl(size: ZM_MD_RECT)
-              zm_lg_rect_2: sourceUrl(size: ZM_LG_RECT_2)
-              zm_lg_rect: sourceUrl(size: ZM_LG_RECT)
+              zm_xss: sourceUrl(size: ZM_XSS)
+              zm_xs: sourceUrl(size: ZM_XS)
+              zm_md: sourceUrl(size: ZM_MD)
             }
           }
         }
@@ -407,16 +412,12 @@ const Home = (props) => {
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
-        <SectionHeading title="Збір коштів" href="/crowdfundings" />
+        <SectionHeading classMode="events" title="Збір коштів" href="/crowdfundings" />
         <CrowdfundingsScene {...{ crowdfundings, isLoading }}>
           {typeof crowdfundings === 'undefined' && (
             <Waypoint onEnter={loadData(CROWDFUNDINGS)} />
           )}
         </CrowdfundingsScene>
-
-        <TagsScene {...{ tags, isLoading }}>
-          {typeof tags === 'undefined' && <Waypoint onEnter={loadData(TAGS)} />}
-        </TagsScene>
 
         <SectionHeading title="Відео" href="/videos" classMode="videos" />
         <VideosScene {...{ videos, isLoading }}>

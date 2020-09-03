@@ -12,6 +12,21 @@ const content = `... on CoreHeadingBlock {
           }
         }
       }
+       ... on ZmistStoryBlock {
+        innerBlocks {
+           ... on CoreGalleryBlock {
+              attributes {
+                ... on CoreGalleryBlockAttributesV2 {
+                  caption
+                  className
+                  columns
+                  images
+                  linkTo
+                }
+              }
+            }
+        }
+      }
           ... on CoreVerseBlock {
         attributes {
           content

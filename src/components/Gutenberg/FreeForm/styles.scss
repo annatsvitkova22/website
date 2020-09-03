@@ -33,8 +33,25 @@
       width: 100%;
       max-width: 648px;
     }
+
     a {
       word-break: break-all;
+    }
+
+    tr {
+      display: flex;
+
+      width: 50%;
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+
+        width: 100%;
+        td {
+          p {
+            padding-left: 0 !important;
+          }
+        }
+      }
     }
   }
 

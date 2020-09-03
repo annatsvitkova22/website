@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import { Waypoint } from 'react-waypoint';
 import PropTypes from 'prop-types';
+import { cloneDeep } from 'lodash';
 
 import apolloClient from '~/lib/ApolloClient';
+import getCFStatus from '~/lib/getCFStatus';
 import useLoadMoreHook from '~/hooks/useLoadMoreHook';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import Article from '~/components/Article';
@@ -46,23 +48,49 @@ const CROWDFUNDINGS_ARCHIVE = gql`
 
 const CrowdfundingsArchive = ({ crowdfundings }) => {
   const variables = {
-    articles: 9,
+    articles: 10000,
     onLoadNumber: 3,
     cursor: null,
   };
 
-  const { fetchingContent, state } = useLoadMoreHook(
-    CROWDFUNDINGS_ARCHIVE,
-    crowdfundings,
-    'crowdfundings',
-    variables.articles,
-    variables.onLoadNumber
-  );
+  const [state, setState] = useState({data: crowdfundings, isLoading: false});
+
+  useEffect(() => {
+    const loadCF = async () => {
+      setState({ ...state, isLoading: true });
+
+      const { data } = await apolloClient.query({
+        query: CROWDFUNDINGS_ARCHIVE,
+        variables,
+      });
+    
+      const { crowdfundings } = data;
+
+      setState({ ...state, data: crowdfundings, isLoading: false });
+    }
+
+    loadCF();
+  }, []);
+
+  // const { fetchingContent, state } = useLoadMoreHook(
+  //   CROWDFUNDINGS_ARCHIVE,
+  //   crowdfundings,
+  //   'crowdfundings',
+  //   variables.articles,
+  //   variables.onLoadNumber
+  // );
 
   const {
     data: { nodes, pageInfo },
     isLoading,
   } = state;
+
+  const sorted = cloneDeep(nodes);
+  console.log(sorted);
+
+  // sorted.forEach(post => console.log(getCFStatus(post)))
+
+  // sorted.filter(function())
 
   if (!nodes) {
     return (
@@ -178,7 +206,7 @@ CrowdfundingsArchive.getInitialProps = async () => {
   }
 
   const variables = {
-    articles: 9,
+    articles: 10000,
     cursor: null,
   };
 

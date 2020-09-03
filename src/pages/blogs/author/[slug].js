@@ -37,6 +37,7 @@ const composeQuery = ({ cursor, articles, slug }) => {
           userAdditionalACF {
             avatar {
               mediaItemUrl
+              zm_xss_square: sourceUrl(size: ZM_XSS_SQUARE)
             }
           }
           bloggerInfoACF {
@@ -53,6 +54,7 @@ const composeQuery = ({ cursor, articles, slug }) => {
               slug
               featuredImage {
                 mediaItemUrl
+                zm_md_rect: sourceUrl(size: ZM_MD_RECT)
               }
               categories {
                 nodes {
@@ -91,6 +93,8 @@ const POPULAR = gql`
         slug
         featuredImage {
           mediaItemUrl
+          zm_xss: sourceUrl(size: ZM_XSS)
+          zm_md: sourceUrl(size: ZM_MD)
         }
         author {
           name

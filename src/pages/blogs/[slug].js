@@ -41,6 +41,8 @@ const SIMILAR = gql`
         featuredImage {
           link
           mediaItemUrl
+          zm_xss: sourceUrl(size: ZM_XSS)
+          zm_md: sourceUrl(size: ZM_MD)
         }
       }
     }
@@ -87,6 +89,7 @@ const PUBLICATIONS = gql`
         slug
         featuredImage {
           mediaItemUrl
+          zm_xss: sourceUrl(size: ZM_XSS)
           title
         }
       }
@@ -126,7 +129,6 @@ const Blog = (props) => {
   // TODO: add loader when navigate between blogs
   const { post } = state;
   const { news, blogs, publications } = additionalInfo;
-  console.log(post);
 
   const loadData = async () => {
     setState({
@@ -187,6 +189,7 @@ const Blog = (props) => {
       loadAdditionalInfo();
     }
     setLoaded(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadSimilarPosts = async () => {

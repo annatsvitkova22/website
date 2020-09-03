@@ -33,6 +33,7 @@ import Facebook from '~/components/Gutenberg/Facebook';
 import Twitter from '~/components/Gutenberg/Twitter';
 import ChartContainer from '~/components/Gutenberg/Charts';
 import Video from '~/components/Gutenberg/Video/Video';
+import Story from '~/components/Gutenberg/Story';
 
 const Content = ({ content, className = '' }) => {
   // TODO: add & test all content types listed in this log
@@ -83,6 +84,15 @@ export const getContentType = ({ block, index, className }) => {
   if (block.__typename === 'CoreVideoBlock') {
     return (
       <Video
+        className={className}
+        block={block}
+        key={`${block.__typename}-${index}`}
+      />
+    );
+  }
+  if (block.__typename === 'ZmistStoryBlock') {
+    return (
+      <Story
         className={className}
         block={block}
         key={`${block.__typename}-${index}`}

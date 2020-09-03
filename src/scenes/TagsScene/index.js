@@ -20,7 +20,12 @@ const TagsScene = ({ tags, children, isLoading }) => {
     return (
       <>
         <SectionHeadingLoader />
-        <TagsLoader />
+        <div className="loader-container__desktop">
+          <TagsLoader type={'desktop'} />
+        </div>
+        <div className="loader-container__mobile">
+          <TagsLoader type={'mobile'} />
+        </div>
       </>
     );
   }
@@ -53,6 +58,7 @@ const TagsScene = ({ tags, children, isLoading }) => {
                   <ArticleProvider value="publications">
                     <Featured
                       className={'tag-sec__image'}
+                      size={i === 2 ? 'zm_md' : 'zm_xss'}
                       image={featuredImage}
                       alt={title}
                       slug={sl}

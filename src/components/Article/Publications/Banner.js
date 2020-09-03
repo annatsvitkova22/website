@@ -25,7 +25,11 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
     >
       {bannerstyle === 'image' && (
         <>
-          <FeaturedImage size={'full'} data={post.featuredImage} />
+          <FeaturedImage
+            size={'full'}
+            data={post.featuredImage}
+            position={post.zmPublicationsACF.featuredImagePosition}
+          />
           <div className="publication-banner__inner">
             <div className="container">
               <div className="publication-banner__content">
@@ -66,7 +70,8 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
         <div className="container">
           <div className="publication-banner__content">
             {post.zmBrandedPublication &&
-              post.zmBrandedPublication.logo.mediaItemUrl && (
+              post.zmBrandedPublication.logo &&
+                post.zmBrandedPublication.logo.mediaItemUrl && (
                 <div className="branded-logo">
                   <img
                     src={post.zmBrandedPublication.logo.mediaItemUrl}
@@ -101,7 +106,11 @@ const ArticlePublicationBanner = ({ className, post, userAvatarStyles }) => {
               <Share type={'main-first'} className={'title__socials-items'} />
             </div>
           </div>
-          <FeaturedImage size={'half'} data={post.featuredImage} />
+          <FeaturedImage
+            position={post.zmPublicationsACF.featuredImagePosition}
+            data={post.featuredImage}
+            type={post.__typename}
+          />
         </div>
       )}
     </div>

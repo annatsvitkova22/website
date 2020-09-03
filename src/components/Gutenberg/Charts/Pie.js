@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Papa from 'papaparse';
 import { Pie } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
-const PieChart = ({ chart, adOptions, isMobile }) => {
+const PieChart = ({ chart, adOptions, isMobile, title }) => {
+  const [randomColor, setRandomColor] = useState([]);
   const parsed = Papa.parse(chart.data.csv);
 
   const colors = adOptions.map((item) => {
@@ -18,13 +19,25 @@ const PieChart = ({ chart, adOptions, isMobile }) => {
   const transpose = (matrix) =>
     matrix[0].map((col, i) => matrix.map((row) => row[i]));
   const transpondedData = transpose(clearData);
+  useEffect(() => {
+    setRandomColor(
+      new Array(colors.length)
+        .fill(1)
+        .map(
+          (el) =>
+            `rgba(${Math.floor(Math.random() * 250)}, 200, ${Math.floor(
+              Math.random() * 250
+            )}, 0.6)`
+        )
+    );
+  }, []);
 
   const newChartData = {
     labels: transpondedData[0].slice(1, transpondedData[0].length),
     datasets: [
       {
         data: transpondedData[1].slice(1, transpondedData[1].length),
-        backgroundColor: colors,
+        backgroundColor: colors[0].length > 0 ? colors : randomColor,
       },
     ],
   };
@@ -33,7 +46,7 @@ const PieChart = ({ chart, adOptions, isMobile }) => {
     <div className="gutenberg__chart content__posts">
       <Pie
         options={{
-          title: { display: true },
+          title: { display: true, text: title },
           legend: { display: isMobile },
           showTooltips: true,
         }}
@@ -47,5 +60,6 @@ PieChart.propTypes = {
   chart: PropTypes.any,
   adOptions: PropTypes.any,
   isMobile: PropTypes.bool,
+  title: PropTypes.any,
 };
 export default PieChart;

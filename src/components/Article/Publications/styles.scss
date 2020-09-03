@@ -67,10 +67,19 @@
         font-size: 32px;
         line-height: 1.26;
         letter-spacing: -0.02em;
+
+        @include media-breakpoint-down(sm) {
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 1.29;
+          letter-spacing: -0.01em;
+        }
       }
     }
+
     &--on-medium {
       .article-title__link {
+        font-size: 18px;
         line-height: 1.26;
 
         @include media-breakpoint-up(md) {
@@ -120,8 +129,35 @@
   }
 
   &__wrapper {
+    &--null-null {
+      padding: 23px 20px;
+
+      .meta-taxonomy--categories {
+        padding-bottom: 10px;
+      }
+
+      .article__meta {
+        margin-top: auto;
+      }
+    }
+
     &--grey {
       padding: 69px 49px 69px 49px;
+      @include media-breakpoint-down(md) {
+        padding: 32px 20px;
+      }
+
+      &-small {
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
+        padding: 23px 20px;
+
+        .article__meta {
+          margin-top: auto;
+        }
+      }
     }
 
     &--under {
@@ -135,6 +171,14 @@
         padding: 69px 49px;
 
         background-color: rgba($black, 0.06);
+      }
+
+      &-small {
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
+        padding-bottom: 24px;
       }
     }
 
@@ -208,6 +252,10 @@
     &-small,
     &-medium,
     &-big {
+      @include media-breakpoint-down(sm) {
+        padding: 0;
+      }
+
       &::before {
         content: '';
 
@@ -220,6 +268,10 @@
         background-color: rgba($black, 0.06);
 
         z-index: -1;
+        @include media-breakpoint-down(sm) {
+          left: 0;
+          right: 0;
+        }
       }
 
       .meta-author {
@@ -228,14 +280,25 @@
           font-weight: 600;
         }
       }
+
+      .article__image--publ {
+        .article-featured__loader-wrapper {
+          @include media-breakpoint-down(md) {
+            min-height: 235px;
+            height: 100%;
+          }
+        }
+      }
     }
 
-    &-small,
-    &-medium {
-      .article-featured {
-        &__image {
-          padding-bottom: 67.69%;
-        }
+    &-small {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-big {
+      .article-featured__loader-wrapper > *:last-child {
+        padding-bottom: 0 !important;
       }
     }
   }
@@ -260,22 +323,17 @@
           font-size: 26px;
         }
       }
-
-      figure {
-        padding-bottom: 57.7%;
-
-        @include media-breakpoint-down(md) {
-          padding-bottom: 62.99%;
-        }
-      }
     }
 
     &-small {
-      figure {
-        padding-bottom: 59.1%;
+      display: flex;
+      flex-direction: column;
 
-        @include media-breakpoint-down(md) {
-          padding-bottom: 62.99%;
+      .article-featured__loader-wrapper {
+        height: auto;
+        max-height: 333px;
+        @include media-breakpoint-up(lg) {
+          height: 250px;
         }
       }
 
@@ -326,6 +384,11 @@
     }
 
     &-medium {
+      max-height: 430px;
+      @include media-breakpoint-down(sm) {
+        height: 353px;
+      }
+
       .article-title__link {
         @include media-breakpoint-up(lg) {
           font-size: 25px;
@@ -341,23 +404,26 @@
 
         &__image {
           &--publ {
-            padding-bottom: 66.35%;
-
             background-image: linear-gradient(
               180deg,
               rgba(0, 0, 0, 0) 0%,
               #000000 100%
             );
+          }
 
-            @include media-breakpoint-down(lg) {
-              padding-bottom: 105.4%;
-            }
+          img {
+            z-index: -1 !important;
           }
         }
       }
     }
 
     &-small {
+      height: 523px;
+      @include media-breakpoint-down(sm) {
+        height: 353px;
+      }
+
       .article-title__link {
         line-height: 1.35;
       }
@@ -370,7 +436,6 @@
 
         &__image {
           &--publ {
-            padding-bottom: 123.3%;
             height: 100%;
 
             background-image: linear-gradient(
@@ -378,10 +443,10 @@
               rgba(0, 0, 0, 0) 0%,
               #000000 100%
             );
+          }
 
-            @include media-breakpoint-down(md) {
-              padding-bottom: 105.4%;
-            }
+          img {
+            z-index: -1 !important;
           }
         }
       }
