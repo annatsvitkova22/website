@@ -11,7 +11,7 @@ metadata:
   name: regcred
   namespace: zmist
 data:
-  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOiB7CgkJCSJhdXRoIjogImRteGhaSGx6YkdGMmNtOXRZVzVsYm10dk9rUjBjMTloY2pkemRIbHNaVGM9IgoJCX0KCX0sCgkiSHR0cEhlYWRlcnMiOiB7CgkJIlVzZXItQWdlbnQiOiAiRG9ja2VyLUNsaWVudC8xOS4wMy44IChkYXJ3aW4pIgoJfSwKCSJleHBlcmltZW50YWwiOiAiZGlzYWJsZWQiLAoJInN0YWNrT3JjaGVzdHJhdG9yIjogInN3YXJtIgp9Cg==
+  .dockerconfigjson: {{dockerconfigjson}}
 type: kubernetes.io/dockerconfigjson
 
 ---
