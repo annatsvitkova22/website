@@ -120,10 +120,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - zmist.outright.xyz
+        - {{host}}
       secretName: zmist-tls
   rules:
-    - host: zmist.outright.xyz
+    - host: {{host}}
       http:
         paths:
           - backend:
