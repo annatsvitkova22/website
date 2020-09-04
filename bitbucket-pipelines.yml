@@ -32,6 +32,7 @@ pipelines:
             - sed -i "s|{{image}}|$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT|g" deployment.yaml
             - sed -i "s|{{host}}|$STAGING_URL|g" deployment.yaml
             - sed -i "s|{{dockerconfigjson}}|$dockerconfigjson|g" deployment.yaml
+            - sed -i "s|{{env}}|staging|g" deployment.yaml
             - pipe: atlassian/kubectl-run:1.2.0
               variables:
                 KUBE_CONFIG: $KUBE_CONFIG
@@ -64,6 +65,7 @@ pipelines:
             - sed -i "s|{{image}}|$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT|g" deployment.yaml
             - sed -i "s|{{host}}|$PROD_URL|g" deployment.yaml
             - sed -i "s|{{dockerconfigjson}}|$dockerconfigjson|g" deployment.yaml
+            - sed -i "s|{{env}}|production|g" deployment.yaml
             - pipe: atlassian/kubectl-run:1.2.0
               variables:
                 KUBE_CONFIG: $PROD_KUBE

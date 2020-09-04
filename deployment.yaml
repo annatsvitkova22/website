@@ -26,7 +26,7 @@ metadata:
     app.kubernetes.io/component: frontend
     app.kubernetes.io/part-of: zmist
     app.kubernetes.io/managed-by: docker
-    environment: staging
+    environment: {{env}}
     tier: frontend
     partition: zmist
   name: zmist-website
@@ -64,7 +64,7 @@ metadata:
     app.kubernetes.io/component: frontend
     app.kubernetes.io/part-of: zmist
     app.kubernetes.io/managed-by: docker
-    environment: staging
+    environment: {{env}}
     tier: frontend
     partition: zmist-website
   name: zmist-website
@@ -88,7 +88,7 @@ metadata:
   name: letsencrypt-zmist-prod
   namespace: cert-manager
   labels:
-    environment: production
+    environment: {{env}}
     tier: certificate
     app.kubernetes.io/part-of: zmist
     partition: zmist
@@ -114,14 +114,14 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-zmist-prod
   labels:
-    environment: staging
+    environment: {{env}}
     tier: ingress
     partition: zmist
 spec:
   tls:
     - hosts:
         - {{host}}
-      secretName: zmist-tls
+      secretName: zmist-{{env}}-tls
   rules:
     - host: {{host}}
       http:
