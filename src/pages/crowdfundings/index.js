@@ -149,6 +149,10 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
     isLoading,
   } = state;
 
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
 
   const sorted = cloneDeep(nodes)
   const transform = sorted.reduce((acc, cur) => {
@@ -157,20 +161,18 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
       [cur.id]: {...cur}
     }
   }, {})
-
   
   const ss = sorted.map(post => {
     return {
       id: post.id,
-      value:getCFStatus(post).value === 'active' ? 1 : 0,
+      value:getCFStatus(post).value === 'active' ? getRandomInt(100) : 0,
       status: getCFStatus(post).value 
     }
-  } ).sort((a, b) => b.value - a.value).map((item) => {
+  }).sort((a, b) => b.value - a.value).map((item) => {
     return {
       ...transform[item.id]
     }
   })
-
 
   return (
     <div className="crowdfundings-page">

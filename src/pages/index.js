@@ -177,7 +177,7 @@ const HOME_PAGE = gql`
 
 const CROWDFUNDINGS = gql`
   query Crowdfundings {
-    crowdfundings(first: 3) {
+    crowdfundings(first: 10) {
       nodes {
         id
         excerpt
