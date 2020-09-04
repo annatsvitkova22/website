@@ -12,8 +12,8 @@ import PostCardLoader from '~/components/Loaders/PostCardLoader';
 import Article from '~/components/Article';
 
 const CROWDFUNDINGS_ARCHIVE = gql`
-  query CrowdfundingsArchive($articles: Int, $cursor: String) {
-    crowdfundings(first: $articles, before: $cursor) {
+  query CrowdfundingsArchive($articles: Int) {
+    crowdfundings(first: $articles) {
       nodes {
         id
         excerpt
@@ -49,8 +49,6 @@ const CROWDFUNDINGS_ARCHIVE = gql`
 const CrowdfundingsArchive = ({ crowdfundings }) => {
   const variables = {
     articles: 10000,
-    onLoadNumber: 3,
-    cursor: null,
   };
 
   const [state, setState] = useState({data: crowdfundings, isLoading: false});
@@ -63,13 +61,16 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
         query: CROWDFUNDINGS_ARCHIVE,
         variables,
       });
-    
+
       const { crowdfundings } = data;
 
       setState({ ...state, data: crowdfundings, isLoading: false });
     }
 
-    loadCF();
+    if (!crowdfundings) {
+      loadCF();
+    }
+    
   }, []);
 
   // const { fetchingContent, state } = useLoadMoreHook(
@@ -80,19 +81,8 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
   //   variables.onLoadNumber
   // );
 
-  const {
-    data: { nodes, pageInfo },
-    isLoading,
-  } = state;
 
-  const sorted = cloneDeep(nodes);
-  console.log(sorted);
-
-  // sorted.forEach(post => console.log(getCFStatus(post)))
-
-  // sorted.filter(function())
-
-  if (!nodes) {
+  if (!state.data) {
     return (
       <div className="container">
         <div className="crowdfundings-archive">
@@ -154,6 +144,36 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
     );
   }
 
+  const {
+    data: { nodes, pageInfo },
+    isLoading,
+  } = state;
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+
+  const sorted = cloneDeep(nodes)
+  const transform = sorted.reduce((acc, cur) => {
+    return {
+      ...acc,
+      [cur.id]: {...cur}
+    }
+  }, {})
+  
+  const ss = sorted.map(post => {
+    return {
+      id: post.id,
+      value:getCFStatus(post).value === 'active' ? getRandomInt(100) : 0,
+      status: getCFStatus(post).value 
+    }
+  }).sort((a, b) => b.value - a.value).map((item) => {
+    return {
+      ...transform[item.id]
+    }
+  })
+
   return (
     <div className="crowdfundings-page">
       <Head>
@@ -163,32 +183,13 @@ const CrowdfundingsArchive = ({ crowdfundings }) => {
       <div className="container">
         <div className="crowdfundings-archive">
           <main className="row crowdfundings-archive__articles">
-            {nodes.map((crowdfunding, i) => {
+            {ss.map((crowdfunding, i) => {
               return (
                 <div className="col-md-4" key={crowdfunding.id}>
-                  <Article type={'crowdfundings'} post={crowdfunding}>
-                    {i === nodes.length - 1 && i < pageInfo.total - 1 && (
-                      <Waypoint onEnter={fetchingContent} />
-                    )}
-                  </Article>
+                  <Article type={'crowdfundings'} post={crowdfunding} />
                 </div>
               );
             })}
-            {isLoading && (
-              <div className="col-12">
-                <div className="row">
-                  <div className="col-md-4">
-                    <PostCardLoader type="small" />
-                  </div>
-                  <div className="col-md-4">
-                    <PostCardLoader type="small" />
-                  </div>
-                  <div className="col-md-4">
-                    <PostCardLoader type="small" />
-                  </div>
-                </div>
-              </div>
-            )}
           </main>
         </div>
       </div>
@@ -207,7 +208,6 @@ CrowdfundingsArchive.getInitialProps = async () => {
 
   const variables = {
     articles: 10000,
-    cursor: null,
   };
 
   const { data } = await apolloClient.query({

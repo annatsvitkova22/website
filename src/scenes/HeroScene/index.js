@@ -9,7 +9,7 @@ import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import HeroPublication from '~/components/HeroPublication';
 import ArticleDateTime from '~/components/Article/DateTime';
 
-const HeroScene = ({ info, posts, publications }) => {
+const HeroScene = ({ info, posts, publications, events }) => {
   // const heroPubRef = useRef(null);
   // const heroListRef = useRef(null);
 
@@ -49,7 +49,7 @@ const HeroScene = ({ info, posts, publications }) => {
       <div className="row">
         <div className="col-xl-7">
           <HeroPublication {...info.generalInfoACF.mainPublication} />
-          <div class="row hero__selected-publications">
+          <div className="row hero__selected-publications">
             {info.generalInfoACF.selectedPublications
               .map(({ categories, title, slug, author, featuredImage }, i) => (
                 <div key={i} className="hero-pub col-xl-4">
@@ -146,6 +146,7 @@ HeroScene.propTypes = {
   info: PropTypes.object,
   posts: PropTypes.object,
   publications: PropTypes.object,
+  events: PropTypes.object,
 };
 
 export default HeroScene;

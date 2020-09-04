@@ -27,7 +27,7 @@ const BlogsScene = ({ users: { nodes: users } }) => (
           return (
             <div key={i} className="col-xl-3 col-sm-6 blogs-user__col">
               <div className="blogs-user__wrapper">
-                <Link>
+                <Link href={`/blogs/author/${slug}`}>
                   <Defer
                     render={() => (
                       // eslint-disable-next-line jsx-a11y/anchor-has-content
