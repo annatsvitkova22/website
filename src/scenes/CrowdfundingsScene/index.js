@@ -1,15 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { isEmpty } from 'lodash';
+import { isEmpty, cloneDeep } from 'lodash';
 import PropTypes from 'prop-types';
 
 import Modal from './Modal';
 
+import getCFStatus from '~/lib/getCFStatus';
 import Article from '~/components/Article';
 import PostCardLoader from '~/components/Loaders/PostCardLoader';
 
 const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
   const [isModal, setIsModal] = useState(false);
+  const [state, setState] = useState(null);
+
+  useEffect(() => {
+    if(crowdfundings){
+    const sorted = crowdfundings.nodes
+    const transform = sorted.reduce((acc, cur) => {
+      return {
+        ...acc,
+        [cur.id]: {...cur}
+      }
+    }, {}) 
+    
+    const ss = sorted.map(post => {
+      return {
+        id: post.id,
+        value:getCFStatus(post).value === 'active' ? getRandomInt(100) : 0,
+        status: getCFStatus(post).value 
+      }
+    }).sort((a, b) => b.value - a.value).map((item) => {
+      return {
+        ...transform[item.id]
+      }
+    })
+
+    setState(ss)
+  }
+  }, [crowdfundings]);
 
   function onClick() {
     setIsModal(!isModal);
@@ -19,6 +47,10 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
 
   if (typeof children === 'object' && !isLoading) {
     return children;
+  }
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 
   if (isEmpty(crowdfundings) && isLoading) {
@@ -64,9 +96,10 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
   }
 
   return (
-    <div className="container crowdfundings-page">
+    <>
+  {state && (<div className="container crowdfundings-page">
       <main className="row crowdfundings-archive__articles">
-        {crowdfundings.nodes.map((crowdfunding) => {
+        {state.slice(0, 3).map((crowdfunding) => {
           return (
             <div className="col-md-4" key={crowdfunding.id}>
               <Article
@@ -91,7 +124,10 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
         </div>
       </main>
     </div>
-  );
+  )
+}
+</>
+);
 };
 
 CrowdfundingsScene.propTypes = {

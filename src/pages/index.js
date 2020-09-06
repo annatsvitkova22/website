@@ -92,7 +92,7 @@ const HOME_PAGE = gql`
       }
     }
 
-    posts(first: 40) {
+    posts(first: 12) {
       nodes {
         title
         slug
@@ -177,7 +177,7 @@ const HOME_PAGE = gql`
 
 const CROWDFUNDINGS = gql`
   query Crowdfundings {
-    crowdfundings(first: 3) {
+    crowdfundings(first: 10) {
       nodes {
         id
         excerpt
@@ -408,7 +408,7 @@ const Home = (props) => {
 
       <main>
         <h1 style={{ fontSize: 0, margin: 0 }}>ЗМІСТ - Зміни створюєш ти!</h1>
-        <HeroScene {...{ info, posts, publications }} />
+        <HeroScene {...{ info, posts, publications, events }} />
 
         <SectionHeading title="Блоги" href="/blogs" />
         <BlogsScene {...{ users }} />
