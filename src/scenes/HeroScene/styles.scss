@@ -2,6 +2,7 @@
   max-width: 1660px !important;
   @include media-breakpoint-up(xl) {
     margin-top: 32px;
+    padding-left: 32px;
   }
 
   &__title {
