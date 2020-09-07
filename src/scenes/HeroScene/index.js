@@ -9,7 +9,7 @@ import ChronologicalSeparator from '~/components/ChronologicalSeparator';
 import HeroPublication from '~/components/HeroPublication';
 import ArticleDateTime from '~/components/Article/DateTime';
 
-const HeroScene = ({ info, posts, publications, events }) => {
+const HeroScene = ({ info, posts, publications, heroEvents }) => {
   // const heroPubRef = useRef(null);
   // const heroListRef = useRef(null);
 
@@ -43,6 +43,8 @@ const HeroScene = ({ info, posts, publications, events }) => {
   //     window.removeEventListener('scroll', onScroll);
   //   };
   // }, []);
+
+  console.log(heroEvents);
 
   return (
     <div className="container container--full-hd hero">

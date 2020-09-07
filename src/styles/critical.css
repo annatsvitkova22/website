@@ -4658,7 +4658,7 @@ ul {
   transition: opacity 0.3s ease-in; }
 
 .hero {
-  max-width: 1690px !important; }
+  max-width: 1660px !important; }
   @media (min-width: 1200px) {
     .hero {
       margin-top: 32px; } }
@@ -5661,9 +5661,6 @@ ul {
 
 .art-publ--on-big .meta-author {
   color: #242424; }
-
-.art-publ--on-big .article-featured__image--publ {
-  padding-bottom: 62.1%; }
 
 .art-publ--on-medium {
   max-height: 430px; }
@@ -8417,8 +8414,8 @@ body.isB-MenuOpen {
   .header__logo {
     flex-shrink: 0; }
   .header__logo-img {
-    width: 150px;
-    max-width: 150px; }
+    width: 130px;
+    max-width: 130px; }
   .header__dd {
     display: flex;
     flex-direction: column;
