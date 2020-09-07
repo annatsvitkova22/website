@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { isEmpty, cloneDeep } from 'lodash';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 
 import Modal from './Modal';
@@ -14,29 +14,29 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    if(crowdfundings){
-    const sorted = crowdfundings.nodes
-    const transform = sorted.reduce((acc, cur) => {
-      return {
-        ...acc,
-        [cur.id]: {...cur}
-      }
-    }, {}) 
-    
-    const ss = sorted.map(post => {
-      return {
-        id: post.id,
-        value:getCFStatus(post).value === 'active' ? getRandomInt(100) : 0,
-        status: getCFStatus(post).value 
-      }
-    }).sort((a, b) => b.value - a.value).map((item) => {
-      return {
-        ...transform[item.id]
-      }
-    })
+    if( crowdfundings ){
+      const sorted = crowdfundings.nodes
+      const transform = sorted.reduce((acc, cur) => {
+        return {
+          ...acc,
+          [cur.id]: {...cur}
+        }
+      }, {}) 
+      
+      const ss = sorted.map(post => {
+        return {
+          id: post.id,
+          value:getCFStatus(post).value === 'active' ? getRandomInt(100) : 0,
+          status: getCFStatus(post).value 
+        }
+      }).sort((a, b) => b.value - a.value).map((item) => {
+        return {
+          ...transform[item.id]
+        }
+      })
 
-    setState(ss)
-  }
+      setState(ss)
+    }
   }, [crowdfundings]);
 
   function onClick() {
