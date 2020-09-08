@@ -3,7 +3,7 @@
     "env": "production",
     "apiUrl": "https://zmist-admin-prod.outright.xyz",
     "frontUrl": "https://zmist-prod.outright.xyz",
-    "graphql": "https://zmist-admin.outright.xyz/graphql",
+    "graphql": "https://zmist-admin-prod.outright.xyz/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
     "wayForPay": {
