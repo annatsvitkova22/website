@@ -1,6 +1,6 @@
 [
   {
-    "env": "staging",
+    "env": "production",
     "apiUrl": "https://zmist-admin-prod.outright.xyz",
     "frontUrl": "https://zmist-prod.outright.xyz",
     "graphql": "https://zmist-admin.outright.xyz/graphql",

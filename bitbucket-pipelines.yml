@@ -53,7 +53,7 @@ pipelines:
           size: 2x
           script:
             - export IMAGE_NAME=$DOCKER_HUB_USERNAME/$APPLICATION_NAME:$BITBUCKET_COMMIT
-            - docker build -t $IMAGE_NAME .
+            - docker build -t $IMAGE_NAME -f prod.Dockerfile .
             - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
             - docker push $IMAGE_NAME
           services:
