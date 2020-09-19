@@ -44,16 +44,14 @@ const HeroScene = ({ info, posts, publications, heroEvents }) => {
   //   };
   // }, []);
 
-  console.log(heroEvents);
-
   return (
     <div className="container container--full-hd hero">
       <div className="row">
         <div className="col-xl-7">
           <HeroPublication {...info.generalInfoACF.mainPublication} />
           <div className="row hero__selected-publications">
-            {info.generalInfoACF.selectedPublications
-              .map(({ categories, title, slug, author, featuredImage }, i) => (
+            {info.generalInfoACF.selectedPublications.map(
+              ({ categories, title, slug, author, featuredImage }, i) => (
                 <div key={i} className="hero-pub col-xl-4">
                   <ArticleProvider value="publications">
                     <Featured
@@ -81,12 +79,13 @@ const HeroScene = ({ info, posts, publications, heroEvents }) => {
                     </h2>
                   </ArticleProvider>
                 </div>
-              ))}
+              )
+            )}
           </div>
         </div>
         <div className="hero-pub-wrap d-none d-xl-block">
-          {info.generalInfoACF.selectedNews
-            .map(({ categories, title, slug, author, featuredImage }, i) => (
+          {info.generalInfoACF.selectedNews.map(
+            ({ categories, title, slug, author, featuredImage }, i) => (
               <div key={i} className="hero-pub">
                 <ArticleProvider value="publications">
                   <Featured
@@ -114,14 +113,20 @@ const HeroScene = ({ info, posts, publications, heroEvents }) => {
                   </h2>
                 </ArticleProvider>
               </div>
-            ))}
+            )
+          )}
         </div>
         <div className="hero-pub-news">
           <h3 className="hero-pub-news__title">Новини</h3>
           <ul className="hero-list list-reset">
-            {posts.nodes.slice(0, 12).map(({ date, title, slug }, i) => (
+            {posts.nodes.slice(0, 12).map(({ title, slug }, i) => (
               <li key={i} className="hero-list__item line-height-1">
-                <ChronologicalSeparator posts={posts.nodes} currentIndex={i} showTime={true} showForEach={true} />
+                <ChronologicalSeparator
+                  posts={posts.nodes}
+                  currentIndex={i}
+                  showTime={true}
+                  showForEach={true}
+                />
                 {/* <ArticleDateTime time={eventTime} date={eventDate} /> */}
                 <div className="hero-list__data">
                   <h4 className="tx-tiny font-weight-medium">

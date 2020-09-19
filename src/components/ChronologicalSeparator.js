@@ -14,10 +14,14 @@ const ChronologicalSeparator = ({ posts, currentIndex, showTime, showForEach, cl
   if (currentIndex === 0 && !currentDate.isSame(moment(), 'day')) {
     text = currentDate.locale('uk').format(format);
   } else {
-    if (currentIndex === 0) return null;
-    const prevDate = moment(posts[currentIndex - 1].date);
 
-    if (!showForEach && currentDate.isSame(prevDate, 'day')) return null;
+    if(!showTime) {
+      if (currentIndex === 0) return null;
+
+      const prevDate = moment(posts[currentIndex - 1].date);
+    
+      if (!showForEach && currentDate.isSame(prevDate, 'day')) return null;
+    }
     
     text = currentDate.locale('uk').format(format);
     if (moment().subtract(1, 'days').isSame(currentDate, 'day')) {
