@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import he from 'he';
 import NumberFormat from 'react-number-format';
 import { useStateLink } from '@hookstate/core';
 import StickyBox from 'react-sticky-box';
@@ -66,7 +67,7 @@ const CrowdfundingSingle = ({ post }) => {
                 className="crowdfunding-single__status"
               />
             )}
-            <h1 className="crowdfunding-single__title">{storedPost.title}</h1>
+            <h1 className="crowdfunding-single__title">{he.decode(storedPost.title)}</h1>
           </div>
           <main className="col-md-8 crowdfunding-single__main">
             <FeaturedImage
@@ -82,7 +83,7 @@ const CrowdfundingSingle = ({ post }) => {
                   />
                 )}
                 <h1 className="crowdfunding-single__title">
-                  {storedPost.title}
+                  {he.decode(storedPost.title)}
                 </h1>
               </div>
               <div className="crowdfunding-single__about-wrapper title__socials-about">
