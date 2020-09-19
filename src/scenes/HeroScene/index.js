@@ -87,7 +87,7 @@ const HeroScene = ({ info, posts, publications, heroEvents }) => {
           {info.generalInfoACF.selectedNews.map(
             ({ categories, title, slug, author, featuredImage }, i) => (
               <div key={i} className="hero-pub">
-                <ArticleProvider value="publications">
+                <ArticleProvider value="news">
                   <Featured
                     image={featuredImage}
                     size={'zm_xs'}
@@ -100,11 +100,11 @@ const HeroScene = ({ info, posts, publications, heroEvents }) => {
                   />
                   <h2 className="publ-title">
                     <Link
-                      href={`/publications/[slug]`}
-                      as={`/publications/${slug}`}
+                      href={`/news/[slug]`}
+                      as={`/news/${slug}`}
                     >
                       <a
-                        href={`/publications/${slug}`}
+                        href={`/news/${slug}`}
                         className="hero-pub__title font-weight-semibold"
                       >
                         {title}
