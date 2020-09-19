@@ -1,14 +1,21 @@
 [
   {
     "env": "production",
-    "apiUrl": "http://admin.zmist.pl.ua",
-    "graphql": "http://admin.zmist.pl.ua/graphql"
+    "apiUrl": "https://zmist-admin-prod.outright.xyz",
+    "frontUrl": "https://zmist-prod.outright.xyz",
+    "graphql": "https://zmist-admin-prod.outright.xyz/graphql",
+    "apiUser": "zmist",
+    "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
+    "wayForPay": {
+      "merchantLogin": "zmist_pl_ua1",
+      "merchantSecretKey": "b6fd632eb20d3371b7a3be7bac16a64e45dbdaff"
+    }
   },
   {
     "env": "development",
-    "apiUrl": "https://zmist-admin.outright.xyz",
-    "frontUrl": "http://zmist.test:3000",
-    "graphql": "https://zmist-admin.outright.xyz/graphql",
+    "apiUrl": "https://zmist-admin-prod.outright.xyz",
+    "frontUrl": "https://zmist-prod.outright.xyz",
+    "graphql": "https://zmist-admin-prod.outright.xyz/graphql",
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
     "wayForPay": {

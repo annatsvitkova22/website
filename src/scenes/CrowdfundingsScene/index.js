@@ -14,28 +14,31 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    if( crowdfundings ){
-      const sorted = crowdfundings.nodes
+    if (crowdfundings) {
+      const sorted = crowdfundings.nodes;
       const transform = sorted.reduce((acc, cur) => {
         return {
           ...acc,
-          [cur.id]: {...cur}
-        }
-      }, {}) 
-      
-      const ss = sorted.map(post => {
-        return {
-          id: post.id,
-          value:getCFStatus(post).value === 'active' ? getRandomInt(100) : 0,
-          status: getCFStatus(post).value 
-        }
-      }).sort((a, b) => b.value - a.value).map((item) => {
-        return {
-          ...transform[item.id]
-        }
-      })
+          [cur.id]: { ...cur },
+        };
+      }, {});
 
-      setState(ss)
+      const ss = sorted
+        .map((post) => {
+          return {
+            id: post.id,
+            value: getCFStatus(post).value === 'active' ? getRandomInt(100) : 0,
+            status: getCFStatus(post).value,
+          };
+        })
+        .sort((a, b) => b.value - a.value)
+        .map((item) => {
+          return {
+            ...transform[item.id],
+          };
+        });
+
+      setState(ss);
     }
   }, [crowdfundings]);
 
@@ -97,37 +100,40 @@ const CrowdfundingsScene = ({ crowdfundings, children, isLoading }) => {
 
   return (
     <>
-  {state && (<div className="container crowdfundings-page">
-      <main className="row crowdfundings-archive__articles">
-        {state.slice(0, 3).map((crowdfunding) => {
-          return (
-            <div className="col-md-4" key={crowdfunding.id}>
-              <Article
-                imageSize={'zm_md_rect'}
-                type={'crowdfundings'}
-                post={crowdfunding}
-              />
+      {state && (
+        <div className="container crowdfundings-page">
+          <main className="row crowdfundings-archive__articles">
+            {state.slice(0, 3).map((crowdfunding) => {
+              return (
+                <div className="col-md-4" key={crowdfunding.id}>
+                  <Article
+                    imageSize={'zm_md_rect'}
+                    type={'crowdfundings'}
+                    post={crowdfunding}
+                  />
+                </div>
+              );
+            })}
+            <div className="col-12">
+              <button
+                onClick={onClick}
+                className="zm-button zm-button--dark tx-green w-100"
+              >
+                Створити Проект
+              </button>
+              <ReactCSSTransitionGroup
+                transitionName="modal"
+                transitionEnterTimeout={300}
+                transitionLeaveTimeout={300}
+              >
+                {isModal && <Modal trigger={setIsModal} />}
+              </ReactCSSTransitionGroup>
             </div>
-          );
-        })}
-        <div className="col-12">
-          <button onClick={onClick} className="zm-button zm-button--dark tx-green w-100">
-            Створити Проект
-          </button>
-          <ReactCSSTransitionGroup
-            transitionName="modal"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-          >
-            {isModal && <Modal trigger={setIsModal} />}
-          </ReactCSSTransitionGroup>
+          </main>
         </div>
-      </main>
-    </div>
-  )
-}
-</>
-);
+      )}
+    </>
+  );
 };
 
 CrowdfundingsScene.propTypes = {
