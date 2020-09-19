@@ -7,8 +7,8 @@
     "apiUser": "zmist",
     "apiPass": "C@Y)*(Zzk^gbV7tCLBBf!xXL",
     "wayForPay": {
-      "merchantLogin": "zmist_tech",
-      "merchantSecretKey": "91c4e769338aa1bff705b330fa405747a6149f41"
+      "merchantLogin": "zmist_pl_ua1",
+      "merchantSecretKey": "b6fd632eb20d3371b7a3be7bac16a64e45dbdaff"
     }
   },
   {
