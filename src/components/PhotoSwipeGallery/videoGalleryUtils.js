@@ -9,11 +9,12 @@ import facebook from '~/static/images/facebook-f';
 import telegram from '~/static/images/telegram-plane';
 
 const getThumbnailVideo = (item, playClass) => {
+  console.log(item);
   return (
     <>
       <div
         className="video-category__thumbnail bg-cover pos-relative"
-        style={{ backgroundImage: `url(${item.thumbnailSmall})` }}
+        style={{ backgroundImage: `url(${item.thumbnail})` }}
       >
         <Play className={playClass} />
       </div>

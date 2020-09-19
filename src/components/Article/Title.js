@@ -63,6 +63,26 @@ const ArticleTitle = ({
     );
   }
 
+  if (postType === 'crowdfundings') {
+    displayTitle = _.truncate(title, {
+      length: 60,
+      separator: '...',
+    });
+    return (
+      <>
+        {displayTitle && (
+          <h2 className={classnames('article-title', className)}>
+            <Link href={`/${postType}/[slug]`} as={`/${postType}/${slug}`}>
+              <a className="article-title__link" href={`/${postType}/${slug}`}>
+                {he.decode(displayTitle)}
+              </a>
+            </Link>
+          </h2>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       {displayTitle && (
